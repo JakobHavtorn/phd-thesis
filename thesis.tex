@@ -1,4 +1,6 @@
-%!TEX TS-program = xelatex
+% !TeX root = thesis.tex
+% !BIB program = biber
+% !TEX program = xelatex
 
 \input{preamble/static}
 \input{preamble/papersize}
@@ -30,6 +32,8 @@
 % \include{frontmatter/notation}
 
 \clearforchapter
+\printglossary[title=Abbreviations, toctitle=Abbrevations, type=\acronymtype]
+\clearforchapter
 \tableofcontents
 \clearforchapter
 \mylistoftodos
@@ -38,9 +42,10 @@
 \part[Introduction and Background]{Introduction and Background}
 % \include{chapters/dummy_introduction}
 % \include{chapters/dummy_long_title}
+\chapter{Blinddoc}
 \blinddocument
-\include{chapters/fonttest}
-\include{chapters/layouts}
+% \include{chapters/fonttest}
+% \include{chapters/layouts}
 \include{chapters/conclusion}
 
 \appendix

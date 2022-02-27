@@ -1,4 +1,4 @@
-%!TEX root = ../Thesis.tex
+%!TEX root = ../thesis.tex
 
 \RequireXeTeX
 
@@ -91,13 +91,16 @@
 
 % Bibliography (references)
 \usepackage[backend=biber,
-            style=ieee,
-            %backref=true,
+            style=numeric,
             abbreviate=false,
             dateabbrev=false,
+            maxbibnames=10,
             urldate=long,
+            %backref=true,
             alldates=long]{biblatex}
 
+% \newcommand{\printpublication}[1]{\AtNextCite{\defcounter{maxnames}{99}}\fullcite{#1}}  % create new command \printpublication that lists all authors
+\preto\fullcite{\AtNextCite{\defcounter{maxnames}{99}}}  % make \fullcite list all authors
 
 \DefineBibliographyExtras{english}{%
   \protected\def\mkbibdatelong#1#2#3{%

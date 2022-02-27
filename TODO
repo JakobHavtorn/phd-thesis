@@ -1,11 +1,6 @@
-Make chapter font size smaller. Probably also subsections.
-
 Include a notation overview.
 
 Change font to something similar to Lasses thesis (maybe)
-
-
-
 
 Outline
 - Stochastic Gradient Variational Bayes; Optimization using stochastic gradient descent and amortized variational inference with pathwise gradients.
