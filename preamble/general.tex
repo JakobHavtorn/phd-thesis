@@ -96,8 +96,13 @@
             dateabbrev=false,
             maxbibnames=10,
             urldate=long,
-            %backref=true,
+            backref=true,
             alldates=long]{biblatex}
+
+% \DefineBibliographyStrings{english}{%
+%   backrefpage = {page},% originally "cited on page"
+%   backrefpages = {pages},% originally "cited on pages"
+% }
 
 % \newcommand{\printpublication}[1]{\AtNextCite{\defcounter{maxnames}{99}}\fullcite{#1}}  % create new command \printpublication that lists all authors
 \preto\fullcite{\AtNextCite{\defcounter{maxnames}{99}}}  % make \fullcite list all authors
