@@ -98,6 +98,7 @@
             urldate=long,
             backref=true,
             alldates=long]{biblatex}
+\renewcommand*{\bibfont}{\normalfont\footnotesize}
 
 % \DefineBibliographyStrings{english}{%
 %   backrefpage = {page},% originally "cited on page"
@@ -120,42 +121,86 @@
     \iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\stripzeros{\thefield{#1}}}}%
 }
 
-% - Highlighting my own name in the references section
-\usepackage{xpatch}% or use http://tex.stackexchange.com/a/40705
 
-\makeatletter
-\newbibmacro*{name:bold}[2]{%
-  \edef\blx@tmp@name{\expandonce#1, \expandonce#2}%
-  \def\do##1{\ifdefstring{\blx@tmp@name}{##1}{\bfseries\listbreak}{}}%
-  \dolistloop{\boldnames}}
-\newcommand*{\boldnames}{}
-\makeatother
-
-\xpretobibmacro{name:family}{\begingroup\usebibmacro{name:bold}{#1}{#2}}{}{}
-\xpretobibmacro{name:given-family}{\begingroup\usebibmacro{name:bold}{#1}{#2}}{}{}
-\xpretobibmacro{name:family-given}{\begingroup\usebibmacro{name:bold}{#1}{#2}}{}{}
-\xpretobibmacro{name:delim}{\begingroup\normalfont}{}{}
-
-\xapptobibmacro{name:family}{\endgroup}{}{}
-\xapptobibmacro{name:given-family}{\endgroup}{}{}
-\xapptobibmacro{name:family-given}{\endgroup}{}{}
-\xapptobibmacro{name:delim}{\endgroup}{}{}
-
-% List your own name variants that are to be highlighted
-\forcsvlist{\listadd\boldnames}{%
-    {Havtorn, Jakob~D.},%
-    {Havtorn, J.~D.},%
-    {Jakob, Havtorn\bibnamedelima D.},%
-    {Havtorn, J\bibinitperiod\bibinitdelim D\bibinitperiod}%
+% Highlight own author name
+\newcommand{\makeauthorbold}[1]{%
+  \DeclareNameFormat{author}{%
+    \ifthenelse{\value{listcount}=1}
+    {%
+      {\expandafter\ifstrequal\expandafter{\namepartfamily}{#1}{\mkbibbold{\namepartfamily\addcomma\addspace \namepartgiveni}}{\namepartfamily\addcomma\addspace \namepartgiveni}}
+      %
+    }{\ifnumless{\value{listcount}}{\value{liststop}}
+        {\expandafter\ifstrequal\expandafter{\namepartfamily}{#1}{\mkbibbold{\addcomma\addspace \namepartfamily\addcomma\addspace \namepartgiveni}}{\addcomma\addspace \namepartfamily\addcomma\addspace \namepartgiveni}}
+        {\expandafter\ifstrequal\expandafter{\namepartfamily}{#1}{\mkbibbold{\addcomma\addspace \namepartfamily\addcomma\addspace \namepartgiveni\addcomma\isdot}}{\addcomma\addspace \namepartfamily\addcomma\addspace \namepartgiveni\addcomma\isdot}}%
+      }
+    \ifthenelse{\value{listcount}<\value{liststop}}
+    {\addcomma\space}{}
+  }
 }
+% \usepackage{listofitems}
+% \newcommand\splitarg[1]{%
+%   \setsepchar{ }%
+%   \readlist\myarg{#1}%
+% }
+% \splitarg{\thesisauthor}
+\makeauthorbold{Havtorn}
+
+% - Highlighting my own name in the references section
+% \usepackage{xpatch}% or use http://tex.stackexchange.com/a/40705
+
+% \makeatletter
+% \newbibmacro*{name:bold}[2]{%
+%   \edef\blx@tmp@name{\expandonce#1, \expandonce#2}%
+%   \def\do##1{\ifdefstring{\blx@tmp@name}{##1}{\bfseries\listbreak}{}}%
+%   \dolistloop{\boldnames}}
+% \newcommand*{\boldnames}{}
+% \makeatother
+
+% \xpretobibmacro{name:family}{\begingroup\usebibmacro{name:bold}{#1}{#2}}{}{}
+% \xpretobibmacro{name:given-family}{\begingroup\usebibmacro{name:bold}{#1}{#2}}{}{}
+% \xpretobibmacro{name:family-given}{\begingroup\usebibmacro{name:bold}{#1}{#2}}{}{}
+% \xpretobibmacro{name:delim}{\begingroup\normalfont}{}{}
+
+% \xapptobibmacro{name:family}{\endgroup}{}{}
+% \xapptobibmacro{name:given-family}{\endgroup}{}{}
+% \xapptobibmacro{name:family-given}{\endgroup}{}{}
+% \xapptobibmacro{name:delim}{\endgroup}{}{}
+
+% % List your own name variants that are to be highlighted
+% % https://tex.stackexchange.com/questions/606239/how-can-i-properly-force-an-author-name-in-biblatex
+% \forcsvlist{\listadd\boldnames}{%
+%     {Havtorn, Jakob\bibnamedelima~D\bibinitperiod},%
+%     {Havtorn, Jakob\bibnamedelima D\bibinitperiod},%
+%     {Havtorn, {Jakob\bibnamedelima D\bibinitperiod}},%
+%     {Havtorn, Jakob\bibinitdelim~D\bibinitperiod},%
+%     {Havtorn, Jakob\bibinitdelim D\bibinitperiod},%
+%     {Havtorn, {Jakob\bibinitdelim D\bibinitperiod}},%
+%     {Havtorn, Jakob\bibinitdelim D.},%
+%     {Havtorn, {Jakob\bibinitdelim D.}},%
+%     {Havtorn, Jakob D\bibinitperiod},%
+%     {Havtorn, {Jakob D\bibinitperiod}},%
+%     {Havtorn, Jakob~D\bibinitperiod},%
+%     {Havtorn, Jakob D.},%
+%     {Havtorn, Jakob~D.},%
+%     {D. Havtorn, Jakob},%
+%     {D.~Havtorn, Jakob},%
+%     {D\bibinitperiod Havtorn, Jakob},%
+%     {D\bibinitperiod\bibinitdelim Havtorn, Jakob},%
+%     {D.\bibinitdelim Havtorn, Jakob},%
+%     % {Havtorn, J.~D.},%
+%     % {Havtorn, Jakob D.},%
+%     % {Havtorn, J\bibinitperiod\bibinitdelim D\bibinitperiod},%
+%     % {Edin, Joakim},%
+%     % {Welling, Max},
+% }
 
 
 
 % Floating objets, captions and references
 % \usepackage{flafter}  % floats is positioned after or where it is defined! 
-%\setfloatlocations{figure}{bhtp}   % Set floats for all figures
-%\setfloatlocations{table}{bhtp}    % Set floats for all tables
-%\setFloatBlockFor{section}         % Typeset floats before each section
+\setfloatlocations{figure}{tbhp}   % Set floats for all figures
+\setfloatlocations{table}{tbhp}    % Set floats for all tables
+\setFloatBlockFor{section}         % Typeset floats before each section
 \usepackage[noabbrev,nameinlink,capitalise]{cleveref} % Clever references. Options: "fig. !1!" --> "!Figure 1!"
 \hangcaption
 \captionnamefont{\bfseries}
@@ -176,6 +221,42 @@
 \setcounter{tocdepth}{1}              % Depth of table of content
 \setcounter{secnumdepth}{2}           % Depth of section numbering
 \setcounter{maxsecnumdepth}{3}        % Max depth of section numbering
+
+% \usepackage[titles]{tocloft}
+% \PassOptionsToPackage{titles}{tocloft}
+% \RequirePackage{tocloft}
+% \renewcommand{\contentsname}{Table of contents}
+
+% \ExplSyntaxOn
+% \cs_set_eq:NN \MakeUppercaseX \text_uppercase:n
+% \ExplSyntaxOff
+% \patchcmd{\Hy@org@part}
+%   {{\thepart}#1}
+%   {{\thepart}\MakeUppercaseX{#1}}
+%   {}{}
+
+
+% \MakeUppercase breaks hyperlinks
+% https://tex.stackexchange.com/questions/605022/how-can-i-use-makeuppercase-in-patchcmd-without-breaking-hyperlinks
+% https://groups.google.com/g/comp.text.tex/c/eiLmTiZjKcM
+\renewcommand{\cftpartfont}{\small\color{dtured}\scshape\MakeLowercase}  % \part font in ToC
+\renewcommand{\cftchapterfont}{\small\scshape}             % \chapter font in ToC
+\renewcommand{\cftsectionfont}{\small}                     % \section font in ToC
+\renewcommand{\cftsubsectionfont}{\small}                  % \subsection font in ToC
+\renewcommand{\cftsubsubsectionfont}{\small}               % \subsubsection font in ToC
+
+% \renewcommand{\cftpartfont}{\color{dtured}\MakeUppercase}%
+% \renewcommand{\cftpartpagefont}{\partnumfont}%
+\setlength{\cftbeforepartskip}{1em}%
+\setlength{\cftbeforechapterskip}{.3em}%
+% \setlength{\beforebibskip}{\cftbeforepartskip}%
+
+
+% \renewcommand*{\parttitlefont}{\normalfont\large\MakeUppercase}  % font for part title
+% \renewcommand*{\partnamefont}{\normalfont\scshape} % font for part name
+% \renewcommand*{\partnumfont}{\normalfont\scshape\MakeLowercase}  % font for part number
+
+
 
 % Todos
 \usepackage{totcount}                 % For total counting of counters
@@ -222,9 +303,10 @@
     \setlength\beforechapskip{0mm}
 
     \def\format{\normalfont}  % \def\format{\normalfont\sffamily}
-    \renewcommand*{\chapnamefont}{\format\fontshape{sc}\selectfont}
-    \renewcommand*{\chapnumfont}{\format\fontsize{30}{30}\fontshape{sc}\selectfont}
-    \renewcommand*{\chaptitlefont}{\format\fontsize{24}{24}\fontshape{sc}\selectfont}
+    \renewcommand*{\chapnamefont}{\format\fontshape{sc}\selectfont}  % font for chapter text
+    % \renewcommand*{\chapnumfont}{\format\fontsize{30}{30}\fontshape{sc}\selectfont}  % font for chapter number
+    \renewcommand*{\chapnumfont}{\format\fontsize{30}{30}\fontfamily{eulervm}\selectfont}  % font for chapter number
+    \renewcommand*{\chaptitlefont}{\format\fontsize{24}{24}\fontshape{sc}\selectfont}  % font for chapter title
 
     \renewcommand*{\printchaptername}{\chapnamefont\MakeUppercase{\@chapapp}}  % Uppercase all characters in name
     \patchcommand{\printchaptername}{\begingroup\color{dtured}}{\endgroup}
@@ -246,12 +328,12 @@
 
 
 % Part style
-\renewcommand*{\thepart}{\arabic{part}}  % redefine the format of the part counter
-\renewcommand*{\parttitlefont}{\normalfont\large\MakeUppercase}  % font for part title
-\renewcommand*{\partnamefont}{\normalfont\scshape} % font for part name
-\renewcommand*{\partnumfont}{\normalfont\scshape\MakeLowercase}  % font for part number
+% \renewcommand*{\thepart}{\arabic{part}}  % redefine the format of the part counter
+\renewcommand*{\parttitlefont}{\normalfont\LARGE\scshape}  % font for part title
+\renewcommand*{\partnamefont}{\normalfont\Large\scshape} % font for part name
+\renewcommand*{\partnumfont}{\normalfont\bfseries\scshape}  % font for part number
 % Part name and number
-\renewcommand*{\printpartname}{{\color{dtured}\partnamefont PART}}  % Command for printing the part name
+\renewcommand*{\printpartname}{{\color{dtured}\partnamefont part}}  % Command for printing the part name
 \renewcommand*{\printpartnum}{{\color{dtured}\partnumfont\thepart}} % Command for printing the part number
 % Define skips (used to add horizontal rule)
 \renewcommand{\midpartskip}{\par\parbox{0.25\textwidth}{\hrulefill}\par}
@@ -410,7 +492,4 @@
 % \def\MT@is@uni@comp#1\iffontchar#2\else#3\fi\relax{%
 %   \ifx\\#2\\\else\edef\MT@char{\iffontchar#2\fi}\fi
 % }
-% \makeatother
-
-
-
+% \makeatother\makeatother

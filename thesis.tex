@@ -21,7 +21,8 @@
 \include{prefrontmatter/colophon}
 \cleartooddpage
 \include{prefrontmatter/supervision}
-\clearforchapter
+% \clearforchapter
+\cleartoevenpage
 
 \frontmatter
 \include{frontmatter/declaration}
@@ -32,22 +33,25 @@
 % \include{frontmatter/notation}
 
 \clearforchapter
-\printglossary[title=Abbreviations, toctitle=Abbrevations, type=\acronymtype]
+\printglossary[title=Abbreviations, toctitle=abbrevations, type=\acronymtype]
 \clearforchapter
 \tableofcontents*
 \clearforchapter
 \mylistoftodos
 
 \mainmatter
-\part[Introduction and Background]{Introduction and Background}
-% \include{chapters/dummy_introduction}
-% \include{chapters/dummy_long_title}
-\chapter{Blinddoc}
-\blinddocument
-% \include{chapters/fonttest}
-% \include{chapters/layouts}
-\include{chapters/conclusion}
+\part[introduction and background]{introduction and background}
+\include{chapters/01-introduction.tex}
+\include{chapters/01-background.tex}
+\part[discussion and conclusions]{discussion and conclusions}
+\include{chapters/05-conclusion.tex}
 
+% \include{chapters/dummy_chapters/dummy_introduction}
+% \include{chapters/dummy_chapters/dummy_long_title}
+% \include{chapters/dummy_chapters/fonttest}
+% \include{chapters/dummy_chapters/layouts}
+
+\part[Appendices]{Appendices}
 \appendix
 \include{appendices/appendix}
 

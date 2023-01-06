@@ -3,23 +3,83 @@
 % Text fonts (http://www.macfreek.nl/memory/Fonts_in_LaTeX)
 % Install fonts from /usr/local/texlive/<version>/texmf-dist/fonts/opentype/public
 \usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{slantsc}
+% \RequirePackage{fix-cm}
+\usepackage{bold-extra}
+
+% \DeclareFontShape{T1}{texgyrepagella}{b}{sc}{<->ssub*cmr/bx/sc}{}
+% \DeclareFontShape{T1}{texgyrepagella}{bx}{sc}{<->ssub*cmr/bx/sc}{}
+
+
+% \PassOptionsToPackage{euler-digits}{eulervm}%
+%  \RequirePackage{eulervm}} % Euler math fonts
+
+% Euler math fonts
+\usepackage[OT1,euler-digits]{eulervm}
+
 
 % Serif font
-% \setmainfont{texgyrebonum}
+% \setmainfont{texgyrepagella}
+\setmainfont{TeX Gyre Pagella}
+%
+% [
+%   Extension=.otf,
+%   UprightFont=*-regular,
+%   ItalicFont=*-italic,
+%   BoldFont=*-bold,
+%   BoldItalicFont=*-bolditalic,
+%   BoldSmallCapsFont=*-boldsmallcaps,
+%   Numbers=OldStyle,
+% ]
 
-% Sans-serif font
-\setsansfont[
-    Ligatures=TeX,
-    Extension=.otf,
-    UprightFont=*-regular,
-    BoldFont=*-bold,
-    ItalicFont=*-italic,
-    BoldItalicFont=*-bolditalic,
-    % SlantedFont=,
-    % BoldSlantedFont=,
-    % SmallCapsFont=
-    Scale=0.8      % Adjustmens when using math in sections
-]{texgyreadventor}
+% \setmainfont{QTPalatine}
+
+% \DeclareCharacterInheritance
+%    { encoding = {TU,EU1,EU2},
+%      family   = {QTPalatine} }
+%    { A = {\`A,\'A,\^A,\~A,\"A,\r A},
+%      a = {\`a,\'a,\^a,\~a,\"a,\r a},
+%      C = {\c C},
+%      c = {\c c},
+%      D = {\DH},
+%      d = {\dj},
+%      E = {\`E,\'E,\^E,\"E},
+%      e = {\`e,\'e,\^e,\"e},
+%      I = {\`I,\'I,\^I,\"I},
+%      i = {\`i,\'i,\^i,\"i,\i},
+%      L = {\L},
+%      l = {\l},
+%      N = {\~N},
+%      n = {\~n},
+%      O = {\O,\`O,\'O,\^O,\~O,\"O},
+%      o = {\o,\`o,\'o,\^o,\~o,\"o},
+%      S = {\v S},
+%      s = {\v s},
+%      U = {\`U,\'U,\^U,\"U},
+%      u = {\`u,\'u,\^u,\"u},
+%      Y = {\'Y,\"Y},
+%      y = {\'y,\"y},
+%      Z = {\v Z},
+%      z = {\v z}
+%    }
+
+
+% % Sans-serif font
+% \setsansfont[
+%     Ligatures=TeX,
+%     Extension=.otf,
+%     UprightFont=*-regular,
+%     BoldFont=*-bold,
+%     ItalicFont=*-italic,
+%     BoldItalicFont=*-bolditalic,
+%     % SlantedFont=,
+%     % BoldSlantedFont=,
+%     % SmallCapsFont=
+%     Scale=0.8      % Adjustmens when using math in sections
+% ]{texgyreadventor}
+
 
 % Monospaced
 % \setmonofont[Scale=MatchLowercase]{Linux Biolinum O}
