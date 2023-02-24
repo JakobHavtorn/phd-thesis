@@ -2,21 +2,22 @@
 
 \makenomenclature
 %\markboth{\MakeUppercase\nomname}{\MakeUppercase\nomname}
+
 % Correct header on multiple page nomenclature
 \patchcmd{\thenomenclature}
   {\chapter*{\nomname}}% usually only \chapter*{\nomname} is issued
   {\chapter*{\nomname}\markboth{\MakeUppercase\nomname}{\MakeUppercase\nomname}}
   {}{}
-% Rename Nomenclature to Notation
-\renewcommand{\nomname}{Notation}
-% Increase width of box for mathematical symbol on left
-\setlength{\nomlabelwidth}{2.5cm}
+
+\renewcommand{\nomname}{Notation}  % Rename Nomenclature to Notation
+
+\setlength{\nomlabelwidth}{3cm}  % Increase width of box for mathematical symbol on left
 % \setlength{\nomitemsep}{-\parsep}
 
 % Command for the group subtitles
 \newcommand{\nommenclaturesubtitle}[1]{%
     \bigskip
-    \item[\bfseries \hspace{2.5cm}\: #1
+    \item[\bfseries \hspace{3cm}\: #1
         % \vspace{1cm}\\
         % \hspace{2.4cm} #1 \hfill\\
         % \par\noindent\rule{\widthof{#1}}{1pt}
@@ -80,22 +81,22 @@
 \nomenclature[D, 11]{$\Tr{\A}$}{Trace of matrix $\A$, $\Tr{\A}=\sum_i A_{i,i}$}
 
 \nomenclature[E, 01]{$\frac{\text{d}y}{\text{d}x}$}{Derivative of $y$ with respect to $x$}
-\nomenclature[E, 02]{$\pderiv{y}{x}$}{Partial derivative of $y$ with respect to $x$}
-\nomenclature[E, 03]{$\nabla_\x$}{Del, nabla or Laplacian operator, $\nabla_\x = \bmat{\pderiv{}{x_1} & \cdots & \pderiv{}{x_n}}^\text{T}, \; \x\in\mathbb{R}^{n}$}
-\nomenclature[E, 04]{$\nabla_\x y$}{Gradient of $y$ with respect to $\x$, $\nabla_\x y = \bmat{\pderiv{y}{x_1} & \cdots & \pderiv{y}{x_n}}^\text{T}, \; \x\in\mathbb{R}^{n}$}
+\nomenclature[E, 02]{$\pd{y}{x}$}{Partial derivative of $y$ with respect to $x$}
+\nomenclature[E, 03]{$\nabla_\x$}{Del, nabla or Laplacian operator, $\nabla_\x = \bmat{\pd{}{x_1} & \cdots & \pd{}{x_n}}^\text{T}, \; \x\in\mathbb{R}^{n}$}
+\nomenclature[E, 04]{$\nabla_\x y$}{Gradient of $y$ with respect to $\x$, $\nabla_\x y = \bmat{\pd{y}{x_1} & \cdots & \pd{y}{x_n}}^\text{T}, \; \x\in\mathbb{R}^{n}$}
 \nomenclature[E, 05]{$\H_\x$}{Hessian operator, $\H_\x = \nabla_\x\nabla_\x\transpose = \bmat{
-	    \pderiv[2]{}{x_1} & \pderiv[1,1]{}{x_1,x_2} & \cdots & \pderiv[1,1]{}{x_1,x_n}\\
-	    \pderiv[1,1]{}{x_2,x_1} & \pderiv[2]{}{x_2} & \cdots & \pderiv[1,1]{}{x_2,x_n}\\
+	    \pd[2]{}{x_1} & \frac{\partial^2}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2}{\partial x_1 \partial x_n}\\
+	    \frac{\partial^2}{\partial x_2 \partial x_1} & \pd[2]{}{x_2} & \cdots & \frac{\partial^2}{\partial x_2 \partial x_n}\\
 	    \vdots & \vdots & \ddots & \vdots\\
-	    \pderiv[1,1]{}{x_n,x_1} & \pderiv[1,1]{}{x_d,x_2} & \cdots & \pderiv[2]{}{x_n}
+	    \frac{\partial^2}{\partial x_n \partial x_1} & \frac{\partial^2}{\partial x_n \partial x_2} & \cdots & \pd[2]{}{x_n}
 	    }$}
 \nomenclature[E, 06]{$\H_\x y$}{Hessian matrix of $y$ with respect to $\x$; matrix of all second order partial derivatives}
-\nomenclature[E, 07]{$\nabla^2_\x$}{Laplacian operator, $\nabla^2_\x=\nabla_\x\transpose\nabla_\x = \nabla_\x\cdot\nabla_\x=\sum_i \pderiv[2]{}{x_i}=\Tr{\H_\x}$}
+\nomenclature[E, 07]{$\nabla^2_\x$}{Laplacian operator, $\nabla^2_\x=\nabla_\x\transpose\nabla_\x = \nabla_\x\cdot\nabla_\x=\sum_i \pd[2]{}{x_i}=\Tr{\H_\x}$}
 \nomenclature[E, 08]{$\nabla^2_\x y$}{Laplacian of $y$ with respect to $\x$; sum of the unmixed second order partial derivatives}
-\nomenclature[E, 09]{$\pderiv{\y}{\x}$}{Jacobian matrix of $\y$ w.r.t. $\x$, $\pderiv{\y}{\x} = \bmat{
-	    \nabla_\x^\text{T} y_1\\
-	    \vdots \\
-	    \nabla_\x^\text{T} y_n}, \; \y\in\mathbb{R}^{n}$; matrix of all possible first order partial derivatives}
+\nomenclature[E, 09]{$\pd{\y}{\x}$}{Jacobian matrix of $\y$ w.r.t. $\x$, $\pd{\y}{\x} = \bmat{
+	    \nabla_\x y_1 &
+	    \cdots &
+	    \nabla_x y_n}^\text{T}, \; \y\in\mathbb{R}^{n}$; matrix of all possible first order partial derivatives}
 \nomenclature[E, 10]{$\int f(\x)\,\text{d}\x$}{Definite integral over the domain of $\x$}
 \nomenclature[E, 11]{$\int_\mathcal{D} f(\x)\,\text{d}\x$}{Definite integral over the domain $\mathcal{D}$}
 

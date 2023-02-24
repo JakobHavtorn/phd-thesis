@@ -10,10 +10,12 @@
 \input{preamble/general}
 \input{preamble/fonts}
 \input{preamble/etc}
+\input{preamble/macros}
 
 \addbibresource{bibliography/zotero-references.bib}
 
 \begin{document}
+
 
 \prefrontmatter
 \include{prefrontmatter/titlepage}
@@ -30,10 +32,19 @@
 \include{frontmatter/abstract-da}
 \include{frontmatter/publications}
 \include{frontmatter/acknowledgements}
-% \include{frontmatter/notation}
+\include{frontmatter/notation}
 
 \clearforchapter
 \printglossary[title=Abbreviations, toctitle=abbrevations, type=\acronymtype]
+\clearforchapter
+\printnomenclature
+\addcontentsline{toc}{chapter}{notation}
+\clearforchapter
+\listoffigures*
+\addcontentsline{toc}{chapter}{list of figures}
+\clearforchapter
+\listoftables*
+\addcontentsline{toc}{chapter}{list of tables}
 \clearforchapter
 \tableofcontents*
 \clearforchapter
@@ -41,10 +52,16 @@
 
 \mainmatter
 \part[introduction and background]{introduction and background}
-\include{chapters/01-introduction.tex}
-\include{chapters/02-background.tex}
+% \include{chapters/dummy_chapters/dummy_introduction}
+\include{chapters/introduction.tex}
+\include{chapters/background.tex}
+\include{chapters/main-contributions}
+\part[generative modelling]{generative modelling}
+\include{chapters/paper_hierarchical}
+\part[supervised learning]{supervised learning}
 \part[discussion and conclusions]{discussion and conclusions}
-\include{chapters/05-conclusion.tex}
+\include{chapters/discussion}
+\include{chapters/conclusion}
 
 % \include{chapters/dummy_chapters/dummy_introduction}
 % \include{chapters/dummy_chapters/dummy_long_title}

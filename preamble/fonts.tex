@@ -8,22 +8,31 @@
 \usepackage{slantsc}
 % \RequirePackage{fix-cm}
 \usepackage{bold-extra}
+\usepackage{upgreek}
 
 % \DeclareFontShape{T1}{texgyrepagella}{b}{sc}{<->ssub*cmr/bx/sc}{}
 % \DeclareFontShape{T1}{texgyrepagella}{bx}{sc}{<->ssub*cmr/bx/sc}{}
 
 
-% \PassOptionsToPackage{euler-digits}{eulervm}%
-%  \RequirePackage{eulervm}} % Euler math fonts
+% % Euler math fonts
+% \usepackage[OT1,euler-digits,euler-hat-accent]{eulervm}
+% \usepackage[bb=stixtwo]{mathalpha}
+% \renewcommand{\mathbf}{\mathbold}  % euler requires \mathbold for bold math
 
-% Euler math fonts
-\usepackage[OT1,euler-digits]{eulervm}
+% \usepackage{newtxmath}
+
 
 
 % Serif font
-% \setmainfont{texgyrepagella}
+% \usepackage{newpxtext}
 % \setmainfont{TeX Gyre Pagella}
-\setmainfont{texgyrepagella-regular.otf}
+% \setmainfont{texgyrepagella}
+
+
+
+\usepackage{mathpazo} % add possibly `sc` and `osf` options
+\usepackage{eulervm}
+\renewcommand{\mathbf}{\mathbold}  % euler requires \mathbold for bold math
 
 %
 % [
