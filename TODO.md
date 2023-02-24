@@ -1,8 +1,8 @@
-Include a notation overview.
+- [ ] Include a notation overview.
 
-Change font to something similar to Lasses thesis (maybe)
 
 Outline
 - Stochastic Gradient Variational Bayes; Optimization using stochastic gradient descent and amortized variational inference with pathwise gradients.
 - 
-- 
+
+- [X] Change font to something similar to the one in Lasses thesis.
