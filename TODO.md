@@ -4,6 +4,7 @@
 Outline
 - Stochastic Gradient Variational Bayes; Optimization using stochastic gradient descent and amortized variational inference with pathwise gradients.
 
+- [ ] Update notation sheet with chosen matrix/vector when indexing
 
 - [ ] Add papers
   - [ ] Self-supervised learning review
