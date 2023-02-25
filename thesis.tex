@@ -1,4 +1,4 @@
-% !TeX root = thesis.tex
+% !TEX root = thesis.tex
 % !BIB program = biber
 % !TEX program = xelatex
 
@@ -36,41 +36,49 @@
 
 \clearforchapter
 \printglossary[title=Abbreviations, toctitle=abbrevations, type=\acronymtype]
+
 \clearforchapter
 \printnomenclature
 \addcontentsline{toc}{chapter}{notation}
+
 \clearforchapter
 \listoffigures*
 \addcontentsline{toc}{chapter}{list of figures}
+
 \clearforchapter
 \listoftables*
 \addcontentsline{toc}{chapter}{list of tables}
+
 \clearforchapter
 \tableofcontents*
+
 \clearforchapter
 \mylistoftodos
 
 \mainmatter
+
 \part[introduction and background]{introduction and background}
-% \include{chapters/dummy_chapters/dummy_introduction}
-\include{chapters/introduction.tex}
-\include{chapters/background.tex}
+% % \include{chapters/dummy_chapters/dummy_introduction}
+\include{chapters/introduction}
+\include{chapters/background}
 \include{chapters/main-contributions}
+
 \part[generative modelling]{generative modelling}
 \include{chapters/paper_hierarchical}
-\part[supervised learning]{supervised learning}
-\part[discussion and conclusions]{discussion and conclusions}
-\include{chapters/discussion}
-\include{chapters/conclusion}
+\include{chapters/paper_benchmarking}
+% % \include{chapters/paper_benchmarking_workshop}
 
-% \include{chapters/dummy_chapters/dummy_introduction}
-% \include{chapters/dummy_chapters/dummy_long_title}
-% \include{chapters/dummy_chapters/fonttest}
-% \include{chapters/dummy_chapters/layouts}
+% \part[supervised learning]{supervised learning}
+
+% \part[discussion and conclusions]{discussion and conclusions}
+% \include{chapters/discussion}
+% \include{chapters/conclusion}
 
 \part[Appendices]{Appendices}
 \appendix
-\include{appendices/appendix}
+\include{appendices/appendix_hierarchical}
+\include{appendices/appendix_benchmarking}
+% \include{appendices/appendix_benchmarking_workshop}
 
 \backmatter
 \printbibliography

@@ -12,7 +12,8 @@
 \usepackage{enumitem}
 % \usepackage{layouts}
 \usepackage[showframe=\showframe,xetex]{geometry}
-
+\usepackage{adjustbox}
+\usepackage{siunitx}
 \usepackage{nomencl}
 \usepackage[acronym,toc]{glossaries}
 \include{preamble/acronyms}
@@ -25,10 +26,23 @@
     matrix,
     positioning,
     shapes,
+    shapes.multipart,
     topaths,
     bayesnet,
 }
 \input{preamble/bayesnet_extras}
+
+\definecolor{customgreen} {RGB}{217	234	212}
+\definecolor{customblue}  {RGB}{205	226	242}
+\definecolor{custommorered}{RGB}{218 46 42}
+\definecolor{customred}{RGB}{255 182 173}%{255 149 150}
+
+\colorlet{observed-color}{customgreen}
+\colorlet{latent-color}{customblue}
+\colorlet{deterministic-color}{gray!15}
+\colorlet{deterministic-skip-color}{custommorered}
+\colorlet{shared-function-color}{blue}
+
 
 % Listings
 \lstset{

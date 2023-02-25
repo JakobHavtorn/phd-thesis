@@ -10,4 +10,11 @@
 *.pdf
 *.run.xml
 *.synctex.gz
+*.synctex(busy)
 *.toc
+*.lof
+*.lot
+*.nlo
+*.tdo
+
+.DS_Store
