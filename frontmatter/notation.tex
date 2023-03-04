@@ -84,14 +84,14 @@
 \nomenclature[E, 02]{$\pd{y}{x}$}{Partial derivative of $y$ with respect to $x$}
 \nomenclature[E, 03]{$\nabla_\xb$}{Del, nabla or Laplacian operator, $\nabla_\xb = \bmat{\pd{}{x_1} & \cdots & \pd{}{x_n}}^\text{T}, \; \xb\in\mathbb{R}^{n}$}
 \nomenclature[E, 04]{$\nabla_\xb y$}{Gradient of $y$ with respect to $\xb$, $\nabla_\xb y = \bmat{\pd{y}{x_1} & \cdots & \pd{y}{x_n}}^\text{T}, \; \xb\in\mathbb{R}^{n}$}
-\nomenclature[E, 05]{$\H_\xb$}{Hessian operator, $\H_\xb = \nabla_\xb\nabla_\xb\transpose = \bmat{
+\nomenclature[E, 05]{$\Hb_\xb$}{Hessian operator, $\Hb_\xb = \nabla_\xb\nabla_\xb\transpose = \bmat{
 	    \pd[2]{}{x_1} & \frac{\partial^2}{\partial x_1 \partial x_2} & \cdots & \frac{\partial^2}{\partial x_1 \partial x_n}\\
 	    \frac{\partial^2}{\partial x_2 \partial x_1} & \pd[2]{}{x_2} & \cdots & \frac{\partial^2}{\partial x_2 \partial x_n}\\
 	    \vdots & \vdots & \ddots & \vdots\\
 	    \frac{\partial^2}{\partial x_n \partial x_1} & \frac{\partial^2}{\partial x_n \partial x_2} & \cdots & \pd[2]{}{x_n}
 	    }$}
-\nomenclature[E, 06]{$\H_\xb y$}{Hessian matrix of $y$ with respect to $\xb$; matrix of all second order partial derivatives}
-\nomenclature[E, 07]{$\nabla^2_\xb$}{Laplacian operator, $\nabla^2_\xb=\nabla_\xb\transpose\nabla_\xb = \nabla_\xb\cdot\nabla_\xb=\sum_i \pd[2]{}{x_i}=\Tr{\H_\xb}$}
+\nomenclature[E, 06]{$\Hb_\xb y$}{Hessian matrix of $y$ with respect to $\xb$; matrix of all second order partial derivatives}
+\nomenclature[E, 07]{$\nabla^2_\xb$}{Laplacian operator, $\nabla^2_\xb=\nabla_\xb\transpose\nabla_\xb = \nabla_\xb\cdot\nabla_\xb=\sum_i \pd[2]{}{x_i}=\Tr{\Hbb_\xb}$}
 \nomenclature[E, 08]{$\nabla^2_\xb y$}{Laplacian of $y$ with respect to $\xb$; sum of the unmixed second order partial derivatives}
 \nomenclature[E, 09]{$\pd{\y}{\xb}$}{Jacobian matrix of $\y$ w.r.t. $\xb$, $\pd{\y}{\xb} = \bmat{
 	    \nabla_\xb y_1 &

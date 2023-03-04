@@ -1,0 +1,49 @@
+%!TEX root = ../thesis.tex
+
+\section{Discussion and Conclusion}
+\label{sec:conclusion}
+% {\color{blue} Reviewer: Daniel, SW }\\
+% {\color{blue} Abdo}\\
+
+In this overview, we have presented the historical context of self-supervised learning and provided a thorough methodological review of important  self-supervised speech representation models. Specifically, we have categorized the approaches into three categories, generative, contrastive and predictive, differing in terms of how the pretext task is defined.
+We have presented an overview of existing benchmarks and reviewed the efforts towards efficient zero-resource learning.
+\edit{Although the field is progressing rapidly, with new approaches reaching higher levels of performance, a couple of patterns have emerged: (1) The solid performance of Wav2vec 2.0 for speech recognition and many downstream tasks, as well as the public availability of its pre-trained multilingual variants, enabled wide adoption in the community making it a ``standard'' go-to model. (2) The simplicity and stability of the HuBERT approach, as well as the resemblance of its training procedure to classic frame-level ASR systems, made it an easy choice for research extensions on improving representation quality, speech translation, and textless NLP.}
+
+Below we \edit{highlight} various \edit{shortcomings of existing work and } \edit{future} research directions:
+\begin{itemize}
+
+\item \textbf{Using the representation model.} So far, there are two main ways to use representation models: Freeze the representation models and use them as feature extractors, or fine-tune the representation models \edit{on} downstream tasks. 
+\edit{Some efficient methods for leveraging SSL models exist in the NLP community. 
+Adapters~\cite{pmlr-v97-houlsby19a,zaken2021bitfit,guo-etal-2021-parameter} are lightweight modules inserted into SSL models, and in downstream tasks, the parameters of SSL models are frozen, and only the adapters are trained. 
+The prompt/instruction learning methods~\cite{liu2021pretrain} also freeze the SSL parameters and control the output of SSL by adding additional information, which is called \textit{prompt}, in the input.
+Both adapter-based methods and prompt/instruction learning yield competitive performance compared with fine-tuning in NLP applications, but there is only little related work for speech~\cite{SpeechAdapter,SpeechPrompt}.
+In addition, prompt for speech SSL does not achieve comparable performance on sequence generation tasks like phoneme recognition and slot filling, so how to use prompt is still an open question.}
+
+\item \textbf{Increasing the efficiency of the representation model.} As discussed in \cref{subsec:modelsize}, larger representation models lead to better downstream performance. Despite the success of these \edit{large} models, they \edit{incur high costs in terms of memory and time for pre-training, fine-tuning, and even when used only to extract representations without gradient calculation. This} makes them unsuitable for edge devices \edit{but also limits the ability to scale these models to very large datasets} \ci{ -- and leads to a large energy consumption}. 
+Preliminary studies have been conducted on compressing speech representation models through network pruning~\cite{PARP} or knowledge distillation~\cite{chang2021distilhubert}. 
+\edit{There has been quite some effort towards more efficient general neural network models via conditional computing \cite{bengio_conditional_2016} and neural network quantization \cite{gholami_survey_2021} as well as extensive work on improving the specific efficiency of Transformer models, especially with the focus on self-attention \cite{tay_efficient_2022}, but these technology has not been widely used in speech SSL.}
+\edit{Because speech is intrinsically represented as sequence, one way to reduce computation is to reduce the length of speech representation sequence but still keep the vital information in speech. But we have not been aware of any publication in this direction when writing this paper.}
+On the other hand, non-streaming architectures in models such as the bidirectional Transformer have hindered the representation model used in streaming scenarios, leading to studies that address these problems~\cite{StreamingW2v}. 
+We anticipate research in these directions to continue in the future.
+
+
+\edit{\item \textbf{Data-efficient approaches.} SOTA representation learning methods require large volumes of unlabeled speech during pre-training, going way beyond what babies need to understand language. 
+Different learning approaches have different data needs, e.g., generative approaches could be more data efficient than contrastive or predictive approaches since they are constrained by more bits of information to reconstruct their inputs. Comprehensive research is needed to study the data efficiency of different approaches. }
+
+\item \textbf{Feature Disentanglement.} 
+Speech SSL models show strengths on a surprisingly wide range of tasks~\cite{yang21c_interspeech}, suggesting that representations contain different information.
+One way to further improve downstream tasks is to disentangle different information from the representation.
+For example, we can decompose the representation into content embedding and speaker embedding and use content embedding for ASR and speaker embedding for SID.
+Some work has been in this direction~\cite{pmlr-v162-qian22b,NANCY,MultimodelAmazonIS22}.
+
+\item \textbf{Creating robust models.} \edit{As discussed in \cref{subsec:robustness}, studies have been conducted on the robustness of representation models \cite{wu2021characterizing}. However, the failure modes of SSL models are still poorly understood, and it remains unclear whether they provide more or less robustness to adversarial attacks than fully supervised models. Due to the importance of this research direction, while writing this paper, there is already some related research about enhancing the robustness of SSL models~\cite{robustw2v2,huang2022improving,wang2022improving,zhu2022noise} and identifying their vulnerability to adversarial attack~\cite{wu2021characterizing}. }
+
+\edit{\item \textbf{Capturing higher-level semantic information.} Although many representation learning approaches can go beyond low-level phonetic modeling to capture some lexical information~\cite{TuAnh_2022_discrete}, they still struggle in higher-level semantic tasks easily captured by word-level counterparts like BERT. One workaround is two-stage training~\cite{pGSLM, dialogue_GSLM}; however, this prevents propagating rich lexical and semantic knowledge modeled in the second stage to benefit the phonetically focused first stage. }
+
+\item \textbf{Using text representation models to improve speech representation.} The amount of content information in speech corpora used to train speech representation models is far less than that of text representation models. Noting that the BERT training corpus exceeds 3 billion words~\cite{jacob2019BERT}, and assuming a typical speaking rate of 120 words per minute, a speech corpus containing the same content as the BERT training data would include 400,000 hours of audio, which exceeds the \edit{accumulated} training data of all current speech representation models. Therefore, to enable speech representation models to better learn human language, for instance by extracting semantic information from acoustic signals, the use of text models such as BERT and GPT  \edit{seems} key: nevertheless, how to use these to improve speech representation model pre-training remains an open question. 
+%\edit{ There is already some study using both speech and text data to pre-training, but some paired data is still required to achieve good performance~\cite{bapna2021slam}.  } 
+
+\end{itemize}
+
+We believe SSL representation models have considerable room to grow. The relationship between representation models and downstream tasks can be compared to the relationship between operating systems and applications. Today, even individuals can build applications with desired functions on a smartphone because the smartphone's operating system handles the complex communication with the hardware and provides a convenient developer interface. Likewise, as SSL representation models learn general knowledge from human speech, it is easy to develop new speech processing applications on this basis. From this viewpoint, \edit{speech representation} models will play the role of operating systems in speech processing and further facilitate the continued development of speech technology. 
+%Suppose, for instance, a speaker of an indigenous language seeks to purchase an intelligent assistant, but discovers that it does not yet support the indigenous language. Because the smart assistant has a built-in representation model, though, it can quickly learn a new language with little supervision. We believe SSL representation models will bring the benefits of speech technology to more people.

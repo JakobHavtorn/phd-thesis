@@ -1,0 +1,167 @@
+%!TEX root = ../thesis.tex
+
+\begin{table*}[h!]
+\caption{
+The models are sorted according to publication date of the first version on arXiv which might differ from the year indicated by the citation. 
+\textbc{{reg}} means that the model uses a regression loss, 
+\textbc{{clf}} that it uses a classification loss,
+\textbc{{con}} that it uses a contrastive loss, 
+\textbc{{msk}} that it uses masking to define the target region, 
+\textbc{{ltg}} that it uses a learned target, 
+\textbc{{qtz}} that it uses a quantized target, and
+\textbc{{emb}} that it embeds a variable length segment.
+%Lee: I think contrastive always have learned target. Am I correct???
+}
+\label{tab:model-taxonomy}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ l l | c c c | c c c | c } 
+\toprule
+\multicolumn{2}{c}{} & 
+\multicolumn{3}{c}{\small\textsc{Loss}} & 
+\multicolumn{3}{c}{\small\textsc{Target}} &
+ \\
+\textbc{{model}} &
+\textbc{{pub. date}} &
+\textbc{{reg}} & 
+\textbc{{clf}} & 
+\textbc{{con}} &
+\textbc{{msk}} &
+\textbc{{ltg}} &  
+\textbc{{qtz}} & 
+\textbc{{emb}} \\
+\midrule
+%                                                         REG      CLF      CON      MSK      LTG      QTZ      EMB  
+
+Audio Word2vec \cite{Chung2016AudioWord2Vec}      & 2016 Mar. & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark & \cmark \\
+
+VQ-VAE \cite{vqvae} & 2017 Nov. & \cmark & \xmark & \xmark & \xmark & \xmark & \cmark & \xmark \\ %2 Nov 2017 
+
+Speech2Vec \cite{chung2018speech2vec}     & 2018 Mar. & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark & \cmark \\
+Unspeech \cite{milde2018unspeech}         & 2018 Apr. & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark \\
+
+CPC \cite{oord2018representation}         & 2018 Jul. & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark \\
+
+PASE \cite{pascual2019learning}                   & 2019 Apr. & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark \\ % 6/4
+
+APC \cite{chung2019unsupervised}          & 2019 Oct. & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\ % 5/4
+
+wav2vec \cite{schneider2019wav2vec}       & 2019 Apr. & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark \\ % 11/4
+
+vq-wav2vec \cite{Baevski2020vq-wav2vec} & 2019 Oct. & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark \\ %12 Oct 2019 %Lee: vq-wav2vec is CON or CLF??? %Lee: Discrete BERT use masking, but vq-wav2vec does not It is CON, not CLF.
+
+Discrete BERT \cite{Baevski2020vq-wav2vec,baevski2019effectiveness} & 2019 Oct. & \xmark & \cmark & \cmark & \cmark & \cmark & \cmark & \xmark \\ %12 Oct 2019 %10 Nov 2019 %In the paper of vq-wav2vec, it also includes the approach of Discrete BERT. I know this is tricky ....
+
+Mockingjay  \cite{liu2020mockingjay}      & 2019 Oct. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\ % 25/10-19
+
+
+DeCoAR \cite{ling2020deep}                & 2019 Dec. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\ % 3/12-19
+
+PASE+ \cite{ravanelli2020multi}                & 2020 Jan. & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark \\ % 25/1 % I think contrastive always have learned target.
+
+Bidir CPC \cite{kawakami2020learning} & 2020 Jan. & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark \\% 29/1
+
+Modified CPC \cite{riviere2020unsupervised} & 2020 Feb. & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark \\ % 7/2
+
+VQ-APC \cite{chung20e_interspeech}  & 2020 May  & \cmark & \xmark & \xmark & \xmark & \xmark & \cmark & \xmark \\ %17/05
+
+AALBERT \cite{chi2020audio}  & 2019 May & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\ %18 May 2020
+
+speech-XLNet \cite{song20d_interspeech} & 2019 Oct. & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\%23 Oct 2019 %Lee: It is speech version of XLNet. I am not sure we should consider this approach has mask or not.
+
+
+wav2vec 2.0 \cite{baevski2020wav2vec}     & 2020 Jun. & \xmark & \xmark & \cmark & \cmark & \cmark & \cmark & \xmark \\ % 20/6
+%Lee: In my point of view, wav2vec 2.0 has learned target. The target is from the CNN encoder.
+
+MPE \cite{liu2020masked} & 2020 May & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark \\ % 25 May 2020 %Lee: I think it has learned target. But please check.
+
+TERA \cite{liu2021tera}                   & 2020 Jul. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\ % 12/7
+
+Speech SimCLR \cite{SpeechSimCLR} &  2020 Oct. & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark & \xmark \\ %Lee: It is TERA+ SIMCLR. I considered it has learned target because contrastive always have learned target.
+%27 Oct 2020
+
+NPC \cite{liu21l_interspeech}                     & 2020 Nov. & \cmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark \\ % 1/11
+
+DeCoAR 2.0 \cite{ling2020decoar}          & 2020 Dec. & \cmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark \\ % 11/12 %Lee:  DeCoAR 2.0 has VQ layer although it is not used as learning target.
+
+wav2vec-C \cite{sadhu21_interspeech} & 2021 Mar. & \cmark & \xmark & \cmark & \cmark & \cmark & \cmark & \xmark \\ %9 Mar 2021 %Lee:  consistency loss is reconstruction
+
+HuBERT \cite{hsu2021hubert}               & 2021 Jun. & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark \\ % 14/6
+
+W2v-bert \cite{w2vbert} & 2021 Aug & \xmark & \cmark & \cmark & \cmark & \cmark & \cmark & \xmark \\
+%7 Aug 2021
+
+pMPC \cite{yue2021pMPC}  & 2021 Aug. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\ %30 August – 3 September, 2021 (I do not find arXiv version.)
+
+WavLM \cite{chen2021wavlm} & 2021 Oct. & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark \\ %26 Oct 2021
+
+data2vec \cite{data2vec}     & 2022 Jan. & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark \\ % 20/1
+
+BEST-RQ \cite{BEST-RQ} & 2022 Feb.  & \xmark & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark \\ %Lee: no learned target. The target is random ...
+% 3 Feb 2022
+
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+
+\begin{comment}
+\begin{table*}[h!]
+\caption{
+The models are sorted according to the publication date of the first version on arXiv, which might differ from the year indicated by the citation. 
+\textbc{{reg}} means that the model uses a regression loss, 
+\textbc{{clf}} that it uses a classification loss,
+\textbc{{con}} that it uses a contrastive loss, 
+\textbc{{msk}} that it uses masking to define the target region, 
+\textbc{{ltg}} that it uses a learned target, %lasseborgholt: We could consider using the inverse of this attribute. I.e., that the model uses the input as taget and belongs in the generative category.
+\textbc{{qtz}} that it uses a quantized target, and
+\textbc{{emb}} that it embeds a variable-length segment
+}
+\label{tab:model-taxonomy}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ l l | c c c | c c c | c } 
+\toprule
+\multicolumn{2}{c}{} & 
+\multicolumn{3}{c}{\small\textsc{Loss}} & 
+\multicolumn{3}{c}{\small\textsc{Target}} &
+ \\
+\textbc{{model}} &
+\textbc{{pub. date}} &
+\textbc{{reg}} & 
+\textbc{{clf}} & 
+\textbc{{con}} &
+\textbc{{msk}} &
+\textbc{{ltg}} &  
+\textbc{{qtz}} & 
+\textbc{{emb}} \\
+\midrule
+%                                                         REG      CLF      CON      MSK      LTG      QTZ      EMB  
+Audio Word2vec \cite{Chung2016AudioWord2Vec}      & 2016 Mar. & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark & \cmark \\
+Speech2Vec \cite{chung2018speech2vec}     & 2018 Mar. & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark & \cmark \\
+% Unspeech \cite{milde2018unspeech}         & 2018 Apr. & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark \\
+CPC \cite{oord2018representation}         & 2018 Jul. & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark \\
+
+PASE \cite{pascual2019learning}                   & 2019 Apr. & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark & \xmark \\ % 6/4
+
+APC \cite{chung2019unsupervised}          & 2019 Oct. & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\ % 5/4
+wav2vec \cite{schneider2019wav2vec}       & 2019 Apr. & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark \\ % 11/4
+%VQ-APC \cite{chung2020vector}             & 2020 May  & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\ 
+Mockingjay  \cite{liu2020mockingjay}      & 2019 Oct. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\ % 25/10-19
+%DeCoAR \cite{ling2020deep}                & 2019 Dec. & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\ % 3/12-19
+%PASE+ \cite{Ravanelli2020}                & 2020 Jan. & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\ % 25/1
+wav2vec 2.0 \cite{baevski2020wav2vec}     & 2020 Jun. & \xmark & \xmark & \cmark & \cmark & \xmark & \cmark & \xmark \\ % 20/6
+%TERA \cite{liu2021tera}                   & 2021 Jul. & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\ % 12/7
+
+NPC \cite{liu21l_interspeech}             & 2020 Nov. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\ % 1/11
+
+DeCoAR 2.0 \cite{ling2020decoar}          & 2020 Dec. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\ % 11/12
+HuBERT \cite{hsu2021hubert}               & 2021 Jun. & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark \\ % 14/6
+data2vec \cite{data2vec}     & 2022 Jan. & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark \\ % 20/1
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table*}
+
+\end{comment}

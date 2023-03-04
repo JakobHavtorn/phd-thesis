@@ -436,7 +436,7 @@ It was recently applied to autoregressive speech modeling of raw waveforms \cite
 As opposed to e.g.\@ a categorical distribution, the DMoL induces ordinality on the observed space such that values that are numerically close are also close in a probabilistic sense. This is a sensible inductive bias for images as well as audio where individual samples represent the amplitude of light or pressure, respectively. We discuss the DMoL for audio further in appendix~\cref{app: additional discussion on output distribution}.
 
 
-\section{Speech modeling benchmark}\label{sec:benchmark}
+\section{Speech modeling benchmark}\label{sec:glvm_benchmark}
 \paragraph{Data}
 We train models on TIMIT \cite{garofolo_timit_1993}, LibriSpeech \cite{panayotov_librispeech_2015} and LibriLight \cite{kahn_libri-light_2020}. For TIMIT, we randomly sample 5\% of the training split for validation. 
 We represent the audio as $\mu$-law encoded PCM standardized to values in $\bra{-1, 1}$ with discretization gap of ${2^{-b+1}}$. We use the original bit depth of $\SI{16}{bits}$ and sample rate of $\SI{16000}{Hz}$. We use this representation both as the input and the reconstruction target. We provide more details on the datasets in appendix~\cref{app: dataset details} and additional results on linear PCM in appendix~\cref{app: additional likelihood results appendix}.

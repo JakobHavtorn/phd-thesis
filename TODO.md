@@ -8,6 +8,7 @@ Outline
 
 - [ ] Add papers
   - [ ] Self-supervised learning review
+    - [ ] Revise all references (cite keys)
   - [ ] Stroke paper (spring 2023)
   - [ ] ASR uncertainty (spring 2023)
   - [ ] Secondary papers?
@@ -17,6 +18,10 @@ Outline
   - [ ] Make subcaption style identical throughout (i.e. use subplot captions or single main caption)
   - [ ] Remove or include acknowledgements in each paper?
 
+
+Search and replace patterns:
+- [ ] Use of `(\ref{})`: \(\\ref\{.+\}\)
+- [ ] Use of `\ref{}`:   \\ref\{.+\}
 
 - [X] Change font to something similar to the one in Lasses thesis.
 

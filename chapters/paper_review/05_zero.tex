@@ -1,0 +1,447 @@
+%!TEX root = ../thesis.tex
+
+\section{From Representation Learning to Zero Resources}
+\label{sec:zero}
+
+% {\color{black} Reviewer: TNS, Abdo, Hung-yi Lee }\\
+% \kl{We discussed in our last meeting that I would add a pointer in this section to the acoustic word embedding section.  However, I'm not quite sure what the right spot for it is, so waiting for this section to stabilize a bit more first.}
+
+
+In the SSL framework, speech representations can be
+learned and used in various downstream tasks to achieve competitive, robust,
+and transferable performance, as shown in
+\crefrange{section:benchmark}{analysis}. 
+However, labeled data is still required. 
+For example, in ASR, utterances and their manual transcriptions are needed to learn downstream models or fine-tune representation models. 
+Can a model learn without any labeled data? 
+In \cref{secsec:unpaired}, we show how to learn ASR models without any paired audio and text and how SSL improves the framework.
+In addition, many languages have no writing system. 
+In \cref{subsec:zero}, the SSL representation is further used in scenarios where text data is unavailable.
+
+\subsection{Unpaired text and audio} \label{secsec:unpaired}
+% What are we going to do % how to match
+%In the self-supervised learning framework, speech representations can be learned and used in the downstream tasks, but some labeled data for finetuning is needed.
+
+\begin{table*}[ht]
+\centering
+    {\renewcommand*\arraystretch{1.4}}
+\caption{
+Unsupervised ASR.
+TIMIT numbers are phoneme error rates (PER), while the numbers for
+LibriSpeech are word error rates (WER).
+SWC $=$ spoken word classifier, ST $=$ speech translation.
+All speech and text are in English if not specified. 
+\textcolor{black}{
+The references in the table are sorted according to the date of publication.}
+}
+\label{fig:unsupervisedASR}
+\resizebox{0.99\textwidth}{!}{
+\begin{tabular}{cllllll}
+    \toprule
+Reference & Speech representation & Speech segmentation  & Text token/representation & Mapping approach & Refinement  & Results  \\ 
+    \midrule
+\cite{liu2018completely}& Audio word2vec~\cite{Wang2018SegAudioWord2Vec} & Oracle & Phoneme & \edit{Adversarial Training~\cite{gulrajani2017improved}} & - & TIMIT (PER): 63.6\%  \\ %Submitted on 1 Apr 2018
+  \midrule
+  \cite{chung2018unsupervised} & Speech2vec~\cite{chung2018speech2vec} & BES-GMM~\cite{Kamper17BESGMM} &  Word2Vec & \edit{Adversarial Training~\cite{conneau2017word}} & Self-training & SWC (Acc): 10.9\%  \\ %Submitted on 18 May 2018
+%https://arxiv.org/pdf/1805.07467.pdf %The text embeddings were obtained by training Word2Vec on the transcriptions using the fastText implementation without subword information [3].
+  \midrule
+  
+    \cite{chung2019towards} & \tabincell{l}{Speech2vec\\(English)} & Oracle & \tabincell{c}{Word2Vec\\(French)} & VecMap~\cite{artetxe-etal-2018-robust} & \tabincell{l}{LM rescore,\\sequence DAE} & ST (BLEU): 10.8\%   \\ %[Submitted on 4 Nov 2018]
+\midrule
+  
+\cite{yeh2018unsupervised} & MFCC & GAS~\cite{wang2017gate} & Phoneme & Empirical-ODM~\cite{Liu2017ODM} & Self-training &  TIMIT (PER):  41.6\%  \\ %Submitted on 23 Dec 2018
+  \midrule
+
+\cite{chen2019completely} & MFCC & GAS  & Phoneme & \edit{Adversarial Training~\cite{gulrajani2017improved}} & Self-training &  TIMIT (PER):  33.1\%   \\
+  \midrule
+  
+\cite{baevski2021unsupervised} & Wav2vec 2.0~\cite{baevski2020wav2vec} & \kmeans{} & Phoneme &\edit{Adversarial Training~\cite{gulrajani2017improved}} & Self-training & \tabincell{l}{TIMIT (PER):  18.6\%, \\ LibriSpeech (WER): 5.9\%}   \\
+  \midrule
+  
+\textcolor{black}{\cite{Deciphering2022}} & \textcolor{black}{\tabincell{l}{Universal Phone \\ Recogniser}} & - & \textcolor{black}{Grapheme} & \textcolor{black}{Decipherment~\cite{ravi-knight-2011-deciphering}} & \textcolor{black}{Self-training} & \textcolor{black}{\tabincell{l}{GlobalPhone: 32.5\% to just 1.9\% \\ worse than supervised models} }  \\ %ubmitted on 12 Nov 2021 %m 32.5% to just 1.9% absolute worse than the equivalent fully supervised models trained on the same data
+  \midrule
+\textcolor{black}{\cite{w2v-u2}} & \textcolor{black}{Wav2vec 2.0~\cite{baevski2020wav2vec} }& - & \textcolor{black}{Phoneme} & \textcolor{black}{Adversarial Training~\cite{gulrajani2017improved}} & \textcolor{black}{Self-training} & \textcolor{black}{LibriSpeech (WER): 6.3\%}   \\
+  \midrule
+
+\textcolor{black}{\cite{w2v-u2}} & \textcolor{black}{Wav2vec 2.0~\cite{baevski2020wav2vec}} & - & \textcolor{black}{Grapheme} & \textcolor{black}{Adversarial Training~\cite{gulrajani2017improved}} & \textcolor{black}{Self-training} & \textcolor{black}{LJSpeech (WER): 64.0\%}  \\
+
+
+%e MUSE [7] and VecMap [8], n
+%The numbers in the section of unsupervised methods denoted as BLEU score (%) of VecMap /
+%BLEU score (%) of MUSE 10.8 / 6.2
+%11.3 / 7.3
+%https://arxiv.org/pdf/1811.01307.pdf
+    \bottomrule
+\end{tabular}
+}
+\end{table*}
+
+
+
+\subsubsection{Unsupervised ASR}
+% {\color{black} Hung-yi}\\
+
+If only unpaired speech and text are available, that is, the text is not a
+manual transcription of speech, can the machine learn how to transcribe speech
+into text?
+This scenario is called \textit{unsupervised ASR}, and the framework is as
+below. 
+Given a set of unlabeled utterances $\mathcal{S}=\{S_1, S_2, ..., S_N\}$  and a
+set of sentences $\mathcal{Y}=\{Y_1, Y_2, ..., Y_M\}$,\footnote{Note that
+the speech and text are not paired, that is, $Y_i$ is not the transcription of
+$S_i$.} a mapping function~$F$, which can take an utterance~$S$ as input and
+generate its transcription, is learned from data. 
+\Cref{fig:unsupervisedASR} summarizes recent work on unsupervised ASR,
+including the speech representation used, the algorithm used to learn the
+mapping without supervision, and the results. Below, we will discuss these
+methods in more detail.
+
+
+Adversarial training~\cite{goodfellow2014generative,arjovsky2017wasserstein, gulrajani2017improved} is one common way to learn such a 
+mapping function. 
+The framework includes a discriminator and a generator.
+The mapping function~$F$ plays the role of the generator, which takes speech utterances as input and outputs text.
+The discriminator learns to distinguish real text from the generated
+output; the generator learns to ``fool'' the discriminator.
+The generator and the discriminator are trained in an iterative, 
+interleaved way. 
+After the training, the generator serves as the speech recognition model.
+\edit{
+There is a large amount of work using gradient penalty in the objective of training discriminators~\cite{liu2018completely,chen2019completely,baevski2021unsupervised,w2v-u2}, which is inspired by Improved Wasserstein Generative Adversarial Network (WGAN)~\cite{gulrajani2017improved}.
+}
+\textcolor{black}{
+Other ways to map speech and text include via segmental empirical output distribution matching (segmental empirical-ODM)~\cite{yeh2018unsupervised} and decipherment algorithm~\cite{Deciphering2022}.}
+
+% Difficulty of unsupervised ASR (v.s. unsupervised MT)
+Success in unsupervised neural machine translation
+(MT)~\cite{artetxe2017unsupervised, conneau2017word, lample2017unsupervised}
+has inspired innovative exploration of various unsupervised ASR algorithms.
+If learning a translation model from unaligned sentences in two languages is
+possible, considering speech and text as two different languages, learning the
+mapping relationship from speech space to text space without an alignment 
+% is not impossible.
+  should likewise be possible.   % AMH: check
+However, there are differences between unsupervised MT and unsupervised
+ASR.
+In unsupervised MT, most discrete source tokens can be mapped to specific
+target tokens representing the same meaning. 
+However, because speech has segmental structures, in unsupervised ASR, each text
+token maps to a segment of consecutive acoustic features of variable length in
+an utterance.
+The generator is supposed to learn the segmental structure of an utterance
+because information like token boundaries is not directly available.
+This makes unsupervised ASR more challenging than unsupervised MT.
+
+% how to represent audio
+For unsupervised ASR to be feasible, the common idea is to make the speech and text units close to each other.
+For the text side, word sequences can be transformed into phoneme sequences if a lexicon is available. 
+On the other hand, we must first convert the speech signal into something close to phonemes. 
+To achieve that, most studies on unsupervised ASR use a phoneme
+segmentation module before the generator to segment utterances into
+phoneme-level
+segments~\cite{liu2018completely,chen2019completely,yeh2018unsupervised}. 
+A representation vector or a token then represents each phoneme-level segment. 
+It is easier for the generator to map each segment-level representation 
+or token to the correct phoneme when the representation or token is highly correlated to the phonemes.
+Wav2vec-U~\cite{baevski2021unsupervised} selects the input feature from different layers of wave2vec~2.0~\cite{baevski2020wav2vec}.
+The selection criterion is based on analysis of the phonetic information in each layer.
+\textcolor{black}{
+If a universal phone recognizer trained from a diverse set of languages is available, it is another way to transcribe speech into phone-level tokens~\cite{Deciphering2022}.}
+Another series of work is to transform a word into a word embedding. 
+\cite{chung2018unsupervised,chung2019towards} use adversarial training to map the word-level
+speech embedding space~\cite{chung2018speech2vec} to the word embedding space
+and achieve promising performance on spoken word classification, speech
+translation, and spoken word retrieval.
+\Cref{fig:unsupervisedASR} summarizes the various ways to segment speech and represent speech and text in each reference.  
+
+%Hung-yi Lee: I comment this paragraph first.
+\begin{comment}
+%Hung-yi Lee: This paragraph is not finished yet.
+\TNS{if we are limited on space,we can consider removing some of the detail of the various algorithms}
+\TNS{split into 2 sentences, also have a connection to the previous para}
+\cite{liu2018completely} is the first work to successfully achieve unsupervised
+phoneme recognition by first clustering phoneme-level
+embeddings~\cite{Chung2016AudioWord2Vec,Wang2018SegAudioWord2Vec} into a set of
+tokens and then using GAN to learn the mapping relationship between tokens and
+phonemes. 
+However, in \cite{liu2018completely}, oracle phoneme segmentation is still
+required to get reasonable performance. 
+\cite{chen2019completely,yeh2018unsupervised} uses gate activation signals
+(GAS)~\cite{wang2017gate} to get the phoneme-level segmentation, which is
+unsupervised. 
+%However, the loss term in~\cite{yeh2018unsupervised} includes an empirical average over all segments inside a logarithmic function, which can be biased if we sample this empirical average by a mini-batch average. \cite{liu2017unsupervised} therefore use an extremely large batch size during training to reduce the biasing problem.
+%These problems are handled by another work~\cite{chen2019completely}.
+%\cite{chen2019completely} removes the quantization step.
+%Compared to~\cite{yeh2018unsupervised}, the discriminator in~\cite{chen2019completely} considers all possible information from the text dataset, not limited to the n-gram local statistics.
+%Besides, \cite{chen2019completely} works well with a reasonable batch size, which makes it feasible when the computational resource is limited.
+Wav2vec-U~\cite{baevski2021unsupervised} selects the input feature from
+different layers of wave2vec 2.0~\cite{baevski2020wav2vec}, a self-supervised
+model.
+The selecting criterion is the PER by training a linear model in a supervised manner. 
+%Should we mention this?
+Wav2vec-U uses \kmeans{} to cluster the selected features, and the boundaries
+are drawn whenever the clustered index changes.
+%Wave2vec-U tends to generate more segments compared to the oracle phoneme-level segments. For example, their segmentation gives 0.93 precision, the ratio of the oracle phoneme-level boundaries being hit, and 0.38 recall, the ratio of the generated boundaries hit the oracle phoneme-level boundaries.
+While Wav2vec-U merges the neighboring segments containing the same predicted
+labels in each step of GAN training, this design can be viewed as refining the
+segmentation implicitly.  
+%Should we mention this?
+%At generator output, the wav2vec-U will combine the neighboring predicted posterior containing the same predicted label into a predicted posterior.
+\end{comment}
+
+%In \cite{chung2018unsupervised, chung2019towards}, the word boundaries are also generated automatically with speech only. 
+%However, \cite{chung2018unsupervised, chung2019towards} need oracle boundaries, therefore not completely unsupervised as the framework proposed in this paper.
+
+% more improvement: iterative training, development 
+As shown in \cref{fig:unsupervisedASR}, most studies use
+\textit{self-training} to refine the models.
+% to achieve better performance.  % AMH: redundant
+In self-training, the generator serves as the first-version phoneme recognition model.
+Inputting unpaired speech to the generator generates the corresponding
+``pseudo transcription''. 
+We then view the speech utterances and their pseudo transcriptions as paired
+data which we use to train a model in a supervised manner.
+Although the pseudo transcriptions have more errors than oracle
+transcriptions, experiments show that training models on pseudo
+transcriptions still significantly boosts performance compared to the
+first-version model.
+%With the new model, we can further obtain new transcriptions.
+%The iteration will continue until the performance converges. 
+
+%Using performance to end this section.
+Wav2vec-U~\cite{baevski2021unsupervised} achieved state-of-the-art results at the time, which suggests that representation learning is
+essential for the success of unsupervised ASR.
+It achieved an 11.3\% phoneme error rate on the TIMIT benchmark. 
+On the LS benchmark, wav2vec-U achieved a 5.9\% \edit{WER} on
+\emph{test-other}, rivaling some of the best published systems trained on 960 hours of labeled data from only two years earlier. 
+\textcolor{black}{
+And wav2vec-U 2.0~\cite{w2v-u2} further removes the requirement of the segmentation stage, so the unsupervised ASR model can be learned in an end-to-end style.}
+The robustness of wav2vec-U was further analyzed with respect to 
+domain-mismatch scenarios in which the domains of unpaired
+speech and text were different~\cite{lin2021analyzing}.
+Experimental results showed that domain mismatch leads to inferior performance, but a representation model pre-trained on the targeted speech domain extracts better representations and reduces this drop in performance.
+
+%Hung-yi: The technique below is very important. But I think it is fine to ignore this part in a reviewe paper due to space limitation. 
+\begin{comment}
+In unsupervised learning, how to determine the hyperparameters is an issue. 
+In a typical supervised framework, hyperparameter tuning is done by a
+development set, which includes labeled data.
+In an unsupervised setting, the existence of this kind of development is tricky. %Is tricky a correct term?
+The existence of such kind of development set means the presence of the labeled
+data.
+Therefore, wav2vec-U~\cite{baevski2021unsupervised} develops a new approach to
+determine the hyperparameters without a labeled development set. 
+%should I provide more details? 
+\end{comment}
+
+%Hung-yi: A series of work (most from MS) focuses on meager resources but not wholly unsupervised. Perhaps we have to mention the papers.
+
+
+\subsubsection{ASR-TTS}
+%{\color{black} Shinji}\\
+%{\color{black} Hung-yi: In the last meeting, we discussed the connection between this section and self-supervised learning. In addition to looking for papers using self-supervision to improve the ASR-TTS framework here, I think there may be another direction. Can we regard this ASR-TTS framework as a kind of self-supervised learning? ASR-TTS is similar to an autoencoder, and the output of ASR is "latent representation". In other words, this section describes a special self-supervised learning method, whose representation is expressed as "text."}\\
+%{\color{black} Hung-yi: However, the above idea sounds tricky. In addition, the ``ASR-TTS'' autoencoder is learned by semi-supervised, not self-supervised.}
+% AMH: to make the paper more consistent, I recommend changing all $f^{\mathrm{asr}}$ to $f_{\mathrm{asr}}$
+Here we describe an alternative approach by which to train an ASR and \edit{text-to-speech (TTS)} system
+based on unpaired text and audio. The ASR-TTS framework, which \edit{combines the ASR} and
+TTS systems in a cascaded manner,
+can be regarded as an autoencoder, where the encoder~$f$
+corresponds to the ASR module and the decoder~$g$ corresponds to the TTS module.
+In this framework, we consider the intermediate ASR output as a latent
+representation; the framework as a whole can be regarded as a variant of
+self-supervised learning.\footnote{However, to make this complicated
+system work, we often require that data is paired. Therefore, in practice,
+ASR-TTS and other methods described in this section are categorized as
+semi-supervised learning.}
+
+The ASR-TTS framework can jointly optimize both ASR and TTS \edit{without using paired data}~\cite{tjandra2017listening,hori2019cycle,wang2020improving}.
+A speech chain~\cite{tjandra2017listening,tjandra2018machine} is one 
+successful way to utilize audio-only and text-only data to train both
+end-to-end ASR/TTS models.
+This approach first prepares pre-trained ASR model \edit{
+$f_{\mathrm{asr}}(X)$ with acoustic input $X$ and pre-trained TTS model $g_{\mathrm{tts}}(Y)$ with text input $Y$.
+By following the TTS system with an ASR system, we generate new 
+acoustic feature sequence~$\hat{X}$, which must be close to the original input~$X$.
+Thus, we design a loss function $\mathcal{L}_{\mathrm{asr} \rightarrow \mathrm{tts}}(X, \hat{X})$, where $\hat{X}$ is generated by
+%and~$\hat{X}$:
+%\begin{equation}
+%    \mathcal{L}_{\mathrm{asr} \rightarrow \mathrm{tts}} (X, \hat{X}),
+%\end{equation}    
+%where
+\begin{equation}
+    \hat{X} = g_{\mathrm{tts}}(f_{\mathrm{asr}}(X)).
+    \label{eq:asr-tts}
+\end{equation}
+Thus, we train the ASR model (or both ASR and TTS models) using only
+the acoustic input by minimizing $\mathcal{L}_{\mathrm{asr} \rightarrow \mathrm{tts}}$.  
+%\begin{equation}
+%\hat{\theta}_{\mathrm{asr}} = \arg \min _{\theta_{\mathrm{asr}}} \mathcal{L}(Y, \hat{Y}; \theta_{\mathrm{asr}}, \theta_{\mathrm{tts}}).
+%\end{equation}
+Note that this approach does not require the supervised text data~$Y$}.
+As an analogy to the generative approach in \cref{sec:generative}, the
+intermediate ASR output~$\hat{Y}$ can be regarded as the latent representation~$Z$.
+
+The other cycle with the text-only data~$Y$ is also accomplished by the
+concatenated TTS-ASR systems:\edit{
+\begin{equation}
+    \hat{Y} = f_{\mathrm{asr}}(g_{\mathrm{tts}}(Y)).
+    \label{eq:tts-asr}
+\end{equation}
+Similarly, this approach does not require the supervised audio data~$X$, and the
+intermediate TTS output~$\hat{X}$ can be regarded as the latent representation~$Z$}.
+Although this approach initially freezes either the ASR or TTS model, 
+extensions of this study~\cite{hori2019cycle,tjandra2019end,baskar2019semi}
+implement the joint training of both ASR and TTS parameters using 
+REINFORCE~\cite{williams1992simple} and straight-through estimators.
+
+An emerging technique uses a well-trained TTS system to generate
+speech and text data from text-only data.
+This technique is a sub-problem of the TTS-ASR approach formulated in
+\eqref{eq:tts-asr} in which we fix the TTS system part and estimate only the ASR
+parameters. 
+For example, a huge amount of text resources can be obtained from the web
+and document archives without corresponding audio data.
+%Self-supervised learning in this paper mostly focuses on representation learning perspectives of such unpaired data.
+The typical use case scenario of such a text resource for ASR is through \edit{the
+language model}. 
+We combine the ASR and language model via a noisy channel 
+model~\cite{jelinek1997statistical}, a weighted finite state 
+transducer~\cite{mohri2002weighted}, or shallow 
+fusion~\cite{gulcehre2015using,chorowski2016towards}.
+However, the progress of TTS systems boosted by deep 
+learning~\cite{oord2016wavenet,shen2018natural} has inspired another interesting and
+straightforward research direction: \edit{artificially creating paired text and audio
+data $\{\hat{X}, Y\}$ with only text data~$Y$ by generating the corresponding
+audio data~$\hat{X}$ with TTS.} %\begin{equation}
+%    \{\hat{X}, Y\} \text{ where } \hat{X} = g_{\mathrm{tts}} (Y).
+%\end{equation}
+The most straightforward approach is to simply use multi-speaker TTS to
+generate the waveform with various acoustic 
+variations~\cite{li2018training,ueno2019multi,rosenberg2019speech,laptev2020you,huang2020using}.
+The other approaches are based on the generation of high-level (more
+linguistic) features instead of generating the waveform, e.g., encoder
+features~\cite{hayashi2018back} and phoneme 
+features~\cite{renduchintala18_interspeech,masumura20_interspeech}.
+This approach is similar to the back-translation technique developed in \edit{neural machine translation}~\cite{sennrich2016improving}.
+One benefit of the above data generation approaches is that it can be used to feed
+unseen word or context phrases to end-to-end ASR.
+
+% {\color{black} Shinji: puts some notions to encourage the community to contributions to work on this direction and has more connections to the current SSL.}
+
+\subsection{No text or lexicon} \label{subsec:zero}
+
+% \kl{moved the acoustic word embedding subsection from here to the rep learning methods section.}\\
+
+\subsubsection{Zero-resource speech technologies and challenges}
+% {\color{black} Shinji}\\
+\label{zero_speech}
+Zero-resource speech technologies, which seek to discover linguistic concepts
+from audio only (no text nor lexicon), are one of the most active applications
+of unsupervised/self-supervised speech processing.
+Zero-resource speech technologies were initially studied for acoustic and
+linguistic unit discovery from speech data without linguistic resources,
+e.g., transcriptions and other annotations~\cite{jansen2013summary}.
+This study was motivated by unsupervised query-by-example, applications of
+non-parametric Bayesian machine learning to speech processing, and low-resource
+speech recognition, and was also inspired by the learning process of infants.
+The goal of this type of work is to build spoken dialog systems in a zero-resource
+setup for any language.
+% To facilitate the zero-resource problem in the community, 
+  To encourage      zero-resource research,                  % AMH: check
+zero-resource speech challenges have been organized since 2015.
+
+In this section, we describe the research directions of zero-resource speech
+technologies by following the series of zero-resource speech challenges.
+\begin{itemize}
+	 \item \edit{Zero Resource Speech Challenge 2015~\cite{versteegh2015zero} mainly focused on building an acoustic model without using any
+	 linguistic annotations based on subword unit modeling and spoken term
+	 discovery tracks}.
+	 \edit{For the subword unit modeling track, the ABX score for the within- and across-speaker
+	 tasks was used as an evaluation metric.}
+	 The spoken term discovery track used the normalized edit distance and coverage
+	 scores in addition to the precision, recall, and F1 scores for types,
+	 tokens, and boundaries.
+    Both tracks were based on the English and Xitsonga languages.
+	 \item The Zero Resource Speech Challenge 2017~\cite{dunbar2017zero} focused on 
+	 unseen language and speaker aspects from the previous challenge. For
+	 example, to demonstrate the robustness against unseen languages, the systems
+	 were developed with English, French, and Mandarin and tested on
+	 two ``surprise'' languages: German and Wolof.
+	 Similarly, robustness against unseen speakers was demonstrated by varying
+	 the amount of speech available for each speaker.
+	 \item The Zero Resource Speech Challenge 2019~\cite{dunbar2019zero} extended a goal of
+	 previous challenges by synthesizing speech without
+	 text or phonetic labels but with acoustic units obtained using
+	 zero-resource techniques.
+	 The evaluation metrics were also extended to subjectively evaluate the
+	 quality of synthesized speech, including its intelligibility, naturalness,
+	 and speaker similarity.
+	 \item The Zero Resource Speech Challenge 2020~\cite{dunbar2020zero} was based on two
+	 tracks, revisiting previous challenges with different evaluation metrics. 
+	 The first task revisited the 2019 challenge with low bit-rate subword
+	 representations that optimize the quality of speech synthesis. The second
+	 task revisited the 2017 challenge by focusing on the discovery of word-like
+	 units from unsegmented raw speech.
+	 \item The Zero Resource Speech Challenge 2021~\cite{nguyen2020zero}, the latest
+	 \edit{challenge}, expanded the scope to include language modeling tasks.
+	 In addition to phoneme-level ABX, the challenge includes lexical,
+	 semantic, and syntactic evaluation metrics computed via a language model of
+	 pseudo-acoustic labels.
+\end{itemize}
+These challenges have facilitated the tracking of technical trends in
+zero-resource speech technologies.
+For example, research directions thereof 
+have expanded to various speech processing components to cover the entire
+spoken dialogue systems.
+To keep up with this expansion, the challenge has continued to develop
+appropriate evaluation metrics for zero-resource scenarios.
+Following the success of representation learning, baseline and challenge
+techniques have shifted from purely generative 
+models~\cite{ondel2016variational,heck2017feature}, deep 
+autoencoders~\cite{tjandra19_interspeech,chorowski2019unsupervised}, and incorporation of
+neural-network-based TTS/VC techniques~\cite{niekerk20b_interspeech} to
+self-supervised learning~\cite{maekaku21_interspeech}.
+The latest challenge included the visual modality, continuing the
+expansion to include more aspects of human interaction.
+
+\subsubsection{Textless NLP}
+% {\color{black} Abdo}\\
+
+Textless NLP is a new research direction that leverages the progress mentioned
+above in self-supervised speech representation learning to model language
+directly from audio, bypassing the need for text or 
+labels~\cite{GSLM,SpeechResynthesis_IS21,pGSLM,emotion_conversion}. 
+Not only does this open the gate for language and dialect modeling without
+orthographic rules, but it also offers the opportunity to model other
+non-lexical information about how speech is delivered, e.g., speaker identity,
+emotion, hesitation, interruptions. 
+The generative spoken language model (GSLM)~\cite{GSLM} utilizes discrete
+representations from wav2vec~2.0, HuBERT, and CPC algorithms as inputs to an
+autoregressive language model trained by \edit{using the cross-entropy function} to maximize the
+probability of predicting the next discrete speech token. A \edit{synthesis} module
+follows the language model to produce speech waveforms given the generated
+discrete speech units. The generated spoken continuations compete with
+supervised generations and synthesis using a character language model in
+subjective human evaluations. The model completes incomplete words
+(pow[..] $\rightarrow$ POWER) and continues using words in the same general mood (dark $\rightarrow$
+BLACKNESS)\footnote{https://speechbot.github.io/gslm/} and has been extended to
+model and generate
+dialogues~\cite{dialogue_GSLM}.\footnote{https://speechbot.github.io/dgslm/}
+%\cite{}. 
+Given its flexibility in modeling spoken content, the GSLM has been further extended
+to jointly model content and prosody~\cite{pGSLM}. This prosodic-GSLM model
+introduced a multistream causal Transformer, where the input and output layers
+use multiple heads to model three channels:  discrete speech units, duration,
+and quantized pitch. The prosodic-GSLM model jointly generates novel content
+and prosody congruently in the expressive 
+style of the prompt.\footnote{https://speechbot.github.io/pgslm/}
+%\cite{}. 
+Going one step further, \cite{emotion_conversion} used a speech emotion
+conversion framework to modify the perceived emotion of a speech utterance
+while preserving its lexical content and speaker identity. Other studies have
+extended the idea of textless language processing or audio discrete representation to applications such as 
+spoken question answering~\cite{spoken_qa_dual}, speech separation~\cite{shi2021discretization}, TTS~\cite{hayashi2020discretalk}, and speech-to-speech
+translation~\cite{textless_translation}.
+
+
+

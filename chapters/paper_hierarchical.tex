@@ -199,7 +199,7 @@ To shift the ELBO from primarily being based on the approximate posterior of the
     \mathcal{L}^{>k} = \mathbb{E}_{p_\thetab(\zb_{\leq k}|\zb_{>k}) q_\phib(\zb_{>k}|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p_\thetab(\zb_{>k})}{q_\phib(\zb_{>k}|\xb)} \right]
 \end{equation}
 where $k\in\{0,1,\dots,L\}$ (see Appendix for the derivation).
-We note that $\mathcal{L}^{>0}$ is the regular ELBO (\ref{eq:elbo}) and that empirically we always observe that $\mathcal{L}\geq\mathcal{L}^{>k} \, \forall \, k$ although this need not hold in general.
+We note that $\mathcal{L}^{>0}$ is the regular ELBO (\cref{eq:elbo}) and that empirically we always observe that $\mathcal{L}\geq\mathcal{L}^{>k} \, \forall \, k$ although this need not hold in general.
 The core idea behind this variation on the ELBO is to sample the $k$ lowest latent variables from the conditional prior $\zb_1,\dots,\zb_l \sim p_\thetab(\zb_{\leq k}|\zb_{>k})$ and only the $L-k$ highest from the approximate posterior $\zb_{k+1},\dots,\zb_L \sim q_\phib(\zb_{>k}|\xb)$.
 Importantly, this has the effect that the data likelihood $p(\xb|\zb)$ is dependent on the approximate posterior through a latent variable $\zb_{k+1}$ different from $\zb_1$ for all $k \geq 1$.
 Thereby, the likelihood can be evaluated with a reconstruction from each of the latent variables $\zb_k$ of the hierarchical VAE.
@@ -208,7 +208,7 @@ The notation $\mathcal{L}^{>k}$ highlights that for latent variables $\zb_{>k}$,
 
 
 \subsection{A likelihood-ratio score for all feature levels}
-While the $\mathcal{L}^{>k}$ bound provides a score for performing semantic OOD detection, it still relies on the data space likelihood function (see equation \eqref{eq:likelihoods-as-exact} below), which is known to be problematic for OOD detection (section \ref{sec:background-ood-detection}). To alleviate this, we phrase OOD detection as a likelihood ratio test of being \emph{semantically} in-distribution.
+While the $\mathcal{L}^{>k}$ bound provides a score for performing semantic OOD detection, it still relies on the data space likelihood function (see equation \eqref{eq:likelihoods-as-exact} below), which is known to be problematic for OOD detection (\cref{sec:background-ood-detection}). To alleviate this, we phrase OOD detection as a likelihood ratio test of being \emph{semantically} in-distribution.
 A standard likelihood ratio test \parencite{buse_likelihood_1982} suggests to consider the ratio between the associated likelihoods, which we can approximate on a log-scale by the corresponding lower bounds $\mathcal{L}$ and $\mathcal{L}^{>k}$,
 \begin{equation}\label{eq:llr-as-difference-in-likelihoods}
     % LLR = - 2 log(L0 / L1)
@@ -232,32 +232,32 @@ We can gather further insights about this score if we write the regular ELBO and
     \mathcal{L}^{>k} &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( p_\thetab(\zb_{\leq k }|\zb_{>k}) q_\phib(\zb_{>k}|\xb) || p_\thetab(\zb|\xb)\right) \nonumber \ .
 \end{align}
 Subtracting these cancel out the two data likelihood terms $\log p_\thetab(\xb)$ and only the KL-divergences from the approximate to the true posterior remain,
-\begin{align}\label{eq:llr-as-kls}
+\begin{align}
     LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phib(\zb|\xb) || p_\thetab(\zb|\xb)\right) \\
                  &\quad + D_{\mathrm{KL}}\left( p_\thetab(\zb_{\leq k}|\zb_{>k}) q_\phib(\zb_{>k}|\xb) || p_\thetab(\zb|\xb)\right) \ . \notag
-\end{align}
+\end{align}\label{eq:llr-as-kls}
 
 Hence, it is clear that compared to the likelihood bound $\mathcal{L}^{>k}$, this likelihood-ratio measures divergence exclusively in the latent space whereas $\mathcal{L}^{>k}$ includes the $\log p_\thetab(\xb)$ term similar to the ELBO.
 Therefore, the $LLR^{>k}$ score should be an improved method for semantic OOD detection compared to $\mathcal{L}^{>k}$.
 Now, it can be noted that if we replace the regular ELBO, $\mathcal{L}$, in \eqref{eq:likelihoods-as-exact} with the strictly tighter importance weighted bound \cite{burda_importance_2016},
-\begin{equation}\label{eq:iw-bound}
-    \mathcal{L}_{S} = \mathbb{E}_{q(\zb|\xb)}\left[ \log \frac{1}{N} \sum_{s=1}^{S} \frac{p(\xb, \zb^{(s)})}{q(\zb^{(s)}|\xb)} \right] \ ,
+\begin{equation}
+    \mathcal{L}_{S} = \mathbb{E}_{q(\zb|\xb)}\left[ \log \frac{1}{N} \sum_{s=1}^{S} \frac{p(\xb, \zb^{(s)})}{q(\zb^{(s)}|\xb)} \right] \ , \label{eq:iw-bound}
 \end{equation}
 then, in the limit $S\rightarrow\infty$, we have $\mathcal{L}_{S} \rightarrow \log p_\thetab(\xb)$ and the likelihood ratio reduces to
-\begin{equation}\label{eq:llr-as-kls-iwae-reduced}
-    LLR^{>k}_{S}(\xb) \rightarrow D_{\mathrm{KL}}( p(\zb_{\leq k}|\zb_{>k}) q(\zb_{>k}|\xb) || p(\zb|\xb))
+\begin{equation}
+    LLR^{>k}_{S}(\xb) \rightarrow D_{\mathrm{KL}}( p(\zb_{\leq k}|\zb_{>k}) q(\zb_{>k}|\xb) || p(\zb|\xb)) \label{eq:llr-as-kls-iwae-reduced}
 \end{equation}
-which, in practice, is well-approximated for a finite $S$. We expect this importance weighted likelihood ratio to monotonically improve upon the one in (\ref{eq:llr-as-kls}) as $S$ increases and the KL-divergence in the regular ELBO that contains terms for which $\zb_i$ is high-dimensional goes to zero.
+which, in practice, is well-approximated for a finite $S$. We expect this importance weighted likelihood ratio to monotonically improve upon the one in \cref{eq:llr-as-kls} as $S$ increases and the KL-divergence in the regular ELBO that contains terms for which $\zb_i$ is high-dimensional goes to zero.
 
 
-Since the scores in (\ref{eq:llr-as-kls}) and (\ref{eq:llr-as-kls-iwae-reduced}) are estimated by sampling their estimators are stochastic objects with nonzero variance.
+Since the scores in \cref{eq:llr-as-kls, eq:llr-as-kls-iwae-reduced} are estimated by sampling their estimators are stochastic objects with nonzero variance.
 We note that $\text{Var}(\widehat{LLR}^{>k}) = \text{Var}(\hat{\mathcal{L}}) + \text{Var}(\hat{\mathcal{L}}^{>k}) - 2\, \text{Cov}(\hat{\mathcal{L}}, \hat{\mathcal{L}}^{>k})$.
 Since $\log p_\thetab(\xb)$ and part of the KL divergence are identical in the expressions of $\mathcal{L}$ and $\mathcal{L}^{>k}$ we expect $\text{Cov}(\hat{\mathcal{L}}, \hat{\mathcal{L}}^{>k})$ to be positive which reduces the total variance. 
 Empirical results indeed show that $\text{Var}(\widehat{LLR}^{>k})$ is larger than $\text{Var}(\hat{\mathcal{L}})$ but smaller than $\text{Var}(\hat{\mathcal{L}}^{>k})$.
 %Whether this decreases the variance to below the variance of any of the two bounds, we do not know, and we believe it to be difficult to verify mathematically.
 Nevertheless, the variance of the estimators is guaranteed to go to zero as the number of samples is increased.
 
-The OOD scores considered in this research all assume that what discriminates an out-of-distribution from an in-distribution data point are semantic, high-level features. Clearly, if this is not the case and the difference instead lies in low-level statistics, the scores would likely fail. We hypothesize that a complementary bound to (\ref{eq:biva->k}), $\mathcal{L}^{<l}$ described in Appendix E, might be useful in these cases, but leave further examination to future work.
+The OOD scores considered in this research all assume that what discriminates an out-of-distribution from an in-distribution data point are semantic, high-level features. Clearly, if this is not the case and the difference instead lies in low-level statistics, the scores would likely fail. We hypothesize that a complementary bound to \cref{eq:biva->k}, $\mathcal{L}^{<l}$ described in Appendix E, might be useful in these cases, but leave further examination to future work.
 
 
 \section{Experimental setup}
@@ -323,7 +323,6 @@ A graphical representation of this model can be seen in \cref{fig:hvae-graphical
 We use a Bernoulli output distribution for FashionMNIST/MNIST and a discretized mixture of logistics output distribution \cite{salimans_pixelcnn_2017} for CIFAR10/SVHN.
 We use $L=3$ for grey-scale images and $L=4$ for natural images.
 % For CIFAR/SVHN, we also train a BIVA model \cite{maaloe_biva_2019} with $L=10$ and similar configuration as used by the original paper\footnote{Code available at \url{github.com/larsmaaloee/BIVA} and \url{github.com/vlievin/biva-pytorch}}.
-% All models are trained by optimizing the ELBO in (\ref{eq:elbo}). We implement our models in PyTorch \cite{paszke_automatic_2017}\footnote{Code available at \url{github.com/jakobhavtorn/hvae-oodd}}.
 Full model details are in the Appendix.
 
 

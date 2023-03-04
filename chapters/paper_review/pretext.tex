@@ -1,0 +1,298 @@
+%!TEX root = ../thesis.tex
+
+\begin{table*}[!htb]
+    \centering
+    \caption{
+    A summary of the approaches in the three categories of
+    self-supervised learning. 
+    Column~(a) lists the names of the models and related references, 
+    column~(b) defines the model input, 
+    column~(c) defines any corruption of the input or hidden representation, and
+    column~(d) defines the target of the pretext task; the pretext task itself
+    is described by the overall model category and the main text.
+    $X=\{x_1,x_2,...,x_T\}$ is the input sequence in which $x_t$ can be an
+    acoustic feature vector (e.g., MFCC, filterbank, or spectrogram features)
+    or a waveform sample. 
+    $X_{[t_1:t_2]}$ represents $\{x_{t_1},x_{t_1+1},...,x_{t_2}\}$.
+    $X_{-[t_1:t_2]}$ represents $X$ in which the segment
+    $X_{[t_1:t_2]}=\{x_{t_1},x_{t_1+1},...,x_{t_2}\}$ is masked.
+    $x_{t}^{i}$ represents the $i$-th dimension of $x_t$.
+    If $x_t$ is a frame in a spectrogram, then the $i$-th dimension corresponds
+    to a specific frequency bin.
+    $X^{-[f,f+j]}$ refers to a spectrogram $X$ which is masked along the frequency
+    axis from the $f$-th to $(f+j)$-th bin. 
+    % $X_{-[t:t+k]}^{-[f,f+j]}$ refers to a spectrogram $X$ but masked along both time and frequency dimensions. 
+    % $X^*$ is a temporally permuted version of $X$, that is, the $x_t$ are randomly shuffled to form $X^*$. 
+    We indicate random temporal permutation of a sequence by indexing it with
+    the set $\mathcal{P}_t\triangleq\textsc{permute}([0,t])$, where
+    $\textsc{permute}(\cdot)$ returns a permutation of the given list. 
+    We indicate data augmentation (e.g., reverberation) by the function
+    $\textsc{augment}(\cdot)$. Subscripts indicate different augmentations. 
+    % $X^\prime$ is an augmented version of $X$ (e.g., $X$ with reverberation), while $X^{\prime\prime}$ is $X$ adding distortion different from  $X^\prime$.
+    $Z$ represents a localized latent representation sequence of $X$. %, and $Z^\prime$ and $Z^{\prime\prime}$ are the latent representation sequences of  $X^\prime$ and $X^{\prime\prime}$, respectively. 
+    % $Z$ represents a localized latent representation sequence and $Z^\prime$ is the latent representation sequence of $X^\prime$. 
+    $Z^{(l)}$ is $Z$ at the $l$-th layer of the model used to compute it.
+    $\bar{H}$ is the contextualized sequence $H$ obtained from an exponential
+    moving average (EMA) of the model undergoing training with no masking
+    applied.
+    $Q$ represents a sequence of quantized learned representations, and $C$ is
+    a sequence of discrete cluster IDs.
+    For contrastive models, we specify only positive targets.
+    }
+    % \begin{minipage}{\textwidth}  
+\centering
+\renewcommand*\arraystretch{1.2}{
+\begin{tabular}{l|c|c|c}
+    \toprule
+    \textbf{Model} (a) & \textbf{Input} (b) & \textbf{Corruption} (c) & \textbf{Target} (d) \\
+    \midrule
+    \midrule
+    \multicolumn{4}{c}{\textsc{Generative models}} \\
+    \midrule
+    \midrule
+    Audio Word2vec~\cite{Chung2016AudioWord2Vec}, VQ-VAE~\cite{vqvae}     & $X$ &   \textsc{-}    &  $X$  \\ %It has VQ as extra constraint.
+    \midrule  
+    Speech2Vec~\cite{chung2018speech2vec}, Audio2Vec~\cite{tagliasacchi2020pre} - skip-gram    & $X_{[t_1,t_2]}$  &     \textsc{-}   &    $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$     \\
+    \midrule 
+    Speech2Vec~\cite{chung2018speech2vec}, Audio2Vec~\cite{tagliasacchi2020pre} - cbow    & $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$   &     \textsc{-}   &    $X_{[t_1,t_2]}$   \\
+    \midrule 
+    PASE~\cite{pascual2019learning}, PASE+~\cite{ravanelli2020multi}\footnote{PASE uses multiple pretext tasks, but the authors find that reconstruction is most important.}       & $X$ &  \textsc{-}   &  Different modalities of $X$  \\
+    \midrule 
+    APC~\cite{chung2019unsupervised,chung20e_interspeech}         & $X_{[1,t]}$   & \textsc{-}              & $x_{t+c},\, c\geq1$    \\ %VQ-APC is the same as APC
+    \midrule
+    Speech-XLNet \cite{song20d_interspeech}     & \multicolumn{2}{c|}{$X_{\mathcal{P}_{t}}$}   &     $x_{i\sim\mathcal{P}^c_{t}}$  \\ %Lee: Use * to represent the permutation, hope it is not strange.
+    \midrule  
+    DeCoAR~\cite{ling2020deep}     & $X_{[1,t-1]}, X_{[t+k+1,T]}$ & \textsc{-} & $X_{[t,t+k]}$   \\
+    \midrule
+    Mockingjay~\cite{liu2020mockingjay}, Audio ALBERT~\cite{chi2020audio}, DeCoAR 2.0~\cite{ling2020decoar}   & \multicolumn{2}{c|}{$X_{-[t,t+k]}$}   & $X_{[t,t+k]}$    \\
+    \midrule 
+    TERA~\cite{liu2021tera}, BMR~\cite{wang2020unsupervised}  & \multicolumn{2}{c|}{$X_{-[t,t+k]}^{-[f,f+j]}$}       & $X$       \\
+    \midrule
+    pMPC~\cite{yue2021pMPC}      &  \multicolumn{2}{c|}{$X_{-[t,t+k^\prime]}$ ($X_{[t,t+k^\prime]}$ is a phoneme)}       & $X_{[t,t+k^\prime]}$    \\
+    \midrule 
+    MPE~\cite{liu2020masked} & $X$ &  $Z_{-[t,t+k]}$  & $Z$    \\ %Lee: What is the difference between MPE and NPC??? And I believe it reconstruct the convolutional blocks output (learned target?)
+    \midrule
+    NPC~\cite{liu21l_interspeech}      & $X$  &   $Z_{-[t,t+k]}$  &    $X$   \\ %Lee: I am not 100% sure it is correct. Please check.
+    \midrule
+    \midrule
+    \multicolumn{4}{c}{\textsc{Contrastive models}} \\
+    \midrule
+    \midrule
+    Unspeech \cite{milde2018unspeech}       &   $X_{[t_1,t_2]}$ &   \textsc{-}   &  $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$ \\
+    \midrule 
+    CPC~\cite{oord2018representation}, wav2vec \cite{schneider2019wav2vec}, Modified CPC \cite{riviere2020unsupervised}         & $X_{[1,t]}$   &    \textsc{-}           & $z_{t+c},\, c\geq1$   \\ %Modified CPC is the same as CPC
+    \midrule 
+    Bidirectional CPC \cite{kawakami2020learning}      & $X_{[1,t]}$ or $X_{[t,T]}$ &  \textsc{-}    &    $z_{t+c}$ or $z_{t-c},\, c\geq1$   \\
+    \midrule 
+    vq-wav2vec \cite{Baevski2020vq-wav2vec}     &   $X_{[1,t]}$ &   \textsc{-}    &   $q_{t+c},\, c\geq1$   \\ 
+    \midrule 
+    wav2vec 2.0 \cite{baevski2020wav2vec}, wav2vec-C \cite{sadhu21_interspeech}\footnote{wav2vec-C adds reconstruction loss to wav2vec 2.0.}    & $X$             & $Z_{-[t,t+k]}$          & $Q_{[t,t+k]}$ \\
+    \midrule 
+    w2v-BERT \cite{w2vbert}     &$X$ &    $Z_{-[t,t+k]}$   &     $Q_{[t,t+k]}$ and $C_{[t,t+k]}$     \\
+    \midrule
+    Speech SimCLR \cite{SpeechSimCLR}\footnote{Speech SimCLR targets the latent representation of an augmented version of $X$ using a differently augmented $X$, and vice-versa.}    & \multicolumn{2}{c|}{$\textsc{augment}_1(X)$ and $\textsc{augment}_2(X)$}     &    $\textsc{augment}_2(Z)$ and $\textsc{augment}_1(Z)$   \\ 
+    \midrule
+    \midrule 
+    \multicolumn{4}{c}{\textsc{Predictive models}} \\
+    \midrule
+    \midrule
+    Discrete BERT~\cite{Baevski2020vq-wav2vec,baevski2019effectiveness} \footnote{Discrete BERT obtains codes $C$ from vq-wav2vec.}      &   \multicolumn{2}{c|}{$C_{-[t,t+k]}$}   & $C_{[t,t+k]}$  \\
+    \midrule 
+    HuBERT \cite{hsu2021hubert}\footnote{HuBERT is trained first using cluster IDs of the MFCCs as target and subsequently clusters IDs of the model representations from the last iteration.}, WavLM \cite{chen2021wavlm}\footnote{WavLM simulates noisy/overlapped speech as inputs.}  & $X$             & $Z_{-[t,t+k]}$          & $C_{[t,t+k]}$  \\ 
+    \midrule
+    data2vec \cite{data2vec}    & $X$             & $Z_{-[t,t+k]}$          & $\sum_{l}\bar{H}^{(l)}_{[t,t+k]}$  \\ 
+    \midrule 
+    BEST-RQ \cite{BEST-RQ}\footnote{BEST-RQ obtains codes $C$ by quantizing acoustic features using a random projection quantizer.}     &  \multicolumn{2}{c|}{$X_{-[t,t+k]}$}      &  $C_{[t,t+k]}$   \\ 
+    \midrule 
+    \bottomrule
+\end{tabular}
+}
+    
+% \end{minipage}
+\label{table:pretext}
+\end{table*}
+
+
+\begin{comment}
+\begin{table*}[ht!]
+    \centering
+    \caption{
+    This table summarizes the approaches of the three categories of self-supervised learning. 
+    Column (a) lists the names of the models and related references. 
+    Column (b) defines the input to the models. 
+    Column (c) defines any corruption of the input or some hidden representation. 
+    Column (d) defines the target of the pretext task; the pretext task itself is described by the overall model category and the main text.
+    $X=\{x_1,x_2,...,x_T\}$ is the input sequence in which $x_t$ can be an acoustic feature vector (e.g., MFCC, filterbank, or spectrogram features) or a waveform sample. 
+    $X_{[t_1:t_2]}$ represents $\{x_{t_1},x_{t_1+1},...,x_{t_2}\}$.
+    $X_{-[t_1:t_2]}$ represents $X$ with the segment $X_{[t_1:t_2]}=\{x_{t_1},x_{t_1+1},...,x_{t_2}\}$ masked.
+    $x_{t}^{i}$ represents the $i$-th dimension of $x_t$.
+    If $x_t$ is a frame in a spectrogram, then the $i$-th dimension corresponds to a specific frequency bin.
+    $X^{-[f,f+j]}$ refers to a spectrogram $X$ but masked along the frequency axis from the $f$-th to $f+j$-th bin. 
+    % $X_{-[t:t+k]}^{-[f,f+j]}$ refers to a spectrogram $X$ but masked along both time and frequency dimensions. 
+    % $X^*$ is a temporally permuted version of $X$, that is, the $x_t$ are randomly shuffled to form $X^*$. 
+    We indicate random temporal permutation of a sequence by indexing it with the set $\mathcal{P}_t\triangleq\textsc{permute}([0,t])$ where $\textsc{permute}(\cdot)$ returns a permutation of the given list. 
+    We indicate data augmentation (e.g. reverberation) by the function $\textsc{augment}(\cdot)$. Subscripts indicate different augmentations. 
+    % $X^\prime$ is an augmented version of $X$ (e.g., $X$ with reverberation), while $X^{\prime\prime}$ is $X$ adding distortion different from  $X^\prime$.
+    $Z$ represents a localized latent representation sequence of $X$. %, and $Z^\prime$ and $Z^{\prime\prime}$ are the latent representation sequences of  $X^\prime$ and $X^{\prime\prime}$, respectively. 
+    % $Z$ represents a localized latent representation sequence and $Z^\prime$ is the latent representation sequence of $X^\prime$. 
+    $Z^{(l)}$ is $Z$ at the $l$-th layer of the model used to compute it.
+    $\bar{H}$ is the contextualized sequence $H$ obtained from an exponential moving average (EMA) of the model undergoing training with no masking applied.
+    $Q$ represents a sequence of quantized learned representations, and $C$ is a sequence of discrete cluster IDs.
+    For contrastive models, we specify only positive targets.
+    }
+    \begin{minipage}{\textwidth}  
+    \centering
+    \renewcommand*\arraystretch{1.1}{
+    \begin{tabular}{l|c|c|c}
+    \toprule
+    \textbf{Model} (a) & \textbf{Input} (b) & \textbf{Corruption} (c) & \textbf{Target} (d) \\
+    \midrule
+    \midrule
+    \multicolumn{4}{c}{\textsc{Generative models}} \\
+    \midrule
+    \midrule
+    Audio Word2vec~\cite{Chung2016AudioWord2Vec}, VQ-VAE \cite{vqvae}     & $X$ &   \textsc{-}    &  $X$  \\ %It has VQ as extra constraint.
+    \midrule  
+    Speech2Vec~\cite{chung2018speech2vec}, Audio2Vec~\cite{tagliasacchi2020pre} - skip-gram    & $X_{[t_1,t_2]}$  &     \textsc{-}   &    $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$     \\
+    \midrule 
+   Speech2Vec~\cite{chung2018speech2vec}, Audio2Vec~\cite{tagliasacchi2020pre} - cbow    & $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$   &     \textsc{-}   &    $X_{[t_1,t_2]}$   \\
+    \midrule 
+     PASE~\cite{pascual2019learning}, PASE+~\cite{ravanelli2020multi}\footnote{PASE uses multiple pretext tasks, but the authors find that reconstruction is most important.}       & $X$ &  \textsc{-}   &  Different modalities of $X$  \\
+    \midrule 
+    APC~\cite{chung2019unsupervised,chung20e_interspeech}         & $X_{[1,t]}$   & \textsc{-}              & $x_{t+c},\, c\geq1$    \\ %VQ-APC is the same as APC
+    \midrule
+    Speech-XLNet \cite{song20d_interspeech}     & \multicolumn{2}{c|}{$X_{\mathcal{P}_{t}}$}   &     $x_{i\sim\mathcal{P}^c_{t}}$  \\ %Lee: Use * to represent the permutation, hope it is not strange.
+    \midrule  
+    DeCoAR~\cite{ling2020deep}     & $X_{[1,t-1]}, X_{[t+k+1,T]}$ & \textsc{-} & $X_{[t,t+k]}$   \\
+    \midrule
+    Mockingjay~\cite{liu2020mockingjay}, Audio ALBERT~\cite{chi2020audio}, DeCoAR 2.0~\cite{ling2020decoar}   & \multicolumn{2}{c|}{$X_{-[t,t+k]}$}   & $X_{[t,t+k]}$    \\
+    \midrule 
+    TERA~\cite{liu2021tera}, BMR~\cite{wang2020unsupervised}  & \multicolumn{2}{c|}{$X_{-[t,t+k]}^{-[f,f+j]}$}       & $X$       \\
+    \midrule
+    pMPC~\cite{yue2021pMPC}      &  \multicolumn{2}{c|}{$X_{-[t,t+k^\prime]}$ ($X_{[t,t+k^\prime]}$ is a phoneme)}       & $X_{[t,t+k^\prime]}$    \\
+    \midrule 
+    MPE~\cite{liu2020masked} & $X$ &  $Z_{-[t,t+k]}$  & $Z$    \\ %Lee: What is the difference between MPE and NPC??? And I believe it reconstruct the convolutional blocks output (learned target?)
+    \midrule
+    NPC~\cite{liu21l_interspeech}      & $X$  &   $Z_{-[t,t+k]}$  &    $X$   \\ %Lee: I am not 100% sure it is correct. Please check.
+    \midrule
+    \midrule
+    \multicolumn{4}{c}{\textsc{Contrastive models}} \\
+    \midrule
+    \midrule
+    Unspeech \cite{milde2018unspeech}       &   $X_{[t_1,t_2]}$ &   \textsc{-}   &  $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$ \\
+    \midrule 
+    CPC~\cite{oord2018representation}, wav2vec \cite{schneider2019wav2vec}, Modified CPC \cite{riviere2020unsupervised}         & $X_{[1,t]}$   &    \textsc{-}           & $z_{t+c},\, c\geq1$   \\ %Modified CPC is the same as CPC
+        \midrule 
+    Bidirectional CPC \cite{kawakami2020learning}      & $X_{[1,t]}$ or $X_{[t,T]}$ &  \textsc{-}    &    $z_{t+c}$ or $z_{t-c},\, c\geq1$   \\
+    \midrule 
+    vq-wav2vec \cite{Baevski2020vq-wav2vec}     &   $X_{[1,t]}$ &   \textsc{-}    &   $q_{t+c},\, c\geq1$   \\ 
+    \midrule 
+    wav2vec 2.0 \cite{baevski2020wav2vec}, wav2vec-C \cite{sadhu21_interspeech}\footnote{wav2vec-C adds the reconstruction loss to wav2vec 2.0.}    & $X$             & $Z_{-[t,t+k]}$          & $Q_{[t,t+k]}$ \\
+    \midrule 
+    w2v-BERT \cite{w2vbert}     &$X$ &    $Z_{-[t,t+k]}$   &     $Q_{[t,t+k]}$ and $C_{[t,t+k]}$     \\
+    \midrule
+    Speech SimCLR \cite{SpeechSimCLR}\footnote{Speech SimCLR targets the latent representation of an augmented version of $X$ using a differently augmented $X$, and vice-versa.}    & \multicolumn{2}{c|}{$\textsc{augment}_1(X)$ and $\textsc{augment}_2(X)$}     &    $\textsc{augment}_2(Z)$ and $\textsc{augment}_1(Z)$   \\ 
+   \midrule
+   \midrule 
+    \multicolumn{4}{c}{\textsc{Predictive models}} \\
+    \midrule
+    \midrule
+    Discrete BERT~\cite{Baevski2020vq-wav2vec,baevski2019effectiveness} \footnote{Discrete BERT obtains codes $C$ from vq-wav2vec.}      &   \multicolumn{2}{c|}{$C_{-[t,t+k]}$}   & $C_{[t,t+k]}$  \\
+    \midrule 
+    HuBERT \cite{hsu2021hubert}\footnote{HuBERT is trained first using cluster IDs of MFCCs as target and subsequently cluster IDs of model representations from the last iteration.}, WavLM \cite{chen2021wavlm}\footnote{WavLM simulates noisy/overlapped speech as inputs.}  & $X$             & $Z_{-[t,t+k]}$          & $C_{[t,t+k]}$  \\ 
+    \midrule
+    data2vec \cite{data2vec}    & $X$             & $Z_{-[t,t+k]}$          & $\sum_{l}\bar{H}^{(l)}_{[t,t+k]}$  \\ 
+        \midrule 
+BEST-RQ \cite{BEST-RQ}\footnote{BEST-RQ obtains codes $C$ by quantizing acoustic features using a random projection quantizer.}     &  \multicolumn{2}{c|}{$X_{-[t,t+k]}$}      &  $C_{[t,t+k]}$   \\ 
+        \midrule 
+    \bottomrule
+    \end{tabular}
+    }
+    
+    \end{minipage}
+    \label{table:pretext}
+\end{table*}
+\end{comment}
+
+\begin{comment}
+\begin{table*}[h!]
+\centering
+
+\setlength{\tabcolsep}{3pt}
+\caption{
+This table summarizes the generative approaches. 
+Column (a) is the name of the models (if any) and their reference.
+Column (b) is the corrupted speech signals for encoder input.
+Column (c) is the target output of decoder.
+Column (d) is regularization methods used if any.
+Column (e) are the models using the same pretext in NLP or CV.
+$S$ is a sequence of waveform samples, and $s_t$ is a single waveform sample.
+$S^*$ is the degradation of $S$ with reverberation or additive noises. 
+$S$ can be represented by a sequence of acoustic feature, $X=\{x_1,x_2,...,x_T\}$, in which $x_t$ is an acoustic feature vector like MFCC, fbank, spectrogram, etc. 
+$X^*$ is the permuted version of $X$. That is, the frames in $X$ are randomly shuffled to form $X^*$. 
+$X_{[t_1:t_2]}$ represents $\{x_{t_1},x_{t_1+1},...,x_{t_2}\}$.
+$X_{-[t_1:t_2]}$ represents the segment $\{x_{t_1},x_{t_1+1},...,x_{t_2}\}$ in $X$ is masked, that is, the frames in the region is replaced by zero vectors or random sampled vectors.
+$x_{t}^{i}$ represents the $i$-th dimension of frame $x_t$.
+If $x_t$ is a frame in a spectrogram, then the $i$-th dimension corresponds to a specific frequency bin.
+$X^{-[f_1,f_2]}$ means that for all the frames $x$ in $X$, their $f_1$-th to $f_2$-th dimensions are all masked. 
+$X_{-[t_1:t_2]}^{-[f_1,f_2]}$ means $X$ are masked in two directions. 
+}
+\label{table:generative}
+  {\renewcommand*\arraystretch{1.2}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+(a) Model & (b) Corrupted Input & (c) Target Output & (d) Regularization &   (e) Counterparts \\ 
+\hline \hline 
+
+APC~\cite{chung2019unsupervised, chung2020generative,chung2020improved} & $X_{[1,t-1]}$  & $x_{t+c},c\geq0$ & VQ~\cite{chung20e_interspeech} &  GPT~\cite{alex2018GPT,alex2019GPT2,brown2020gpt3} \\ \hline
+
+%$X_{[1,t-1]}$  & $x_{t+c},c\geq0$ & VQ & VQ-APC~\cite{chung20e_interspeech} & -  \\
+
+DeCoAR~\cite{ling2020deep} & $X_{[1,t-1]}$, $X_{[t+k+1,T]}$ &  $X_{[t,t+k]}$ & VQ~\cite{ling2020deep} &  ELMo~\cite{Matthew2018ELMO} \\
+\hline
+
+\tabincell{l}{ Mockingjay~\cite{liu2020mockingjay} \\ MPC~\cite{jiang2019improving,jiang2021further} \\ AALBERT~\cite{chi2021aalbert} \\
+DeCoAR 2.0~\cite{ling2020decoar} } &
+$X_{-[t,t+k]}$ & $X_{[t,t+k]}$ & VQ~\cite{ling2020decoar} &  \tabincell{l}{BERT ~\cite{jacob2019BERT}\\RoBERTa~\cite{Liu2019RoBERTa}} \\ \hline
+
+pMPC~\cite{yue2021pMPC}   &
+\tabincell{l}{$X_{-[t,t+k^\prime]}$\\($X_{[t,t+k^\prime]}$: phoneme-level segment)} & $X_{[t,t+k^\prime]}$ & - &  SpanBert~\cite{joshi-etal-2020-spanbert} \\ \hline
+
+speech-XLNet~\cite{song20d_interspeech} &
+$X^*_{[1:t-1]}$ & $x^*_t$ & - &  XLNet~\cite{Yang2019LNet}   \\ \hline
+
+\tabincell{l}{NPC~\cite{liu21l_interspeech}\\MPE~\cite{liu2020masked}} &
+\tabincell{l}{$X_{-[t,t+k]}$\\(mask on hidden layer)} & $X_{[t,t+k]}$ & - &   - \\ \hline
+
+\tabincell{l}{BMR~\cite{wang2020unsupervised}\\TERA~\cite{liu2021tera}} &
+$X_{-[t_1:t_2]}^{-[f_1,f_2]}$ & $X$ & dropout~\cite{luo2021drop} &  -  \\ \hline
+
+\cite{chorowski2019unsupervised} &
+$S$ & $S$ & \tabincell{l}{VQ-VAE~\cite{chorowski2019unsupervised}\\time-jitter regularizer~\cite{chorowski2019unsupervised}} & 
+\tabincell{l}{\cite{van2017neural,VQVAE2} \\ (just name a few)} \\ \hline
+
+\cite{tagliasacchi2019self, tagliasacchi2020pre} & 
+$X_{[t-k,t-1]},X_{[t+k+1,t+2k]}$ & $X_{[t,t+k]}$  & - & CBoW~\cite{mikolov2013efficient}  \\ \hline
+
+\cite{tagliasacchi2019self, tagliasacchi2020pre} &
+$X_{[t,t+k]}$ & $X_{[t-k,t-1]},X_{[t+k+1,t+2k]}$ & - &  Skipgram~\cite{mikolov2013efficient} \\ \hline
+
+\cite{quitry2019learning}  &
+Magnitude of $X$ & Phase of $X$ & - &  - \\ \hline
+
+TemporalGap~\cite{tagliasacchi2019self, tagliasacchi2020pre} &
+$X_{[t_1,t_1+k]}$, $X_{[t_2,t_2+k]}$ & $|t_1 - t_2|$ & - &  -  \\ \hline
+
+\cite{Carr2021Ranking} &
+$X^*$ & correct order & - &  Jigsaw~\cite{noroozi2016unsupervised} \\ 
+\hline 
+
+PASE~\cite{pascual2019learning} &
+$S$ & $X$: LPS, MFCC, Prosody & - &  -  \\ \hline
+
+PASE+~\cite{ravanelli2020multi} & 
+$S^*$ & \tabincell{l}{$X$: LPS, MFCC, Prosody, \\ fbank, gammatone} & -  &  -  \\ \hline
+\end{tabular}
+}
+\end{table*}
+\end{comment}
