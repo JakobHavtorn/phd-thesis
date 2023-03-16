@@ -39,15 +39,15 @@ speaker without interfering background signals. The 3100-hour audio part of
 AVSpeech has been used to learn audio-only 
 representations~\cite{kawakami2020learning}. The Fisher corpus~\cite{cieri2004fisher} collects
 over 2k hours of conversational telephone speech, 1k hours of which is utilized
-for pre-training~\cite{jiang2021further}. Industrial researchers have also
+for pre-training~\cite{jiang_further_2021}. Industrial researchers have also
 begun to build large-scale datasets for learning speech representations.
 For instance, 10k hours of real-world far-field English voice commands for
 self-supervised pre-training have been collected at 
-Amazon~\cite{sadhu21_interspeech}. 
+Amazon~\cite{sadhu_wav2vec-c_2021}. 
 
 In addition to these English and multilingual efforts, researchers have also
 collected corpora for pre-training Chinese speech representations. Didi Dictation
-and Didi Callcenter~\cite{jiang2019improving, jiang2021further} are two
+and Didi Callcenter~\cite{jiang2019improving, jiang_further_2021} are two
 internal datasets containing respectively 10k hours of read speech collected
 from mobile dictation application and 10k hours of spontaneous phone calls
 between users and customer service staff.
@@ -94,7 +94,7 @@ European languages for a total of 50k hours of audio. VP comprises a total of 40
 hours of parliamentary speech from the European parliament in 23 European
 languages.
 The entire dataset~\cite{babu2021xlsr} or a 24k-hour 
-portion~\cite{chen2021unispeechsat, chen2021wavlm} thereof has been used for pre-training. BBL
+portion~\cite{chen2021unispeechsat, chen_wavlm_2021} thereof has been used for pre-training. BBL
 consists of 1k hours of conversational telephone speech in 17 African and Asian
 languages.
 
@@ -125,7 +125,7 @@ generalizability of learned representations.
 %, and each person read 10 phonetically-rich sentences.
 
 For the purpose of pre-training and evaluating Mandarin speech representations,
-the authors of \cite{jiang2019improving, jiang2021further} also compiled Open Mandarin, 
+the authors of \cite{jiang2019improving, jiang_further_2021} also compiled Open Mandarin, 
 an open-source Mandarin dataset of 1.5k hours of speech from
 the Linguistic Data Consortium (LDC) and
 OpenSLR.\footnote{\url{https://openslr.org}} Open Mandarin consists of the HKUST
@@ -162,7 +162,7 @@ speakers and recorded with microphone arrays. CHiME-5~\cite{barker2018fifth} is
 a challenge that aims to advance robust ASR and presents a dataset of natural
 conversational speech collected under a dinner party scenario with microphone
 arrays. A team at Amazon Alexa also recorded and transcribed a corpus of 1k
-hours of audio for model training and evaluation~\cite{sadhu21_interspeech}.
+hours of audio for model training and evaluation~\cite{sadhu_wav2vec-c_2021}.
 
 Researchers also evaluate representations for sentiment analysis with the
 INTERFACE~\cite{hozjan2002interface} and MOSEI (CMU Multimodal Opinion
@@ -204,7 +204,7 @@ further select 21 phonetically diverse languages from OpenSLR to evaluate the
 generalizability of SSL representations across languages. We denote the
 collection as OpenSLR-multi below.
 
-Last, \cite{tagliasacchi2020pre} puts together five datasets 
+Last, \cite{tagliasacchi_pre_2020} puts together five datasets 
 (MUSAN~\cite{snyder2015musan}, Bird Audio Detection~\cite{stowell2019automatic},
 Speech Commands~\cite{warden2018speech}, Spoken Language 
 Identification~\cite{oponowiczspoken}, and TUT Urban Acoustic Scenes 2018~\cite{dcase2018}) plus
@@ -249,7 +249,7 @@ audio processing, we here provide only a list of these datasets for reference.
     LibriLight (LL) & PT & EN & 60k & - & MIT License \\ \hline
     AudioSet & PT & Multi & 2.5k & - & CC BY 4.0 \\ \hline %Bidir-CPC, Audio2Vec
     AVSpeech & PT & Multi & 3.1k & - & CC BY 4.0 \\ \hline %Bidir-CPC
-    Fisher & PT & EN & 2k/1k \cite{jiang2021further}  & - & Linguistic Data Consortium (LDC) \\ \hline % MPC
+    Fisher & PT & EN & 2k/1k \cite{jiang_further_2021}  & - & Linguistic Data Consortium (LDC) \\ \hline % MPC
 
     Alexa-10k & PT & EN & 10k & - & Not released \\ \hline % wav2vec-c
     Didi Callcenter & PT & ZH & 10k & - & Not released \\ \hline % MPC
@@ -260,10 +260,10 @@ audio processing, we here provide only a list of these datasets for reference.
 
     Common Voice (CV-dataset) & PT/EV & Multi & 11k/7k \cite{babu2021xlsr}/430 \cite{kawakami2020learning} & ASR/PR/PC & CC0 \\ \hline % mention the split, CPC-modified, Bidir-CPC
     Multilingual LS (MLS) & PT/EV & Multi & 50k & ASR & CC BY 4.0 \\ \hline
-    VoxPopuli (VP) & PT/EV & Multi & 400k \cite{babu2021xlsr}/24k \cite{chen2021unispeechsat, chen2021wavlm} & ASR & CC0 \\ \hline
+    VoxPopuli (VP) & PT/EV & Multi & 400k \cite{babu2021xlsr}/24k \cite{chen2021unispeechsat, chen_wavlm_2021} & ASR & CC0 \\ \hline
     BABEL (BBL) & PT/EV & Multi & 1k & ASR & IARPA Babel Agreement  \\ \hline
 
-    GigaSpeech & PT/EV & EN & 40k/10k \cite{chen2021unispeechsat, chen2021wavlm} & ASR & Apache-2.0 License \\ \hline
+    GigaSpeech & PT/EV & EN & 40k/10k \cite{chen2021unispeechsat, chen_wavlm_2021} & ASR & Apache-2.0 License \\ \hline
     TED-LIUM 3 (TED3) & PT/EV & EN & 450 & ASR & CC BY-NC-ND 3.0 \\ \hline %Bidir-CPC
     TED-LIUM 2 (TED2) & PT/EV & EN & 118 & ASR & CC BY-NC-ND 3.0  \\ \hline % speech-XLNet
     Switchboard (SWB) & PT/EV & EN & 260 & ASR & Linguistic Data Consortium (LDC) \\ \hline % MPC, Bidir-CPC
@@ -327,22 +327,22 @@ audio processing, we here provide only a list of these datasets for reference.
     \midrule
 
     % CPC
-    \multirow{2}{*}[0mm]{CPC \cite{oord2018representation}} & \multirow{2}{*}[0mm]{LS 100 hrs} & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{CPC \cite{oord_representation_2018}} & \multirow{2}{*}[0mm]{LS 100 hrs} & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
     & & SID & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
     
     % PASE
-    \multirow{2}{*}[-5mm]{PASE\cite{pascual2019learning}} & \multirow{2}{*}[-5mm]{LS 50 hrs \cite{ravanelli2018learning}} & SID & VCTK\textsuperscript{\ref{footnote:official-split}} & VCTK\textsuperscript{\ref{footnote:official-split}} & \checkmark & 44 hrs \\ \cline{3-7}
+    \multirow{2}{*}[-5mm]{PASE\cite{pascual_learning_2019}} & \multirow{2}{*}[-5mm]{LS 50 hrs \cite{ravanelli2018learning}} & SID & VCTK\textsuperscript{\ref{footnote:official-split}} & VCTK\textsuperscript{\ref{footnote:official-split}} & \checkmark & 44 hrs \\ \cline{3-7}
     & & Sentiment & INTERFACE\textsuperscript{\ref{footnote:interface-split}} & INTERFACE\textsuperscript{\ref{footnote:interface-split}} & \checkmark & 3 hrs \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
     & & ASR & DIRHA\textsuperscript{\ref{footnote:official-split}} & DIRHA\textsuperscript{\ref{footnote:official-split}} & \checkmark & 11 hrs \\ \hline
     % Audio2Vec
-    Audio2Vec \cite{tagliasacchi2020pre} & AudioSet & AED & 6 AED datasets\textsuperscript{\ref{footnote:AED-datasets}} & 6 AED datasets\textsuperscript{\ref{footnote:AED-datasets}} & \checkmark & See \cite{tagliasacchi2020pre} for details \\ \hline
+    Audio2Vec \cite{tagliasacchi_pre_2020} & AudioSet & AED & 6 AED datasets\textsuperscript{\ref{footnote:AED-datasets}} & 6 AED datasets\textsuperscript{\ref{footnote:AED-datasets}} & \checkmark & See \cite{tagliasacchi_pre_2020} for details \\ \hline
     % APC
-    \multirow{3}{*}[0mm]{APC \cite{chung2019unsupervised, chung2020generative}} & \multirow{3}{*}[0mm]{LS 360 hrs} & ASR & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & WSJ dev93 & \checkmark & 72 hrs \\ \cline{3-7}
+    \multirow{3}{*}[0mm]{APC \cite{chung_unsupervised_2019, chung_generative_2020}} & \multirow{3}{*}[0mm]{LS 360 hrs} & ASR & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & WSJ dev93 & \checkmark & 72 hrs \\ \cline{3-7}
     & & ST & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & - & 236 hrs \\ \cline{3-7}
     & & SID & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & \checkmark & 65\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
     % wav2vec
-    \multirow{2}{*}[0mm]{wav2vec \cite{schneider2019wav2vec}} & \multirow{2}{*}[-0.5mm]{\makecell[l]{LS 80/960 hrs,\\ LS 960 hrs \\ \:+ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & \checkmark & 81 hrs\vspace{1mm} \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{wav2vec \cite{schneider_wav2vec:_2019}} & \multirow{2}{*}[-0.5mm]{\makecell[l]{LS 80/960 hrs,\\ LS 960 hrs \\ \:+ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & \checkmark & 81 hrs\vspace{1mm} \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hr\vspace{1mm} \\ \hline
     % Phase predict
     PhasePredict \cite{quitry2019learning} & AudioSet & AED & 7 AED datasets\textsuperscript{\ref{footnote:AED-datasets}} & 7 AED datasets\textsuperscript{\ref{footnote:AED-datasets}} & \checkmark & See \cite{quitry2019learning} for details \\ \hline
@@ -353,7 +353,7 @@ audio processing, we here provide only a list of these datasets for reference.
     % vq-VAE
 
     % MockingJay
-    \multirow{3}{*}{MockingJay \cite{liu2020mockingjay}} & \multirow{3}{*}{\makecell[l]{LS 360 hrs}} & PC & LS 360 hrs & LS test-clean & - & 0.36\textsuperscript{\ref{footnote:low-resource}}/1.8\textsuperscript{\ref{footnote:low-resource}}/3.6\textsuperscript{\ref{footnote:low-resource}}/18\textsuperscript{\ref{footnote:low-resource}}/45\textsuperscript{\ref{footnote:low-resource}}/360  hrs \\ \cline{3-7}
+    \multirow{3}{*}{MockingJay \cite{liu_mockingjay_2020}} & \multirow{3}{*}{\makecell[l]{LS 360 hrs}} & PC & LS 360 hrs & LS test-clean & - & 0.36\textsuperscript{\ref{footnote:low-resource}}/1.8\textsuperscript{\ref{footnote:low-resource}}/3.6\textsuperscript{\ref{footnote:low-resource}}/18\textsuperscript{\ref{footnote:low-resource}}/45\textsuperscript{\ref{footnote:low-resource}}/360  hrs \\ \cline{3-7}
     & & SID & LS 100 hrs\textsuperscript{\ref{footnote:91-split-test}} & LS 100 hrs\textsuperscript{\ref{footnote:91-split-test}} & - & 90\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
     & & Sentiment & MOSEI\textsuperscript{\ref{footnote:official-split}} & MOSEI\textsuperscript{\ref{footnote:official-split}} & \checkmark & 65 hrs \\ \hline
 
@@ -361,7 +361,7 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}{CPC modified \cite{riviere2020unsupervised}} & LS 100 hrs & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & \makecell[l]{LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}}} & - & \makecell[l]{80\textsuperscript{\ref{footnote:low-resource}} hrs} \\ \cline{2-7}
     & \makecell[l]{LS 100 hrs,\\LS 960 hrs,\\LL 60k hrs} & PC & CV-dataset\textsuperscript{\ref{footnote:official-split}} & CV-dataset\textsuperscript{\ref{footnote:official-split}} & \checkmark & 1 hrs \\ \hline
     % vq-wav2vec
-    \multirow{2}{*}[0mm]{vq-wav2vec \cite{Baevski2020vq-wav2vec}} & \multirow{2}{*}[0mm]{LS 960 hrs} & ASR & WSJ si284 & \makecell[l]{WSJ eval92} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{vq-wav2vec \cite{baevski_vq-wav2vec_2020}} & \multirow{2}{*}[0mm]{LS 960 hrs} & ASR & WSJ si284 & \makecell[l]{WSJ eval92} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \hline
     % DeCoAR
     \multirow{2}{*}[0mm]{DeCoAR \cite{ling2020deep}} & \multirow{2}{*}[0mm]{\makecell[l]{LS 100/360/460/\\\:\:\:960 hrs,\\ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{25\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}}/81 hrs} \\ \cline{3-7}
@@ -370,7 +370,7 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}[0mm]{MT-APC\cite{chung2020improved}} & \multirow{2}{*}[0mm]{LS 360 hrs} & ASR & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & WSJ dev93 & \checkmark & 72 hrs \\ \cline{3-7}
     & & ST & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & - & 236 hrs \\ \hline
     % PASE+
-    \multirow{3}{*}[0mm]{PASE+\cite{ravanelli2020multi}} & \multirow{3}{*}[0mm]{LS 50 hrs \cite{ravanelli2018learning}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
+    \multirow{3}{*}[0mm]{PASE+\cite{ravanelli_multi_2020}} & \multirow{3}{*}[0mm]{LS 50 hrs \cite{ravanelli2018learning}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
     & & ASR & DIRHA\textsuperscript{\ref{footnote:official-split}} & DIRHA\textsuperscript{\ref{footnote:official-split}} & \checkmark & 11 hrs \\ \cline{3-7}
     & & ASR & CHiME-5\textsuperscript{\ref{footnote:official-split}} & CHiME-5\textsuperscript{\ref{footnote:official-split}} & \checkmark & 50 hrs \\ \hline
 
@@ -398,22 +398,22 @@ audio processing, we here provide only a list of these datasets for reference.
     \midrule
 
     % BMR
-    \multirow{2}{*}[0mm]{BMR \cite{wang2020unsupervised}} & \multirow{2}{*}[0mm]{\makecell[l]{WSJ si284,\\LS 960 hrs}} & ASR & WSJ si284 & WSJ eval92 & - & 81 hrs \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{BMR \cite{wang_unsupervised_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{WSJ si284,\\LS 960 hrs}} & ASR & WSJ si284 & WSJ eval92 & - & 81 hrs \\ \cline{3-7}
     & & PR & WSJ si84/si284 & WSJ dev93 & - & 15/81 hrs \\ \hline
 
     % vq-APC
-    \multirow{2}{*}[0mm]{vq-APC \cite{chung20e_interspeech}} & \multirow{2}{*}[0mm]{LS 360 hrs} & PC & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & \makecell[l]{WSJ dev93} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{vq-APC \cite{chung_vector-quantized_2020}} & \multirow{2}{*}[0mm]{LS 360 hrs} & PC & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & \makecell[l]{WSJ dev93} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
     & & SID & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & \checkmark & 65\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
 
     % vq-wav2vec + Discrete BERT
-    \makecell[l]{vq-wav2vec + \\\:DiscreteBERT \cite{baevski2019effectiveness}} & LS 960 hrs & ASR & LS 100 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
+    \makecell[l]{vq-wav2vec + \\\:DiscreteBERT \cite{baevski_effectiveness_2020}} & LS 960 hrs & ASR & LS 100 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
 
     % speech-XLNet
     \multirow{2}{*}[-1mm]{speech-XLNet \cite{song20d_interspeech}} & \multirow{2}{*}[-1mm]{\makecell[l]{LS 960 hrs\\\;\;\;+ WSJ si284\\\;\;\;+ TED2}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs\vspace{1mm} \\ \cline{3-7}
     & & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{7\textsuperscript{\ref{footnote:low-resource}}/14\textsuperscript{\ref{footnote:low-resource}}/30\textsuperscript{\ref{footnote:low-resource}}/81 hrs}\vspace{1mm} \\ \hline
     
     % MPC
-    \multirow{3}{*}[0mm]{MPC \cite{jiang2019improving, jiang2021further}} & \multirow{2}{*}[0mm]{\makecell[l]{Didi Callcenter,\\Didi Dictation,\\Open Mandarin}} & ASR-zh & HKUST\textsuperscript{\ref{footnote:official-split}} & HKUST\textsuperscript{\ref{footnote:official-split}} & \checkmark & 168 hrs \\ \cline{3-7}
+    \multirow{3}{*}[0mm]{MPC \cite{jiang2019improving, jiang_further_2021}} & \multirow{2}{*}[0mm]{\makecell[l]{Didi Callcenter,\\Didi Dictation,\\Open Mandarin}} & ASR-zh & HKUST\textsuperscript{\ref{footnote:official-split}} & HKUST\textsuperscript{\ref{footnote:official-split}} & \checkmark & 168 hrs \\ \cline{3-7}
     & & ASR-zh & AISHELL-1\textsuperscript{\ref{footnote:official-split}} & AISHELL-1\textsuperscript{\ref{footnote:official-split}} & \checkmark & 178 hrs\vspace{1mm} \\ \cline{2-7}
     & \multirow{1}{*}[-0.5mm]{\makecell[l]{SWB, Fisher 1k,\\LS 960 hrs}} & ASR & SWB & Hub5'00 & - & 260 hrs \vspace{2.5mm} \\ \hline
 
@@ -433,16 +433,16 @@ audio processing, we here provide only a list of these datasets for reference.
     DeCoAR 2.0 \cite{ling2020decoar} & LS 960 hrs & ASR & \makecell[l]{LS 100 hrs} & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
 
     % TERA
-    \multirow{4}{*}[0mm]{TERA \cite{liu2021tera}} & \multirow{4}{*}[0mm]{\makecell[l]{LS 100/360/\\\:\:\:960 hrs}} & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
+    \multirow{4}{*}[0mm]{TERA \cite{liu_tera_2021}} & \multirow{4}{*}[0mm]{\makecell[l]{LS 100/360/\\\:\:\:960 hrs}} & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
     & & SID & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
     & & ASR & LS 100 hrs & LS test-clean & - & 100 hrs \\ \hline
     % HuBERT
-    HuBERT \cite{hsu2021hubert} & \makecell[l]{LS 960 hrs,\\ LL 60k hrs} & ASR & LS 960 hrs & \makecell[l]{LS test-clean\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100/960 hrs} \\ \hline
+    HuBERT \cite{hsu_hubert_2021} & \makecell[l]{LS 960 hrs,\\ LL 60k hrs} & ASR & LS 960 hrs & \makecell[l]{LS test-clean\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100/960 hrs} \\ \hline
     %wav2vec-c
-    wav2vec-c \cite{sadhu21_interspeech} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
-    UniSpeech-SAT \cite{chen2021unispeechsat} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See SUPERB \cite{yang21c_interspeech} paper for details \\ \hline
-    WavLM \cite{chen2021wavlm} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See \cite{yang21c_interspeech} for details \\ \hline
+    wav2vec-c \cite{sadhu_wav2vec-c_2021} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
+    UniSpeech-SAT \cite{chen2021unispeechsat} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See SUPERB \cite{yang_superb_2021} paper for details \\ \hline
+    WavLM \cite{chen_wavlm_2021} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See \cite{yang_superb_2021} for details \\ \hline
     \multirow{4}{*}[0mm]{XLS-R \cite{babu2021xlsr}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;\;+ CV-dataset-7k + VL\\\;\;\;+ BBL}} & ASR & VP, MLS, CV-dataset, BBL, LS & VP, MLS, CV-dataset, BBL, LS & - & \multirow{4}{*}[0mm]{See \cite{babu2021xlsr} for details} \\ \cline{3-6}
     & & SID & VoxCeleb1 & VoxCeleb1 & \checkmark & \\ \cline{3-6}
     & & ST & CoVoST-2 & CoVoST-2 & \checkmark & \\ \cline{3-6}
@@ -461,7 +461,7 @@ audio processing, we here provide only a list of these datasets for reference.
 \addtocounter{footnote}{1}
 \footnotetext{\label{footnote:CPC-split}
 Train/test split made available
-by \cite{oord2018representation} on Google drive
+by \cite{oord_representation_2018} on Google drive
 https://drive.google.com/drive/folders/1BhJ2umKH3whguxMwifaKtSra0TgAbtfb.}
 \addtocounter{footnote}{1}
 \footnotetext{\label{footnote:official-split}
@@ -476,7 +476,7 @@ for testing.}
 \addtocounter{footnote}{1}
 \footnotetext{\label{footnote:AED-datasets}
 The 6 AED datasets used in
-\cite{tagliasacchi2020pre} are MUSAN~\cite{snyder2015musan}, Bird Audio
+\cite{tagliasacchi_pre_2020} are MUSAN~\cite{snyder2015musan}, Bird Audio
 Detection~\cite{stowell2019automatic}, Speech Commands~\cite{warden2018speech},
 Spoken Language Identification~\cite{oponowiczspoken}, TUT Urban Acoustic
 Scenes 2018~\cite{dcase2018} plus an SID task built with LS
@@ -536,24 +536,24 @@ pre-training corpora. At the same time, we observe a
 growing industry investment in pre-training with larger datasets, e.g.,
 CPC-8k (8k hours) for Bidir-CPC~\cite{kawakami2020learning}, LL (60k hours) for
 CPC modified~\cite{riviere2020unsupervised}, 
-wav2vec 2.0~\cite{baevski2020wav2vec}, and HuBERT~\cite{hsu2021hubert}, Alexa internal
-datasets (10k hours) for wav2vec-c~\cite{sadhu21_interspeech}, Didi internal
-datasets (10k hours) for MPC~\cite{jiang2019improving, jiang2021further}, the
+wav2vec 2.0~\cite{baevski2020wav2vec}, and HuBERT~\cite{hsu_hubert_2021}, Alexa internal
+datasets (10k hours) for wav2vec-c~\cite{sadhu_wav2vec-c_2021}, Didi internal
+datasets (10k hours) for MPC~\cite{jiang2019improving, jiang_further_2021}, the
 combination of Gigaspeech, VP-24k, and LL (94k hours in total) for
-UniSpeech-SAT~\cite{chen2021unispeechsat} and WavLM~\cite{chen2021wavlm}, and
+UniSpeech-SAT~\cite{chen2021unispeechsat} and WavLM~\cite{chen_wavlm_2021}, and
 the combination of VP-400K, MLS, CV-dataset, VL and BBL (436k hours in total)
 for XLS-R~\cite{babu2021xlsr}. We expect this trend to continue with the growth
 in available computing power. Most studies focuses on learning representations
-for English, whereas Chinese~\cite{jiang2019improving, jiang2021further} and
+for English, whereas Chinese~\cite{jiang2019improving, jiang_further_2021} and
 multilinguality~\cite{kawakami2020learning, babu2021xlsr} are also gaining
 attention. Compared to pre-training, datasets used for fine-tuning are more
 diverse and cover downstream tasks as varied as ASR, PR, PC, SID, AED,
 Sentiment, ST, and LID. For benchmarking training scenarios covering full
 supervision as well as limited resources, the amount of labeled examples used for
 fine-tuning also varies from several minutes up to 1k hours. Recent
-benchmarks such as SUPERB~\cite{yang21c_interspeech} that consolidate multiple 
+benchmarks such as SUPERB~\cite{yang_superb_2021} that consolidate multiple 
 downstream tasks have gained attention for evaluating SSL
-methodologies~\cite{chen2021unispeechsat, chen2021wavlm}. The goal of such benchmarks is
+methodologies~\cite{chen2021unispeechsat, chen_wavlm_2021}. The goal of such benchmarks is
 to provide a holistic evaluation of the performance of learned representations; 
 we discuss these in detail in \cref{sec:benchmark}. With the increasing
 popularity of SSL research, we expect future experiment settings to proliferate
@@ -577,8 +577,8 @@ several SSL techniques are appended with suffixes \textit{B}, \textit{L},
 \textit{XL}, or \textit{XXL} indicating the \textit{Base}, \textit{Large},
 \textit{X-Large}, or \textit{XX-Large} variants specified in the original
 publication. We also compare with baselines including the log mel filterbank (fBANK) and semi-supervised, self-training
-approaches (iterative pseudo labeling (IPL)~\cite{xu2020iterative}, 
-slimIPL~\cite{likhomanenko2020slimipl}, noisy student~\cite{park2020improved}). These approaches are visualized in black. Also, note that the current state of the art---conformer XXL + noisy student~\cite{zhang2020pushing}---is a combination of self-training and SSL techniques. Given the
+approaches (iterative pseudo labeling (IPL)~\cite{xu_iterative_2020}, 
+slimIPL~\cite{likhomanenko2020slimipl}, noisy student~\cite{park_improved_2020}). These approaches are visualized in black. Also, note that the current state of the art---conformer XXL + noisy student~\cite{zhang2020pushing}---is a combination of self-training and SSL techniques. Given the
 diversity of the listed methods in experiment settings (e.g., pre-training corpora
 and objectives, whether a language model is used in decoding, whether model
 parameters are frozen in fine-tuning), readers should be careful that the superiority
@@ -607,11 +607,11 @@ on labeled data to annotate unlabeled speech, and then subsequently trained on
 combined golden and self-annotated label-speech pairs, are gaining popularity
 in the speech community and have yielded competitive results. For comparison, we also
 show performance from such methods (iterative pseudo labeling 
-(IPL)~\cite{xu2020iterative}, slimIPL~\cite{likhomanenko2020slimipl}, noisy 
-student~\cite{park2020improved}), as well as the current state of the art---conformer XXL + noisy
+(IPL)~\cite{xu_iterative_2020}, slimIPL~\cite{likhomanenko2020slimipl}, noisy 
+student~\cite{park_improved_2020}), as well as the current state of the art---conformer XXL + noisy
 student~\cite{zhang2020pushing}---which augments SSL with various advanced
 techniques including self-training. Furthermore, we illustrate in the figure
-the performance of a baseline system \cite{yang21c_interspeech} based on log mel filterbank (fBANK), which is one of the most commonly used features designed by domain experts.
+the performance of a baseline system \cite{yang_superb_2021} based on log mel filterbank (fBANK), which is one of the most commonly used features designed by domain experts.
 As observed in the figure, most SSL techniques outperform fBANK
 features, and with the growing investment in model size, better performance is
 achieved. The largest ones, such as wav2vec 2.0-L and HuBERT-L/XL, yield
@@ -653,16 +653,16 @@ achieve state-of-the-art results on an increasing number of tasks.
     \toprule
     Tasks & Dataset & non-SSL & SSL \\
     \midrule
-    ASR (WER $\downarrow$) & LS test-clean/other & 2.1/4.0 \cite{xu2020iterative} & 1.4/2.6 \cite{zhang2020pushing} \\ \hline
+    ASR (WER $\downarrow$) & LS test-clean/other & 2.1/4.0 \cite{xu_iterative_2020} & 1.4/2.6 \cite{zhang2020pushing} \\ \hline
     IC (Acc $\uparrow$) & FSC & 98.8 \cite{lugosch19_interspeech} & 99.3\cite{chen2021unispeechsat} \\ \hline
-    SID (Acc $\uparrow$) & VoxCeleb1 & 94.8 \cite{hajibabaei2018unified} & 95.5 \cite{chen2021wavlm} \\ \hline
+    SID (Acc $\uparrow$) & VoxCeleb1 & 94.8 \cite{hajibabaei2018unified} & 95.5 \cite{chen_wavlm_2021} \\ \hline
     ASV (EER $\downarrow$) & VoxCeleb1 & 3.1 \cite{hajavi2021siamese} & 2.4 \cite{wang2021fine} \\ \hline
     QbE (MTWV $\uparrow$) & QUESST (EN) & 10.6 \cite{rodriguez2014gtts} & 11.2\cite{chen2021unispeechsat} \\
 
     %wav2vec-c
-    %wav2vec-c \cite{sadhu21_interspeech} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
-    %UniSpeech-SAT \cite{chen2021unispeechsat} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & Check SUPERB \cite{yang21c_interspeech} paper for details \\ \hline
-    %WavLM \cite{chen2021wavlm} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & Check \cite{yang21c_interspeech} for details \\ \hline
+    %wav2vec-c \cite{sadhu_wav2vec-c_2021} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
+    %UniSpeech-SAT \cite{chen2021unispeechsat} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & Check SUPERB \cite{yang_superb_2021} paper for details \\ \hline
+    %WavLM \cite{chen_wavlm_2021} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & Check \cite{yang_superb_2021} for details \\ \hline
     %\multirow{4}{*}[0mm]{XLS-R \cite{babu2021xlsr}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;\;+ CV-dataset-7k + VL\\\;\;\;+ BBL}} & ASR & VP, MLS, CV-dataset, BBL, LS & VP, MLS, CV-dataset, BBL, LS & - & \multirow{4}{*}[0mm]{Check \cite{babu2021xlsr} for details} \\ \cline{3-6}
     %& & SID & VoxCeleb1 & VoxCeleb1 & \checkmark & \\ \cline{3-6}
     %& & ST & CoVoST-2 & CoVoST-2 & \checkmark & \\ \cline{3-6}
@@ -686,12 +686,12 @@ established mechanisms to evaluate SSL techniques in downstream applications
 makes it difficult to compare techniques fairly and understand their
 capabilities. To address this challenge, there are increasing efforts to establish
 benchmarks with shared downstream tasks, datasets, and downstream recipes. Such
-efforts include SUPERB~\cite{yang21c_interspeech}, 
+efforts include SUPERB~\cite{yang_superb_2021}, 
 LeBenchmark~\cite{evain21_interspeech}, ZeroSpeech~\cite{dunbar2020zero},
 HEAR \cite{pmlr-v176-turian22a},
 NOSS~\cite{shor20_interspeech}, and HARES~\cite{wang2021towards}. 
 
-SUPERB~\cite{yang21c_interspeech} is a benchmarking platform that allows the
+SUPERB~\cite{yang_superb_2021} is a benchmarking platform that allows the
 SSL community to train, evaluate, and compare speech representations on
 diverse downstream speech processing tasks, from acoustic and speaker identity
 to paralinguistic and semantics. SUPERB consolidates downstream recipes to

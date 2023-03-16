@@ -20,7 +20,7 @@ self-supervised representations.
 
 \subsection{Information content}
 
-In \cite{pasad2021} wav2vec~2.0 representations were analyzed with
+In \cite{pasad_layerwise_2021} wav2vec~2.0 representations were analyzed with
 respect to their acoustic-linguistic information content at different
 network layers. Three different mechanisms were used for this
 purpose. The first of these is canonical correlation analysis (CCA),
@@ -52,7 +52,7 @@ strategy. Indeed, the authors of \cite{baevski2021unsupervised} show that a
 phone classifier trained on each of the 24 frozen layers of a wav2vec~2.0 model
 showed the lowest phone error rates
 for layers 10--21 and higher error rates for the other layers. 
-\cite{pasad2021} further show that fine-tuning the pre-trained model with a
+\cite{pasad_layerwise_2021} further show that fine-tuning the pre-trained model with a
 character-level CTC training criterion changes the behavior of the
 last layers (especially the final two layers), breaking the
 autoencoder-style behavior and focusing the information encoded in the
@@ -86,7 +86,7 @@ recognition draws on representation	from higher layers (peaking at layer~10)
 whereas speaker recognition benefited from layers at positions 6, 9, and 12.
 This may indicate that language recognition relies more on higher-level
 phonetic information whereas speaker recognition uses a combination of
-acoustic and phonetic information. In a recent study~\cite{chen2021wavlm} the
+acoustic and phonetic information. In a recent study~\cite{chen_wavlm_2021} the
 same technique was used to identify layer contributions for the downstream
 SUPERB benchmark tasks in the WavLM model. For a smaller model (95M parameters)
 it was again confirmed that lower layers encode speaker-related information
@@ -144,7 +144,7 @@ How does the performance of self-supervised models change in relation to the
 amount of training data, and in relation to the size (number of parameters) of
 the model?
 Several studies have demonstrated better downstream performance when using
-larger datasets~\cite{rivi20, kawakami2020learning, chen2021wavlm}. For
+larger datasets~\cite{rivi20, kawakami2020learning, chen_wavlm_2021}. For
 example,
 \cite{kawakami2020learning} compared representations learned by a bidirectional
 CPC model from the standard 960 hour LS corpus and a corpus of 8,000 hours of
@@ -157,14 +157,14 @@ power law),
 similar to observations for most data-intensive machine learning tasks.
 In addition to the size of the dataset, the diversity of the data also seems
 to play a role, although this was not quantified in this study. However, recent
-experiments with larger and more diverse data collections~\cite{chen2021wavlm}
+experiments with larger and more diverse data collections~\cite{chen_wavlm_2021}
 confirm this assumption, as do 
 explicit investigations of domain shift robustness (see
 \cref{subsec:robustness} below). 
 
 \edit{The relation between model sizes and downstream performances have also been investigated \cite{pue2021scaling,versteegh2015zero}.}
 Using the Mockingjay 
-model~\cite{liu2020mockingjay}, the authors in \cite{pue2021scaling} attempt to establish a relationship between
+model~\cite{liu_mockingjay_2020}, the authors in \cite{pue2021scaling} attempt to establish a relationship between
 model size and self-supervised \ensuremath{L_1} loss and demonstrate that it approximately
 follows a power law. Model size and accuracy on downstream phone
 classification and speaker recognition tasks are positively correlated but do not

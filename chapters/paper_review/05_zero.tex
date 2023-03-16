@@ -42,7 +42,7 @@ Reference & Speech representation & Speech segmentation  & Text token/representa
     \midrule
 \cite{liu2018completely}& Audio word2vec~\cite{Wang2018SegAudioWord2Vec} & Oracle & Phoneme & \edit{Adversarial Training~\cite{gulrajani2017improved}} & - & TIMIT (PER): 63.6\%  \\ %Submitted on 1 Apr 2018
   \midrule
-  \cite{chung2018unsupervised} & Speech2vec~\cite{chung2018speech2vec} & BES-GMM~\cite{Kamper17BESGMM} &  Word2Vec & \edit{Adversarial Training~\cite{conneau2017word}} & Self-training & SWC (Acc): 10.9\%  \\ %Submitted on 18 May 2018
+  \cite{chung2018unsupervised} & Speech2vec~\cite{chung_speech2vec_2018} & BES-GMM~\cite{kamper_segmental_2017} &  Word2Vec & \edit{Adversarial Training~\cite{conneau2017word}} & Self-training & SWC (Acc): 10.9\%  \\ %Submitted on 18 May 2018
 %https://arxiv.org/pdf/1805.07467.pdf %The text embeddings were obtained by training Word2Vec on the transcriptions using the fastText implementation without subword information [3].
   \midrule
   
@@ -149,7 +149,7 @@ The selection criterion is based on analysis of the phonetic information in each
 If a universal phone recognizer trained from a diverse set of languages is available, it is another way to transcribe speech into phone-level tokens~\cite{Deciphering2022}.}
 Another series of work is to transform a word into a word embedding. 
 \cite{chung2018unsupervised,chung2019towards} use adversarial training to map the word-level
-speech embedding space~\cite{chung2018speech2vec} to the word embedding space
+speech embedding space~\cite{chung_speech2vec_2018} to the word embedding space
 and achieve promising performance on spoken word classification, speech
 translation, and spoken word retrieval.
 \Cref{fig:unsupervisedASR} summarizes the various ways to segment speech and represent speech and text in each reference.  
@@ -161,7 +161,7 @@ translation, and spoken word retrieval.
 \TNS{split into 2 sentences, also have a connection to the previous para}
 \cite{liu2018completely} is the first work to successfully achieve unsupervised
 phoneme recognition by first clustering phoneme-level
-embeddings~\cite{Chung2016AudioWord2Vec,Wang2018SegAudioWord2Vec} into a set of
+embeddings~\cite{chung_audio_2016,Wang2018SegAudioWord2Vec} into a set of
 tokens and then using GAN to learn the mapping relationship between tokens and
 phonemes. 
 However, in \cite{liu2018completely}, oracle phoneme segmentation is still
@@ -309,7 +309,7 @@ model~\cite{jelinek1997statistical}, a weighted finite state
 transducer~\cite{mohri2002weighted}, or shallow 
 fusion~\cite{gulcehre2015using,chorowski2016towards}.
 However, the progress of TTS systems boosted by deep 
-learning~\cite{oord2016wavenet,shen2018natural} has inspired another interesting and
+learning~\cite{oord_wavenet_2016,shen2018natural} has inspired another interesting and
 straightforward research direction: \edit{artificially creating paired text and audio
 data $\{\hat{X}, Y\}$ with only text data~$Y$ by generating the corresponding
 audio data~$\hat{X}$ with TTS.} %\begin{equation}
@@ -398,7 +398,7 @@ appropriate evaluation metrics for zero-resource scenarios.
 Following the success of representation learning, baseline and challenge
 techniques have shifted from purely generative 
 models~\cite{ondel2016variational,heck2017feature}, deep 
-autoencoders~\cite{tjandra19_interspeech,chorowski2019unsupervised}, and incorporation of
+autoencoders~\cite{tjandra19_interspeech,chorowski_unsupervised_2019}, and incorporation of
 neural-network-based TTS/VC techniques~\cite{niekerk20b_interspeech} to
 self-supervised learning~\cite{maekaku21_interspeech}.
 The latest challenge included the visual modality, continuing the
@@ -410,12 +410,12 @@ expansion to include more aspects of human interaction.
 Textless NLP is a new research direction that leverages the progress mentioned
 above in self-supervised speech representation learning to model language
 directly from audio, bypassing the need for text or 
-labels~\cite{GSLM,SpeechResynthesis_IS21,pGSLM,emotion_conversion}. 
+labels~\cite{nguyen_generative_2022,polyak_speech_2021,kharitonov_textfree_2021,emotion_conversion}. 
 Not only does this open the gate for language and dialect modeling without
 orthographic rules, but it also offers the opportunity to model other
 non-lexical information about how speech is delivered, e.g., speaker identity,
 emotion, hesitation, interruptions. 
-The generative spoken language model (GSLM)~\cite{GSLM} utilizes discrete
+The generative spoken language model (nguyen_generative_2022)~\cite{nguyen_generative_2022} utilizes discrete
 representations from wav2vec~2.0, HuBERT, and CPC algorithms as inputs to an
 autoregressive language model trained by \edit{using the cross-entropy function} to maximize the
 probability of predicting the next discrete speech token. A \edit{synthesis} module
@@ -426,13 +426,13 @@ subjective human evaluations. The model completes incomplete words
 (pow[..] $\rightarrow$ POWER) and continues using words in the same general mood (dark $\rightarrow$
 BLACKNESS)\footnote{https://speechbot.github.io/gslm/} and has been extended to
 model and generate
-dialogues~\cite{dialogue_GSLM}.\footnote{https://speechbot.github.io/dgslm/}
+dialogues~\cite{dialogue_nguyen_generative_2022}.\footnote{https://speechbot.github.io/dgslm/}
 %\cite{}. 
-Given its flexibility in modeling spoken content, the GSLM has been further extended
-to jointly model content and prosody~\cite{pGSLM}. This prosodic-GSLM model
+Given its flexibility in modeling spoken content, the nguyen_generative_2022 has been further extended
+to jointly model content and prosody~\cite{kharitonov_textfree_2021}. This prosodic-nguyen_generative_2022 model
 introduced a multistream causal Transformer, where the input and output layers
 use multiple heads to model three channels:  discrete speech units, duration,
-and quantized pitch. The prosodic-GSLM model jointly generates novel content
+and quantized pitch. The prosodic-nguyen_generative_2022 model jointly generates novel content
 and prosody congruently in the expressive 
 style of the prompt.\footnote{https://speechbot.github.io/pgslm/}
 %\cite{}. 

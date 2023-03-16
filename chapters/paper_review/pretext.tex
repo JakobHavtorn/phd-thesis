@@ -50,25 +50,25 @@
     \multicolumn{4}{c}{\textsc{Generative models}} \\
     \midrule
     \midrule
-    Audio Word2vec~\cite{Chung2016AudioWord2Vec}, VQ-VAE~\cite{vqvae}     & $X$ &   \textsc{-}    &  $X$  \\ %It has VQ as extra constraint.
+    Audio Word2vec~\cite{chung_audio_2016}, VQ-VAE~\cite{oord_neural_2018}     & $X$ &   \textsc{-}    &  $X$  \\ %It has VQ as extra constraint.
     \midrule  
-    Speech2Vec~\cite{chung2018speech2vec}, Audio2Vec~\cite{tagliasacchi2020pre} - skip-gram    & $X_{[t_1,t_2]}$  &     \textsc{-}   &    $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$     \\
+    Speech2Vec~\cite{chung_speech2vec_2018}, Audio2Vec~\cite{tagliasacchi_pre_2020} - skip-gram    & $X_{[t_1,t_2]}$  &     \textsc{-}   &    $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$     \\
     \midrule 
-    Speech2Vec~\cite{chung2018speech2vec}, Audio2Vec~\cite{tagliasacchi2020pre} - cbow    & $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$   &     \textsc{-}   &    $X_{[t_1,t_2]}$   \\
+    Speech2Vec~\cite{chung_speech2vec_2018}, Audio2Vec~\cite{tagliasacchi_pre_2020} - cbow    & $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$   &     \textsc{-}   &    $X_{[t_1,t_2]}$   \\
     \midrule 
-    PASE~\cite{pascual2019learning}, PASE+~\cite{ravanelli2020multi}\footnote{PASE uses multiple pretext tasks, but the authors find that reconstruction is most important.}       & $X$ &  \textsc{-}   &  Different modalities of $X$  \\
+    PASE~\cite{pascual_learning_2019}, PASE+~\cite{ravanelli_multi_2020}\footnote{PASE uses multiple pretext tasks, but the authors find that reconstruction is most important.}       & $X$ &  \textsc{-}   &  Different modalities of $X$  \\
     \midrule 
-    APC~\cite{chung2019unsupervised,chung20e_interspeech}         & $X_{[1,t]}$   & \textsc{-}              & $x_{t+c},\, c\geq1$    \\ %VQ-APC is the same as APC
+    APC~\cite{chung_unsupervised_2019,chung_vector-quantized_2020}         & $X_{[1,t]}$   & \textsc{-}              & $x_{t+c},\, c\geq1$    \\ %VQ-APC is the same as APC
     \midrule
     Speech-XLNet \cite{song20d_interspeech}     & \multicolumn{2}{c|}{$X_{\mathcal{P}_{t}}$}   &     $x_{i\sim\mathcal{P}^c_{t}}$  \\ %Lee: Use * to represent the permutation, hope it is not strange.
     \midrule  
     DeCoAR~\cite{ling2020deep}     & $X_{[1,t-1]}, X_{[t+k+1,T]}$ & \textsc{-} & $X_{[t,t+k]}$   \\
     \midrule
-    Mockingjay~\cite{liu2020mockingjay}, Audio ALBERT~\cite{chi2020audio}, DeCoAR 2.0~\cite{ling2020decoar}   & \multicolumn{2}{c|}{$X_{-[t,t+k]}$}   & $X_{[t,t+k]}$    \\
+    Mockingjay~\cite{liu_mockingjay_2020}, Audio ALBERT~\cite{chi2020audio}, DeCoAR 2.0~\cite{ling2020decoar}   & \multicolumn{2}{c|}{$X_{-[t,t+k]}$}   & $X_{[t,t+k]}$    \\
     \midrule 
-    TERA~\cite{liu2021tera}, BMR~\cite{wang2020unsupervised}  & \multicolumn{2}{c|}{$X_{-[t,t+k]}^{-[f,f+j]}$}       & $X$       \\
+    TERA~\cite{liu_tera_2021}, BMR~\cite{wang_unsupervised_2020}  & \multicolumn{2}{c|}{$X_{-[t,t+k]}^{-[f,f+j]}$}       & $X$       \\
     \midrule
-    pMPC~\cite{yue2021pMPC}      &  \multicolumn{2}{c|}{$X_{-[t,t+k^\prime]}$ ($X_{[t,t+k^\prime]}$ is a phoneme)}       & $X_{[t,t+k^\prime]}$    \\
+    pMPC~\cite{yue_pmpc_2021}      &  \multicolumn{2}{c|}{$X_{-[t,t+k^\prime]}$ ($X_{[t,t+k^\prime]}$ is a phoneme)}       & $X_{[t,t+k^\prime]}$    \\
     \midrule 
     MPE~\cite{liu2020masked} & $X$ &  $Z_{-[t,t+k]}$  & $Z$    \\ %Lee: What is the difference between MPE and NPC??? And I believe it reconstruct the convolutional blocks output (learned target?)
     \midrule
@@ -80,15 +80,15 @@
     \midrule
     Unspeech \cite{milde2018unspeech}       &   $X_{[t_1,t_2]}$ &   \textsc{-}   &  $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$ \\
     \midrule 
-    CPC~\cite{oord2018representation}, wav2vec \cite{schneider2019wav2vec}, Modified CPC \cite{riviere2020unsupervised}         & $X_{[1,t]}$   &    \textsc{-}           & $z_{t+c},\, c\geq1$   \\ %Modified CPC is the same as CPC
+    CPC~\cite{oord_representation_2018}, wav2vec \cite{schneider_wav2vec:_2019}, Modified CPC \cite{riviere2020unsupervised}         & $X_{[1,t]}$   &    \textsc{-}           & $z_{t+c},\, c\geq1$   \\ %Modified CPC is the same as CPC
     \midrule 
     Bidirectional CPC \cite{kawakami2020learning}      & $X_{[1,t]}$ or $X_{[t,T]}$ &  \textsc{-}    &    $z_{t+c}$ or $z_{t-c},\, c\geq1$   \\
     \midrule 
-    vq-wav2vec \cite{Baevski2020vq-wav2vec}     &   $X_{[1,t]}$ &   \textsc{-}    &   $q_{t+c},\, c\geq1$   \\ 
+    vq-wav2vec \cite{baevski_vq-wav2vec_2020}     &   $X_{[1,t]}$ &   \textsc{-}    &   $q_{t+c},\, c\geq1$   \\ 
     \midrule 
-    wav2vec 2.0 \cite{baevski2020wav2vec}, wav2vec-C \cite{sadhu21_interspeech}\footnote{wav2vec-C adds reconstruction loss to wav2vec 2.0.}    & $X$             & $Z_{-[t,t+k]}$          & $Q_{[t,t+k]}$ \\
+    wav2vec 2.0 \cite{baevski2020wav2vec}, wav2vec-C \cite{sadhu_wav2vec-c_2021}\footnote{wav2vec-C adds reconstruction loss to wav2vec 2.0.}    & $X$             & $Z_{-[t,t+k]}$          & $Q_{[t,t+k]}$ \\
     \midrule 
-    w2v-BERT \cite{w2vbert}     &$X$ &    $Z_{-[t,t+k]}$   &     $Q_{[t,t+k]}$ and $C_{[t,t+k]}$     \\
+    w2v-BERT \cite{chung_w2vbert_2021}     &$X$ &    $Z_{-[t,t+k]}$   &     $Q_{[t,t+k]}$ and $C_{[t,t+k]}$     \\
     \midrule
     Speech SimCLR \cite{SpeechSimCLR}\footnote{Speech SimCLR targets the latent representation of an augmented version of $X$ using a differently augmented $X$, and vice-versa.}    & \multicolumn{2}{c|}{$\textsc{augment}_1(X)$ and $\textsc{augment}_2(X)$}     &    $\textsc{augment}_2(Z)$ and $\textsc{augment}_1(Z)$   \\ 
     \midrule
@@ -96,11 +96,11 @@
     \multicolumn{4}{c}{\textsc{Predictive models}} \\
     \midrule
     \midrule
-    Discrete BERT~\cite{Baevski2020vq-wav2vec,baevski2019effectiveness} \footnote{Discrete BERT obtains codes $C$ from vq-wav2vec.}      &   \multicolumn{2}{c|}{$C_{-[t,t+k]}$}   & $C_{[t,t+k]}$  \\
+    Discrete BERT~\cite{baevski_vq-wav2vec_2020,baevski_effectiveness_2020} \footnote{Discrete BERT obtains codes $C$ from vq-wav2vec.}      &   \multicolumn{2}{c|}{$C_{-[t,t+k]}$}   & $C_{[t,t+k]}$  \\
     \midrule 
-    HuBERT \cite{hsu2021hubert}\footnote{HuBERT is trained first using cluster IDs of the MFCCs as target and subsequently clusters IDs of the model representations from the last iteration.}, WavLM \cite{chen2021wavlm}\footnote{WavLM simulates noisy/overlapped speech as inputs.}  & $X$             & $Z_{-[t,t+k]}$          & $C_{[t,t+k]}$  \\ 
+    HuBERT \cite{hsu_hubert_2021}\footnote{HuBERT is trained first using cluster IDs of the MFCCs as target and subsequently clusters IDs of the model representations from the last iteration.}, WavLM \cite{chen_wavlm_2021}\footnote{WavLM simulates noisy/overlapped speech as inputs.}  & $X$             & $Z_{-[t,t+k]}$          & $C_{[t,t+k]}$  \\ 
     \midrule
-    data2vec \cite{data2vec}    & $X$             & $Z_{-[t,t+k]}$          & $\sum_{l}\bar{H}^{(l)}_{[t,t+k]}$  \\ 
+    data2vec \cite{baevski_data2vec_2022}    & $X$             & $Z_{-[t,t+k]}$          & $\sum_{l}\bar{H}^{(l)}_{[t,t+k]}$  \\ 
     \midrule 
     BEST-RQ \cite{BEST-RQ}\footnote{BEST-RQ obtains codes $C$ by quantizing acoustic features using a random projection quantizer.}     &  \multicolumn{2}{c|}{$X_{-[t,t+k]}$}      &  $C_{[t,t+k]}$   \\ 
     \midrule 
@@ -151,25 +151,25 @@
     \multicolumn{4}{c}{\textsc{Generative models}} \\
     \midrule
     \midrule
-    Audio Word2vec~\cite{Chung2016AudioWord2Vec}, VQ-VAE \cite{vqvae}     & $X$ &   \textsc{-}    &  $X$  \\ %It has VQ as extra constraint.
+    Audio Word2vec~\cite{chung_audio_2016}, VQ-VAE \cite{oord_neural_2018}     & $X$ &   \textsc{-}    &  $X$  \\ %It has VQ as extra constraint.
     \midrule  
-    Speech2Vec~\cite{chung2018speech2vec}, Audio2Vec~\cite{tagliasacchi2020pre} - skip-gram    & $X_{[t_1,t_2]}$  &     \textsc{-}   &    $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$     \\
+    Speech2Vec~\cite{chung_speech2vec_2018}, Audio2Vec~\cite{tagliasacchi_pre_2020} - skip-gram    & $X_{[t_1,t_2]}$  &     \textsc{-}   &    $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$     \\
     \midrule 
-   Speech2Vec~\cite{chung2018speech2vec}, Audio2Vec~\cite{tagliasacchi2020pre} - cbow    & $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$   &     \textsc{-}   &    $X_{[t_1,t_2]}$   \\
+   Speech2Vec~\cite{chung_speech2vec_2018}, Audio2Vec~\cite{tagliasacchi_pre_2020} - cbow    & $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$   &     \textsc{-}   &    $X_{[t_1,t_2]}$   \\
     \midrule 
-     PASE~\cite{pascual2019learning}, PASE+~\cite{ravanelli2020multi}\footnote{PASE uses multiple pretext tasks, but the authors find that reconstruction is most important.}       & $X$ &  \textsc{-}   &  Different modalities of $X$  \\
+     PASE~\cite{pascual_learning_2019}, PASE+~\cite{ravanelli_multi_2020}\footnote{PASE uses multiple pretext tasks, but the authors find that reconstruction is most important.}       & $X$ &  \textsc{-}   &  Different modalities of $X$  \\
     \midrule 
-    APC~\cite{chung2019unsupervised,chung20e_interspeech}         & $X_{[1,t]}$   & \textsc{-}              & $x_{t+c},\, c\geq1$    \\ %VQ-APC is the same as APC
+    APC~\cite{chung_unsupervised_2019,chung_vector-quantized_2020}         & $X_{[1,t]}$   & \textsc{-}              & $x_{t+c},\, c\geq1$    \\ %VQ-APC is the same as APC
     \midrule
     Speech-XLNet \cite{song20d_interspeech}     & \multicolumn{2}{c|}{$X_{\mathcal{P}_{t}}$}   &     $x_{i\sim\mathcal{P}^c_{t}}$  \\ %Lee: Use * to represent the permutation, hope it is not strange.
     \midrule  
     DeCoAR~\cite{ling2020deep}     & $X_{[1,t-1]}, X_{[t+k+1,T]}$ & \textsc{-} & $X_{[t,t+k]}$   \\
     \midrule
-    Mockingjay~\cite{liu2020mockingjay}, Audio ALBERT~\cite{chi2020audio}, DeCoAR 2.0~\cite{ling2020decoar}   & \multicolumn{2}{c|}{$X_{-[t,t+k]}$}   & $X_{[t,t+k]}$    \\
+    Mockingjay~\cite{liu_mockingjay_2020}, Audio ALBERT~\cite{chi2020audio}, DeCoAR 2.0~\cite{ling2020decoar}   & \multicolumn{2}{c|}{$X_{-[t,t+k]}$}   & $X_{[t,t+k]}$    \\
     \midrule 
-    TERA~\cite{liu2021tera}, BMR~\cite{wang2020unsupervised}  & \multicolumn{2}{c|}{$X_{-[t,t+k]}^{-[f,f+j]}$}       & $X$       \\
+    TERA~\cite{liu_tera_2021}, BMR~\cite{wang_unsupervised_2020}  & \multicolumn{2}{c|}{$X_{-[t,t+k]}^{-[f,f+j]}$}       & $X$       \\
     \midrule
-    pMPC~\cite{yue2021pMPC}      &  \multicolumn{2}{c|}{$X_{-[t,t+k^\prime]}$ ($X_{[t,t+k^\prime]}$ is a phoneme)}       & $X_{[t,t+k^\prime]}$    \\
+    pMPC~\cite{yue_pmpc_2021}      &  \multicolumn{2}{c|}{$X_{-[t,t+k^\prime]}$ ($X_{[t,t+k^\prime]}$ is a phoneme)}       & $X_{[t,t+k^\prime]}$    \\
     \midrule 
     MPE~\cite{liu2020masked} & $X$ &  $Z_{-[t,t+k]}$  & $Z$    \\ %Lee: What is the difference between MPE and NPC??? And I believe it reconstruct the convolutional blocks output (learned target?)
     \midrule
@@ -181,15 +181,15 @@
     \midrule
     Unspeech \cite{milde2018unspeech}       &   $X_{[t_1,t_2]}$ &   \textsc{-}   &  $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$ \\
     \midrule 
-    CPC~\cite{oord2018representation}, wav2vec \cite{schneider2019wav2vec}, Modified CPC \cite{riviere2020unsupervised}         & $X_{[1,t]}$   &    \textsc{-}           & $z_{t+c},\, c\geq1$   \\ %Modified CPC is the same as CPC
+    CPC~\cite{oord_representation_2018}, wav2vec \cite{schneider_wav2vec:_2019}, Modified CPC \cite{riviere2020unsupervised}         & $X_{[1,t]}$   &    \textsc{-}           & $z_{t+c},\, c\geq1$   \\ %Modified CPC is the same as CPC
         \midrule 
     Bidirectional CPC \cite{kawakami2020learning}      & $X_{[1,t]}$ or $X_{[t,T]}$ &  \textsc{-}    &    $z_{t+c}$ or $z_{t-c},\, c\geq1$   \\
     \midrule 
-    vq-wav2vec \cite{Baevski2020vq-wav2vec}     &   $X_{[1,t]}$ &   \textsc{-}    &   $q_{t+c},\, c\geq1$   \\ 
+    vq-wav2vec \cite{baevski_vq-wav2vec_2020}     &   $X_{[1,t]}$ &   \textsc{-}    &   $q_{t+c},\, c\geq1$   \\ 
     \midrule 
-    wav2vec 2.0 \cite{baevski2020wav2vec}, wav2vec-C \cite{sadhu21_interspeech}\footnote{wav2vec-C adds the reconstruction loss to wav2vec 2.0.}    & $X$             & $Z_{-[t,t+k]}$          & $Q_{[t,t+k]}$ \\
+    wav2vec 2.0 \cite{baevski2020wav2vec}, wav2vec-C \cite{sadhu_wav2vec-c_2021}\footnote{wav2vec-C adds the reconstruction loss to wav2vec 2.0.}    & $X$             & $Z_{-[t,t+k]}$          & $Q_{[t,t+k]}$ \\
     \midrule 
-    w2v-BERT \cite{w2vbert}     &$X$ &    $Z_{-[t,t+k]}$   &     $Q_{[t,t+k]}$ and $C_{[t,t+k]}$     \\
+    w2v-BERT \cite{chung_w2vbert_2021}     &$X$ &    $Z_{-[t,t+k]}$   &     $Q_{[t,t+k]}$ and $C_{[t,t+k]}$     \\
     \midrule
     Speech SimCLR \cite{SpeechSimCLR}\footnote{Speech SimCLR targets the latent representation of an augmented version of $X$ using a differently augmented $X$, and vice-versa.}    & \multicolumn{2}{c|}{$\textsc{augment}_1(X)$ and $\textsc{augment}_2(X)$}     &    $\textsc{augment}_2(Z)$ and $\textsc{augment}_1(Z)$   \\ 
    \midrule
@@ -197,11 +197,11 @@
     \multicolumn{4}{c}{\textsc{Predictive models}} \\
     \midrule
     \midrule
-    Discrete BERT~\cite{Baevski2020vq-wav2vec,baevski2019effectiveness} \footnote{Discrete BERT obtains codes $C$ from vq-wav2vec.}      &   \multicolumn{2}{c|}{$C_{-[t,t+k]}$}   & $C_{[t,t+k]}$  \\
+    Discrete BERT~\cite{baevski_vq-wav2vec_2020,baevski_effectiveness_2020} \footnote{Discrete BERT obtains codes $C$ from vq-wav2vec.}      &   \multicolumn{2}{c|}{$C_{-[t,t+k]}$}   & $C_{[t,t+k]}$  \\
     \midrule 
-    HuBERT \cite{hsu2021hubert}\footnote{HuBERT is trained first using cluster IDs of MFCCs as target and subsequently cluster IDs of model representations from the last iteration.}, WavLM \cite{chen2021wavlm}\footnote{WavLM simulates noisy/overlapped speech as inputs.}  & $X$             & $Z_{-[t,t+k]}$          & $C_{[t,t+k]}$  \\ 
+    HuBERT \cite{hsu_hubert_2021}\footnote{HuBERT is trained first using cluster IDs of MFCCs as target and subsequently cluster IDs of model representations from the last iteration.}, WavLM \cite{chen_wavlm_2021}\footnote{WavLM simulates noisy/overlapped speech as inputs.}  & $X$             & $Z_{-[t,t+k]}$          & $C_{[t,t+k]}$  \\ 
     \midrule
-    data2vec \cite{data2vec}    & $X$             & $Z_{-[t,t+k]}$          & $\sum_{l}\bar{H}^{(l)}_{[t,t+k]}$  \\ 
+    data2vec \cite{baevski_data2vec_2022}    & $X$             & $Z_{-[t,t+k]}$          & $\sum_{l}\bar{H}^{(l)}_{[t,t+k]}$  \\ 
         \midrule 
 BEST-RQ \cite{BEST-RQ}\footnote{BEST-RQ obtains codes $C$ by quantizing acoustic features using a random projection quantizer.}     &  \multicolumn{2}{c|}{$X_{-[t,t+k]}$}      &  $C_{[t,t+k]}$   \\ 
         \midrule 
@@ -244,18 +244,18 @@ $X_{-[t_1:t_2]}^{-[f_1,f_2]}$ means $X$ are masked in two directions.
 (a) Model & (b) Corrupted Input & (c) Target Output & (d) Regularization &   (e) Counterparts \\ 
 \hline \hline 
 
-APC~\cite{chung2019unsupervised, chung2020generative,chung2020improved} & $X_{[1,t-1]}$  & $x_{t+c},c\geq0$ & VQ~\cite{chung20e_interspeech} &  GPT~\cite{alex2018GPT,alex2019GPT2,brown2020gpt3} \\ \hline
+APC~\cite{chung_unsupervised_2019, chung_generative_2020,chung2020improved} & $X_{[1,t-1]}$  & $x_{t+c},c\geq0$ & VQ~\cite{chung_vector-quantized_2020} &  GPT~\cite{alex2018GPT,radford_language_2019,brown2020gpt3} \\ \hline
 
-%$X_{[1,t-1]}$  & $x_{t+c},c\geq0$ & VQ & VQ-APC~\cite{chung20e_interspeech} & -  \\
+%$X_{[1,t-1]}$  & $x_{t+c},c\geq0$ & VQ & VQ-APC~\cite{chung_vector-quantized_2020} & -  \\
 
 DeCoAR~\cite{ling2020deep} & $X_{[1,t-1]}$, $X_{[t+k+1,T]}$ &  $X_{[t,t+k]}$ & VQ~\cite{ling2020deep} &  ELMo~\cite{Matthew2018ELMO} \\
 \hline
 
-\tabincell{l}{ Mockingjay~\cite{liu2020mockingjay} \\ MPC~\cite{jiang2019improving,jiang2021further} \\ AALBERT~\cite{chi2021aalbert} \\
+\tabincell{l}{ Mockingjay~\cite{liu_mockingjay_2020} \\ MPC~\cite{jiang2019improving,jiang_further_2021} \\ AALBERT~\cite{chi2021aalbert} \\
 DeCoAR 2.0~\cite{ling2020decoar} } &
-$X_{-[t,t+k]}$ & $X_{[t,t+k]}$ & VQ~\cite{ling2020decoar} &  \tabincell{l}{BERT ~\cite{jacob2019BERT}\\RoBERTa~\cite{Liu2019RoBERTa}} \\ \hline
+$X_{-[t,t+k]}$ & $X_{[t,t+k]}$ & VQ~\cite{ling2020decoar} &  \tabincell{l}{BERT ~\cite{devlin_bert:_2018}\\RoBERTa~\cite{liu_roberta_2019}} \\ \hline
 
-pMPC~\cite{yue2021pMPC}   &
+pMPC~\cite{yue_pmpc_2021}   &
 \tabincell{l}{$X_{-[t,t+k^\prime]}$\\($X_{[t,t+k^\prime]}$: phoneme-level segment)} & $X_{[t,t+k^\prime]}$ & - &  SpanBert~\cite{joshi-etal-2020-spanbert} \\ \hline
 
 speech-XLNet~\cite{song20d_interspeech} &
@@ -264,33 +264,33 @@ $X^*_{[1:t-1]}$ & $x^*_t$ & - &  XLNet~\cite{Yang2019LNet}   \\ \hline
 \tabincell{l}{NPC~\cite{liu21l_interspeech}\\MPE~\cite{liu2020masked}} &
 \tabincell{l}{$X_{-[t,t+k]}$\\(mask on hidden layer)} & $X_{[t,t+k]}$ & - &   - \\ \hline
 
-\tabincell{l}{BMR~\cite{wang2020unsupervised}\\TERA~\cite{liu2021tera}} &
-$X_{-[t_1:t_2]}^{-[f_1,f_2]}$ & $X$ & dropout~\cite{luo2021drop} &  -  \\ \hline
+\tabincell{l}{BMR~\cite{wang_unsupervised_2020}\\TERA~\cite{liu_tera_2021}} &
+$X_{-[t_1:t_2]}^{-[f_1,f_2]}$ & $X$ & dropout~\cite{luo_drop_2021} &  -  \\ \hline
 
-\cite{chorowski2019unsupervised} &
-$S$ & $S$ & \tabincell{l}{VQ-VAE~\cite{chorowski2019unsupervised}\\time-jitter regularizer~\cite{chorowski2019unsupervised}} & 
-\tabincell{l}{\cite{van2017neural,VQVAE2} \\ (just name a few)} \\ \hline
+\cite{chorowski_unsupervised_2019} &
+$S$ & $S$ & \tabincell{l}{VQ-VAE~\cite{chorowski_unsupervised_2019}\\time-jitter regularizer~\cite{chorowski_unsupervised_2019}} & 
+\tabincell{l}{\cite{van2017neural,razavi_generating_2019} \\ (just name a few)} \\ \hline
 
-\cite{tagliasacchi2019self, tagliasacchi2020pre} & 
+\cite{tagliasacchi_self_2019, tagliasacchi_pre_2020} & 
 $X_{[t-k,t-1]},X_{[t+k+1,t+2k]}$ & $X_{[t,t+k]}$  & - & CBoW~\cite{mikolov2013efficient}  \\ \hline
 
-\cite{tagliasacchi2019self, tagliasacchi2020pre} &
+\cite{tagliasacchi_self_2019, tagliasacchi_pre_2020} &
 $X_{[t,t+k]}$ & $X_{[t-k,t-1]},X_{[t+k+1,t+2k]}$ & - &  Skipgram~\cite{mikolov2013efficient} \\ \hline
 
 \cite{quitry2019learning}  &
 Magnitude of $X$ & Phase of $X$ & - &  - \\ \hline
 
-TemporalGap~\cite{tagliasacchi2019self, tagliasacchi2020pre} &
+TemporalGap~\cite{tagliasacchi_self_2019, tagliasacchi_pre_2020} &
 $X_{[t_1,t_1+k]}$, $X_{[t_2,t_2+k]}$ & $|t_1 - t_2|$ & - &  -  \\ \hline
 
 \cite{Carr2021Ranking} &
 $X^*$ & correct order & - &  Jigsaw~\cite{noroozi2016unsupervised} \\ 
 \hline 
 
-PASE~\cite{pascual2019learning} &
+PASE~\cite{pascual_learning_2019} &
 $S$ & $X$: LPS, MFCC, Prosody & - &  -  \\ \hline
 
-PASE+~\cite{ravanelli2020multi} & 
+PASE+~\cite{ravanelli_multi_2020} & 
 $S^*$ & \tabincell{l}{$X$: LPS, MFCC, Prosody, \\ fbank, gammatone} & -  &  -  \\ \hline
 \end{tabular}
 }
