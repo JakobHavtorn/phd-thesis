@@ -55,15 +55,15 @@ Reference & Speech representation & Speech segmentation  & Text token/representa
 \cite{chen2019completely} & MFCC & GAS  & Phoneme & \edit{Adversarial Training~\cite{gulrajani2017improved}} & Self-training &  TIMIT (PER):  33.1\%   \\
   \midrule
   
-\cite{baevski2021unsupervised} & Wav2vec 2.0~\cite{baevski2020wav2vec} & \kmeans{} & Phoneme &\edit{Adversarial Training~\cite{gulrajani2017improved}} & Self-training & \tabincell{l}{TIMIT (PER):  18.6\%, \\ LibriSpeech (WER): 5.9\%}   \\
+\cite{baevski2021unsupervised} & Wav2vec 2.0~\cite{baevski_wav2vec_2020} & \kmeans{} & Phoneme &\edit{Adversarial Training~\cite{gulrajani2017improved}} & Self-training & \tabincell{l}{TIMIT (PER):  18.6\%, \\ LibriSpeech (WER): 5.9\%}   \\
   \midrule
   
 \textcolor{black}{\cite{Deciphering2022}} & \textcolor{black}{\tabincell{l}{Universal Phone \\ Recogniser}} & - & \textcolor{black}{Grapheme} & \textcolor{black}{Decipherment~\cite{ravi-knight-2011-deciphering}} & \textcolor{black}{Self-training} & \textcolor{black}{\tabincell{l}{GlobalPhone: 32.5\% to just 1.9\% \\ worse than supervised models} }  \\ %ubmitted on 12 Nov 2021 %m 32.5% to just 1.9% absolute worse than the equivalent fully supervised models trained on the same data
   \midrule
-\textcolor{black}{\cite{w2v-u2}} & \textcolor{black}{Wav2vec 2.0~\cite{baevski2020wav2vec} }& - & \textcolor{black}{Phoneme} & \textcolor{black}{Adversarial Training~\cite{gulrajani2017improved}} & \textcolor{black}{Self-training} & \textcolor{black}{LibriSpeech (WER): 6.3\%}   \\
+\textcolor{black}{\cite{w2v-u2}} & \textcolor{black}{Wav2vec 2.0~\cite{baevski_wav2vec_2020} }& - & \textcolor{black}{Phoneme} & \textcolor{black}{Adversarial Training~\cite{gulrajani2017improved}} & \textcolor{black}{Self-training} & \textcolor{black}{LibriSpeech (WER): 6.3\%}   \\
   \midrule
 
-\textcolor{black}{\cite{w2v-u2}} & \textcolor{black}{Wav2vec 2.0~\cite{baevski2020wav2vec}} & - & \textcolor{black}{Grapheme} & \textcolor{black}{Adversarial Training~\cite{gulrajani2017improved}} & \textcolor{black}{Self-training} & \textcolor{black}{LJSpeech (WER): 64.0\%}  \\
+\textcolor{black}{\cite{w2v-u2}} & \textcolor{black}{Wav2vec 2.0~\cite{baevski_wav2vec_2020}} & - & \textcolor{black}{Grapheme} & \textcolor{black}{Adversarial Training~\cite{gulrajani2017improved}} & \textcolor{black}{Self-training} & \textcolor{black}{LJSpeech (WER): 64.0\%}  \\
 
 
 %e MUSE [7] and VecMap [8], n
@@ -143,7 +143,7 @@ segments~\cite{liu2018completely,chen2019completely,yeh2018unsupervised}.
 A representation vector or a token then represents each phoneme-level segment. 
 It is easier for the generator to map each segment-level representation 
 or token to the correct phoneme when the representation or token is highly correlated to the phonemes.
-Wav2vec-U~\cite{baevski2021unsupervised} selects the input feature from different layers of wave2vec~2.0~\cite{baevski2020wav2vec}.
+Wav2vec-U~\cite{baevski2021unsupervised} selects the input feature from different layers of wave2vec~2.0~\cite{baevski_wav2vec_2020}.
 The selection criterion is based on analysis of the phonetic information in each layer.
 \textcolor{black}{
 If a universal phone recognizer trained from a diverse set of languages is available, it is another way to transcribe speech into phone-level tokens~\cite{Deciphering2022}.}
@@ -175,7 +175,7 @@ unsupervised.
 %Compared to~\cite{yeh2018unsupervised}, the discriminator in~\cite{chen2019completely} considers all possible information from the text dataset, not limited to the n-gram local statistics.
 %Besides, \cite{chen2019completely} works well with a reasonable batch size, which makes it feasible when the computational resource is limited.
 Wav2vec-U~\cite{baevski2021unsupervised} selects the input feature from
-different layers of wave2vec 2.0~\cite{baevski2020wav2vec}, a self-supervised
+different layers of wave2vec 2.0~\cite{baevski_wav2vec_2020}, a self-supervised
 model.
 The selecting criterion is the PER by training a linear model in a supervised manner. 
 %Should we mention this?

@@ -2170,6 +2170,16 @@
   pages = {613--622}
 }
 
+@misc{chrupala_visually_2021,
+  title = {Visually {{Grounded Models}} of {{Spoken Language}}: {{A Survey}} of {{Datasets}}, {{Architectures}} and {{Evaluation Techniques}}},
+  author = {Chrupa{\l}a, Grzegorz},
+  year = {2021},
+  number = {arXiv:2104.13225},
+  eprint = {arXiv:2104.13225},
+  publisher = {{arXiv}},
+  archiveprefix = {arxiv}
+}
+
 @article{chung_audio_2016,
   title = {Audio {{Word2Vec}}: {{Unsupervised Learning}} of {{Audio Segment Representations}} Using {{Sequence-to-sequence Autoencoder}}},
   shorttitle = {Audio {{Word2Vec}}},
@@ -5783,6 +5793,13 @@
   archiveprefix = {arxiv}
 }
 
+@inproceedings{jiang_further_2021,
+  title = {A Further Study of Unsupervised Pretraining for {{Transformer}} Based Speech Recognition},
+  booktitle = {{{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  author = {Jiang, Dongwei and Li, Wubo and Zhang, Ruixiong and Cao, Miao and Luo, Ne and Han, Yang and Zou, Wei and Han, Kun and Li, Xiangang},
+  year = {2021}
+}
+
 @article{jiang_improving_2019,
   title = {Improving {{Transformer-based Speech Recognition Using Unsupervised Pre-training}}},
   author = {Jiang, Dongwei and Lei, Xiaoning and Li, Wubo and Luo, Ne and Hu, Yuxuan and Zou, Wei and Li, Xiangang},
@@ -5794,6 +5811,13 @@
   urldate = {2021-10-12},
   abstract = {Speech recognition technologies are gaining enormous popularity in various industrial applications. However, building a good speech recognition system usually requires large amounts of transcribed data, which is expensive to collect. To tackle this problem, an unsupervised pre-training method called Masked Predictive Coding is proposed, which can be applied for unsupervised pre-training with Transformer based model. Experiments on HKUST show that using the same training data, we can achieve CER 23.3\%, exceeding the best end-to-end model by over 0.2\% absolute CER. With more pre-training data, we can further reduce the CER to 21.0\%, or a 11.8\% relative CER reduction over baseline.},
   archiveprefix = {arxiv}
+}
+
+@inproceedings{jiang_speech_2021,
+  title = {Speech {{SIMCLR}}: {{Combining}} Contrastive and Reconstruction Objective for Self-Supervised Speech Representation Learning},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Jiang, Dongwei and Li, Wubo and Cao, Miao and Zou, Wei and Li, Xiangang},
+  year = {2021}
 }
 
 @inproceedings{jiao_online_2016,
@@ -6220,9 +6244,8 @@
   author = {Kawakami, Kazuya and Wang, Luyu and Dyer, Chris and Blunsom, Phil and van den Oord, Aaron},
   year = {2020},
   month = jan,
-  journal = {arXiv:2001.11128 [cs, eess]},
+  journal = {Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
   eprint = {2001.11128},
-  primaryclass = {cs, eess},
   urldate = {2021-10-12},
   abstract = {Unsupervised speech representation learning has shown remarkable success at finding representations that correlate with phonetic structures and improve downstream speech recognition performance. However, most research has been focused on evaluating the representations in terms of their ability to improve the performance of speech recognition systems on read English (e.g. Wall Street Journal and LibriSpeech). This evaluation methodology overlooks two important desiderata that speech representations should have: robustness to domain shifts and transferability to other languages. In this paper we learn representations from up to 8000 hours of diverse and noisy speech data and evaluate the representations by looking at their robustness to domain shifts and their ability to improve recognition performance in many languages. We find that our representations confer significant robustness advantages to the resulting recognition systems: we see significant improvements in out-of-domain transfer relative to baseline feature sets and the features likewise provide improvements in 25 phonetically diverse languages including tonal languages and low-resource languages.},
   archiveprefix = {arxiv}
@@ -8086,6 +8109,13 @@
   pages = {1256--1266}
 }
 
+@article{luo_dropout_2021,
+  title = {Dropout Regularization for Self-Supervised Learning of {{Transformer}} Encoder Speech Representation},
+  author = {Luo, Jian and Wang, Jianzong and Cheng, Ning and Xiao, Jing},
+  year = {2021},
+  journal = {Annual Conference of the International Speech Communication Association}
+}
+
 @article{luo_towards_2018,
   title = {Towards {{Understanding Regularization}} in {{Batch Normalization}}},
   author = {Luo, Ping and Wang, Xinjiang and Shao, Wenqi and Peng, Zhanglin},
@@ -8552,8 +8582,8 @@
 }
 
 @article{merkx_language_2019,
-  title = {Language Learning Using {{Speech}} to {{Image}} Retrieval},
-  author = {Merkx, {\relax DGM} and Frank, {\relax SL} and Ernestus, {\relax MTC}},
+  title = {Language Learning Using Speech to Image Retrieval},
+  author = {Merkx, Danny and Frank, Stefan L and Ernestus, Mirjam},
   year = {2019},
   journal = {Annual Conference of the International Speech Communication Association}
 }
@@ -12246,6 +12276,25 @@
   abstract = {We explore self-supervision as a way to learn general purpose audio representations. Specifically, we propose two self-supervised tasks: Audio2Vec, which aims at reconstructing a spectrogram slice from past and future slices and TemporalGap, which estimates the distance between two short audio segments extracted at random from the same audio clip. We evaluate how the representations learned via self-supervision transfer to different downstream tasks, either training a task-specific linear classifier on top of the pretrained embeddings, or fine-tuning a model end-to-end for each downstream task. Our results show that the representations learned with Audio2Vec transfer better than those learned by fully-supervised training on Audioset. In addition, by fine-tuning Audio2Vec representations it is possible to outperform fully-supervised models trained from scratch on each task, when limited data is available, thus improving label efficiency.}
 }
 
+@article{tagliasacchi_pretraining_2020,
+  title = {Pre-Training Audio Representations with Self-Supervision},
+  author = {Tagliasacchi, Marco and Gfeller, Beat and {de Chaumont Quitry}, F{\'e}lix and Roblek, Dominik},
+  year = {2020},
+  journal = {IEEE Signal Processing Letters},
+  volume = {27},
+  pages = {600--604}
+}
+
+@misc{tagliasacchi_selfsupervised_2019,
+  title = {Self-Supervised Audio Representation Learning for Mobile Devices},
+  author = {Tagliasacchi, Marco and Gfeller, Beat and Quitry, F{\'e}lix de Chaumont and Roblek, Dominik},
+  year = {2019},
+  number = {arXiv:1905.11796},
+  eprint = {arXiv:1905.11796},
+  publisher = {{arXiv}},
+  archiveprefix = {arxiv}
+}
+
 @inproceedings{taigman_deepface_2014,
   title = {Deepface: {{Closing}} the Gap to Human-Level Performance in Face Verification},
   booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
@@ -13920,6 +13969,13 @@
   urldate = {2018-06-06},
   abstract = {We propose a recurrent neural model that generates natural-language questions from documents, conditioned on answers. We show how to train the model using a combination of supervised and reinforcement learning. After teacher forcing for standard maximum likelihood training, we fine-tune the model using policy gradient techniques to maximize several rewards that measure question quality. Most notably, one of these rewards is the performance of a question-answering system. We motivate question generation as a means to improve the performance of question answering systems. Our model is trained and evaluated on the recent question-answering dataset SQuAD.},
   archiveprefix = {arxiv}
+}
+
+@article{yue_phonetically_2021,
+  title = {Phonetically Motivated Self-Supervised Speech Representation Learning},
+  author = {Yue, Xianghu and Li, Haizhou},
+  year = {2021},
+  journal = {Annual Conference of the International Speech Communication Association}
 }
 
 @inproceedings{yusuf_hierarchical_2021,

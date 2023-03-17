@@ -144,9 +144,9 @@ How does the performance of self-supervised models change in relation to the
 amount of training data, and in relation to the size (number of parameters) of
 the model?
 Several studies have demonstrated better downstream performance when using
-larger datasets~\cite{rivi20, kawakami2020learning, chen_wavlm_2021}. For
+larger datasets~\cite{rivi20, kawakami_learning_2020, chen_wavlm_2021}. For
 example,
-\cite{kawakami2020learning} compared representations learned by a bidirectional
+\cite{kawakami_learning_2020} compared representations learned by a bidirectional
 CPC model from the standard 960 hour LS corpus and a corpus of 8,000 hours of
 diverse speech from multiple sources.\textsuperscript{\ref{footnote:CPC-8k}}
 Not surprisingly, an ASR model trained on top of these representations
@@ -181,7 +181,7 @@ reverberation, accents, etc., that cause differences in the distributions of
 speech features.
 Do pre-trained representations offer greater robustness against distributional
 shifts? 
-One study~\cite{kawakami2020learning} compared pre-trained
+One study~\cite{kawakami_learning_2020} compared pre-trained
 representations from a CPC model against MFCCs and 
 found pre-trained representations to be more robust to mismatches between
 training and test data. The 
