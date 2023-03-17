@@ -81,10 +81,9 @@
   author = {Agi{\'c}, {\v Z}eljko and Johannsen, Anders and Plank, Barbara and Alonso, H{\'e}ctor Mart{\'i}nez and Schluter, Natalie and S{\o}gaard, Anders},
   year = {2016},
   month = dec,
-  journal = {Transactions of the Association for Computational Linguistics},
+  journal = {Transactions of the Association for Computational Linguistics (ACL)},
   volume = {4},
   pages = {301--312},
-  issn = {2307-387X},
   urldate = {2019-06-11},
   abstract = {We propose a novel approach to cross-lingual part-of-speech tagging and dependency parsing for truly low-resource languages. Our annotation projection-based approach yields tagging and parsing models for over 100 languages. All that is needed are freely available parallel texts, and taggers and parsers for resource-rich languages. The empirical evaluation across 30 test languages shows that our method consistently provides top-level accuracies, close to established upper bounds, and outperforms several competitive baselines.},
   langid = {english}
@@ -296,6 +295,13 @@
   pages = {3981--3989}
 }
 
+@inproceedings{anguera_quesst2014_2015,
+  title = {{{QUESST2014}}: {{Evaluating}} Query-by-Example Speech Search in a Zero-Resource Setting with Real-Life Queries},
+  booktitle = {{{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  author = {Anguera, Xavier and {Rodriguez-Fuentes}, Luis-J and Buzo, Andi and Metze, Florian and Sz{\"o}ke, Igor and Penagarikano, Mikel},
+  year = {2015}
+}
+
 @article{anonymous_crossentropy_2018,
   title = {Cross-{{Entropy Loss Leads To Poor Margins}}},
   author = {Anonymous, Anonymous},
@@ -309,6 +315,13 @@
   author = {Antol, Stanislaw and Agrawal, Aishwarya and Lu, Jiasen and Mitchell, Margaret and Batra, Dhruv and Lawrence Zitnick, C. and Parikh, Devi},
   year = {2015},
   pages = {2425--2433}
+}
+
+@inproceedings{ardila_common_2020,
+  title = {Common {{Voice}}: {{A}} Massively-Multilingual Speech Corpus},
+  booktitle = {Proceedings of the {{International Conference}} on {{Language Resources}} and {{Evaluation}} ({{LREC}})},
+  author = {Ardila, Rosana and Branson, Megan and Davis, Kelly and Kohler, Michael and Meyer, Josh and Henretty, Michael and Morais, Reuben and Saunders, Lindsay and Tyers, Francis and Weber, Gregor},
+  year = {2020}
 }
 
 @misc{arik_deep_2017,
@@ -457,6 +470,16 @@
   abstract = {Training state-of-the-art, deep neural networks is computationally expensive. One way to reduce the training time is to normalize the activities of the neurons. A recently introduced technique called batch normalization uses the distribution of the summed input to a neuron over a mini-batch of training cases to compute a mean and variance which are then used to normalize the summed input to that neuron on each training case. This significantly reduces the training time in feed-forward neural networks. However, the effect of batch normalization is dependent on the mini-batch size and it is not obvious how to apply it to recurrent neural networks. In this paper, we transpose batch normalization into layer normalization by computing the mean and variance used for normalization from all of the summed inputs to the neurons in a layer on a single training case. Like batch normalization, we also give each neuron its own adaptive bias and gain which are applied after the normalization but before the non-linearity. Unlike batch normalization, layer normalization performs exactly the same computation at training and test times. It is also straightforward to apply to recurrent neural networks by computing the normalization statistics separately at each time step. Layer normalization is very effective at stabilizing the hidden state dynamics in recurrent networks. Empirically, we show that layer normalization can substantially reduce the training time compared with previously published techniques.},
   archiveprefix = {arxiv},
   isbn = {978-3-642-04273-7}
+}
+
+@misc{babu_xlsr_2021,
+  title = {{{XLS-R}}: {{Self-supervised}} Cross-Lingual Speech Representation Learning at Scale},
+  author = {Babu, Arun and Wang, Changhan and Tjandra, Andros and Lakhotia, Kushal and Xu, Qiantong and Goyal, Naman and Singh, Kritika and {von Platen}, Patrick and Saraf, Yatharth and Pino, Juan and Baevski, Alexei and Conneau, Alexis and Auli, Michael},
+  year = {2021},
+  number = {arXiv: 2111.09296},
+  eprint = {arXiv: 2111.09296},
+  publisher = {{arXiv}},
+  archiveprefix = {arxiv}
 }
 
 @techreport{bach_probabilistic_2005,
@@ -674,6 +697,13 @@
   archiveprefix = {arxiv}
 }
 
+@inproceedings{barker_fifth_2018,
+  title = {The Fifth `{{CHiME}}' Speech Separation and Recognition Challenge: {{Dataset}}, Task and Baselines},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Barker, Jon and Watanabe, Shinji and Vincent, Emmanuel and Trmal, Jan},
+  year = {2018}
+}
+
 @book{bartholomew_latent_2011,
   title = {Latent Variable Models and Factor Analysis: A Unified Approach},
   shorttitle = {Latent Variable Models and Factor Analysis},
@@ -772,6 +802,12 @@
   abstract = {Recent breakthroughs in deep learning often rely on representation learning and knowledge transfer. In particular, readily available models pre-trained on large datasets are key for the efficient transfer of knowledge. They can be applied as feature extractors for data preprocessing, fine-tuned to perform a variety of tasks, or used for computing feature losses in the training of deep learning systems. While applications of transfer learning are common in the fields of computer vision and natural language processing, audio- and speech processing are surprisingly lacking readily available and transferable models. Here, we introduce speechVGG, a flexible, transferable feature extractor tailored for integration with deep learning frameworks for speech processing. Our transferable model adopts the classic VGG-16 architecture and is trained on a spoken word classification task. We demonstrate the application of the pre-trained model in four speech processing tasks, including speech enhancement, language identification, speech, noise and music classification, and speaker identification. Each time, we compare the performance of our approach to existing baselines. Our results confirm that the representation of natural speech captured using speechVGG is transferable and generalizable across various speech processing problems and datasets. Notably, relatively simple applications of our pre-trained model are capable of achieving competitive results.},
   archiveprefix = {arxiv},
   langid = {english}
+}
+
+@misc{beijingdatatangtechnologycoltd_aidatatang_,
+  title = {Aidatatang 200zh, a {{Free Chinese Mandarin Speech Corpus}}},
+  author = {{Beijing DataTang Technology Co., Ltd.}},
+  annotation = {http://www.datatang.com https://openslr.org/62/}
 }
 
 @article{bejnordi_batchshaping_2020,
@@ -1254,7 +1290,7 @@
 @inproceedings{borgholt_endtoend_2020,
   title = {Do End-to-End Speech Recognition Models Care about Context?},
   booktitle = {Proceedings of the 21st {{Annual Conference}} of the {{International Speech Communication Association}} ({{INTERSPEECH}})},
-  author = {Borgholt, Lasse and Havtorn, Jakob D. and Agic, Zeljko and S{\o}gaard, Anders and Maal{\o}e, Lars and Igel, Christian},
+  author = {Borgholt, Lasse and Havtorn, Jakob D. and Agi{\'c}, {\v Z}eljko and S{\o}gaard, Anders and Maal{\o}e, Lars and Igel, Christian},
   year = {2020},
   eprint = {2102.09928},
   pages = {4352--4356},
@@ -1510,6 +1546,16 @@
   volume = {33},
   pages = {1877--1901},
   publisher = {{Curran Associates, Inc.}}
+}
+
+@inproceedings{bu_aishell1_2017,
+  title = {{{AISHELL-1}}: {{An}} Open-Source {{Mandarin}} Speech Corpus and a Speech Recognition Baseline},
+  booktitle = {Proceedings of the 20th {{Conference}} of the {{Oriental Chapter}} of the {{International Coordinating Committee}} on {{Speech Databases}} and {{Speech I}}/{{O Systems}} and {{Assessment}} ({{O-COCOSDA}})},
+  author = {Bu, Hui and Du, Jiayu and Na, Xingyu and Wu, Bengu and Zheng, Hao},
+  year = {2017},
+  pages = {1--5},
+  publisher = {{IEEE}},
+  address = {{Seoul, South Korea}}
 }
 
 @misc{bubeck_geometric_2015,
@@ -1872,6 +1918,13 @@
   abstract = {The recently developed vision transformer (ViT) has achieved promising results on image classification compared to convolutional neural networks. Inspired by this, in this paper, we study how to learn multi-scale feature representations in transformer models for image classification. To this end, we propose a dual-branch transformer to combine image patches (i.e., tokens in a transformer) of different sizes to produce stronger image features. Our approach processes small-patch and large-patch tokens with two separate branches of different computational complexity and these tokens are then fused purely by attention multiple times to complement each other. Furthermore, to reduce computation, we develop a simple yet effective token fusion module based on cross attention, which uses a single token for each branch as a query to exchange information with other branches. Our proposed cross-attention only requires linear time for both computational and memory complexity instead of quadratic time otherwise. Extensive experiments demonstrate that our approach performs better than or on par with several concurrent works on vision transformer, in addition to efficient CNN models. For example, on the ImageNet1K dataset, with some architectural changes, our approach outperforms the recent DeiT by a large margin of 2\textbackslash\% with a small to moderate increase in FLOPs and model parameters. Our source codes and models are available at \textbackslash url\{https://github.com/IBM/CrossViT\}.}
 }
 
+@inproceedings{chen_gigaspeech_2021,
+  title = {{{GigaSpeech}}: {{An}} Evolving, Multi-Domain {{ASR}} Corpus with 10,000 Hours of Transcribed Audio},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Chen, Guoguo and Chai, Shuzhou and Wang, Guan-Bo and Du, Jiayu and Zhang, Wei-Qiang and Weng, Chao and Su, Dan and Povey, Daniel and Trmal, Jan and Zhang, Junbo and Jin, Mingjie and Khudanpur, Sanjeev and Watanabe, Shinji and Zhao, Shuaijiang and Zou, Wei and Li, Xiangang and Yao, Xuchen and Wang, Yongqing and You, Zhao and Yan, Zhiyong},
+  year = {2021}
+}
+
 @misc{chen_improved_2020,
   title = {Improved Baselines with Momentum Contrastive Learning},
   author = {Chen, Xinlei and Fan, Haoqi and Girshick, Ross and He, Kaiming},
@@ -1966,6 +2019,16 @@
   abstract = {Dialogue systems have attracted more and more attention. Recent advances on dialogue systems are overwhelmingly contributed by deep learning techniques, which have been employed to enhance a wide range of big data applications such as computer vision, natural language processing, and recommender systems. For dialogue systems, deep learning can leverage a massive amount of data to learn meaningful feature representations and response generation strategies, while requiring a minimum amount of hand-crafting. In this article, we give an overview to these recent advances on dialogue systems from various perspectives and discuss some possible research directions. In particular, we generally divide existing dialogue systems into task-oriented and nontask-oriented models, then detail how deep learning techniques help them with representative algorithms and finally discuss some appealing research directions that can bring the dialogue system research into a new frontier.},
   archiveprefix = {arxiv},
   langid = {english}
+}
+
+@misc{chen_unispeechsat_2021,
+  title = {{{UniSpeech-SAT}}: {{Universal}} Speech Representation Learning with Speaker Aware Pre-Training},
+  author = {Chen, Sanyuan and Wu, Yu and Wang, Chengyi and Chen, Zhengyang and Chen, Zhuo and Liu, Shujie and Wu, Jian and Qian, Yao and Wei, Furu and Li, Jinyu and Yu, Xiangzhan},
+  year = {2021},
+  number = {arXiv: 2110.05752},
+  eprint = {arXiv: 2110.05752},
+  publisher = {{arXiv}},
+  archiveprefix = {arxiv}
 }
 
 @misc{chen_variational_2017,
@@ -2324,6 +2387,15 @@
   title = {W2v-{{BERT}}: {{Combining}} Contrastive Learning and Masked Language Modeling for Self-Supervised Speech Pre-Training},
   author = {Chung, Yu-An and Zhang, Yu and Han, Wei and Chiu, Chung-Cheng and Qin, James and Pang, Ruoming and Wu, Yonghui},
   year = {2021}
+}
+
+@inproceedings{cieri_fisher_2004,
+  title = {The {{Fisher}} Corpus: {{A}} Resource for the next Generations of Speech-to-Text},
+  booktitle = {Proceedings of the {{International Conference}} on {{Language Resources}} and {{Evaluation}} ({{LREC}})},
+  author = {Cieri, Christopher and Miller, David and Walker, Kevin},
+  year = {2004},
+  volume = {4},
+  pages = {69--71}
 }
 
 @article{ciresan_multi-column_2012,
@@ -3255,6 +3327,30 @@
   archiveprefix = {arxiv}
 }
 
+@inproceedings{dunbar_zero_2017,
+  title = {The {{Zero Resource Speech Challenge}} 2017},
+  booktitle = {{{IEEE Workshop}} on {{Automatic Speech Recognition}} and {{Understanding}} ({{ASRU}})},
+  author = {Dunbar, Ewan and Cao, Xuan Nga and Benjumea, Juan and Karadayi, Julien and Bernard, Mathieu and Besacier, Laurent and Anguera, Xavier and Dupoux, Emmanuel},
+  year = {2017},
+  pages = {323--330}
+}
+
+@article{dunbar_zero_2019,
+  title = {The {{Zero Resource Speech Challenge}} 2019: {{TTS Without T}}},
+  author = {Dunbar, Ewan and Algayres, Robin and Karadayi, Julien and Bernard, Mathieu and Benjumea, Juan and Cao, Xuan-Nga and Miskic, Lucie and Dugrain, Charlotte and Ondel, Lucas and Black, Alan W and others},
+  year = {2019},
+  journal = {arXiv preprint arXiv:1904.11469},
+  eprint = {1904.11469},
+  archiveprefix = {arxiv}
+}
+
+@inproceedings{dunbar_zero_2020,
+  title = {The {{Zero Resource Speech Challenge}} 2020: {{Discovering}} Discrete Subword and Word Units},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Dunbar, Ewan and Karadayi, Julien and Bernard, Mathieu and Cao, Xuan-Nga and Algayres, Robin and Ondel, Lucas and Besacier, Laurent and Sakti, Sakriani and Dupoux, Emmanuel},
+  year = {2020}
+}
+
 @inproceedings{durall_watch_2020,
   title = {Watch {{Your Up-Convolution}}: {{CNN Based Generative Deep Neural Networks Are Failing}} to {{Reproduce Spectral Distributions}}},
   booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
@@ -3350,6 +3446,25 @@
   archiveprefix = {arxiv}
 }
 
+@inproceedings{engel_neural_2017,
+  title = {Neural Audio Synthesis of Musical Notes with {{WaveNet}} Autoencoders},
+  booktitle = {Proceedings of the {{International Conference}} on {{Machine Learning}} ({{ICML}})},
+  author = {Engel, Jesse and Resnick, Cinjon and Roberts, Adam and Dieleman, Sander and Norouzi, Mohammad and Eck, Douglas and Simonyan, Karen},
+  year = {2017},
+  pages = {1068--1077}
+}
+
+@article{ephrat_looking_2018,
+  title = {Looking to Listen at the Cocktail Party: {{A}} Speaker-Independent Audio-Visual Model for Speech Separation},
+  author = {Ephrat, Ariel and Mosseri, Inbar and Lang, Oran and Dekel, Tali and Wilson, Kevin and Hassidim, Avinatan and Freeman, William T and Rubinstein, Michael},
+  year = {2018},
+  journal = {ACM Transactions on Graphics (TOG)},
+  volume = {37},
+  number = {4},
+  pages = {1--11},
+  publisher = {{ACM New York, NY, USA}}
+}
+
 @article{ericsson_selfsupervised_2022,
   title = {Self-Supervised Representation Learning: {{Introduction}}, Advances, and Challenges},
   author = {Ericsson, Linus and Gouk, Henry and Loy, Chen Change and Hospedales, Timothy M},
@@ -3387,6 +3502,13 @@
   abstract = {Designed to learn long-range interactions on sequential data, transformers continue to show state-of-the-art results on a wide variety of tasks. In contrast to CNNs, they contain no inductive bias that prioritizes local interactions. This makes them expressive, but also computationally infeasible for long sequences, such as high-resolution images. We demonstrate how combining the effectiveness of the inductive bias of CNNs with the expressivity of transformers enables them to model and thereby synthesize high-resolution images. We show how to (i) use CNNs to learn a contextrich vocabulary of image constituents, and in turn (ii) utilize transformers to efficiently model their composition within high-resolution images. Our approach is readily applied to conditional synthesis tasks, where both non-spatial information, such as object classes, and spatial information, such as segmentations, can control the generated image. In particular, we present the first results on semanticallyguided synthesis of megapixel images with transformers. Project page at https://git.io/JLlvY.},
   archiveprefix = {arxiv},
   langid = {english}
+}
+
+@inproceedings{evain_lebenchmark_2021,
+  title = {{{LeBenchmark}}: {{A}} Reproducible Framework for Assessing Self-Supervised Representation Learning from Speech},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Evain, Sol{\`e}ne and Nguyen, Ha and Le, Hang and Boito, Marcely Zanon and Mdhaffar, Salima and Alisamir, Sina and Tong, Ziyi and Tomashenko, Natalia and Dinarelli, Marco and Parcollet, Titouan and Allauzen, Alexandre and Est{\`e}ve, Yannick and Lecouteux, Benjamin and Portet, Fran{\c c}ois and Rossato, Solange and Ringeval, Fabien and Schwab, Didier and Besacier, Laurent},
+  year = {2021}
 }
 
 @misc{everitt_reward_2019,
@@ -3647,6 +3769,13 @@
   annotation = {Computer Science Department, University of Oxford}
 }
 
+@inproceedings{gales_speech_2014,
+  title = {Speech Recognition and Keyword Spotting for Low-Resource Languages: {{BABEL}} Project Research at {{CUED}}},
+  booktitle = {Fourth {{International Workshop}} on {{Spoken Language Technologies}} for {{Under-Resourced Languages}} ({{SLTU}})},
+  author = {Gales, Mark JF and Knill, Kate M and Ragni, Anton and Rath, Shakti P},
+  year = {2014}
+}
+
 @misc{gan_deep_2015,
   title = {Deep {{Temporal Sigmoid Belief Networks}} for {{Sequence Modeling}}},
   author = {Gan, Zhe and Li, Chunyuan and Henao, Ricardo and Carlson, David and Carin, Lawrence},
@@ -3735,6 +3864,13 @@
   pmid = {1000200972}
 }
 
+@inproceedings{gauthier_collecting_2016,
+  title = {Collecting Resources in Sub-{{Saharan African}} Languages for Automatic Speech Recognition: {{A}} Case Study of {{Wolof}}},
+  booktitle = {Proceedings of the {{International Conference}} on {{Language Resources}} and {{Evaluation}} ({{LREC}})},
+  author = {Gauthier, Elodie and Besacier, Laurent and Voisin, Sylvie and Melese, Michael and Elingui, Uriel Pascal},
+  year = {2016}
+}
+
 @article{gauvain_maximum_1994,
   title = {Maximum a Posteriori Estimation for Multivariate {{Gaussian}} Mixture Observations of {{Markov}} Chains},
   author = {Gauvain, J.-L. and Lee, Chin-Hui},
@@ -3761,6 +3897,13 @@
   author = {Gehring, Jonas and Auli, Michael and Grangier, David and Dauphin, Yann N},
   urldate = {2018-07-16},
   abstract = {The prevalent approach to neural machine translation relies on bi-directional LSTMs to encode the source sentence. We present a faster and simpler architecture based on a succession of convolutional layers. This allows to encode the source sentence simultaneously compared to recurrent networks for which computation is constrained by temporal dependencies. On WMT'16 English-Romanian translation we achieve competitive accuracy to the state-of-the-art and on WMT'15 English-German we outper-form several recently published results. Our models obtain almost the same accuracy as a very deep LSTM setup on WMT'14 English-French translation. We speed up CPU decoding by more than two times at the same or higher accuracy as a strong bi-directional LSTM. 1}
+}
+
+@inproceedings{gelas_developments_2012,
+  title = {Developments of {{Swahili}} Resources for an Automatic Speech Recognition System},
+  booktitle = {Spoken {{Language Technologies}} for {{Under-Resourced Languages}}},
+  author = {Gelas, Hadrien and Besacier, Laurent and Pellegrino, Fran{\c c}ois},
+  year = {2012}
 }
 
 @book{gelman_bayesian_2013,
@@ -3791,6 +3934,13 @@
   abstract = {We argue that the most important statistical ideas of the past half century are: counterfactual causal inference, bootstrapping and simulation-based inference, overparameterized models and regularization, multilevel models, generic computation algorithms, adaptive decision analysis, robust inference, and exploratory data analysis. We discuss common features of these ideas, how they relate to modern computing and big data, and how they might be developed and extended in future decades. The goal of this article is to provoke thought and discussion regarding the larger themes of research in statistics and data science.},
   archiveprefix = {arxiv},
   langid = {english}
+}
+
+@inproceedings{gemmeke_audio_2017,
+  title = {Audio {{Set}}: {{An}} Ontology and Human-Labeled Dataset for Audio Events},
+  booktitle = {{{IEEE}} International Conference on Acoustics, Speech and Signal Processing ({{ICASSP}})},
+  author = {Gemmeke, Jort F and Ellis, Daniel PW and Freedman, Dylan and Jansen, Aren and Lawrence, Wade and Moore, R Channing and Plakal, Manoj and Ritter, Marvin},
+  year = {2017}
 }
 
 @inproceedings{germain_made_2015,
@@ -4030,6 +4180,13 @@
   pages = {75--84},
   issn = {0001-0782},
   abstract = {Consider a computer system having a CPU that feeds jobs to two input/output (I/O) devices having different speeds. Let \texttheta{} be the fraction of jobs routed to the first I/O device, so that 1 - \texttheta{} is the fraction routed to the second. Suppose that {$\alpha$} = {$\alpha$}(\texttheta ) is the steady-sate amount of time that a job spends in the system. Given that \texttheta{} is a decision variable, a designer might wish to minimize {$\alpha$}(\texttheta ) over \texttheta. Since {$\alpha$}({$\cdot$}) is typically difficult to evaluate analytically, Monte Carlo optimization is an attractive methodology. By analogy with deterministic mathematical programming, efficient Monte Carlo gradient estimation is an important ingredient of simulation-based optimization algorithms. As a consequence, gradient estimation has recently attracted considerable attention in the simulation community. It is our goal, in this article, to describe one efficient method for estimating gradients in the Monte Carlo setting, namely the likelihood ratio method (also known as the efficient score method). This technique has been previously described (in less general settings than those developed in this article) in [6, 16, 18, 21]. An alternative gradient estimation procedure is infinitesimal perturbation analysis; see [11, 12] for an introduction. While it is typically more difficult to apply to a given application than the likelihood ratio technique of interest here, it often turns out to be statistically more accurate.In this article, we first describe two important problems which motivate our study of efficient gradient estimation algorithms. Next, we will present the likelihood ratio gradient estimator in a general setting in which the essential idea is most transparent. The section that follows then specializes the estimator to discrete-time stochastic processes. We derive likelihood-ratio-gradient estimators for both time-homogeneous and non-time homogeneous discrete-time Markov chains. Later, we discuss likelihood ratio gradient estimation in continuous time. As examples of our analysis, we present the gradient estimators for time-homogeneous continuous-time Markov chains; non-time homogeneous continuous-time Markov chains; semi-Markov processes; and generalized semi-Markov processes. (The analysis throughout these sections assumes the performance measure that defines {$\alpha$}(\texttheta ) corresponds to a terminating simulation.) Finally, we conclude the article with a brief discussion of the basic issues that arise in extending the likelihood ratio gradient estimator to steady-state performance measures.}
+}
+
+@inproceedings{godfrey_switchboard_1992,
+  title = {{{SWITCHBOARD}}: {{Telephone}} Speech Corpus for Research and Development},
+  booktitle = {{{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  author = {Godfrey, John J and Holliman, Edward C and McDaniel, Jane},
+  year = {1992}
 }
 
 @misc{goel_it_2022,
@@ -4474,6 +4631,20 @@
   langid = {english}
 }
 
+@misc{gulati_conformer_2020,
+  title = {Conformer: {{Convolution-augmented Transformer}} for {{Speech Recognition}}},
+  shorttitle = {Conformer},
+  author = {Gulati, Anmol and Qin, James and Chiu, Chung-Cheng and Parmar, Niki and Zhang, Yu and Yu, Jiahui and Han, Wei and Wang, Shibo and Zhang, Zhengdong and Wu, Yonghui and Pang, Ruoming},
+  year = {2020},
+  month = may,
+  number = {arXiv:2005.08100},
+  eprint = {arXiv:2005.08100},
+  publisher = {{arXiv}},
+  urldate = {2023-03-17},
+  abstract = {Recently Transformer and Convolution neural network (CNN) based models have shown promising results in Automatic Speech Recognition (ASR), outperforming Recurrent neural networks (RNNs). Transformer models are good at capturing content-based global interactions, while CNNs exploit local features effectively. In this work, we achieve the best of both worlds by studying how to combine convolution neural networks and transformers to model both local and global dependencies of an audio sequence in a parameter-efficient way. To this regard, we propose the convolution-augmented transformer for speech recognition, named Conformer. Conformer significantly outperforms the previous Transformer and CNN based models achieving state-of-the-art accuracies. On the widely used LibriSpeech benchmark, our model achieves WER of 2.1\%/4.3\% without using a language model and 1.9\%/3.9\% with an external language model on test/testother. We also observe competitive performance of 2.7\%/6.3\% with a small model of only 10M parameters.},
+  archiveprefix = {arxiv}
+}
+
 @book{gumbel_statistical_1954,
   title = {Statistical {{Theory}} of {{Extreme Values}} and {{Some Practical Applications}}. {{A Series}} of {{Lectures}}},
   author = {Gumbel, Emil Julius},
@@ -4527,6 +4698,23 @@
   pages = {2555--2565},
   publisher = {{PMLR}},
   abstract = {Planning has been very successful for control tasks with known environment dynamics. To leverage planning in unknown environments, the agent needs to learn the dynamics from interactions with the world. However, learning dynamics models that are accurate enough for planning has been a long-standing challenge, especially in image-based domains. We propose the Deep Planning Network (PlaNet), a purely model-based agent that learns the environment dynamics from images and chooses actions through fast online planning in latent space. To achieve high performance, the dynamics model must accurately predict the rewards ahead for multiple time steps. We approach this using a latent dynamics model with both deterministic and stochastic transition components. Moreover, we propose a multi-step variational inference objective that we name latent overshooting. Using only pixel observations, our agent solves continuous control tasks with contact dynamics, partial observability, and sparse rewards, which exceed the difficulty of tasks that were previously solved by planning with learned models. PlaNet uses substantially fewer episodes and reaches final performance close to and sometimes higher than strong model-free algorithms.}
+}
+
+@inproceedings{hajavi_siamese_2021,
+  title = {Siamese Capsule Network for End-to-End Speaker Recognition in the Wild},
+  booktitle = {{{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  author = {Hajavi, Amirhossein and Etemad, Ali},
+  year = {2021}
+}
+
+@misc{hajibabaei_unified_2018,
+  title = {Unified Hypersphere Embedding for Speaker Recognition},
+  author = {Hajibabaei, Mahdi and Dai, Dengxin},
+  year = {2018},
+  number = {arXiv:1807.08312},
+  eprint = {arXiv:1807.08312},
+  publisher = {{arXiv}},
+  archiveprefix = {arxiv}
 }
 
 @article{hamilton_graph_2020,
@@ -4760,7 +4948,7 @@
 @inproceedings{havtorn_multiqt_2020,
   title = {{{MultiQT}}: {{Multimodal}} Learning for Real-Time Question Tracking in Speech},
   booktitle = {Proceedings of the 58th {{Annual Meeting}} of the {{Association}} for {{Computational Linguistics}} ({{ACL}})},
-  author = {Havtorn, Jakob D. and Latko, Jan and Edin, Joakim and Borgholt, Lasse and Maal{\o}e, Lars and Belgrano, Lorenzo and Jakobsen, Nicolai Frost and Sdun, Regitze and Agic, Zeljko},
+  author = {Havtorn, Jakob D. and Latko, Jan and Edin, Joakim and Borgholt, Lasse and Maal{\o}e, Lars and Belgrano, Lorenzo and Jakobsen, Nicolai Frost and Sdun, Regitze and Agi{\'c}, {\v Z}eljko},
   year = {2020},
   eprint = {2005.00812},
   publisher = {{Association for Computational Linguistics}},
@@ -4993,6 +5181,14 @@
   volume = {2},
   number = {4},
   pages = {587--589}
+}
+
+@inproceedings{hernandez_tedlium_2018,
+  title = {{{TED-LIUM}} 3: {{Twice}} as Much Data and Corpus Repartition for Experiments on Speaker Adaptation},
+  booktitle = {International {{Conference}} on {{Speech}} and {{Computer}}},
+  author = {Hernandez, Fran{\c c}ois and Nguyen, Vincent and Ghannay, Sahar and Tomashenko, Natalia and Esteve, Yannick},
+  year = {2018},
+  pages = {198--208}
 }
 
 @inproceedings{hernandez-lobato_black-box_2016,
@@ -5306,6 +5502,13 @@
   volume = {28},
   number = {3/4},
   pages = {321--377}
+}
+
+@inproceedings{hozjan_interface_2002,
+  title = {Interface Databases: {{Design}} and Collection of a Multilingual Emotional Speech Database},
+  booktitle = {Proceedings of the {{International Conference}} on {{Language Resources}} and {{Evaluation}} ({{LREC}})},
+  author = {Hozjan, Vladimir and Kacic, Zdravko and Moreno, Asuncion and Bonafonte, Antonio and Nogueiras, Albino},
+  year = {2002}
 }
 
 @misc{hsu_extracting_2018,
@@ -6319,8 +6522,8 @@
   title = {Text-Free Prosody-Aware Generative Spoken Language Modeling},
   author = {Kharitonov, Eugene and Lee, Ann and Polyak, Adam and Adi, Yossi and Copet, Jade and Lakhotia, Kushal and Nguyen, Tu Anh and Rivi{\`e}re, Morgane and Mohamed, Abdelrahman and Dupoux, Emmanuel and Hsu, Wei-Ning},
   year = {2021},
-  number = {arXiv:2109.03264},
-  eprint = {arXiv:2109.03264},
+  number = {2109.03264},
+  eprint = {2109.03264},
   publisher = {{arXiv}},
   archiveprefix = {arxiv}
 }
@@ -6599,6 +6802,13 @@
   pages = {16},
   abstract = {A conventional wisdom in statistical learning is that large models require strong regularization to prevent overfitting. Here we show that this rule can be violated by linear regression in the underdetermined n p situation under realistic conditions. Using simulations and real-life highdimensional datasets, we demonstrate that an explicit positive ridge penalty can fail to provide any improvement over the minimum-norm least squares estimator. Moreover, the optimal value of ridge penalty in this situation can be negative. This happens when the high-variance directions in the predictor space can predict the response variable, which is often the case in the real-world highdimensional data. In this regime, low-variance directions provide an implicit ridge regularization and can make any further positive ridge penalty detrimental. We prove that augmenting any linear model with random covariates and using minimum-norm estimator is asymptotically equivalent to adding the ridge penalty. We use a spiked covariance model as an analytically tractable example and prove that the optimal ridge penalty in this case is negative when n p.},
   langid = {english}
+}
+
+@inproceedings{kocabiyikoglu_augmenting_2018,
+  title = {Augmenting {{LibriSpeech}} with {{French}} Translations: {{A}} Multimodal Corpus for Direct Speech Translation Evaluation},
+  booktitle = {Proceedings of the International Conference on Language Resources and Evaluation ({{LREC}})},
+  author = {Kocabiyikoglu, Ali Can and Besacier, Laurent and Kraif, Olivier},
+  year = {2018}
 }
 
 @article{koenecke_racial_2020,
@@ -6968,6 +7178,20 @@
   address = {{Long Beach, CA, USA}},
   urldate = {2018-10-31},
   abstract = {Deep neural networks (NNs) are powerful black box predictors that have recently achieved impressive performance on a wide spectrum of tasks. Quantifying predictive uncertainty in NNs is a challenging and yet unsolved problem. Bayesian NNs, which learn a distribution over weights, are currently the state-of-the-art for estimating predictive uncertainty; however these require significant modifications to the training procedure and are computationally expensive compared to standard (non-Bayesian) NNs. We propose an alternative to Bayesian NNs that is simple to implement, readily parallelizable, requires very little hyperparameter tuning, and yields high quality predictive uncertainty estimates. Through a series of experiments on classification and regression benchmarks, we demonstrate that our method produces well-calibrated uncertainty estimates which are as good or better than approximate Bayesian NNs. To assess robustness to dataset shift, we evaluate the predictive uncertainty on test examples from known and unknown distributions, and show that our method is able to express higher uncertainty on out-of-distribution examples. We demonstrate the scalability of our method by evaluating predictive uncertainty estimates on ImageNet.}
+}
+
+@inproceedings{laleye_first_2016,
+  title = {First Automatic Fongbe Continuous Speech Recognition System: {{Development}} of Acoustic Models and Language Models},
+  booktitle = {Proceedings of the 2016 {{Federated Conference}} on {{Computer Science}} and {{Information Systems}} ({{FedCSIS}})},
+  author = {Laleye, Fr{\'e}jus A. A. and Besacier, Laurent and Ezin, Eug{\`e}ne C. and Motamed, Cina},
+  editor = {Ganzha, Maria and Maciaszek, Leszek A. and Paprzycki, Marcin},
+  year = {2016},
+  month = sep,
+  series = {Annals of Computer Science and Information Systems},
+  volume = {8},
+  pages = {477--482},
+  publisher = {{IEEE}},
+  address = {{Gda\'nsk, Poland}}
 }
 
 @article{lamb_professor_2016,
@@ -7720,6 +7944,13 @@
   abstract = {Lighthill's report was commissioned by the Science Research Council (SRC) to give an unbiased view of the state of AI research primarily in the UK in 1973. The two main research groups were at Sussex and Edinburgh. There was pressure from Edinburgh to buy a US machine, the Digital Equipment Corporation DEC10 which was used by most US researchers. AI research was funded by the Engineering Board of SRC as part of its Computer Science funding. The Lighthill Report was published early in 1973. Although it supported AI research related to automation and to computer simulation of neurophysiological and psychological processes, it was highly critical of basic research in the foundation areas such as robotics and language processing. Lighthill's report provoked a massive loss of confidence in AI by the academic establishment in the UK including the funding body. It persisted for almost a decade. AI research continued but the next attempt to mount a major activity in the area did not come until the September 1982 Research Area Review Meeting on Intelligent Knowledge-Based Systems. The findings of which were accepted by SERC (Science and Engineering Research Council, a change of name) and became the IKBS part of the Alvey Programme.}
 }
 
+@inproceedings{likhomanenko_slimipl_2021,
+  title = {{{slimIPL}}: {{Language-model-free}} Iterative Pseudo-Labeling},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Likhomanenko, Tatiana and Xu, Qiantong and Kahn, Jacob and Synnaeve, Gabriel and Collobert, Ronan},
+  year = {2021}
+}
+
 @misc{lillicrap_continuous_2015,
   title = {Continuous Control with Deep Reinforcement Learning},
   author = {Lillicrap, Timothy P. and Hunt, Jonathan J. and Pritzel, Alexander and Heess, Nicolas and Erez, Tom and Tassa, Yuval and Silver, David and Wierstra, Daan},
@@ -7861,14 +8092,21 @@
   archiveprefix = {arxiv}
 }
 
-@article{liu_masked_2020,
-  title = {Masked {{Pre-trained Encoder}} Base on {{Joint CTC-Transformer}}},
+@inproceedings{liu_hkust_2006,
+  title = {{{HKUST}}/{{MTS}}: {{A}} Very Large Scale {{Mandarin}} Telephone Speech Corpus},
+  booktitle = {Proceedings of the {{International Conference}} on {{Spoken Language Processing}}},
+  author = {Liu, Yi and Fung, Pascale and Yang, Yongsheng and Cieri, Christopher and Huang, Shudong and Graff, David},
+  year = {2006}
+}
+
+@misc{liu_masked_2020,
+  title = {Masked {{Pre-Trained Encoder Base}} on {{Joint Ctc-Transformer}}},
   author = {Liu, Lu and Huang, Yiheng},
   year = {2020},
   month = aug,
-  journal = {arXiv:2005.11978 [eess]},
-  eprint = {2005.11978},
-  primaryclass = {eess},
+  number = {arXiv:2005.11978},
+  eprint = {arXiv:2005.11978},
+  publisher = {{arXiv}},
   urldate = {2021-10-12},
   abstract = {This study (The work was accomplished during the internship in Tencent AI lab) addresses semi-supervised acoustic modeling, i.e. attaining high-level representations from unsupervised audio data and fine-tuning the parameters of pre-trained model with supervised data. The proposed approach adopts a two-stage training framework, consisting of masked pre-trained encoder (MPE) and Joint CTC-Transformer (JCT). In the MPE framework, part of input frames are masked and reconstructed after the encoder with massive unsupervised data. In JCT framework, compared with original Transformer, acoustic features are applied as input instead of plain text. CTC loss performs as the prediction target on top of the encoder, and decoder blocks remain unchanged. This paper presents a comparison between two-stage training method and the fully supervised JCT. In addition, this paper investigates the our approach's robustness against different volumns of training data. Experiments on the two-stage training method deliver much better performance than fully supervised model. The word error rate (WER) with two-stage training which only exploits 30\textbackslash\% of WSJ labeled data achieves 17\textbackslash\% reduction than which trained by 50\textbackslash\% of WSJ in a fully supervised way. Moreover, increasing unlabeled data for MPE from WSJ (81h) to Librispeech (960h) attains about 22\textbackslash\% WER reduction.},
   archiveprefix = {arxiv}
@@ -8091,6 +8329,13 @@
   langid = {english}
 }
 
+@inproceedings{lugosch_speech_2019,
+  title = {Speech Model Pre-Training for End-to-End Spoken Language Understanding},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Lugosch, Loren and Ravanelli, Mirco and Ignoto, Patrick and Tomar, Vikrant Singh and Bengio, Yoshua},
+  year = {2019}
+}
+
 @article{lundberg_unified_nodate,
   title = {A {{Unified Approach}} to {{Interpreting Model Predictions}}},
   author = {Lundberg, Scott M and Lee, Su-In},
@@ -8311,6 +8556,13 @@
   pages = {300--307},
   urldate = {2018-03-25},
   abstract = {Covariance matrices capture correlations that are invaluable in mod-eling real-life datasets. Using all d 2 elements of the covariance (in d dimensions) is costly and could result in over-fitting; and the simple diagonal approximation can be over-restrictive. We present an algorithm that improves upon the diagonal matrix by allowing a low rank perturbation. The efficiency is comparable to the diagonal approximation, yet one can capture correlations among the dimensions. We show that this method outperforms the diagonal when training GMMs on both synthetic and real-world data.}
+}
+
+@misc{magicdatatechnologycoltd_magicdata_2019,
+  title = {{{MAGICDATA Mandarin Chinese Read Speech Corpus}}},
+  author = {{Magic Data Technology Co., Ltd.}},
+  year = {2019},
+  annotation = {http://www.imagicdatatech.com/index.php/home/dataopensource/data\_info/id/101}
 }
 
 @article{magnus_matrix_1985,
@@ -8588,6 +8840,14 @@
   journal = {Annual Conference of the International Speech Communication Association}
 }
 
+@article{mesaros_detection_2018,
+  title = {Detection and Classification of Acoustic Scenes and Events},
+  author = {Mesaros, Annamaria and Heittola, Toni and Virtanen, Tuomas},
+  year = {2018},
+  journal = {Proceedings of the Workshop on Detection and Classification of Acoustic Scenes and Events (DCASE)},
+  pages = {9--13}
+}
+
 @misc{mescheder_adversarial_2017,
   title = {Adversarial {{Variational Bayes}}: {{Unifying Variational Autoencoders}} and {{Generative Adversarial Networks}}},
   author = {Mescheder, Lars and Nowozin, Sebastian and Geiger, Andreas},
@@ -8681,15 +8941,15 @@
   langid = {english}
 }
 
-@article{milde_unspeech_2018,
+@misc{milde_unspeech_2018,
   title = {Unspeech: {{Unsupervised Speech Context Embeddings}}},
   shorttitle = {Unspeech},
   author = {Milde, Benjamin and Biemann, Chris},
   year = {2018},
   month = aug,
-  journal = {arXiv:1804.06775 [cs, eess]},
-  eprint = {1804.06775},
-  primaryclass = {cs, eess},
+  number = {arXiv:1804.0677},
+  eprint = {arXiv:1804.0677},
+  publisher = {{arXiv}},
   urldate = {2021-10-21},
   abstract = {We introduce "Unspeech" embeddings, which are based on unsupervised learning of context feature representations for spoken language. The embeddings were trained on up to 9500 hours of crawled English speech data without transcriptions or speaker information, by using a straightforward learning objective based on context and non-context discrimination with negative sampling. We use a Siamese convolutional neural network architecture to train Unspeech embeddings and evaluate them on speaker comparison, utterance clustering and as a context feature in TDNN-HMM acoustic models trained on TED-LIUM, comparing it to i-vector baselines. Particularly decoding out-of-domain speech data from the recently released Common Voice corpus shows consistent WER reductions. We release our source code and pre-trained Unspeech models under a permissive open source license.},
   archiveprefix = {arxiv}
@@ -9061,6 +9321,13 @@
   month = mar,
   pages = {5400--5404},
   abstract = {A typical solution for the speech rate estimation consists of two stages, which involves first computing a short-time feature contour such that most of peaks of the contour correspond to the syllable nuclei followed by the detection of the peaks of the contour corresponding to the syllable nuclei. Temporal correlation selected subband correlation (TCSSBC) is often used as a feature contour for the speech rate estimation in which correlation within and across a few selected sub-band energies are computed. In this work, instead of a fixed set of sub-bands, we learn them in a data-driven manner using a dictionary learning approach. Similarly, instead of the energy contours, we use the activation profile from the learned dictionary elements. We found that the peaks detected from the data-driven approach significantly improve the speech rate estimation when combined with the traditional TCSSBC approach using a proposed peak-merging strategy. Experiments are performed separately using Switchboard, TIMIT and CTIMIT corpora. Except Switchboard, the correlation coefficient for the speech rate estimation using the proposed approach is found to be higher than those by the TCSSBC technique - 3.1\% and 5.2\% (relative) improvements for TIMIT and CTIMIT respectively.}
+}
+
+@inproceedings{nagrani_voxceleb_2017,
+  title = {{{VoxCeleb}}: {{A}} Large-Scale Speaker Identification Dataset},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Nagrani, Arsha and Chung, Joon Son and Zisserman, Andrew},
+  year = {2017}
 }
 
 @inproceedings{nair_rectified_2010,
@@ -9566,6 +9833,12 @@
   howpublished = {https://docs.opencv.org/master/}
 }
 
+@article{oponowicz_spoken_2018,
+  title = {Spoken {{Language Identification}}},
+  author = {Oponowicz, Tomasz},
+  year = {2018}
+}
+
 @inproceedings{oquab_learning_2014,
   title = {Learning and Transferring Mid-Level Image Representations Using Convolutional Neural Networks},
   booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
@@ -9868,6 +10141,15 @@
   isbn = {978-1-5386-0733-6}
 }
 
+@inproceedings{paul_design_1992,
+  title = {The Design for the {{Wall Street Journal-based CSR}} Corpus},
+  booktitle = {Proceedings of the {{Worhshop}} on {{Speech}} and {{Natural Language}}:},
+  author = {Paul, Douglas B and Baker, Janet},
+  year = {1992},
+  month = feb,
+  address = {{Harriman, New York}}
+}
+
 @misc{paulus_deep_2017,
   title = {A {{Deep Reinforced Model}} for {{Abstractive Summarization}}},
   author = {Paulus, Romain and Xiong, Caiming and Socher, Richard},
@@ -10094,6 +10376,13 @@
   pages = {1306--1326}
 }
 
+@inproceedings{pratap_mls_2020,
+  title = {{{MLS}}: {{A}} Large-Scale Multilingual Dataset for Speech Research},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Pratap, Vineel and Xu, Qiantong and Sriram, Anuroop and Synnaeve, Gabriel and Collobert, Ronan},
+  year = {2020}
+}
+
 @misc{pratap_wav2letter++:_2018,
   title = {Wav2letter++: {{The Fastest Open-source Speech Recognition System}}},
   shorttitle = {Wav2letter++},
@@ -10123,6 +10412,12 @@
   volume = {29},
   abstract = {From Preface: ``I was just going to say, when I was interrupted:::'' begins Oliver Wendell Holmes in the second series of his famous essays, The Autocrat of the Breakfast Table. The interruption referred towas a gap of 25 years. In our case, as the autocrats of Numerical Recipes, the gap between our second and third editions has been ``only'' 15 years. Scientific computing has changed enormously in that time. The first edition of Numerical Recipes was roughly coincident with the first commercial success of the personal computer. The second edition came at about the time that the Internet, as we know it today, was created. Now, as we launch the third edition, the practice of science and engineering, and thus scientific computing, has been profoundly altered by the mature Internet and Web. It is no longer difficult to find somebody's algorithm, and usually free code, for almost any conceivable scien- tific application. The critical questions have instead become, ``How does it work?'' and ``Is it any good?'' Correspondingly, the second edition of Numerical Recipes has come to be valued more and more for its text explanations, concise mathematical derivations, critical judgments, and advice, and less for its code implementations per se. Recognizing the change, we have expanded and improved the text in many places in this edition and addedmany completely newsections. We seriously consid- ered leaving the code out entirely, or making it available only on theWeb. However, in the end, we decided that without code, it wouldn't be Numerical Recipes.That is, without code you, the reader, could never know whether our advice was in fact hon- est, implementable, and practical. Many discussions of algorithms in the literature and on the Web omit crucial details that can only be uncovered by actually coding (our job) or reading compilable code (your job). Also, we needed actual code to teach and illustrate the large number of lessons about object-oriented programming that are implicit and explicit in this edition.},
   isbn = {0-521-88068-8}
+}
+
+@misc{primewordsinformationtechnologycoltd_primewords_2018,
+  title = {Primewords {{Chinese Corpus Set}} 1},
+  author = {{Primewords Information Technology Co., Ltd.}},
+  year = {2018}
 }
 
 @inproceedings{qian_momentum_1999,
@@ -10413,6 +10708,23 @@
   annotation = {OCLC: ocm61285753}
 }
 
+@inproceedings{ravanelli_dirhaenglish_2015,
+  title = {The {{DIRHA-English}} Corpus and Related Tasks for Distant-Speech Recognition in Domestic Environments},
+  booktitle = {{{IEEE Workshop}} on {{Automatic Speech Recognition}} and {{Understanding}}},
+  author = {Ravanelli, Mirco and Cristoforetti, Luca and Gretter, Roberto and Pellin, Marco and Sosi, Alessandro and Omologo, Maurizio},
+  year = {2015}
+}
+
+@misc{ravanelli_learning_2018,
+  title = {Learning Speaker Representations with Mutual Information},
+  author = {Ravanelli, Mirco and Bengio, Yoshua},
+  year = {2018},
+  number = {arXiv:1812.00271},
+  eprint = {arXiv:1812.00271},
+  publisher = {{arXiv}},
+  archiveprefix = {arxiv}
+}
+
 @inproceedings{ravanelli_multi-task_2020,
   title = {Multi-{{Task Self-Supervised Learning}} for {{Robust Speech Recognition}}},
   booktitle = {{{ICASSP}} 2020 - 2020 {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
@@ -10674,6 +10986,13 @@
   langid = {english}
 }
 
+@inproceedings{rodriguez-fuentes_gttsehu_2014,
+  title = {{{GTTS-EHU}} Systems for {{QUESST}} at {{MediaEval}} 2014},
+  booktitle = {{{MediaEval}}},
+  author = {{Rodr{\'i}guez-Fuentes}, Luis Javier and Varona, Amparo and Penagarikano, Mikel and Bordel, Germ{\'a}n and Diez, Mireia},
+  year = {2014}
+}
+
 @misc{roeder_sticking_2017,
   title = {Sticking the {{Landing}}: {{Simple}}, {{Lower-Variance Gradient Estimators}} for {{Variational Inference}}},
   shorttitle = {Sticking the {{Landing}}},
@@ -10785,6 +11104,14 @@
   booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
   author = {Rouditchenko, Andrew and Boggust, Angie and Harwath, David and Chen, Brian and Joshi, Dhiraj and Thomas, Samuel and Audhkhasi, Kartik and Kuehne, Hilde and Panda, Rameswar and Feris, Rogerio and others},
   year = {2021}
+}
+
+@inproceedings{rousseau_tedlium_2012,
+  title = {{{TED-LIUM}}: {{An}} Automatic Speech Recognition Dedicated Corpus},
+  booktitle = {Proceedings of the {{International Conference}} on {{Language Resources}} and {{Evaluation}} ({{LREC}})},
+  author = {Rousseau, Anthony and Del{\'e}glise, Paul and Esteve, Yannick},
+  year = {2012},
+  pages = {125--129}
 }
 
 @misc{roy_does_2021,
@@ -11575,6 +11902,13 @@
   langid = {english}
 }
 
+@inproceedings{shor_learning_2020,
+  title = {Towards Learning a Universal Non-Semantic Representation of Speech},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Shor, Joel and Jansen, Aren and Maor, Ronnie and Lang, Oran and Tuval, Omry and {de Chaumont Quitry}, F{\'e}lix and Tagliasacchi, Marco and Shavitt, Ira and Emanuel, Dotan and Haviv, Yinnon},
+  year = {2020}
+}
+
 @misc{shrikumar_learning_2017,
   title = {Learning {{Important Features Through Propagating Activation Differences}}},
   author = {Shrikumar, Avanti and Greenside, Peyton and Kundaje, Anshul},
@@ -11773,6 +12107,16 @@
   urldate = {2021-10-25},
   abstract = {This paper investigates replacing i-vectors for text-independent speaker verification with embeddings extracted from a feedforward deep neural network. Long-term speaker characteristics are captured in the network by a temporal pooling layer that aggregates over the input speech. This enables the network to be trained to discriminate between speakers from variablelength speech segments. After training, utterances are mapped directly to fixed-dimensional speaker embeddings and pairs of embeddings are scored using a PLDA-based backend. We compare performance with a traditional i-vector baseline on NIST SRE 2010 and 2016. We find that the embeddings outperform i-vectors for short speech segments and are competitive on long duration test conditions. Moreover, the two representations are complementary, and their fusion improves on the baseline at all operating points. Similar systems have recently shown promising results when trained on very large proprietary datasets, but to the best of our knowledge, these are the best results reported for speaker-discriminative neural networks when trained and tested on publicly available corpora.},
   langid = {english}
+}
+
+@misc{snyder_musan_2015,
+  title = {{{MUSAN}}: {{A}} Music, Speech, and Noise Corpus},
+  author = {Snyder, David and Chen, Guoguo and Povey, Daniel},
+  year = {2015},
+  number = {arXiv:1510.08484},
+  eprint = {arXiv:1510.08484},
+  publisher = {{arXiv}},
+  archiveprefix = {arxiv}
 }
 
 @article{socher_recursive_2013,
@@ -11997,6 +12341,17 @@
   pmid = {19199382}
 }
 
+@article{stowell_automatic_2019,
+  title = {Automatic Acoustic Detection of Birds through Deep Learning: {{The}} First {{Bird Audio Detection Challenge}}},
+  author = {Stowell, Dan and Wood, Michael D and Pamu{\l}a, Hanna and Stylianou, Yannis and Glotin, Herv{\'e}},
+  year = {2019},
+  journal = {Methods in Ecology and Evolution},
+  volume = {10},
+  number = {3},
+  pages = {368--380},
+  publisher = {{Wiley Online Library}}
+}
+
 @misc{strauss_any_2022,
   title = {Any {{Variational Autoencoder Can Do Arbitrary Conditioning}}},
   author = {Strauss, Ryan R. and Oliva, Junier B.},
@@ -12109,6 +12464,11 @@
   urldate = {2019-01-11},
   abstract = {This paper explores the use of adversarial examples in training speech recognition systems to increase robustness of deep neural network acoustic models. During training, the fast gradient sign method is used to generate adversarial examples augmenting the original training data. Different from conventional data augmentation based on data transformations, the examples are dynamically generated based on current acoustic model parameters. We assess the impact of adversarial data augmentation in experiments on the Aurora-4 and CHiME-4 single-channel tasks, showing improved robustness against noise and channel variation. Further improvement is obtained when combining adversarial examples with teacher/student training, leading to a 23\% relative word error rate reduction on Aurora-4.},
   archiveprefix = {arxiv}
+}
+
+@misc{surfingtechcoltd_stcmds_,
+  title = {{{ST-CMDS}}: {{Free ST Chinese Mandarin Corpus}}},
+  author = {{Surfingtech Co., Ltd.}}
 }
 
 @inproceedings{suri_counting_2011,
@@ -12263,6 +12623,16 @@
   archiveprefix = {arxiv},
   isbn = {978-1-4673-8851-1},
   pmid = {8190083}
+}
+
+@article{tachbelie_using_2014,
+  title = {Using Different Acoustic, Lexical and Language Modeling Units for {{ASR}} of an under-Resourced Language\textendash{{Amharic}}},
+  author = {Tachbelie, Martha Yifiru and Abate, Solomon Teferra and Besacier, Laurent},
+  year = {2014},
+  journal = {Speech Communication},
+  volume = {56},
+  pages = {181--194},
+  publisher = {{Elsevier}}
 }
 
 @article{tagliasacchi_pre-training_2020,
@@ -12423,6 +12793,13 @@
   pages = {8},
   abstract = {We introduce a variational inference framework for training the Gaussian process latent variable model and thus performing Bayesian nonlinear dimensionality reduction. This method allows us to variationally integrate out the input variables of the Gaussian process and compute a lower bound on the exact marginal likelihood of the nonlinear latent variable model. The maximization of the variational lower bound provides a Bayesian training procedure that is robust to overfitting and can automatically select the dimensionality of the nonlinear latent space. We demonstrate our method on real world datasets. The focus in this paper is on dimensionality reduction problems, but the methodology is more general. For example, our algorithm is immediately applicable for training Gaussian process models in the presence of missing or uncertain inputs.},
   langid = {english}
+}
+
+@inproceedings{tjandra_transformer_2020,
+  title = {Transformer {{VQ-VAE}} for Unsupervised Unit Discovery and Speech Synthesis: {{ZeroSpeech}} 2020 Challenge},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {Tjandra, Andros and Sakti, Sakriani and Nakamura, Satoshi},
+  year = {2020}
 }
 
 @misc{tolstikhin_mlp-mixer_2021,
@@ -12642,6 +13019,15 @@
   archiveprefix = {arxiv}
 }
 
+@inproceedings{turian_hear_2022,
+  title = {{{HEAR}}: {{Holistic}} Evaluation of Audio Representations},
+  booktitle = {Proceedings of {{Machine Learning Research}} ({{PMLR}}): {{NeurIPS}} 2021 {{Competition Track}}},
+  author = {Turian, Joseph and Shier, Jordie and Khan, Humair Raj and Raj, Bhiksha and Schuller, Bj{\"o}rn W. and Steinmetz, Christian J. and Malloy, Colin and Tzanetakis, George and Velarde, Gissel and McNally, Kirk and Henry, Max and Pinto, Nicolas and Noufi, Camille and Clough, Christian and Herremans, Dorien and Fonseca, Eduardo and Engel, Jesse and Salamon, Justin and Esling, Philippe and Manocha, Pranay and Watanabe, Shinji and Jin, Zeyu and Bisk, Yonatan},
+  year = {2022},
+  volume = {176},
+  pages = {125--145}
+}
+
 @article{turing_computing_1950,
   title = {Computing Machinery and Intelligence},
   author = {Turing, Alan M.},
@@ -12683,6 +13069,13 @@
   urldate = {2020-07-13},
   abstract = {Normalizing flows, autoregressive models, variational autoencoders (VAEs), and deep energy-based models are among competing likelihood-based frameworks for deep generative learning. Among them, VAEs have the advantage of fast and tractable sampling and easy-to-access encoding networks. However, they are currently outperformed by other models such as normalizing flows and autoregressive models. While the majority of the research in VAEs is focused on the statistical challenges, we explore the orthogonal direction of carefully designing neural architectures for hierarchical VAEs. We propose Nouveau VAE (NVAE), a deep hierarchical VAE built for image generation using depth-wise separable convolutions and batch normalization. NVAE is equipped with a residual parameterization of Normal distributions and its training is stabilized by spectral regularization. We show that NVAE achieves state-of-the-art results among non-autoregressive likelihood-based models on the MNIST, CIFAR-10, and CelebA HQ datasets and it provides a strong baseline on FFHQ. For example, on CIFAR-10, NVAE pushes the state-of-the-art from 2.98 to 2.91 bits per dimension, and it produces high-quality images on CelebA HQ as shown in Fig. 1. To the best of our knowledge, NVAE is the first successful VAE applied to natural images as large as 256\texttimes 256 pixels.},
   langid = {english}
+}
+
+@inproceedings{valk_voxlingua107_2021,
+  title = {{{VoxLingua107}}: {{A}} Dataset for Spoken Language Recognition},
+  booktitle = {Proceedings of the {{IEEE Spoken Language Technology Workshop}}},
+  author = {Valk, J{\"o}rgen and Alum{\"a}e, Tanel},
+  year = {2021}
 }
 
 @article{van_de_schoot_bayesian_2021,
@@ -12767,6 +13160,13 @@
   pmid = {20652508}
 }
 
+@inproceedings{vanniekerk_vectorquantized_2020,
+  title = {Vector-Quantized Neural Networks for Acoustic Unit Discovery in the {{ZeroSpeech}} 2020 Challenge},
+  booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
+  author = {{van Niekerk}, Benjamin and Nortje, Leanne and Kamper, Herman},
+  year = {2020}
+}
+
 @inproceedings{vanstaden_comparison_2021,
   title = {A Comparison of Self-Supervised Speech Representations as Input Features for Unsupervised Acoustic Word Embeddings},
   booktitle = {2021 {{IEEE Spoken Language Technology Workshop}} ({{SLT}})},
@@ -12805,6 +13205,13 @@
   isbn = {978-1-57735-738-4},
   pmid = {1000303116},
   keywords = {★,Read}
+}
+
+@article{veaux_cstr_2016,
+  title = {{{CSTR VCTK}} Corpus: {{English}} Multi-Speaker Corpus for {{CSTR}} Voice Cloning Toolkit},
+  author = {Veaux, Christophe and Yamagishi, Junichi and MacDonald, Kirsten},
+  year = {2016},
+  publisher = {{University of Edinburgh, The Centre for Speech Technology Research (CSTR)}}
 }
 
 @inproceedings{venkataramani_support_2003,
@@ -12966,6 +13373,16 @@
   archiveprefix = {arxiv}
 }
 
+@misc{wang_covost_2020,
+  title = {Covost 2 and {{Massively Multilingual Speech-to-Text Translation}}},
+  author = {Wang, Changhan and Wu, Anne and Pino, Juan},
+  year = {2020},
+  number = {arXiv:2007.10310},
+  eprint = {arXiv:2007.10310},
+  publisher = {{arXiv}},
+  archiveprefix = {arxiv}
+}
+
 @inproceedings{wang_deep_2015,
   title = {On Deep Multi-View Representation Learning},
   booktitle = {International {{Conference}} on {{Machine Learning}} ({{ICML}})},
@@ -13002,6 +13419,15 @@
   pages = {118--126},
   urldate = {2018-04-16},
   abstract = {Preventing feature co-adaptation by encouraging independent contributions from different features often improves classification and regression performance. Dropout training (Hinton et al., 2012) does this by randomly dropping out (zeroing) hidden units and input features during training of neural networks. However, repeatedly sampling a random subset of input features makes training much slower. Based on an examination of the implied objective function of dropout training, we show how to do fast dropout training by sampling from or integrating a Gaussian approximation, instead of doing Monte Carlo optimization of this objective. This approximation, justified by the central limit theorem and empirical evidence, gives an order of magnitude speedup and more stability. We show how to do fast dropout training for classification, regression, and multilayer neural networks. Beyond dropout, our technique is extended to integrate out other types of noise and small image transformations.}
+}
+
+@article{wang_finetuned_2021,
+  title = {A {{Fine-Tuned}} Wav2vec 2.0/{{HuBERT Benchmark}} for {{Speech Emotion Recognition}}, {{Speaker Verification}} and {{Spoken Language Understanding}}},
+  author = {Wang, Yingzhi and Boumadane, Abdelmoumene and Heba, Abdelwahab},
+  year = {2021},
+  journal = {arXiv preprint arXiv:2111.02735},
+  eprint = {2111.02735},
+  archiveprefix = {arxiv}
 }
 
 @misc{wang_further_2020,
@@ -13044,6 +13470,16 @@
   author = {Wang, Avery Li-Chun},
   pages = {7},
   langid = {english}
+}
+
+@misc{wang_learning_2021,
+  title = {Towards Learning Universal Audio Representations},
+  author = {Wang, Luyu and Luc, Pauline and Wu, Yan and Recasens, Adria and Smaira, Lucas and Brock, Andrew and Jaegle, Andrew and Alayrac, Jean-Baptiste and Dieleman, Sander and Carreira, Joao and {van den Oord}, Aaron},
+  year = {2021},
+  number = {arXiv:2111.12124},
+  eprint = {arXiv:2111.12124},
+  publisher = {{arXiv}},
+  archiveprefix = {arxiv}
 }
 
 @article{wang_linformer_2020,
@@ -13218,6 +13654,13 @@
   archiveprefix = {arxiv}
 }
 
+@inproceedings{wang_voxpopuli_2021,
+  title = {{{VoxPopuli}}: {{A}} Large-Scale Multilingual Speech Corpus for Representation Learning, Semi-Supervised Learning and Interpretation},
+  booktitle = {Proceedings of the {{Annual Meeting}} of the {{Association}} for {{Computational Linguistics}}},
+  author = {Wang, Changhan and Riviere, Morgane and Lee, Ann and Wu, Anne and Talnikar, Chaitanya and Haziza, Daniel and Williamson, Mary and Pino, Juan and Dupoux, Emmanuel},
+  year = {2021}
+}
+
 @article{wang_wav2vec-switch_2021,
   title = {Wav2vec-{{Switch}}: {{Contrastive Learning}} from {{Original-noisy Speech Pairs}} for {{Robust Speech Recognition}}},
   shorttitle = {Wav2vec-{{Switch}}},
@@ -13229,6 +13672,16 @@
   primaryclass = {cs, eess},
   urldate = {2021-10-18},
   abstract = {The goal of self-supervised learning (SSL) for automatic speech recognition (ASR) is to learn good speech representations from a large amount of unlabeled speech for the downstream ASR task. However, most SSL frameworks do not consider noise robustness which is crucial for real-world applications. In this paper we propose wav2vec-Switch, a method to encode noise robustness into contextualized representations of speech via contrastive learning. Specifically, we feed original-noisy speech pairs simultaneously into the wav2vec 2.0 network. In addition to the existing contrastive learning task, we switch the quantized representations of the original and noisy speech as additional prediction targets of each other. By doing this, it enforces the network to have consistent predictions for the original and noisy speech, thus allows to learn contextualized representation with noise robustness. Our experiments on synthesized and real noisy data show the effectiveness of our method: it achieves 2.9--4.9\% relative word error rate (WER) reduction on the synthesized noisy LibriSpeech data without deterioration on the original data, and 5.7\% on CHiME-4 real 1-channel noisy data compared to a data augmentation baseline even with a strong language model for decoding. Our results on CHiME-4 can match or even surpass those with well-designed speech enhancement components.},
+  archiveprefix = {arxiv}
+}
+
+@misc{warden_speech_2018,
+  title = {Speech {{Commands}}: {{A}} Dataset for Limited-Vocabulary Speech Recognition},
+  author = {Warden, Pete},
+  year = {2018},
+  number = {arXiv:1804.03209},
+  eprint = {arXiv:1804.03209},
+  publisher = {{arXiv}},
   archiveprefix = {arxiv}
 }
 
@@ -13248,6 +13701,15 @@
   pages = {271},
   abstract = {Motivated by the vast success of deep convolutional networks, there is a great interest in generalizing convolutions to non-Euclidean manifolds. A major complication in comparison to flat spaces is that it is unclear in which alignment a convolution kernel should be applied on a manifold. The underlying reason for this ambiguity is that general manifolds do not come with a canonical choice of reference frames (gauge). Kernels and features therefore have to be expressed relative to arbitrary coordinates. We argue that the particular choice of coordinatization should not affect a network's inference \textendash{} it should be coordinate independent. A simultaneous demand for coordinate independence and weight sharing is shown to result in a requirement on the network to be equivariant under local gauge transformations (changes of local reference frames). The ambiguity of reference frames depends thereby on the G-structure of the manifold, such that the necessary level of gauge equivariance is prescribed by the corresponding structure group G. Coordinate independent convolutions are proven to be equivariant w.r.t. those isometries that are symmetries of the G-structure. The resulting theory is formulated in a coordinate free fashion in terms of fiber bundles. To exemplify the design of coordinate independent convolutions, we implement a convolutional network on the M\"obius strip. The generality of our differential geometric formulation of convolutional networks is demonstrated by an extensive literature review which explains a large number of Euclidean CNNs, spherical CNNs and CNNs on general surfaces as specific instances of coordinate independent convolutions.},
   langid = {english}
+}
+
+@article{weinberger_speech_2011,
+  title = {The {{Speech Accent Archive}}: {{Towards}} a {{Typology}} of {{English Accents}}},
+  author = {Weinberger, Steven and Kunath, Stephen},
+  year = {2011},
+  month = dec,
+  journal = {Language and Computers},
+  volume = {73}
 }
 
 @techreport{weinstein_structured_2020,
@@ -13989,6 +14451,13 @@
   abstract = {In this work, we propose a hierarchical subspace model for acoustic unit discovery. In this approach, we frame the task as one of learning embeddings on a low-dimensional phonetic subspace, and simultaneously specify the subspace itself as an embedding on a hyper-subspace. We train the hyper-subspace on a set of transcribed languages and transfer it to the target language. In the target language, we infer both the language and unit embeddings in an unsupervised manner, and in so doing, we simultaneously learn a subspace of units specific to that language and the units that dwell on it. We conduct experiments on TIMIT and two low-resource languages: Mboshi and Yoruba. Results show that our model outperforms major acoustic unit discovery techniques, both in terms of clustering quality and segmentation accuracy.}
 }
 
+@inproceedings{zadeh_multimodal_2018,
+  title = {Multimodal Language Analysis in the Wild: {{CMU-MOSEI}} Dataset and Interpretable Dynamic Fusion Graph},
+  booktitle = {Proceedings of the {{Annual Meeting}} of the {{Association}} for {{Computational Linguistics}}},
+  author = {Zadeh, AmirAli Bagher and Liang, Paul Pu and Poria, Soujanya and Cambria, Erik and Morency, Louis-Philippe},
+  year = {2018}
+}
+
 @inproceedings{zadeh_tensor_2017,
   title = {Tensor {{Fusion Network}} for {{Multimodal Sentiment Analysis}}},
   booktitle = {Proceedings of the 2017 {{Conference}} on {{Empirical Methods}} in {{Natural}}           {{Language Processing}}},
@@ -14195,15 +14664,12 @@
   archiveprefix = {arxiv}
 }
 
-@article{zhang_pushing_2020,
-  title = {Pushing the {{Limits}} of {{Semi-Supervised Learning}} for {{Automatic Speech Recognition}}},
-  author = {Zhang, Yu and Qin, James and Park, Daniel S. and Han, Wei and Chiu, Chung-Cheng and Pang, Ruoming and Le, Quoc V. and Wu, Yonghui},
+@inproceedings{zhang_pushing_2020,
+  title = {Pushing the Limits of Semi-Supervised Learning for Automatic Speech Recognition},
+  booktitle = {Proceedings of the {{Workshop}} on {{Self-Supervised Learning}} for {{Speech}} and {{Audio Processing}} at {{NeurIPS}}},
+  author = {Zhang, Yu and Qin, James and Park, Daniel S and Han, Wei and Chiu, Chung-Cheng and Pang, Ruoming and Le, Quoc V and Wu, Yonghui},
   year = {2020},
-  month = oct,
-  journal = {arXiv:2010.10504 [cs, eess]},
   eprint = {2010.10504},
-  primaryclass = {cs, eess},
-  urldate = {2021-10-27},
   abstract = {We employ a combination of recent developments in semi-supervised learning for automatic speech recognition to obtain state-of-the-art results on LibriSpeech utilizing the unlabeled audio of the Libri-Light dataset. More precisely, we carry out noisy student training with SpecAugment using giant Conformer models pre-trained using wav2vec 2.0 pre-training. By doing so, we are able to achieve word-error-rates (WERs) 1.4\%/2.6\% on the LibriSpeech test/test-other sets against the current state-of-the-art WERs 1.7\%/3.3\%.},
   archiveprefix = {arxiv}
 }

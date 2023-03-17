@@ -49,14 +49,14 @@ However, such features do not explain high-level semantics of the data and may i
 \begin{figure}[t]
     \centering
     \includegraphics[width=1\columnwidth]{paper_hierarchical/feature-correlation-heatmap2.pdf}
-    \vspace{-5mm}
+    \vspace{0mm}
     \caption[Absolute correlations between data representations in all layers of the inference network of a hierarchical VAE trained on FashionMNIST and of another trained on MNIST.]{
     Absolute correlations between data representations in all layers of the inference network of a hierarchical VAE trained on FashionMNIST and of another trained on MNIST.
     We compute the correlation between the representations of the two different models given the same data, FashionMNIST (top) and MNIST (bottom).
     %We reduce the representations to a single number by summing over all dimensions and compute the correlation between these numbers for 256 examples.
     %To reduce de-correlation due to the stochastic latent variables, we encode using the mode of the approximate posterior distributions.
     }
-    \vspace{-3mm}
+    \vspace{0mm}
     \label{fig:correlations-heatmap}
 \end{figure}
 
@@ -85,12 +85,12 @@ This suggests that as we fall back to the conditional priors of each layer, we a
     %\vspace{0.17cm}
     \includegraphics[width=1\columnwidth]{paper_hierarchical/biva_reconstructions.pdf}
     % https://docs.google.com/drawings/d/1UXdA3c18Oek9_env1vEB9mqOAHZ-tu0ijWmvqmapWCk/edit?usp=sharing
-    \vspace{-5.2mm}
+    \vspace{0mm}
     \caption[Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables]{Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables  \cite{maaloe_biva_2019}.
     The higher the latent variable, the more the reconstructions fall into the mode of the learned distribution.
     It is more common to wear regular glasses than sunglasses but most common not to wear glasses at all.
     A man with long hair collapses into the mode of the more common long-haired woman.}
-    \vspace{-3mm}
+    \vspace{0mm}
     \label{fig:biva-reconstructions-celeba}
 \end{figure}
 Finally, we look at reconstructions of out-of-distribution data.
@@ -105,7 +105,7 @@ The lowest latent variables in a hierarchical VAE learn generic features that ca
 This enables the model to achieve high rates of compression and high likelihoods, even on out-of-distribution data as long as the learned low-level features are appropriate.
 We further suggest that OOD data are in-distribution with respect to these low-level features, but not with respect to semantic ones.
 
-\vspace{-0.35cm}
+\vspace{0cm}
 \section{Background and related work}
 
 \subsection{Variational autoencoders}
@@ -272,7 +272,6 @@ More details on the datasets can be found in the Appendix.
 %\begin{wrapfigure}{R}{0.5\columnwidth}
 % \begin{SCfigure}[50][t!]
 \begin{figure}[t]
-    % \vspace{-1.3cm}
     %\begin{figure}
     \centering
     \tikz{
@@ -310,7 +309,6 @@ More details on the datasets can be found in the Appendix.
     Dashed lines indicate deterministic skip connections which are employed in both networks. Skip connections are found to be useful for optimizing latent variable models \parencite{dieng_avoiding_2019, maaloe_biva_2019}.}
     \label{fig:hvae-graphical-model}
     % \end{figure}
-    %\vspace{-0.8cm}
 %\end{wrapfigure}
 % \end{SCfigure}
 \end{figure}
@@ -395,13 +393,12 @@ Results on additional commonly used datasets are found in Appendix G.
     Glow refers to \textcite{kingma_glow_2018, nalisnick_deep_2019}.
     BIVA refers to our implementation of \textcite{maaloe_biva_2019}.}
     \label{tab:bits-per-dim-ood}
-    \vspace{-3mm}
+    \vspace{0mm}
 \end{table}
 
-\footnotetext{
+\footnotetext{%
     \textcite{serra_input_2020} performs the best when high likelihoods are assigned to OOD data such that the overlap with in-distribution data is low.
-    Performance is worse when the overlap is high, cf. \textcite[Table 1]{serra_input_2020}, as seen with complex images. 
-}
+    Performance is worse when the overlap is high, cf. \textcite[Table 1]{serra_input_2020}, as seen with complex images.}
 \begin{table}[t!]
     \centering
     \resizebox*{!}{0.9\textheight}{%

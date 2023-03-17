@@ -2,6 +2,7 @@
 
 % Text fonts (http://www.macfreek.nl/memory/Fonts_in_LaTeX)
 % Install fonts from /usr/local/texlive/<version>/texmf-dist/fonts/opentype/public
+\usepackage[utf8]{inputenc}
 \usepackage{fontspec}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -31,7 +32,7 @@
 
 
 \usepackage{mathpazo} % add possibly `sc` and `osf` options
-\usepackage{eulervm}
+\usepackage[OT1,euler-digits]{eulervm}
 \renewcommand{\mathbf}{\mathbold}  % euler requires \mathbold for bold math
 
 % % Remove: "Font shape `T1/eulervm/m/n' undefined (Font) using `T1/cmr/m/n' instead."

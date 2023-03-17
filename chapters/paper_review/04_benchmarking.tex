@@ -2,17 +2,7 @@
 
 \section{Benchmarks for Self-supervised Learning}
 \label{section:benchmark}
-% {\color{blue} Daniel}\\
 
-% {\color{blue} Reviewer: SW, Hung-yi Lee, Abdo }\\
-
-
-%\subsection{Benchmarks for self-supervised learning approaches} 
-
-%This paper is about the size of self-supervised model. I think it can also be considered as benchmark.
-%https://www.amazon.science/publications/scaling-effect-of-self-supervised-speech-models
-
-%We have shown in the previous sections various methodologies to learn speech representations from unlabeled corpora. This section surveys the available datasets to learn the representations and evaluate the learned ones. We also summarize several works and their results to demonstrate how effective the learned representations are via providing robust model initialization for various downstream tasks.
 The previous sections presented various methodologies by which to learn speech
 representations from unlabeled corpora. This section surveys the datasets
 available to learn and evaluate these representations. We also summarize
@@ -22,22 +12,21 @@ representations for various downstream tasks.
 \subsection{Datasets only for pre-training} 
 \Cref{table:datasets} summarizes datasets used for pre-training SSL techniques
 in the literature. These datasets are usually large but with limited or no
-labels. Libri-light (LL)~\cite{kahn2020libri}, one of these datasets, is
+labels. Libri-light (LL)~\cite{kahn_libri-light_2020}, one of these datasets, is
 derived from audiobooks that are part of the
 LibriVox\footnote{https://librivox.org/ \label{librivox}} project. LL contains
 60k hours of spoken English audio tagged with SNR, speaker ID, and genre
-descriptions. The speech examples in Audioset~\cite{gemmeke2017audio}, which
+descriptions. The speech examples in Audioset~\cite{gemmeke_audio_2017}, which
 consists of over 2M 10-second YouTube video clips human-annotated with 632
 audio events, have also been used for pre-training. Audioset has 2.5k hours
 of audio of varying quality, different languages, and sometimes multiple sound
-sources. AVSpeech~\cite{ephrat2018looking} is another large-scale audio-visual
+sources. AVSpeech~\cite{ephrat_looking_2018} is another large-scale audio-visual
 dataset used in SSL research, comprising 4.7k hours of clips from a wide
 variety of languages. 
-%from 150k distinct speakers
 Each clip contains a visible face and audible sound originating from a single
 speaker without interfering background signals. The 3100-hour audio part of
 AVSpeech has been used to learn audio-only 
-representations~\cite{kawakami_learning_2020}. The Fisher corpus~\cite{cieri2004fisher} collects
+representations~\cite{kawakami_learning_2020}. The Fisher corpus~\cite{cieri_fisher_2004} collects
 over 2k hours of conversational telephone speech, 1k hours of which is utilized
 for pre-training~\cite{jiang_further_2021}. Industrial researchers have also
 begun to build large-scale datasets for learning speech representations.
@@ -47,7 +36,7 @@ Amazon~\cite{sadhu_wav2vec-c_2021}.
 
 In addition to these English and multilingual efforts, researchers have also
 collected corpora for pre-training Chinese speech representations. Didi Dictation
-and Didi Callcenter~\cite{jiang2019improving, jiang_further_2021} are two
+and Didi Callcenter~\cite{jiang_improving_2019, jiang_further_2021} are two
 internal datasets containing respectively 10k hours of read speech collected
 from mobile dictation application and 10k hours of spontaneous phone calls
 between users and customer service staff.
@@ -57,9 +46,8 @@ Several datasets that provide both speech and associated transcripts and
 speaker labels have also been used to develop SSL techniques by enabling
 in-domain pre-training and evaluation. Such datasets are also listed in
 \cref{table:datasets}. One of the most commonly used datasets in this category
-is LibriSpeech (LS)~\cite{panayotov2015librispeech}, a labeled corpus
+is LibriSpeech (LS)~\cite{panayotov_librispeech_2015}, a labeled corpus
 containing 960 hours of
-%16 kHz sampled 
 read English speech, which is also derived from an open-source audiobooks
 project.\textsuperscript{\ref{librivox}} The corpus consists of subsets
 \textit{train-clean-100}, \textit{train-clean-360}, \textit{train-other-500},
@@ -69,7 +57,7 @@ Subsets tagged with \textit{other} are more challenging utterances from
 speakers that yield higher WER as measured with previously built models. LS is
 used for unsupervised representation pre-training by ignoring its labels, and
 can also be utilized to evaluate the performance of representation on ASR, phoneme recognition (PR),
-phoneme classification (PC), and speaker identification (SID) tasks. Wall Street Journal (WSJ)~\cite{paul1992design} is another
+phoneme classification (PC), and speaker identification (SID) tasks. Wall Street Journal (WSJ)~\cite{paul_design_1992} is another
 widely adopted, labeled corpus for pre-training. Its labels can evaluate
 performance for ASR, PR, PC, and SID. The original WSJ corpus contains 400 hours
 of English read speech data, and today its \textit{si284} (81 hours),
@@ -80,31 +68,30 @@ unsupervised training, development, and test, respectively.  The \textit{si84}
 The speech community also utilizes multilingual corpora. These are often
 large-scale, which facilitates pre-training, but are also partially labeled for ASR
 evaluation (PC and PR can be enabled via phone-level forced alignment). These
-corpora include Common Voice (CV)~\cite{ardila2020common}, Multilingual
-LibriSpeech (MLS)~\cite{pratap20_interspeech}, VoxPopuli 
-(VP)~\cite{wang-etal-2021-voxpopuli}, and BABEL (BBL)~\cite{gales2014speech}. CV is
+corpora include Common Voice (CV)~\cite{ardila_common_2020}, Multilingual
+LibriSpeech (MLS)~\cite{pratap_mls_2020}, VoxPopuli 
+(VP)~\cite{wang_voxpopuli_2021}, and BABEL (BBL)~\cite{gales_speech_2014}. CV is
 an open-source, multi-language, growing dataset of voices containing 11k hours
 of audio from 76 languages as of the date this review was written (Common Voice
 corpus~7.0). Researchers usually use part of this for pre-training (e.g., 7k
-hours/60 languages in \cite{babu2021xlsr} and 430 hours/29 languages in
+hours/60 languages in \cite{babu_xlsr_2021} and 430 hours/29 languages in
 \cite{kawakami_learning_2020}) or evaluation. 
-%Demographic metadata like age, sex, and accent is also provided.
 MLS derives content from read audiobooks of LibriVox and contains data in eight
 European languages for a total of 50k hours of audio. VP comprises a total of 400k
 hours of parliamentary speech from the European parliament in 23 European
 languages.
-The entire dataset~\cite{babu2021xlsr} or a 24k-hour 
-portion~\cite{chen2021unispeechsat, chen_wavlm_2021} thereof has been used for pre-training. BBL
+The entire dataset~\cite{babu_xlsr_2021} or a 24k-hour 
+portion~\cite{chen_unispeechsat_2021, chen_wavlm_2021} thereof has been used for pre-training. BBL
 consists of 1k hours of conversational telephone speech in 17 African and Asian
 languages.
 
-Several datasets, including GigaSpeech~\cite{chen21o_interspeech}, TED-LIUM~3
-(TED3)~\cite{hernandez2018ted}, TED-LIUM~2 (TED2)~\cite{rousseau2012ted},
-Switchboard (SWB)~\cite{godfrey1992switchboard}, 
-TIMIT~\cite{garofolo_timit_1993}, and VoxLingua107~\cite{valk2021voxlingua107}, are
+Several datasets, including GigaSpeech~\cite{chen_gigaspeech_2021}, TED-LIUM~3
+(TED3)~\cite{hernandez_tedlium_2018}, TED-LIUM~2 (TED2)~\cite{rousseau_tedlium_2012},
+Switchboard (SWB)~\cite{godfrey_switchboard_1992}, 
+TIMIT~\cite{garofolo_timit_1993}, and VoxLingua107~\cite{valk_voxlingua107_2021}, are
 labeled and conventionally used for evaluation, while their audio streams are
 also aggregated to build diversified and large-scale corpora for unsupervised
-pre-training~\cite{kawakami_learning_2020, song_speech-xlnet_2020, babu2021xlsr}.
+pre-training~\cite{kawakami_learning_2020, song_speech-xlnet_2020, babu_xlsr_2021}.
 GigaSpeech is a multi-domain English ASR corpus with 33k hours of audio
 collected from audiobooks, podcasts, and YouTube. A subset of 10k audio is
 transcribed. TED2 comes with 118 hours of English speech extracted from
@@ -112,72 +99,63 @@ TED conference talks and its transcription for evaluating ASR. Its recordings
 are clear but with some reverberation. TED3 is an extension of TED2 and
 comprises 450 hours of talks. SWB is a 260-hour conversational speech
 recognition dataset containing two-sided telephone conversations.
-%The dataset was recorded in 1990 with a lower (8k) sampling rate than the other corpora, and thus presents a challenging recognition problem.
 The TIMIT corpus was designed to provide read speech data and its word and
 phone-level transcriptions for acoustic-phonetic studies. It contains recordings
-%from 630 speakers with 8 dialects 
 in American English. Compared to the previous corpora labeled for ASR
 evaluation, VoxLingua107 consists of 6.6k hours of audio in 107 languages and
 is annotated for language identification. Beyond the original purpose of
 evaluation, these corpora are also used in pre-training to improve the
 generalizability of learned representations.
 
-%, and each person read 10 phonetically-rich sentences.
-
 For the purpose of pre-training and evaluating Mandarin speech representations,
-the authors of \cite{jiang2019improving, jiang_further_2021} also compiled Open Mandarin, 
+the authors of \cite{jiang_improving_2019, jiang_further_2021} also compiled Open Mandarin, 
 an open-source Mandarin dataset of 1.5k hours of speech from
 the Linguistic Data Consortium (LDC) and
 OpenSLR.\footnote{\url{https://openslr.org}} Open Mandarin consists of the HKUST
 Mandarin Telephone Speech Corpus (HKUST, 200 hours of spontaneous 
-speech, of which   % AMH: check
-%from over 2100 speakers in mainland China. 
+speech, of which
 168 hours of audio is used for pre-training; the development and test sets are
-excluded.)~\cite{liu2006hkust}, AISHELL-1~\cite{bu2017aishell} (178 hours of
+excluded.)~\cite{liu_hkust_2006}, AISHELL-1~\cite{bu_aishell1_2017} (178 hours of
 read speech),
-%recorded in a quiet indoor environment from 400 speakers with different accents
-aidatatang 200zh (200 hours, read speech)~\cite{aidatatang}, MAGICDATA
-Mandarin Chinese Read Speech Corpus (755 hours, read speech)~\cite{magic_data},
-Free ST Chinese Mandarin Corpus (ST-CMDS, 100 hours, read speech)~\cite{st_cmds},
-and Primewords Chinese Corpus Set 1 (100 hours, read speech)~\cite{primewords_201801}. 
+aidatatang 200zh (200 hours, read speech)~\cite{beijingdatatangtechnologycoltd_aidatatang_}, MAGICDATA
+Mandarin Chinese Read Speech Corpus (755 hours, read speech)~\cite{magicdatatechnologycoltd_magicdata_2019},
+Free ST Chinese Mandarin Corpus (ST-CMDS, 100 hours, read speech)~\cite{surfingtechcoltd_stcmds_},
+and Primewords Chinese Corpus Set 1 (100 hours, read speech)~\cite{primewordsinformationtechnologycoltd_primewords_2018}. 
 Both HKUST and AISHELL-1 are labeled and are suitable for ASR evaluation.
 
 
 \subsection{Datasets for evaluation}
 
 Besides the aforementioned datasets, conventional speech processing benchmarks
-are also used to evaluate self-supervised representations. Studies leverage
-% Hub5'00, 
-  Hub5,     % AMH: check
+are also used to evaluate self-supervised representations. Studies leverage Hub5,
 DIRHA, and CHiME-5 to measure the efficacy of representations in ASR.
 The Hub5 evaluation (LDC2002T43 and LDC2002S09, also referred to as the NIST 2000
 Hub5 English evaluation set) contains 40 transcribed English telephone
 conversations only for testing, where 20 are from conversations collected in
 SWB studies but not released with the SWB dataset, and the rest are from CallHome
-American English Speech (LDC97S42). DIRHA~\cite{ravanelli2015dirha}, short for
+American English Speech (LDC97S42). DIRHA~\cite{ravanelli_dirhaenglish_2015}, short for
 Distant-speech Interaction for Robust Home Applications, is a database composed
 of utterances sampled from WSJ, speech of keywords and commands, and
 phonetically-rich sentences. These utterances are read by UK and US English
-speakers and recorded with microphone arrays. CHiME-5~\cite{barker2018fifth} is
+speakers and recorded with microphone arrays. CHiME-5~\cite{barker_fifth_2018} is
 a challenge that aims to advance robust ASR and presents a dataset of natural
 conversational speech collected under a dinner party scenario with microphone
 arrays. A team at Amazon Alexa also recorded and transcribed a corpus of 1k
 hours of audio for model training and evaluation~\cite{sadhu_wav2vec-c_2021}.
 
 Researchers also evaluate representations for sentiment analysis with the
-INTERFACE~\cite{hozjan2002interface} and MOSEI (CMU Multimodal Opinion
-Sentiment and Emotion Intensity)~\cite{zadeh2018multimodal} datasets. INTERFACE
+INTERFACE~\cite{hozjan_interface_2002} and MOSEI (CMU Multimodal Opinion
+Sentiment and Emotion Intensity)~\cite{zadeh_multimodal_2018} datasets. INTERFACE
 is an emotional speech database for Slovenian, English, Spanish, and French,
 and contains six emotions: anger, sadness, joy, fear, disgust, and
 surprise, plus neutral. MOSEI is comprised of sentence-level sentiment
 annotations of 65 hours of YouTube videos
-%from 1000 speakers having 
 using emotion categories similar to INTERFACE, but replacing joy with
 happiness.
 
 In addition, datasets employed to demonstrate the benefit of SSL
-representations on various tasks include VCTK \cite{veaux2016superseded} and VoxCeleb1 \cite{nagrani17_interspeech} for SID/ASV (automatic speaker verification) tasks, FSC (Fluent Speech Commands) \cite{lugosch19_interspeech} for IC (intent classification), QUESST
-(QUESST 2014) \cite{anguera2015quesst2014} for QbE (query by example), LS En-Fr \cite{kocabiyikoglu2018augmenting} and CoVoST-2 \cite{wang2020covost} for ST (speech translation), and ALFFA and OpenSLR-multi for multilingual ASR. The VCTK corpus includes speech
+representations on various tasks include VCTK \cite{veaux_cstr_2016} and VoxCeleb1 \cite{nagrani_voxceleb_2017} for SID/ASV (automatic speaker verification) tasks, FSC (Fluent Speech Commands) \cite{lugosch_speech_2019} for IC (intent classification), QUESST
+(QUESST 2014) \cite{anguera_quesst2014_2015} for QbE (query by example), LS En-Fr \cite{kocabiyikoglu_augmenting_2018} and CoVoST-2 \cite{wang_covost_2020} for ST (speech translation), and ALFFA and OpenSLR-multi for multilingual ASR. The VCTK corpus includes speech
 data with 109 English speakers of various accents, each reading out about 400
 sentences sampled from newspapers. VoxCeleb1 is an audio-visual dataset
 comprised of short YouTube clips containing human speech. It consists of 1251
@@ -192,25 +170,22 @@ translators. CoVoST-2 is a multilingual speech translation benchmark based on
 CV. It provides data for translating from English into 15 languages and from 21
 languages into English, and has a total of 2.9k hours of speech. The ALFFA
 project\footnote{\url{http://alffa.imag.fr}} collects speech of African
-languages to 
-% drive 
-  promote    % AMH: check
-the development of speech technologies in Africa, and
+languages to promote the development of speech technologies in Africa, and
 \cite{kawakami_learning_2020} leverages four African languages collected in the
-project for evaluation: Amharic~\cite{tachbelie2014using}, Fongbe~\cite{laleye2016first},
-Swahili~\cite{gelas2012developments}, and Wolof~\cite{gauthier2016collecting}.
+project for evaluation: Amharic~\cite{tachbelie_using_2014}, Fongbe~\cite{laleye_first_2016},
+Swahili~\cite{gelas_developments_2012}, and Wolof~\cite{gauthier_collecting_2016}.
 In the same work~\cite{kawakami_learning_2020}, the authors
 further select 21 phonetically diverse languages from OpenSLR to evaluate the
 generalizability of SSL representations across languages. We denote the
 collection as OpenSLR-multi below.
 
 Last, \cite{tagliasacchi_pretraining_2020} puts together five datasets 
-(MUSAN~\cite{snyder2015musan}, Bird Audio Detection~\cite{stowell2019automatic},
-Speech Commands~\cite{warden2018speech}, Spoken Language 
-Identification~\cite{oponowiczspoken}, and TUT Urban Acoustic Scenes 2018~\cite{dcase2018}) plus
+(MUSAN~\cite{snyder_musan_2015}, Bird Audio Detection~\cite{stowell_automatic_2019},
+Speech Commands~\cite{warden_speech_2018}, Spoken Language 
+Identification~\cite{oponowicz_spoken_2018}, and TUT Urban Acoustic Scenes 2018~\cite{mesaros_detection_2018}) plus
 an SID task built with the LS \textit{train-clean-100} subset to evaluate the
 capability of representations on audio event detection.
-\cite{quitry_learning_2019} employs the NSynth dataset~\cite{engel2017neural} on top
+\cite{quitry_learning_2019} employs the NSynth dataset~\cite{engel_neural_2017} on top
 of the six for benchmarking. As many of the datasets are built for research in
 audio processing, we here provide only a list of these datasets for reference.
 
@@ -224,8 +199,7 @@ audio processing, we here provide only a list of these datasets for reference.
   sizes of the datasets are provided in columns 3 and 4. Column 5 lists the tasks each
   dataset is used to evaluate. We use the following abbreviations:
   \textbf{EN}: English; 
-% \textbf{Multi}: multilinguality; 
-  \textbf{Multi}: multilingual;     % AMH: check
+  \textbf{Multi}: multilingual;
   \textbf{ZH}: Chinese;
   \textbf{Fr}: French; \textbf{ASR}: automatic speech recognition; \textbf{PR}:
   phoneme recognition; \textbf{PC}: phoneme classification; \textbf{SID}:
@@ -240,12 +214,12 @@ audio processing, we here provide only a list of these datasets for reference.
   set of speaker labels, whereas \textbf{ASV} infers whether a given pair of
   utterances was uttered by the same speaker.}
   \label{table:datasets}
+  \resizebox*{0.99\textwidth}{!}{%
   {\renewcommand*\arraystretch{1.2}
   \begin{tabular}{llllll}
     \toprule
     Dataset & Purpose & Lang. & Size [hours] & Task & License \\
     \midrule
-    % \multirow{2}{*}[0em]{wav2vec 2.0}
     LibriLight (LL) & PT & EN & 60k & - & MIT License \\ \hline
     AudioSet & PT & Multi & 2.5k & - & CC BY 4.0 \\ \hline %Bidir-CPC, Audio2Vec
     AVSpeech & PT & Multi & 3.1k & - & CC BY 4.0 \\ \hline %Bidir-CPC
@@ -258,12 +232,12 @@ audio processing, we here provide only a list of these datasets for reference.
     LibriSpeech (LS) & PT/EV & EN & 960 & ASR/PR/PC/SID & CC BY 4.0 \\ \hline
     Wall Street Journal (WSJ) & PT/EV & EN & 81 & ASR/PR/PC/SID & Linguistic Data Consortium (LDC)  \\ \hline
 
-    Common Voice (CV-dataset) & PT/EV & Multi & 11k/7k \cite{babu2021xlsr}/430 \cite{kawakami_learning_2020} & ASR/PR/PC & CC0 \\ \hline % mention the split, CPC-modified, Bidir-CPC
+    Common Voice (CV-dataset) & PT/EV & Multi & 11k/7k \cite{babu_xlsr_2021}/430 \cite{kawakami_learning_2020} & ASR/PR/PC & CC0 \\ \hline % mention the split, CPC-modified, Bidir-CPC
     Multilingual LS (MLS) & PT/EV & Multi & 50k & ASR & CC BY 4.0 \\ \hline
-    VoxPopuli (VP) & PT/EV & Multi & 400k \cite{babu2021xlsr}/24k \cite{chen2021unispeechsat, chen_wavlm_2021} & ASR & CC0 \\ \hline
+    VoxPopuli (VP) & PT/EV & Multi & 400k \cite{babu_xlsr_2021}/24k \cite{chen_unispeechsat_2021, chen_wavlm_2021} & ASR & CC0 \\ \hline
     BABEL (BBL) & PT/EV & Multi & 1k & ASR & IARPA Babel Agreement  \\ \hline
 
-    GigaSpeech & PT/EV & EN & 40k/10k \cite{chen2021unispeechsat, chen_wavlm_2021} & ASR & Apache-2.0 License \\ \hline
+    GigaSpeech & PT/EV & EN & 40k/10k \cite{chen_unispeechsat_2021, chen_wavlm_2021} & ASR & Apache-2.0 License \\ \hline
     TED-LIUM 3 (TED3) & PT/EV & EN & 450 & ASR & CC BY-NC-ND 3.0 \\ \hline %Bidir-CPC
     TED-LIUM 2 (TED2) & PT/EV & EN & 118 & ASR & CC BY-NC-ND 3.0  \\ \hline % speech-XLNet
     Switchboard (SWB) & PT/EV & EN & 260 & ASR & Linguistic Data Consortium (LDC) \\ \hline % MPC, Bidir-CPC
@@ -275,7 +249,6 @@ audio processing, we here provide only a list of these datasets for reference.
     AISHELL-1 & PT/EV & ZH & 178 & ASR & Apache License v.2.0 \\ \hline % MPC
     Hub5'00 & EV & EN & 13 & ASR & Linguistic Data Consortium (LDC) \\ \hline % MPC - https://arxiv.org/pdf/1801.00059.pdf
     DIRHA & EV & EN & 11 & ASR & See link for details\textsuperscript{\ref{footnote:DIRHA_license}} \\ \hline % PASE
-    % from the paper Learning Problem-agnostic Speech Representations from Multiple Self-supervised Tasks - "in Section 4.3 we use the DIRHA dataset [36]. Training and validation sets are based on the original WSJ-5k corpus (consisting of 7138 sentences uttered by 83 speakers) that is contaminated with a set of impulse re- sponses measured in a real apartment. The test set is composed of 409 WSJ sentences uttered by six American speakers and is based on real recordings in a domestic environment with a reverberation time of 0.7 s and an average signal-to-noise ratio of about 10 dB"
     CHiME-5 & EV & EN & 50 & ASR & See link for details\textsuperscript{\ref{footnote:CHiME_license}}\\ \hline % PASE+
     Alexa-eval & EV & EN & 1k & ASR & Not released \\ \hline % wav2vec-c
     INTERFACE & EV & Multi & 16 & Sentiment & No information \\ \hline % PASE
@@ -291,9 +264,8 @@ audio processing, we here provide only a list of these datasets for reference.
     OpenSLR-multi & EV & Multi & 4.4--265.9 & ASR-multi & \makecell[l]{CC BY-SA 3.0 US, CC BY-SA 4.0, CC BY 4.0, \\ CC BY-NC-ND 4.0, Apache License v.2.0}\\ \hline %Bidir-CPC
     AED datasets & EV & - & - & AED & \makecell[l]{CC BY 4.0 (MUSAN, Speech Commands, NSynth, Bird Audio\\ Detection),  CC0 (Spoken Language Identification),\\ Non-Commercial (TUT)} \\
     \bottomrule
-  \end{tabular}}
+  \end{tabular}}}
 \end{table*}
-
 
 \addtocounter{footnote}{1}
 \footnotetext{\label{footnote:DIRHA_license}\url{https://dirha.fbk.eu/node/107}}
@@ -318,6 +290,7 @@ audio processing, we here provide only a list of these datasets for reference.
   fine-tuning. The \textbf{Fine-tuning labels used} column summarizes the
   amount of labeled examples used in downstream fine-tuning.}
   \label{table:method_data_setting}
+  \resizebox*{0.99\textwidth}{!}{%
   {%\tabulinesep=1mm
   \renewcommand*\arraystretch{1.4}
   \begin{tabular}{p{0.12\textwidth}p{0.12\textwidth}p{0.06\textwidth}p{0.13\textwidth}p{0.13\textwidth}p{0.06\textwidth}p{0.20\textwidth}}
@@ -325,13 +298,11 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{Pre-training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
      &  &  & Training (fine-tuning) & Test & & \\
     \midrule
-
     % CPC
     \multirow{2}{*}[0mm]{CPC \cite{oord_representation_2018}} & \multirow{2}{*}[0mm]{LS 100 hrs} & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
     & & SID & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
-    
     % PASE
-    \multirow{2}{*}[-5mm]{PASE\cite{pascual_learning_2019}} & \multirow{2}{*}[-5mm]{LS 50 hrs \cite{ravanelli2018learning}} & SID & VCTK\textsuperscript{\ref{footnote:official-split}} & VCTK\textsuperscript{\ref{footnote:official-split}} & \checkmark & 44 hrs \\ \cline{3-7}
+    \multirow{2}{*}[-5mm]{PASE\cite{pascual_learning_2019}} & \multirow{2}{*}[-5mm]{LS 50 hrs \cite{ravanelli_learning_2018}} & SID & VCTK\textsuperscript{\ref{footnote:official-split}} & VCTK\textsuperscript{\ref{footnote:official-split}} & \checkmark & 44 hrs \\ \cline{3-7}
     & & Sentiment & INTERFACE\textsuperscript{\ref{footnote:interface-split}} & INTERFACE\textsuperscript{\ref{footnote:interface-split}} & \checkmark & 3 hrs \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
     & & ASR & DIRHA\textsuperscript{\ref{footnote:official-split}} & DIRHA\textsuperscript{\ref{footnote:official-split}} & \checkmark & 11 hrs \\ \hline
@@ -351,12 +322,10 @@ audio processing, we here provide only a list of these datasets for reference.
     & & \makecell[l]{ASR-multi} & ALFFA\textsuperscript{\ref{footnote:official-split}} & ALFFA\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 languages, 5.2--18.3 hrs\\ \cline{3-7}
     & & \makecell[l]{ASR-multi} & OpenSLR-multi\textsuperscript{\ref{footnote:official-split}} & OpenSLR-multi\textsuperscript{\ref{footnote:official-split}} & \checkmark & 21 languages, 4.4--265.9 hrs \\ \hline
     % vq-VAE
-
     % MockingJay
     \multirow{3}{*}{MockingJay \cite{liu_mockingjay_2020}} & \multirow{3}{*}{\makecell[l]{LS 360 hrs}} & PC & LS 360 hrs & LS test-clean & - & 0.36\textsuperscript{\ref{footnote:low-resource}}/1.8\textsuperscript{\ref{footnote:low-resource}}/3.6\textsuperscript{\ref{footnote:low-resource}}/18\textsuperscript{\ref{footnote:low-resource}}/45\textsuperscript{\ref{footnote:low-resource}}/360  hrs \\ \cline{3-7}
     & & SID & LS 100 hrs\textsuperscript{\ref{footnote:91-split-test}} & LS 100 hrs\textsuperscript{\ref{footnote:91-split-test}} & - & 90\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
     & & Sentiment & MOSEI\textsuperscript{\ref{footnote:official-split}} & MOSEI\textsuperscript{\ref{footnote:official-split}} & \checkmark & 65 hrs \\ \hline
-
     % CPC modified
     \multirow{2}{*}{CPC modified \cite{riviere_unsupervised_2020}} & LS 100 hrs & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & \makecell[l]{LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}}} & - & \makecell[l]{80\textsuperscript{\ref{footnote:low-resource}} hrs} \\ \cline{2-7}
     & \makecell[l]{LS 100 hrs,\\LS 960 hrs,\\LL 60k hrs} & PC & CV-dataset\textsuperscript{\ref{footnote:official-split}} & CV-dataset\textsuperscript{\ref{footnote:official-split}} & \checkmark & 1 hrs \\ \hline
@@ -370,15 +339,14 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}[0mm]{MT-APC\cite{chung2020improved}} & \multirow{2}{*}[0mm]{LS 360 hrs} & ASR & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & WSJ dev93 & \checkmark & 72 hrs \\ \cline{3-7}
     & & ST & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & - & 236 hrs \\ \hline
     % PASE+
-    \multirow{3}{*}[0mm]{PASE+\cite{ravanelli_multi-task_2020}} & \multirow{3}{*}[0mm]{LS 50 hrs \cite{ravanelli2018learning}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
+    \multirow{3}{*}[0mm]{PASE+\cite{ravanelli_multi-task_2020}} & \multirow{3}{*}[0mm]{LS 50 hrs \cite{ravanelli_learning_2018}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
     & & ASR & DIRHA\textsuperscript{\ref{footnote:official-split}} & DIRHA\textsuperscript{\ref{footnote:official-split}} & \checkmark & 11 hrs \\ \cline{3-7}
     & & ASR & CHiME-5\textsuperscript{\ref{footnote:official-split}} & CHiME-5\textsuperscript{\ref{footnote:official-split}} & \checkmark & 50 hrs \\ \hline
-
     % AALBERT
     \multirow{2}{*}[0mm]{AALBERT \cite{chi_audio_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{LS 360 hrs}} & PC & LS 100 hrs\textsuperscript{\ref{footnote:APC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:APC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
     & & SID & LS 360 hrs\textsuperscript{\ref{footnote:APC-split}} & LS 360 hrs\textsuperscript{\ref{footnote:APC-split}} & - & 288\textsuperscript{\ref{footnote:low-resource}} hrs \\
     \bottomrule
-  \end{tabular}}
+  \end{tabular}}}
 \end{table*}
 
 
@@ -389,6 +357,7 @@ audio processing, we here provide only a list of these datasets for reference.
   evaluations (Part 2). See the caption of \cref{table:method_data_setting} for a
   detailed description of all the abbreviations used in this table.}
   \label{table:method_data_setting_2}
+  \resizebox*{0.99\textwidth}{!}{%
   {%\tabulinesep=1mm
   \renewcommand*\arraystretch{1.4}
   \begin{tabular}{p{0.12\textwidth}p{0.12\textwidth}p{0.05\textwidth}p{0.18\textwidth}p{0.18\textwidth}p{0.05\textwidth}p{0.15\textwidth}}
@@ -396,33 +365,26 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{Pre-training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
      &  &  & Training (fine-tuning) & Test & & \\
     \midrule
-
     % BMR
     \multirow{2}{*}[0mm]{BMR \cite{wang_unsupervised_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{WSJ si284,\\LS 960 hrs}} & ASR & WSJ si284 & WSJ eval92 & - & 81 hrs \\ \cline{3-7}
     & & PR & WSJ si84/si284 & WSJ dev93 & - & 15/81 hrs \\ \hline
-
     % vq-APC
     \multirow{2}{*}[0mm]{vq-APC \cite{chung_vector-quantized_2020}} & \multirow{2}{*}[0mm]{LS 360 hrs} & PC & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & \makecell[l]{WSJ dev93} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
     & & SID & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & \checkmark & 65\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
-
     % vq-wav2vec + Discrete BERT
     \makecell[l]{vq-wav2vec + \\\:DiscreteBERT \cite{baevski_effectiveness_2020}} & LS 960 hrs & ASR & LS 100 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
-
     % speech-XLNet
     \multirow{2}{*}[-1mm]{speech-XLNet \cite{song_speech-xlnet_2020}} & \multirow{2}{*}[-1mm]{\makecell[l]{LS 960 hrs\\\;\;\;+ WSJ si284\\\;\;\;+ TED2}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs\vspace{1mm} \\ \cline{3-7}
     & & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{7\textsuperscript{\ref{footnote:low-resource}}/14\textsuperscript{\ref{footnote:low-resource}}/30\textsuperscript{\ref{footnote:low-resource}}/81 hrs}\vspace{1mm} \\ \hline
-    
     % MPC
-    \multirow{3}{*}[0mm]{MPC \cite{jiang2019improving, jiang_further_2021}} & \multirow{2}{*}[0mm]{\makecell[l]{Didi Callcenter,\\Didi Dictation,\\Open Mandarin}} & ASR-zh & HKUST\textsuperscript{\ref{footnote:official-split}} & HKUST\textsuperscript{\ref{footnote:official-split}} & \checkmark & 168 hrs \\ \cline{3-7}
+    \multirow{3}{*}[0mm]{MPC \cite{jiang_improving_2019, jiang_further_2021}} & \multirow{2}{*}[0mm]{\makecell[l]{Didi Callcenter,\\Didi Dictation,\\Open Mandarin}} & ASR-zh & HKUST\textsuperscript{\ref{footnote:official-split}} & HKUST\textsuperscript{\ref{footnote:official-split}} & \checkmark & 168 hrs \\ \cline{3-7}
     & & ASR-zh & AISHELL-1\textsuperscript{\ref{footnote:official-split}} & AISHELL-1\textsuperscript{\ref{footnote:official-split}} & \checkmark & 178 hrs\vspace{1mm} \\ \cline{2-7}
     & \multirow{1}{*}[-0.5mm]{\makecell[l]{SWB, Fisher 1k,\\LS 960 hrs}} & ASR & SWB & Hub5'00 & - & 260 hrs \vspace{2.5mm} \\ \hline
-
     % MPE
     \multirow{2}{*}[0mm]{MPE \cite{liu_masked_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{WSJ si284,\\LS 960 hrs}} & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{25\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}}/81 hrs} \\ \cline{3-7}
     & & ASR & LS 100/360/960 hrs & LS test-clean & - & 100/360/960 hrs \\ \hline
-
     % ConvDMM
-    ConvDMM \cite{khurana20_interspeech} & \makecell[l]{LS 50\cite{ravanelli2018learning}/360/\\\:\:\:960 hrs} & PC/PR & WSJ si284 & WSJ eval92 & \checkmark & \makecell[l]{5\textsuperscript{\ref{footnote:low-resource}}/50\textsuperscript{\ref{footnote:low-resource}}/100\textsuperscript{\ref{footnote:low-resource}} mins,\\ 4\textsuperscript{\ref{footnote:low-resource}}/8\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}} hrs} \\ \hline
+    ConvDMM \cite{khurana20_interspeech} & \makecell[l]{LS 50\cite{ravanelli_learning_2018}/360/\\\:\:\:960 hrs} & PC/PR & WSJ si284 & WSJ eval92 & \checkmark & \makecell[l]{5\textsuperscript{\ref{footnote:low-resource}}/50\textsuperscript{\ref{footnote:low-resource}}/100\textsuperscript{\ref{footnote:low-resource}} mins,\\ 4\textsuperscript{\ref{footnote:low-resource}}/8\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}} hrs} \\ \hline
     % wav2vec 2.0
     \multirow{2}{*}{wav2vec 2.0 \cite{baevski_wav2vec_2020}} & \multirow{2}{*}{\makecell[l]{LS 960 hrs,\\ LL 60k hrs}} & ASR & LS 960 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100/960 hrs} \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \hline
@@ -431,7 +393,6 @@ audio processing, we here provide only a list of these datasets for reference.
     & & SID & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & \checkmark & 65\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
     % DeCoAR 2.0
     DeCoAR 2.0 \cite{ling_decoar_2020} & LS 960 hrs & ASR & \makecell[l]{LS 100 hrs} & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
-
     % TERA
     \multirow{4}{*}[0mm]{TERA \cite{liu_tera_2021}} & \multirow{4}{*}[0mm]{\makecell[l]{LS 100/360/\\\:\:\:960 hrs}} & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
     & & SID & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
@@ -439,23 +400,16 @@ audio processing, we here provide only a list of these datasets for reference.
     & & ASR & LS 100 hrs & LS test-clean & - & 100 hrs \\ \hline
     % HuBERT
     HuBERT \cite{hsu_hubert_2021} & \makecell[l]{LS 960 hrs,\\ LL 60k hrs} & ASR & LS 960 hrs & \makecell[l]{LS test-clean\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100/960 hrs} \\ \hline
-    %wav2vec-c
+    % wav2vec-c
     wav2vec-c \cite{sadhu_wav2vec-c_2021} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
-    UniSpeech-SAT \cite{chen2021unispeechsat} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See SUPERB \cite{yang_superb_2021} paper for details \\ \hline
+    UniSpeech-SAT \cite{chen_unispeechsat_2021} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See SUPERB \cite{yang_superb_2021} paper for details \\ \hline
     WavLM \cite{chen_wavlm_2021} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See \cite{yang_superb_2021} for details \\ \hline
-    \multirow{4}{*}[0mm]{XLS-R \cite{babu2021xlsr}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;\;+ CV-dataset-7k + VL\\\;\;\;+ BBL}} & ASR & VP, MLS, CV-dataset, BBL, LS & VP, MLS, CV-dataset, BBL, LS & - & \multirow{4}{*}[0mm]{See \cite{babu2021xlsr} for details} \\ \cline{3-6}
+    \multirow{4}{*}[0mm]{XLS-R \cite{babu_xlsr_2021}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;\;+ CV-dataset-7k + VL\\\;\;\;+ BBL}} & ASR & VP, MLS, CV-dataset, BBL, LS & VP, MLS, CV-dataset, BBL, LS & - & \multirow{4}{*}[0mm]{See \cite{babu_xlsr_2021} for details} \\ \cline{3-6}
     & & SID & VoxCeleb1 & VoxCeleb1 & \checkmark & \\ \cline{3-6}
     & & ST & CoVoST-2 & CoVoST-2 & \checkmark & \\ \cline{3-6}
     & & LID & VL & VL & - & \\
-
-    % more & & & & & & \\ \hline
-    % https://tex.stackexchange.com/questions/66596/vertical-alignment-in-multirow-using-cells-with-1-lines
-    % https://texblog.org/2019/06/03/control-the-width-of-table-columns-tabular-in-latex/
-    %\multirow{2}{*}{wav2vec 2.0} & \multirow{2}{*}{wav2vec 2.0} & Population Population Population Population & 2 & 3 & 4 \\\cline{3-6}
-    %http://www.emerson.emory.edu/services/latex/latex_119.html
-    %& &2016&2017& 5 & 6 \\ \hline
     \bottomrule
-  \end{tabular}}
+  \end{tabular}}}
 \end{table*}
 
 \addtocounter{footnote}{1}
@@ -476,18 +430,18 @@ for testing.}
 \addtocounter{footnote}{1}
 \footnotetext{\label{footnote:AED-datasets}
 The 6 AED datasets used in
-\cite{tagliasacchi_pretraining_2020} are MUSAN~\cite{snyder2015musan}, Bird Audio
-Detection~\cite{stowell2019automatic}, Speech Commands~\cite{warden2018speech},
-Spoken Language Identification~\cite{oponowiczspoken}, TUT Urban Acoustic
-Scenes 2018~\cite{dcase2018} plus an SID task built with LS
+\cite{tagliasacchi_pretraining_2020} are MUSAN~\cite{snyder_musan_2015}, Bird Audio
+Detection~\cite{stowell_automatic_2019}, Speech Commands~\cite{warden_speech_2018},
+Spoken Language Identification~\cite{oponowicz_spoken_2018}, TUT Urban Acoustic
+Scenes 2018~\cite{mesaros_detection_2018} plus an SID task built with LS
 \textit{train-clean-100}. In addition to the 6 datasets,
-\cite{quitry_learning_2019} use the NSynth dataset~\cite{engel2017neural} for
+\cite{quitry_learning_2019} use the NSynth dataset~\cite{engel_neural_2017} for
 evaluation.}
 \addtocounter{footnote}{1}
 \footnotetext{\label{footnote:CPC-8k}
 A collection of AudioSet, AVSpeech,
 CV-dataset, LS, WSJ, TIMIT, Speech Accent Archive 
-(SSA)~\cite{weinberger2009towards}, TED3, and SWB. SSA is a growing annotated corpus of
+(SSA)~\cite{weinberger_speech_2011}, TED3, and SWB. SSA is a growing annotated corpus of
 English speech with various accents. Among the papers studied in this review, SSA
 is used in \cite{kawakami_learning_2020} only for pre-training, and only 1 hour
 of audio is utilized. Thus, we exclude it from our discussion in
@@ -514,7 +468,6 @@ and test subsets at a ratio of 9:1.}
 \subsection{Experiment settings for evaluating SSL techniques}
 A common way to benchmark SSL techniques and show their efficacy is to
 fine-tune a pre-trained SSL model for a supervised downstream task.
-% taking a network pre-trained with SSL as initialization, and then fine-tuning and evaluating the network with labeled data in downstream tasks.
 Depending on the corpora used in pre-training and fine-tuning, techniques can
 be benchmarked in terms of their capability to transfer knowledge across datasets
 (i.e., using pre-training corpora that differ from the fine-tuning ones), their
@@ -538,14 +491,14 @@ CPC-8k (8k hours) for Bidir-CPC~\cite{kawakami_learning_2020}, LL (60k hours) fo
 CPC modified~\cite{riviere_unsupervised_2020}, 
 wav2vec 2.0~\cite{baevski_wav2vec_2020}, and HuBERT~\cite{hsu_hubert_2021}, Alexa internal
 datasets (10k hours) for wav2vec-c~\cite{sadhu_wav2vec-c_2021}, Didi internal
-datasets (10k hours) for MPC~\cite{jiang2019improving, jiang_further_2021}, the
+datasets (10k hours) for MPC~\cite{jiang_improving_2019, jiang_further_2021}, the
 combination of Gigaspeech, VP-24k, and LL (94k hours in total) for
-UniSpeech-SAT~\cite{chen2021unispeechsat} and WavLM~\cite{chen_wavlm_2021}, and
+UniSpeech-SAT~\cite{chen_unispeechsat_2021} and WavLM~\cite{chen_wavlm_2021}, and
 the combination of VP-400K, MLS, CV-dataset, VL and BBL (436k hours in total)
-for XLS-R~\cite{babu2021xlsr}. We expect this trend to continue with the growth
+for XLS-R~\cite{babu_xlsr_2021}. We expect this trend to continue with the growth
 in available computing power. Most studies focuses on learning representations
-for English, whereas Chinese~\cite{jiang2019improving, jiang_further_2021} and
-multilinguality~\cite{kawakami_learning_2020, babu2021xlsr} are also gaining
+for English, whereas Chinese~\cite{jiang_improving_2019, jiang_further_2021} and
+multilinguality~\cite{kawakami_learning_2020, babu_xlsr_2021} are also gaining
 attention. Compared to pre-training, datasets used for fine-tuning are more
 diverse and cover downstream tasks as varied as ASR, PR, PC, SID, AED,
 Sentiment, ST, and LID. For benchmarking training scenarios covering full
@@ -553,7 +506,7 @@ supervision as well as limited resources, the amount of labeled examples used fo
 fine-tuning also varies from several minutes up to 1k hours. Recent
 benchmarks such as SUPERB~\cite{yang_superb_2021} that consolidate multiple 
 downstream tasks have gained attention for evaluating SSL
-methodologies~\cite{chen2021unispeechsat, chen_wavlm_2021}. The goal of such benchmarks is
+methodologies~\cite{chen_unispeechsat_2021, chen_wavlm_2021}. The goal of such benchmarks is
 to provide a holistic evaluation of the performance of learned representations; 
 we discuss these in detail in \cref{sec:benchmark}. With the increasing
 popularity of SSL research, we expect future experiment settings to proliferate
@@ -562,7 +515,6 @@ datasets.
 
 \begin{figure*}
 \centering
-%\includegraphics[width=1.0\textwidth]{paper_review/ls-test-clean-other.pdf}
 \includegraphics[width=0.9\textwidth]{paper_review/ls-test-clean-v2.pdf}
 \caption{SSL performance on ASR WER (vertical axis) evaluated with
 LS \textit{test-clean} split. Techniques are sorted based on the number of
@@ -578,7 +530,7 @@ several SSL techniques are appended with suffixes \textit{B}, \textit{L},
 \textit{X-Large}, or \textit{XX-Large} variants specified in the original
 publication. We also compare with baselines including the log mel filterbank (fBANK) and semi-supervised, self-training
 approaches (iterative pseudo labeling (IPL)~\cite{xu_iterative_2020}, 
-slimIPL~\cite{likhomanenko2020slimipl}, noisy student~\cite{park_improved_2020}). These approaches are visualized in black. Also, note that the current state of the art---conformer XXL + noisy student~\cite{zhang2020pushing}---is a combination of self-training and SSL techniques. Given the
+slimIPL~\cite{likhomanenko_slimipl_2021}, noisy student~\cite{park_improved_2020}). These approaches are visualized in black. Also, note that the current state of the art---conformer XXL + noisy student~\cite{zhang_pushing_2020}---is a combination of self-training and SSL techniques. Given the
 diversity of the listed methods in experiment settings (e.g., pre-training corpora
 and objectives, whether a language model is used in decoding, whether model
 parameters are frozen in fine-tuning), readers should be careful that the superiority
@@ -607,16 +559,14 @@ on labeled data to annotate unlabeled speech, and then subsequently trained on
 combined golden and self-annotated label-speech pairs, are gaining popularity
 in the speech community and have yielded competitive results. For comparison, we also
 show performance from such methods (iterative pseudo labeling 
-(IPL)~\cite{xu_iterative_2020}, slimIPL~\cite{likhomanenko2020slimipl}, noisy 
+(IPL)~\cite{xu_iterative_2020}, slimIPL~\cite{likhomanenko_slimipl_2021}, noisy 
 student~\cite{park_improved_2020}), as well as the current state of the art---conformer XXL + noisy
-student~\cite{zhang2020pushing}---which augments SSL with various advanced
+student~\cite{zhang_pushing_2020}---which augments SSL with various advanced
 techniques including self-training. Furthermore, we illustrate in the figure
 the performance of a baseline system \cite{yang_superb_2021} based on log mel filterbank (fBANK), which is one of the most commonly used features designed by domain experts.
 As observed in the figure, most SSL techniques outperform fBANK
 features, and with the growing investment in model size, better performance is
-achieved. The largest ones, such as wav2vec 2.0-L and HuBERT-L/XL, yield
-% results competitive to the state of the art 
-  competitive results                         % AMH: check
+achieved. The largest ones, such as wav2vec 2.0-L and HuBERT-L/XL, yield competitive results 
 when the entire 960-hour of labeled data is used in
 training/fine-tuning. The benefit of SSL, especially models with more parameters
 like wav2vec 2.0 and HuBERT, becomes more evident when the labeling resources
@@ -627,15 +577,10 @@ examples. The results are highly favorable for low-resource use cases, for insta
 expanding systems to new domains or languages for which large amounts of unlabeled
 audio are available, since collecting labels for new conditions is often prohibitively
 slow or costly.
-% discuss the trend
-%[Pick representative tasks and datasets and show the benefit of SSL, e.g., fewer fine-tuning/labeled data is required to achieve better/comparable performance] [talk about trend as well]  The plot suggests that ASR results have been increased significantly with the progress in SSL. Near SOTA performance can be achieved with much fewer training examples.  
 
 In addition to the ASR task, where the current state of the art is achieved by a method
 combining SSL pre-training and self-training 
-techniques~\cite{zhang2020pushing}, SSL models 
-% approach the state of the art 
-  are competitive                % AMH: check
-in other tasks, including IC,
+techniques~\cite{zhang_pushing_2020}, SSL models are competitive in other tasks, including IC,
 SID, ASV, and QbE. We summarize the performance of these models and previous
 non-SSL methods in \cref{table:sota_performance}. The results suggest that the
 benefit of SSL is generalizable among tasks that require encoding 
@@ -653,21 +598,11 @@ achieve state-of-the-art results on an increasing number of tasks.
     \toprule
     Tasks & Dataset & non-SSL & SSL \\
     \midrule
-    ASR (WER $\downarrow$) & LS test-clean/other & 2.1/4.0 \cite{xu_iterative_2020} & 1.4/2.6 \cite{zhang2020pushing} \\ \hline
-    IC (Acc $\uparrow$) & FSC & 98.8 \cite{lugosch19_interspeech} & 99.3\cite{chen2021unispeechsat} \\ \hline
-    SID (Acc $\uparrow$) & VoxCeleb1 & 94.8 \cite{hajibabaei2018unified} & 95.5 \cite{chen_wavlm_2021} \\ \hline
-    ASV (EER $\downarrow$) & VoxCeleb1 & 3.1 \cite{hajavi2021siamese} & 2.4 \cite{wang2021fine} \\ \hline
-    QbE (MTWV $\uparrow$) & QUESST (EN) & 10.6 \cite{rodriguez2014gtts} & 11.2\cite{chen2021unispeechsat} \\
-
-    %wav2vec-c
-    %wav2vec-c \cite{sadhu_wav2vec-c_2021} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
-    %UniSpeech-SAT \cite{chen2021unispeechsat} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & Check SUPERB \cite{yang_superb_2021} paper for details \\ \hline
-    %WavLM \cite{chen_wavlm_2021} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & Check \cite{yang_superb_2021} for details \\ \hline
-    %\multirow{4}{*}[0mm]{XLS-R \cite{babu2021xlsr}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;\;+ CV-dataset-7k + VL\\\;\;\;+ BBL}} & ASR & VP, MLS, CV-dataset, BBL, LS & VP, MLS, CV-dataset, BBL, LS & - & \multirow{4}{*}[0mm]{Check \cite{babu2021xlsr} for details} \\ \cline{3-6}
-    %& & SID & VoxCeleb1 & VoxCeleb1 & \checkmark & \\ \cline{3-6}
-    %& & ST & CoVoST-2 & CoVoST-2 & \checkmark & \\ \cline{3-6}
-    %& & LID & VL & VL & - & \\ \hline
-
+    ASR (WER $\downarrow$) & LS test-clean/other & 2.1/4.0 \cite{xu_iterative_2020} & 1.4/2.6 \cite{zhang_pushing_2020} \\ \hline
+    IC (Acc $\uparrow$) & FSC & 98.8 \cite{lugosch_speech_2019} & 99.3\cite{chen_unispeechsat_2021} \\ \hline
+    SID (Acc $\uparrow$) & VoxCeleb1 & 94.8 \cite{hajibabaei_unified_2018} & 95.5 \cite{chen_wavlm_2021} \\ \hline
+    ASV (EER $\downarrow$) & VoxCeleb1 & 3.1 \cite{hajavi_siamese_2021} & 2.4 \cite{wang_finetuned_2021} \\ \hline
+    QbE (MTWV $\uparrow$) & QUESST (EN) & 10.6 \cite{rodriguez-fuentes_gttsehu_2014} & 11.2\cite{chen_unispeechsat_2021} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -687,9 +622,9 @@ makes it difficult to compare techniques fairly and understand their
 capabilities. To address this challenge, there are increasing efforts to establish
 benchmarks with shared downstream tasks, datasets, and downstream recipes. Such
 efforts include SUPERB~\cite{yang_superb_2021}, 
-LeBenchmark~\cite{evain21_interspeech}, ZeroSpeech~\cite{dunbar2020zero},
-HEAR \cite{pmlr-v176-turian22a},
-NOSS~\cite{shor20_interspeech}, and HARES~\cite{wang2021towards}. 
+LeBenchmark~\cite{evain_lebenchmark_2021}, ZeroSpeech~\cite{dunbar_zero_2020},
+HEAR \cite{turian_hear_2022},
+NOSS~\cite{shor_learning_2020}, and HARES~\cite{wang_learning_2021}. 
 
 SUPERB~\cite{yang_superb_2021} is a benchmarking platform that allows the
 SSL community to train, evaluate, and compare speech representations on
@@ -701,36 +636,22 @@ and reproducible benchmarking of SSL techniques. SUPERB also encourages
 researchers to innovate for efficient use of model parameters and computation
 resources 
 to democratize SSL beyond race among Big Tech.   % AMH: what does this mean?
-LeBenchmark~\cite{evain21_interspeech} shares a vision similar to SUPERB and provides a
+LeBenchmark~\cite{evain_lebenchmark_2021} shares a vision similar to SUPERB and provides a
 reproducible framework for assessing SSL in French with ASR, spoken language
 understanding, speech translation, and emotion recognition. 
-ZeroSpeech~\cite{dunbar2020zero} (described in more detail in \cref{zero_speech})
+ZeroSpeech~\cite{dunbar_zero_2020} (described in more detail in \cref{zero_speech})
 challenges the scientific community to build speech and language understanding
 systems using zero expert resources 
-%with the ultimate goal of bringing the systems to the services 
 for millions of users of ``low-resource" languages.
-%or in abnormal condition (dyslexia, autism, etc). ZeroSpeech offers evaluation for independent units in the system as well aggregation of multiple components. 
 SSL techniques are also benchmarked with the ZeroSpeech 
-challenge~\cite{tjandra20_interspeech, niekerk20b_interspeech}. Apart from the speech
+challenge~\cite{tjandra_transformer_2020, vanniekerk_vectorquantized_2020}. Apart from the speech
 community, researchers have also established HEAR (holistic evaluation of audio
-representations) \cite{pmlr-v176-turian22a}, NOSS (non-semantic
-speech benchmark)~\cite{shor20_interspeech}, and HARES (holistic audio
-representation evaluation suite)~\cite{wang2021towards} to benchmark audio
+representations) \cite{turian_hear_2022}, NOSS (non-semantic
+speech benchmark)~\cite{shor_learning_2020}, and HARES (holistic audio
+representation evaluation suite)~\cite{wang_learning_2021} to benchmark audio
 representations. These efforts promote the creation of an audio embedding
 that is as holistic as the human ear in interpreting speech, environmental
 sound, and music. Given the significant need to understand and compare SSL techniques
 fairly and comprehensively, we expect SSL benchmarking to remain an
 active research area.
-
-%SUPERB motivation: consolidating evaluation recipes to understand the capability of various SSL in a fair way. SUPERB designates the architectures of prediction heads for each downstream tasks [common architectures] [frozen] [generalizable, comparable, reproducible results]. [Results on tasks with such constraint conditions (mainly SUPERB but also from literatures imposing similar constraint).] [discussion on the results - competitive performance with simple downstream recipes] [More challenges, ZeroSpeech, HEAR ...]
-
-
-
-%Librispeech 100h-960h \\
-%Libri-light 10m, 1h, 10h - 60k \\
-%SUPERB \\
-%Add more
-%Hear 2021 Challenge? (focus on audio, not only speech)
-
-
 

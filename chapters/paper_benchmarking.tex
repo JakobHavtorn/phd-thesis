@@ -15,13 +15,12 @@ To compare and develop LVMs for speech, we need good benchmarks similar to those
 
 To advance the state of LVMs for speech, this paper (i) develops a benchmark for LVMs based on model likelihood, (ii) introduces a hierarchical LVM architecture without autoregressive decoder, (iii) compares LVMs to deterministic counterparts including WaveNet, and (iv) qualitatively and quantitatively evaluates the latent variables learned by different LVMs based on their usefulness for phoneme recognition. We find that:
 \begin{itemize}[leftmargin=8mm]
-    \vspace{-3mm}
     \setlength\itemsep{-0em}
     \item [(I)] State-of-the-art LVMs achieve likelihoods that are inferior to WaveNet at high temporal resolution but are superior at lower resolutions. Interestingly, we find that a standard LSTM \cite{hochreiter_long_1997} almost matches the likelihood of WaveNet.
     \item [(II)] LVMs with powerful autoregressive decoders achieve better likelihoods than the non-autoregressive LVM.
     \item[(III)] The expressiveness of LVMs for speech increases with a deeper hierarchy of stochastic latent variables, similar to conclusions within image modeling. % \cite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
     \item[(IV)] LVMs learn rich representations that are as good or better than Mel spectrograms for phoneme recognition also when using only 10 minutes of labeled data.
-\end{itemize}\vspace{-3mm}
+\end{itemize}
 At a high level, this benchmark brings order to LVM model comparisons for speech and also provides useful reference implementations of the models
 \footnote{\href{https://github.com/JakobHavtorn/benchmarking-lvms}{\url{github.com/JakobHavtorn/benchmarking-lvms}}}.
 % \footnote{\fontsize{8.5}{0}\selectfont\texttt{ \url{github.com/anonymous/available-later}}}.
@@ -170,7 +169,7 @@ All selected models have autoregressive generative models which let future obser
 
 
 \subsection{Sequential deep latent variable models}
-The selected models are all sequential deep latent variable models trained with variational inference and the reparameterization trick \cite{kingma_auto-encoding_2014}.
+The selected models are all sequential deep latent variable models trained with variational inference and the reparameterization trick \cite{kingma_autoencoding_2014}.
 % The VRNN, SRNN, STCN and CW-VAE are all autoencoders trained with variational inference and the reparameterization trick \cite{kingma_auto-encoding_2014}. 
 They take as input a variable-length sequence $\xb_{1:T} = \left(\xb_1, \xb_2, \dots, \xb_{T}\right)$ with $\xb_t \in \mathbb{R}^{D_x}$. 
 % The VRNN, SRNN, STCN and CW-VAE are all VAEs \cite{kingma_auto-encoding_2014} that take as input a variable-length sequence $\xb_{1:T} = \left(\xb_1, \xb_2, \dots, \xb_{T}\right)$ with $\xb_t \in \mathbb{R}^{D_x}$. 
@@ -351,7 +350,6 @@ Blue arrows indicate parameter sharing between inference and generative models.
 We omit the deterministic variable of \cref{fig: autoregressive vrnn srnn cwvae 1L graphs} for clarity.
 }
 \label{fig: clockwork vae inference generative models 2 layered}
-\vspace{-0mm}
 \end{figure*}
 
 

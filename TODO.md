@@ -1,4 +1,6 @@
 - [ ] Include a notation overview.
+- [ ] Make subcaption style identical throughout (i.e. use subplot captions or single main caption)
+- [ ] Remove or include acknowledgements in each paper?
 
 
 Outline
@@ -15,8 +17,7 @@ Outline
 
 
 - [ ] Finalization:
-  - [ ] Make subcaption style identical throughout (i.e. use subplot captions or single main caption)
-  - [ ] Remove or include acknowledgements in each paper?
+  - [ ] Remove double "arXiv" string on preprint papers
 
 
 Search and replace patterns:
