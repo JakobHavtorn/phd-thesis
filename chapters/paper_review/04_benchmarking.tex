@@ -91,7 +91,7 @@ Switchboard (SWB)~\cite{godfrey_switchboard_1992},
 TIMIT~\cite{garofolo_timit_1993}, and VoxLingua107~\cite{valk_voxlingua107_2021}, are
 labeled and conventionally used for evaluation, while their audio streams are
 also aggregated to build diversified and large-scale corpora for unsupervised
-pre-training~\cite{kawakami_learning_2020, song_speech-xlnet_2020, babu_xlsr_2021}.
+pre-training~\cite{kawakami_learning_2020, song_speechxlnet_2020, babu_xlsr_2021}.
 GigaSpeech is a multi-domain English ASR corpus with 33k hours of audio
 collected from audiobooks, podcasts, and YouTube. A subset of 10k audio is
 transcribed. TED2 comes with 118 hours of English speech extracted from
@@ -313,7 +313,7 @@ audio processing, we here provide only a list of these datasets for reference.
     & & ST & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & - & 236 hrs \\ \cline{3-7}
     & & SID & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & \checkmark & 65\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
     % wav2vec
-    \multirow{2}{*}[0mm]{wav2vec \cite{schneider_wav2vec:_2019}} & \multirow{2}{*}[-0.5mm]{\makecell[l]{LS 80/960 hrs,\\ LS 960 hrs \\ \:+ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & \checkmark & 81 hrs\vspace{1mm} \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{wav2vec \cite{schneider_wav2vec_2019}} & \multirow{2}{*}[-0.5mm]{\makecell[l]{LS 80/960 hrs,\\ LS 960 hrs \\ \:+ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & \checkmark & 81 hrs\vspace{1mm} \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hr\vspace{1mm} \\ \hline
     % Phase predict
     PhasePredict \cite{quitry_learning_2019} & AudioSet & AED & 7 AED datasets\textsuperscript{\ref{footnote:AED-datasets}} & 7 AED datasets\textsuperscript{\ref{footnote:AED-datasets}} & \checkmark & See \cite{quitry_learning_2019} for details \\ \hline
@@ -333,13 +333,13 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}[0mm]{vq-wav2vec \cite{baevski_vq-wav2vec_2020}} & \multirow{2}{*}[0mm]{LS 960 hrs} & ASR & WSJ si284 & \makecell[l]{WSJ eval92} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \hline
     % DeCoAR
-    \multirow{2}{*}[0mm]{DeCoAR \cite{ling2020deep}} & \multirow{2}{*}[0mm]{\makecell[l]{LS 100/360/460/\\\:\:\:960 hrs,\\ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{25\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}}/81 hrs} \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{DeCoAR \cite{ling_deep_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{LS 100/360/460/\\\:\:\:960 hrs,\\ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{25\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}}/81 hrs} \\ \cline{3-7}
     & & ASR & \makecell[l]{LS 100/360/\\\:\:\:460/960 hrs} & \makecell[l]{LS test-clean,\\ LS test-other} & - & 100/360/460/960 hrs \\ \hline
     % MT-APC
-    \multirow{2}{*}[0mm]{MT-APC\cite{chung2020improved}} & \multirow{2}{*}[0mm]{LS 360 hrs} & ASR & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & WSJ dev93 & \checkmark & 72 hrs \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{MT-APC\cite{chung_improved_2020}} & \multirow{2}{*}[0mm]{LS 360 hrs} & ASR & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & WSJ dev93 & \checkmark & 72 hrs \\ \cline{3-7}
     & & ST & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & LS En-Fr\textsuperscript{\ref{footnote:official-split}} & - & 236 hrs \\ \hline
     % PASE+
-    \multirow{3}{*}[0mm]{PASE+\cite{ravanelli_multi-task_2020}} & \multirow{3}{*}[0mm]{LS 50 hrs \cite{ravanelli_learning_2018}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
+    \multirow{3}{*}[0mm]{PASE+\cite{ravanelli_multitask_2020}} & \multirow{3}{*}[0mm]{LS 50 hrs \cite{ravanelli_learning_2018}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
     & & ASR & DIRHA\textsuperscript{\ref{footnote:official-split}} & DIRHA\textsuperscript{\ref{footnote:official-split}} & \checkmark & 11 hrs \\ \cline{3-7}
     & & ASR & CHiME-5\textsuperscript{\ref{footnote:official-split}} & CHiME-5\textsuperscript{\ref{footnote:official-split}} & \checkmark & 50 hrs \\ \hline
     % AALBERT
@@ -374,7 +374,7 @@ audio processing, we here provide only a list of these datasets for reference.
     % vq-wav2vec + Discrete BERT
     \makecell[l]{vq-wav2vec + \\\:DiscreteBERT \cite{baevski_effectiveness_2020}} & LS 960 hrs & ASR & LS 100 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
     % speech-XLNet
-    \multirow{2}{*}[-1mm]{speech-XLNet \cite{song_speech-xlnet_2020}} & \multirow{2}{*}[-1mm]{\makecell[l]{LS 960 hrs\\\;\;\;+ WSJ si284\\\;\;\;+ TED2}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs\vspace{1mm} \\ \cline{3-7}
+    \multirow{2}{*}[-1mm]{speech-XLNet \cite{song_speechxlnet_2020}} & \multirow{2}{*}[-1mm]{\makecell[l]{LS 960 hrs\\\;\;\;+ WSJ si284\\\;\;\;+ TED2}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs\vspace{1mm} \\ \cline{3-7}
     & & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{7\textsuperscript{\ref{footnote:low-resource}}/14\textsuperscript{\ref{footnote:low-resource}}/30\textsuperscript{\ref{footnote:low-resource}}/81 hrs}\vspace{1mm} \\ \hline
     % MPC
     \multirow{3}{*}[0mm]{MPC \cite{jiang_improving_2019, jiang_further_2021}} & \multirow{2}{*}[0mm]{\makecell[l]{Didi Callcenter,\\Didi Dictation,\\Open Mandarin}} & ASR-zh & HKUST\textsuperscript{\ref{footnote:official-split}} & HKUST\textsuperscript{\ref{footnote:official-split}} & \checkmark & 168 hrs \\ \cline{3-7}
@@ -384,7 +384,7 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}[0mm]{MPE \cite{liu_masked_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{WSJ si284,\\LS 960 hrs}} & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{25\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}}/81 hrs} \\ \cline{3-7}
     & & ASR & LS 100/360/960 hrs & LS test-clean & - & 100/360/960 hrs \\ \hline
     % ConvDMM
-    ConvDMM \cite{khurana20_interspeech} & \makecell[l]{LS 50\cite{ravanelli_learning_2018}/360/\\\:\:\:960 hrs} & PC/PR & WSJ si284 & WSJ eval92 & \checkmark & \makecell[l]{5\textsuperscript{\ref{footnote:low-resource}}/50\textsuperscript{\ref{footnote:low-resource}}/100\textsuperscript{\ref{footnote:low-resource}} mins,\\ 4\textsuperscript{\ref{footnote:low-resource}}/8\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}} hrs} \\ \hline
+    ConvDMM \cite{khurana_convolutional_2020} & \makecell[l]{LS 50\cite{ravanelli_learning_2018}/360/\\\:\:\:960 hrs} & PC/PR & WSJ si284 & WSJ eval92 & \checkmark & \makecell[l]{5\textsuperscript{\ref{footnote:low-resource}}/50\textsuperscript{\ref{footnote:low-resource}}/100\textsuperscript{\ref{footnote:low-resource}} mins,\\ 4\textsuperscript{\ref{footnote:low-resource}}/8\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}} hrs} \\ \hline
     % wav2vec 2.0
     \multirow{2}{*}{wav2vec 2.0 \cite{baevski_wav2vec_2020}} & \multirow{2}{*}{\makecell[l]{LS 960 hrs,\\ LL 60k hrs}} & ASR & LS 960 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100/960 hrs} \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \hline

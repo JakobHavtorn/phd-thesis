@@ -1,3 +1,4 @@
+
 - [ ] Include a notation overview.
 - [ ] Make subcaption style identical throughout (i.e. use subplot captions or single main caption)
 - [ ] Remove or include acknowledgements in each paper?
@@ -11,6 +12,7 @@ Outline
 - [ ] Add papers
   - [ ] Self-supervised learning review
     - [ ] Revise all references (cite keys)
+    - [ ] Revise all tables
   - [ ] Stroke paper (spring 2023)
   - [ ] ASR uncertainty (spring 2023)
   - [ ] Secondary papers?

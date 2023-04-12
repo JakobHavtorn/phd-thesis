@@ -11,7 +11,7 @@ Stochastic latent variable models (LVMs) achieve state-of-the-art performance on
 
 
 \section{Introduction}
-Since their introduction, temporal latent variable models (LVMs) for speech \cite{chung_recurrent_2015, fraccaro_sequential_2016} based on the variational autoencoder (VAE,  \textcite{kingma_auto-encoding_2014, rezende_stochastic_2014}) have seen little development compared to their image domain counterparts. While LVMs now achieve superior likelihoods on images compared to deterministic models \cite{child_very_2021,sinha_consistency_2021,kingma_variational_2021}, they are still inferior to deterministic models such as WaveNet on speech \cite{oord_wavenet_2016}.
+Since their introduction, temporal latent variable models (LVMs) for speech \cite{chung_recurrent_2015, fraccaro_sequential_2016} based on the variational autoencoder (VAE,  \textcite{kingma_autoencoding_2014, rezende_stochastic_2014}) have seen little development compared to their image domain counterparts. While LVMs now achieve superior likelihoods on images compared to deterministic models \cite{child_very_2021,sinha_consistency_2021,kingma_variational_2021}, they are still inferior to deterministic models such as WaveNet on speech \cite{oord_wavenet_2016}.
 Development in the image domain has been driven by established likelihood benchmarks, but in the speech domain, likelihoods are often not reported \cite{oord_wavenet_2016, hsu_unsupervised_2017, oord_neural_2018} or are incomparable due to subtle differences in the chosen data distributions \cite{chung_recurrent_2015, fraccaro_sequential_2016, hsu_unsupervised_2017, aksan_stcn_2019}. 
 This makes it hard to develop explicit likelihood models for speech.
 
@@ -158,7 +158,7 @@ Before presenting the results, we provide a brief survey of existing LVMs for sp
 
 \section{Models}
 \paragraph{Sequential deep latent variable models}
-The models we consider are all sequential deep latent variable models trained with variational inference and the reparameterization trick \cite{kingma_auto-encoding_2014}.
+The models we consider are all sequential deep latent variable models trained with variational inference and the reparameterization trick \cite{kingma_autoencoding_2014}.
 The input is a variable-length sequence $\vx = \vx_{1:T} = \left(\vx_1, \vx_2, \dots, \vx_{T}\right)$ with $\vx_t\in\mathbb{R}^{D_x}$. 
 The models first encode $\vx_{1:T}$ to a temporal posterior distribution $q(\vz|\vx)$ and sample a latent representation $\vz_{1:T}$ where $\vz_t\in\mathbb{R}^{D_z}$. This is then used to reconstruct the input while the posterior distribution is regularized to be close to a prior distribution $p(\vz_t|\cdot)$ where the dot indicates that it may depend on latent and observed variables at previous time steps, $\vz_{<t}$ and $\vx_{<t}$ where $\vz_{<t} := \left( \vz_1, \vz_2, \dots, \vz_{t-1} \right)$. 
 The models are trained to maximize a lower bound $\mathcal{L}(\thetab,\phib;\vx)$ on the marginal likelihood $\log p_\thetab(\vx)$,

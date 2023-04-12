@@ -170,9 +170,9 @@ All selected models have autoregressive generative models which let future obser
 
 \subsection{Sequential deep latent variable models}
 The selected models are all sequential deep latent variable models trained with variational inference and the reparameterization trick \cite{kingma_autoencoding_2014}.
-% The VRNN, SRNN, STCN and CW-VAE are all autoencoders trained with variational inference and the reparameterization trick \cite{kingma_auto-encoding_2014}. 
+% The VRNN, SRNN, STCN and CW-VAE are all autoencoders trained with variational inference and the reparameterization trick \cite{kingma_autoencoding_2014}. 
 They take as input a variable-length sequence $\xb_{1:T} = \left(\xb_1, \xb_2, \dots, \xb_{T}\right)$ with $\xb_t \in \mathbb{R}^{D_x}$. 
-% The VRNN, SRNN, STCN and CW-VAE are all VAEs \cite{kingma_auto-encoding_2014} that take as input a variable-length sequence $\xb_{1:T} = \left(\xb_1, \xb_2, \dots, \xb_{T}\right)$ with $\xb_t \in \mathbb{R}^{D_x}$. 
+% The VRNN, SRNN, STCN and CW-VAE are all VAEs \cite{kingma_autoencoding_2014} that take as input a variable-length sequence $\xb_{1:T} = \left(\xb_1, \xb_2, \dots, \xb_{T}\right)$ with $\xb_t \in \mathbb{R}^{D_x}$. 
 We let $\xb_{1:T}$ refer to the observed variable or a downsampled version of it. We will sometimes use $\xb$ to refer to the sequence $\xb_{1:T}$ when it is not ambiguous.
 % In general, $\xb_{1:T}$ may refer to the original observed variable or a deterministically downsampled representation of the observed variable. We will sometimes use $\xb$ to refer to the full sequence $\xb_{1:T}$ when it is not ambiguous.
 

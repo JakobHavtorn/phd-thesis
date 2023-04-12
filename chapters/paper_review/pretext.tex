@@ -56,13 +56,13 @@
     \midrule 
     Speech2Vec~\cite{chung_speech2vec_2018}, Audio2Vec~\cite{tagliasacchi_pretraining_2020} - cbow    & $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$   &     \textsc{-}   &    $X_{[t_1,t_2]}$   \\
     \midrule 
-    PASE~\cite{pascual_learning_2019}, PASE+~\cite{ravanelli_multi-task_2020}\footnote{PASE uses multiple pretext tasks, but the authors find that reconstruction is most important.}       & $X$ &  \textsc{-}   &  Different modalities of $X$  \\
+    PASE~\cite{pascual_learning_2019}, PASE+~\cite{ravanelli_multitask_2020}\footnote{PASE uses multiple pretext tasks, but the authors find that reconstruction is most important.}       & $X$ &  \textsc{-}   &  Different modalities of $X$  \\
     \midrule 
     APC~\cite{chung_unsupervised_2019,chung_vector-quantized_2020}         & $X_{[1,t]}$   & \textsc{-}              & $x_{t+c},\, c\geq1$    \\ %VQ-APC is the same as APC
     \midrule
-    Speech-XLNet \cite{song_speech-xlnet_2020}     & \multicolumn{2}{c|}{$X_{\mathcal{P}_{t}}$}   &     $x_{i\sim\mathcal{P}^c_{t}}$  \\ %Lee: Use * to represent the permutation, hope it is not strange.
+    Speech-XLNet \cite{song_speechxlnet_2020}     & \multicolumn{2}{c|}{$X_{\mathcal{P}_{t}}$}   &     $x_{i\sim\mathcal{P}^c_{t}}$  \\ %Lee: Use * to represent the permutation, hope it is not strange.
     \midrule  
-    DeCoAR~\cite{ling2020deep}     & $X_{[1,t-1]}, X_{[t+k+1,T]}$ & \textsc{-} & $X_{[t,t+k]}$   \\
+    DeCoAR~\cite{ling_deep_2020}     & $X_{[1,t-1]}, X_{[t+k+1,T]}$ & \textsc{-} & $X_{[t,t+k]}$   \\
     \midrule
     Mockingjay~\cite{liu_mockingjay_2020}, Audio ALBERT~\cite{chi_audio_2020}, DeCoAR 2.0~\cite{ling_decoar_2020}   & \multicolumn{2}{c|}{$X_{-[t,t+k]}$}   & $X_{[t,t+k]}$    \\
     \midrule 
@@ -80,7 +80,7 @@
     \midrule
     Unspeech \cite{milde_unspeech_2018}       &   $X_{[t_1,t_2]}$ &   \textsc{-}   &  $X_{[t_0,t_1]}$,$X_{[t_2,t_3]}$ \\
     \midrule 
-    CPC~\cite{oord_representation_2018}, wav2vec \cite{schneider_wav2vec:_2019}, Modified CPC \cite{riviere_unsupervised_2020}         & $X_{[1,t]}$   &    \textsc{-}           & $z_{t+c},\, c\geq1$   \\ %Modified CPC is the same as CPC
+    CPC~\cite{oord_representation_2018}, wav2vec \cite{schneider_wav2vec_2019}, Modified CPC \cite{riviere_unsupervised_2020}         & $X_{[1,t]}$   &    \textsc{-}           & $z_{t+c},\, c\geq1$   \\ %Modified CPC is the same as CPC
     \midrule 
     Bidirectional CPC \cite{kawakami_learning_2020}      & $X_{[1,t]}$ or $X_{[t,T]}$ &  \textsc{-}    &    $z_{t+c}$ or $z_{t-c},\, c\geq1$   \\
     \midrule 
@@ -102,7 +102,7 @@
     \midrule
     data2vec \cite{baevski_data2vec_2022}    & $X$             & $Z_{-[t,t+k]}$          & $\sum_{l}\bar{H}^{(l)}_{[t,t+k]}$  \\ 
     \midrule 
-    BEST-RQ \cite{BEST-RQ}\footnote{BEST-RQ obtains codes $C$ by quantizing acoustic features using a random projection quantizer.}     &  \multicolumn{2}{c|}{$X_{-[t,t+k]}$}      &  $C_{[t,t+k]}$   \\ 
+    BEST-RQ \cite{chiu_selfsupervised_2022}\footnote{BEST-RQ obtains codes $C$ by quantizing acoustic features using a random projection quantizer.}     &  \multicolumn{2}{c|}{$X_{-[t,t+k]}$}      &  $C_{[t,t+k]}$   \\ 
     \midrule 
     \bottomrule
 \end{tabular}
