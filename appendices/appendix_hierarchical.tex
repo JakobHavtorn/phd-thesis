@@ -191,8 +191,8 @@ First, we consider a two-layered VAE with bottom-up inference.
 We proceed very similarly to the derivation of the regular ELBO and also use Jensen's inequality.
 \begin{align}
 \log p(\xb) &= \log \int\int p(\xb|\zb_1)p(\zb_1|\zb_2)p(\zb_2) \text{d}\zb_1\text{d}\zb_2 \\
-&= \log \int\int \frac{q(\zb_2|\xb)}{q(\zb_2|\xb)} p(\xb|\zb_1)p(\zb_1|\zb_2)p(\zb_2) \text{d}\zb_1\text{d}\zb_2 \notag \\
-&= \log \int\int q(\zb_2|\xb) p(\zb_1|\zb_2) \frac{p(\xb|\zb_1)p(\zb_2)}{q(\zb_2|\xb)} \text{d}\zb_1\text{d}\zb_2 \notag \\
+&\qquad = \log \int\int \frac{q(\zb_2|\xb)}{q(\zb_2|\xb)} p(\xb|\zb_1)p(\zb_1|\zb_2)p(\zb_2) \text{d}\zb_1\text{d}\zb_2 \notag \\
+&\qquad = \log \int\int q(\zb_2|\xb) p(\zb_1|\zb_2) \frac{p(\xb|\zb_1)p(\zb_2)}{q(\zb_2|\xb)} \text{d}\zb_1\text{d}\zb_2 \notag \\
 %&\ge \mathbb{E}_{p(\zb_1|\zb_2)} \left [ \log q(\zb_2|\xb) \frac{p(\xb|\zb_1)p(\zb_2)}{q(\zb_2|\xb)} \right ] \notag \\
 &\ge \mathbb{E}_{p(\zb_1|\zb_2)q(\zb_2|\xb)} \left [ \log \frac{p(\xb|\zb_1)p(\zb_2)}{q(\zb_2|\xb)} \right ] \equiv \mathcal{L}^{> 1} \notag \ .
 \end{align}
@@ -203,12 +203,12 @@ This is possible since we exclusively manipulate the variational proposal distri
 In general, the derivation of $\mathcal{L}^{>k}$ for an $L$-layered hierarchical VAE with $\zb=\zb_1,\dots,\zb_L$ is as follows:
 \begin{align}
     \log p(\xb) &= \log \int p(\xb|\zb)p(\zb) \text{d}\zb \\
-    &= \log \int \frac{q(\zb_{>k}|\xb)}{q(\zb_{>k}|\xb)} p(\xb|\zb)p(\zb) \text{d}\zb \notag \\
-    &= \log \int q(\zb_{>k}|\xb) p(\zb) \frac{p(\xb|\zb)}{q(\zb_{>k}|\xb)} \text{d}\zb \notag \\
-    &= \log \int q(\zb_{>k}|\xb) p(\zb_{\leq k}|\zb_{>k}) p(\zb_{>k}) \frac{p(\xb|\zb)}{q(\zb_{>k}|\xb)} \text{d}\zb \notag \\
-    &= \log \int q(\zb_{>k}|\xb) p(\zb_{\leq k}|\zb_{>k}) \frac{p(\xb|\zb)p(\zb_{>k})}{q(\zb_{>k}|\xb)} \text{d}\zb \notag \\
-    &\ge \mathbb{E}_{p(\zb_{\leq k}|\zb_{>k})} \left[ \log q(\zb_{>k}|\xb) \frac{p(\xb|\zb)p(\zb_{>k})}{q(\zb_{>k}|\xb)} \right] \notag \\
-    &\ge \mathbb{E}_{p(\zb_{\leq k}|\zb_{>k})q(\zb_{>k}|\xb)} \left[ \log \frac{p(\xb|\zb)p(\zb_{>k})}{q(\zb_{>k}|\xb)} \right] \equiv \mathcal{L}^{>k} \notag \ .
+    &\qquad = \log \int \frac{q(\zb_{>k}|\xb)}{q(\zb_{>k}|\xb)} p(\xb|\zb)p(\zb) \text{d}\zb \notag \\
+    &\qquad = \log \int q(\zb_{>k}|\xb) p(\zb) \frac{p(\xb|\zb)}{q(\zb_{>k}|\xb)} \text{d}\zb \notag \\
+    &\qquad = \log \int q(\zb_{>k}|\xb) p(\zb_{\leq k}|\zb_{>k}) p(\zb_{>k}) \frac{p(\xb|\zb)}{q(\zb_{>k}|\xb)} \text{d}\zb \notag \\
+    &\qquad = \log \int q(\zb_{>k}|\xb) p(\zb_{\leq k}|\zb_{>k}) \frac{p(\xb|\zb)p(\zb_{>k})}{q(\zb_{>k}|\xb)} \text{d}\zb \notag \\
+    &\qquad \ge \mathbb{E}_{p(\zb_{\leq k}|\zb_{>k})} \left[ \log q(\zb_{>k}|\xb) \frac{p(\xb|\zb)p(\zb_{>k})}{q(\zb_{>k}|\xb)} \right] \notag \\
+    &\qquad \ge \mathbb{E}_{p(\zb_{\leq k}|\zb_{>k})q(\zb_{>k}|\xb)} \left[ \log \frac{p(\xb|\zb)p(\zb_{>k})}{q(\zb_{>k}|\xb)} \right] \equiv \mathcal{L}^{>k} \notag \ .
 \end{align}
 Similar to the $L=2$ case above, we have defined
 $$q(\zb_{>k}|\xb) = q(\zb_{>k}|d_k(\xb))$$
@@ -280,25 +280,25 @@ This remains an open research question.
 % The ELBO for the bottom-up VAE is given by:
 % \begin{align}
     %     \log p(\xb) &\ge \mathbb{E}_{q(\zb_1, \zb_2|\xb)} \left[ \log \left(p(\xb|\zb_1) p(\zb_1|\zb_2) p(\zb_2) \right) \notag \\
-    %     &- \log \left( q(\zb_1|\xb) q(\zb_2|\zb_1)\right) \right]\ .
+    %     &\qquad - \log \left( q(\zb_1|\xb) q(\zb_2|\zb_1)\right) \right]\ .
     % \end{align}
     By splitting up the expectation, we can write the ELBO of a two-layer bottom-up hierarchical VAE as
     \begin{align}
         \log p(\xb) &\ge \mathbb{E}_{q(\zb_1, \zb_2|\xb)} \left[ \log p(\xb|\zb_1) \right] \\
-    &+ \mathbb{E}_{q(\zb_1,\zb_2|\xb)} \left[ \log p(\zb_1|\zb_2) - \log q(\zb_1|\xb) \right] \notag \\
-    &+ \mathbb{E}_{q(\zb_1,\zb_2|\xb)} \left[ \log p(\zb_2) - \log q(\zb_2|\zb_1) \right] \notag \ .
+    &\qquad + \mathbb{E}_{q(\zb_1,\zb_2|\xb)} \left[ \log p(\zb_1|\zb_2) - \log q(\zb_1|\xb) \right] \notag \\
+    &\qquad + \mathbb{E}_{q(\zb_1,\zb_2|\xb)} \left[ \log p(\zb_2) - \log q(\zb_2|\zb_1) \right] \notag \ .
 \end{align}
 We can write out the expectations in order to derive the KL-divergence terms of the bottom-up ELBO:
 \begin{align}
     \log p(\xb) &\ge \int \int \log p(\xb|\zb_1) \text{d}\zb_2\zb_1 \label{eq:2 layer VAE bottom up ELBO integrals} \\
-    &+ \int q(\zb_1|\xb) \int q(\zb_2|\zb_1) \log \frac{p(\zb_1|\zb_2)}{q(\zb_1|\xb)} \text{d}\zb_2\zb_1 \notag \\ 
-    &+ \int q(\zb_1|\xb) \int q(\zb_2|\zb_1) \log \frac{p(\zb_2)}{q(\zb_2|\zb_1)} \text{d}\zb_2\zb_1 \notag  \ .
+    &\qquad + \int q(\zb_1|\xb) \int q(\zb_2|\zb_1) \log \frac{p(\zb_1|\zb_2)}{q(\zb_1|\xb)} \text{d}\zb_2\zb_1 \notag \\ 
+    &\qquad + \int q(\zb_1|\xb) \int q(\zb_2|\zb_1) \log \frac{p(\zb_2)}{q(\zb_2|\zb_1)} \text{d}\zb_2\zb_1 \notag  \ .
 \end{align}
 From the above, we can see that since the decomposition is in a reverse order, we cannot derive the KL-divergence for the second term. This will hold in general for $L$-layered models for any latent variables  $\zb_1,...,\zb_{L-1}$:
 \begin{align}
     \log p(\xb) &\ge \mathbb{E}_{q(\zb_1, \zb_2|\xb)} \left[ \log p(\xb|\zb_1) \right] \\
-    &+ \mathbb{E}_{q(\zb_1|\xb)}\left[ \mathbb{E}_{q(\zb_2|\zb_1)}\left[\log \frac{p(\zb_1|\zb_2)}{q(\zb_1|\xb)}\right]\right] \notag \\
-    &+ \mathbb{E}_{q(\zb_1|\xb)}\left[-D_\text{KL}[q(\zb_2|\zb_1)||p(\zb_2)]\right] \notag \ .
+    &\qquad + \mathbb{E}_{q(\zb_1|\xb)}\left[ \mathbb{E}_{q(\zb_2|\zb_1)}\left[\log \frac{p(\zb_1|\zb_2)}{q(\zb_1|\xb)}\right]\right] \notag \\
+    &\qquad + \mathbb{E}_{q(\zb_1|\xb)}\left[-D_\text{KL}[q(\zb_2|\zb_1)||p(\zb_2)]\right] \notag \ .
 \end{align}
 
 
@@ -311,20 +311,20 @@ From the above, we can see that since the decomposition is in a reverse order, w
     By splitting up the expectation, we can write the ELBO of a two-layer top-down hierarchical VAE as
     \begin{align}
         \log p(\xb) &\ge \mathbb{E}_{q(\zb_1, \zb_2|\xb)} \left[ \log p(\xb|\zb_1) \right] \\ 
-        &+ \mathbb{E}_{q(\zb_1,\zb_2|\xb)} \left[ \log p(\zb_2|\xb) - \log q(\zb_2|\xb) \right] \notag \\
-        &+ \mathbb{E}_{q(\zb_1,\zb_2|\xb)} \left[ \log p(\zb_1|\zb_2) - \log q(\zb_1|\zb_2) \right] \notag \ .
+        &\qquad + \mathbb{E}_{q(\zb_1,\zb_2|\xb)} \left[ \log p(\zb_2|\xb) - \log q(\zb_2|\xb) \right] \notag \\
+        &\qquad + \mathbb{E}_{q(\zb_1,\zb_2|\xb)} \left[ \log p(\zb_1|\zb_2) - \log q(\zb_1|\zb_2) \right] \notag \ .
     \end{align}
     We can write out the expectations in order to derive the KL-divergence terms:
     \begin{align}
         \log p(\xb) &\ge \int \int \log p(\xb|\zb_1) d\zb_1\zb_2 \\
-        &+ \int q(\zb_2|\xb) \log \frac{p(\zb_2|\xb)}{q(\zb_2|\xb)} d\zb_2 \notag \\ 
-        &+ \int q(\zb_2|\xb) \int q(\zb_1|\zb_2) \log \frac{p(\zb_1|\zb_2)}{q(\zb_1|\zb_2)} d\zb_1\zb_2 \notag \ .
+        &\qquad + \int q(\zb_2|\xb) \log \frac{p(\zb_2|\xb)}{q(\zb_2|\xb)} d\zb_2 \notag \\ 
+        &\qquad + \int q(\zb_2|\xb) \int q(\zb_1|\zb_2) \log \frac{p(\zb_1|\zb_2)}{q(\zb_1|\zb_2)} d\zb_1\zb_2 \notag \ .
     \end{align}
     The KL-divergence terms can now easily be computed by:
     \begin{align}
         \log p(\xb) &\ge \mathbb{E}_{q(\zb_1, \zb_2|\xb)} \left[ \log p(\xb|\zb_1) \right] \\
-    &- D_\text{KL}[q(\zb_2|\xb)||p(\zb_2)] \notag \\ 
-    &- \mathbb{E}_{q(\zb_2|\xb)}\left[D_\text{KL}[q(\zb_1|\zb_2)||p(\zb_1|\zb_2)\right] \notag \ .
+    &\qquad - D_\text{KL}[q(\zb_2|\xb)||p(\zb_2)] \notag \\ 
+    &\qquad - \mathbb{E}_{q(\zb_2|\xb)}\left[D_\text{KL}[q(\zb_1|\zb_2)||p(\zb_1|\zb_2)\right] \notag \ .
 \end{align}
 Note that the KL-divergence in the second layer is not exact since it is dependent on the sample-noise from the layer below. An exact solution can only be derived if the latent variables $\mathbf{z}$ are all conditionally independent. However, this comes at the cost of not learning a covariance structure.
 
