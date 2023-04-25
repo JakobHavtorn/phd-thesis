@@ -95,14 +95,15 @@
 \usepackage{csquotes}       % language sensitive quotation facilities
 
 % Bibliography (references)
+% https://tex.stackexchange.com/questions/89842/how-to-print-only-year-no-day-month-with-biblatex            
 \usepackage[backend=biber,
             style=numeric,
             abbreviate=false,
             dateabbrev=false,
             maxbibnames=14,
-            urldate=long,
+            urldate=short,
             backref=true,
-            alldates=long]{biblatex}
+            alldates=year]{biblatex}
 \renewcommand*{\bibfont}{\normalfont\footnotesize}  % make bibliography font smaller
 
 
