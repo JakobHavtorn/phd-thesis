@@ -2,6 +2,7 @@
 - [ ] Include a notation overview.
 - [ ] Make subcaption style identical throughout (i.e. use subplot captions or single main caption)
 - [ ] Remove or include acknowledgements in each paper?
+- [ ] Fix table "Model likelihoods and phoneme error rate for TIMIT" having two numbers and not listed in List of Tables.
 
 
 Outline
@@ -11,7 +12,7 @@ Outline
 
 - [ ] Add papers
   - [ ] Self-supervised learning review
-    - [ ] Revise all references (cite keys)
+    - [x] Revise all references (cite keys)
     - [ ] Revise all tables
   - [ ] Stroke paper (spring 2023)
   - [ ] ASR uncertainty (spring 2023)

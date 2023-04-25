@@ -64,8 +64,8 @@ The inability to detect out-of-distribution data with deep generative models is 
 Before the advent of deep generative models, this was not considered a major issue for probabilistic models \cite{bishop_novelty_1994}.
 Is the failure due to model pathologies or something different?
 
-Deep learning models are generally believed to form hierarchies of representations that range from low-level features to more conceptual ones related to semantics \parencite{bengio_representation_2013}.
-This has also been observed within deep generative models \parencite{maaloe_biva_2019, child_very_2021}.
+Deep learning models are generally believed to form hierarchies of representations that range from low-level features to more conceptual ones related to semantics \cite{bengio_representation_2013}.
+This has also been observed within deep generative models \cite{maaloe_biva_2019, child_very_2021}.
 %Recent research \cite{maaloe_biva_2019, child_very_2021, vahdat_nvae_2020}, has shown that deep latent variable models are able to learn rich hierarchical representations with increasing levels of abstraction and global structure towards the top of the hierarchy.
 For image data there is a trend that the low-level features are quite similar across models (edge detectors, etc.). This raises the question to what extend such features are relevant when detecting OOD data, also suggested  by \cite{nalisnick_deep_2019} and examined for Glow and PixelCNN in \cite{schirrmeister_understanding_2020}.
 To investigate, we train two hierarchical VAEs (\cref{sec:background-hie-VAE}) on FashionMNIST and MNIST, respectively, and compute the between-models correlation of the extracted features of in-distribution data and OOD data.
@@ -86,7 +86,7 @@ This suggests that as we fall back to the conditional priors of each layer, we a
     \includegraphics[width=1\columnwidth]{paper_hierarchical/biva_reconstructions.pdf}
     % https://docs.google.com/drawings/d/1UXdA3c18Oek9_env1vEB9mqOAHZ-tu0ijWmvqmapWCk/edit?usp=sharing
     \vspace{0mm}
-    \caption[Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables]{Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables  \cite{maaloe_biva_2019}.
+    \caption[Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables.]{Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables  \cite{maaloe_biva_2019}.
     The higher the latent variable, the more the reconstructions fall into the mode of the learned distribution.
     It is more common to wear regular glasses than sunglasses but most common not to wear glasses at all.
     A man with long hair collapses into the mode of the more common long-haired woman.}
@@ -141,7 +141,7 @@ Regardless of the choice of inference model, a hierarchical VAE is still trained
 Until recently, hierarchical VAEs gave inferior likelihoods compared to state-of-the-art autoregressive \cite{ho_flow_2019} and flow-based models \cite{salimans_pixelcnn_2017}.
 This was changed by \textcite{maaloe_biva_2019}, \textcite{vahdat_nvae_2020}, and \textcite{child_very_2021}, which introduced complementary methods to extend the number of latent variables to a very deep hierarchy resulting in state-of-the-art likelihood performance.
 
-In this paper we employ a simple hierarchical VAE with bottom-up inference paths and the more powerful BIVA variant with a bidirectional (top-down and bottom-up) inference model \parencite{maaloe_biva_2019}. We employ skip connections between latent variables but omit them for brevity.
+In this paper we employ a simple hierarchical VAE with bottom-up inference paths and the more powerful BIVA variant with a bidirectional (top-down and bottom-up) inference model \cite{maaloe_biva_2019}. We employ skip connections between latent variables but omit them for brevity.
 
 
 \subsection{Out-of-distribution detection}\label{sec:background-ood-detection}
@@ -209,7 +209,7 @@ The notation $\mathcal{L}^{>k}$ highlights that for latent variables $\zb_{>k}$,
 
 \subsection{A likelihood-ratio score for all feature levels}
 While the $\mathcal{L}^{>k}$ bound provides a score for performing semantic OOD detection, it still relies on the data space likelihood function (see equation \eqref{eq:likelihoods-as-exact} below), which is known to be problematic for OOD detection (\cref{sec:background-ood-detection}). To alleviate this, we phrase OOD detection as a likelihood ratio test of being \emph{semantically} in-distribution.
-A standard likelihood ratio test \parencite{buse_likelihood_1982} suggests to consider the ratio between the associated likelihoods, which we can approximate on a log-scale by the corresponding lower bounds $\mathcal{L}$ and $\mathcal{L}^{>k}$,
+A standard likelihood ratio test \cite{buse_likelihood_1982} suggests to consider the ratio between the associated likelihoods, which we can approximate on a log-scale by the corresponding lower bounds $\mathcal{L}$ and $\mathcal{L}^{>k}$,
 \begin{equation}\label{eq:llr-as-difference-in-likelihoods}
     % LLR = - 2 log(L0 / L1)
     % where L0 < L1 so log(L0 / L1) < 0 and LLR > 0
@@ -305,8 +305,8 @@ More details on the datasets can be found in the Appendix.
         \edge[dashed, bend left]{z2_gen}{x_gen};
         % \edge[dashed, bend left]{z3_gen}{x_gen};
     }
-    \caption[Inference and generative models for a bottom-up hierarchical VAS]{The inference and generative models, $q_\phib$ and $p_\thetab$, for an $L=2$ layered bottom-up hierarchical VAE as the one used in our experiments.
-    Dashed lines indicate deterministic skip connections which are employed in both networks. Skip connections are found to be useful for optimizing latent variable models \parencite{dieng_avoiding_2019, maaloe_biva_2019}.}
+    \caption[Inference and generative models for a bottom-up hierarchical VAEs.]{The inference and generative models, $q_\phib$ and $p_\thetab$, for an $L=2$ layered bottom-up hierarchical VAE as the one used in our experiments.
+    Dashed lines indicate deterministic skip connections which are employed in both networks. Skip connections are found to be useful for optimizing latent variable models \cite{dieng_avoiding_2019, maaloe_biva_2019}.}
     \label{fig:hvae-graphical-model}
     % \end{figure}
 %\end{wrapfigure}
@@ -384,7 +384,7 @@ Results on additional commonly used datasets are found in Appendix G.
          \bottomrule
     \end{tabular}
     }
-    \caption[Average bits per dimension of different datasets for generative models trained on FashionMNIST and CIFAR10]{%
+    \caption[Average bits per dimension of different datasets for generative models trained on FashionMNIST and CIFAR10.]{%
     Average bits per dimension of different datasets for models trained on FashionMNIST and CIFAR10.
     For the hierarchical models we include the $\mathcal{L}^{>k}$ bounds.
     The likelihoods of training and test splits of the in-distribution data are all cases close.
@@ -458,7 +458,7 @@ $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathb
          \bottomrule
     \end{tabular}%
     }
-    \caption{%
+    \caption[AUROC, AUPRC, and FPR80 of generative models for OOD detection (MNIST/FashionMNIST and SVHN/CIFAR10).]{%
         AUROC$\uparrow$, AUPRC$\uparrow$ and FPR80$\downarrow$ for OOD detection for a FashionMNIST model using scores on the FashionMNIST test set as reference. We bold the best results within the "No OOD-specific assumptions" group since we only compare directly to those.
         HVAE (ours) refers to our hierarchical bottom-up VAE.
         BIVA (ours) refers to our implementation of the hierarchical BIVA model \cite{maaloe_biva_2019}.
@@ -492,8 +492,8 @@ $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathb
         \caption{}
         \label{fig:FMNIST-llr}
     \end{subfigure}
-    \caption[Empirical densities of FashionMNIST (in-distribution) and MNIST (OOD) using the raw likelihood and $\mathcal{L}^{>2}$ bound]{%
-    Empirical densities of FashionMNIST (in-distribution) and MNIST (OOD) using the raw likelihood \subref{fig:FMNIST-elbo-k0}, the $\mathcal{L}^{>2}$ bound \subref{fig:FMNIST-elbo-k2} and the $LLR^{>1}$ score \subref{fig:FMNIST-llr}. All densities are computed using the HVAE model.).
+    \caption[Empirical densities of FashionMNIST (in-distribution) and MNIST (OOD) using the raw likelihood and $\mathcal{L}^{>2}$ bound.]{%
+    Empirical densities of FashionMNIST (in-distribution) and MNIST (OOD) using the raw likelihood \subref{fig:FMNIST-elbo-k0}, the $\mathcal{L}^{>2}$ bound \subref{fig:FMNIST-elbo-k2} and the $LLR^{>1}$ score \subref{fig:FMNIST-llr}. All densities are computed using the HVAE model.
     For the regular likelihood MNIST is very clearly more likely on average than the FashionMNIST test data while with the $\mathcal{L}^{>2}$ bound separation is better but significant overlap remains.
     The $LLR^{>1}$ provides a high degree of separation. Likelihoods are reported in units of the natural log of the number of bits per dimension.
     }
@@ -535,7 +535,7 @@ Since a high degree of overlap also seems present in \textcite{maaloe_biva_2019}
         % A ROC curve is plotted for each of the $\mathcal{L}^{>k}$ bounds including the ELBO along with one for the best-performing log likelihood-ratio $LLR^{>2}$.}
         \label{fig:CIFAR10-roc-llr}
     \end{subfigure}
-    \caption[ROC curves for out of distribution detection (MNIST/FashionMNIST and SVHN/CIFAR10)]{%
+    \caption[ROC curves for out of distribution detection (MNIST/FashionMNIST and SVHN/CIFAR10).]{%
         ROC curves with AUROC score for detecting \subref{fig:FMNIST-roc-llr} MNIST as OOD with the HVAE model trained on FashionMNIST and \subref{fig:CIFAR10-roc-llr} SVHN as OOD with the BIVA model trained on CIFAR10. 
         A ROC curve is plotted for each of the $\mathcal{L}^{>k}$ bounds including the ELBO along with one for the best-performing log likelihood-ratio $LLR^{>1}$.
     }
@@ -577,7 +577,7 @@ Hence, there can be an asymmetry where the likelihoods of simple OOD data can be
 Loosely put, the minimal number of bits required to losslessly compress data sampled from some distribution is the entropy of the generating process \cite{shannon_mathematical_1948, mackay_information_2003}.
 \textcite{townsend_practical_2019} recently showed that VAEs can be used for lossless compression at rates superior to more generic algorithms.
 
-We also note that since the hierarchical VAE is a probabilistic graphical latent variable model, it lends itself very naturally to manipulation at the feature level \parencite{kingma_semi-supervised_2014, maaloe_auxiliary_2016, maaloe_semi-supervised_2017}.
+We also note that since the hierarchical VAE is a probabilistic graphical latent variable model, it lends itself very naturally to manipulation at the feature level \cite{kingma_semi-supervised_2014, maaloe_auxiliary_2016, maaloe_semi-supervised_2017}.
 This property sets it apart from other generative models that do not explicitly define such a hierarchy of features.
 This in turn enables reliable OOD detection with our methodology while making no explicit assumptions about the nature of OOD data and only using a single model. This has not been achieved with autoregressive or flow-based models.
 

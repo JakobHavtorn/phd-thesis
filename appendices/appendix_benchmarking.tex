@@ -1,6 +1,6 @@
 %!TEX root = ../thesis.tex
 
-\chapter[benchmarking generative latent variable models for speech]{Benchmarking Generative Latent Variable Models for Speech}
+\chapter[supplementary material for benchmarking generative latent variable models for speech]{Supplementary material for Benchmarking generative latent variable models for speech}
 
 \section{Reproducibility statement}\label{app: reproducibility statement}
 The source code used for the work presented in this paper will be made available before the conference. 
@@ -140,7 +140,7 @@ We specifically hypothesize that models that are autoregressive in the observed 
         \bottomrule
     \end{tabular}
     \vspace{2mm}
-    \caption{
+    \caption[Model likelihoods on TIMIT represented as a 16 bit linear PCM]{
     Model likelihoods on TIMIT represented as a 16 bit linear PCM. The STCN converges to a poor local minimum and sometimes diverges when modeling linear PCM with $s=1$.
     }
     \label{tab: timit likelihoods dmol linear appendix}
@@ -208,8 +208,8 @@ We specifically hypothesize that models that are autoregressive in the observed 
         \bottomrule
     \end{tabular}
     \vspace{2mm}
-    \caption{
-    Model likelihoods on TIMIT represented as a \textbf{16 bit $\boldsymbol{\mu}$-law encoded PCM}.
+    \caption[Model likelihoods on TIMIT represented as a 16 bit $\boldsymbol{\mu}$-law PCM]{
+    Model likelihoods on TIMIT represented as a 16 bit $\boldsymbol{\mu}$-law encoded PCM.
     }
     \label{tab: timit likelihoods dmol mu-law appendix}
 \end{table}
@@ -243,7 +243,7 @@ We specifically hypothesize that models that are autoregressive in the observed 
         \bottomrule
     \end{tabular}
     \vspace{2mm}
-    \caption{
+    \caption[Model likelihoods on TIMIT represented as globally normalized 16 bit linear PCM]{
     Model likelihoods on TIMIT represented as globally normalized 16 bit linear PCM. Contrary to the other likelihoods reported in this paper, here they are given in units of nats and obtained by summing the likelihood over time and over all examples in the dataset and dividing by the total number of examples. In the table, Normal refers to using a Gaussian likelihood and GMM refers to using a  Gaussian Mixture Model likelihood with 20 components. Models with asterisks $^*$ are our implementations while remaining results are as reported in the referenced work.
     }
     \label{tab: timit likelihoods gaussian appendix}
@@ -284,7 +284,7 @@ Hence, with perfect prediction/reconstruction and the minimal variance ($0.01^2$
     \bottomrule
     \end{tabular}
     \vspace{2mm}
-    \caption{The highest possible Gaussian log-likelihoods (max $\mathcal{L}$) attainable on the TIMIT test set as computed by \eqref{eq: gaussian ll with minimum variance} with different values of the minimum variance $\sigma^2_\text{min}$.}
+    \caption[The highest possible Gaussian log-likelihoods attainable on the TIMIT test]{The highest possible Gaussian log-likelihoods (max $\mathcal{L}$) attainable on the TIMIT test set as computed by \eqref{eq: gaussian ll with minimum variance} with different values of the minimum variance $\sigma^2_\text{min}$.}
     \label{tab:timit best gaussian ll}
 \end{table}
 
@@ -349,7 +349,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
         \edge[blue] {s_t_l} {s_t_l_copy1}
         \edge[blue] {s_t_l} {s_t_l_copy2}
     \end{tikzpicture}
-\caption{CW-VAE cell state $\vs_t^l$ update. The cell state is given as $\vs_t^l=(\zb_t^l, \db_t^l)$ where $\db_t^l$ is the deterministic hidden state of a Gated Recurrent Unit \cite{cho_properties_2014}. The vector $\eb_t^l$ is computed from $\xb_t$ by the encoder network which outputs $L$ encodings, one for each latent variable, similar to that of a Ladder VAE \cite{sonderby_ladder_2016}. All blue arrows are shared between generation and inference. The dashed arrow is used only during inference. The solid arrow has unique transformations during inference and generation.}
+\caption[CW-VAE cell state $\vs_t^l$ update]{CW-VAE cell state $\vs_t^l$ update. The cell state is given as $\vs_t^l=(\zb_t^l, \db_t^l)$ where $\db_t^l$ is the deterministic hidden state of a Gated Recurrent Unit \cite{cho_properties_2014}. The vector $\eb_t^l$ is computed from $\xb_t$ by the encoder network which outputs $L$ encodings, one for each latent variable, similar to that of a Ladder VAE \cite{sonderby_ladder_2016}. All blue arrows are shared between generation and inference. The dashed arrow is used only during inference. The solid arrow has unique transformations during inference and generation.}
 \label{fig: cwvae cell state graph}
 \end{figure}
 
@@ -542,7 +542,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
     \caption{}
     \label{fig: cwvae three-layered graphical model inference}
     \end{subfigure}
-\caption{
+\caption[Generative and inference models for three-layered CW-VAE]{
     CW-VAE \cite{saxena_clockwork_2021} generative model $p(\xb,\zb)$ in (\subref{fig: cwvae three-layered graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: cwvae three-layered graphical model inference}) for a three-layered model with $k_1=1$ and $c=2$ giving $k_2=2$ and $k_3=4$ unrolled over eight steps in the observed variable. Blue arrows are (mostly) shared between the inference and generative models. See \cref{fig: cwvae cell state graph} for a detailed graphical model expanding on the latent nodes $\zb^l_t$ and parameter sharing.
 }
 \label{fig: cwvae three-layered graphical models (inference and generative)}
@@ -690,7 +690,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
     \caption{}
     \label{fig: stcn graphical model inference}
     \end{subfigure}
-\caption{
+\caption[Generative and inference models for three-layered STCN]{
     STCN \cite{aksan_stcn_2019} generative model $p(\xb,\zb)$ in (\subref{fig: stcn graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: stcn graphical model inference}) for a single time-step.
     The WaveNet autoregressive encoder is shared between generative and inference models. It is depicted here with only one stack of three layers in order to illustrate the dilated convolution with limited space. In practice, the model uses ten layers in each of five stacks/cycles resulting in a much larger receptive field. Importantly, the model parameterizes the five latent variables using the last deterministic representation $\db^{(l)}$ from each stack, i.e. only every fifth $l$ starting from $l=5$ and ending at $l=25$.
     Note that the generative model uses the prior to transform the WaveNet hidden states $\db_{t}^{(l)}$ into the latent variable $\zb_{t+1}^{(l)}$ one step ahead in time compared to the approximate posterior which infers $\zb_{t}^{(l)}$.
@@ -800,7 +800,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
     \caption{}
     \label{fig: vrnn graphical model inference}
     \end{subfigure}
-\caption{
+\caption[Generative and inference models for VRNN]{
     VRNN \cite{chung_recurrent_2015} generative model $p(\xb,\zb)$ in (\subref{fig: vrnn graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: vrnn graphical model inference}) unrolled over three steps in the observed variable. 
     Blue arrows are shared between the inference and generative models.
 }
@@ -919,7 +919,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
     \caption{}
     \label{fig: srnn graphical model inference}
     \end{subfigure}
-\caption{
+\caption[Generative and inference models for SRNN]{
     SRNN \cite{fraccaro_sequential_2016} generative model $p(\xb,\zb)$ in (\subref{fig: srnn graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: srnn graphical model inference}) unrolled over three steps in the observed variable. 
     Blue arrows are shared between the inference and generative models.
 }
@@ -944,7 +944,7 @@ All results presented here are obtained with a 2-layered CW-VAE trained on $\mu$
     \includegraphics[width=0.477\textwidth]{paper_benchmarking/1xrnjn5y_speaker_gender_10_samples_knn_correct_fraction_model_vs_mel_100_neighbors_lda_subspace_1d.pdf}
     \hfill
     \includegraphics[width=0.483\textwidth]{paper_benchmarking/1xrnjn5y_speaker_height_m_10_samples_knn_correct_fraction_model_vs_mel_50_neighbors_lda_subspace_2d.pdf}
-    \caption{
+    \caption[Leave-one-out $k$-nearest-neighbour accuracy for speaker gender and height]{
     Leave-one-out $k$-nearest-neighbor accuracy with different $k$ for
     (a) the speaker's gender and
     (b) the height of male speakers (female speakers yield a similar result).
@@ -967,7 +967,7 @@ All results presented here are obtained with a 2-layered CW-VAE trained on $\mu$
          \caption{}
          \label{fig: mel features gender}
      \end{subfigure}
-    \caption{Clustering of speaker gender in an one-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space and of a time-averaged mel spectrogram. The total overlap is slightly smaller in the subspace of the CW-VAE latent space and the separation between the distribution peaks is larger.}
+    \caption[Clustering of speaker gender in 1D linear subspace of a CW-VAE latent space and a time-averaged mel spectrogram.]{Clustering of speaker gender in an one-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space and of a time-averaged mel spectrogram. The total overlap is slightly smaller in the subspace of the CW-VAE latent space and the separation between the distribution peaks is larger.}
     \label{fig: latent space visualization gender}
 \end{figure}
 
@@ -988,7 +988,7 @@ All results presented here are obtained with a 2-layered CW-VAE trained on $\mu$
          \caption{}
          \label{fig: cwvae latent z0 age}
      \end{subfigure}
-    \caption{(a) Clustering of speaker height for male speakers and (b) speaker age for female speakers in an two-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space.}
+    \caption[Clustering of speaker gender in 2D linear subspace of a CW-VAE latent space]{(a) Clustering of speaker height for male speakers and (b) speaker age for female speakers in an two-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space.}
     \label{fig: cwvae latent height}
 \end{figure}
 
@@ -1015,7 +1015,7 @@ A description of the phonemes used for the TIMIT dataset can be found at \url{ht
         \caption{}
         \label{fig: timit validation set phoneme duration global}
     \end{subfigure}
-    \caption{Boxplots of the duration of the pronunciation of phonemes in TIMIT for a specific speaker DRW0 in (\subref{fig: timit validation set phoneme duration DRW0}) and globally in (\subref{fig: timit validation set phoneme duration global}). Not all phonemes are pronounced by speaker DRW0 over the course of their 10 test set sentences and hence they are missing from the x-axis compared to the global durations.}
+    \caption[Boxplots of duration of phoneme pronunciation in TIMIT]{Boxplots of the duration of the pronunciation of phonemes in TIMIT for a specific speaker DRW0 in (\subref{fig: timit validation set phoneme duration DRW0}) and globally in (\subref{fig: timit validation set phoneme duration global}). Not all phonemes are pronounced by speaker DRW0 over the course of their 10 test set sentences and hence they are missing from the x-axis compared to the global durations.}
     \label{fig: timit validation set phoneme duration}
 \end{figure}
 

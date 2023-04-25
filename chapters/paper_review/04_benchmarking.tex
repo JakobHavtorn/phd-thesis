@@ -1,6 +1,6 @@
 %!TEX root = ../thesis.tex
 
-\section{Benchmarks for Self-supervised Learning}
+\section{Benchmarks for self-supervised learning}
 \label{section:benchmark}
 
 The previous sections presented various methodologies by which to learn speech
@@ -194,8 +194,9 @@ audio processing, we here provide only a list of these datasets for reference.
 \begin{table*}[ht]
   \centering
   \scriptsize %footnotesize %small, scriptsize, tiny
-  \caption{Summary of datasets used in pre-training (denoted as PT) or
-  evaluating (denoted as EV) SSL techniques in the literature. The languages and
+  \caption[Summary of datasets used for pre-training or evaluation of SSL techniques in the literature.]%
+  {Summary of datasets used for pre-training (denoted as PT) or
+  evaluation (denoted as EV) of SSL techniques in the literature. The languages and
   sizes of the datasets are provided in columns 3 and 4. Column 5 lists the tasks each
   dataset is used to evaluate. We use the following abbreviations:
   \textbf{EN}: English; 
@@ -277,7 +278,8 @@ audio processing, we here provide only a list of these datasets for reference.
 \begin{table*}[ht]
   \centering
   \scriptsize
-  \caption{A summary of common experiment settings for various SSL
+  \caption[Summary of common experiment settings for various SSL
+  evaluations (Part 1).]{A summary of common experiment settings for various SSL
   evaluations (Part 1). Networks are usually pre-trained with SSL
   techniques, augmented with prediction heads, and fine-tuned (or trained) with
   labeled data in downstream tasks for benchmarking. The 
@@ -353,7 +355,8 @@ audio processing, we here provide only a list of these datasets for reference.
 \begin{table*}[ht]
   \centering
   \scriptsize
-  \caption{A summary of common experiment settings for various SSL
+  \caption[Summary of common experiment settings for various SSL
+  evaluations (Part 2).]{A summary of common experiment settings for various SSL
   evaluations (Part 2). See the caption of \cref{table:method_data_setting} for a
   detailed description of all the abbreviations used in this table.}
   \label{table:method_data_setting_2}
@@ -516,7 +519,8 @@ datasets.
 \begin{figure*}
 \centering
 \includegraphics[width=0.9\textwidth]{paper_review/ls-test-clean-v2.pdf}
-\caption{SSL performance on ASR WER (vertical axis) evaluated with
+\caption[SSL performance for ASR evaluated on
+LS \textit{test-clean}.]{SSL performance on ASR WER (vertical axis) evaluated with
 LS \textit{test-clean} split. Techniques are sorted based on the number of
 model parameters along the horizontal axis. Markers in blue correspond to models initialized with various SSL
 techniques and then fine-tuned using 960, 100, 10, 1 hour(s), and 10 minutes

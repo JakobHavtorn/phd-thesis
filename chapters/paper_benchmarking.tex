@@ -141,7 +141,7 @@ Before presenting the results, we provide a brief survey of existing LVMs for sp
             \end{tikzpicture}
         }
         \end{multicols}
-    \caption{
+    \caption[Generative models for an LSTM, the VRNN, SRNN, STCN, and CW-VAE models.]{
         Generative models for a single time step of a deterministic autoregressive LSTM, the VRNN and SRNN as well as the STCN and CW-VAE both with a single layer of latent variables. 
         Red arrows indicate purely deterministic paths from the output $\xb_t$ to previous input $\xb_{<t}$ without passing a stochastic node. 
         The models differ in their use of latent variables and dependencies especially autoregressive dependencies and skip connections. 
@@ -343,7 +343,7 @@ By inferring $\zb_t$ conditioned on the full sequence $\xb_{1:T}$, the SRNN perf
         \end{tikzpicture}
     % \hfill
     }
-\caption{
+\caption[Generative and inference models for a two-layered CW-VAE.]{
 Inference (left) and generative (right) models for the CW-VAE with a hierarchy of $L=2$ latent variables, $s_1=1$ and $s_2=2$. 
 The models are unrolled over four consecutive time steps but note that the graph continues towards $t=0$ and $t=T$. 
 Blue arrows indicate parameter sharing between inference and generative models. 
@@ -553,7 +553,7 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
     \vspace{-1mm}
     \label{tab: phoneme recognition (PER)}
     \end{minipage}%
-    \caption*{%
+    \caption*[Model likelihoods and phoneme error rate for TIMIT.]{%
     In \cref{tab: likelihoods timit} we report model likelihoods $\mathcal{L}$ for TIMIT represented as a 16bit $\mu$-law encoded PCM for different stochastic latent variable models and deterministic autoregressive baselines. 
     In \cref{tab: phoneme recognition (PER)} we report phoneme error rate (PER) of different representations for phoneme recognition on TIMIT. 
     }
@@ -583,7 +583,7 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
         \bottomrule
     \end{tabular}
     \end{adjustbox}
-    \caption{
+    \caption[Model likelihoods on LibriSpeech test sets.]{
     Model likelihoods $\mathcal{L}$ on LibriSpeech test sets represented as $\SI{16}{bit}$ $\mu$-law encoded PCM.
     For the CW-VAE, $s$ refers to $s_1$ and the two-layered models have $s_2=8s_1$.
     The models are trained on either the $\SI{10}{h}$ LibriLight subset or the $\SI{100}{h}$ LibriSpeech \textrm{train-clean-100} subset as indicated.
@@ -597,7 +597,7 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
     \includegraphics[width=0.555\textwidth]{paper_benchmarking/1xrnjn5y_speaker_phonemes_drw0_latent_0_samples_100_lda_linear_subspace.pdf}
     \hfill
     \includegraphics[width=0.425\textwidth]{paper_benchmarking/1xrnjn5y_speaker_phonemes_drw0_samples_100_knn_correct_fraction_model_vs_mel_30_neighbors_lda_subspace_5d.pdf}
-    \caption{
+    \caption[Clustering of phonemes in 2D subspace of CW-VAE latent space and KNN classification accuracy.]{
     (left) Clustering of phonemes in a 2D Linear Discriminant Analysis (LDA) subspace of a CW-VAE latent space ($\zb^{(1)}$).
     (right) Leave-one-out phoneme classification accuracy for a KNN classifier at different $K$ in a 5D LDA subspace of a CW-VAE latent space.
     }
