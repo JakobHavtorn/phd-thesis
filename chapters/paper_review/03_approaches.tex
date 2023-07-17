@@ -126,7 +126,7 @@ representations.
 
 Specifically, in the VQ-VAE, the continuous representation vector $h_t$ at the output of the encoder is quantized by mapping it to a codebook vector, which is then used as the input to the decoder. This operation is non-differentiable and the \edit{gradients of the loss with respect to the encoder parameters} must be obtained by approximation. In the VQ-VAE this is done using the straight-through estimator~\cite{bengio_estimating_2013}, i.e., the gradients \edit{with respect to the} encoder output are taken to be equal to those \edit{with respect to the} decoder input \ci{(i.e., the quatization step is ignored)}. Given a learned codebook $A\in\mathbb{R}^{K \times D}$, where $K$ is the codebook size and $D$ is the dimensionality of each codebook vector $a_k$, the quantized representation $q_t$ of $h_t$ is obtained as
 \begin{align}
-    q_t = a_k, \text{ where } k=\arg\min_j \norm{h_t - a_j}_2 .
+    q_t = a_k, \text{ where } k=\arg\min_j \norm{h_t - a_j}_2 \enspace .
 \end{align}
 \edit{The decoder $g(\cdot)$ is an autoregressive model that takes $q_{[1,t]}$ as input to generate $x_t$ \cite{oord_wavenet_2016}}. 
 Codebook learning is facilitated by a two-term auxiliary loss similar to
@@ -140,7 +140,9 @@ This commitment term is optimized only by the encoder. The
 total VQ-VAE loss for a single timestep is
 
 \begin{align}
-    \mathcal{L}_t = \underset{\text{encoder+decoder}}{\underbrace{\log p(x_t | q_{[1,t]})}} + \underset{\text{codebook}}{\underbrace{\text{MSE}\left(\mathrm{sg}\left[h_t\right], A\right)}} + \underset{\text{encoder}}{\underbrace{\alpha~\text{MSE}\left(h_t, \mathrm{sg}\left[A\right]\right)}}
+    \mathcal{L}_t = \underset{\text{encoder+decoder}}{\underbrace{\log p(x_t | q_{[1,t]})}}
+     + \underset{\text{codebook}}{\underbrace{\text{MSE}\left(\mathrm{sg}\left[h_t\right], A\right)}}
+     + \underset{\text{encoder}}{\underbrace{\alpha~\text{MSE}\left(h_t, \mathrm{sg}\left[A\right]\right)}} \enspace ,
     \label{eq: vector quantization losses}
 \end{align}%
 \noindent where \edit{$\log p(x_t|q_{[1,t]})$ is a reconstruction likelihood term usually using a categorical distribution,} $\mathrm{sg}[x] = x$ is the so-called stop-gradient operator \edit{which acts as the identity function during the forward pass but \ci{is assumed to have}
@@ -181,7 +183,7 @@ and $g(\cdot)$ are jointly learned to minimize {the \ensuremath{L_1} loss betwee
 \begin{align}
     H_{[1,t]} &= f(X_{[1,t]}) , \\
     \hat{x}_{t+c} &= g(h_{t}) \label{eq:c} , \\
-    \mathcal{L}_t &= \lVert \hat{x}_{t+c} - x_{t+c} \rVert_1 .
+    \mathcal{L}_t &= \lVert \hat{x}_{t+c} - x_{t+c} \rVert_1 \enspace .
 \end{align}
 In text-based autoregressive LMs, $c$ is set to $1$ \edit{to enable autoregressive generation}. However, due to the smoothness of the speech signal, neighboring acoustic features are usually similar. Depending on the downstream task, we are often interested in learning so-called \emph{slow features} that typically span multiple input frames~\cite{wiskott_slow_2002}. Even the smallest linguistic units of speech---phonemes---span $0.07$~seconds on average in the English TIMIT dataset~\cite{garofolo_timit_1993},   whereas spectrogram frames $\mathbf{x}_t$ are typically computed at $0.01$ second intervals. Thus, simply predicting the next frame constitutes a trivial pretext task for APC; the original work finds that $c=3$ performs well. 
 In \cite{chung_improved_2020}, the APC objective is extended to multi-target
@@ -200,7 +202,7 @@ $f_2(\cdot)$ to encode $X_{[t+k,T]}$, where $k>1$:
 \begin{gather}
     H_{[1,t]} = f_1(X_{[1,t]}), \\
     H^\prime_{[t+k,T]} = f_2(X_{[t+k,T]}), \\
-    \hat{X}_{[t+1,t+k-1]} = g(h_t, h^\prime_{t+k}).
+    \hat{X}_{[t+1,t+k-1]} = g(h_t, h^\prime_{t+k}) \enspace .
 \end{gather}
 The input feature vector used in the downstream tasks is the concatenation of
 $h_{t}$ and $h^\prime_{t}$. 

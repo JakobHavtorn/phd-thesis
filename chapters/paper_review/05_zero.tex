@@ -266,7 +266,7 @@ Thus, we design a loss function $\mathcal{L}_{\mathrm{asr} \rightarrow \mathrm{t
 %\end{equation}    
 %where
 \begin{equation}
-    \hat{X} = g_{\mathrm{tts}}(f_{\mathrm{asr}}(X)).
+    \hat{X} = g_{\mathrm{tts}}(f_{\mathrm{asr}}(X)) \enspace .
     \label{eq:asr-tts}
 \end{equation}
 Thus, we train the ASR model (or both ASR and TTS models) using only
@@ -281,7 +281,7 @@ intermediate ASR output~$\hat{Y}$ can be regarded as the latent representation~$
 The other cycle with the text-only data~$Y$ is also accomplished by the
 concatenated TTS-ASR systems:\edit{
 \begin{equation}
-    \hat{Y} = f_{\mathrm{asr}}(g_{\mathrm{tts}}(Y)).
+    \hat{Y} = f_{\mathrm{asr}}(g_{\mathrm{tts}}(Y)) \enspace .
     \label{eq:tts-asr}
 \end{equation}
 Similarly, this approach does not require the supervised audio data~$X$, and the

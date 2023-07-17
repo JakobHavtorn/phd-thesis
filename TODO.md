@@ -1,12 +1,10 @@
 
+# To do
 - [ ] Include a notation overview.
 - [ ] Make subcaption style identical throughout (i.e. use subplot captions or single main caption)
 - [ ] Remove or include acknowledgements in each paper?
 - [ ] Fix table "Model likelihoods and phoneme error rate for TIMIT" having two numbers and not listed in List of Tables.
 
-
-Outline
-- Stochastic Gradient Variational Bayes; Optimization using stochastic gradient descent and amortized variational inference with pathwise gradients.
 
 - [ ] Update notation sheet with chosen matrix/vector when indexing
 
@@ -28,4 +26,6 @@ Search and replace patterns:
 - [ ] Use of `\ref{}`:   \\ref\{.+\}
 
 - [X] Change font to something similar to the one in Lasses thesis.
+
+
 
