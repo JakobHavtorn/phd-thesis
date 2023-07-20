@@ -2,16 +2,26 @@
 
 % ~2 pages
 
-\chapter[main contribution]{Main contributions}\label{chp:main-contributions}
+\chapter[main contributions]{Main contributions}\label{chp:main-contributions}
 
 As previously mentioned, the chapters of the thesis are self-contained studies and therefore detail their own contributions. 
 They are however written without consideration to the other chapters. 
 For that reason, this chapter will provide a high-level overview of the organization of the thesis and describe its main
 contributions in relation to the overall research topic.
 
+\newcommand{\contribitem}[1]{{\vspace{1em}\noindent\scshape\bfseries{\color{dtured}\cref{#1}}\\\ucnameref{#1}\\}}
+
+\contribitem{part:background}
+This part of the thesis provides the necessary background for the rest of the thesis.
+
+\contribitem{part:unsupervised-learning}
+
+\contribitem{chp:paper-hierarchical}
+This paper proposes a new method for unsupervised out-of-distribution detection using hierarchical latent variable models. The paper provides evidence that the failure of deep generative models to assign lower likelihoods to data from outside the training distribution is due to overemphasis on low-level features that generalize between distributions. To solve this, the proposed method computes a likelihood-ratio score for OOD detection that requires data to be in-distribution across all feature-levels. The method is computationally efficient, scalable, fully unsupervised and achieves state-of-the-art performance on several image-based OOD detection benchmarks.
 
 
-% \cref{chp} proposes a new hierarchical latent variable model for speech inspired by the Clockwork VAE [238]. 
-% The model is benchmarked against other latent variable models and autoregressive models for speech. 
-% It is shown that a hierarchy of latent variables improves the likelihood of the model. 
-% Finally, the latent space of the models are analyzed in terms of phonetic content.
+\contribitem{chp:paper-benchmarking} This paper proposes a new hierarchical latent variable model for speech inspired by the Clockwork VAE \cite{saxena_clockwork_2021}. The model is benchmarked against other latent variable models and autoregressive models for speech. It is shown that a hierarchy of latent variables improves the likelihood of the model. Finally, the latent space of the models are analyzed in terms of phonetic content.
+
+
+\contribitem{chp:paper-review} This paper provides a comprehensive review of self-supervised speech representation learning. Previous work is grouped into three main categories of methods: contrastive, autoregressive, and generative, and the methods are compared in terms of their training objectives, model architectures, and performance on downstream tasks. The review also provides a discussion of the current state of the field and promising future directions of research.
+
