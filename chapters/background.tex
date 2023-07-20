@@ -2,20 +2,118 @@
 
 % ~8 pages
 
-\chapter[background]{Background}\label{chp:background}
+\chapter[technical background]{Technical Background}\label{chp:technical-background}
 
+\section{Uncertainty}
+
+% https://en.wikipedia.org/wiki/Uncertainty#cite_note-3
+% https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8371683
+
+In the general public, the concept of uncertainty goes by many names and its meaning can be dependent on a specific context. However, in most quantitative scientific fields, there seems to be a consensus definition along the lines of the following \cite{hubbard_how_2014}:
+
+\begin{center}
+    \textit{Uncertainty is the lack of certainty; a state of limited knowledge where it is impossible to exactly describe the existing state, a future outcome, or more than one possible outcome.}
+\end{center}
+
+While a definition of uncertainty made using only words easily begs philosophical inquisition, information theory provides a rigourous method for quantifying uncertainty \cite{kabir_neural_2018} by the language of probabilities. 
+In this context, uncertainty is understood as the information entropy of a random variable \cite{mackay_information_2003}. 
+
+\subsection{Information entropy}
+First characterised by Claude Shannon in 1948 \cite{shannon_mathematical_1948}, information entropy $H(X)$ is a measure of the average amount of information contained in a random variable $X$. Shannon's definition follows from three fundamental axioms of information theory. Let $I_X(x)$ be the information carried by a specific outcome $x$ when sampling the random variable $X$ with probability mass function $p_X(x)$. Then, the axioms are as follows:
+\begin{enumerate}
+    \item  $I_X(x)$ is a monotonically decreasing function in $p_X(x)$. The more likely an outcome is, the less information it carries.
+    \item Outcomes that are certain to happen carry no information. $I_X(1) = 0$.
+    \item If an outcome $x_i$ is independent of another outcome $x_j$, then $I(x_i x_j) = I(x_i) + I(x_j)$. The information carried by independent events is the sum of the information carried by each event.
+\end{enumerate}
+
+From these axioms, Shannon derived the following expression for the information content of an event $x$ with probability $p_X(x)$:
+\begin{equation}
+    I_X(x) = -\log_b p_X(x)
+\end{equation}
+
+
+
+information entropy of a random variable $X$ with $n$ possible outcomes:
+\begin{equation}
+    H(X) = -\sum_{i=1}^n p_i \log p_i
+\end{equation}
+
+
+
+
+
+% Two kinds of uncertainty:\\
+% - Aleatoric: Uncertainty inherent to the data. Irreducible. "Known unknowns".\\
+% - Epistemic: Uncertainty due to lack of knowledge. Can be reduced with more data. "Unknown unknowns".\\
+
+
+
+
+% https://arxiv.org/pdf/2306.05674.pdf
+
+% We compare our framework with several major related lines of work. First, our work focuses on the quantification of epistemic uncertainty, which refers to the errors coming from the inadequacy of the model or data noises. This is different from aleatoric uncertainty, which refers to the intrinsic stochasticity of the problem [87, 91, 112, 59, 34], or predictive uncertainty which captures the sum of epistemic and aleatoric uncertainties (but not their dissection) [89, 92, 12, 3, 22]. Regarding epistemic uncertainty, a related line of study is deep ensemble that aggregates predictions from multiple independent training replications [76, 70, 38, 8, 89]. This approach, as we will make clear later, can reduce and potentially quantify procedural variability, but a naive use would require demanding retraining effort and does not address data variability. Another line is the Bayesian UQ approach on neural networks [41, 2]. This regards network weights as parameters subject to common priors such as Gaussian. Because of the computation difficulties in exact inference, an array of studies investigate efficient approximate inference approaches to estimate the posteriors [40, 46, 16, 31, 30, 90, 74, 53]. While powerful, these approaches nonetheless possess inference error that could be hard to quantify, and ultimately finding rigorous guarantees on the performance of these approximate posteriors remains open to our best knowledge.
+
+% 87: 
+% 91: 
+% 112:
+% 59: 
+% 34: 
+
+% 89: 
+% 92: 
+% 12:
+% 3: 
+% 22: 
+
+% 76: 
+% 70: 
+% 38: 
+% 8: 
+% 89: 
+
+
+
+\section{Probabilistic latent variable models}
+
+
+
+
+\section{Speech representation learning}
+
+
+
+
+
+Modelling paradigms
 \begin{enumerate}
     \item Variational inference and variational autoencoders
     \item Automatic speech recognition
     \item Self-supervised learning
-    \item 
 \end{enumerate}
 
 \cite{kingma_autoencoding_2014}
 \cite{rezende_stochastic_2014}
-\cite{bahdanau_neural_2014}
 
-\begin{enumerate}
-    \item Introduce variational inference in relation to variational autoencoders
-    \item Introduce ASR and CTC
-\end{enumerate}
+Two approaches to statistics:\\
+- Bayesian\\
+- Frequentist\\
+
+Two kinds of uncertainty:\\
+- Aleatoric: Uncertainty inherent to the data. Irreducible. "Known unknowns".\\
+- Epistemic: Uncertainty due to lack of knowledge. Can be reduced with more data. "Unknown unknowns".\\
+
+Approaches to uncertainty in deep learning:\\
+- Tuning of supervised classifiers to output well-calibrated probabilities that correspond to the actual likelihood of the prediction being correct (on some validation set).\\
+- Learning rich unsupervised representations of the data that can be used to estimate the uncertainty of the prediction (e.g. by measuring the distance to the nearest training example in the latent space).\\
+- Learning of a probability distribution over the parameters of the model, which can then be used to compute the uncertainty of the prediction (Bayesian neural networks).\\
+
+
+In the field of machine learning, uncertainty is often represented by a probability distribution. The most common approach is to use Bayesian methods, where uncertainty is captured by posterior distributions over model parameters and predictions. Bayesian neural networks, for instance, offer a powerful framework to model uncertainty in deep learning architectures. By incorporating prior beliefs and updating them based on observed data, these networks can produce probabilistic predictions that provide a measure of uncertainty. This is particularly useful in applications where high-confidence predictions are required, and the consequences of errors can be significant.
+
+Recently, another promising approach to uncertainty estimation in machine learning is the use of Monte Carlo Dropout \cite{gal_dropout_2016}. Monte Carlo Dropout leverages the idea of dropout regularization, originally employed during training to prevent overfitting. To form a prediction with associated uncertainty, Monte Carlo Dropout proposes to make multiple forward passes through the network while sampling different dropout masks for each one. This leads to obtaining a distribution of outputs for each input sample and the variance among these sampled predictions serves as a measure of uncertainty. Monte Carlo Dropout has shown remarkable success in various tasks such as image classification, object detection, and natural language processing. It is computationally efficient and can be easily incorporated into existing deep learning architectures, making it an attractive choice for uncertainty estimation.
+
+Furthermore, there has been a surge of interest in ensemble methods for uncertainty estimation. Ensembles combine the predictions of multiple models to obtain a more robust and calibrated uncertainty measure. Bagging and boosting techniques, which have been widely used in the field of statistics, have found their way into the realm of machine learning for uncertainty estimation as well. By training multiple models with different initializations or using diverse learning algorithms, ensembles can capture different sources of uncertainty, thereby providing a comprehensive assessment of the overall uncertainty in the predictions.
+
+Despite the progress made in uncertainty estimation for machine learning models, challenges still remain. One key concern is the interpretability of uncertainty measures. While probabilistic outputs are more informative than point estimates, effectively communicating uncertainty to end-users and decision-makers is not trivial. Developing visualization techniques and intuitive explanations for uncertainty is an ongoing area of research. Additionally, quantifying uncertainty in high-dimensional data or complex models with massive amounts of parameters requires careful consideration and efficient computational strategies.
+
+
