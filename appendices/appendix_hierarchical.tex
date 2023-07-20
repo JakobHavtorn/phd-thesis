@@ -1,6 +1,8 @@
 %!TEX root = ../thesis.tex
 
 \chapter[supplementary material for hierarchical vaes know what they don't know]{Supplementary material for Hierarchical VAEs know what they don't know}
+\label{chp:appendix-hierarchical}
+\ifthenelse{\equal{\skipappendices}{true}}{}{
 
 \section{Datasets}
 \cref{tab_hierarchical:datasets-overview} lists the datasets used in the paper. We use the predefined train/test splits for the datasets.
@@ -518,3 +520,5 @@ MNIST                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$
     \label{tab_hierarchical:additional-results-mnist}
 \end{table}
 % Results of MNIST model. (57bed090cf4a4e44b896b4c2cce55500)
+
+}

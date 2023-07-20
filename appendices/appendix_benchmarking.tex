@@ -1,6 +1,8 @@
 %!TEX root = ../thesis.tex
 
 \chapter[supplementary material for benchmarking generative latent variable models for speech]{Supplementary material for Benchmarking generative latent variable models for speech}
+\label{app:benchmarking}
+\ifthenelse{\equal{\skipappendices}{true}}{}{
 
 \section{Reproducibility statement}\label{app: reproducibility statement}
 The source code used for the work presented in this paper will be made available before the conference. 
@@ -1026,6 +1028,4 @@ Importantly, the samples are unconditional. Hence they are \emph{not} reconstruc
 
 Although sample quality is a somewhat subjective matter, we find the quality of the unconditional Clockwork VAE to be better than those of our VRNN and SRNN. WaveNet is known to produce samples with intelligible speech when conditioned on e.g. text, but unconditional samples from WaveNet lack semantic content such as words as do VRNN, SRNN and Clockwork VAE.
 
-\iffalse
-
-\fi
+}
