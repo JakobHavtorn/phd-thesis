@@ -10,15 +10,15 @@ The Fisher information is defined as:
     I({\theta}) =  \mathbb{E}_{x \sim p_\theta}[\nabla \log {p_\theta}(x) \nabla  \log {p_\theta}(x) ^T].
 \end{equation}
 
-A crude diagonal approximation can be computed by simply estimating the diagonal of $I({\theta})$ and setting all off-diagonal elements to zero. Such diagonal approximations have been used in machine learning for decades: for instance, \citet[Section 3.12.2]{lecun1987} used a similar approximation of the Hessian matrix, and called it ``outrageously simplifying". Much more complex approximations have been derived, although diagonal approximations have been consistently used (e.g. by \citealp{kirkpatrick2017overcoming}, who used essentially the same approximation in a supervised context), and are linked to several adaptive optimisation techniques like Adam \citep{kingma2014adam} or RMSProp \citep{tieleman2012lecture}. A good discussion on these issues is provided in Martens's \citeyearpar{martens2020new} recent review.
+A crude diagonal approximation can be computed by simply estimating the diagonal of $I({\theta})$ and setting all off-diagonal elements to zero. Such diagonal approximations have been used in machine learning for decades: for instance, \textcite[Section 3.12.2]{lecun1987} used a similar approximation of the Hessian matrix, and called it ``outrageously simplifying". Much more complex approximations have been derived, although diagonal approximations have been consistently used (e.g. by \citealp{kirkpatrick_overcoming_2017}, who used essentially the same approximation in a supervised context), and are linked to several adaptive optimisation techniques like Adam \citep{kingma_adam_2015} or RMSProp \citep{tieleman_lecture_2012}. A good discussion on these issues is provided in Martens's \citeyearpar{martens_new_2020} recent review.
 
 The approximation we used in the paper works as follows:
 \begin{itemize}
     %\item We first sample $x_1,...,x_T\sim p_\theta $ according to the learned generative model (which will be relatively cheap in most cases).
     \item By using the training examples $x_1,...,x_T$, we form the estimate
-    $$ {D}_T({\theta}) = \frac{1}{T} \sum_{t=1}^T \textup{Diag}(\nabla \log {p_\theta}(x_t)^2),  $$
+    $$ {D}_T({\theta}) = \frac{1}{T} \sum_{t=1}^T \textup{diag}(\nabla \log {p_\theta}(x_t)^2),  $$
     where the square in $\nabla \log p_\theta(x_t)^2$ is computed elementwise.
-    \item While we could directly use ${D}_T({\theta})$ as an estimate. A slightly more refined approach is to slightly regularise $D_T({\theta})$. Following \citet{martens2020new}, our final estimate of the Fisher information matrix is
+    \item While we could directly use ${D}_T({\theta})$ as an estimate. A slightly more refined approach is to slightly regularise $D_T({\theta})$. Following \textcite{martens_new_2020}, our final estimate of the Fisher information matrix is
     \begin{equation}
     	\hat{I}_T({\theta}) = (D_T({\theta}) + \varepsilon)^\xi,
     \end{equation}
@@ -26,21 +26,21 @@ The approximation we used in the paper works as follows:
 \end{itemize}
 
 
-\paragraph{How to choose $\varepsilon$ and $\xi$?} The Adam optimizer uses a similar estimate, with default hyperparameters $\varepsilon = 10^{-8}$ and $\xi = 1$. As argued by \citet{martens2020new}, it can be interesting to use $\xi <1$  in order to diminish the influence of extreme values of $D_T({\theta})$. In particular, \citet{martens2020new} suggests taking $\xi = 0.75$. When $\xi \longrightarrow 0$, then $\hat{I}_T({\theta})$ will approach the identity matrix. We tested the two settings by using a PixelCNN++ trained on CIFAR. Results are shown in table~\ref{tab:martens}. In terms of OOD detection, it seems that using $\varepsilon = 10^{-8}$ and $\xi = 1$ is slightly better. All results presented in the paper and in the supplementary material are computed by using $\varepsilon = 10^{-8}$ and $\xi = 1$.
+\paragraph{How to choose $\varepsilon$ and $\xi$?} The Adam optimizer uses a similar estimate, with default hyperparameters $\varepsilon = 10^{-8}$ and $\xi = 1$. As argued by \textcite{martens_new_2020}, it can be interesting to use $\xi <1$  in order to diminish the influence of extreme values of $D_T({\theta})$. In particular, \textcite{martens_new_2020} suggests taking $\xi = 0.75$. When $\xi \longrightarrow 0$, then $\hat{I}_T({\theta})$ will approach the identity matrix. We tested the two settings by using a PixelCNN++ trained on CIFAR. Results are shown in \cref{tab_modelagnostic:martens}. In terms of OOD detection, it seems that using $\varepsilon = 10^{-8}$ and $\xi = 1$ is slightly better. All results presented in the paper and in the supplementary material are computed by using $\varepsilon = 10^{-8}$ and $\xi = 1$.
 
 
 
-\paragraph{A few notes on the computation of $D_T({\theta})$} While it seems more sensible to use samples $x_1,...,x_m\sim p_\theta $ from the model, we decided to simply reuse the training data $x_1,...,x_T $ instead. There are two computational advantages to this. The first one is that sampling many data points can be expensive (in particular for deep autoregressive models à la PixelCNN). The second advantage is that, if we wish to compute a MMD statistic, such as the MMD with the Fisher kernel or the MMD typicality (that require the average of gradient or the average log-likelihood over the training), computing the average of the square of the gradient costs very little. One can just do a single loop over the data, and use the usual formulas for online estimation of a mean, see \cref{algo_description}.
+\paragraph{A few notes on the computation of $D_T({\theta})$} While it seems more sensible to use samples $x_1,...,x_m\sim p_\theta $ from the model, we decided to simply reuse the training data $x_1,...,x_T $ instead. There are two computational advantages to this. The first one is that sampling many data points can be expensive (in particular for deep autoregressive models à la PixelCNN). The second advantage is that, if we wish to compute a MMD statistic, such as the MMD with the Fisher kernel or the MMD typicality (that require the average of gradient or the average log-likelihood over the training), computing the average of the square of the gradient costs very little. One can just do a single loop over the data, and use the usual formulas for online estimation of a mean, see \cref{alg_modelagnostic:algo_description}.
 
 
 \paragraph{Do we really need to approximate the diagonal of $I({\theta})$?} 
-Another possibility is to just use the identity matrix as FIM instead of of approximating the diagonal through the procedure explained above. In our experiments (see table~\ref{tab:mmd} and table~\ref{tab:mmd_pair2}), we can see that sometimes using the identity matrix seems to work equally well or a bit better for some models trained on FashionMNIST and CIFAR10. However, when we train on SVHN or MNIST, there are a cases where the statistic that is using the identity matrix as approximation fails, sometimes being worse than random chance. In those setting, using the diagonal approximation leads to way better results. Therefore, considering a test statistic that uses the diagonal approximation of the FIM is more robust for OOD detection.
+Another possibility is to just use the identity matrix as FIM instead of of approximating the diagonal through the procedure explained above. In our experiments (see \cref{tab_modelagnostic:mmd} and \cref{tab_modelagnostic:mmd_pair2}), we can see that sometimes using the identity matrix seems to work equally well or a bit better for some models trained on FashionMNIST and CIFAR10. However, when we train on SVHN or MNIST, there are a cases where the statistic that is using the identity matrix as approximation fails, sometimes being worse than random chance. In those setting, using the diagonal approximation leads to way better results. Therefore, considering a test statistic that uses the diagonal approximation of the FIM is more robust for OOD detection.
 
 
 \begin{table*}[tb]
     \centering
-    %\renewcommand{\thetable}{4}
-    \caption{AUROC$\uparrow$ for single-sample OOD detection. Comparison between two different estimates of the Fisher information matrix. For ($\ddagger$) we used the Adam parameter choice, i.e.\@ $\varepsilon = 10^{-8}$ and $\xi = 1$. For ($\mathsection$), instead, we used  $\varepsilon = 10^{-8}$ and $\xi = 0.75$, as suggested by \citet{martens2020new}. As a results we have that using Adam parameters choice is slightly better for our task.}
+    \caption{AUROC$\uparrow$ for single-sample OOD detection. Comparison between two different estimates of the Fisher information matrix. For ($\ddagger$) we used the Adam parameter choice, i.e.\@ $\varepsilon = 10^{-8}$ and $\xi = 1$. For ($\mathsection$), instead, we used  $\varepsilon = 10^{-8}$ and $\xi = 0.75$, as suggested by \textcite{martens_new_2020}. As a results we have that using Adam parameters choice is slightly better for our task.}
+    \resizebox*{\textwidth}{!}{
     \small
     \begin{tabular}{ccccc}
         \toprule
@@ -51,70 +51,33 @@ Another possibility is to just use the identity matrix as FIM instead of of appr
         \textsc{PixelCNN++} (model2) ($\ddagger$) & 0.7070 & 0.6498  &  0.7067 & 0.7300\\
         \textsc{PixelCNN++} (model2) ($\mathsection$) & 0.6881 &  0.6498  & 0.6878 & 0.7176\\
         \bottomrule
+        \vspace{-0.2cm}\\
         ($\ddagger$) With $\varepsilon = 10^{-8}$ and $\xi = 1$ \\
         \hspace{0.4cm}($\mathsection$) With $\varepsilon = 10^{-8}$ and $\xi = 0.75$
     \end{tabular}
-    \label{tab:martens}
+    \label{tab_modelagnostic:martens}
+    }
 \end{table*}
 
 
 
-% \section{Typicality test and score statistic}
+\section{The Mahalanobis score as MMD}
+\label{appendix_modelagnostic:mahalanobis}
 
-% Let's us look at the case when the typicality test fail and the score statistic works example introduced in Section 4.2 of the paper. 
+\textcite{lee_simple_2018} introduced a simple metric to perform OOD detection with a trained deep classifier. The key idea is to train a simple generative model (linear discriminant analysis) in the feature space of the classifier. Let $y$ denote the labels, and $z = f(x)$ the data in feature space. In the simplest case, $f$ is just the trained deep net devoid of the last softmax layer. The linear discriminant analysis model is
+\begin{equation}
+    y \sim \textup{Cat}(\pi), \; \; z | y \sim \mathcal{N}(\mu_y, \Sigma),
+\end{equation}
+where $\mu_1,...,\mu_K$ are class-dependent means, $\Sigma$ a common covariance matrix, and $\pi_1,...,\pi_K$ are the class proportions, estimated by maximum-likelihood. The \emph{Mahalanobis score} is then
+\begin{equation}
+    M(x) = \max_{k \in \{1,...,K \}} - (z - \mu_k)^T \Sigma^{-1} (z - \mu_k),
+\end{equation}
+which may be rewritten
+\begin{equation}
+    M(x) = \max_{k \in \{1,...,K \}} p(z|k),
+\end{equation}
+under the assumption of equal class proportions (i.e.\@ $\pi_1 = ... = \pi_K = 1/K$).
 
-
-
-
-% \paragraph{Typicality test and score statistic are uncorrelated} To test if the typicality test and the score statistic are uncorrelated we plot the two scores computed on the validation set. As can be seen from figure \ref{fig:correlatio}, we have that the two measures are not correlated as it is also highlight by the correlation matrix.
-
-
-% \begin{figure}[htbp]
-% \centering
-% \begin{subfigure}{.5\textwidth}
-    %   \centering
-    %   \includegraphics[scale=0.5]{imgs/correlation.png}
-    %   %\caption{Kalman Filter $p(x_t\mid y_{1:t})$ and true state observations.}
-    % \end{subfigure}%
-    % \begin{subfigure}{.5\textwidth}
-        %       \centering
-        %       \begin{tabular}{|c|c|}
-            %       \hline
-            %           1. &  -0.014\\ 
-            %           \hline
-            %           -0.014 & 1. \\ 
-            %         \hline
-            %       \end{tabular}
-            % \end{subfigure}
-            % \end{figure}
-            
-            % TO DO:
-            % \begin{itemize}
-                %     \item WRITE "PROOF" OF WHEN THE TYPICALITY FAILS (SKETCHED PROOF ON PIERRE'S MOLESKINE)
-                % \end{itemize}
-                
-                
-                
-                
-                
-                
-                \section{The Mahalanobis score as MMD}
-                \label{appendix_modelagnostic:mahalanobis}
-                
-                \citet{lee_simple_2018} introduced a simple metric to perform OOD detection with a trained deep classifier. The key idea is to train a simple generative model (linear discriminant analysis) in the feature space of the classifier. Let $y$ denote the labels, and $z = f(x)$ the data in feature space. In the simplest case, $f$ is just the trained deep net devoid of the last softmax layer. The linear discriminant analysis model is
-                \begin{equation}
-                    y \sim \textup{Cat}(\pi), \; \; z | y \sim \mathcal{N}(\mu_y, \Sigma),
-                \end{equation}
-                where $\mu_1,...,\mu_K$ are class-dependent means, $\Sigma$ a common covariance matrix, and $\pi_1,...,\pi_K$ are the class proportions, estimated by maximum-likelihood. The \emph{Mahalanobis score} is then
-                \begin{equation}
-                    M(x) = \max_{k \in \{1,...,K \}} - (z - \mu_k)^T \Sigma^{-1} (z - \mu_k),
-                \end{equation}
-                which may be rewritten
-                \begin{equation}
-                    M(x) = \max_{k \in \{1,...,K \}} p(z|k),
-                \end{equation}
-                under the assumption of equal class proportions (i.e.\@ $\pi_1 = ... = \pi_K = 1/K$).
-                
 We show here that it is possible to re-interpret this score as a MMD score with a certain Fisher kernel. 
 The generative model induced on $z$ by linear disciminant analysis is a Gaussian mixture:
 \begin{equation}
@@ -124,7 +87,7 @@ If we want a powerful deep kernel, it seems somewhat natural to consider the Fis
 \begin{equation}
 	\Phi_\textup{Fisher} (x) = I(\mu)^{-1/2} \nabla_\mu  \log p_{\pi, \mu , \Sigma }(z),
 \end{equation}
-assuming that $\pi$ and $\Sigma$ are fixed at their maximum likelihood estimates. Similar mixture-based Fisher kernels have been very popular in the past, and were actually a key element of state-of-the art classification models on Imagenet before deep nets won the competition \citep{perronnin2010improving}. Our idea is to re-use ideas introduced by this computer vision litterature. Under the assumption that the Gaussian clusters are well-separated, \citet{tanaka2013fisher}, extending an earlier analysis of \citet[Appendix A]{sanchez2013image}, showed that
+assuming that $\pi$ and $\Sigma$ are fixed at their maximum likelihood estimates. Similar mixture-based Fisher kernels have been very popular in the past, and were actually a key element of state-of-the art classification models on Imagenet before deep nets won the competition \citep{perronnin2010improving}. Our idea is to re-use ideas introduced by this computer vision litterature. Under the assumption that the Gaussian clusters are well-separated, \textcite{tanaka2013fisher}, extending an earlier analysis of \textcite[Appendix A]{sanchez2013image}, showed that
 \begin{equation}
 	[\Phi_\textup{Fisher} (x)]_{\mu_k} \approx \sqrt{\frac{p(z|k)}{\pi_k }}  \Sigma^{-1/2} (z - \mu_k).
 \end{equation}
@@ -151,14 +114,14 @@ The three considered DGMs are both parametrized by neural networks but they diff
 
 \subsection{Generative model details}
 We will briefly describe the different model architectures and training procedures used in this paper. Since most of the models are taken from public code repositories and related papers, we will mostly invite the reader to have a look at the cited paper for a more in-depth description of the training details.
-For MNIST, CIFAR10, and FashionMNIST we used 3000 examples from the test set as validation set. For SVHN, instead, we used 6032 datapoints from the test set as validation, leaving the remaining 20000 examples as test set. In Table~\ref{tab:log_like}, we reported test log-likelihood of the models used in this paper. 
+For MNIST, CIFAR10, and FashionMNIST we used 3000 examples from the test set as validation set. For SVHN, instead, we used 6032 datapoints from the test set as validation, leaving the remaining 20000 examples as test set. In \cref{tab_modelagnostic:log_like}, we reported test log-likelihood of the models used in this paper. 
 
 \paragraph{PixelCNN++} For PixelCNN++ we used the code available in this repository\footnote{\href{https://github.com/pclucas14/pixel-cnn-pp}{\texttt{https://github.com/pclucas14/pixel-cnn-pp}}}. For the greyscale images, we used one residual block per stage with 32 filters and 5 logistic components in the discretized mixture of logistics. For natural images, instead, we used 5 residual blocks per stage with 160 filters and 10 components in the mixture. We trained all the models using Adam optimizer.
 
-\paragraph{Glow} For training Glow models we follow \citet{kirichenko_why_2020} and their repository\footnote{\href{https://github.com/PolinaKirichenko/flows_ood}{\texttt{https://github.com/PolinaKirichenko/flows\_ood}}}. They closely follow \citet{nalisnick_deep_2019} and \cite{kingma_glow_2018} implementation for multi-scale Glow, where a scale is defined as the sequence of actorm, invertible $1\times1$ convolution and coupling layers. While \citet{kirichenko_why_2020} only considers the RMSProp optimizer, we trained two different models, one using RMSProp and one using Adam with batch-size 32. For the greyscale dataset our Glow is made up of 2 scales with 16 coupling layers, and a 3-layers highway network with 200 hidden units is used to predict the scale and shift parameters. For CIFAR10 and SVHN, instead, we used 3 scales with 8 coupling layers, and 400 hidden units for the 3-layers highway network. %Since training flow-based models is a bit unstable, in some cases we had to restart the training when the training failed. 
-For a more in-depth description, we refer to the codebase and the Appendix C of \citet{kirichenko_why_2020}.
+\paragraph{Glow} For training Glow models we follow \textcite{kirichenko_why_2020} and their repository\footnote{\href{https://github.com/PolinaKirichenko/flows_ood}{\texttt{https://github.com/PolinaKirichenko/flows\_ood}}}. They closely follow \textcite{nalisnick_deep_2019} and \cite{kingma_glow_2018} implementation for multi-scale Glow, where a scale is defined as the sequence of actorm, invertible $1\times1$ convolution and coupling layers. While \textcite{kirichenko_why_2020} only considers the RMSProp optimizer, we trained two different models, one using RMSProp and one using Adam with batch-size 32. For the greyscale dataset our Glow is made up of 2 scales with 16 coupling layers, and a 3-layers highway network with 200 hidden units is used to predict the scale and shift parameters. For CIFAR10 and SVHN, instead, we used 3 scales with 8 coupling layers, and 400 hidden units for the 3-layers highway network. %Since training flow-based models is a bit unstable, in some cases we had to restart the training when the training failed. 
+For a more in-depth description, we refer to the codebase and the Appendix C of \textcite{kirichenko_why_2020}.
 
-\paragraph{Hierarchical VAE} We follow \cite{havtorn_hierarchical_2021} for both model architecture design and training choices for our hierarchical VAEs. We used their open-sourced repository\footnote{\href{https://github.com/JakobHavtorn/hvae-oodd}{\texttt{https://github.com/JakobHavtorn/hvae-oodd}}}. As mentioned in the paper, the HVAE model we used has a bottom-up inference path and a top-down generative path. We trained each model for 1000 epochs using Adam optimizer with learning rate $3e-4$ and a batch-size of $128$. All models were initialized using the data-dependent initialization and they used weight-normalization \citep{salimans2016weight}. In addition to that, we always consider a hierarchy of three latent variables. For greyscale images (MNIST and FashionMNIST) we used a latent dimension of $8-16-8$ for $\mathbf{z}_1, \mathbf{z}_2, \mathbf{z}_3$ respectively, while for natural images (CIFAR10 and SVHN) we used $8-16-32$. For a more in depth description of the model, we refer to Appendix B of \citet{havtorn_hierarchical_2021}.
+\paragraph{Hierarchical VAE} We follow \cite{havtorn_hierarchical_2021} for both model architecture design and training choices for our hierarchical VAEs. We used their open-sourced repository\footnote{\href{https://github.com/JakobHavtorn/hvae-oodd}{\texttt{https://github.com/JakobHavtorn/hvae-oodd}}}. As mentioned in the paper, the HVAE model we used has a bottom-up inference path and a top-down generative path. We trained each model for 1000 epochs using Adam optimizer with learning rate $3e-4$ and a batch-size of $128$. All models were initialized using the data-dependent initialization and they used weight-normalization \citep{salimans_weight_2016}. In addition to that, we always consider a hierarchy of three latent variables. For greyscale images (MNIST and FashionMNIST) we used a latent dimension of $8-16-8$ for $\mathbf{z}_1, \mathbf{z}_2, \mathbf{z}_3$ respectively, while for natural images (CIFAR10 and SVHN) we used $8-16-32$. For a more in depth description of the model, we refer to Appendix B of \textcite{havtorn_hierarchical_2021}.
 
 
 % table with log-likelihood (bits/dim) of the models
@@ -225,7 +188,7 @@ For a more in-depth description, we refer to the codebase and the Appendix C of 
         \end{tabular}
         
     \end{subtable} 
-    \label{tab:log_like}
+    \label{tab_modelagnostic:log_like}
     %\vspace*{-\baselineskip}
 \end{table*}
 
@@ -234,13 +197,13 @@ For a more in-depth description, we refer to the codebase and the Appendix C of 
 
 \subsection{Typicality test and score statistic are uncorrelated}
 \label{appendix_modelagnostic:correlation}
-To test if the typicality test and the score statistic are uncorrelated, we plot the two scores computed on the validation set. As can be seen from figure \ref{fig:corralation}, we have that the two measures are not correlated as it is also highlight by the correlation coefficient.
+To test if the typicality test and the score statistic are uncorrelated, we plot the two scores computed on the validation set. As can be seen from \cref{fig_modelagnostic:corralation}, we have that the two measures are not correlated as it is also highlight by the correlation coefficient.
 
 \begin{figure}[tb]
     \centering
-    \includegraphics[scale=0.5]{imgs/correlation_correct_font.pdf}
+    \includegraphics[scale=0.5]{graphics/paper_modelagnostic/correlation_correct_font.pdf}
     \caption{Correlation of Typicality Test and Score Statistic computed on the validation set using a PixelCNN++ trained on FashionMNIST. The correlation coefficient is $-0.014$. This can also be seen by looking at the regression line, which is almost straight. }
-    \label{fig:corralation}
+    \label{fig_modelagnostic:corralation}
 \end{figure}
 
 
@@ -255,12 +218,12 @@ where $w_1,\dots,w_k$ are weights that sum up to 1. In our setting, we considere
     \mathring{p} = \frac{2 p_1 p_2}{p_1 + p_2}.
 \end{equation}
 
-As expected, this combination should work better when the statistics that we are combining are somewhat correlated. Indeed, since in our setting we have that the typicality and the score statistic are independent, we would expect this to work worse than the Fisher's combination. This is confirmed by table~\ref{tab:all_combinations}, where we are reporting the results when combining the two statistics using the three different ways we analyzed.
+As expected, this combination should work better when the statistics that we are combining are somewhat correlated. Indeed, since in our setting we have that the typicality and the score statistic are independent, we would expect this to work worse than the Fisher's combination. This is confirmed by \cref{tab_modelagnostic:all_combinations}, where we are reporting the results when combining the two statistics using the three different ways we analyzed.
 
 \subsection{Results considering maximum-mean-discrepancy}
-In Section~\ref{sec:section4}, we discussed the relationship between the maximum-mean-discrepancy with a Fisher kernel and the score statistic and the gradient norm, which depends on the choice of approximation of the Fisher information matrix we use. In table~\ref{tab:mmd} we reported also the AUROC scores for the MMD with Fisher kernel considering both the diagonal approximation of the FIM (called \emph{MMD Diagonal} in the table) and the FIM being the identity matrix (called \emph{MMD Identity}). As expected, we have that the AUROC of the MMD with the diagonal approximated FIM is pretty close to the AUROC we obtained by using the score statistic. Likewise, we have that the AUROC of MMD with the identity matrix as FIM is close to the gradient norm when we trained on FashionMNIST and CIFAR10. 
+In \cref{sec_modelagnostic:section4}, we discussed the relationship between the maximum-mean-discrepancy with a Fisher kernel and the score statistic and the gradient norm, which depends on the choice of approximation of the Fisher information matrix we use. In \cref{tab_modelagnostic:mmd} we reported also the AUROC scores for the MMD with Fisher kernel considering both the diagonal approximation of the FIM (called \emph{MMD Diagonal} in the table) and the FIM being the identity matrix (called \emph{MMD Identity}). As expected, we have that the AUROC of the MMD with the diagonal approximated FIM is pretty close to the AUROC we obtained by using the score statistic. Likewise, we have that the AUROC of MMD with the identity matrix as FIM is close to the gradient norm when we trained on FashionMNIST and CIFAR10. 
 
-So, why did we decide to use the score statistic instead of the MMD with Fisher kernel and diagonal approximation of the FIM? The main reason is Occam's razor. If we have two things that work equally well, we should keep the simplest one. In our case, we have that for computing the MMD with the Fisher kernel, we need to compute both the average gradient and the FIM using the training set. For the score statistic, instead, we just need the FIM. In addition to that, from all our experiments (see table~\ref{tab:mmd} and table~\ref{tab:mmd_pair2}) we do not have any evidence for one statistic working better than the other, because they are always pretty close to each other.
+So, why did we decide to use the score statistic instead of the MMD with Fisher kernel and diagonal approximation of the FIM? The main reason is Occam's razor. If we have two things that work equally well, we should keep the simplest one. In our case, we have that for computing the MMD with the Fisher kernel, we need to compute both the average gradient and the FIM using the training set. For the score statistic, instead, we just need the FIM. In addition to that, from all our experiments (see \cref{tab_modelagnostic:mmd} and \cref{tab_modelagnostic:mmd_pair2}) we do not have any evidence for one statistic working better than the other, because they are always pretty close to each other.
 
 % \begin{table*}[]
 %     \centering
@@ -286,7 +249,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
 %         \hline
 %     \end{tabular}
 %     \caption{AUROC for single-sample OOD detection}
-%     \label{tab:my_label}
+%     \label{tab_modelagnostic:my_label}
 % \end{table*}
 
 
@@ -314,7 +277,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
 %         \hline
 %     \end{tabular}
 %     \caption{AUROC for single-sample OOD detection}
-%     \label{tab:my_label}
+%     \label{tab_modelagnostic:my_label}
 % \end{table*}
 
 \begin{table*}[tb]
@@ -352,7 +315,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
             \textsc{HVAE}  & 0.0455 & 0.8041 &  0.7268 & 0.7634 & 0.8845 & 0.7334\\
             \bottomrule
         \end{tabular}
-        \label{tab:mmd}
+        \label{tab_modelagnostic:mmd}
     }
     \vspace*{-0.85\baselineskip}
 \end{table*}
@@ -393,13 +356,13 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
             \textsc{HVAE}  & 0.8699 &  0.8525 & 0.8245 \\
             \bottomrule
         \end{tabular}
-        \label{tab:all_combinations}
+        \label{tab_modelagnostic:all_combinations}
     \vspace*{-\baselineskip}
 \end{table*}
 
 \subsection{Variability within the same model in different checkpoints}
 \label{appendix_modelagnostic:checkpoints}
-As mentioned in the paper, we noticed that all statistics depend on choices we made about our model and the training procedure, such as deciding between Adam or RMSProp, or between using dropout or not. In addition to that, we find out that they can differ also within the same model at different checkpoints that obtain almost the same log-likelihood. Here we consider two Glow models, one trained with Adam and one using RMSProp on CIFAR10. For both, we consider two checkpoints that achieve the same test log-likelihood. Those trained with Adam get a log-likelihood of $3.63$ bits/dim, while the ones trained with RMSProp get $3.62$ bits/dim. Results are shown in Table~\ref{tab:variability}. It can be noticed, that although the models are similar in terms of test bits/dim the statistics vary a lot, mostly when training with RMSProp.
+As mentioned in the paper, we noticed that all statistics depend on choices we made about our model and the training procedure, such as deciding between Adam or RMSProp, or between using dropout or not. In addition to that, we find out that they can differ also within the same model at different checkpoints that obtain almost the same log-likelihood. Here we consider two Glow models, one trained with Adam and one using RMSProp on CIFAR10. For both, we consider two checkpoints that achieve the same test log-likelihood. Those trained with Adam get a log-likelihood of $3.63$ bits/dim, while the ones trained with RMSProp get $3.62$ bits/dim. Results are shown in \cref{tab_modelagnostic:variability}. It can be noticed, that although the models are similar in terms of test bits/dim the statistics vary a lot, mostly when training with RMSProp.
 
 \begin{table*}[tb]
     \centering
@@ -421,7 +384,7 @@ As mentioned in the paper, we noticed that all statistics depend on choices we m
             \textsc{Glow} (Adam) \{\emph{check2}\} & 0.8558 & 0.7327 & 0.8402 & 0.8303\\
             \bottomrule
         \end{tabular}
-        \label{tab:variability}
+        \label{tab_modelagnostic:variability}
     \vspace*{-\baselineskip}
 \end{table*}
 
@@ -429,14 +392,14 @@ As mentioned in the paper, we noticed that all statistics depend on choices we m
 
 \subsection{Benjamini-Hochberg procedure when training on CIFAR10}
 \label{appendix_modelagnostic:BH_cifar}
-In the main paper we focused on the Benjamini-Hochberg procedure applied to a model trained on FashionMNIST. Although one should use a False Discovery Rate control procedure when the statistics we are using are strong, for completeness, we will present what happens when we apply the BH procedure on a model trained on CIFAR10. In Fig.~\ref{fig:type1_cifar}, we report the Type I error ratio and the Type II error ratio for different significance levels $\alpha$. We can see that we can actually control the FDR for $\alpha > 0.2$, and for these significance levels we are actually controlling the FDR. What is happening for $\alpha < 0.2$? We have that the procedure is only rejecting 5 hypotheses and all these hypotheses corresponds to in-distribution examples. Therefore, we have that the ratio of Type I error is still low, but we are making a lot of Type II errors because we are accepting all the examples whose hypotheses should be rejected.
+In the main paper we focused on the Benjamini-Hochberg procedure applied to a model trained on FashionMNIST. Although one should use a False Discovery Rate control procedure when the statistics we are using are strong, for completeness, we will present what happens when we apply the BH procedure on a model trained on CIFAR10. In \cref{fig_modelagnostic:type1_cifar}, we report the Type I error ratio and the Type II error ratio for different significance levels $\alpha$. We can see that we can actually control the FDR for $\alpha > 0.2$, and for these significance levels we are actually controlling the FDR. What is happening for $\alpha < 0.2$? We have that the procedure is only rejecting 5 hypotheses and all these hypotheses corresponds to in-distribution examples. Therefore, we have that the ratio of Type I error is still low, but we are making a lot of Type II errors because we are accepting all the examples whose hypotheses should be rejected.
 
 %%%%%%%%%%%%%%%%%%%%%%% FIGURE
 \begin{figure}[tb]
     \centering
-    \includegraphics[scale=0.5]{imgs/cifar_hvae_type1_correct_font.pdf}
+    \includegraphics[scale=0.5]{graphics/paper_modelagnostic/cifar_hvae_type1_correct_font.pdf}
     \caption{Type I and Type II errors versus the significance level $\alpha$ on the combination values. We can control the FDR only for $\alpha > 0.2$ in this case. For $\alpha >0.2$, since we are using Benjamini-Hochberg procedure, we get that the Type I error stays below identity line.}
-    \label{fig:type1_cifar}
+    \label{fig_modelagnostic:type1_cifar}
      \vspace*{-\baselineskip}
 \end{figure}
 
@@ -444,7 +407,7 @@ In the main paper we focused on the Benjamini-Hochberg procedure applied to a mo
 
 \subsection{Results when training on MNIST and SVHN}
 \label{appendix_modelagnostic:mnist_svhn}
-We also evaluated our methods in the two dataset pairs, MNIST against FashionMNIST and SVHN against CIFAR10, that are usually considered easier than the tasks presented in the main paper. For both tasks, we trained two Glow models, one trained with Adam and one trained with RMSProp, one PixelCNN++ trained with dropout and a hierarchical-VAE. Results are reported in table~\ref{tab:results_second}. We can see that almost all the statistics we considered are able to almost perfectly distinguish between the in-distribution test-set and the OOD test-set. However, we can notice that the gradient norm is failing sometimes both when we trained on CIFAR10 and when we trained on FashionMNIST. From table~\ref{tab:mmd_pair2}, instead, it is clear that we need to approximate the diagonal of the Fisher Information Matrix because if we simply consider the identity matrix, this will also fail as the gradient norm is doing.
+We also evaluated our methods in the two dataset pairs, MNIST against FashionMNIST and SVHN against CIFAR10, that are usually considered easier than the tasks presented in the main paper. For both tasks, we trained two Glow models, one trained with Adam and one trained with RMSProp, one PixelCNN++ trained with dropout and a hierarchical-VAE. Results are reported in \cref{tab_modelagnostic:results_second}. We can see that almost all the statistics we considered are able to almost perfectly distinguish between the in-distribution test-set and the OOD test-set. However, we can notice that the gradient norm is failing sometimes both when we trained on CIFAR10 and when we trained on FashionMNIST. From \cref{tab_modelagnostic:mmd_pair2}, instead, it is clear that we need to approximate the diagonal of the Fisher Information Matrix because if we simply consider the identity matrix, this will also fail as the gradient norm is doing.
 
 \begin{table*}[tb]
     %\renewcommand{\thetable}{4}
@@ -479,7 +442,7 @@ We also evaluated our methods in the two dataset pairs, MNIST against FashionMNI
             \bottomrule
             ($\dagger$) Trained using 50000 datapoints
         \end{tabular}
-        \label{tab:results_second}
+        \label{tab_modelagnostic:results_second}
     }
 \end{table*}
 
@@ -517,7 +480,7 @@ We also evaluated our methods in the two dataset pairs, MNIST against FashionMNI
             \bottomrule
             ($\dagger$) Trained using 50000 datapoints
         \end{tabular}
-        \label{tab:mmd_pair2}
+        \label{tab_modelagnostic:mmd_pair2}
     }
 \end{table*}
 
@@ -525,7 +488,7 @@ We also evaluated our methods in the two dataset pairs, MNIST against FashionMNI
 
 \subsection{Application of our method to Gaussian Mixture Model and Probabilistic PCA}
 \label{appendix_modelagnostic:gmm_ppca}
-Since the method we propose is model-agnostic, we show that it can be used for out-of-distribution detection also using two simple generative models, Gaussian Mixture Model (GMM) and Probabilistic PCA (PPCA). We consider the two pairs of datasets as before, i.e.\@ FashionMNIST vs MNIST and CIFAR10 vs SVHN. Results can be seen in Table~\ref{tab:gmm_results} and Table~\ref{tab:ppca_results}. For both GMM and PPCA trained on FashionMNIST the likelihood can be used to perform OOD detection. Indeed, in this setting, they are not assigning higher likelihood to OOD data as it is the case for DGMs. This happens instead when we fit these models on CIFAR10. However, this behaviour can be due to the fact that they are really poor generative models for this dataset. It is also surprising that when training on CIFAR10 the score statistic is failing in both models. We think that this is also due to the fact that both the GMM and the PPCA are far from being good generative models for this dataset.
+Since the method we propose is model-agnostic, we show that it can be used for out-of-distribution detection also using two simple generative models, Gaussian Mixture Model (GMM) and Probabilistic PCA (PPCA). We consider the two pairs of datasets as before, i.e.\@ FashionMNIST vs MNIST and CIFAR10 vs SVHN. Results can be seen in \cref{tab_modelagnostic:gmm_results} and \cref{tab_modelagnostic:ppca_results}. For both GMM and PPCA trained on FashionMNIST the likelihood can be used to perform OOD detection. Indeed, in this setting, they are not assigning higher likelihood to OOD data as it is the case for DGMs. This happens instead when we fit these models on CIFAR10. However, this behaviour can be due to the fact that they are really poor generative models for this dataset. It is also surprising that when training on CIFAR10 the score statistic is failing in both models. We think that this is also due to the fact that both the GMM and the PPCA are far from being good generative models for this dataset.
 
 
 \begin{table*}[tb]
@@ -556,7 +519,7 @@ Since the method we propose is model-agnostic, we show that it can be used for o
             \textsc{100} & 0.2372 &  0.6136 & 0.6714 & 0.3294  &  0.5898  & 0.6573 \\
             \bottomrule
         \end{tabular}
-        \label{tab:gmm_results}
+        \label{tab_modelagnostic:gmm_results}
     }
     \vspace*{-\baselineskip}
 \end{table*}
@@ -590,14 +553,14 @@ Since the method we propose is model-agnostic, we show that it can be used for o
             \textsc{100}   &  0.0357 &  0.0778 & 0.8944 & 0.0755  &  0.7966 &  0.8830 \\
             \bottomrule
         \end{tabular}
-        \label{tab:ppca_results}
+        \label{tab_modelagnostic:ppca_results}
     }
 \end{table*}
 
 
 
 \subsection{More in depth analysis of the variability of the results for different HVAE}
-As we have pointed out before, test statistics and consequentially out-of-distribution performances can vary between the same model trained several times on the same dataset. To test the variability of the results shown in the main paper, we trained five different hierarchical VAEs and compute mean and standard deviations of the final AUROC scores. All models have the same architecture and were trained with the same procedure. Results can be found in Table~\ref{table:consistency_results}. For the models trained on CIFAR10, most of the variability in terms of performance is due to the score statistic, which has the highest standard deviation. When training on FashionMNIST, instead, it seems that the typicality performance is the one varying the most between the five models.
+As we have pointed out before, test statistics and consequentially out-of-distribution performances can vary between the same model trained several times on the same dataset. To test the variability of the results shown in the main paper, we trained five different hierarchical VAEs and compute mean and standard deviations of the final AUROC scores. All models have the same architecture and were trained with the same procedure. Results can be found in \cref{table:consistency_results}. For the models trained on CIFAR10, most of the variability in terms of performance is due to the score statistic, which has the highest standard deviation. When training on FashionMNIST, instead, it seems that the typicality performance is the one varying the most between the five models.
 
 \begin{table*}[tb]
     % \vspace{-1.3em}
@@ -633,7 +596,7 @@ As we have pointed out before, test statistics and consequentially out-of-distri
 \label{appendix_modelagnostic:celeba}
 Out-of-distribution detection performance is not only influenced by the model architecture or the training process. Indeed, transformations applied to the input data play an important role by transforming a difficult task into an easier problem where the likelihood can detect OOD data. By looking at the different results for Glow trained on CIFAR10 and tested on CelebA shown in \cite{hendrycks_deep_2019}, \cite{kirichenko_why_2020}, \cite{morningstar_density_2021}, and \cite{ahmadian_likelihoodfree_2021} we can see that the AUROC scores obtain by the plain log-likelihood are pretty different. In \cite{hendrycks_deep_2019} and  \cite{kirichenko_why_2020} the log-likelihood gets a poor performance, confirming that CIFAR10-CelebA is a challenging pair for DGMs, while in \cite{morningstar_density_2021} the likelihood is able to distinguish OOD data. While the main reason for these different results can be due to model implementation and training procedure, we decided to investigate how different transformations can influence OOD detection. Indeed, CelebA examples originally have a shape of $(218, 178, 3)$ and to transform them into $(32, 32, 3)$-shaped images, as CIFAR10, we have to resize them and then crop their center. The resize function is performing an interpolation, therefore we analyze how different interpolation strategies influence the OOD task. 
 
-We considered three different interpolations: bilinear (default in PyTorch), Lanczos, and nearest. As can be seen from Fig.~\ref{fig:celeba}, these transformations mostly affect the sharpness of the images. In Table~\ref{table:celeba} we show how the OOD performance changes for our considered models when testing on CelebA where we applied different interpolations. We can notice that when using the bilinear interpolation we get results that are pretty similar to \cite{hendrycks_deep_2019}, \cite{kirichenko_why_2020}, and \cite{ahmadian_likelihoodfree_2021} in terms of likelihood OOD performance. When using the nearest interpolation, instead, we get results that are closer to \cite{morningstar_density_2021}. 
+We considered three different interpolations: bilinear (default in PyTorch), Lanczos, and nearest. As can be seen from \cref{fig_modelagnostic:celeba}, these transformations mostly affect the sharpness of the images. In \cref{table:celeba} we show how the OOD performance changes for our considered models when testing on CelebA where we applied different interpolations. We can notice that when using the bilinear interpolation we get results that are pretty similar to \cite{hendrycks_deep_2019}, \cite{kirichenko_why_2020}, and \cite{ahmadian_likelihoodfree_2021} in terms of likelihood OOD performance. When using the nearest interpolation, instead, we get results that are closer to \cite{morningstar_density_2021}. 
 
 In conclusion, with these experiments, we wanted to highlight the importance of reporting the preprocessing steps used in loading CelebA in order to be able to make a fair comparison with the other proposed methods in the literature.
 
@@ -641,9 +604,9 @@ In conclusion, with these experiments, we wanted to highlight the importance of 
 %%%%%%%%%%%%%%%%%%%%%%% FIGURE
 \begin{figure}[t]
     \centering
-    \includegraphics[scale=0.5]{imgs/celeba_difference_correct_font.pdf}
+    \includegraphics[scale=0.5]{graphics/paper_modelagnostic/celeba_difference_correct_font.pdf}
     \caption{Comparison of different interpolation methods for CelebA dataset.}
-    \label{fig:celeba}
+    \label{fig_modelagnostic:celeba}
      \vspace*{-\baselineskip}
 \end{figure}
 
@@ -758,12 +721,12 @@ In this setting, since DoSE is using statistics that are HVAE and Glow specific,
 
 
 \section{Algorithmic implementation}
-A pseudocode describing step-by-step how to implement our method is given in Algorithm~\ref{algo_description}.
+A pseudocode describing step-by-step how to implement our method is given in \cref{alg_modelagnostic:algo_description}.
 
 \begin{algorithm}[ht]
 %\begin{small}
 \begin{algorithmic}
-\STATE \textbf{Input}: Training data $\textbf{X} = (x_1,\ldots,x_m)^T$, validation data $\textbf{X}'$, trained model $p_{\theta}(x)$.\\
+\State \textbf{Input}: Training data $\textbf{X} = (x_1,\ldots,x_m)^T$, validation data $\textbf{X}'$, trained model $p_{\theta}(x)$.\\
 \textbf{} \\
 \textit{Approximation of the diagonal of the Fisher Information Matrix $I(\theta)$ and average log-likelihood $(1/m)\log p_{\theta}(x_1,\ldots,x_m)$, indicated by $L(\theta)$. We do it in an online fashion.} \\
 \textbf{Initialize}  ${I(\theta)} = {0}$ and $L(\theta)=0$ \\
@@ -775,7 +738,7 @@ A pseudocode describing step-by-step how to implement our method is given in Alg
 \textbf{} \\
 \textit{Estimation of distributions over the test statistics} \\
 \textbf{Sample} $S$ $M'$-sized datasets from $\textbf{X}'$ using bootstrap resampling. \\
-\textit{(For single-sample OOD we just cycle through each example, see Sec.~\ref{sec:combination_p_values})}\\
+\textit{(For single-sample OOD we just cycle through each example, see \cref{sec_modelagnostic:combination_p_values})}\\
 \textbf{Initialize}   $T^{\text{typicality}} = [\hspace{0.5mm}]$ and $T^{\text{score}} = [\hspace{0.5mm}]$ \\
 \textbf{For every} bootstrapped dataset $\textbf{X}_s' = (x_1, \dots, x_{M'})^T$: \\
 \hspace{1.5em} \textbf{Compute} $\frac{1}{m'} \sum_{m'=1}^{M'}\log p_{\theta}({x}_{m'})$ \\
@@ -784,7 +747,7 @@ A pseudocode describing step-by-step how to implement our method is given in Alg
 \hspace{1.5em} \textbf{Compute} Score Statistic for ${x}_{m'}$ by $\left\|{I(\theta)}^{-1/2} \frac{1}{m'} \sum_{m'=1}^{M'}\nabla \log p_\theta ({x}_{m'})\right\|_2$ and add it to $T^{\text{score}}$\\
 \textbf{Return} Two vectors of size $S$ containing the two statistics for $T^{\text{typicality}}$ and $T^{\text{score}}$  \\
 \textbf{} \\
-\textbf{Compute} $\hat{F}^{\text{typicality}}$ and $\hat{F}^{\text{score}}$, the two empirical CDFs, from $T^{\text{typicality}}$ and $T^{\text{score}}$. For example, we used \texttt{statsmodels} library \citep{seabold2010statsmodels}. \\
+\textbf{Compute} $\hat{F}^{\text{typicality}}$ and $\hat{F}^{\text{score}}$, the two empirical CDFs, from $T^{\text{typicality}}$ and $T^{\text{score}}$. For example, we used \texttt{statsmodels} library \citep{seabold_statsmodels_2010}. \\
 \textbf{} \\  
 %\textit{For any test sample} \\
 \textbf{Given} a test set $\tilde{x}_1, \dots, \tilde{x}_n$:\\
@@ -792,10 +755,10 @@ A pseudocode describing step-by-step how to implement our method is given in Alg
 \hspace{1.5em} \textbf{Compute} $\frac{1}{n} \sum_{i=1}^{n}\log p_{\theta}(\tilde{{x}}_i)$ and $\frac{1}{n} \sum_{i=1}^{n}\nabla_{{\theta}}\log p_{\theta}(\tilde{{x}}_i)$ \\
 \hspace{1.5em} \textbf{Compute} MMD Typicality $\tilde{t}$ and Score Statistic $\tilde{s}$ \\
 \hspace{1.5em} \textbf{Compute} $p$-values $p_{T} = 1 - \hat{F}^{\text{typicality}}(\hat{t})$ and $p_{S} = 1 - \hat{F}^{\text{score}}(\tilde{s})$ \\
-\hspace{1.5em} \textbf{Combine} the two $p$-values using Fisher's method Eq.~\ref{eq:Fisher_method}
+\hspace{1.5em} \textbf{Combine} the two $p$-values using Fisher's method \cref{eq_modelagnostic:Fisher_method}
 \end{algorithmic}
 \caption{Computing $p$-values for OOD detection using a trained generative model.}
-\label{algo_description}
+\label{alg_modelagnostic:algo_description}
 %\end{small}
 \end{algorithm}
 
