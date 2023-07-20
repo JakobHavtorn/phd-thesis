@@ -1,7 +1,8 @@
 %!TEX root = ../thesis.tex
 
 \chapter[benchmarking generative latent variable models for speech]{Benchmarking Generative Latent Variable Models for Speech}
-\label{chp:benchmarking}
+\label{chp:paper-benchmarking-workshop}
+\ifthenelse{\equal{\skippaperbody}{true}}{}{
 
 \section{Abstract}
 Stochastic latent variable models (LVMs) achieve state-of-the-art performance on natural image generation but are still inferior to deterministic models on speech. In this paper, we develop a speech benchmark of popular temporal LVMs and compare them against state-of-the-art deterministic models. We report the likelihood, which is a much used metric in the image domain, but rarely, or incomparably, reported for speech models. To assess the quality of the learned representations, we also compare their usefulness for phoneme recognition. Finally, we adapt the Clockwork VAE, a state-of-the-art temporal LVM for video generation, to the speech domain. Despite being autoregressive only in latent space, we find that the Clockwork VAE can outperform previous LVMs and reduce the gap to deterministic models by using a hierarchy of latent variables.
@@ -21,8 +22,6 @@ In this paper, we develop a likelihood benchmark for recent temporal LVMs and co
 (iii) LVM likelihoods improve when using hierarchies of latent variables as also seen for images and, 
 (iv) LVM representations are as good or better than Mel spectrograms for phoneme recognition.
 
-
-\iffalse
 
 \begin{figure*}[t!]
     \centering
@@ -252,4 +251,4 @@ When the amount of labeled data is reduced, LVM representations suffer slightly 
 \subsubsection*{Acknowledgments}
 This research was partially funded by the Innovation Fund Denmark via the Industrial PhD Programme (grant no.\@ 0153-00167B). JF and SH were funded in part by the Novo Nordisk Foundation (grant no.\@ NNF20OC0062606) via the Center for Basic Machine Learning Research in Life Science (MLLS, \hyperlink{https://www.mlls.dk}{https://www.mlls.dk}). JF was further funded by the Novo Nordisk Foundation (grant no.\@ NNF20OC0065611) and the Independent Research Fund Denmark (grant no.\@ 9131-00082B). SH was further funded by VILLUM FONDEN (15334) and the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement no. 757360).
 
-\fi
+}
