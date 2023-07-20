@@ -32,7 +32,7 @@ for pre-training~\cite{jiang_further_2021}. Industrial researchers have also
 begun to build large-scale datasets for learning speech representations.
 For instance, 10k hours of real-world far-field English voice commands for
 self-supervised pre-training have been collected at 
-Amazon~\cite{sadhu_wav2vec-c_2021}. 
+Amazon~\cite{sadhu_wav2vecc_2021}. 
 
 In addition to these English and multilingual efforts, researchers have also
 collected corpora for pre-training Chinese speech representations. Didi Dictation
@@ -141,7 +141,7 @@ speakers and recorded with microphone arrays. CHiME-5~\cite{barker_fifth_2018} i
 a challenge that aims to advance robust ASR and presents a dataset of natural
 conversational speech collected under a dinner party scenario with microphone
 arrays. A team at Amazon Alexa also recorded and transcribed a corpus of 1k
-hours of audio for model training and evaluation~\cite{sadhu_wav2vec-c_2021}.
+hours of audio for model training and evaluation~\cite{sadhu_wav2vecc_2021}.
 
 Researchers also evaluate representations for sentiment analysis with the
 INTERFACE~\cite{hozjan_interface_2002} and MOSEI (CMU Multimodal Opinion
@@ -332,7 +332,7 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}{CPC modified \cite{riviere_unsupervised_2020}} & LS 100 hrs & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & \makecell[l]{LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}}} & - & \makecell[l]{80\textsuperscript{\ref{footnote:low-resource}} hrs} \\ \cline{2-7}
     & \makecell[l]{LS 100 hrs,\\LS 960 hrs,\\LL 60k hrs} & PC & CV-dataset\textsuperscript{\ref{footnote:official-split}} & CV-dataset\textsuperscript{\ref{footnote:official-split}} & \checkmark & 1 hrs \\ \hline
     % vq-wav2vec
-    \multirow{2}{*}[0mm]{vq-wav2vec \cite{baevski_vq-wav2vec_2020}} & \multirow{2}{*}[0mm]{LS 960 hrs} & ASR & WSJ si284 & \makecell[l]{WSJ eval92} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{vq-wav2vec \cite{baevski_vqwav2vec_2020}} & \multirow{2}{*}[0mm]{LS 960 hrs} & ASR & WSJ si284 & \makecell[l]{WSJ eval92} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \hline
     % DeCoAR
     \multirow{2}{*}[0mm]{DeCoAR \cite{ling_deep_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{LS 100/360/460/\\\:\:\:960 hrs,\\ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{25\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}}/81 hrs} \\ \cline{3-7}
@@ -372,7 +372,7 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}[0mm]{BMR \cite{wang_unsupervised_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{WSJ si284,\\LS 960 hrs}} & ASR & WSJ si284 & WSJ eval92 & - & 81 hrs \\ \cline{3-7}
     & & PR & WSJ si84/si284 & WSJ dev93 & - & 15/81 hrs \\ \hline
     % vq-APC
-    \multirow{2}{*}[0mm]{vq-APC \cite{chung_vector-quantized_2020}} & \multirow{2}{*}[0mm]{LS 360 hrs} & PC & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & \makecell[l]{WSJ dev93} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{vq-APC \cite{chung_vectorquantized_2020}} & \multirow{2}{*}[0mm]{LS 360 hrs} & PC & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & \makecell[l]{WSJ dev93} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
     & & SID & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & \checkmark & 65\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
     % vq-wav2vec + Discrete BERT
     \makecell[l]{vq-wav2vec + \\\:DiscreteBERT \cite{baevski_effectiveness_2020}} & LS 960 hrs & ASR & LS 100 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
@@ -392,7 +392,7 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}{wav2vec 2.0 \cite{baevski_wav2vec_2020}} & \multirow{2}{*}{\makecell[l]{LS 960 hrs,\\ LL 60k hrs}} & ASR & LS 960 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100/960 hrs} \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \hline
     % NPC
-    \multirow{2}{*}[0mm]{NPC \cite{liu_non-autoregressive_2020}} & \multirow{2}{*}[0mm]{LS 360 hrs} & PC & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & \makecell[l]{WSJ dev93} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{NPC \cite{liu_nonautoregressive_2020}} & \multirow{2}{*}[0mm]{LS 360 hrs} & PC & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & \makecell[l]{WSJ dev93} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
     & & SID & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & \checkmark & 65\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
     % DeCoAR 2.0
     DeCoAR 2.0 \cite{ling_decoar_2020} & LS 960 hrs & ASR & \makecell[l]{LS 100 hrs} & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
@@ -404,7 +404,7 @@ audio processing, we here provide only a list of these datasets for reference.
     % HuBERT
     HuBERT \cite{hsu_hubert_2021} & \makecell[l]{LS 960 hrs,\\ LL 60k hrs} & ASR & LS 960 hrs & \makecell[l]{LS test-clean\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100/960 hrs} \\ \hline
     % wav2vec-c
-    wav2vec-c \cite{sadhu_wav2vec-c_2021} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
+    wav2vec-c \cite{sadhu_wav2vecc_2021} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
     UniSpeech-SAT \cite{chen_unispeechsat_2021} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See SUPERB \cite{yang_superb_2021} paper for details \\ \hline
     WavLM \cite{chen_wavlm_2021} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See \cite{yang_superb_2021} for details \\ \hline
     \multirow{4}{*}[0mm]{XLS-R \cite{babu_xlsr_2021}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;\;+ CV-dataset-7k + VL\\\;\;\;+ BBL}} & ASR & VP, MLS, CV-dataset, BBL, LS & VP, MLS, CV-dataset, BBL, LS & - & \multirow{4}{*}[0mm]{See \cite{babu_xlsr_2021} for details} \\ \cline{3-6}
@@ -493,7 +493,7 @@ growing industry investment in pre-training with larger datasets, e.g.,
 CPC-8k (8k hours) for Bidir-CPC~\cite{kawakami_learning_2020}, LL (60k hours) for
 CPC modified~\cite{riviere_unsupervised_2020}, 
 wav2vec 2.0~\cite{baevski_wav2vec_2020}, and HuBERT~\cite{hsu_hubert_2021}, Alexa internal
-datasets (10k hours) for wav2vec-c~\cite{sadhu_wav2vec-c_2021}, Didi internal
+datasets (10k hours) for wav2vec-c~\cite{sadhu_wav2vecc_2021}, Didi internal
 datasets (10k hours) for MPC~\cite{jiang_improving_2019, jiang_further_2021}, the
 combination of Gigaspeech, VP-24k, and LL (94k hours in total) for
 UniSpeech-SAT~\cite{chen_unispeechsat_2021} and WavLM~\cite{chen_wavlm_2021}, and

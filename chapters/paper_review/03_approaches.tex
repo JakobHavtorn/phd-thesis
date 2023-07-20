@@ -167,7 +167,7 @@ The models below have been enhanced by regularization methods.
 \begin{itemize}
 %\item VAE, VQ-VAE
     \item DeCoAR 2.0~\cite{ling_decoar_2020} presents a deep contextualized acoustic representation learning approach with the addition of a vector quantization (VQ) layer.
-    \item In VQ-APC~\cite{chung_vector-quantized_2020}, a VQ layer is used with the APC objective, which imposes a bottleneck and forces the model to learn better representations.
+    \item In VQ-APC~\cite{chung_vectorquantized_2020}, a VQ layer is used with the APC objective, which imposes a bottleneck and forces the model to learn better representations.
     \item Two dropout regularization methods, attention dropout and layer dropout, are introduced to TERA~\cite{luo_dropout_2021}. 
 \end{itemize}
 \end{comment}
@@ -189,7 +189,7 @@ In text-based autoregressive LMs, $c$ is set to $1$ \edit{to enable autoregressi
 In \cite{chung_improved_2020}, the APC objective is extended to multi-target
 training. The new objective generates both past and future frames conditioned
 on previous context. 
-In VQ-APC~\cite{chung_vector-quantized_2020}, quantization is used with the APC
+In VQ-APC~\cite{chung_vectorquantized_2020}, quantization is used with the APC
 objective, which imposes an information bottleneck serving as a regularizer.
 
 A drawback of APC is that it encodes information only from previous timesteps
@@ -229,7 +229,7 @@ We can bring the pretext task closer to the NLP equivalent by using a masking po
 
 Whereas most studies use masking along the temporal dimension of the input, speech can also be masked along the frequency dimension when spectral input features are used~\cite{wang_unsupervised_2020,liu_tera_2021}. Frequency masking has been shown to improve representations used for speaker classification~\cite{liu_tera_2021}. 
 
-Some studies explore alternatives to masking the input directly. In non-autoregressive predictive coding (NPC)~\cite{liu_non-autoregressive_2020}, time masking is introduced through masked convolution blocks. Taking inspiration from XLNet~\cite{yang_xlnet_2019}, it has also been suggested that the input be reconstructed from a shuffled version~\cite{song_speechxlnet_2020} to address the discrepancy between pre-training and fine-tuning of masking-based approaches.
+Some studies explore alternatives to masking the input directly. In non-autoregressive predictive coding (NPC)~\cite{liu_nonautoregressive_2020}, time masking is introduced through masked convolution blocks. Taking inspiration from XLNet~\cite{yang_xlnet_2019}, it has also been suggested that the input be reconstructed from a shuffled version~\cite{song_speechxlnet_2020} to address the discrepancy between pre-training and fine-tuning of masking-based approaches.
 
 Regularization methods can further improve on masked reconstruction approaches. \edit{DeCoAR 2.0~\cite{ling_decoar_2020} uses vector quantization}, which is shown to improve the learned representations. Furthermore, two dropout regularization methods---attention dropout and layer dropout---are introduced with the TERA model~\cite{liu_tera_2021, luo_dropout_2021}. \edit{Both methods are variations on the original dropout method \cite{srivastava_dropout_2014}.}
 
@@ -301,7 +301,7 @@ In wav2vec 2.0, anchors are taken to be $h_t$ at masked timesteps only, the posi
 %
 \noindent where $S_{\text{c}}(\cdot)$ is the cosine similarity and $\mathcal{I}$ contains the target index $t$ and negative indices sampled from other masked timesteps.
 
-The wav2vec 2.0 approach was the first to reach single-digit \edit{word error rate (WER) on LibriSpeech using only the low-resource Libri-light subsets for fine-tuning a pre-trained model (see \cref{sec:datasets}). It has subsequently} inspired many follow-up studies. The wav2vec-C~\cite{sadhu_wav2vec-c_2021} approach extends wav2vec 2.0 with a consistency term in the loss that aims to reconstruct the input features from the learned quantized representations, similar to VQ-VAE~\cite{razavi_generating_2019}.
+The wav2vec 2.0 approach was the first to reach single-digit \edit{word error rate (WER) on LibriSpeech using only the low-resource Libri-light subsets for fine-tuning a pre-trained model (see \cref{sec:datasets}). It has subsequently} inspired many follow-up studies. The wav2vec-C~\cite{sadhu_wav2vecc_2021} approach extends wav2vec 2.0 with a consistency term in the loss that aims to reconstruct the input features from the learned quantized representations, similar to VQ-VAE~\cite{razavi_generating_2019}.
 
 \subsubsection{Challenges}
 Although representations learned using contrastive approaches have proved effective across a wide range of downstream applications, they face many challenges when applied to speech data. 
@@ -318,7 +318,7 @@ For this reason, predictive methods compute the targets outside the model's comp
 
 \subsubsection{Approaches}
 
-\paragraph{Discrete BERT} \edit{Applying BERT-type training directly to speech input is not possible due to its continuous nature}. The Discrete BERT approach~\cite{baevski_effectiveness_2020} uses a pre-trained vq-wav2vec model to derive a discrete vocabulary \cite{baevski_vq-wav2vec_2020}. The vq-wav2vec model is similar to wav2vec mentioned in \cref{par:cpc} but uses quantization to learn discrete representations. 
+\paragraph{Discrete BERT} \edit{Applying BERT-type training directly to speech input is not possible due to its continuous nature}. The Discrete BERT approach~\cite{baevski_effectiveness_2020} uses a pre-trained vq-wav2vec model to derive a discrete vocabulary \cite{baevski_vqwav2vec_2020}. The vq-wav2vec model is similar to wav2vec mentioned in \cref{par:cpc} but uses quantization to learn discrete representations. 
 \edit{Specifically, discrete units $c_t$ are first extracted with the vq-wav2vec model $f_1(\cdot)$ and then used as inputs \emph{and} targets in a standard BERT model $f_2(\cdot)$ with a softmax normalized output layer $g(\cdot)$, 
 \begin{align}
     c_t &= f_1(X_{[t-u,t+u]}) \enspace , \\
