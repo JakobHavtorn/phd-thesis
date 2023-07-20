@@ -1,6 +1,8 @@
+%!TEX root = ../thesis.tex
+
 \chapter[hierarchical vaes know what they don't know]{Hierarchical VAEs Know What They Don't Know}
 \label{chp:paper-hierarchical}
-% \ifthenelse{\equal{\skippaperbody}{true}}{}{
+\ifthenelse{\equal{\skippapers}{true}}{}{
 
 \section*{Abstract}
 Deep generative models have been demonstrated as state-of-the-art density estimators.
@@ -472,7 +474,7 @@ $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathb
 
 \subsection{Likelihood-based OOD detection}
 % \begin{sidewaysfigure}
-\begin{figure}
+\begin{figure}[t]
     %\captionstyle{centerlast}
     \centering
     \begin{subfigure}[l]{0.48\columnwidth}
@@ -521,7 +523,7 @@ Since a high degree of overlap also seems present in \textcite{maaloe_biva_2019}
 
 
 \subsection{Likelihood-ratio-based OOD detection}
-\begin{figure}
+\begin{figure}[t]
     \centering
     \begin{subfigure}[l]{0.495\columnwidth}
         \includegraphics[width=1\columnwidth]{paper_hierarchical/roc-FashionMNIST-test-MNIST-test-ll-and-llr-IW250_sohau.pdf}
@@ -596,4 +598,4 @@ Finally, we demonstrate state-of-the-art performance on a wide range of OOD fail
 \section*{Acknowledgements}
 This research was partially funded by the Innovation Fund Denmark via the Industrial PhD Programme (grant no.\@ 0153-00167B). JF and SH were funded in part by the Novo Nordisk Foundation (grant no.\@ NNF20OC0062606) via the Center for Basic Machine Learning Research in Life Science (MLLS, \hyperlink{https://www.mlls.dk}{https://www.mlls.dk}). JF was further funded by the Novo Nordisk Foundation (grant no.\@ NNF20OC0065611) and the Independent Research Fund Denmark (grant no.\@ 9131-00082B). SH was further funded by VILLUM FONDEN (15334) and the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement no. 757360).
 
-% }
+}
