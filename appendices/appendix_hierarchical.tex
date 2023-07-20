@@ -3,7 +3,7 @@
 \chapter[supplementary material for hierarchical vaes know what they don't know]{Supplementary material for Hierarchical VAEs know what they don't know}
 
 \section{Datasets}
-\cref{tab:datasets-overview} lists the datasets used in the paper. We use the predefined train/test splits for the datasets.
+\cref{tab_hierarchical:datasets-overview} lists the datasets used in the paper. We use the predefined train/test splits for the datasets.
 
 For SmallNORB and Omniglot we resize the original grey-scale images to $28\times28$ with ordinary bi-linear interpolation.
 For each of these datasets, we also create a version where the grey-scale is inverted. We do this because, the overall white nature of the images tends to make detecting them as OOD from FashionMNIST artificially easy.
@@ -32,12 +32,12 @@ The inversion is done via the simple transformation $\xb_\text{inverted} = 255 -
     \end{tabular}
     % }
     \caption{Overview of the used datasets.}
-    \label{tab:datasets-overview}
+    \label{tab_hierarchical:datasets-overview}
 \end{table}
 
 
 \section{Model details}\label{sec:model-details}
-In \cref{tab:hyperparameters} we specify the hyperparameters used when training our models.
+In \cref{tab_hierarchical:hyperparameters} we specify the hyperparameters used when training our models.
 We make our source code available at \url{https://github.com/JakobHavtorn/hvae-oodd}.
 
 \subsection{Hierarchical VAE}
@@ -109,7 +109,7 @@ Training of a BIVA model took approximately a week on a single NVIDIA GTX 1080 T
     \end{tabular}
     % }
     \caption[Selection of most important hyperparameters]{Selection of most important hyperparameters and their setting. Convolutional kernels are square and latent dimensions are given without spatial dimensions which are given in the text. See \cref{sec:model-details} for more details.}
-    \label{tab:hyperparameters}
+    \label{tab_hierarchical:hyperparameters}
 \end{table}
 
 
@@ -164,7 +164,7 @@ If so, we see that the marginal likelihood $p(\xb)$ will be dominated by $\left(
     \centering
     \includegraphics[width=\columnwidth]{paper_hierarchical/logdet2.pdf}
     \caption{The expected inverse volume change for Gaussian Jacobians \eqref{eq:Edet} on a log-scale.}
-    \label{fig:Edet}
+    \label{fig_hierarchical:Edet}
 \end{figure}
 The previous remarks can be made more precise if we make distributional assumptions on the Jacobians.
 Here we will assume that the Jacobians of each layer follow a Gaussian distribution.
@@ -181,7 +181,7 @@ In this setting, $\Jb_i^T \Jb_i$ follows a Wishart distribution (in the general 
 where $\Gamma_d$ is the multivariate Gamma function.
 Assuming that the increase in layer dimension $d_{i} - d_{i-1}$ is constant, then we see that \eqref{eq:Edet} goes to zero as $d_{i}$ goes to infinity as the $\Gamma$ function grows super-exponentially to infinity.
 This super-exponential growth further implies that the first layers dominate the marginal likelihood $p(\xb)$.
-This is also visually evident in \cref{fig:Edet}.
+This is also visually evident in \cref{fig_hierarchical:Edet}.
 
 
 \section{Derivation of the $\mathcal{L}^{>k}$ bound}
@@ -330,7 +330,7 @@ Note that the KL-divergence in the second layer is not exact since it is depende
 
 
 \section{Additional results}
-We provide additional results for a model trained on FashionMNIST in \cref{tab:additional-results-fashionmnist}, a model trained on MNIST in \cref{tab:additional-results-mnist}, a model trained on CIFAR10 in \cref{tab:additional-results-cifar} and a model trained on SVHN in \cref{tab:additional-results-svhn}.
+We provide additional results for a model trained on FashionMNIST in \cref{tab_hierarchical:additional-results-fashionmnist}, a model trained on MNIST in \cref{tab_hierarchical:additional-results-mnist}, a model trained on CIFAR10 in \cref{tab_hierarchical:additional-results-cifar} and a model trained on SVHN in \cref{tab_hierarchical:additional-results-svhn}.
 
 We note that while the likelihood is highly unreliable across the datasets, the proposed log likelihood-ratio score is consistent and always allows correct OOD detection with high AUROC$\uparrow$.
 
@@ -361,7 +361,7 @@ We note that while the likelihood is highly unreliable across the datasets, the 
     \end{tabular}
     % }
     \caption[Additional results for the HVAE model trained on SVHN]{Additional results for the HVAE model trained on SVHN. All results computed with 1000 importance samples.}
-    \label{tab:additional-results-svhn}
+    \label{tab_hierarchical:additional-results-svhn}
 \end{table}
 % Results of SVHN model. (d64aa83013304864b974a3fca31e44f1)
 
@@ -392,7 +392,7 @@ CIFAR10       &  $LLR^{>1}$  &  0.469  &  0.479  &  0.835  \\
     \end{tabular}
     % }
     \caption[Additional results for the HVAE model trained on CIFAR10]{Additional results for the HVAE model trained on CIFAR10. All results computed with 1000 importance samples.}
-    \label{tab:additional-results-cifar}
+    \label{tab_hierarchical:additional-results-cifar}
 \end{table}
 % CIFAR10 model: 94f41e80fde444478403496071289a75
 
@@ -454,7 +454,7 @@ FashionMNIST             &  $LLR^{>1}$            &  0.488  &  0.496  &  0.811 \
     \end{tabular}
     % }
     \caption[Additional results for the HVAE model trained on FashionMNIST]{Additional results for the HVAE model trained on FashionMNIST. All results computed with 1000 importance samples.}
-    \label{tab:additional-results-fashionmnist}
+    \label{tab_hierarchical:additional-results-fashionmnist}
 \end{table}
 % FMNIST model: d65f60927f174ab786a817024a0a4d75.  (alt 0e34596bfe6a4e60a5c0d2bf9440c70d)
 
@@ -515,10 +515,6 @@ MNIST                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$
     \end{tabular}
     % }
     \caption[Additional results for the HVAE model trained on MNIST]{Additional results for the HVAE model trained on MNIST. All results computed with 1000 importance samples.}
-    \label{tab:additional-results-mnist}
+    \label{tab_hierarchical:additional-results-mnist}
 \end{table}
 % Results of MNIST model. (57bed090cf4a4e44b896b4c2cce55500)
-
-\iffalse
-
-\fi
