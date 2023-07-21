@@ -165,7 +165,7 @@ If so, we see that the marginal likelihood $p(\xb)$ will be dominated by $\left(
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{paper_hierarchical/logdet2.pdf}
-    \caption{The expected inverse volume change for Gaussian Jacobians \eqref{eq:Edet} on a log-scale.}
+    \caption{The expected inverse volume change for Gaussian Jacobians \eqref{eq_hierarchical:Edet} on a log-scale.}
     \label{fig_hierarchical:Edet}
 \end{figure}
 The previous remarks can be made more precise if we make distributional assumptions on the Jacobians.
@@ -178,14 +178,16 @@ In this setting, $\Jb_i^T \Jb_i$ follows a Wishart distribution (in the general 
     \mathbb{E}\left[ \left(\sqrt{\det \Jb_i^T \Jb_i}\right)^{-1} \right]
     &= \sigma^{-d_{i-1}}  2^{-\frac{d_{i-1}}{2}} \frac{\Gamma_{d_{i-1}}\left( \frac{1}{2} d_{i} - \frac{1}{2} \right)}{\Gamma_{d_{i-1}}\left( \frac{1}{2} d_{i} \right)} \notag \\
     &= \sigma^{-d_{i-1}}  2^{-\frac{d_{i-1}}{2}} \frac{\Gamma\left( \frac{1}{2} (d_{i} - d_{i-1}) \right)}{\Gamma\left( \frac{1}{2} d_{i} \right)}
-    \label{eq:Edet}
+    \label{eq_hierarchical:Edet}
 \end{align}
 where $\Gamma_d$ is the multivariate Gamma function.
-Assuming that the increase in layer dimension $d_{i} - d_{i-1}$ is constant, then we see that \eqref{eq:Edet} goes to zero as $d_{i}$ goes to infinity as the $\Gamma$ function grows super-exponentially to infinity.
+Assuming that the increase in layer dimension $d_{i} - d_{i-1}$ is constant, then we see that \eqref{eq_hierarchical:Edet} goes to zero as $d_{i}$ goes to infinity as the $\Gamma$ function grows super-exponentially to infinity.
 This super-exponential growth further implies that the first layers dominate the marginal likelihood $p(\xb)$.
 This is also visually evident in \cref{fig_hierarchical:Edet}.
 
-
+\moretodo[inline]{LaTeX won't compile beyond this point and it is unclear why.}
+\iffalse
+% TODO (JDH): LaTeX won't compile beyond this point and it is unclear why. 
 \section{Derivation of the $\mathcal{L}^{>k}$ bound}
 In this section we present the derivation of $\mathcal{L}^{>k}$ and show that it is a lower bound on the marginal likelihood.
 
@@ -228,7 +230,7 @@ is evaluated for $\zb_k$ with $\zb_{k+1} \sim q(\zb_{>k}|\xb)$ and for $\zb_{<k}
 
 \section{The complementary $\mathcal{L}^{<l}$ bound}
 We can generalize the $\mathcal{L}^{>k}$ bound by introducing the flipped version, $\mathcal{L}^{<l}$, which compared to $\mathcal{L}^{>k}$, instead samples the $L-l$ \textit{highest} latent variables in the hierarchy from the prior $\zb_{l},\dots,\zb_L \sim p_\theta(\zb_{\geq l})=p_\theta(\zb_l|\zb_{l+1})\cdots p_\theta(\zb_L)$ and the remaining lower latents from the approximate posterior $\hat{\zb}_{1},\dots,\hat{\zb}_{l-1} \sim q_\phi(\zb_{<l}|\xb)=q_\phi(\zb_{1}|\xb)q_\phi(\zb_{2}|\zb_1)\cdots q_\phi(\zb_{l-1}|\zb_{l-2})$,
-\begin{equation}\label{eq:biva-<l}
+\begin{equation}\label{eq_hierarchical:biva-<l}
     \mathcal{L}^{<l} = \mathbb{E}_{p_\theta(\zb_{\geq l}) q_\phi(\zb_{<l}|\xb)} \left[ \log \frac{p_\theta(\xb,\zb)p_\theta(\zb_{<l})}{q_\phi(\zb_{<l}|\xb)} \right].
 \end{equation}
 Similar to $\mathcal{L}^{>k}$, we recover the regular ELBO for $l=L$. Contrary to $\mathcal{L}^{>k}$, this bound puts as much emphasis on the lowest latent variables as the regular ELBO but keeps track of large deviation from the unconditional prior in the top $L-l$ KL-terms since it is not guided by the approximate posterior for $\zb_{>l}$. We hypothesize that this bound might be useful for OOD detection in cases where the discriminating factor is to be found in low-level statistics rather than high-level features.
@@ -246,7 +248,7 @@ We hypothesize that this score, or the other possible permutations of it, might 
     % We hypothesize that this log-likelihood ratio might also be useful for OOD detection based on a more low-level set of semantics learned by the bottom-most latents in the bottom-up hierarchy.
     
     % \section{Generalized log-likelihood ratio $LLR^{>k}_{<l}$}
-    % We can further generalize the log-likelhood ratio $LLR^{>k}$ by replacing the ELBO $\mathcal{L}$ with the bound in \eqref{eq:biva-<l} to obtain
+    % We can further generalize the log-likelhood ratio $LLR^{>k}$ by replacing the ELBO $\mathcal{L}$ with the bound in \eqref{eq_hierarchical:biva-<l} to obtain
     % \begin{equation}
         %     LLR^{>k}_{<l} = \mathcal{L}^{<l} - \mathcal{L}^{>k}.
 % \end{equation}
@@ -292,7 +294,7 @@ This remains an open research question.
 \end{align}
 We can write out the expectations in order to derive the KL-divergence terms of the bottom-up ELBO:
 \begin{align}
-    \log p(\xb) &\ge \int \int \log p(\xb|\zb_1) \text{d}\zb_2\zb_1 \label{eq:2 layer VAE bottom up ELBO integrals} \\
+    \log p(\xb) &\ge \int \int \log p(\xb|\zb_1) \text{d}\zb_2\zb_1 \label{eq_hierarchical:2 layer VAE bottom up ELBO integrals} \\
     &\qquad + \int q(\zb_1|\xb) \int q(\zb_2|\zb_1) \log \frac{p(\zb_1|\zb_2)}{q(\zb_1|\xb)} \text{d}\zb_2\zb_1 \notag \\ 
     &\qquad + \int q(\zb_1|\xb) \int q(\zb_2|\zb_1) \log \frac{p(\zb_2)}{q(\zb_2|\zb_1)} \text{d}\zb_2\zb_1 \notag  \ .
 \end{align}
@@ -520,5 +522,5 @@ MNIST                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$
     \label{tab_hierarchical:additional-results-mnist}
 \end{table}
 % Results of MNIST model. (57bed090cf4a4e44b896b4c2cce55500)
-
+\fi
 }
