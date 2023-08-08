@@ -39,14 +39,14 @@ Another possibility is to just use the identity matrix as FIM instead of of appr
 
 \begin{table*}[tb]
     \centering
-    \caption{AUROC$\uparrow$ for single-sample OOD detection. Comparison between two different estimates of the Fisher information matrix. For ($\ddagger$) we used the Adam parameter choice, i.e.\@ $\varepsilon = 10^{-8}$ and $\xi = 1$. For ($\mathsection$), instead, we used  $\varepsilon = 10^{-8}$ and $\xi = 0.75$, as suggested by \textcite{martens_new_2020}. As a results we have that using Adam parameters choice is slightly better for our task.}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing two different estimates of the Fisher information matrix]{AUROC$\uparrow$ for single-sample OOD detection. Comparison between two different estimates of the Fisher information matrix. For ($\ddagger$) we used the Adam parameter choice, i.e.\@ $\varepsilon = 10^{-8}$ and $\xi = 1$. For ($\mathsection$), instead, we used  $\varepsilon = 10^{-8}$ and $\xi = 0.75$, as suggested by \textcite{martens_new_2020}. As a result, we have that using Adam parameters choice is slightly better for our task.}
     \resizebox*{\textwidth}{!}{
     \small
     \begin{tabular}{ccccc}
         \toprule
         &\multicolumn{4}{c}{\textsc{CIFAR10 (in) / SVHN (out)}}\\
         \cmidrule{2-5}
-        \textsc{models}  & \textcolor{blue}{\textsc{MMD Diagonal}} &  \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} \\
+        \textsc{models}  & \textcolor{blue}{\textsc{MMD diagonal}} &  \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} \\
         \midrule
         \textsc{PixelCNN++} (model2) ($\ddagger$) & 0.7070 & 0.6498  &  0.7067 & 0.7300\\
         \textsc{PixelCNN++} (model2) ($\mathsection$) & 0.6881 &  0.6498  & 0.6878 & 0.7176\\
@@ -128,12 +128,12 @@ For a more in-depth description, we refer to the codebase and the Appendix C of 
 \begin{table*}[tb]
     %\renewcommand{\thetable}{4}
     \caption{Test log-likelihood (bits/dim) achieved by the models used in the paper.}
-    \begin{subtable}{.5\textwidth}
+    \begin{subtable}{.45\textwidth}
         \centering
         \scriptsize
         \begin{tabular}{cc}
             \toprule
-            \multicolumn{2}{c}{\textsc{Models trained on FashionMNIST)}}\\
+            \multicolumn{2}{c}{\textsc{Models trained on FashionMNIST}}\\
             \midrule
             \textsc{models}  & \textcolor{black}{\textsc{Log-Likelihood (bits/dim)}}\\
             \midrule
@@ -159,7 +159,7 @@ For a more in-depth description, we refer to the codebase and the Appendix C of 
             ($**$) Binarized FashionMNIST
         \end{tabular}
     \end{subtable}
-    \begin{subtable}{.5\textwidth}
+    \begin{subtable}{.45\textwidth}
         \centering
         \scriptsize
         \begin{tabular}{cc}
@@ -202,7 +202,7 @@ To test if the typicality test and the score statistic are uncorrelated, we plot
 \begin{figure}[tb]
     \centering
     \includegraphics[scale=0.5]{graphics/paper_modelagnostic/correlation_correct_font.pdf}
-    \caption{Correlation of Typicality Test and Score Statistic computed on the validation set using a PixelCNN++ trained on FashionMNIST. The correlation coefficient is $-0.014$. This can also be seen by looking at the regression line, which is almost straight. }
+    \caption[Correlation of typicality test and score statistic computed on the validation set using a PixelCNN++ trained on FashionMNIST]{Correlation of typicality test and score statistic computed on the validation set using a PixelCNN++ trained on FashionMNIST. The correlation coefficient is $-0.014$. This can also be seen by looking at the regression line, which is almost straight. }
     \label{fig_modelagnostic:corralation}
 \end{figure}
 
@@ -221,7 +221,7 @@ where $w_1,\dots,w_k$ are weights that sum up to 1. In our setting, we considere
 As expected, this combination should work better when the statistics that we are combining are somewhat correlated. Indeed, since in our setting we have that the typicality and the score statistic are independent, we would expect this to work worse than the Fisher's combination. This is confirmed by \cref{tab_modelagnostic:all_combinations}, where we are reporting the results when combining the two statistics using the three different ways we analyzed.
 
 \subsection{Results considering maximum-mean-discrepancy}
-In \cref{sec_modelagnostic:section4}, we discussed the relationship between the maximum-mean-discrepancy with a Fisher kernel and the score statistic and the gradient norm, which depends on the choice of approximation of the Fisher information matrix we use. In \cref{tab_modelagnostic:mmd} we reported also the AUROC scores for the MMD with Fisher kernel considering both the diagonal approximation of the FIM (called \emph{MMD Diagonal} in the table) and the FIM being the identity matrix (called \emph{MMD Identity}). As expected, we have that the AUROC of the MMD with the diagonal approximated FIM is pretty close to the AUROC we obtained by using the score statistic. Likewise, we have that the AUROC of MMD with the identity matrix as FIM is close to the gradient norm when we trained on FashionMNIST and CIFAR10. 
+In \cref{sec_modelagnostic:section4}, we discussed the relationship between the maximum-mean-discrepancy with a Fisher kernel and the score statistic and the gradient norm, which depends on the choice of approximation of the Fisher information matrix we use. In \cref{tab_modelagnostic:mmd} we reported also the AUROC scores for the MMD with Fisher kernel considering both the diagonal approximation of the FIM (called \emph{MMD diagonal} in the table) and the FIM being the identity matrix (called \emph{MMD identity}). As expected, we have that the AUROC of the MMD with the diagonal approximated FIM is pretty close to the AUROC we obtained by using the score statistic. Likewise, we have that the AUROC of MMD with the identity matrix as FIM is close to the gradient norm when we trained on FashionMNIST and CIFAR10. 
 
 So, why did we decide to use the score statistic instead of the MMD with Fisher kernel and diagonal approximation of the FIM? The main reason is Occam's razor. If we have two things that work equally well, we should keep the simplest one. In our case, we have that for computing the MMD with the Fisher kernel, we need to compute both the average gradient and the FIM using the training set. For the score statistic, instead, we just need the FIM. In addition to that, from all our experiments (see \cref{tab_modelagnostic:mmd} and \cref{tab_modelagnostic:mmd_pair2}) we do not have any evidence for one statistic working better than the other, because they are always pretty close to each other.
 
@@ -282,7 +282,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
 
 \begin{table*}[tb]
     %\renewcommand{\thetable}{4}
-    \caption{AUROC$\uparrow$ for single-sample OOD detection. In this table we consider all the different single statistics we mentioned in the paper. One can notice that MMD Diagonal is pretty close to the score statistic and the MMD Identity is close to the gradient norm, as expected (see Section 4.1 in the paper).}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing individual statistics.]{AUROC$\uparrow$ for single-sample OOD detection. In this table we consider all the different single statistics we mentioned in the paper. One can notice that MMD diagonal is pretty close to the score statistic and the MMD identity is close to the gradient norm, as expected (see Section 4.1 in the paper).}
     \resizebox{\textwidth}{!}{
         \scriptsize
         \begin{tabular}{ccccccc}
@@ -291,7 +291,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
             \cmidrule{2-7}
             & \multicolumn{6}{c}{\textcolor{blue}{\textsc{single statistics}}}\\
             \cmidrule{2-7}
-            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{MMD Diagonal}}  & \textcolor{blue}{\textsc{MMD Identity}} &\textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}}  \\
+            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{MMD diagonal}}  & \textcolor{blue}{\textsc{MMD identity}} &\textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}}  \\
             \midrule
             \textsc{PixelCNN++} (dropout) & 0.0762 & 0.8709 & 0.8903 & 0.8690 & 0.8314 & 0.8822 \\
             \textsc{PixelCNN++} (no dropout)  & 0.1048 &  0.9532 & 0.9393 & 0.9539 & 0.7575 &  0.9381\\
@@ -305,7 +305,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
             \cmidrule{2-7}
             & \multicolumn{6}{c}{\textcolor{blue}{\textsc{single statistics}}}\\
             \cmidrule{2-7}
-            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{MMD Diagonal}}  & \textcolor{blue}{\textsc{MMD Identity}} &\textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}}  \\
+            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{MMD diagonal}}  & \textcolor{blue}{\textsc{MMD identity}} &\textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}}  \\
             \midrule
         
             \textsc{PixelCNN++} (model1)  & 0.1553 & 0.8006 & 0.6406 & 0.8126 & 0.6457 & 0.6407 \\
@@ -324,7 +324,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
 \begin{table*}[tb]
     \centering
     %\renewcommand{\thetable}{4}
-    \caption{AUROC$\uparrow$ for single-sample OOD detection. Comparison between the three method we mentioned to combine different statistics. Since the typicality and the score statistic are not correlated, we have that the Fisher's method is mostly working better than the other two methods.}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing three methods of combining different statistics.]{AUROC$\uparrow$ for single-sample OOD detection. Comparison between the three methods we mentioned to combine different statistics. Since the typicality and the score statistic are not correlated, we have that the Fisher's method is mostly working better than the other two methods.}
         \scriptsize
         \begin{tabular}{cccc}
             \toprule
@@ -367,7 +367,7 @@ As mentioned in the paper, we noticed that all statistics depend on choices we m
 \begin{table*}[tb]
     \centering
     %\renewcommand{\thetable}{4}
-    \caption{AUROC$\uparrow$ for single-sample OOD detection. In this table we are comparing two different Glow models trained on CIFAR10 by considering two different checkpoints with almost the same test log-likelihood. We can see that both statistics vary a bit. }
+    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing two different Glow models.]{AUROC$\uparrow$ for single-sample OOD detection. In this table we are comparing two different Glow models trained on CIFAR10 by considering two different checkpoints with almost the same test log-likelihood. We can see that both statistics vary a bit.}
         \scriptsize
         \begin{tabular}{ccccc}
             \toprule
@@ -375,7 +375,7 @@ As mentioned in the paper, we noticed that all statistics depend on choices we m
             \cmidrule{2-5}
             & \multicolumn{2}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-3}\cmidrule(l){4-5}
-            \textsc{models}  &  \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{models}  &  \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{Glow} (RMSProp) \{\emph{check1}\} & 0.8651 &  0.7940  &  0.8683 &  0.8510\\
             \textsc{Glow} (RMSProp) \{\emph{check2}\} & 0.8532 &  0.6894  & 0.8275 & 0.7815\\
@@ -398,7 +398,7 @@ In the main paper we focused on the Benjamini-Hochberg procedure applied to a mo
 \begin{figure}[tb]
     \centering
     \includegraphics[scale=0.5]{graphics/paper_modelagnostic/cifar_hvae_type1_correct_font.pdf}
-    \caption{Type I and Type II errors versus the significance level $\alpha$ on the combination values. We can control the FDR only for $\alpha > 0.2$ in this case. For $\alpha >0.2$, since we are using Benjamini-Hochberg procedure, we get that the Type I error stays below identity line.}
+    \caption[Type I and Type II errors versus the significance level $\alpha$ on the combination values.]{Type I and Type II errors versus the significance level $\alpha$ on the combination values. We can control the FDR only for $\alpha > 0.2$ in this case. For $\alpha >0.2$, since we are using Benjamini-Hochberg procedure, we get that the Type I error stays below identity line.}
     \label{fig_modelagnostic:type1_cifar}
      \vspace*{-\baselineskip}
 \end{figure}
@@ -407,11 +407,11 @@ In the main paper we focused on the Benjamini-Hochberg procedure applied to a mo
 
 \subsection{Results when training on MNIST and SVHN}
 \label{appendix_modelagnostic:mnist_svhn}
-We also evaluated our methods in the two dataset pairs, MNIST against FashionMNIST and SVHN against CIFAR10, that are usually considered easier than the tasks presented in the main paper. For both tasks, we trained two Glow models, one trained with Adam and one trained with RMSProp, one PixelCNN++ trained with dropout and a hierarchical-VAE. Results are reported in \cref{tab_modelagnostic:results_second}. We can see that almost all the statistics we considered are able to almost perfectly distinguish between the in-distribution test-set and the OOD test-set. However, we can notice that the gradient norm is failing sometimes both when we trained on CIFAR10 and when we trained on FashionMNIST. From \cref{tab_modelagnostic:mmd_pair2}, instead, it is clear that we need to approximate the diagonal of the Fisher Information Matrix because if we simply consider the identity matrix, this will also fail as the gradient norm is doing.
+We also evaluated our methods in the two dataset pairs, MNIST against FashionMNIST and SVHN against CIFAR10, that are usually considered easier than the tasks presented in the main paper. For both tasks, we trained two Glow models, one trained with Adam and one trained with RMSProp, one PixelCNN++ trained with dropout and a hierarchical VAE. Results are reported in \cref{tab_modelagnostic:results_second}. We can see that almost all the statistics we considered are able to almost perfectly distinguish between the in-distribution test-set and the OOD test-set. However, we can notice that the gradient norm is failing sometimes both when we trained on CIFAR10 and when we trained on FashionMNIST. From \cref{tab_modelagnostic:mmd_pair2}, instead, it is clear that we need to approximate the diagonal of the Fisher Information Matrix because if we simply consider the identity matrix, this will also fail as the gradient norm is doing.
 
 \begin{table*}[tb]
     %\renewcommand{\thetable}{4}
-    \caption{AUROC$\uparrow$ for single-sample OOD detection when training on MNIST and testing again FashionMNIST and when training on SVHN and testing against CIFAR10. As before, Fisher's method is the combination of the typicality test and the test statistic. These are also combined using DoSE.}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection when training on MNIST and testing against FashionMNIST and when training on SVHN and testing against CIFAR10.]{AUROC$\uparrow$ for single-sample OOD detection when training on MNIST and testing against FashionMNIST and when training on SVHN and testing against CIFAR10. As before, Fisher's method is the combination of the typicality test and the test statistic. These are also combined using DoSE.}
     \resizebox{\textwidth}{!}{
         \scriptsize
         \begin{tabular}{ccccccc}
@@ -420,7 +420,7 @@ We also evaluated our methods in the two dataset pairs, MNIST against FashionMNI
             \cmidrule{2-7}
             & \multicolumn{4}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-5}\cmidrule(l){6-7}
-            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{PixelCNN++} (dropout) ($\dagger$)  & 0.9999  & 0.8534 & 0.9996 & 0.9993 & 0.9999  & 0.9999 \\
             \textsc{Glow} (RMSProp) & 0.9997  & 0.9936  & 0.9991 & 0.9936 &  0.9992 & 0.9994\\
@@ -433,7 +433,7 @@ We also evaluated our methods in the two dataset pairs, MNIST against FashionMNI
             \cmidrule{2-7}
             & \multicolumn{4}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-5}\cmidrule(l){6-7}
-            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{PixelCNN++} (dropout)  & 0.9820 & 0.2670 &  0.9590 &  0.9543 & 0.9914 & 0.9824 \\
             \textsc{Glow} (RMSProp)  &  0.9917  & 0.9180 & 0.9830 & 0.9823 & 0.9913  & 0.9913 \\
@@ -449,7 +449,7 @@ We also evaluated our methods in the two dataset pairs, MNIST against FashionMNI
 
 \begin{table*}[tb]
     %\renewcommand{\thetable}{4}
-    \caption{AUROC$\uparrow$ for single-sample OOD detection. In this table we consider all the different single statistics we mentioned in the paper but for the models trained on MNIST and SVHN this time. In this case, it is important to notice that the gradient norm and the MMD identity sometimes fail to a different extent.}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection. In this table we consider all the different single statistics we mentioned in the paper but for the models trained on MNIST and SVHN this time]{AUROC$\uparrow$ for single-sample OOD detection. In this table we consider all the different single statistics we mentioned in the paper but for the models trained on MNIST and SVHN this time. In this case, it is important to notice that the gradient norm and the MMD identity sometimes fail to a different extent.}
     \resizebox{\textwidth}{!}{
         \scriptsize
         \begin{tabular}{ccccccc}
@@ -458,7 +458,7 @@ We also evaluated our methods in the two dataset pairs, MNIST against FashionMNI
             \cmidrule{2-7}
             & \multicolumn{6}{c}{\textcolor{blue}{\textsc{single statistics}}}\\
             \cmidrule{2-7}
-            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{MMD Diagonal}}  & \textcolor{blue}{\textsc{MMD Identity}} &\textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}}  \\
+            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{MMD diagonal}}  & \textcolor{blue}{\textsc{MMD identity}} &\textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}}  \\
             \midrule
             \textsc{PixelCNN++} (dropout) ($\dagger$)  & 0.9999  & 0.8534 & 0.9993 & 0.8608 & 0.9996  & 0.9993 \\
             \textsc{Glow} (RMSProp) & 0.9997  & 0.9936  & 0.9942 & 0.6609 &  0.9991 & 0.9936\\
@@ -471,7 +471,7 @@ We also evaluated our methods in the two dataset pairs, MNIST against FashionMNI
             \cmidrule{2-7}
             & \multicolumn{6}{c}{\textcolor{blue}{\textsc{single statistics}}}\\
             \cmidrule{2-7}
-            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{MMD Diagonal}}  & \textcolor{blue}{\textsc{MMD Identity}} &\textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}}  \\
+            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{MMD diagonal}}  & \textcolor{blue}{\textsc{MMD identity}} &\textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}}  \\
             \midrule
             \textsc{PixelCNN++} (dropout)  & 0.9820 & 0.2670 &   0.9543 & 0.3185 & 0.9590 & 0.9543 \\
             \textsc{Glow} (RMSProp)  &  0.9917  & 0.9180 & 0.9824 & 0.9317 & 0.9830  &  0.9823 \\
@@ -493,7 +493,7 @@ Since the method we propose is model-agnostic, we show that it can be used for o
 
 \begin{table*}[tb]
     %\renewcommand{\thetable}{4}
-    \caption{AUROC$\uparrow$ for single-sample OOD detection using a Gaussian mixture model (GMM). For Fisher's method we mean the combination of the typicality test and the test statistic. These are also combined using DoSE.}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection using a Gaussian mixture model (GMM).]{AUROC$\uparrow$ for single-sample OOD detection using a Gaussian mixture model (GMM). For Fisher's method we mean the combination of the typicality test and the test statistic. These are also combined using DoSE.}
     \resizebox{\textwidth}{!}{
         \scriptsize
         \begin{tabular}{ccccccc}
@@ -502,7 +502,7 @@ Since the method we propose is model-agnostic, we show that it can be used for o
             \cmidrule{2-7}
             & \multicolumn{4}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-5}\cmidrule(l){6-7}
-            \textsc{components}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{components}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{50}  & 0.6627 & 0.5514  & 0.5196 & 0.8777  & 0.7689 & 0.8152 \\
             \textsc{100}   &  0.6872 & 0.5509 & 0.5575 & 0.8742 & 0.7965 & 0.7989 \\
@@ -513,7 +513,7 @@ Since the method we propose is model-agnostic, we show that it can be used for o
             \cmidrule{2-7}
             & \multicolumn{4}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-5}\cmidrule(l){6-7}
-            \textsc{components}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{components}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{50}   & 0.2335  &   0.6087 & 0.6759 & 0.3512 &  0.6098 & 0.6569 \\
             \textsc{100} & 0.2372 &  0.6136 & 0.6714 & 0.3294  &  0.5898  & 0.6573 \\
@@ -527,7 +527,7 @@ Since the method we propose is model-agnostic, we show that it can be used for o
 
 \begin{table*}[tb]
     %\renewcommand{\thetable}{4}
-    \caption{AUROC$\uparrow$ for single-sample OOD detection using a Probabilistic PCA. For Fisher's method we mean the combination of the typicality test and the test statistic. These are also combined using DoSE.}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection using a Probabilistic PCA.]{AUROC$\uparrow$ for single-sample OOD detection using a Probabilistic PCA. For Fisher's method we mean the combination of the typicality test and the test statistic. These are also combined using DoSE.}
     \resizebox{\textwidth}{!}{
         \scriptsize
         \begin{tabular}{ccccccc}
@@ -536,7 +536,7 @@ Since the method we propose is model-agnostic, we show that it can be used for o
             \cmidrule{2-7}
             & \multicolumn{4}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-5}\cmidrule(l){6-7}
-            \textsc{components}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{components}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{50}  & 0.9727 & 0.9637 & 0.9587 & 0.9505  & 0.9635 & 0.9610 \\
             \textsc{100}   & 0.9557 &  0.9715 & 0.9309 & 0.9626 & 0.9566 & 0.9585\\
@@ -547,7 +547,7 @@ Since the method we propose is model-agnostic, we show that it can be used for o
             \cmidrule{2-7}
             & \multicolumn{4}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-5}\cmidrule(l){6-7}
-            \textsc{components}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{components}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{50}  & 0.0770 & 0.1494  &  0.8468 & 0.1308 & 0.7568 & 0.8210 \\
             \textsc{100}   &  0.0357 &  0.0778 & 0.8944 & 0.0755  &  0.7966 &  0.8830 \\
@@ -564,12 +564,12 @@ As we have pointed out before, test statistics and consequentially out-of-distri
 
 \begin{table*}[tb]
     % \vspace{-1.3em}
-    \caption{Mean and standard deviation of the performance in terms of AUROC of our method. Quantities are computed by taking the performance of 5 different trained HVAEs both trained on CIFAR10 and FashionMNIST.}
+    \caption[Mean and standard deviation of the performance in terms of AUROC of combined statistics for a HVAE.]{Mean and standard deviation of the performance in terms of AUROC of our method. Quantities are computed by taking the performance of 5 different trained HVAEs both trained on CIFAR10 and FashionMNIST.}
         \centering
         \scriptsize
         \begin{tabular}{cccccc}
             \toprule
-            \textsc{$D_{\text{out}}$}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}}  \\
+            \textsc{$D_{\text{out}}$}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}}  \\
             \midrule
             &\multicolumn{5}{c}{\textsc{HVAE trained on CIFAR10}} \\
             \cmidrule{2-6}
@@ -621,7 +621,7 @@ In conclusion, with these experiments, we wanted to highlight the importance of 
             \cmidrule{2-7}
             & \multicolumn{4}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-5}\cmidrule(l){6-7}
-            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{PixelCNN++} (model1)  &  0.7027 & 0.5856 & 0.5581  & 0.7001 & 0.6450 & 0.6931 \\
             \textsc{PixelCNN++} (model2) & 0.7034  & 0.4298 & 0.5554 & 0.7505 & 0.6879 & 0.7430\\
@@ -635,7 +635,7 @@ In conclusion, with these experiments, we wanted to highlight the importance of 
             \cmidrule{2-7}
             & \multicolumn{4}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-5}\cmidrule(l){6-7}
-            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{PixelCNN++} (model1)  &  0.8284  & 0.5035 & 0.7399 & 0.6714  & 0.7477 & 0.7123 \\
             \textsc{PixelCNN++} (model2) & 0.8284 & 0.3530 &   0.7370 & 0.70088 & 0.7631 & 0.7446\\
@@ -649,7 +649,7 @@ In conclusion, with these experiments, we wanted to highlight the importance of 
             \cmidrule{2-7}
             & \multicolumn{4}{c}{\textcolor{blue}{\textsc{single statistics}}} & \multicolumn{2}{c}{\textcolor{red}{\textsc{combination}}}\\
             \cmidrule(r){2-5}\cmidrule(l){6-7}
-            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score Stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
+            \textsc{models}  & \textcolor{blue}{\textsc{$\log p(x)$}} & \textcolor{blue}{\textsc{$\|\nabla \log p(x)\|_2$}} & \textcolor{blue}{\textsc{Typicality}} & \textcolor{blue}{\textsc{Score stat}} & \textcolor{red}{\textsc{Fisher's method}} & \textcolor{red}{\textsc{DoSE$_{\textup{KDE}}$}} \\
             \midrule
             \textsc{PixelCNN++} (model1)  & 0.9270  & 0.4196 & 0.8902 &  0.8320 & 0.9287 &  0.8908 \\
             \textsc{PixelCNN++} (model2) & 0.9270 & 0.3065 & 0.8886 & 0.8448 & 0.9339 & 0.9236 \\
@@ -677,7 +677,7 @@ In this setting, since DoSE is using statistics that are HVAE and Glow specific,
 
 \begin{table}%[15]
     \vspace{-1.3em}
-    \caption{Comparison between our method and DoSE using the original statistics. In these experiments we considered only Glow trained with Adam.}
+    \caption[Comparison between our method and DoSE using the original statistics]{Comparison between our method and DoSE using the original statistics. In these experiments we considered only Glow trained with Adam.}
         \centering
         \scriptsize
         \begin{tabular}{ccc}
@@ -744,7 +744,7 @@ A pseudocode describing step-by-step how to implement our method is given in \cr
 \hspace{1.5em} \textbf{Compute} $\frac{1}{m'} \sum_{m'=1}^{M'}\log p_{\theta}({x}_{m'})$ \\
 \hspace{1.5em} \textbf{Compute} $\frac{1}{m'} \sum_{m'=1}^{M'}\nabla_{{\theta}}\log p_{\theta}({x}_{m'})$ \\
 \hspace{1.5em} \textbf{Compute} MMD Typicality for ${x}_{m'}$ by $\left\| \frac{1}{m'} \sum_{m'=1}^{M'}\log p_\theta ({x}_{m'}) - L(\theta) \right\|_2$ and add it to $T^{\text{typicality}}$\\
-\hspace{1.5em} \textbf{Compute} Score Statistic for ${x}_{m'}$ by $\left\|{I(\theta)}^{-1/2} \frac{1}{m'} \sum_{m'=1}^{M'}\nabla \log p_\theta ({x}_{m'})\right\|_2$ and add it to $T^{\text{score}}$\\
+\hspace{1.5em} \textbf{Compute} Score statistic for ${x}_{m'}$ by $\left\|{I(\theta)}^{-1/2} \frac{1}{m'} \sum_{m'=1}^{M'}\nabla \log p_\theta ({x}_{m'})\right\|_2$ and add it to $T^{\text{score}}$\\
 \textbf{Return} Two vectors of size $S$ containing the two statistics for $T^{\text{typicality}}$ and $T^{\text{score}}$  \\
 \textbf{} \\
 \textbf{Compute} $\hat{F}^{\text{typicality}}$ and $\hat{F}^{\text{score}}$, the two empirical CDFs, from $T^{\text{typicality}}$ and $T^{\text{score}}$. For example, we used \texttt{statsmodels} library \citep{seabold_statsmodels_2010}. \\
@@ -753,7 +753,7 @@ A pseudocode describing step-by-step how to implement our method is given in \cr
 \textbf{Given} a test set $\tilde{x}_1, \dots, \tilde{x}_n$:\\
 \textit{($n=1$ corresponds to perform single-sample OOD detection)} \\ 
 \hspace{1.5em} \textbf{Compute} $\frac{1}{n} \sum_{i=1}^{n}\log p_{\theta}(\tilde{{x}}_i)$ and $\frac{1}{n} \sum_{i=1}^{n}\nabla_{{\theta}}\log p_{\theta}(\tilde{{x}}_i)$ \\
-\hspace{1.5em} \textbf{Compute} MMD Typicality $\tilde{t}$ and Score Statistic $\tilde{s}$ \\
+\hspace{1.5em} \textbf{Compute} MMD Typicality $\tilde{t}$ and Score statistic $\tilde{s}$ \\
 \hspace{1.5em} \textbf{Compute} $p$-values $p_{T} = 1 - \hat{F}^{\text{typicality}}(\hat{t})$ and $p_{S} = 1 - \hat{F}^{\text{score}}(\tilde{s})$ \\
 \hspace{1.5em} \textbf{Combine} the two $p$-values using Fisher's method \cref{eq_modelagnostic:Fisher_method}
 \end{algorithmic}

@@ -185,10 +185,7 @@ Assuming that the increase in layer dimension $d_{i} - d_{i-1}$ is constant, the
 This super-exponential growth further implies that the first layers dominate the marginal likelihood $p(\xb)$.
 This is also visually evident in \cref{fig_hierarchical:Edet}.
 
-\moretodo[inline]{LaTeX won't compile beyond this point and it is unclear why.}
-\iffalse
-% TODO (JDH): LaTeX won't compile beyond this point and it is unclear why. 
-\section{Derivation of the $\mathcal{L}^{>k}$ bound}
+\section{Derivation of the \texorpdfstring{$\mathcal{L}^{>k}$}{Lk} bound}
 In this section we present the derivation of $\mathcal{L}^{>k}$ and show that it is a lower bound on the marginal likelihood.
 
 First, we consider a two-layered VAE with bottom-up inference.
@@ -228,7 +225,7 @@ with samples from $q(\zb_{>k}|\xb)$ while
 $$p(\zb_{\leq k}|\zb_{>k})=p(\zb_{k}|\zb_{k+1})p(\zb_{k-1}|\zb_{k})\cdots p(\zb_{1}|\zb_{2})$$
 is evaluated for $\zb_k$ with $\zb_{k+1} \sim q(\zb_{>k}|\xb)$ and for $\zb_{<k}$ with $\zb_{>k}$ obtained conditionally from itself.
 
-\section{The complementary $\mathcal{L}^{<l}$ bound}
+\section{The complementary \texorpdfstring{$\mathcal{L}^{<l}$}{Ll} bound}
 We can generalize the $\mathcal{L}^{>k}$ bound by introducing the flipped version, $\mathcal{L}^{<l}$, which compared to $\mathcal{L}^{>k}$, instead samples the $L-l$ \textit{highest} latent variables in the hierarchy from the prior $\zb_{l},\dots,\zb_L \sim p_\theta(\zb_{\geq l})=p_\theta(\zb_l|\zb_{l+1})\cdots p_\theta(\zb_L)$ and the remaining lower latents from the approximate posterior $\hat{\zb}_{1},\dots,\hat{\zb}_{l-1} \sim q_\phi(\zb_{<l}|\xb)=q_\phi(\zb_{1}|\xb)q_\phi(\zb_{2}|\zb_1)\cdots q_\phi(\zb_{l-1}|\zb_{l-2})$,
 \begin{equation}\label{eq_hierarchical:biva-<l}
     \mathcal{L}^{<l} = \mathbb{E}_{p_\theta(\zb_{\geq l}) q_\phi(\zb_{<l}|\xb)} \left[ \log \frac{p_\theta(\xb,\zb)p_\theta(\zb_{<l})}{q_\phi(\zb_{<l}|\xb)} \right].
@@ -347,19 +344,19 @@ We note that while the likelihood is highly unreliable across the datasets, the 
         \midrule
         \multicolumn{5}{c}{\textbf{Trained on SVHN}} \\
         \midrule
-        CIFAR10            &  $L^{>0}$         &  $0.992$  &  $0.993$  &  $0.004$  \\
-        CIFAR10            &  $L^{>1}$         &  $0.988$  &  $0.990$  &  $0.002$  \\
-        CIFAR10            &  $L^{>2}$         &  $0.746$  &  $0.756$  &  $0.468$  \\
+        CIFAR10            &  $\mathcal{L}^{>0}$         &  $0.992$  &  $0.993$  &  $0.004$  \\
+        CIFAR10            &  $\mathcal{L}^{>1}$         &  $0.988$  &  $0.990$  &  $0.002$  \\
+        CIFAR10            &  $\mathcal{L}^{>2}$         &  $0.746$  &  $0.756$  &  $0.468$  \\
         CIFAR10            &  $LLR^{>1}$       &  $0.939$  &  $0.950$  &  $0.052$  \\
         % \midrule
-        % UniformNoise       &  $L^{>0}$         &  $1.000$  &  $1.000$  &  $0.000$  \\
-        % UniformNoise       &  $L^{>1}$         &  $1.000$  &  $1.000$  &  $0.000$  \\
-        % UniformNoise       &  $L^{>2}$         &  $0.965$  &  $0.957$  &  $0.055$  \\
+        % UniformNoise       &  $\mathcal{L}^{>0}$         &  $1.000$  &  $1.000$  &  $0.000$  \\
+        % UniformNoise       &  $\mathcal{L}^{>1}$         &  $1.000$  &  $1.000$  &  $0.000$  \\
+        % UniformNoise       &  $\mathcal{L}^{>2}$         &  $0.965$  &  $0.957$  &  $0.055$  \\
         % UniformNoise       &  $LLR^{>1}$       &  $0.984$  &  $0.992$  &  $0.000$  \\
         \midrule
-        SVHN               &  $L^{>0}$         &  $0.599$  &  $0.587$  &  $0.702$  \\
-        SVHN               &  $L^{>1}$         &  $0.555$  &  $0.543$  &  $0.755$  \\
-        SVHN               &  $L^{>2}$         &  $0.403$  &  $0.431$  &  $0.869$  \\
+        SVHN               &  $\mathcal{L}^{>0}$         &  $0.599$  &  $0.587$  &  $0.702$  \\
+        SVHN               &  $\mathcal{L}^{>1}$         &  $0.555$  &  $0.543$  &  $0.755$  \\
+        SVHN               &  $\mathcal{L}^{>2}$         &  $0.403$  &  $0.431$  &  $0.869$  \\
         SVHN               &  $LLR^{>1}$       &  $0.489$  &  $0.484$  &  $0.799$  \\
         \bottomrule
     \end{tabular}
@@ -378,19 +375,19 @@ We note that while the likelihood is highly unreliable across the datasets, the 
         \midrule
         \multicolumn{5}{c}{\textbf{Trained on CIFAR10}} \\
         \midrule
-        SVHN          &  $L^{>0}$    &  0.083  &  0.318  &  0.974  \\
-        SVHN          &  $L^{>1}$    &  0.097  &  0.320  &  0.972  \\
-        SVHN          &  $L^{>2}$    &  0.693  &  0.725  &  0.599  \\
+        SVHN          &  $\mathcal{L}^{>0}$    &  0.083  &  0.318  &  0.974  \\
+        SVHN          &  $\mathcal{L}^{>1}$    &  0.097  &  0.320  &  0.972  \\
+        SVHN          &  $\mathcal{L}^{>2}$    &  0.693  &  0.725  &  0.599  \\
         SVHN          &  $LLR^{>2}$  &  0.811  &  0.837  &  0.394  \\
         % \midrule
-        % UniformNoise  &  $L^{>0}$    &  1.000  &  1.000  &  0.000  \\
-% UniformNoise  &  $L^{>1}$    &  0.987  &  0.984  &  0.025  \\
-% UniformNoise  &  $L^{>2}$    &  0.031  &  0.313  &  0.971  \\
+        % UniformNoise  &  $\mathcal{L}^{>0}$    &  1.000  &  1.000  &  0.000  \\
+% UniformNoise  &  $\mathcal{L}^{>1}$    &  0.987  &  0.984  &  0.025  \\
+% UniformNoise  &  $\mathcal{L}^{>2}$    &  0.031  &  0.313  &  0.971  \\
 % UniformNoise  &  $LLR^{>1}$  &  0.206  &  0.436  &  0.999  \\
 \midrule
-CIFAR10       &  $L^{>0}$    &  0.485  &  0.488  &  0.817  \\
-CIFAR10       &  $L^{>1}$    &  0.467  &  0.476  &  0.822  \\
-CIFAR10       &  $L^{>2}$    &  0.411  &  0.433  &  0.869  \\
+CIFAR10       &  $\mathcal{L}^{>0}$    &  0.485  &  0.488  &  0.817  \\
+CIFAR10       &  $\mathcal{L}^{>1}$    &  0.467  &  0.476  &  0.822  \\
+CIFAR10       &  $\mathcal{L}^{>2}$    &  0.411  &  0.433  &  0.869  \\
 CIFAR10       &  $LLR^{>1}$  &  0.469  &  0.479  &  0.835  \\
          \bottomrule
     \end{tabular}
@@ -471,49 +468,49 @@ FashionMNIST             &  $LLR^{>1}$            &  0.488  &  0.496  &  0.811 \
          \midrule
          \multicolumn{5}{c}{\textbf{Trained on MNIST}} \\
          \midrule
-FashionMNIST                     &  $L^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-FashionMNIST                     &  $L^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-FashionMNIST                     &  $L^{>2}$  &  $0.981$  &  $0.983$  &  $0.003$ \\
+FashionMNIST                     &  $\mathcal{L}^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+FashionMNIST                     &  $\mathcal{L}^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+FashionMNIST                     &  $\mathcal{L}^{>2}$  &  $0.981$  &  $0.983$  &  $0.003$ \\
 FashionMNIST                   &  $LLR^{>1}$  &  $0.999$  &  $0.999$  &  $0.000$ \\
 \midrule
-notMNIST                         &  $L^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-notMNIST                         &  $L^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-notMNIST                         &  $L^{>2}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+notMNIST                         &  $\mathcal{L}^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+notMNIST                         &  $\mathcal{L}^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+notMNIST                         &  $\mathcal{L}^{>2}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
 notMNIST                       &  $LLR^{>1}$  &  $1.000$  &  $0.999$  &  $0.000$ \\
 \midrule
-KMNIST                           &  $L^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-KMNIST                           &  $L^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-KMNIST                           &  $L^{>2}$  &  $0.987$  &  $0.987$  &  $0.011$ \\
+KMNIST                           &  $\mathcal{L}^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+KMNIST                           &  $\mathcal{L}^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+KMNIST                           &  $\mathcal{L}^{>2}$  &  $0.987$  &  $0.987$  &  $0.011$ \\
 KMNIST                         &  $LLR^{>1}$  &  $0.999$  &  $0.999$  &  $0.000$ \\
 \midrule
-Omniglot28x28                    &  $L^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-Omniglot28x28                    &  $L^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-Omniglot28x28                    &  $L^{>2}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+Omniglot28x28                    &  $\mathcal{L}^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+Omniglot28x28                    &  $\mathcal{L}^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+Omniglot28x28                    &  $\mathcal{L}^{>2}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
 Omniglot28x28                  &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
 \midrule
-Omniglot28x28Inverted            &  $L^{>0}$  &  $0.862$  &  $0.902$  &  $0.205$ \\
-Omniglot28x28Inverted            &  $L^{>1}$  &  $0.923$  &  $0.943$  &  $0.056$ \\
-Omniglot28x28Inverted            &  $L^{>2}$  &  $0.749$  &  $0.691$  &  $0.411$ \\
+Omniglot28x28Inverted            &  $\mathcal{L}^{>0}$  &  $0.862$  &  $0.902$  &  $0.205$ \\
+Omniglot28x28Inverted            &  $\mathcal{L}^{>1}$  &  $0.923$  &  $0.943$  &  $0.056$ \\
+Omniglot28x28Inverted            &  $\mathcal{L}^{>2}$  &  $0.749$  &  $0.691$  &  $0.411$ \\
 Omniglot28x28Inverted          &  $LLR^{>1}$  &  $0.944$  &  $0.953$  &  $0.057$ \\
 \midrule
-SmallNORB28x28                   &  $L^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-SmallNORB28x28                   &  $L^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-SmallNORB28x28                   &  $L^{>2}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+SmallNORB28x28                   &  $\mathcal{L}^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+SmallNORB28x28                   &  $\mathcal{L}^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+SmallNORB28x28                   &  $\mathcal{L}^{>2}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
 SmallNORB28x28                 &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
 \midrule
-SmallNORB28x28Inverted           &  $L^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-SmallNORB28x28Inverted           &  $L^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-SmallNORB28x28Inverted           &  $L^{>2}$  &  $0.977$  &  $0.980$  &  $0.001$ \\
+SmallNORB28x28Inverted           &  $\mathcal{L}^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+SmallNORB28x28Inverted           &  $\mathcal{L}^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+SmallNORB28x28Inverted           &  $\mathcal{L}^{>2}$  &  $0.977$  &  $0.980$  &  $0.001$ \\
 SmallNORB28x28Inverted         &  $LLR^{>1}$  &  $0.985$  &  $0.987$  &  $0.000$ \\
 % \midrule
-% UniformNoise                     &  $L^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-% UniformNoise                     &  $L^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-% UniformNoise                     &  $L^{>2}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+% UniformNoise                     &  $\mathcal{L}^{>0}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+% UniformNoise                     &  $\mathcal{L}^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+% UniformNoise                     &  $\mathcal{L}^{>2}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
 % UniformNoise                   &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
 \midrule
-MNIST                            &  $L^{>0}$  &  $0.488$  &  $0.486$  &  $0.807$ \\
-MNIST                            &  $L^{>1}$  &  $0.469$  &  $0.469$  &  $0.816$ \\
-MNIST                            &  $L^{>2}$  &  $0.514$  &  $0.505$  &  $0.791$ \\
+MNIST                            &  $\mathcal{L}^{>0}$  &  $0.488$  &  $0.486$  &  $0.807$ \\
+MNIST                            &  $\mathcal{L}^{>1}$  &  $0.469$  &  $0.469$  &  $0.816$ \\
+MNIST                            &  $\mathcal{L}^{>2}$  &  $0.514$  &  $0.505$  &  $0.791$ \\
 MNIST                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$ \\
          \bottomrule
     \end{tabular}
@@ -522,5 +519,4 @@ MNIST                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$
     \label{tab_hierarchical:additional-results-mnist}
 \end{table}
 % Results of MNIST model. (57bed090cf4a4e44b896b4c2cce55500)
-\fi
 }

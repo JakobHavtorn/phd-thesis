@@ -215,7 +215,7 @@ As mentioned in the introduction, we frame the OOD detection problem in terms of
 
 \begin{figure*}[tbp]
     \includegraphics[width=\textwidth]{graphics/paper_modelagnostic/pvalues_comb_no_drop_correct_font.pdf}
-    \caption{\emph{First plot}: $p$-values of the typicality test on the two test sets. We can see that under $\mathcal{H}_0$, they should be uniformly distributed. \emph{Second plot}: $p$-values of the score statistic. \emph{Third plot}: values obtained by the Fisher's method. In red, we plot the density function of a $\chi^2$-distribution with 4 degrees. This shows that the statistics are independent. \emph{Fourth plot}: $p$-values obtained of the combination. These plots refer to a PixelCNN++ trained on FashionMNIST without dropout.}
+    \caption[Distribution of the p-values of the typicality test, score statistic, Fisher's method and a combination of all.]{\emph{First plot}: $p$-values of the typicality test on the two test sets. We can see that under $\mathcal{H}_0$, they should be uniformly distributed. \emph{Second plot}: $p$-values of the score statistic. \emph{Third plot}: values obtained by the Fisher's method. In red, we plot the density function of a $\chi^2$-distribution with 4 degrees. This shows that the statistics are independent. \emph{Fourth plot}: $p$-values obtained of the combination. These plots refer to a PixelCNN++ trained on FashionMNIST without dropout.}
     \label{fig_modelagnostic:comb_p_values}
 \end{figure*} 
 
@@ -375,7 +375,7 @@ As can be seen in \cref{fig_modelagnostic:type1}, we have that the Type I ratio 
 \begin{figure}[tb]
     \centering
     \includegraphics[scale=0.48]{graphics/paper_modelagnostic/fashion_hvae_type1_correct_font.pdf}
-    \caption{Type I (probability of an inlier to be classified as outlier) and Type II (probability of an outlier to be considered as inlier) errors versus the significance level $\alpha$ on the combination values. By using Benjamini-Hochberg correction, we get that the Type I error stays below identity line.}
+    \caption[Type I and Type II errors versus the significance level $\alpha$ on the combination values]{Type I (probability of an inlier to be classified as outlier) and Type II (probability of an outlier to be considered as inlier) errors versus the significance level $\alpha$ on the combination values. By using Benjamini-Hochberg correction, we get that the Type I error stays below identity line.}
     \label{fig_modelagnostic:type1}
 \end{figure}
 
