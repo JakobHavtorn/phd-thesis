@@ -277,7 +277,7 @@ audio processing, we here provide only a list of these datasets for reference.
 
 \begin{table*}[ht]
   \centering
-  \scriptsize
+  \tiny
   \caption[Summary of common experiment settings for various SSL
   evaluations (Part 1).]{A summary of common experiment settings for various SSL
   evaluations (Part 1). Networks are usually pre-trained with SSL
@@ -292,7 +292,7 @@ audio processing, we here provide only a list of these datasets for reference.
   fine-tuning. The \textbf{Fine-tuning labels used} column summarizes the
   amount of labeled examples used in downstream fine-tuning.}
   \label{table:method_data_setting}
-  \resizebox*{0.99\textwidth}{!}{%
+  \resizebox*{0.97\textwidth}{!}{%
   {%\tabulinesep=1mm
   \renewcommand*\arraystretch{1.4}
   \begin{tabular}{p{0.12\textwidth}p{0.12\textwidth}p{0.06\textwidth}p{0.13\textwidth}p{0.13\textwidth}p{0.06\textwidth}p{0.20\textwidth}}
@@ -325,7 +325,7 @@ audio processing, we here provide only a list of these datasets for reference.
     & & \makecell[l]{ASR-multi} & OpenSLR-multi\textsuperscript{\ref{footnote:official-split}} & OpenSLR-multi\textsuperscript{\ref{footnote:official-split}} & \checkmark & 21 languages, 4.4--265.9 hrs \\ \hline
     % vq-VAE
     % MockingJay
-    \multirow{3}{*}{MockingJay \cite{liu_mockingjay_2020}} & \multirow{3}{*}{\makecell[l]{LS 360 hrs}} & PC & LS 360 hrs & LS test-clean & - & 0.36\textsuperscript{\ref{footnote:low-resource}}/1.8\textsuperscript{\ref{footnote:low-resource}}/3.6\textsuperscript{\ref{footnote:low-resource}}/18\textsuperscript{\ref{footnote:low-resource}}/45\textsuperscript{\ref{footnote:low-resource}}/360  hrs \\ \cline{3-7}
+    \multirow{3}{*}{MockingJay \cite{liu_mockingjay_2020}} & \multirow{3}{*}{\makecell[l]{LS 360 hrs}} & PC & LS 360 hrs & LS test-clean & - & 0.36\textsuperscript{\ref{footnote:low-resource}} /1.8\textsuperscript{\ref{footnote:low-resource}} /3.6\textsuperscript{\ref{footnote:low-resource}} /18\textsuperscript{\ref{footnote:low-resource}} /45\textsuperscript{\ref{footnote:low-resource}} /360  hrs \\ \cline{3-7}
     & & SID & LS 100 hrs\textsuperscript{\ref{footnote:91-split-test}} & LS 100 hrs\textsuperscript{\ref{footnote:91-split-test}} & - & 90\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
     & & Sentiment & MOSEI\textsuperscript{\ref{footnote:official-split}} & MOSEI\textsuperscript{\ref{footnote:official-split}} & \checkmark & 65 hrs \\ \hline
     % CPC modified
@@ -335,7 +335,7 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}[0mm]{vq-wav2vec \cite{baevski_vqwav2vec_2020}} & \multirow{2}{*}[0mm]{LS 960 hrs} & ASR & WSJ si284 & \makecell[l]{WSJ eval92} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \hline
     % DeCoAR
-    \multirow{2}{*}[0mm]{DeCoAR \cite{ling_deep_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{LS 100/360/460/\\\:\:\:960 hrs,\\ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{25\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}}/81 hrs} \\ \cline{3-7}
+    \multirow{2}{*}[0mm]{DeCoAR \cite{ling_deep_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{LS 100/360/\\\:\:\:460/960 hrs,\\ WSJ si284}} & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{25\textsuperscript{\ref{footnote:low-resource}}/40\textsuperscript{\ref{footnote:low-resource}}/81 hrs} \\ \cline{3-7}
     & & ASR & \makecell[l]{LS 100/360/\\\:\:\:460/960 hrs} & \makecell[l]{LS test-clean,\\ LS test-other} & - & 100/360/460/960 hrs \\ \hline
     % MT-APC
     \multirow{2}{*}[0mm]{MT-APC\cite{chung_improved_2020}} & \multirow{2}{*}[0mm]{LS 360 hrs} & ASR & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & WSJ dev93 & \checkmark & 72 hrs \\ \cline{3-7}
@@ -354,13 +354,13 @@ audio processing, we here provide only a list of these datasets for reference.
 
 \begin{table*}[ht]
   \centering
-  \scriptsize
+  \tiny
   \caption[Summary of common experiment settings for various SSL
   evaluations (Part 2).]{A summary of common experiment settings for various SSL
   evaluations (Part 2). See the caption of \cref{table:method_data_setting} for a
   detailed description of all the abbreviations used in this table.}
   \label{table:method_data_setting_2}
-  \resizebox*{0.99\textwidth}{!}{%
+  \resizebox*{0.97\textwidth}{!}{%
   {%\tabulinesep=1mm
   \renewcommand*\arraystretch{1.4}
   \begin{tabular}{p{0.12\textwidth}p{0.12\textwidth}p{0.05\textwidth}p{0.18\textwidth}p{0.18\textwidth}p{0.05\textwidth}p{0.15\textwidth}}
@@ -375,7 +375,7 @@ audio processing, we here provide only a list of these datasets for reference.
     \multirow{2}{*}[0mm]{vq-APC \cite{chung_vectorquantized_2020}} & \multirow{2}{*}[0mm]{LS 360 hrs} & PC & WSJ si284\textsuperscript{\ref{footnote:91-split-dev}} & \makecell[l]{WSJ dev93} & \checkmark & \makecell[l]{81 hrs} \\ \cline{3-7}
     & & SID & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & WSJ si284\textsuperscript{\ref{footnote:APC-split}} & \checkmark & 65\textsuperscript{\ref{footnote:low-resource}} hrs \\ \hline
     % vq-wav2vec + Discrete BERT
-    \makecell[l]{vq-wav2vec + \\\:DiscreteBERT \cite{baevski_effectiveness_2020}} & LS 960 hrs & ASR & LS 100 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
+    \makecell[l]{vq-wav2vec + \\DiscreteBERT \cite{baevski_effectiveness_2020}} & LS 960 hrs & ASR & LS 100 hrs & \makecell[l]{LS test-clean,\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100 hrs} \\ \hline
     % speech-XLNet
     \multirow{2}{*}[-1mm]{speech-XLNet \cite{song_speechxlnet_2020}} & \multirow{2}{*}[-1mm]{\makecell[l]{LS 960 hrs\\\;\;\;+ WSJ si284\\\;\;\;+ TED2}} & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs\vspace{1mm} \\ \cline{3-7}
     & & ASR & WSJ si284 & WSJ eval92 & - & \makecell[l]{7\textsuperscript{\ref{footnote:low-resource}}/14\textsuperscript{\ref{footnote:low-resource}}/30\textsuperscript{\ref{footnote:low-resource}}/81 hrs}\vspace{1mm} \\ \hline
@@ -402,12 +402,12 @@ audio processing, we here provide only a list of these datasets for reference.
     & & PR & TIMIT\textsuperscript{\ref{footnote:official-split}} & TIMIT\textsuperscript{\ref{footnote:official-split}} & \checkmark & 4 hrs \\ \cline{3-7}
     & & ASR & LS 100 hrs & LS test-clean & - & 100 hrs \\ \hline
     % HuBERT
-    HuBERT \cite{hsu_hubert_2021} & \makecell[l]{LS 960 hrs,\\ LL 60k hrs} & ASR & LS 960 hrs & \makecell[l]{LS test-clean\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}},\\ 1\textsuperscript{\ref{footnote:low-resource}}/10\textsuperscript{\ref{footnote:low-resource}}/100/960 hrs} \\ \hline
+    HuBERT \cite{hsu_hubert_2021} & \makecell[l]{LS 960 hrs,\\ LL 60k hrs} & ASR & LS 960 hrs & \makecell[l]{LS test-clean\\ LS test-other} & - & \makecell[l]{10 mins\textsuperscript{\ref{footnote:low-resource}}, 1\textsuperscript{\ref{footnote:low-resource}}\\/10\textsuperscript{\ref{footnote:low-resource}}/100/960 hrs} \\ \hline
     % wav2vec-c
     wav2vec-c \cite{sadhu_wav2vecc_2021} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
-    UniSpeech-SAT \cite{chen_unispeechsat_2021} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See SUPERB \cite{yang_superb_2021} paper for details \\ \hline
-    WavLM \cite{chen_wavlm_2021} & \makecell[l]{LL 60k hrs\\\;\;\;+ GigaSpeech-10k\\\;\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See \cite{yang_superb_2021} for details \\ \hline
-    \multirow{4}{*}[0mm]{XLS-R \cite{babu_xlsr_2021}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;\;+ CV-dataset-7k + VL\\\;\;\;+ BBL}} & ASR & VP, MLS, CV-dataset, BBL, LS & VP, MLS, CV-dataset, BBL, LS & - & \multirow{4}{*}[0mm]{See \cite{babu_xlsr_2021} for details} \\ \cline{3-6}
+    UniSpeech-SAT \cite{chen_unispeechsat_2021} & \makecell[l]{LL 60k hrs\\\;\;+ GigaSpeech-10k\\\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See SUPERB \cite{yang_superb_2021} paper for details \\ \hline
+    WavLM \cite{chen_wavlm_2021} & \makecell[l]{LL 60k hrs\\\;\;+ GigaSpeech-10k\\\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See \cite{yang_superb_2021} for details \\ \hline
+    \multirow{4}{*}[0mm]{XLS-R \cite{babu_xlsr_2021}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;+ CV-dataset-7k\\\;\;+ VL\\\;\;+ BBL}} & ASR & VP, MLS, CV-dataset, BBL, LS & VP, MLS, CV-dataset, BBL, LS & - & \multirow{4}{*}[0mm]{See \cite{babu_xlsr_2021} for details} \\ \cline{3-6}
     & & SID & VoxCeleb1 & VoxCeleb1 & \checkmark & \\ \cline{3-6}
     & & ST & CoVoST-2 & CoVoST-2 & \checkmark & \\ \cline{3-6}
     & & LID & VL & VL & - & \\
@@ -592,7 +592,7 @@ information such as content, speaker, and semantics. As SSL research
 gains more attention, we expect that SSL pre-trained models will 
 achieve state-of-the-art results on an increasing number of tasks.
 
-\begin{table}[ht]
+\begin{table}[t!]
   \centering
   \footnotesize
   \caption{Tasks where the state of the art is models with SSL pre-training.}

@@ -151,6 +151,7 @@ We specifically hypothesize that models that are autoregressive in the observed 
 
 \begin{table}[p]
     \centering
+    \resizebox*{!}{\textheight}{
     \begin{tabular}{ll|lr}
         \toprule
         $s$    & \bfseries Model           & \bfseries Configuration           & \bfseries $\mathcal{L}$ [bpf] \\
@@ -208,8 +209,8 @@ We specifically hypothesize that models that are autoregressive in the observed 
         $256$     & STCN                & $D_z=256,L=1$         & $\leq$13.07 \\  % 2h5ns3zw
         $256$     & STCN                & $D_z=256,L=5$         & $\leq$12.52 \\
         \bottomrule
-    \end{tabular}
-    \vspace{2mm}
+    \end{tabular}%
+    }
     \caption[Model likelihoods on TIMIT represented as a 16 bit $\boldsymbol{\mu}$-law PCM]{
     Model likelihoods on TIMIT represented as a 16 bit $\boldsymbol{\mu}$-law encoded PCM.
     }
@@ -390,7 +391,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
         \node[latent,above=1.00cm of s_2_1](s_3_1){$\zb^{(3)}_{t}$}; %
         \node[latent,above=1.00cm of s_2_5](s_3_5){$\zb^{(3)}_{t+4}$}; %
     
-        % % x to s first layer
+        % x to s first layer
         \edge[]{s_1_1}{x_1};
         \edge[]{s_1_2}{x_2};
         \edge[]{s_1_3}{x_3};
@@ -400,7 +401,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
         \edge[]{s_1_7}{x_7};
         \edge[]{s_1_8}{x_8};
     
-        % % s per layer forward in time
+        % s per layer forward in time
         \edge[blue]{s_1_1}{s_1_2};
         \edge[blue]{s_1_2}{s_1_3};
         \edge[blue]{s_1_3}{s_1_4};
@@ -415,7 +416,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
         
         \edge[blue]{s_3_1}{s_3_5};
         
-        % % s across layers on time
+        % s across layers on time
         \edge[blue]{s_2_1}{s_1_1};
         \edge[blue]{s_2_3}{s_1_3};
         \edge[blue]{s_2_5}{s_1_5};
@@ -424,7 +425,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
         \edge[blue]{s_3_1}{s_2_1};
         \edge[blue]{s_3_5}{s_2_5};
         
-        % % s across layers forward in time
+        % s across layers forward in time
         \edge[blue]{s_2_1}{s_1_2};
         \edge[blue]{s_2_3}{s_1_4};
         \edge[blue]{s_2_5}{s_1_6};
@@ -435,7 +436,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
     
         % \node[above=of s_3_5, yshift=-1.cm, xshift=-2cm] (phi) {$p_\theta(\xb,\zb)$};
     \end{tikzpicture}
-    \hspace{2cm}
+    % \hspace{2cm}
     }
     \caption{}
     \label{fig: cwvae three-layered graphical model generative}
