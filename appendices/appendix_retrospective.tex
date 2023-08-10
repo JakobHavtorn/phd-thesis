@@ -1,0 +1,301 @@
+\chapter[supplementary material for a retrospective study on machine learning-assisted stroke recognition for medical helpline calls]{Supplementary Material for A Retrospective Study on Machine Learning-Assisted Stroke Recognition for Medical Helpline Calls}
+\label{app:retrospective}
+\ifthenelse{\equal{\skipappendices}{true}}{}{
+
+\section{Data flow digram}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{paper_retrospective/data_flowchart.pdf}
+    \caption[Overview of data flow from the initial data sources to the final stroke dataset.]{Overview of data flow from the initial data sources to the final stroke dataset.}
+    \label{fig_retrospective:data_flowchart}
+\end{figure}
+
+
+\section{Machine learning pipeline}
+
+\subsection{Model training}
+
+We used stochastic gradient descent on mini-batches of data to train the stroke classification model. We used the Adam (adaptive moment estimation) optimisation algorithm and ensured an equal number of stroke positives and negatives in each batch by stratifying the class labels during sampling. We saved the model parameters after each epoch if the maximum F1-score (across all possible thresholds) improved in the validation dataset. We used the latest saved parameters as the final result of the run.
+
+\subsection{Hyperparameters}\label{sec_retrospective:hyperparameters}
+
+The selection of hyperparameters followed a simple two-stage process using validation data (table A1). First, a manual search was conducted by running different model configurations with varying numbers of epochs, updates per epoch, batch sizes, vectoriser types, and hyperparameters. Subsequently, a structured grid search was performed to further tune a subset of these hyperparameters.
+
+\begin{table}[h]
+    \centering
+    \caption{Overview of hyperparameters used for training the text classification models.}
+    \label{tab_retrospective:tableA1-hyperparameters}
+    \resizebox*{0.98\textwidth}{!}{%
+    \begin{tabular}{l|l|l}
+        \toprule
+
+        Name & Chosen value & Grid search range \\
+
+        \midrule
+
+        \multicolumn{3}{c}{\emph{Determined from initial heuristic, manual hyperparameter search on validation fold}}\\
+
+        \midrule
+
+        Epochs & 30 & - \\
+        Parameter updates per epoch & 500 & - \\
+        Batch size & 128 & - \\
+        Batch sampling & Label stratified (balanced) & - \\
+        Type of text vectoriser & Count vectorisation & - \\
+        Size of bag-of-words vector & 10,000 & - \\
+        Optimisation algorithm & Adam $(\beta_1=0.9, \beta_2=0.999)$ & - \\
+        Learning rate schedule & Cosine annealing from start & - \\
+
+        \midrule
+
+        \multicolumn{3}{c}{\emph{Determined from grid search on validation fold}} \\ 
+
+        \midrule
+
+        Learning rate start & 0.0003 & \{0.003, 0.0003\} \\
+        Learning rate end & 0.0003 & \{0.0003, 0.00003, 0.000003\} \\
+        Model input dropout & 0.50 & \{0.25, 0.50\} \\
+        Model dropout & 0.25 & \{0.25, 0.50\} \\
+        Model configuration & [256, 128, 64, 32, 16] & \{[64, 32, 16], [256, 128, 64, 32, 16]\} \\
+
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+
+\subsubsection{Bag-of-words selection}
+
+Each transcript was transformed into a fixed-size bag-of-words vector to serve as input for the classification model. These vectors encode the occurrence of words and character n-grams within a fixed vocabulary. We selected vocabulary by first computing the χ2-statistics for all word uni-and bi-grams and character three-, four-, and fivegrams that occurred in more than ten training calls. We then retained the M highest-scoring word n-grams and $M$ highest-scoring character n-grams, yielding $2M$ input features, where $M$ represents a tuned hyperparameter. By complementing word n-grams with character n-grams, the model can use out-of-vocabulary words not included in the word n-grams and robustly represent words misspelt by the speech recogniser. The feature vector was input into the classification model (\cref{fig_retrospective:model_sketch}).
+
+As part of our manual hyperparameter search, we trained the models using vectorisers of different sizes. We discovered that using 5,000-word n-grams and 5,000-character n-grams (M=5,000) struck a good trade-off between size, feature quality, and model performance, yielding 10,000 bag-of-words features.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{paper_retrospective/model_sketch.pdf}
+    \caption[Overview of machine learning pipeline for stroke recognition.]{Overview of machine learning pipeline. Panel A presents a schematic overview of the machine learning pipeline. The individual models are broken down in panels B and C. The 2D convolutional layers have parameters [input channels, output channels]-[kernel width, kernel height]-[stride width, stride height]. The long short-term memory (LSTM) blocks have parameters hidden units-number of layers. The rectified linear unit (ReLU), sigmoid, and softmax layers have parameters [input features, output features]. Joining arrows indicate the concatenation of two vector sequences along the feature dimension. The full set of model hyperparameters is listed in \cref{sec_retrospective:hyperparameters}.}
+    \label{fig_retrospective:model_sketch}
+\end{figure}
+
+\subsection{Ensembling details}
+
+A common way to combine individual classification models into an ensemble is to use a voting scheme, such as majority voting, where a combined prediction is made based on the consensus among the individual models. However, this approach makes the ensemble not have a continuous output score. This is problematic for two reasons.
+%
+\begin{itemize}
+    \item The lack of a continuous output score prevents the evaluation of the model's performance across a continuous range of thresholds required for plotting the receiver operating characteristic and precisionrecall curves.
+    \item The lack of a continuous output score deteriorates the quality of assessing the effect of different words on ensemble performances (see \cref{sec_retrospective:model_explainability}).
+\end{itemize}
+%
+Therefore, we used a different ensemble method, which is briefly described in the main text. Herein, we provide a mathematically rigorous definition of the proposed method.
+
+Let $z^{(n,d)}$ be the logit output of model $n$ for transcript $d$, $t^{(n)}$ be the tuned logit threshold of model $n$, and $N$ be the number of models in the ensemble. The output score $p^{(n)}$ is then given by 
+%
+\begin{equation}
+    p^{(d)} = \frac{1}{N} \sum_{n=1}^N \sigma(z^{(n,d)} - t^{(n)}) \enspace ,
+\end{equation}
+%
+where $\sigma(\cdot)$ is the sigmoid function (or standard logistic function). The final ensembel predction $s^{(d)}$ is then simply 
+%
+\begin{equation}
+    s^{(d)} = I_{p^{(d)} > 0.5}(p^{(d)}) \enspace ,
+\end{equation}
+%
+where $I_{\cdot}(\cdot)$ is the indicator function that returns 1 if the subscript condition is satisfied and 0 otherwise. 
+
+
+\section{Significance testing and confidence intervals}
+
+We used standard methods for significance testing and computing the confidence intervals. We used approximate methods owing to data size and to maintain computational feasibility \cite{cite25,cite26}
+
+We performed \emph{paired approximate permutation} tests by pairing each observation from the first sample to a random observation from the other sample (without replacement), while keeping each observation within its original sample. This allowed us to test the significance of the observed pairings on the chosen statistics, i.e. whether a significant difference was observed in the test statistics depending on whether the call taker or model made the prediction. We used this approach to test whether
+%
+\begin{itemize}
+    \item the model performed better than the call takers on the 2021 test set,
+    \item including 112 training data improved the model's performance on the 2021 test set.
+\end{itemize}
+%
+We performed \emph{independent approximate permutation} tests by randomly assigning observations to either of the two samples (without replacement) while maintaining any differences in sample size. This approach allowed us to test the significance of the observed sample assignments, i.e. whether there was a significant difference in test statistics depending on whether the predictions were assigned to the model or call taker. We used this approach to test whether.
+%
+\begin{itemize}
+    \item the model performed better on the 2021 test set with diagnostic categories than on the test set without diagnostic categories,
+    \item the model performed better on men than women on the 2021 test set,
+    \item the model performed better on the 65+ group than on the 18-64 group on the 2021 test set,
+    \item the call taker performed better on men than women on the 2021 test set,
+    \item the call taker performed better on the 65+ group than on the 18-64 group on the 2021 test set.
+\end{itemize}
+%
+The p-values were not exact because we used approximate permutation tests. However, owing to the large dataset size and substantial number of observations, the estimated p-values had tight confidence intervals. We reported the upper bound of the 99\% confidence interval on the p-value computed as the usual binomial distribution confidence interval.
+%
+\begin{equation}
+    \text{CI}(p) = \hat{p} \pm z \sqrt{\frac{\hat{p}(1-\hat{p})}{N}} \enspace ,
+\end{equation}
+%
+where $N$ is the number of resamplings.
+
+We computed \emph{bootstrapped confidence intervals} for the statistics by resampling (with replacement) the predictions made by model or call taker on a relevant subgroup and recomputing the relevant statistics for each bootstrap sample. This process established a bootstrap distribution of the statistic that was then used to estimate the standard error and compute the confidence intervals. We computed confidence intervals using the bootstrap distribution percentiles. This method yielded reliable results because our dataset was large, and the bootstrap distribution was symmetrical and centred on the observed statistic. No observed bootstrap distributions differed significantly from normal distributions (according to Anderson-Darling and Shapiro-Wilk tests). Therefore, confidence intervals computed alternatively as studentised bootstrap intervals (t-intervals) did not differ substantially from percentile confidence intervals. This further validated our tests.
+
+We used $N=15,000$ resamplings for permutation tests and $N=8,192$ for confidence intervals.
+
+
+\section{Software}
+
+We used Python version 3.8.10. PyTorch version 1.12.1 + cu113 was used to train the neural network models. We used SciKit-Learn (version 1.2.2) to perform bag-of-words vectorisation. We used NumPy version 1.23.5, Pandas version 1.5.3, Matplotlib version 3.7.1, and SciPy version 1.10.1 to perform data analysis, plotting, and testing.
+
+
+\section{Additional results: Model performance across demographics}
+
+When 1-1-2 data were not used for training (\cref{tab_retrospective:tableA2}), the model performed significantly better in men than in women on the test set in terms of all metrics (p < 0.0001) and significantly better on the 65+ group than on the 1864 group in terms of all metrics (p < 0.0001). As noted in the main text, both these statements were also true when 1-1-2 data were used for the training (\cref{tab_retrospective:table2}) and that including 1-1-2 data significantly improved overall performance (p < 0.0001).
+
+Compared to the test set (\cref{tab_retrospective:table2}), model performance on the 2021 calls without diagnostic category was significantly worse in all demographic subgroups (\cref{tab_retrospective:tableA3}) in terms of all metrics (p < 0.0001), except for positive predictive value (PPV) for male (where p = 0.0056 [significant]) and for the false positive rate (FPR) on females and individuals aged 65+ years (where p = 0.213 and p = 0.362, respectively [insignificant]).
+
+\todo[inline]{Insert table A2 here}
+\begin{table}[h]
+    \centering
+    \caption{}
+    \label{tab_retrospective:tableA2}
+    % \resizebox*{0.98\textwidth}{!}{%
+    % \begin{tabular}{l|l|l}
+    %     \toprule
+
+    %     \midrule
+
+    %     \bottomrule
+    % \end{tabular}%
+    % }
+\end{table}
+
+
+\todo[inline]{Insert table A3 here}
+\begin{table}[h]
+    \centering
+    \caption{}
+    \label{tab_retrospective:tableA3}
+    % \resizebox*{0.98\textwidth}{!}{%
+    % \begin{tabular}{l|l|l}
+    %     \toprule
+
+    %     \midrule
+
+    %     \bottomrule
+    % \end{tabular}%
+    % }
+\end{table}
+
+
+\section{Additional results: Detailed model explainability tables}
+
+\todo[inline]{Insert table A4 here}
+\begin{table}[h]
+    \centering
+    \caption{}
+    \label{tab_retrospective:tableA4}
+    % \resizebox*{0.98\textwidth}{!}{%
+    % \begin{tabular}{l|l|l}
+    %     \toprule
+
+    %     \midrule
+
+    %     \bottomrule
+    % \end{tabular}%
+    % }
+\end{table}
+
+\todo[inline]{Insert table A5 here}
+\begin{table}[h]
+    \centering
+    \caption{}
+    \label{tab_retrospective:tableA5}
+    % \resizebox*{0.98\textwidth}{!}{%
+    % \begin{tabular}{l|l|l}
+    %     \toprule
+
+    %     \midrule
+
+    %     \bottomrule
+    % \end{tabular}%
+    % }
+\end{table}
+
+
+\section{Simulation of a prospective study on 2021 data}
+
+\subsection{Method}
+
+The machine learning frameworks can be deployed in different forms in clinical practice. To assess the potential outcomes of deploying this framework in a future prospective study, we performed an experiment using the 2021 test data to simulate different scenarios. Each scenario included two main variables.
+%
+\begin{enumerate}[label=\Roman*.]
+    \item Presentation of the model prediction to the call taker.
+    \item How does prediction influence the diagnostic code the call taker assigns to the call?
+\end{enumerate}
+%
+There are two primary options as to when the model prediction is presented (I):
+%
+\begin{enumerate}
+    \item Notify the call taker of potential false positive or negative stroke cases after the call ends.
+    \item Notify the call taker of potential false positive or negative stroke cases during the call.
+\end{enumerate}
+%
+Option 1 is identical to the method used in the main study. In option 2, predictions are made during the call based only on partial transcriptions. We implemented option 2 in such a manner that the model predicted every time 50 new words were transcribed and added to the transcript. A stroke positive was triggered only when three consecutive positive predictions were made (i.e. without intermediate negative stroke predictions). In other words, the sigmoid activation of the model had to remain above 0.5 for three consecutive predictions, for example, after 150, 200, and 250 words were transcribed.
+
+As we can only assume how call takers are influenced by model predictions (II), precisely evaluating the hypothetical performance of call takers when supported by a machine learning framework is impossible. Furthermore, option 2 may influence the conversation, further complicating matters. Therefore, we report the results combining the call taker and the model under the following two assumptions:
+%
+\begin{enumerate}[label=\Alph*.]
+    \item Call takers change any stroke prediction from negative to positive if the model predicts a positive (call takers mirror model positives).
+    \item Call takers change any stroke prediction from positive to negative if the model predicts a negative (call takers mirror model negatives).
+\end{enumerate}
+%
+By definition, method A tended to increase sensitivity and decrease PPV, whereas method B tended to decrease sensitivity and increase PPV.
+
+We also report the results of the model itself (C). This method corresponds to call takers mirroring the model predictions exactly. This is not feasible in practice, although technically possible, because the conversation and instructions given to patients may conflict with the actions taken by the call taker after hanging up. Method 1.C is identical to the method employed in the main text, and we have copied the same results here for easier comparison.
+
+
+\subsection{Results}
+
+As expected (\cref{tab_retrospective:tableA6}), method 2.C (raw model predictions during calls) yielded slightly worse results than 1.C (raw model predictions after calls). Compared with method C, method A (call takers mirror model positives) led to increased sensitivity and decreased PPV, whereas method B (call takers mirror model negatives) led to decreased sensitivity and increased PPV, as expected. The numerical changes compared with method C are quite large because, in our simulation, the call taker is assumed to strictly follow methods A or B without divergence.
+
+\todo[inline]{Insert table A6 here}
+\begin{table}[h]
+    \centering
+    \caption{}
+    \label{tab_retrospective:tableA6}
+    % \resizebox*{0.98\textwidth}{!}{%
+    % \begin{tabular}{l|l|l}
+    %     \toprule
+
+    %     \midrule
+
+    %     \bottomrule
+    % \end{tabular}%
+    % }
+\end{table}
+
+Method 1.A (call takers mirror model positives after a call) yields a better F1-score, sensitivity, PPV, and FOR than call takers alone, although at the cost of a slightly higher FPR. This stands in contrast to methods 1.B, 2.A, and 2.B where either the sensitivity or the PPV is worse for the combined system than for call takers alone. Regardless, the F1-score (harmonic mean of sensitivity and PPV) is higher for all methods of combining call takers and model (1.A through 2.C).
+
+These findings highlight that the implementation strategy selected for practice can substantially affect performance. Therefore, it may be possible to implement the system in a way that improves stroke recognition in practice.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+

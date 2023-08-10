@@ -37,7 +37,7 @@ The ROC curve (\cref{fig_retrospective:figure1}, left) illustrates the potential
 
 
 % \todo[inline]{Insert Table 1}
-\begin{table}
+\begin{table}[t]
     \centering
     \caption[Performance metrics for model stroke recognition.]{Performance metrics. Performance metrics for the model and call-takers on the test set. The model was trained on the training set, which included calls from 2015 to 2020. The call-takers were trained on the same data. The 2021 data were used for testing. The 2021 data without diagnostic categories were excluded}
     \label{tab_retrospective:table1}
@@ -47,7 +47,7 @@ The ROC curve (\cref{fig_retrospective:figure1}, left) illustrates the potential
                               & Training (112) & Training (MH-1813) & Validation & Test & 2021 w/o category \\
 
         \midrule
-        \multicolumn{6}{c}{All calls} \\
+        \multicolumn{6}{c}{\emph{All calls}} \\
         \midrule
         Num. calls            & 155,696 & 1,391,301 & 155,825 & 344,030 & 231,009 \\
         Female                & 74,640 (47.94\%) & 792,783 (56.98\%) & 86,959 (55.81\%) & 190,974 (55.51\%) & 134,324 (58.14\%) \\
@@ -56,7 +56,7 @@ The ROC curve (\cref{fig_retrospective:figure1}, left) illustrates the potential
         Age (mean $\pm$ std.) & 59.47 ± 21.24 & 47.12 ± 21.38 & 44.63 ± 20.08 & 44.31 ± 20.10 & 50.36 ± 22.77 \\
 
         \midrule
-        \multicolumn{6}{c}{Stroke calls} \\
+        \multicolumn{6}{c}{\emph{Stroke calls}} \\
         \midrule
         Num. calls            & 3,899 & 3,471 & 360 & 757 & 679 \\
         Female                & 1,784 (45.76\%) & 1,654 (47.65\%) & 161 (44.72\%) & 349 (46.10\%) & 366 (53.90\%) \\
@@ -65,7 +65,7 @@ The ROC curve (\cref{fig_retrospective:figure1}, left) illustrates the potential
         Age (mean $\pm$ std.) & 72.91 ± 12.77 & 70.68 ± 13.85 & 70.93 ± 13.83 & 71.51 ± 13.41 & 73.41 ± 14.11 \\
 
         \midrule
-        \multicolumn{6}{c}{Non-stroke calls} \\
+        \multicolumn{6}{c}{\emph{Non-stroke calls}} \\
         \midrule
         Num. calls            & 151,797 & 1,387,830 & 155,465 & 343,273 & 230,330 \\
         Female                & 72,856 (48.00\%) & 791,129 (57.00\%) & 86,798 (55.83\%) & 190,625 (55.53\%) & 133,958 (58.16\%) \\
@@ -83,7 +83,7 @@ The ROC curve (\cref{fig_retrospective:figure1}, left) illustrates the potential
 The model and call-takers exhibited significantly higher PPV and F1-score in men than in women (p < 0.0001) (\cref{tab_retrospective:table1}). The model significantly outperformed the call-takers on all metrics for each sex (p < 0.0001).
 The model performed significantly better in the 65+ group than in the 18-64 year group regarding sensitivity, PPV, and F1-score (p < 0.0001). Similarly, the call-takers performed significantly better in the 65+ group than in the 18-64 group regarding PPV and F1-score (p < 0.0001). Finally, the model significantly outperformed the call-takers on all metrics in both age groups (p < 0.0001).
 
-\begin{figure}
+\begin{figure}[t]
     \centering
     \includegraphics[width=0.9\textwidth]{paper_retrospective/figure1.pdf}
     \caption[Receiver operator characteristic (ROC) curve and PPV-sensitivity curve for model stroke recognition.]{Receiver operator characteristic (ROC) curve and PPV-sensitivity curve. Left, the ROC curve and, right, PPV-sensitivity curve (precision-recall curve). Models 1-5 are the individual models that make up the ensemble model.}
@@ -91,7 +91,7 @@ The model performed significantly better in the 65+ group than in the 18-64 year
 \end{figure}
 % \todo[inline]{Insert Figure 1}
 
-\begin{figure}
+\begin{figure}[t]
     \centering
     \includegraphics[width=0.9\textwidth]{paper_retrospective/figure2.pdf}
     \caption[Prediction confusion matrices for model stroke recognition.]{Prediction confusion matrices. Confusion matrices of predictions for call takers and the model on the test set. Numbers for the model are given as the rounded mean over eleven runs.}
@@ -104,7 +104,7 @@ The model performed significantly better in the 65+ group than in the 18-64 year
 
 Among the words with a positive rank score, several words are synonymous with stroke, such as ``blood clot", ``haemorrhagic stroke", and ``stroke". Ambulances are rarely dispatched because the MH-1813 is not intended for emergencies. Therefore, a word like ``ambulance" may also be a strong indicator of call-taker recognition, which the model has learned to mimic. Additionally, most of the remaining words can be linked to stroke-related symptoms such as ``double vision", ``difficulties speaking", and ``hangs". Particularly, words describing the side of the body where symptoms occur ranked high (such as ``left", ``right", and ``side"). Finally, some words were also related to the sudden onset of symptoms (including ``suddenly" and ``minutes").
 % \todo[inline]{Insert Table 2}
-\begin{table}
+\begin{table}[t]
     \centering
     \caption[Overall stroke recognition performance of model compared to call takers.]{Overall performance on MH-1813 test data, performance without 1-1-2 training data, and performance on data from 2021 without diagnostic categories as well as performance on MH-1813 based on demographic subgroups (age/sex) [mean (95\% CI)].}
     \label{tab_retrospective:table2}
@@ -114,41 +114,41 @@ Among the words with a positive rank score, several words are synonymous with st
                     & F1-score [\%] $\uparrow$ & Sensitivity [\%] $\uparrow$ & PPV [\%] $\uparrow$ & \makecell{FOR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell{FPR [\%] $\downarrow$ \\ (1 - NPV)} \\
 
         \midrule
-        \multicolumn{6}{c}{Overall} \\
+        \multicolumn{6}{c}{\emph{Overall}} \\
         \midrule
         Call takers & 25.8 (23.7-27.9) & 52.7 (49.2-56.4) & 17.1 (15.5-18.6) & 0.105 (0.094-0.116) & 0.565 (0.539-0.590) \\
         Model       & 35.7 (35.0-36.4) & 63.0 (62.0-64.1) & 24.9 (24.3-25.5) & 0.082 (0.079-0.085) & 0.419 (0.413-0.426) \\
 
         \midrule
-        \multicolumn{6}{c}{Without 112 training data} \\
+        \multicolumn{6}{c}{\emph{Without 112 training data}} \\
         \midrule
         Model       & 32.4 (31.8-33.1) & 60.4 (59.3-61.4) & 22.2 (21.6-22.7) & 0.088 (0.085-0.091) & 0.467 (0.460-0.474) \\
 
         \midrule
-        \multicolumn{6}{c}{On MH-1813 data without diagnostic category} \\
+        \multicolumn{6}{c}{\emph{On MH-1813 data without diagnostic category}} \\
         \midrule
         Model       & 32.6 (31.9-33.4) & 48.3 (47.2-49.4) & 24.7 (23.9-25.3) & 0.153 (0.148-0.158) & 0.435 (0.427-0.443) \\
 
         \midrule
-        \multicolumn{6}{c}{18-64 years} \\
+        \multicolumn{6}{c}{\emph{18-64 years}} \\
         \midrule
         Call takers & 15.9 (13.1-18.5) & 50.5 (43.6-57.2) & 9.40 (7.61-11.18) & 0.036 (0.028-0.043) & 0.353 (0.331-0.375) \\
         Model       & 22.9 (21.8-24.0) & 54.1 (52.1-56.3) & 14.5 (13.8-15.3) & 0.033 (0.031-0.035) & 0.231 (0.226-0.236) \\ 
 
         \midrule
-        \multicolumn{6}{c}{65+ years} \\
+        \multicolumn{6}{c}{\emph{65+ years}} \\
         \midrule
         Call takers & 32.9 (30.1-35.7) & 53.5 (49.4-57.6) & 23.7 (21.4-26.0) & 0.401 (0.352-0.449) & 1.467 (1.373-1.560) \\
         Model       & 42.8 (41.9-43.7) & 66.3 (65.1-67.5) & 31.6 (30.8-32.4) & 0.290 (0.278-0.303) & 1.224 (1.198-1.249) \\
 
         \midrule
-        \multicolumn{6}{c}{Male} \\
+        \multicolumn{6}{c}{\emph{Male}} \\
         \midrule
         Call takers & 30.2 (27.2-33.3) & 53.9 (49.1-58.9) & 21.0 (18.5-23.5) & 0.124 (0.105-0.141) & 0.542 (0.506-0.580) \\
         Model       & 39.0 (38.0-40.1) & 63.7 (62.3-65.2) & 28.1 (27.3-29.0) & 0.097 (0.093-0.102) & 0.435 (0.425-0.445) \\
 
         \midrule
-        \multicolumn{6}{c}{Female} \\
+        \multicolumn{6}{c}{\emph{Female}} \\
         \midrule
         Call takers & 21.9 (19.1-24.6) & 51.3 (46.0-56.6) & 13.9 (12.0-15.8) & 0.090 (0.076-0.103) & 0.582 (0.547-0.616) \\
         Model       & 32.4 (31.4-33.4) & 62.3 (60.7-63.8) & 21.9 (21.1-22.7) & 0.069 (0.066-0.073) & 0.407 (0.399-0.416) \\
@@ -166,7 +166,7 @@ Among the words with a negative rank score, most were strong indicators for spec
 
 Our results showed that a machine learning framework can substantially improve stroke recognition in medical helpline calls compared to solely relying on human call-takers. This improvement was observed across all performance metrics and for basic patient demographics (age and sex). Our occlusion analysis revealed that the model relied on the relevant predictive features associated with call-taker triaging, patient symptoms, and treatment.
 
-This study does not imply that a machine learning model can replace medical call-takers. The effectiveness of the model is fully reliant on the conversation between the call-taker and caller and the call-taker's ability to skillfully triage the patient. Instead, the model should be used as a supportive tool for call-takers in the decision-making process, contributing to a higher recognition of patients with stroke and potentially boosting the confidence of call- takers in their decisions. A similar machine learning model designed to predict cardiac arrest was tested in a randomised controlled trial (RCT) at CEMS.15 The results highlighted the necessity of incorporating input from call-takers. The machine learning model for cardiac arrest has subsequently been implemented in daily practice at CEMS, in a setup similar to the one presented in our study. However, implementation of our framework requires further investigation. The relative performance gap between call-takers and the model was larger in our study than in the cardiac arrest study,15 which may affect the results of a potential RCT. To support future work and discussions beyond the scope of this study, the supplementary material includes the results of a simulation of a live implementation where call-takers are assumed to follow a set of fixed rules based on the output of the machine learning framework.
+This study does not imply that a machine learning model can replace medical call-takers. The effectiveness of the model is fully reliant on the conversation between the call-taker and caller and the call-taker's ability to skillfully triage the patient. Instead, the model should be used as a supportive tool for call-takers in the decision-making process, contributing to a higher recognition of patients with stroke and potentially boosting the confidence of call- takers in their decisions. A similar machine learning model designed to predict cardiac arrest was tested in a randomised controlled trial (RCT) at CEMS.15 The results highlighted the necessity of incorporating input from call-takers. The machine learning model for cardiac arrest has subsequently been implemented in daily practice at CEMS, in a setup similar to the one presented in our study. However, implementation of our framework requires further investigation. The relative performance gap between call-takers and the model was larger in our study than in the cardiac arrest study,15 which may affect the results of a potential RCT. To support future work and discussions beyond the scope of this study, \cref{app:retrospective} includes the results of a simulation of a live implementation where call-takers are assumed to follow a set of fixed rules based on the output of the machine learning framework.
 
 The performance gap between the model and call-takers could be explained by the rarity of stroke calls to MH-1813 (0.250\% of all calls in 2021), which might affect call-taker awareness of stroke as a possible cause of certain symptoms. Additionally, certain stroke symptoms are so rare that some call-takers may never encounter them, increasing the risk of false negatives. The model was trained on more calls than any single call-taker would handle in a lifetime, enabling it to recognise even rare descriptors of stroke. The model is specifically trained to recognise strokes and exclusively learns from actual stroke descriptions, unlike call-takers, who are trained with generalised teaching materials to triage many different conditions. Therefore, call-takers may not have received specific training for patients with stroke and may never have encountered them.
 
@@ -217,7 +217,7 @@ Stroke prevalence in calls made to the MH-1813 is lower than that in calls made 
 
 \subsubsection{Cross-referencing data sources}
 
-From the CAD medical records, we included all calls that could be matched to a corresponding audio file. for 1-1-2 and MH-1813 from 2015 to 2021 for patients older than 18. The CAD records were matched with the telephone call recordings based on the call start, call duration, and call-taker identity. Due to data incompleteness, and the way the audio data is stored, at CEMS, 2,730,199 contacts could not be matched to their corresponding audiofile, however, 2,361,178 contacts were successfully matched. We found no obvious pattern in the matched and unmatched calls and we included all calls with at matching audio file. Next, a call was regarded as a case of ground truth stroke positive when the CPR number in the CAD record matched that of a DanStroke record, and the patient-reported time of onset was close to the call start time. We allowed a window of 72 hours before and 24 hours after the call starts to account for uncertainty in recording stroke onset time. We excluded calls involving subarachnoid haemorrhage cases. Finally, we considered a call to be a call-taker stroke positive when the call-taker selected the stroke diagnostic category during the call and dispatched an ambulance with the appropriate level of response \cite{cite20}. To ensure that the effect of the machine learning framework was not overestimated, we excluded calls where diagnostic category had not been registered from the final testing. We still reported the population characteristics and model performance of this group of calls to assess potential bias introduced by excluding them. A data-flow diagram is included in the supplementary material. The resulting dataset is the largest dataset of audio files from stroke calls collected to date.
+From the CAD medical records, we included all calls that could be matched to a corresponding audio file. for 1-1-2 and MH-1813 from 2015 to 2021 for patients older than 18. The CAD records were matched with the telephone call recordings based on the call start, call duration, and call-taker identity. Due to data incompleteness, and the way the audio data is stored, at CEMS, 2,730,199 contacts could not be matched to their corresponding audiofile, however, 2,361,178 contacts were successfully matched. We found no obvious pattern in the matched and unmatched calls and we included all calls with at matching audio file. Next, a call was regarded as a case of ground truth stroke positive when the CPR number in the CAD record matched that of a DanStroke record, and the patient-reported time of onset was close to the call start time. We allowed a window of 72 hours before and 24 hours after the call starts to account for uncertainty in recording stroke onset time. We excluded calls involving subarachnoid haemorrhage cases. Finally, we considered a call to be a call-taker stroke positive when the call-taker selected the stroke diagnostic category during the call and dispatched an ambulance with the appropriate level of response \cite{cite20}. To ensure that the effect of the machine learning framework was not overestimated, we excluded calls where diagnostic category had not been registered from the final testing. We still reported the population characteristics and model performance of this group of calls to assess potential bias introduced by excluding them. A data-flow diagram is included in \cref{app:retrospective}. The resulting dataset is the largest dataset of audio files from stroke calls collected to date.
 
 \subsubsection{Dataset splitting}
 
@@ -227,9 +227,57 @@ As expected, the 1-1-2 training data differed from the MH-1813 data regarding ag
 
 \subsection{Machine learning pipeline}
 
-We employed a two-step machine learning pipeline. First, a call was transcribed using the speech recognition model. Second, the transcript was used as input for the text classification model. The final output score was used to classify whether the call concerned a stroke. The pipeline is illustrated in the Supplementary Material.
+We employed a two-step machine learning pipeline. First, a call was transcribed using the speech recognition model. Second, the transcript was used as input for the text classification model. The final output score was used to classify whether the call concerned a stroke. The pipeline is illustrated in \cref{app:retrospective}.
 
-\todo[inline]{Insert Table 3}
+% \todo[inline]{Insert Table 3}
+\begin{table}[t]
+    \centering
+    \caption[Words with the largest positive and negative ranking score in calls predicted as stroke and non-stroke, respectively.]{English translation of words with the largest positive and negative ranking score in calls predicted as stroke and non-stroke, respectively.}
+    \label{tab_retrospective:table3}
+    \resizebox*{0.98\textwidth}{!}{%
+    \begin{tabular}{l|lr|lr}
+        \toprule
+                    & \multicolumn{2}{c}{Positive ranking score} & \multicolumn{2}{c}{Negative ranking score} \\
+        \midrule
+                    & \multicolumn{2}{c}{Stroke predictions, $D=1,897$} & \multicolumn{2}{c}{Non-stroke predictions, $D=342,133$} \\
+        \midrule
+                    & Word, $w$ \textit{(translated)} & Occurences, $D^{(w)}$ & Word, $w$ \textit{(translated)} & Occurences, $D^{(w)}$ \\
+        \midrule
+        1.  & Ambulance & 1,680 & Tetanus & 4,378 \\        
+        2.  & Blood clot & 895 & Pregnant & 8,749 \\        
+        3.  & Left & 1,108 & Cut & 7,592 \\        
+        4.  & Right & 1,050 & Bandage & 4,561 \\        
+        5.  & Double vision & 84 & Amager (a location) & 23,776 \\        
+        6.  & The words & 344 & O'clock & 94,436 \\        
+        7.  & Suddenly & 783 & The emergency room & 42,809 \\        
+        8.  & Arm & 709 & The police & 2,903 \\        
+        9.  & Side & 1,139 & Swollen & 60,559 \\        
+        10. & Stroke & 117 & Over the counter (OTC) & 4,641 \\        
+        11. & Double & 113 & The neck & 30,151 \\        
+        12. & Control & 134 & Fever & 112,586 \\        
+        13. & Call & 39 & Prescription & 5,450 \\        
+        14. & Numb & 94 & Centimetre & 12,026 \\        
+        15. & Minutes & 763 & The knee & 8,875 \\        
+        16. & Difficulties speaking & 44 & The pharmacy & 10,085 \\        
+        17. & Haemorrhagic stroke & 133 & The stomach & 42,105 \\        
+        18. & Hand & 297 & Psychiatric & 3,688 \\        
+        19. & The ambulance & 521 & Pneumonia & 7,597 \\        
+        20. & Slurred speech & 58 & Stomach pain & 10,551 \\        
+        21. & Blood clots & 224 & Stool & 19,155 \\        
+        22. & Fast & 663 & The ribs & 3,928 \\        
+        23. & Express & 44 & Bleed & 10,501 \\        
+        24. & Blood thinner & 259 & Bleeding & 24,313 \\        
+        25. & Incoherent & 15 & Ribs & 2,941 \\        
+        26. & Lopsided & 211 & Broken & 19,415 \\        
+        27. & Reduced & 528 & Inflammation & 10,050 \\        
+        28. & Hangs & 628 & Common cold & 8,127 \\        
+        29. & Transient & 48 & Morning or morrow & 78,558 \\        
+        30. & Not making sense & 14 & Swelling & 17,762 \\        
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
 
 \subsubsection{Speech recognition}
 
@@ -237,13 +285,13 @@ The call recordings from the CEMS were stored as 8-bit linear pulse-code modulat
 
 \subsubsection{Text classification}
 
-As input for the classification model, each transcript was transformed into a fixed-size bag- of-words vector, which encoded the occurrence of word and character ($n$-grams) in a fixed vocabulary. The feature selection procedure is detailed in the Supplementary Material. The model was constructed as an ensemble \cite{hansen_neural_1990} of five identical, independently trained models. Each consists of a stack of neural network layers commonly referred to as a multi-layer perceptron \cite{rosenblatt_perceptron_1958}. The final layer has a single scalar output and applies a sigmoid nonlinearity to produce an output score between zero and one.
+As input for the classification model, each transcript was transformed into a fixed-size bag- of-words vector, which encoded the occurrence of word and character ($n$-grams) in a fixed vocabulary. The feature selection procedure is detailed in \cref{app:retrospective}. The model was constructed as an ensemble \cite{hansen_neural_1990} of five identical, independently trained models. Each consists of a stack of neural network layers commonly referred to as a multi-layer perceptron \cite{rosenblatt_perceptron_1958}. The final layer has a single scalar output and applies a sigmoid nonlinearity to produce an output score between zero and one.
 
 \subsubsection{Threshold calibration and ensembling}
 
 We selected the prediction threshold as the harmonic mean of the thresholds for each model in the ensemble to ensure that the sensitivity and positive predictive value (PPV) were equal to those of the call-takers. This simplifies the comparison by ensuring a trade-off between sensitivity and PPV, similar to that of call-takers.
 
-As the threshold differed for each model in the ensemble, computing the ensemble output score as the average output score of the individual models would not be meaningful. Instead, we first subtracted the threshold from the output score in the logit space (before sigmoid nonlinearity) for each model to obtain the same threshold (0.5). Subsequently, we defined the ensemble output score as the average of the centred output scores. The exact equations are provided in the Supplementary Material.
+As the threshold differed for each model in the ensemble, computing the ensemble output score as the average output score of the individual models would not be meaningful. Instead, we first subtracted the threshold from the output score in the logit space (before sigmoid nonlinearity) for each model to obtain the same threshold (0.5). Subsequently, we defined the ensemble output score as the average of the centred output scores. The exact equations are provided in \cref{app:retrospective}.
 
 \subsubsection{Model training}
 
@@ -251,7 +299,7 @@ The speech recognition model was trained on 3,811 manually transcribed random ca
 
 We trained five models for the text classification ensemble using binary cross-entropy after transcribing all calls in the dataset using the speech recognition model. One training fold was used for early stopping, whereas the remaining four folds and 1-1-2 data were used for training. Thus, each model in the ensemble was trained and validated using different datasets. We ran a grid search with 96 different hyperparameter configurations and selected the ensemble model with the best F1 score for the validation set.
 
-\subsection{Model explainability}
+\subsection{Model explainability}\label{sec_retrospective:model_explainability}
 
 We performed an \emph{occlusion analysis} to better understand the predictions of the text classification model. This involved removing all instances of a given word from the input transcript to evaluate its impact on the model output. The word was removed before vectorisation, such that all word and character $n$-grams associated with the word were discarded. Specifically, let $z^{(n, d, w)}$ be the logit output of model $n$ in the ensemble for transcript $d$ when the word $w$ is occluded. For transcript $d$, we computed the word impact score $i^{(d, w)}$ as the mean difference between the logit before and after occlusion.
 %
