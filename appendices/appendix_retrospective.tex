@@ -73,7 +73,7 @@ As part of our manual hyperparameter search, we trained the models using vectori
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{paper_retrospective/model_sketch.pdf}
+    \includegraphics[width=0.95\textwidth]{paper_retrospective/model_sketch.pdf}
     \caption[Overview of machine learning pipeline for stroke recognition.]{Overview of machine learning pipeline. Panel A presents a schematic overview of the machine learning pipeline. The individual models are broken down in panels B and C. The 2D convolutional layers have parameters [input channels, output channels]-[kernel width, kernel height]-[stride width, stride height]. The long short-term memory (LSTM) blocks have parameters hidden units-number of layers. The rectified linear unit (ReLU), sigmoid, and softmax layers have parameters [input features, output features]. Joining arrows indicate the concatenation of two vector sequences along the feature dimension. The full set of model hyperparameters is listed in \cref{sec_retrospective:hyperparameters}.}
     \label{fig_retrospective:model_sketch}
 \end{figure}
@@ -106,7 +106,7 @@ where $I_{\cdot}(\cdot)$ is the indicator function that returns 1 if the subscri
 
 \section{Significance testing and confidence intervals}
 
-We used standard methods for significance testing and computing the confidence intervals. We used approximate methods owing to data size and to maintain computational feasibility \cite{cite25,cite26}
+We used standard methods for significance testing and computing the confidence intervals. We used approximate methods owing to data size and to maintain computational feasibility \cite{dwass_modified_1957,eden_validity_1933}
 
 We performed \emph{paired approximate permutation} tests by pairing each observation from the first sample to a random observation from the other sample (without replacement), while keeping each observation within its original sample. This allowed us to test the significance of the observed pairings on the chosen statistics, i.e. whether a significant difference was observed in the test statistics depending on whether the call taker or model made the prediction. We used this approach to test whether
 %
