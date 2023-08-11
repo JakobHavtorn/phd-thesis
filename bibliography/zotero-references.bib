@@ -693,6 +693,19 @@
   isbn = {3-642-00957-3}
 }
 
+@inproceedings{baiImprovingMedicalCode2019,
+  title = {Improving {{Medical Code Prediction}} from {{Clinical Text}} via {{Incorporating Online Knowledge Sources}}},
+  booktitle = {The {{World Wide Web Conference}}},
+  author = {Bai, Tian and Vucetic, Slobodan},
+  date = {2019-05},
+  series = {{{WWW}} '19},
+  pages = {72--82},
+  publisher = {{Association for Computing Machinery}},
+  location = {{New York, NY, USA}},
+  abstract = {Clinical notes contain detailed information about health status of patients for each of their encounters with a health system. Developing effective models to automatically assign medical codes to clinical notes has been a long-standing active research area. Despite a great recent progress in medical informatics fueled by deep learning, it is still a challenge to find the specific piece of evidence in a clinical note which justifies a particular medical code out of all possible codes. Considering the large amount of online disease knowledge sources, which contain detailed information about signs and symptoms of different diseases, their risk factors, and epidemiology, there is an opportunity to exploit such sources. In this paper we consider Wikipedia as an external knowledge source and propose Knowledge Source Integration (KSI), a novel end-to-end code assignment framework, which can integrate external knowledge during training of any baseline deep learning model. The main idea of KSI is to calculate matching scores between a clinical note and disease related Wikipedia documents, and combine the scores with output of the baseline model. To evaluate KSI, we experimented with automatic assignment of ICD-9 diagnosis codes to the emergency department clinical notes from MIMIC-III data set, aided by Wikipedia documents corresponding to the ICD-9 codes. We evaluated several baseline models, ranging from logistic regression to recently proposed deep learning models known to achieve the state-of-the-art accuracy on clinical notes. The results show that KSI consistently improves the baseline models and that it is particularly successful in assignment of rare codes. In addition, by analyzing weights of KSI models, we can gain understanding about which words in Wikipedia documents provide useful information for predictions.},
+  isbn = {978-1-4503-6674-8}
+}
+
 @online{balestriero_cookbook_2023,
   title = {A {{Cookbook}} of {{Self-Supervised Learning}}},
   author = {Balestriero, Randall and Ibrahim, Mark and Sobal, Vlad and Morcos, Ari and Shekhar, Shashank and Goldstein, Tom and Bordes, Florian and Bardes, Adrien and Mialon, Gregoire and Tian, Yuandong and Schwarzschild, Avi and Wilson, Andrew Gordon and Geiping, Jonas and Garrido, Quentin and Fernandez, Pierre and Bar, Amir and Pirsiavash, Hamed and LeCun, Yann and Goldblum, Micah},
@@ -722,6 +735,18 @@
   abstract = {The Gumbel trick is a method to sample from a discrete probability distribution, or to estimate its normalizing partition function. The method relies on repeatedly applying a random perturbation to the distribution in a particular way, each time solving for the most likely configuration. We derive an entire family of related methods, of which the Gumbel trick is one member, and show that the new methods have superior properties in several settings with minimal additional computational cost. In particular, for the Gumbel trick to yield computational benefits for discrete graphical models, Gumbel perturbations on all configurations are typically replaced with socalled low-rank perturbations. We show how a subfamily of our new methods adapts to this setting, proving new upper and lower bounds on the log partition function and deriving a family of sequential samplers for the Gibbs distribution. Finally, we balance the discussion by showing how the simpler analytical form of the Gumbel trick enables additional theoretical results.},
   langid = {english},
   keywords = {Medium,Unread}
+}
+
+@article{baoMedicalCodePrediction2021,
+  title = {Medical Code Prediction via Capsule Networks and {{ICD}} Knowledge},
+  author = {Bao, Weidong and Lin, Hongfei and Zhang, Yijia and Wang, Jian and Zhang, Shaowu},
+  date = {2021-07},
+  journaltitle = {BMC Medical Informatics and Decision Making},
+  volume = {21},
+  number = {2},
+  pages = {55},
+  issn = {1472-6947},
+  abstract = {Clinical notes record the health status, clinical manifestations and other detailed information of each patient. The International Classification of Diseases (ICD) codes are important labels for electronic health records. Automatic medical codes assignment to clinical notes through the deep learning model can not only improve work efficiency and accelerate the development of medical informatization but also facilitate the resolution of many issues related to medical insurance. Recently, neural network-based methods have been proposed for the automatic medical code assignment. However, in the medical field, clinical notes are usually long documents and contain many complex sentences, most of the current methods cannot effective in learning the representation of potential features from document text.}
 }
 
 @misc{bapna_slam_2021,
@@ -1719,6 +1744,21 @@
   langid = {english}
 }
 
+@article{burnsSystematicReviewDischarge2012,
+  title = {Systematic Review of Discharge Coding Accuracy},
+  author = {Burns, E.M. and Rigby, E. and Mamidanna, R. and Bottle, A. and Aylin, P. and Ziprin, P. and Faiz, O.D.},
+  date = {2012-03},
+  journaltitle = {Journal of Public Health (Oxford, England)},
+  volume = {34},
+  number = {1},
+  eprint = {21795302},
+  eprinttype = {pmid},
+  pages = {138--148},
+  issn = {1741-3842},
+  abstract = {Introduction Routinely collected data sets are increasingly used for research, financial reimbursement and health service planning. High quality data are necessary for reliable analysis. This study aims to assess the published accuracy of routinely collected data sets in Great Britain. Methods Systematic searches of the EMBASE, PUBMED, OVID and Cochrane databases were performed from 1989 to present using defined search terms. Included studies were those that compared routinely collected data sets with case or operative note review and those that compared routinely collected data with clinical registries. Results Thirty-two studies were included. Twenty-five studies compared routinely collected data with case or operation notes. Seven studies compared routinely collected data with clinical registries. The overall median accuracy (routinely collected data sets versus case notes) was 83.2\% (IQR: 67.3–92.1\%). The median diagnostic accuracy was 80.3\% (IQR: 63.3–94.1\%) with a median procedure accuracy of 84.2\% (IQR: 68.7–88.7\%). There was considerable variation in accuracy rates between studies (50.5–97.8\%). Since the 2002 introduction of Payment by Results, accuracy has improved in some respects, for example primary diagnoses accuracy has improved from 73.8\% (IQR: 59.3–92.1\%) to 96.0\% (IQR: 89.3–96.3), P= 0.020. Conclusion Accuracy rates are improving. Current levels of reported accuracy suggest that routinely collected data are sufficiently robust to support their use for research and managerial decision-making.},
+  pmcid = {PMC3285117}
+}
+
 @article{burton_generalization_1983,
   title = {A Generalization of Isolated Word Recognition Using Vector Quantization},
   author = {Burton, D. K. and Shore, J. E. and Buck, J. T.},
@@ -1766,6 +1806,18 @@
   booktitle = {{{IEEE Annual Conference}} of the {{International Speech Communication Association}} ({{Interspeech}})},
   author = {Cao, Songjun and Kang, Yueteng and Fu, Yanzhe and Xu, Xiaoshuo and Sun, Sining and Zhang, Yike and Ma, Long},
   date = {2021}
+}
+
+@inproceedings{caoHyperCoreHyperbolicCograph2020,
+  title = {{{HyperCore}}: {{Hyperbolic}} and {{Co-graph Representation}} for {{Automatic ICD Coding}}},
+  shorttitle = {{{HyperCore}}},
+  booktitle = {Proceedings of the 58th {{Annual Meeting}} of the {{Association}} for {{Computational Linguistics}}},
+  author = {Cao, Pengfei and Chen, Yubo and Liu, Kang and Zhao, Jun and Liu, Shengping and Chong, Weifeng},
+  date = {2020-07},
+  pages = {3105--3114},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Online}},
+  abstract = {The International Classification of Diseases (ICD) provides a standardized way for classifying diseases, which endows each disease with a unique code. ICD coding aims to assign proper ICD codes to a medical record. Since manual coding is very laborious and prone to errors, many methods have been proposed for the automatic ICD coding task. However, most of existing methods independently predict each code, ignoring two important characteristics: Code Hierarchy and Code Co-occurrence. In this paper, we propose a Hyperbolic and Co-graph Representation method (HyperCore) to address the above problem. Specifically, we propose a hyperbolic representation method to leverage the code hierarchy. Moreover, we propose a graph convolutional network to utilize the code co-occurrence. Experimental results on two widely used datasets demonstrate that our proposed model outperforms previous state-of-the-art methods.}
 }
 
 @inproceedings{carion_endtoend_2020,
@@ -3217,7 +3269,7 @@
   langid = {english}
 }
 
-@article{dehak_front-end_2011,
+@article{dehak_frontend_2011a,
   title = {Front-{{End Factor Analysis}} for {{Speaker Verification}}},
   author = {Dehak, Najim and Kenny, Patrick J. and Dehak, Réda and Dumouchel, Pierre and Ouellet, Pierre},
   date = {2011-05},
@@ -3226,17 +3278,7 @@
   number = {4},
   pages = {788--798},
   issn = {1558-7924},
-  abstract = {This paper presents an extension of our previous work which proposes a new speaker representation for speaker verification. In this modeling, a new low-dimensional speaker- and channel-dependent space is defined using a simple factor analysis. This space is named the total variability space because it models both speaker and channel variabilities. Two speaker verification systems are proposed which use this new representation. The first system is a support vector machine-based system that uses the cosine kernel to estimate the similarity between the input data. The second system directly uses the cosine similarity as the final decision score. We tested three channel compensation techniques in the total variability space, which are within-class covariance normalization (WCCN), linear discriminate analysis (LDA), and nuisance attribute projection (NAP). We found that the best results are obtained when LDA is followed by WCCN. We achieved an equal error rate (EER) of 1.12\% and MinDCF of 0.0094 using the cosine distance scoring on the male English trials of the core condition of the NIST 2008 Speaker Recognition Evaluation dataset. We also obtained 4\% absolute EER improvement for both-gender trials on the 10 s-10 s condition compared to the classical joint factor analysis scoring.},
-  eventtitle = {{{IEEE Transactions}} on {{Audio}}, {{Speech}}, and {{Language Processing}}}
-}
-
-@article{dehak_frontend_2011,
-  title = {Front-End Factor Analysis for Speaker Verification},
-  author = {Dehak, N. and Kenny, P.J and Dehak, R. and Dumouchel, P. and Ouellet, P.},
-  date = {2011},
-  journaltitle = {IEEE Transactions on Audio, Speech, and Language Processing},
-  volume = {19(4)},
-  pages = {788--798}
+  abstract = {This paper presents an extension of our previous work which proposes a new speaker representation for speaker verification. In this modeling, a new low-dimensional speaker- and channel-dependent space is defined using a simple factor analysis. This space is named the total variability space because it models both speaker and channel variabilities. Two speaker verification systems are proposed which use this new representation. The first system is a support vector machine-based system that uses the cosine kernel to estimate the similarity between the input data. The second system directly uses the cosine similarity as the final decision score. We tested three channel compensation techniques in the total variability space, which are within-class covariance normalization (WCCN), linear discriminate analysis (LDA), and nuisance attribute projection (NAP). We found that the best results are obtained when LDA is followed by WCCN. We achieved an equal error rate (EER) of 1.12\% and MinDCF of 0.0094 using the cosine distance scoring on the male English trials of the core condition of the NIST 2008 Speaker Recognition Evaluation dataset. We also obtained 4\% absolute EER improvement for both-gender trials on the 10 s-10 s condition compared to the classical joint factor analysis scoring.}
 }
 
 @inproceedings{dehak_language_2011,
@@ -3338,15 +3380,17 @@
   langid = {english}
 }
 
-@misc{devlin_bert_2018,
+@online{devlin_bert_2018,
   title = {{{BERT}}: {{Pre-training}} of {{Deep Bidirectional Transformers}} for {{Language Understanding}}},
   shorttitle = {{{BERT}}},
   author = {Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina},
   date = {2018-10-10},
+  number = {1810.04805},
   eprint = {1810.04805},
   eprinttype = {arxiv},
   urldate = {2019-02-11},
-  abstract = {We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models, BERT is designed to pre-train deep bidirectional representations by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT representations can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications. BERT is conceptually simple and empirically powerful. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE benchmark to 80.4\% (7.6\% absolute improvement), MultiNLI accuracy to 86.7 (5.6\% absolute improvement) and the SQuAD v1.1 question answering Test F1 to 93.2 (1.5\% absolute improvement), outperforming human performance by 2.0\%.}
+  abstract = {We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models, BERT is designed to pre-train deep bidirectional representations by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT representations can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications. BERT is conceptually simple and empirically powerful. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE benchmark to 80.4\% (7.6\% absolute improvement), MultiNLI accuracy to 86.7 (5.6\% absolute improvement) and the SQuAD v1.1 question answering Test F1 to 93.2 (1.5\% absolute improvement), outperforming human performance by 2.0\%.},
+  pubstate = {preprint}
 }
 
 @misc{devries_learning_2018,
@@ -3548,15 +3592,48 @@
   abstract = {Recurrent sequence-to-sequence models using encoder-decoder ar- chitecture have made great progress in speech recognition task. However, they suffer from the drawback of slow training speed because the internal recurrence limits the training parallelization. In this paper, we present the Speech-Transformer, a no-recurrence sequence-to-sequence model entirely relies on attention mechanism- s to learn the positional dependencies, which can be trained faster with more efficiency. We also propose a 2D-Attention mechanis- m, which can jointly attend to the time and frequency axes of the 2-dimensional speech inputs, thus providing more expressive repre- sentations for the Speech-Transformer. Evaluated on the Wall Street Journal (WSJ) speech recognition dataset, our best model achieves competitive word error rate (WER) of 10.9\%, while the whole train- ing process only takes 1.2 days on 1 GPU, significantly faster than the published results of recurrent sequence-to-sequence models.}
 }
 
-@misc{dosovitskiy_image_2021,
+@article{dongAutomatedClinicalCoding2022,
+  title = {Automated Clinical Coding: {{What}}, Why, and Where We Are?},
+  shorttitle = {Automated Clinical Coding},
+  author = {Dong, Hang and Falis, Matúš and Whiteley, William and Alex, Beatrice and Matterson, Joshua and Ji, Shaoxiong and Chen, Jiaoyan and Wu, Honghan},
+  date = {2022-10},
+  journaltitle = {npj Digital Medicine},
+  volume = {5},
+  number = {1},
+  pages = {1--8},
+  publisher = {{Nature Publishing Group}},
+  issn = {2398-6352},
+  abstract = {Clinical coding is the task of transforming medical information in a patient's health records into structured codes so that they can be used for statistical analysis. This is a cognitive and time-consuming task that follows a standard process in order to achieve a high level of consistency. Clinical coding could potentially be supported by an automated system to improve the efficiency and accuracy of the process. We introduce the idea of automated clinical coding and summarise its challenges from the perspective of Artificial Intelligence (AI) and Natural Language Processing (NLP), based on the literature, our project experience over the past two and half years (late 2019–early 2022), and discussions with clinical coding experts in Scotland and the UK. Our research reveals the gaps between the current deep learning-based approach applied to clinical coding and the need for explainability and consistency in real-world practice. Knowledge-based methods that represent and reason the standard, explainable process of a task may need to be incorporated into deep learning-based methods for clinical coding. Automated clinical coding is a promising task for AI, despite the technical and organisational challenges. Coders are needed to be involved in the development process. There is much to achieve to develop and deploy an AI-based automated system to support coding in the next five years and beyond.},
+  copyright = {2022 The Author(s)},
+  langid = {english}
+}
+
+@article{dongExplainableAutomatedCoding2021,
+  title = {Explainable Automated Coding of Clinical Notes Using Hierarchical Label-Wise Attention Networks and Label Embedding Initialisation},
+  author = {Dong, Hang and Suárez-Paniagua, Víctor and Whiteley, William and Wu, Honghan},
+  date = {2021-04},
+  journaltitle = {Journal of Biomedical Informatics},
+  volume = {116},
+  eprint = {33711543},
+  eprinttype = {pmid},
+  pages = {103728},
+  issn = {1532-0480},
+  abstract = {BACKGROUND: Diagnostic or procedural coding of clinical notes aims to derive a coded summary of disease-related information about patients. Such coding is usually done manually in hospitals but could potentially be automated to improve the efficiency and accuracy of medical coding. Recent studies on deep learning for automated medical coding achieved promising performances. However, the explainability of these models is usually poor, preventing them to be used confidently in supporting clinical practice. Another limitation is that these models mostly assume independence among labels, ignoring the complex correlations among medical codes which can potentially be exploited to improve the performance. METHODS: To address the issues of model explainability and label correlations, we propose a Hierarchical Label-wise Attention Network (HLAN), which aimed to interpret the model by quantifying importance (as attention weights) of words and sentences related to each of the labels. Secondly, we propose to enhance the major deep learning models with a label embedding (LE) initialisation approach, which learns a dense, continuous vector representation and then injects the representation into the final layers and the label-wise attention layers in the models. We evaluated the methods using three settings on the MIMIC-III discharge summaries: full codes, top-50 codes, and the UK NHS (National Health Service) COVID-19 (Coronavirus disease 2019) shielding codes. Experiments were conducted to compare the HLAN model and label embedding initialisation to the state-of-the-art neural network based methods, including variants of Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs). RESULTS: HLAN achieved the best Micro-level AUC and F1 on the top-50 code prediction, 91.9\% and 64.1\%, respectively; and comparable results on the NHS COVID-19 shielding code prediction to other models: around 97\% Micro-level AUC. More importantly, in the analysis of model explanations, by highlighting the most salient words and sentences for each label, HLAN showed more meaningful and comprehensive model interpretation compared to the CNN-based models and its downgraded baselines, HAN and HA-GRU. Label embedding (LE) initialisation significantly boosted the previous state-of-the-art model, CNN with attention mechanisms, on the full code prediction to 52.5\% Micro-level F1. The analysis of the layers initialised with label embeddings further explains the effect of this initialisation approach. The source code of the implementation and the results are openly available at https://github.com/acadTags/Explainable-Automated-Medical-Coding. CONCLUSION: We draw the conclusion from the evaluation results and analyses. First, with hierarchical label-wise attention mechanisms, HLAN can provide better or comparable results for automated coding to the state-of-the-art, CNN-based models. Second, HLAN can provide more comprehensive explanations for each label by highlighting key words and sentences in the discharge summaries, compared to the n-grams in the CNN-based models and the downgraded baselines, HAN and HA-GRU. Third, the performance of deep learning based multi-label classification for automated coding can be consistently boosted by initialising label embeddings that captures the correlations among labels. We further discuss the advantages and drawbacks of the overall method regarding its potential to be deployed to a hospital and suggest areas for future studies.},
+  langid = {english}
+}
+
+@inproceedings{dosovitskiy_image_2021,
   title = {An {{Image}} Is {{Worth}} 16x16 {{Words}}: {{Transformers}} for {{Image Recognition}} at {{Scale}}},
   shorttitle = {An {{Image}} Is {{Worth}} 16x16 {{Words}}},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Dosovitskiy, Alexey and Beyer, Lucas and Kolesnikov, Alexander and Weissenborn, Dirk and Zhai, Xiaohua and Unterthiner, Thomas and Dehghani, Mostafa and Minderer, Matthias and Heigold, Georg and Gelly, Sylvain and Uszkoreit, Jakob and Houlsby, Neil},
   date = {2021-06-03},
   eprint = {2010.11929},
   eprinttype = {arxiv},
+  location = {{Virtual}},
   urldate = {2022-02-02},
   abstract = {While the Transformer architecture has become the de-facto standard for natural language processing tasks, its applications to computer vision remain limited. In vision, attention is either applied in conjunction with convolutional networks, or used to replace certain components of convolutional networks while keeping their overall structure in place. We show that this reliance on CNNs is not necessary and a pure transformer applied directly to sequences of image patches can perform very well on image classification tasks. When pre-trained on large amounts of data and transferred to multiple mid-sized or small image recognition benchmarks (ImageNet, CIFAR-100, VTAB, etc.), Vision Transformer (ViT) attains excellent results compared to state-of-the-art convolutional networks while requiring substantially fewer computational resources to train.},
+  eventtitle = {International {{Conference}} on {{Learning Representations}}},
   langid = {english},
   keywords = {Read}
 }
@@ -4072,6 +4149,17 @@
   urldate = {2017-10-23}
 }
 
+@inproceedings{feuchtDescriptionbasedLabelAttention2021,
+  title = {Description-Based {{Label Attention Classifier}} for {{Explainable ICD-9 Classification}}},
+  booktitle = {Proceedings of the {{Seventh Workshop}} on {{Noisy User-generated Text}} ({{W-NUT}} 2021)},
+  author = {Feucht, Malte and Wu, Zhiliang and Althammer, Sophia and Tresp, Volker},
+  date = {2021-11},
+  pages = {62--66},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Online}},
+  abstract = {ICD-9 coding is a relevant clinical billing task, where unstructured texts with information about a patient's diagnosis and treatments are annotated with multiple ICD-9 codes. Automated ICD-9 coding is an active research field, where CNN- and RNN-based model architectures represent the state-of-the-art approaches. In this work, we propose a description-based label attention classifier to improve the model explainability when dealing with noisy texts like clinical notes.}
+}
+
 @misc{finn_modelagnostic_2017,
   title = {Model-{{Agnostic Meta-Learning}} for {{Fast Adaptation}} of {{Deep Networks}}},
   author = {Finn, Chelsea and Abbeel, Pieter and Levine, Sergey},
@@ -4323,6 +4411,22 @@
   urldate = {2019-08-02},
   abstract = {The present paper surveys neural approaches to conversational AI that have been developed in the last few years. We group conversational systems into three categories: (1) question answering agents, (2) task-oriented dialogue agents, and (3) chatbots. For each category, we present a review of state-of-the-art neural approaches, draw the connection between them and traditional approaches, and discuss the progress that has been made and challenges still being faced, using specific systems and models as case studies.},
   langid = {english}
+}
+
+@article{gaoLimitationsTransformersClinical2021,
+  title = {Limitations of {{Transformers}} on {{Clinical Text Classification}}},
+  author = {Gao, Shang and Alawad, Mohammed and Young, M. Todd and Gounley, John and Schaefferkoetter, Noah and Yoon, Hong Jun and Wu, Xiao-Cheng and Durbin, Eric B. and Doherty, Jennifer and Stroup, Antoinette and Coyle, Linda and Tourassi, Georgia},
+  date = {2021-09},
+  journaltitle = {IEEE journal of biomedical and health informatics},
+  volume = {25},
+  number = {9},
+  eprint = {33635801},
+  eprinttype = {pmid},
+  pages = {3596--3607},
+  issn = {2168-2208},
+  abstract = {Bidirectional Encoder Representations from Transformers (BERT) and BERT-based approaches are the current state-of-the-art in many natural language processing (NLP) tasks; however, their application to document classification on long clinical texts is limited. In this work, we introduce four methods to scale BERT, which by default can only handle input sequences up to approximately 400 words long, to perform document classification on clinical texts several thousand words long. We compare these methods against two much simpler architectures - a word-level convolutional neural network and a hierarchical self-attention network - and show that BERT often cannot beat these simpler baselines when classifying MIMIC-III discharge summaries and SEER cancer pathology reports. In our analysis, we show that two key components of BERT - pretraining and WordPiece tokenization - may actually be inhibiting BERT's performance on clinical text classification tasks where the input document is several thousand words long and where correctly identifying labels may depend more on identifying a few key words or phrases rather than understanding the contextual meaning of sequences of text.},
+  langid = {english},
+  pmcid = {PMC8387496}
 }
 
 @misc{garipov_loss_2018,
@@ -4684,6 +4788,22 @@
   issn = {0360-0300, 1557-7341},
   urldate = {2022-03-17},
   abstract = {Floating-point arithmetic is considered as esoteric subject by many people. This is rather surprising, because floating-point is ubiquitous in computer systems: Almost every language has a floating-point datatype; computers from PCs to supercomputers have floating-point accelerators; most compilers will be called upon to compile floating-point algorithms from time to time; and virtually every operating system must respond to floating-point exceptions such as overflow. This paper presents a tutorial on the aspects of floating-point that have a direct impact on designers of computer systems. It begins with background on floating-point representation and rounding error, continues with a discussion of the IEEE floating point standard, and concludes with examples of how computer system builders can better support floating point.},
+  langid = {english}
+}
+
+@article{goldbergerPhysioBankPhysioToolkitPhysioNet2000,
+  title = {{{PhysioBank}}, {{PhysioToolkit}}, and {{PhysioNet}}: {{Components}} of a New Research Resource for Complex Physiologic Signals},
+  shorttitle = {{{PhysioBank}}, {{PhysioToolkit}}, and {{PhysioNet}}},
+  author = {Goldberger, A. L. and Amaral, L. A. and Glass, L. and Hausdorff, J. M. and Ivanov, P. C. and Mark, R. G. and Mietus, J. E. and Moody, G. B. and Peng, C. K. and Stanley, H. E.},
+  date = {2000-06},
+  journaltitle = {Circulation},
+  volume = {101},
+  number = {23},
+  eprint = {10851218},
+  eprinttype = {pmid},
+  pages = {E215-220},
+  issn = {1524-4539},
+  abstract = {The newly inaugurated Research Resource for Complex Physiologic Signals, which was created under the auspices of the National Center for Research Resources of the National Institutes of Health, is intended to stimulate current research and new investigations in the study of cardiovascular and other complex biomedical signals. The resource has 3 interdependent components. PhysioBank is a large and growing archive of well-characterized digital recordings of physiological signals and related data for use by the biomedical research community. It currently includes databases of multiparameter cardiopulmonary, neural, and other biomedical signals from healthy subjects and from patients with a variety of conditions with major public health implications, including life-threatening arrhythmias, congestive heart failure, sleep apnea, neurological disorders, and aging. PhysioToolkit is a library of open-source software for physiological signal processing and analysis, the detection of physiologically significant events using both classic techniques and novel methods based on statistical physics and nonlinear dynamics, the interactive display and characterization of signals, the creation of new databases, the simulation of physiological and other signals, the quantitative evaluation and comparison of analysis methods, and the analysis of nonstationary processes. PhysioNet is an on-line forum for the dissemination and exchange of recorded biomedical signals and open-source software for analyzing them. It provides facilities for the cooperative analysis of data and the evaluation of proposed new algorithms. In addition to providing free electronic access to PhysioBank data and PhysioToolkit software via the World Wide Web (http://www.physionet. org), PhysioNet offers services and training via on-line tutorials to assist users with varying levels of expertise.},
   langid = {english}
 }
 
@@ -6173,6 +6293,18 @@
   pages = {7399--7403}
 }
 
+@inproceedings{huangPLMICDAutomaticICD2022,
+  title = {{{PLM-ICD}}: {{Automatic ICD Coding}} with {{Pretrained Language Models}}},
+  shorttitle = {{{PLM-ICD}}},
+  booktitle = {Proceedings of the 4th {{Clinical Natural Language Processing Workshop}}},
+  author = {Huang, Chao-Wei and Tsai, Shang-Chi and Chen, Yun-Nung},
+  date = {2022-07},
+  pages = {10--20},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Seattle, WA}},
+  abstract = {Automatically classifying electronic health records (EHRs) into diagnostic codes has been challenging to the NLP community. State-of-the-art methods treated this problem as a multi-label classification problem and proposed various architectures to model this problem. However, these systems did not leverage the superb performance of pretrained language models, which achieved superb performance on natural language understanding tasks. Prior work has shown that pretrained language models underperformed on this task with the regular fine-tuning scheme. Therefore, this paper aims at analyzing the causes of the underperformance and developing a framework for automatic ICD coding with pretrained language models. We spotted three main issues through the experiments: 1) large label space, 2) long input sequences, and 3) domain mismatch between pretraining and fine-tuning. We propose PLM-ICD, a framework that tackles the challenges with various strategies. The experimental results show that our proposed framework can overcome the challenges and achieves state-of-the-art performance in terms of multiple metrics on the benchmark MIMIC data. Our source code is available at https://github.com/MiuLab/PLM-ICD.}
+}
+
 @book{hubbard_how_2014,
   title = {How to {{Measure Anything}} - {{Finding}} the {{Value}} of {{Intangibles}} in {{Business}}},
   author = {Hubbard, Douglas W.},
@@ -6604,6 +6736,19 @@
   langid = {english}
 }
 
+@article{jiDoesMagicBERT2021,
+  title = {Does the Magic of {{BERT}} Apply to Medical Code Assignment? {{A}} Quantitative Study},
+  shorttitle = {Does the Magic of {{BERT}} Apply to Medical Code Assignment?},
+  author = {Ji, Shaoxiong and Hölttä, Matti and Marttinen, Pekka},
+  date = {2021-12},
+  journaltitle = {Computers in Biology and Medicine},
+  volume = {139},
+  pages = {104998},
+  issn = {0010-4825},
+  abstract = {Unsupervised pretraining is an integral part of many natural language processing systems, and transfer learning with language models has achieved remarkable results in downstream tasks. In the clinical application of medical code assignment, diagnosis and procedure codes are inferred from lengthy clinical notes such as hospital discharge summaries. However, it is not clear if pretrained models are useful for medical code prediction without further architecture engineering. This paper conducts a comprehensive quantitative analysis of various contextualized language models' performances, pretrained in different domains, for medical code assignment from clinical notes. We propose a hierarchical fine-tuning architecture to capture interactions between distant words and adopt label-wise attention to exploit label information. Contrary to current trends, we demonstrate that a carefully trained classical CNN outperforms attention-based models on a MIMIC-III subset with frequent codes. Our empirical findings suggest directions for building robust medical code assignment models.},
+  langid = {english}
+}
+
 @article{jing_selfsupervised_2021,
   title = {Self-{{Supervised Visual Feature Learning}} with {{Deep Neural Networks}}: {{A Survey}}},
   author = {Jing, L. and Tian, Y.},
@@ -6616,6 +6761,18 @@
   location = {{Los Alamitos, CA, USA}},
   issn = {1939-3539},
   keywords = {annotations,feature extraction,learning systems,task analysis,training,videos,visualization}
+}
+
+@misc{jiUnifiedReviewDeep2022,
+  title = {A {{Unified Review}} of {{Deep Learning}} for {{Automated Medical Coding}}},
+  author = {Ji, Shaoxiong and Sun, Wei and Dong, Hang and Wu, Honghan and Marttinen, Pekka},
+  date = {2022-01},
+  eprint = {2201.02797},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  publisher = {{arXiv}},
+  abstract = {Automated medical coding, an essential task for healthcare operation and delivery, makes unstructured data manageable by predicting medical codes from clinical documents. Recent advances in deep learning models in natural language processing have been widely applied to this task. However, it lacks a unified view of the design of neural network architectures for medical coding. This review proposes a unified framework to provide a general understanding of the building blocks of medical coding models and summarizes recent advanced models under the proposed framework. Our unified framework decomposes medical coding into four main components, i.e., encoder modules for text feature extraction, mechanisms for building deep encoder architectures, decoder modules for transforming hidden representations into medical codes, and the usage of auxiliary information. Finally, we discuss key research challenges and future directions.},
+  issue = {arXiv:2201.02797}
 }
 
 @article{johnson_accelerating_2013,
@@ -6640,6 +6797,36 @@
   date = {2016},
   volume = {29},
   publisher = {{Curran Associates, Inc.}}
+}
+
+@article{johnsonMIMICIIIFreelyAccessible2016,
+  title = {{{MIMIC-III}}, a Freely Accessible Critical Care Database},
+  author = {Johnson, Alistair E. W. and Pollard, Tom J. and Shen, Lu and Lehman, Li-wei H. and Feng, Mengling and Ghassemi, Mohammad and Moody, Benjamin and Szolovits, Peter and Anthony Celi, Leo and Mark, Roger G.},
+  date = {2016-05},
+  journaltitle = {Scientific Data},
+  volume = {3},
+  number = {1},
+  pages = {160035},
+  publisher = {{Nature Publishing Group}},
+  issn = {2052-4463},
+  abstract = {MIMIC-III (`Medical Information Mart for Intensive Care') is a large, single-center database comprising information relating to patients admitted to critical care units at a large tertiary care hospital. Data includes vital signs, medications, laboratory measurements, observations and notes charted by care providers, fluid balance, procedure codes, diagnostic codes, imaging reports, hospital length of stay, survival data, and more. The database supports applications including academic and industrial research, quality improvement initiatives, and higher education coursework.},
+  copyright = {2016 The Author(s)},
+  langid = {english}
+}
+
+@article{johnsonMIMICIVFreelyAccessible2023,
+  title = {{{MIMIC-IV}}, a Freely Accessible Electronic Health Record Dataset},
+  author = {Johnson, Alistair E. W. and Bulgarelli, Lucas and Shen, Lu and Gayles, Alvin and Shammout, Ayad and Horng, Steven and Pollard, Tom J. and Moody, Benjamin and Gow, Brian and Lehman, Li-wei H. and Celi, Leo A. and Mark, Roger G.},
+  date = {2023-01},
+  journaltitle = {Scientific Data},
+  volume = {10},
+  number = {1},
+  pages = {1},
+  publisher = {{Nature Publishing Group}},
+  issn = {2052-4463},
+  abstract = {Digital data collection during routine clinical practice is now ubiquitous within hospitals. The data contains valuable information on the care of patients and their response to treatments, offering exciting opportunities for research. Typically, data are stored within archival systems that are not intended to support research. These systems are often inaccessible to researchers and structured for optimal storage, rather than interpretability and analysis. Here we present MIMIC-IV, a publicly available database sourced from the electronic health record of the Beth Israel Deaconess Medical Center. Information available includes patient measurements, orders, diagnoses, procedures, treatments, and deidentified free-text clinical notes. MIMIC-IV is intended to support a wide array of research studies and educational material, helping to reduce barriers to conducting clinical research.},
+  copyright = {2023 The Author(s)},
+  langid = {english}
 }
 
 @inproceedings{jones_is_2020,
@@ -7014,6 +7201,20 @@
   abstract = {Deep neural network training spends most of the computation on examples that are properly handled, and could be ignored. We propose to mitigate this phenomenon with a principled importance sampling scheme that focuses computation on "informative" examples, and reduces the variance of the stochastic gradients during training. Our contribution is twofold: first, we derive a tractable upper bound to the per-sample gradient norm, and second we derive an estimator of the variance reduction achieved with importance sampling, which enables us to switch it on when it will result in an actual speedup. The resulting scheme can be used by changing a few lines of code in a standard SGD procedure, and we demonstrate experimentally, on image classification, CNN fine-tuning, and RNN training, that for a fixed wall-clock time budget, it provides a reduction of the train losses of up to an order of magnitude and a relative improvement of test errors between 5\% and 17\%.}
 }
 
+@article{kavuluruEmpiricalEvaluationSupervised2015,
+  title = {An Empirical Evaluation of Supervised Learning Approaches in Assigning Diagnosis Codes to Electronic Medical Records},
+  author = {Kavuluru, Ramakanth and Rios, Anthony and Lu, Yuan},
+  date = {2015-10},
+  journaltitle = {Artificial Intelligence in Medicine},
+  series = {Intelligent Healthcare Informatics in Big Data Era},
+  volume = {65},
+  number = {2},
+  pages = {155--166},
+  issn = {0933-3657},
+  abstract = {Background Diagnosis codes are assigned to medical records in healthcare facilities by trained coders by reviewing all physician authored documents associated with a patient's visit. This is a necessary and complex task involving coders adhering to coding guidelines and coding all assignable codes. With the popularity of electronic medical records (EMRs), computational approaches to code assignment have been proposed in the recent years. However, most efforts have focused on single and often short clinical narratives, while realistic scenarios warrant full EMR level analysis for code assignment. Objective We evaluate supervised learning approaches to automatically assign international classification of diseases (ninth revision) – clinical modification (ICD-9-CM) codes to EMRs by experimenting with a large realistic EMR dataset. The overall goal is to identify methods that offer superior performance in this task when considering such datasets. Methods We use a dataset of 71,463 EMRs corresponding to in-patient visits with discharge date falling in a two year period (2011–2012) from the University of Kentucky (UKY) Medical Center. We curate a smaller subset of this dataset and also use a third gold standard dataset of radiology reports. We conduct experiments using different problem transformation approaches with feature and data selection components and employing suitable label calibration and ranking methods with novel features involving code co-occurrence frequencies and latent code associations. Results Over all codes with at least 50 training examples we obtain a micro F-score of 0.48. On the set of codes that occur at least in 1\% of the two year dataset, we achieve a micro F-score of 0.54. For the smaller radiology report dataset, the classifier chaining approach yields best results. For the smaller subset of the UKY dataset, feature selection, data selection, and label calibration offer best performance. Conclusions We show that datasets at different scale (size of the EMRs, number of distinct codes) and with different characteristics warrant different learning approaches. For shorter narratives pertaining to a particular medical subdomain (e.g., radiology, pathology), classifier chaining is ideal given the codes are highly related with each other. For realistic in-patient full EMRs, feature and data selection methods offer high performance for smaller datasets. However, for large EMR datasets, we observe that the binary relevance approach with learning-to-rank based code reranking offers the best performance. Regardless of the training dataset size, for general EMRs, label calibration to select the optimal number of labels is an indispensable final step.},
+  langid = {english}
+}
+
 @article{kawakami_learning_2020,
   title = {Learning {{Robust}} and {{Multilingual Speech Representations}}},
   author = {Kawakami, Kazuya and Wang, Luyu and Dyer, Chris and Blunsom, Phil and family=Oord, given=Aaron, prefix=van den, useprefix=false},
@@ -7226,6 +7427,19 @@
   eventtitle = {International {{Conference}} on {{Machine Learning}}}
 }
 
+@inproceedings{kimReadAttendCode2021,
+  title = {Read, {{Attend}}, and {{Code}}: {{Pushing}} the {{Limits}} of {{Medical Codes Prediction}} from {{Clinical Notes}} by {{Machines}}},
+  shorttitle = {Read, {{Attend}}, and {{Code}}},
+  booktitle = {Proceedings of the 6th {{Machine Learning}} for {{Healthcare Conference}}},
+  author = {Kim, Byung-Hak and Ganapathi, Varun},
+  date = {2021-10},
+  pages = {196--208},
+  publisher = {{PMLR}},
+  issn = {2640-3498},
+  abstract = {Prediction of medical codes from clinical notes is both a practical and essential need for every healthcare delivery organization within current medical systems. Automating annotation will save significant time and excessive effort spent by human coders today. However, the biggest challenge is directly identifying appropriate medical codes out of several thou- sands of high-dimensional codes from unstructured free-text clinical notes. In the past three years, with Convolutional Neural Networks (CNN) and Long Short-Term Memory (LTSM) networks, there have been vast improvements in tackling the most challenging benchmark of the MIMIC-III-full-label inpatient clinical notes dataset. This progress raises the fundamental question of how far automated machine learning (ML) systems are from human coders' working performance. We assessed the baseline of human coders' performance on the same subsampled testing set. We also present our Read, Attend, and Code (RAC) model for learning the medical code assignment mappings. By connecting convolved embeddings with self-attention and code-title guided attention modules, combined with sentence permutation-based data augmentations and stochastic weight averaging training, RAC establishes a new state of the art (SOTA), considerably outperforming the current best Macro-F1 by 18.7\%, and reaches past the human-level coding baseline. This new milestone marks a meaningful step toward fully autonomous medical coding (AMC) in machines reaching parity with human coders' performance in medical code prediction.},
+  langid = {english}
+}
+
 @inproceedings{kingma_adam_2015,
   title = {Adam: {{A Method}} for {{Stochastic Optimization}}},
   booktitle = {Proceedings of the the 3rd {{International Conference}} for {{Learning Representations}} ({{ICLR}})},
@@ -7325,6 +7539,18 @@
   abstract = {Diffusion-based generative models have demonstrated a capacity for perceptually impressive synthesis, but can they also be great likelihood-based models? We answer this in the affirmative, and introduce a family of diffusion-based generative models that obtain state-of-the-art likelihoods on standard image density estimation benchmarks. Unlike other diffusion-based models, our method allows for efficient optimization of the noise schedule jointly with the rest of the model. We show that the variational lower bound (VLB) simplifies to a remarkably short expression in terms of the signal-to-noise ratio of the diffused data, thereby improving our theoretical understanding of this model class. Using this insight, we prove an equivalence between several models proposed in the literature. In addition, we show that the continuous-time VLB is invariant to the noise schedule, except for the signal-to-noise ratio at its endpoints. This enables us to learn a noise schedule that minimizes the variance of the resulting VLB estimator, leading to faster optimization. Combining these advances with architectural improvements, we obtain state-of-the-art likelihoods on image density estimation benchmarks, outperforming autoregressive models that have dominated these benchmarks for many years, with often significantly faster optimization. In addition, we show how to turn the model into a bits-back compression scheme, and demonstrate lossless compression rates close to the theoretical optimum.},
   langid = {english},
   keywords = {Unread}
+}
+
+@misc{kingmaAdamMethodStochastic2017,
+  title = {Adam: {{A Method}} for {{Stochastic Optimization}}},
+  shorttitle = {Adam},
+  author = {Kingma, Diederik P. and Ba, Jimmy},
+  date = {2017-01},
+  eprint = {1412.6980},
+  eprinttype = {arxiv},
+  publisher = {{arXiv}},
+  abstract = {We introduce Adam, an algorithm for first-order gradient-based optimization of stochastic objective functions, based on adaptive estimates of lower-order moments. The method is straightforward to implement, is computationally efficient, has little memory requirements, is invariant to diagonal rescaling of the gradients, and is well suited for problems that are large in terms of data and/or parameters. The method is also appropriate for non-stationary objectives and problems with very noisy and/or sparse gradients. The hyper-parameters have intuitive interpretations and typically require little tuning. Some connections to related algorithms, on which Adam was inspired, are discussed. We also analyze the theoretical convergence properties of the algorithm and provide a regret bound on the convergence rate that is comparable to the best known results under the online convex optimization framework. Empirical results demonstrate that Adam works well in practice and compares favorably to other stochastic optimization methods. Finally, we discuss AdaMax, a variant of Adam based on the infinity norm.},
+  issue = {arXiv:1412.6980}
 }
 
 @misc{kipf_variational_2016,
@@ -8254,6 +8480,20 @@
   langid = {english}
 }
 
+@article{leeOpenaccessMIMICIIDatabase2011,
+  title = {Open-Access {{MIMIC-II Database}} for {{Intensive Care Research}}},
+  author = {Lee, Joon and Scott, Daniel J. and Villarroel, Mauricio and Clifford, Gari D. and Saeed, Mohammed and Mark, Roger G.},
+  date = {2011},
+  journaltitle = {Conference proceedings : ... Annual International Conference of the IEEE Engineering in Medicine and Biology Society. IEEE Engineering in Medicine and Biology Society. Annual Conference},
+  volume = {2011},
+  eprint = {22256274},
+  eprinttype = {pmid},
+  pages = {8315--8318},
+  issn = {1557-170X},
+  abstract = {The critical state of intensive care unit (ICU) patients demands close monitoring, and as a result a large volume of multi-parameter data is collected continuously. This represents a unique opportunity for researchers interested in clinical data mining. We sought to foster a more transparent and efficient intensive care research community by building a publicly available ICU database, namely Multiparameter Intelligent Monitoring in Intensive Care II (MIMIC-II). The data harnessed in MIMIC-II were collected from the ICUs of Beth Israel Deaconess Medical Center from 2001 to 2008 and represent 26,870 adult hospital admissions (version 2.6). MIMIC-II consists of two major components: clinical data and physiological waveforms. The clinical data, which include patient demographics, intravenous medication drip rates, and laboratory test results, were organized into a relational database. The physiological waveforms, including 125 Hz signals recorded at bedside and corresponding vital signs, were stored in an open-source format. MIMIC-II data were also deidentified in order to remove protected health information. Any interested researcher can gain access to MIMIC-II free of charge after signing a data use agreement and completing human subjects training. MIMIC-II can support a wide variety of research studies, ranging from the development of clinical decision support algorithms to retrospective clinical studies. We anticipate that MIMIC-II will be an invaluable resource for intensive care research by stimulating fair comparisons among different studies.},
+  pmcid = {PMC6339457}
+}
+
 @article{legerstee_infants_1990,
   title = {Infants Use Multimodal Information to Imitate Speech Sounds},
   author = {Legerstee, Maria},
@@ -8616,6 +8856,20 @@
   abstract = {Lighthill's report was commissioned by the Science Research Council (SRC) to give an unbiased view of the state of AI research primarily in the UK in 1973. The two main research groups were at Sussex and Edinburgh. There was pressure from Edinburgh to buy a US machine, the Digital Equipment Corporation DEC10 which was used by most US researchers. AI research was funded by the Engineering Board of SRC as part of its Computer Science funding. The Lighthill Report was published early in 1973. Although it supported AI research related to automation and to computer simulation of neurophysiological and psychological processes, it was highly critical of basic research in the foundation areas such as robotics and language processing. Lighthill's report provoked a massive loss of confidence in AI by the academic establishment in the UK including the funding body. It persisted for almost a decade. AI research continued but the next attempt to mount a major activity in the area did not come until the September 1982 Research Area Review Meeting on Intelligent Knowledge-Based Systems. The findings of which were accepted by SERC (Science and Engineering Research Council, a change of name) and became the IKBS part of the Alvey Programme.}
 }
 
+@article{liICDCodingClinical2020,
+  title = {{{ICD Coding}} from {{Clinical Text Using Multi-Filter Residual Convolutional Neural Network}}},
+  author = {Li, Fei and Yu, Hong},
+  date = {2020-04},
+  journaltitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume = {34},
+  number = {05},
+  pages = {8180--8187},
+  issn = {2374-3468},
+  abstract = {Automated ICD coding, which assigns the International Classification of Disease codes to patient visits, has attracted much research attention since it can save time and labor for billing. The previous state-of-the-art model utilized one convolutional layer to build document representations for predicting ICD codes. However, the lengths and grammar of text fragments, which are closely related to ICD coding, vary a lot in different documents. Therefore, a flat and fixed-length convolutional architecture may not be capable of learning good document representations. In this paper, we proposed a Multi-Filter Residual Convolutional Neural Network (MultiResCNN) for ICD coding. The innovations of our model are two-folds: it utilizes a multi-filter convolutional layer to capture various text patterns with different lengths and a residual convolutional layer to enlarge the receptive field. We evaluated the effectiveness of our model on the widely-used MIMIC dataset. On the full code set of MIMIC-III, our model outperformed the state-of-the-art model in 4 out of 6 evaluation metrics. On the top-50 code set of MIMIC-III and the full code set of MIMIC-II, our model outperformed all the existing and state-of-the-art models in all evaluation metrics. The code is available at https://github.com/foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network.},
+  copyright = {Copyright (c) 2020 Association for the Advancement of Artificial Intelligence},
+  langid = {english}
+}
+
 @inproceedings{likhomanenko_slimipl_2021,
   title = {{{slimIPL}}: {{Language-model-free}} Iterative Pseudo-Labeling},
   booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
@@ -8718,6 +8972,17 @@
   issn = {2379-190X},
   abstract = {We propose a novel approach to semi-supervised automatic speech recognition (ASR). We first exploit a large amount of unlabeled audio data via representation learning, where we reconstruct a temporal slice of filterbank features from past and future context frames. The resulting deep contextualized acoustic representations (DeCoAR) are then used to train a CTC-based end-to-end ASR system using a smaller amount of labeled audio data. In our experiments, we show that systems trained on DeCoAR consistently outperform ones trained on conventional filterbank features, giving 42\% and 19\% relative improvement over the baseline on WSJ eval92 and LibriSpeech test-clean, respectively. Our approach can drastically reduce the amount of labeled data required; unsupervised training on LibriSpeech then supervision with 100 hours of labeled data achieves performance on par with training on all 960 hours directly.},
   eventtitle = {{{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})}
+}
+
+@unpublished{linPretrainedTransformersText2021,
+  title = {Pretrained {{Transformers}} for {{Text Ranking}}: {{BERT}} and {{Beyond}}},
+  shorttitle = {Pretrained {{Transformers}} for {{Text Ranking}}},
+  author = {Lin, Jimmy and Nogueira, Rodrigo and Yates, Andrew},
+  date = {2021-08},
+  eprint = {2010.06467},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  abstract = {The goal of text ranking is to generate an ordered list of texts retrieved from a corpus in response to a query. Although the most common formulation of text ranking is search, instances of the task can also be found in many natural language processing applications. This survey provides an overview of text ranking with neural network architectures known as transformers, of which BERT is the best-known example. The combination of transformers and self-supervised pretraining has been responsible for a paradigm shift in natural language processing (NLP), information retrieval (IR), and beyond. In this survey, we provide a synthesis of existing work as a single point of entry for practitioners who wish to gain a better understanding of how to apply transformers to text ranking problems and researchers who wish to pursue work in this area. We cover a wide range of modern techniques, grouped into two high-level categories: transformer models that perform reranking in multi-stage architectures and dense retrieval techniques that perform ranking directly. There are two themes that pervade our survey: techniques for handling long documents, beyond typical sentence-by-sentence processing in NLP, and techniques for addressing the tradeoff between effectiveness (i.e., result quality) and efficiency (e.g., query latency, model and index size). Although transformer architectures and pretraining techniques are recent innovations, many aspects of how they are applied to text ranking are relatively well understood and represent mature techniques. However, there remain many open research questions, and thus in addition to laying out the foundations of pretrained transformers for text ranking, this survey also attempts to prognosticate where the field is heading.}
 }
 
 @article{lippe_categorical_2021,
@@ -8971,6 +9236,30 @@
   langid = {english}
 }
 
+@inproceedings{liuEffectiveConvolutionalAttention2021,
+  title = {Effective {{Convolutional Attention Network}} for {{Multi-label Clinical Document Classification}}},
+  booktitle = {Proceedings of the 2021 {{Conference}} on {{Empirical Methods}} in {{Natural Language Processing}}},
+  author = {Liu, Yang and Cheng, Hua and Klopfer, Russell and Gormley, Matthew R. and Schaaf, Thomas},
+  date = {2021-11},
+  pages = {5941--5953},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Online and Punta Cana, Dominican Republic}},
+  abstract = {Multi-label document classification (MLDC) problems can be challenging, especially for long documents with a large label set and a long-tail distribution over labels. In this paper, we present an effective convolutional attention network for the MLDC problem with a focus on medical code prediction from clinical documents. Our innovations are three-fold: (1) we utilize a deep convolution-based encoder with the squeeze-and-excitation networks and residual networks to aggregate the information across the document and learn meaningful document representations that cover different ranges of texts; (2) we explore multi-layer and sum-pooling attention to extract the most informative features from these multi-scale representations; (3) we combine binary cross entropy loss and focal loss to improve performance for rare labels. We focus our evaluation study on MIMIC-III, a widely used dataset in the medical domain. Our models outperform prior work on medical coding and achieve new state-of-the-art results on multiple metrics. We also demonstrate the language independent nature of our approach by applying it to two non-English datasets. Our model outperforms prior best model and a multilingual Transformer model by a substantial margin.}
+}
+
+@article{lloydPhysicianCodingErrors1985,
+  title = {Physician and {{Coding Errors}} in {{Patient Records}}},
+  author = {Lloyd, Susan S. and Rissing, J. Peter},
+  date = {1985-09},
+  journaltitle = {JAMA : the journal of the American Medical Association},
+  shortjournal = {JAMA},
+  volume = {254},
+  number = {10},
+  pages = {1330--1336},
+  issn = {0098-7484},
+  abstract = {The Veterans Administration's discharge abstract system was studied to identify error frequency, source, and effect in five Veterans Administration hospitals. We reviewed 1,829 medical records from 21 services for concordance with the abstract; sampling provided 95\% confidence for each service. Of these records, 1,499 (82\%) differed from the abstract in at least one item. Of 20,260 items, 4,360 (22\%) were incorrect, with three error sources: physician (62\%), coding (35\%), and keypunch (3\%). We projected 2.14 physician and 0.81 coding errors in the average abstract. Eighty-nine percent of projected physician errors were failures to report a procedure or diagnosis. Coding was subjective and errors were synergistic with physician errors. We projected that correction of errors would change 19\% of the records for diagnosis-related group purposes and substantially increase future resource allocation. This effect varied considerably by service.(JAMA 1985;254:1330-1336)}
+}
+
 @misc{loaiza-ganem_continuous_2019,
   title = {The Continuous {{Bernoulli}}: Fixing a Pervasive Error in Variational Autoencoders},
   shorttitle = {The Continuous {{Bernoulli}}},
@@ -9005,6 +9294,15 @@
   urldate = {2018-06-03},
   abstract = {L\$\_2\$ regularization and weight decay regularization are equivalent for standard stochastic gradient descent (when rescaled by the learning rate), but as we demonstrate this is \textbackslash emph\{not\} the case for adaptive gradient algorithms, such as Adam. While common deep learning frameworks of these algorithms implement L\$\_2\$ regularization (often calling it "weight decay" in what may be misleading due to the inequivalence we expose), we propose a simple modification to recover the original formulation of weight decay regularization by decoupling the weight decay from the optimization steps taken w.r.t. the loss function. We provide empirical evidence that our proposed modification (i) decouples the optimal choice of weight decay factor from the setting of the learning rate for both standard SGD and Adam, and (ii) substantially improves Adam's generalization performance, allowing it to compete with SGD with momentum on image classification datasets (on which it was previously typically outperformed by the latter). We also propose a version of Adam with warm restarts (AdamWR) that has strong anytime performance while achieving state-of-the-art results on CIFAR-10 and ImageNet32x32. Our source code is available at https://github.com/loshchil/AdamW-and-SGDW},
   keywords = {★}
+}
+
+@inproceedings{loshchilovDecoupledWeightDecay2022,
+  title = {Decoupled {{Weight Decay Regularization}}},
+  booktitle = {International {{Conference}} on {{Learning Representations}}},
+  author = {Loshchilov, Ilya and Hutter, Frank},
+  date = {2022-02},
+  abstract = {L\$\_2\$ regularization and weight decay regularization are equivalent for standard stochastic gradient descent (when rescaled by the learning rate), but as we demonstrate this is \textbackslash emph\{not\} the case for adaptive gradient algorithms, such as Adam. While common implementations of these algorithms employ L\$\_2\$ regularization (often calling it “weight decay” in what may be misleading due to the inequivalence we expose), we propose a simple modification to recover the original formulation of weight decay regularization by \textbackslash emph\{decoupling\} the weight decay from the optimization steps taken w.r.t. the loss function. We provide empirical evidence that our proposed modification (i) decouples the optimal choice of weight decay factor from the setting of the learning rate for both standard SGD and Adam and (ii) substantially improves Adam's generalization performance, allowing it to compete with SGD with momentum on image classification datasets (on which it was previously typically outperformed by the latter). Our proposed decoupled weight decay has already been adopted by many researchers, and the community has implemented it in TensorFlow and PyTorch; the complete source code for our experiments is available at \textbackslash url\{https://github.com/loshchil/AdamW-and-SGDW\}},
+  langid = {english}
 }
 
 @online{lu_conditional_2022,
@@ -9672,6 +9970,18 @@
   pages = {1967--1976}
 }
 
+@inproceedings{michalopoulosICDBigBirdContextualEmbedding2022,
+  title = {{{ICDBigBird}}: {{A Contextual Embedding Model}} for {{ICD Code Classification}}},
+  shorttitle = {{{ICDBigBird}}},
+  booktitle = {Proceedings of the 21st {{Workshop}} on {{Biomedical Language Processing}}},
+  author = {Michalopoulos, George and Malyska, Michal and Sahar, Nicola and Wong, Alexander and Chen, Helen},
+  date = {2022-05},
+  pages = {330--336},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Dublin, Ireland}},
+  abstract = {The International Classification of Diseases (ICD) system is the international standard for classifying diseases and procedures during a healthcare encounter and is widely used for healthcare reporting and management purposes. Assigning correct codes for clinical procedures is important for clinical, operational and financial decision-making in healthcare. Contextual word embedding models have achieved state-of-the-art results in multiple NLP tasks. However, these models have yet to achieve state-of-the-art results in the ICD classification task since one of their main disadvantages is that they can only process documents that contain a small number of tokens which is rarely the case with real patient notes. In this paper, we introduce ICDBigBird a BigBird-based model which can integrate a Graph Convolutional Network (GCN), that takes advantage of the relations between ICD codes in order to create `enriched' representations of their embeddings, with a BigBird contextual model that can process larger documents. Our experiments on a real-world clinical dataset demonstrate the effectiveness of our BigBird-based model on the ICD classification task as it outperforms the previous state-of-the-art models.}
+}
+
 @misc{michelis_linear_2021,
   title = {On {{Linear Interpolation}} in the {{Latent Space}} of {{Deep Generative Models}}},
   author = {Michelis, Mike Yan and Becker, Quentin},
@@ -9945,6 +10255,21 @@
   abstract = {We study the complexity of functions computable by deep feedforward neural networks with piecewise linear activations in terms of the symmetries and the number of linear regions that they have. Deep networks are able to sequentially map portions of each layer's input-space to the same output. In this way, deep models compute functions that react equally to complicated patterns of different inputs. The compositional structure of these functions enables them to re-use pieces of computation exponentially often in terms of the network's depth. This paper investigates the complexity of such compositional maps and contributes new theoretical results regarding the advantage of depth for neural networks with piecewise linear activation functions. In particular, our analysis is not specific to a single family of models, and as an example, we employ it for rectifier and maxout networks. We improve complexity bounds from pre-existing work and investigate the behavior of units in higher layers.}
 }
 
+@article{moonsComparisonDeepLearning2020,
+  title = {A {{Comparison}} of {{Deep Learning Methods}} for {{ICD Coding}} of {{Clinical Records}}},
+  author = {Moons, Elias and Khanna, Aditya and Akkasi, Abbas and Moens, Marie-Francine},
+  date = {2020-01},
+  journaltitle = {Applied Sciences},
+  volume = {10},
+  number = {15},
+  pages = {5262},
+  publisher = {{Multidisciplinary Digital Publishing Institute}},
+  issn = {2076-3417},
+  abstract = {In this survey, we discuss the task of automatically classifying medical documents into the taxonomy of the International Classification of Diseases (ICD), by the use of deep neural networks. The literature in this domain covers different techniques. We will assess and compare the performance of those techniques in various settings and investigate which combination leverages the best results. Furthermore, we introduce an hierarchical component that exploits the knowledge of the ICD taxonomy. All methods and their combinations are evaluated on two publicly available datasets that represent ICD-9 and ICD-10 coding, respectively. The evaluation leads to a discussion of the advantages and disadvantages of the models.},
+  copyright = {http://creativecommons.org/licenses/by/3.0/},
+  langid = {english}
+}
+
 @inproceedings{morningstar_density_2021,
   title = {Density of {{States Estimation}} for {{Out}} of {{Distribution Detection}}},
   booktitle = {International {{Conference}} on {{Artificial Intelligence}} and {{Statistics}} ({{AISTATS}})},
@@ -10035,6 +10360,17 @@
   date = {2009},
   volume = {197},
   publisher = {{John Wiley \& Sons}}
+}
+
+@inproceedings{mullenbachExplainablePredictionMedical2018,
+  title = {Explainable {{Prediction}} of {{Medical Codes}} from {{Clinical Text}}},
+  booktitle = {Proceedings of the 2018 {{Conference}} of the {{North American Chapter}} of the {{Association}} for {{Computational Linguistics}}: {{Human Language Technologies}}, {{Volume}} 1 ({{Long Papers}})},
+  author = {Mullenbach, James and Wiegreffe, Sarah and Duke, Jon and Sun, Jimeng and Eisenstein, Jacob},
+  date = {2018-06},
+  pages = {1101--1111},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{New Orleans, Louisiana}},
+  abstract = {Clinical notes are text documents that are created by clinicians for each patient encounter. They are typically accompanied by medical codes, which describe the diagnosis and treatment. Annotating these codes is labor intensive and error prone; furthermore, the connection between the codes and the text is not annotated, obscuring the reasons and details behind specific diagnoses and treatments. We present an attentional convolutional network that predicts medical codes from clinical text. Our method aggregates information across the document using a convolutional neural network, and uses an attention mechanism to select the most relevant segments for each of the thousands of possible codes. The method is accurate, achieving precision@8 of 0.71 and a Micro-F1 of 0.54, which are both better than the prior state of the art. Furthermore, through an interpretability evaluation by a physician, we show that the attention mechanism identifies meaningful explanations for each code assignment.}
 }
 
 @book{murphy_machine_2012,
@@ -10276,16 +10612,6 @@
   abstract = {Detecting and reading text from natural images is a hard computer vision task that is central to a variety of emerging applications. Related problems like document character recognition have been widely studied by computer vision and machine learning researchers and are virtually solved for practical applications like reading handwritten digits. Reliably recognizing characters in more complex scenes like photographs, however, is far more difficult: the best existing methods lag well behind human performance on the same tasks. In this paper we attack the problem of recognizing digits in a real application using unsupervised feature learning methods: reading house numbers from street level photos. To this end, we introduce a new benchmark dataset for research use containing over 600,000 labeled digits cropped from Street View images. We then demonstrate the difficulty of recognizing these digits when the problem is approached with hand-designed features. Finally, we employ variants of two recently proposed unsupervised feature learning methods and find that they are convincingly superior on our benchmarks.}
 }
 
-@inproceedings{NEURIPS2019_9d8df73a,
-  title = {Large Memory Layers with Product Keys},
-  booktitle = {Advances in Neural Information Processing Systems},
-  author = {Lample, Guillaume and Sablayrolles, Alexandre and Ranzato, MarcAurelio and Denoyer, Ludovic and Jegou, Herve},
-  editor = {Wallach, H. and Larochelle, H. and Beygelzimer, A. and family=Buc, given=F., prefix=dAlché-, useprefix=true and Fox, E. and Garnett, R.},
-  date = {2019},
-  volume = {32},
-  publisher = {{Curran Associates, Inc.}}
-}
-
 @article{neyman_use_1928,
   title = {On the Use and Interpretation of Certain Test Criteria for Purposes of Statistical Inference: {{Part I}}},
   author = {Neyman, Jerzy and Pearson, Egon S},
@@ -10293,14 +10619,6 @@
   journaltitle = {Biometrika},
   pages = {175--240},
   publisher = {{JSTOR}}
-}
-
-@article{ngiam_multimodal_,
-  title = {Multimodal {{Deep Learning}}},
-  author = {Ngiam, Jiquan and Khosla, Aditya and Kim, Mingyu and Nam, Juhan and Lee, Honglak and Ng, Andrew Y},
-  pages = {8},
-  abstract = {Deep networks have been successfully applied to unsupervised feature learning for single modalities (e.g., text, images or audio). In this work, we propose a novel application of deep networks to learn features over multiple modalities. We present a series of tasks for multimodal learning and show how to train deep networks that learn features to address these tasks. In particular, we demonstrate cross modality feature learning, where better features for one modality (e.g., video) can be learned if multiple modalities (e.g., audio and video) are present at feature learning time. Furthermore, we show how to learn a shared representation between modalities and evaluate it on a unique task, where the classifier is trained with audio-only data but tested with video-only data and vice-versa. Our models are validated on the CUAVE and AVLetters datasets on audio-visual speech classification, demonstrating best published visual speech classification on AVLetters and effective shared representation learning.},
-  langid = {english}
 }
 
 @inproceedings{ngiam_multimodal_2011,
@@ -10485,6 +10803,19 @@
   langid = {english}
 }
 
+@article{nouraeiAuditNatureImpact2013,
+  title = {An Audit of the Nature and Impact of Clinical Coding Subjectivity Variability and Error in Otolaryngology},
+  author = {Nouraei, S.a.r. and Hudovsky, A. and Virk, J.s. and Chatrath, P. and Sandhu, G.s.},
+  date = {2013},
+  journaltitle = {Clinical Otolaryngology},
+  volume = {38},
+  number = {6},
+  pages = {512--524},
+  issn = {1749-4486},
+  abstract = {Objectives To audit the accuracy of clinical coding in otolaryngology, assess the effectiveness of previously implemented interventions, and determine ways in which it can be further improved. Design Prospective clinician–auditor multidisciplinary audit of clinical coding accuracy. Participants Elective and emergency ENT admissions and day-case activity. Main outcome measures Concordance between initial coding and the clinician–auditor multi-disciplinary teams (MDT) coding in respect of primary and secondary diagnoses and procedures, health resource groupings health resource groupings (HRGs) and tariffs. Results The audit of 3131 randomly selected otolaryngology patients between 2010 and 2012 resulted in 420 instances of change to the primary diagnosis (13\%) and 417 changes to the primary procedure (13\%). In 1420 cases (44\%), there was at least one change to the initial coding and 514 (16\%) health resource groupings changed. There was an income variance of £343,169 or £109.46 per patient. The highest rates of health resource groupings change were observed in head and neck surgery and in particular skull-based surgery, laryngology and within that tracheostomy, and emergency admissions, and specially, epistaxis management. A randomly selected sample of 235 patients from the audit were subjected to a second audit by a second clinician–auditor multi-disciplinary team. There were 12 further health resource groupings changes (5\%) and at least one further coding change occurred in 57 patients (24\%). These changes were significantly lower than those observed in the pre-audit sample, but were also significantly greater than zero. Asking surgeons to `code in theatre' and applying these codes without further quality assurance to activity resulted in an health resource groupings error rate of 45\%. The full audit sample was regrouped under health resource groupings 3.5 and was compared with a previous audit of 1250 patients performed between 2007 and 2008. This comparison showed a reduction in the baseline rate of health resource groupings change from 16\% during the first audit cycle to 9\% in the current audit cycle (P {$<$} 0.001). Conclusions Otolaryngology coding is complex and susceptible to subjectivity, variability and error. Coding variability can be improved, but not eliminated through regular education supported by an audit programme.},
+  langid = {english}
+}
+
 @article{olah_attention_2016,
   title = {Attention and {{Augmented Recurrent Neural Networks}}},
   author = {Olah, Chris and Carter, Shan},
@@ -10517,6 +10848,22 @@
   issn = {00280836},
   abstract = {The receptive fields of simple cells in mammalian primary visual cortex can be characterized as being spatially localized, oriented1–4 and bandpass (selective to structure at different spatial scales), comparable to the basis functions of wavelet transforms5,6. One approach to understanding such response properties of visual neurons has been to consider their relationship to the statistical structure of natural images in terms of efficient coding7–12. Along these lines, a number of studies have attempted to train unsupervised learning algorithms on natural images in the hope of developing receptive fields with similar properties13–18, but none has succeeded in producing a full set that spans the image space and contains all three of the above properties. Here we investigate the proposal8,12 that a coding strategy that maximizes sparseness is sufficient to account for these properties. We show that a learning algorithm that attempts to find sparse linear codes for natural scenes will develop a complete family of localized, oriented, bandpass receptive fields, similar to those found in the primary visual cortex. The resulting sparse image code provides a more efficient representation for later stages of processing because it possesses a higher degree of statistical independence among its outputs.},
   isbn = {9781612849379}
+}
+
+@article{omalleyMeasuringDiagnosesICD2005,
+  title = {Measuring {{Diagnoses}}: {{ICD Code Accuracy}}},
+  shorttitle = {Measuring {{Diagnoses}}},
+  author = {O'Malley, Kimberly J and Cook, Karon F and Price, Matt D and Wildes, Kimberly Raiford and Hurdle, John F and Ashton, Carol M},
+  date = {2005-10},
+  journaltitle = {Health Services Research},
+  volume = {40},
+  eprint = {16178999},
+  eprinttype = {pmid},
+  pages = {1620--1639},
+  issn = {0017-9124},
+  abstract = {Objective To examine potential sources of errors at each step of the described inpatient International Classification of Diseases (ICD) coding process. Data Sources/Study Setting The use of disease codes from the ICD has expanded from classifying morbidity and mortality information for statistical purposes to diverse sets of applications in research, health care policy, and health care finance. By describing a brief history of ICD coding, detailing the process for assigning codes, identifying where errors can be introduced into the process, and reviewing methods for examining code accuracy, we help code users more systematically evaluate code accuracy for their particular applications. Study Design/Methods We summarize the inpatient ICD diagnostic coding process from patient admission to diagnostic code assignment. We examine potential sources of errors at each step and offer code users a tool for systematically evaluating code accuracy. Principle Findings Main error sources along the “patient trajectory” include amount and quality of information at admission, communication among patients and providers, the clinician's knowledge and experience with the illness, and the clinician's attention to detail. Main error sources along the “paper trail” include variance in the electronic and written records, coder training and experience, facility quality-control efforts, and unintentional and intentional coder errors, such as misspecification, unbundling, and upcoding. Conclusions By clearly specifying the code assignment process and heightening their awareness of potential error sources, code users can better evaluate the applicability and limitations of codes for their particular situations. ICD codes can then be used in the most appropriate ways.},
+  issue = {5 Pt 2},
+  pmcid = {PMC1361216}
 }
 
 @unpublished{ondel_bayesian_2019,
@@ -10629,6 +10976,17 @@
   author = {{OpenCV Development Team}},
   date = {2018},
   organization = {{Documentation}}
+}
+
+@misc{opitzMacroF1Macro2021,
+  title = {Macro {{F1}} and {{Macro F1}}},
+  author = {Opitz, Juri and Burst, Sebastian},
+  date = {2021-02},
+  eprint = {1911.03347},
+  eprinttype = {arxiv},
+  publisher = {{arXiv}},
+  abstract = {The 'macro F1' metric is frequently used to evaluate binary, multi-class and multi-label classification problems. Yet, we find that there exist two different formulas to calculate this quantity. In this note, we show that only under rare circumstances the two computations can be considered equivalent. More specifically, one formula well 'rewards' classifiers which produce a skewed error type distribution. In fact, the difference in outcome of the two computations can be as high as 0.5. The two computations may not only diverge in their scalar result but can also lead to different classifier rankings.},
+  issue = {arXiv:1911.03347}
 }
 
 @article{oponowicz_spoken_2018,
@@ -10856,6 +11214,20 @@
   abstract = {We present SpecAugment, a simple data augmentation method for speech recognition. SpecAugment is applied directly to the feature inputs of a neural network (i.e., filter bank coefficients). The augmentation policy consists of warping the features, masking blocks of frequency channels, and masking blocks of time steps. We apply SpecAugment on Listen, Attend and Spell networks for end-to-end speech recognition tasks. We achieve state-of-the-art performance on the LibriSpeech 960h and Swichboard 300h tasks, outperforming all prior work. On LibriSpeech, we achieve 6.8\% WER on test-other without the use of a language model, and 5.8\% WER with shallow fusion with a language model. This compares to the previous state-of-the-art hybrid system of 7.5\% WER. For Switchboard, we achieve 7.2\%/14.6\% on the Switchboard/CallHome portion of the Hub5'00 test set without the use of a language model, and 6.8\%/14.1\% with shallow fusion, which compares to the previous state-of-the-art hybrid system at 8.3\%/17.3\% WER.}
 }
 
+@article{parkInformationRetrievalApproach2019,
+  title = {An {{Information Retrieval Approach}} to {{ICD-10 Classification}}},
+  author = {Park, Hee and Castaño, José and Ávila, Pilar and Pérez, David and Berinsky, Hernán and Gambarte, Laura and Luna, Daniel and Otero, Carlos},
+  date = {2019-08},
+  journaltitle = {Studies in Health Technology and Informatics},
+  volume = {264},
+  eprint = {31438233},
+  eprinttype = {pmid},
+  pages = {1564--1565},
+  issn = {1879-8365},
+  abstract = {ICD-10 (International Classification of Diseases 10th revision) is a classification code for diseases, signs and symptoms, abnormal findings, complaints, social circumstances, and external causes of injury or diseases. This paper describes an automatic information retrieval approach to map free-text disease descriptions to ICD-10 codes. We use the Hospital Italiano de Buenos Aires (HIBA) terminology data mapped to ICD-10 codes as indexed data to find an appropriate ICD-10 code using search engine similarity metrics.},
+  langid = {english}
+}
+
 @article{partaourides_asymmetric_2017,
   title = {Asymmetric Deep Generative Models},
   author = {Partaourides, Harris and Chatzis, Sotirios P.},
@@ -10917,6 +11289,18 @@
   eprint = {1904.03416},
   eprinttype = {arxiv},
   abstract = {Learning good representations without supervision is still an open issue in machine learning, and is particularly challenging for speech signals, which are often characterized by long sequences with a complex hierarchical structure. Some recent works, however, have shown that it is possible to derive useful speech representations by employing a self-supervised encoder-discriminator approach. This paper proposes an improved self-supervised method, where a single neural encoder is followed by multiple workers that jointly solve different self-supervised tasks. The needed consensus across different tasks naturally imposes meaningful constraints to the encoder, contributing to discover general representations and to minimize the risk of learning superficial ones. Experiments show that the proposed approach can learn transferable, robust, and problem-agnostic features that carry on relevant information from the speech signal, such as speaker identity, phonemes, and even higher-level features such as emotional cues. In addition, a number of design choices make the encoder easily exportable, facilitating its direct usage or adaptation to different problems.}
+}
+
+@inproceedings{pascualBERTbasedAutomaticICD2021,
+  title = {Towards {{BERT-based Automatic ICD Coding}}: {{Limitations}} and {{Opportunities}}},
+  shorttitle = {Towards {{BERT-based Automatic ICD Coding}}},
+  booktitle = {Proceedings of the 20th {{Workshop}} on {{Biomedical Language Processing}}},
+  author = {Pascual, Damian and Luck, Sandro and Wattenhofer, Roger},
+  date = {2021},
+  pages = {54--63},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Online}},
+  langid = {english}
 }
 
 @inproceedings{paszke_automatic_2017,
@@ -11751,19 +12135,7 @@
   langid = {english}
 }
 
-@misc{ribeiro_why_2016,
-  title = {"{{Why Should I Trust You}}?": {{Explaining}} the {{Predictions}} of {{Any Classifier}}},
-  shorttitle = {"{{Why Should I Trust You}}?},
-  author = {Ribeiro, Marco Tulio and Singh, Sameer and Guestrin, Carlos},
-  date = {2016-02-16},
-  eprint = {1602.04938},
-  eprinttype = {arxiv},
-  urldate = {2019-08-01},
-  abstract = {Despite widespread adoption, machine learning models remain mostly black boxes. Understanding the reasons behind predictions is, however, quite important in assessing trust, which is fundamental if one plans to take action based on a prediction, or when choosing whether to deploy a new model. Such understanding also provides insights into the model, which can be used to transform an untrustworthy model or prediction into a trustworthy one. In this work, we propose LIME, a novel explanation technique that explains the predictions of any classifier in an interpretable and faithful manner, by learning an interpretable model locally around the prediction. We also propose a method to explain models by presenting representative individual predictions and their explanations in a non-redundant way, framing the task as a submodular optimization problem. We demonstrate the flexibility of these methods by explaining different models for text (e.g. random forests) and image classification (e.g. neural networks). We show the utility of explanations via novel experiments, both simulated and with human subjects, on various scenarios that require trust: deciding if one should trust a prediction, choosing between models, improving an untrustworthy classifier, and identifying why a classifier should not be trusted.},
-  langid = {english}
-}
-
-@inproceedings{ribeiro_why_2016a,
+@inproceedings{ribeiro_why_2016,
   title = {"{{Why Should I Trust You}}?": {{Explaining}} the {{Predictions}} of {{Any Classifier}}},
   shorttitle = {"{{Why Should I Trust You}}?},
   booktitle = {Proceedings of the 22nd {{ACM SIGKDD International Conference}} on {{Knowledge Discovery}} and {{Data Mining}}},
@@ -11847,6 +12219,22 @@
   urldate = {2021-10-29},
   abstract = {Cross-lingual and multi-lingual training of Automatic Speech Recognition (ASR) has been extensively investigated in the supervised setting. This assumes the existence of a parallel corpus of speech and orthographic transcriptions. Recently, contrastive predictive coding (CPC) algorithms have been proposed to pretrain ASR systems with unlabelled data. In this work, we investigate whether unsupervised pretraining transfers well across languages. We show that a slight modification of the CPC pretraining extracts features that transfer well to other languages, being on par or even outperforming supervised pretraining. This shows the potential of unsupervised methods for languages with few linguistic resources.},
   pubstate = {preprint}
+}
+
+@incollection{rizzoICDCodeRetrieval2015,
+  title = {{{ICD Code Retrieval}}: {{Novel Approach}} for {{Assisted Disease Classification}}},
+  shorttitle = {{{ICD Code Retrieval}}},
+  booktitle = {Data {{Integration}} in the {{Life Sciences}}},
+  author = {Rizzo, Stefano Giovanni and Montesi, Danilo and Fabbri, Andrea and Marchesini, Giulio},
+  editor = {Ashish, Naveen and Ambite, Jose-Luis},
+  date = {2015},
+  volume = {9162},
+  pages = {147--161},
+  publisher = {{Springer International Publishing}},
+  location = {{Cham}},
+  abstract = {The task of assigning classification codes to short medical text is a hard text classification problem, especially when the set of possible codes is as big as the ICD-9-CM set. The problem, which has been only partially tamed for a subset of ICD-9-CM, becomes even harder in real world applications, where the labeled data are scarce and noisy.},
+  isbn = {978-3-319-21842-7 978-3-319-21843-4},
+  langid = {english}
 }
 
 @inproceedings{roberts_hierarchical_2018,
@@ -12513,6 +12901,32 @@
   date = {2010}
 }
 
+@inproceedings{searleExperimentalEvaluationDevelopment2020,
+  title = {Experimental {{Evaluation}} and {{Development}} of a {{Silver-Standard}} for the {{MIMIC-III Clinical Coding Dataset}}},
+  booktitle = {Proceedings of the 19th {{SIGBioMed Workshop}} on {{Biomedical Language Processing}}},
+  author = {Searle, Thomas and Ibrahim, Zina and Dobson, Richard},
+  date = {2020-07},
+  pages = {76--85},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Online}},
+  abstract = {Clinical coding is currently a labour-intensive, error-prone, but a critical administrative process whereby hospital patient episodes are manually assigned codes by qualified staff from large, standardised taxonomic hierarchies of codes. Automating clinical coding has a long history in NLP research and has recently seen novel developments setting new benchmark results. A popular dataset used in this task is MIMIC-III, a large database of clinical free text notes and their associated codes amongst other data. We argue for the reconsideration of the validity MIMIC-III's assigned codes, as MIMIC-III has not undergone secondary validation. This work presents an open-source, reproducible experimental methodology for assessing the validity of EHR discharge summaries. We exemplify the methodology with MIMIC-III discharge summaries and show the most frequently assigned codes in MIMIC-III are undercoded up to 35\%.}
+}
+
+@inproceedings{sechidisStratificationMultilabelData2011,
+  title = {On the {{Stratification}} of {{Multi-label Data}}},
+  booktitle = {Machine {{Learning}} and {{Knowledge Discovery}} in {{Databases}}},
+  author = {Sechidis, Konstantinos and Tsoumakas, Grigorios and Vlahavas, Ioannis},
+  editor = {Gunopulos, Dimitrios and Hofmann, Thomas and Malerba, Donato and Vazirgiannis, Michalis},
+  date = {2011},
+  series = {Lecture {{Notes}} in {{Computer Science}}},
+  pages = {145--158},
+  publisher = {{Springer}},
+  location = {{Berlin, Heidelberg}},
+  abstract = {Stratified sampling is a sampling method that takes into account the existence of disjoint groups within a population and produces samples where the proportion of these groups is maintained. In single-label classification tasks, groups are differentiated based on the value of the target variable. In multi-label learning tasks, however, where there are multiple target variables, it is not clear how stratified sampling could/should be performed. This paper investigates stratification in the multi-label data context. It considers two stratification methods for multi-label data and empirically compares them along with random sampling on a number of datasets and based on a number of evaluation criteria. The results reveal some interesting conclusions with respect to the utility of each method for particular types of multi-label datasets.},
+  isbn = {978-3-642-23808-6},
+  langid = {english}
+}
+
 @inproceedings{sedighizadeh_adaptive_2008,
   title = {Adaptive {{PID Controller}} Based on {{Reinforcement Learning}} for {{Wind Turbine Control}}},
   booktitle = {{{PROCEEDINGS OF WORLD ACADEMY OF SCIENCE}}, {{ENGINEERING AND TECHNOLOGY}}},
@@ -12802,6 +13216,18 @@
   urldate = {2022-02-02},
   abstract = {Audio-based automatic speech recognition (ASR) degrades significantly in noisy environments and is particularly vulnerable to interfering speech, as the model cannot determine which speaker to transcribe. Audio-visual speech recognition (AVSR) systems improve robustness by complementing the audio stream with the visual information that is invariant to noise and helps the model focus on the desired speaker. However, previous AVSR work focused solely on the supervised learning setup; hence the progress was hindered by the amount of labeled data available. In this work, we present a self-supervised AVSR framework built upon Audio-Visual HuBERT (AV-HuBERT), a state-of-the-art audio-visual speech representation learning model. On the largest available AVSR benchmark dataset LRS3, our approach outperforms prior state-of-the-art by \textasciitilde 50\% (28.0\% vs. 14.1\%) using less than 10\% of labeled data (433hr vs. 30hr) in the presence of babble noise, while reducing the WER of an audio-based model by over 75\% (25.8\% vs. 5.8\%) on average.},
   langid = {english}
+}
+
+@inproceedings{shiAutomatedICDCoding2018,
+  title = {Towards {{Automated ICD Coding Using Deep Learning}}},
+  booktitle = {Proceedings of the 56th {{Annual Meeting}} of the {{Association}} for {{Computational Linguistics}} ({{Volume}} 1: {{Long Papers}})},
+  author = {Shi, Haoran and Xie, Pengtao and Hu, Zhiting and Zhang, Ming and Xing, Eric P.},
+  date = {2018},
+  eprint = {1711.04075},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  pages = {1066--1076},
+  abstract = {International Classification of Diseases(ICD) is an authoritative health care classification system of different diseases and conditions for clinical and management purposes. Considering the complicated and dedicated process to assign correct codes to each patient admission based on overall diagnosis, we propose a hierarchical deep learning model with attention mechanism which can automatically assign ICD diagnostic codes given written diagnosis. We utilize character-aware neural language models to generate hidden representations of written diagnosis descriptions and ICD codes, and design an attention mechanism to address the mismatch between the numbers of descriptions and corresponding codes. Our experimental results show the strong potential of automated ICD coding from diagnosis descriptions. Our best model achieves 0.53 and 0.90 of F1 score and area under curve of receiver operating characteristic respectively. The result outperforms those achieved using character-unaware encoding method or without attention mechanism. It indicates that our proposed deep learning model can code automatically in a reasonable way and provide a framework for computer-auxiliary ICD coding.}
 }
 
 @inproceedings{shinohara_adversarial_2016,
@@ -13269,6 +13695,22 @@
   keywords = {★}
 }
 
+@article{stanfillSystematicLiteratureReview2010,
+  title = {A Systematic Literature Review of Automated Clinical Coding and Classification Systems},
+  author = {Stanfill, Mary H. and Williams, Margaret and Fenton, Susan H. and Jenders, Robert A. and Hersh, William R.},
+  date = {2010},
+  journaltitle = {Journal of the American Medical Informatics Association: JAMIA},
+  volume = {17},
+  number = {6},
+  eprint = {20962126},
+  eprinttype = {pmid},
+  pages = {646--651},
+  issn = {1527-974X},
+  abstract = {Clinical coding and classification processes transform natural language descriptions in clinical text into data that can subsequently be used for clinical care, research, and other purposes. This systematic literature review examined studies that evaluated all types of automated coding and classification systems to determine the performance of such systems. Studies indexed in Medline or other relevant databases prior to March 2009 were considered. The 113 studies included in this review show that automated tools exist for a variety of coding and classification purposes, focus on various healthcare specialties, and handle a wide variety of clinical document types. Automated coding and classification systems themselves are not generalizable, nor are the results of the studies evaluating them. Published research shows these systems hold promise, but these data must be considered in context, with performance relative to the complexity of the task and the desired outcome.},
+  langid = {english},
+  pmcid = {PMC3000748}
+}
+
 @article{stanley_hypercubebased_2009,
   title = {A {{Hypercube-Based Indirect Encoding}} for {{Evolving Large-Scale Neural Networks}}},
   author = {Stanley, Kenneth O. and D 'ambrosio, David and Gauci, Jason},
@@ -13576,8 +14018,8 @@
   publisher = {{Elsevier}}
 }
 
-@article{tagliasacchi_pre-training_2020,
-  title = {Pre-{{Training Audio Representations With Self-Supervision}}},
+@article{tagliasacchi_pretraining_2020a,
+  title = {Pre-Training Audio Representations with Self-Supervision},
   author = {Tagliasacchi, Marco and Gfeller, Beat and Quitry, Félix de Chaumont and Roblek, Dominik},
   date = {2020},
   journaltitle = {IEEE Signal Processing Letters},
@@ -13586,15 +14028,6 @@
   issn = {1558-2361},
   abstract = {We explore self-supervision as a way to learn general purpose audio representations. Specifically, we propose two self-supervised tasks: Audio2Vec, which aims at reconstructing a spectrogram slice from past and future slices and TemporalGap, which estimates the distance between two short audio segments extracted at random from the same audio clip. We evaluate how the representations learned via self-supervision transfer to different downstream tasks, either training a task-specific linear classifier on top of the pretrained embeddings, or fine-tuning a model end-to-end for each downstream task. Our results show that the representations learned with Audio2Vec transfer better than those learned by fully-supervised training on Audioset. In addition, by fine-tuning Audio2Vec representations it is possible to outperform fully-supervised models trained from scratch on each task, when limited data is available, thus improving label efficiency.},
   eventtitle = {{{IEEE Signal Processing Letters}}}
-}
-
-@article{tagliasacchi_pretraining_2020,
-  title = {Pre-Training Audio Representations with Self-Supervision},
-  author = {Tagliasacchi, Marco and Gfeller, Beat and family=Chaumont Quitry, given=Félix, prefix=de, useprefix=true and Roblek, Dominik},
-  date = {2020},
-  journaltitle = {IEEE Signal Processing Letters},
-  volume = {27},
-  pages = {600--604}
 }
 
 @online{tagliasacchi_selfsupervised_2019,
@@ -13677,6 +14110,23 @@
   urldate = {2022-04-05},
   abstract = {Transformer model architectures have garnered immense interest lately due to their effectiveness across a range of domains like language, vision and reinforcement learning. In the field of natural language processing for example, Transformers have become an indispensable staple in the modern deep learning stack. Recently, a dizzying number of "X-former" models have been proposed - Reformer, Linformer, Performer, Longformer, to name a few - which improve upon the original Transformer architecture, many of which make improvements around computational and memory efficiency. With the aim of helping the avid researcher navigate this flurry, this paper characterizes a large and thoughtful selection of recent efficiency-flavored "X-former" models, providing an organized and comprehensive overview of existing work and models across multiple domains.},
   pubstate = {preprint}
+}
+
+@article{tengExplainablePredictionMedical2020,
+  title = {Explainable {{Prediction}} of {{Medical Codes With Knowledge Graphs}}},
+  author = {Teng, Fei and Yang, Wei and Chen, L. and Huang, Lufei and Xu, Qiang},
+  date = {2020},
+  journaltitle = {Frontiers in Bioengineering and Biotechnology},
+  abstract = {A new method called G\_Coder integrates information across medical records using Multi-CNN and embeds knowledge into ICD codes, suggesting that the knowledge graph significantly improves the precision of code prediction and reduces the working pressure of the human coders. International Classification of Diseases (ICD) is an authoritative health care classification system of different diseases. It is widely used for disease and health records, assisted medical reimbursement decisions, and collecting morbidity and mortality statistics. The most existing ICD coding models only translate the simple diagnosis descriptions into ICD codes. And it obscures the reasons and details behind specific diagnoses. Besides, the label (code) distribution is uneven. And there is a dependency between labels. Based on the above considerations, the knowledge graph and attention mechanism were expanded into medical code prediction to improve interpretability. In this study, a new method called G\_Coder was presented, which mainly consists of Multi-CNN, graph presentation, attentional matching, and adversarial learning. The medical knowledge graph was constructed by extracting entities related to ICD-9 from freebase. Ontology contains 5 entity classes, which are disease, symptom, medicine, surgery, and examination. The result of G\_Coder on the MIMIC-III dataset showed that the micro-F1 score is 69.2\% surpassing the state of art. The following conclusions can be obtained through the experiment: G\_Coder integrates information across medical records using Multi-CNN and embeds knowledge into ICD codes. Adversarial learning is used to generate the adversarial samples to reconcile the writing styles of doctor. With the knowledge graph and attention mechanism, most relevant segments of medical codes can be explained. This suggests that the knowledge graph significantly improves the precision of code prediction and reduces the working pressure of the human coders.}
+}
+
+@article{tengReviewDeepNeural2022,
+  title = {A Review on Deep Neural Networks for {{ICD}} Coding},
+  author = {Teng, Fei and Liu, Yiming and Li, Tianrui and Zhang, Yi and Li, Shuangqing and Zhao, Yue},
+  date = {2022},
+  journaltitle = {IEEE Transactions on Knowledge and Data Engineering},
+  pages = {1--1},
+  issn = {1041-4347, 1558-2191, 2326-3865}
 }
 
 @article{terrell_gradient_2002,
@@ -13945,6 +14395,19 @@
   urldate = {2019-12-23},
   abstract = {Learning useful representations with little or no supervision is a key challenge in artificial intelligence. We provide an in-depth review of recent advances in representation learning with a focus on autoencoder-based models. To organize these results we make use of meta-priors believed useful for downstream tasks, such as disentanglement and hierarchical organization of features. In particular, we uncover three main mechanisms to enforce such properties, namely (i) regularizing the (approximate or aggregate) posterior distribution, (ii) factorizing the encoding and decoding distribution, or (iii) introducing a structured prior distribution. While there are some promising results, implicit or explicit supervision remains a key enabler and all current methods use strong inductive biases and modeling assumptions. Finally, we provide an analysis of autoencoder-based representation learning through the lens of rate-distortion theory and identify a clear tradeoff between the amount of prior knowledge available about the downstream tasks, and how useful the representation is for this task.},
   langid = {english}
+}
+
+@article{tsengAdministrativeCostsAssociated2018,
+  title = {Administrative {{Costs Associated With Physician Billing}} and {{Insurance-Related Activities}} at an {{Academic Health Care System}}},
+  author = {Tseng, Phillip and Kaplan, Robert S. and Richman, Barak D. and Shah, Mahek A. and Schulman, Kevin A.},
+  date = {2018-02},
+  journaltitle = {JAMA : the journal of the American Medical Association},
+  shortjournal = {JAMA},
+  volume = {319},
+  number = {7},
+  pages = {691--697},
+  issn = {0098-7484},
+  abstract = {Administrative costs in the US health care system are an important component of total health care spending, and a substantial proportion of these costs are attributable to billing and insurance-related activities.To examine and estimate the administrative costs associated with physician billing activities in a large academic health care system with a certified electronic health record system.This study used time-driven activity-based costing. Interviews were conducted with 27 health system administrators and 34 physicians in 2016 and 2017 to construct a process map charting the path of an insurance claim through the revenue cycle management process. These data were used to calculate the cost for each major billing and insurance-related activity and were aggregated to estimate the health system's total cost of processing an insurance claim.Estimated time required to perform billing and insurance-related activities, based on interviews with management personnel and physicians.Estimated billing and insurance-related costs for 5 types of patient encounters: primary care visits, discharged emergency department visits, general medicine inpatient stays, ambulatory surgical procedures, and inpatient surgical procedures.Estimated processing time and total costs for billing and insurance-related activities were 13 minutes and \$20.49 for a primary care visit, 32 minutes and \$61.54 for a discharged emergency department visit, 73 minutes and \$124.26 for a general inpatient stay, 75 minutes and \$170.40 for an ambulatory surgical procedure, and 100 minutes and \$215.10 for an inpatient surgical procedure. Of these totals, time and costs for activities carried out by physicians were estimated at a median of 3 minutes or \$6.36 for a primary care visit, 3 minutes or \$10.97 for an emergency department visit, 5 minutes or \$13.29 for a general inpatient stay, 15 minutes or \$51.20 for an ambulatory surgical procedure, and 15 minutes or \$51.20 for an inpatient surgical procedure. Of professional revenue, professional billing costs were estimated to represent 14.5\% for primary care visits, 25.2\% for emergency department visits, 8.0\% for general medicine inpatient stays, 13.4\% for ambulatory surgical procedures, and 3.1\% for inpatient surgical procedures.In a time-driven activity-based costing study in a large academic health care system with a certified electronic health record system, the estimated costs of billing and insurance-related activities ranged from \$20 for a primary care visit to \$215 for an inpatient surgical procedure. Knowledge of how specific billing and insurance-related activities contribute to administrative costs may help inform policy solutions to reduce these expenses.}
 }
 
 @online{tu_unsupervised_2022,
@@ -14222,6 +14685,22 @@
   date = {2003}
 }
 
+@article{venkateshAutomatingOverburdenedClinical2023,
+  title = {Automating the Overburdened Clinical Coding System: {{Challenges}} and next Steps},
+  shorttitle = {Automating the Overburdened Clinical Coding System},
+  author = {Venkatesh, Kaushik P. and Raza, Marium M. and Kvedar, Joseph C.},
+  date = {2023-02},
+  journaltitle = {npj Digital Medicine},
+  volume = {6},
+  number = {1},
+  pages = {1--2},
+  publisher = {{Nature Publishing Group}},
+  issn = {2398-6352},
+  abstract = {Artificial intelligence (AI) and natural language processing (NLP) have found a highly promising application in automated clinical coding (ACC), an innovation that will have profound impacts on the clinical coding industry, billing and revenue management, and potentially clinical care itself. Dong et al. recently analyzed the technical challenges of ACC and proposed future directions. Primary challenges for ACC exist at the technological and implementation levels; clinical documents are redundant and complex, code sets like the ICD-10 are rapidly evolving, training sets are not comprehensive of codes, and ACC models have yet to fully capture the logic and rules of coding decisions. Next steps include interdisciplinary collaboration with clinical coders, accessibility and transparency of datasets, and tailoring models to specific use cases.},
+  copyright = {2023 The Author(s)},
+  langid = {english}
+}
+
 @inproceedings{versteegh_zero_2015,
   title = {The {{Zero Resource Speech Challenge}} 2015},
   booktitle = {{{IEEE Annual Conference}} of the {{International Speech Communication Association}} ({{Interspeech}})},
@@ -14288,6 +14767,19 @@
   eprinttype = {arxiv},
   urldate = {2020-08-20},
   abstract = {To measure how well pretrained representations encode some linguistic property, it is common to use accuracy of a probe, i.e. a classifier trained to predict the property from the representations. Despite widespread adoption of probes, differences in their accuracy fail to adequately reflect differences in representations. For example, they do not substantially favour pretrained representations over randomly initialized ones. Analogously, their accuracy can be similar when probing for genuine linguistic labels and probing for random synthetic tasks. To see reasonable differences in accuracy with respect to these random baselines, previous work had to constrain either the amount of probe training data or its model size. Instead, we propose an alternative to the standard probes, information-theoretic probing with minimum description length (MDL). With MDL probing, training a probe to predict labels is recast as teaching it to effectively transmit the data. Therefore, the measure of interest changes from probe accuracy to the description length of labels given representations. In addition to probe quality, the description length evaluates "the amount of effort" needed to achieve the quality. This amount of effort characterizes either (i) size of a probing model, or (ii) the amount of data needed to achieve the high quality. We consider two methods for estimating MDL which can be easily implemented on top of the standard probing pipelines: variational coding and online coding. We show that these methods agree in results and are more informative and stable than the standard probes.},
+  langid = {english}
+}
+
+@inproceedings{vuLabelAttentionModel2020,
+  title = {A {{Label Attention Model}} for {{ICD Coding}} from {{Clinical Text}}},
+  booktitle = {Proceedings of the {{Twenty-Ninth International Joint Conference}} on {{Artificial Intelligence}}},
+  author = {Vu, Thanh and Nguyen, Dat Quoc and Nguyen, Anthony},
+  date = {2020-07},
+  pages = {3335--3341},
+  publisher = {{International Joint Conferences on Artificial Intelligence Organization}},
+  location = {{Yokohama, Japan}},
+  abstract = {ICD coding is a process of assigning the International Classification of Disease diagnosis codes to clinical/medical notes documented by health professionals (e.g. clinicians). This process requires significant human resources, and thus is costly and prone to error. To handle the problem, machine learning has been utilized for automatic ICD coding. Previous state-of-the-art models were based on convolutional neural networks, using a single/several fixed window sizes. However, the lengths and interdependence between text fragments related to ICD codes in clinical text vary significantly, leading to the difficulty of deciding what the best window sizes are. In this paper, we propose a new label attention model for automatic ICD coding, which can handle both the various lengths and the interdependence of the ICD code related text fragments. Furthermore, as the majority of ICD codes are not frequently used, leading to the extremely imbalanced data issue, we additionally propose a hierarchical joint learning mechanism extending our label attention model to handle the issue, using the hierarchical relationships among the codes. Our label attention model achieves new state-of-the-art results on three benchmark MIMIC datasets, and the joint learning mechanism helps improve the performances for infrequent codes.},
+  isbn = {978-0-9992411-6-5},
   langid = {english}
 }
 
@@ -15146,6 +15638,19 @@
   pubstate = {preprint}
 }
 
+@inproceedings{xieEHRCodingMultiscale2019,
+  title = {{{EHR Coding}} with {{Multi-scale Feature Attention}} and {{Structured Knowledge Graph Propagation}}},
+  booktitle = {Proceedings of the 28th {{ACM International Conference}} on {{Information}} and {{Knowledge Management}}},
+  author = {Xie, Xiancheng and Xiong, Yun and Yu, Philip S. and Zhu, Yangyong},
+  date = {2019-11},
+  series = {{{CIKM}} '19},
+  pages = {649--658},
+  publisher = {{Association for Computing Machinery}},
+  location = {{New York, NY, USA}},
+  abstract = {Assigning standard medical codes (e.g., ICD-9-CM) representing diagnoses or procedures to electronic health record (EHR) is an important task in the medical domain. However, automatic coding is difficult since the clinical note is composed of multiple long and heterogeneous textual narratives (e.g., discharge diagnosis, pathology reports, surgical procedure notes). Furthermore, the code label space is large and the label distribution is extremely unbalanced. The state-of-the-art methods mainly regard EHR coding as a multi-label text classification task and use shallow convolution neural network with fixed window size, which is incapable of learning variable n-gram features and the ontology structure between codes. In this paper, we leverage a densely connected convolutional neural network which is able to produce variable n-gram features for clinical note feature learning. We also incorporate a multi-scale feature attention to adaptively select multi-scale features since the most informative n-grams in clinical notes for each word can vary in length according to the neighborhood. Furthermore, we leverage graph convolutional neural network to capture both the hierarchical relationships among medical codes and the semantics of each code. Finally, We validate our method on the public dataset, and the evaluation results indicate that our method can significantly outperform other state-of-the-art models.},
+  isbn = {978-1-4503-6976-3}
+}
+
 @misc{xiong_dcn+:_2017,
   title = {{{DCN}}+: {{Mixed Objective}} and {{Deep Residual Coattention}} for {{Question Answering}}},
   author = {Xiong, Caiming and Zhong, Victor and Socher, Richard},
@@ -15283,6 +15788,30 @@
   urldate = {2019-08-01},
   abstract = {With the capability of modeling bidirectional contexts, denoising autoencoding based pretraining like BERT achieves better performance than pretraining approaches based on autoregressive language modeling. However, relying on corrupting the input with masks, BERT neglects dependency between the masked positions and suffers from a pretrain-finetune discrepancy. In light of these pros and cons, we propose XLNet, a generalized autoregressive pretraining method that (1) enables learning bidirectional contexts by maximizing the expected likelihood over all permutations of the factorization order and (2) overcomes the limitations of BERT thanks to its autoregressive formulation. Furthermore, XLNet integrates ideas from Transformer-XL, the state-of-the-art autoregressive model, into pretraining. Empirically, XLNet outperforms BERT on 20 tasks, often by a large margin, and achieves state-of-the-art results on 18 tasks including question answering, natural language inference, sentiment analysis, and document ranking.1.},
   langid = {english}
+}
+
+@misc{yangKnowledgeInjectedPrompt2022,
+  title = {Knowledge {{Injected Prompt Based Fine-tuning}} for {{Multi-label Few-shot ICD Coding}}},
+  author = {Yang, Zhichao and Wang, Shufan and Rawat, Bhanu Pratap Singh and Mitra, Avijit and Yu, Hong},
+  date = {2022-10},
+  eprint = {2210.03304},
+  eprinttype = {arxiv},
+  publisher = {{arXiv}},
+  abstract = {Automatic International Classification of Diseases (ICD) coding aims to assign multiple ICD codes to a medical note with average length of 3,000+ tokens. This task is challenging due to a high-dimensional space of multi-label assignment (tens of thousands of ICD codes) and the long-tail challenge: only a few codes (common diseases) are frequently assigned while most codes (rare diseases) are infrequently assigned. This study addresses the long-tail challenge by adapting a prompt-based fine-tuning technique with label semantics, which has been shown to be effective under few-shot setting. To further enhance the performance in medical domain, we propose a knowledge-enhanced longformer by injecting three domain-specific knowledge: hierarchy, synonym, and abbreviation with additional pretraining using contrastive learning. Experiments on MIMIC-III-full, a benchmark dataset of code assignment, show that our proposed method outperforms previous state-of-the-art method in 14.5\% in marco F1 (from 10.3 to 11.8, P{$<$}0.001). To further test our model on few-shot setting, we created a new rare diseases coding dataset, MIMIC-III-rare50, on which our model improves marco F1 from 17.1 to 30.4 and micro F1 from 17.2 to 32.6 compared to previous method.},
+  issue = {arXiv:2210.03304}
+}
+
+@inproceedings{yanMedicalCodingClassification2010,
+  title = {Medical Coding Classification by Leveraging Inter-Code Relationships},
+  booktitle = {Proceedings of the 16th {{ACM SIGKDD}} International Conference on {{Knowledge}} Discovery and Data Mining},
+  author = {Yan, Yan and Fung, Glenn and Dy, Jennifer G. and Rosales, Romer},
+  date = {2010-07},
+  series = {{{KDD}} '10},
+  pages = {193--202},
+  publisher = {{Association for Computing Machinery}},
+  location = {{New York, NY, USA}},
+  abstract = {Medical coding or classification is the process of transforming information contained in patient medical records into standard predefined medical codes. There are several worldwide accepted medical coding conventions associated with diagnoses and medical procedures; however, in the United States the Ninth Revision of ICD(ICD-9) provides the standard for coding clinical records. Accurate medical coding is important since it is used by hospitals for insurance billing purposes. Since after discharge a patient can be assigned or classified to several ICD-9 codes, the coding problem can be seen as a multi-label classification problem. In this paper, we introduce a multi-label large-margin classifier that automatically learns the underlying inter-code structure and allows the controlled incorporation of prior knowledge about medical code relationships. In addition to refining and learning the code relationships, our classifier can also utilize this shared information to improve its performance. Experiments on a publicly available dataset containing clinical free text and their associated medical codes showed that our proposed multi-label classifier outperforms related multi-label models in this problem.},
+  isbn = {978-1-4503-0055-1}
 }
 
 @misc{yao_adahessian_2020,
@@ -15480,6 +16009,19 @@
   eprinttype = {arxiv},
   urldate = {2018-06-06},
   abstract = {We propose a recurrent neural model that generates natural-language questions from documents, conditioned on answers. We show how to train the model using a combination of supervised and reinforcement learning. After teacher forcing for standard maximum likelihood training, we fine-tune the model using policy gradient techniques to maximize several rewards that measure question quality. Most notably, one of these rewards is the performance of a question-answering system. We motivate question generation as a means to improve the performance of question answering systems. Our model is trained and evaluated on the recent question-answering dataset SQuAD.}
+}
+
+@inproceedings{yuanCodeSynonymsMatter2022,
+  title = {Code {{Synonyms Do Matter}}: {{Multiple Synonyms Matching Network}} for {{Automatic ICD Coding}}},
+  shorttitle = {Code {{Synonyms Do Matter}}},
+  booktitle = {Proceedings of the 60th {{Annual Meeting}} of the {{Association}} for {{Computational Linguistics}} ({{Volume}} 2: {{Short Papers}})},
+  author = {Yuan, Zheng and Tan, Chuanqi and Huang, Songfang},
+  date = {2022},
+  pages = {808--814},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Dublin, Ireland}},
+  abstract = {Automatic ICD coding is defined as assigning disease codes to electronic medical records (EMRs). Existing methods usually apply label attention with code representations to match related text snippets. Unlike these works that model the label with the code hierarchy or description, we argue that the code synonyms can provide more comprehensive knowledge based on the observation that the code expressions in EMRs vary from their descriptions in ICD. By aligning codes to concepts in UMLS, we collect synonyms of every code. Then, we propose a multiple synonyms matching network to leverage synonyms for better code representation learning, and finally help the code classification. Experiments on the MIMIC-III dataset show that our proposed method outperforms previous state-of-the-art methods.},
+  langid = {english}
 }
 
 @article{yue_phonetically_2021,
@@ -15788,6 +16330,18 @@
   keywords = {★}
 }
 
+@inproceedings{zhangBERTXMLLargeScale2020,
+  title = {{{BERT-XML}}: {{Large Scale Automated ICD Coding Using BERT Pretraining}}},
+  shorttitle = {{{BERT-XML}}},
+  booktitle = {Proceedings of the 3rd {{Clinical Natural Language Processing Workshop}}},
+  author = {Zhang, Zachariah and Liu, Jingshu and Razavian, Narges},
+  date = {2020-11},
+  pages = {24--34},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Online}},
+  abstract = {ICD coding is the task of classifying and cod-ing all diagnoses, symptoms and proceduresassociated with a patient's visit. The process isoften manual, extremely time-consuming andexpensive for hospitals as clinical interactionsare usually recorded in free text medical notes.In this paper, we propose a machine learningmodel, BERT-XML, for large scale automatedICD coding of EHR notes, utilizing recentlydeveloped unsupervised pretraining that haveachieved state of the art performance on a va-riety of NLP tasks. We train a BERT modelfrom scratch on EHR notes, learning with vo-cabulary better suited for EHR tasks and thusoutperform off-the-shelf models. We furtheradapt the BERT architecture for ICD codingwith multi-label attention. We demonstratethe effectiveness of BERT-based models on thelarge scale ICD code classification task usingmillions of EHR notes to predict thousands ofunique codes.}
+}
+
 @misc{zhao_endtoend_2016,
   title = {Towards {{End-to-End Learning}} for {{Dialog State Tracking}} and {{Management}} Using {{Deep Reinforcement Learning}}},
   author = {Zhao, Tiancheng and Eskenazi, Maxine},
@@ -15911,6 +16465,18 @@
   urldate = {2018-05-06},
   abstract = {Recently recurrent neural networks (RNN) has been very successful in handling sequence data. However, understanding RNN and finding the best practices for RNN is a difficult task, partly because there are many competing and complex hidden units (such as LSTM and GRU). We propose a gated unit for RNN, named as Minimal Gated Unit (MGU), since it only contains one gate, which is a minimal design among all gated hidden units. The design of MGU benefits from evaluation results on LSTM and GRU in the literature. Experiments on various sequence data show that MGU has comparable accuracy with GRU, but has a simpler structure, fewer parameters, and faster training. Hence, MGU is suitable in RNN's applications. Its simple architecture also means that it is easier to evaluate and tune, and in principle it is easier to study MGU's properties theoretically and empirically.},
   keywords = {★}
+}
+
+@inproceedings{zhouAutomaticICDCoding2021,
+  title = {Automatic {{ICD Coding}} via {{Interactive Shared Representation Networks}} with {{Self-distillation Mechanism}}},
+  booktitle = {Proceedings of the 59th {{Annual Meeting}} of the {{Association}} for {{Computational Linguistics}} and the 11th {{International Joint Conference}} on {{Natural Language Processing}} ({{Volume}} 1: {{Long Papers}})},
+  author = {Zhou, Tong and Cao, Pengfei and Chen, Yubo and Liu, Kang and Zhao, Jun and Niu, Kun and Chong, Weifeng and Liu, Shengping},
+  date = {2021},
+  pages = {5948--5957},
+  publisher = {{Association for Computational Linguistics}},
+  location = {{Online}},
+  abstract = {The ICD coding task aims at assigning codes of the International Classification of Diseases in clinical notes. Since manual coding is very laborious and prone to errors, many methods have been proposed for the automatic ICD coding task. However, existing works either ignore the long-tail of code frequency or the noisy clinical notes. To address the above issues, we propose an Interactive Shared Representation Network with Self-Distillation mechanism. Specifically, an interactive shared representation network targets building connections among codes while modeling the cooccurrence, consequently alleviating the longtail problem. Moreover, to cope with the noisy text issue, we encourage the model to focus on the clinical note's noteworthy part and extract valuable information through a self-distillation learning mechanism. Experimental results on two MIMIC datasets demonstrate the effectiveness of our method.},
+  langid = {english}
 }
 
 @inproceedings{zhu_generative_2016,

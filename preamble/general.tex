@@ -86,6 +86,21 @@
 \usepackage{caption}
 \usepackage[labelformat=simple]{subcaption}
 \usepackage[figuresleft]{rotating}
+% Enable replacing all sidewaystable environments with regular table environments
+\ifthenelse{\equal{\usesidewaystables}{true}}{}{
+  \renewenvironment{sidewaystable}{%
+      \begin{table}%
+  }{%
+      \end{table}%
+      \ignorespacesafterend%
+  }
+  \renewenvironment{sidewaystable*}{%
+      \begin{table*}%
+  }{%
+      \end{table*}%
+      \ignorespacesafterend%
+  }
+}
 
 
 % Language
@@ -340,8 +355,8 @@
     \def\format{\normalfont}  % \def\format{\normalfont\sffamily}
     \renewcommand*{\chapnamefont}{\format\fontshape{sc}\selectfont}  % font for chapter text
     % \renewcommand*{\chapnumfont}{\format\fontsize{30}{30}\fontshape{sc}\selectfont}  % font for chapter number
-    \renewcommand*{\chapnumfont}{\format\fontsize{18}{18}\fontfamily{eulervm}\selectfont}  % font for chapter number
-    \renewcommand*{\chaptitlefont}{\format\fontsize{16}{16}\fontshape{sc}\selectfont}  % font for chapter title
+    \renewcommand*{\chapnumfont}{\format\fontsize{13}{13}\fontfamily{eulervm}\selectfont}  % font for chapter number
+    \renewcommand*{\chaptitlefont}{\format\fontsize{13}{13}\fontshape{sc}\selectfont}  % font for chapter title
 
     \renewcommand*{\printchaptername}{\chapnamefont\MakeUppercase{\@chapapp}}  % Uppercase all characters in name
     \patchcommand{\printchaptername}{\begingroup\color{dtured}}{\endgroup}
