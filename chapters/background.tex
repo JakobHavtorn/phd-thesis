@@ -9,37 +9,50 @@
 % https://en.wikipedia.org/wiki/Uncertainty#cite_note-3
 % https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8371683
 
-In the general public, the concept of uncertainty goes by many names and its meaning can be dependent on a specific context. However, in most quantitative scientific fields, there seems to be a consensus definition along the lines of the following \cite{hubbard_how_2014}:
+To the general public, the concept of uncertainty goes by many names, and its meaning can vary depending on the specific context. However, across most quantitative scientific fields, a consensus definition appears to align with the following \cite{hubbard_how_2014}:
 
 \begin{center}
     \textit{Uncertainty is the lack of certainty; a state of limited knowledge where it is impossible to exactly describe the existing state, a future outcome, or more than one possible outcome.}
 \end{center}
 
-While a definition of uncertainty made using only words easily begs philosophical inquisition, information theory provides a rigourous method for quantifying uncertainty \cite{kabir_neural_2018} by the language of probabilities. 
+While a purely lexical definition of uncertainty might trigger a philosophical inquisition, information theory provides a mathematically rigorous method for quantifying uncertainty through the language of probabilities. 
 In this context, uncertainty is understood as the information entropy of a random variable \cite{mackay_information_2003}. 
 
+
 \subsection{Information entropy}
-First characterised by Claude Shannon in 1948 \cite{shannon_mathematical_1948}, information entropy $H(X)$ is a measure of the average amount of information contained in a random variable $X$. Shannon's definition follows from three fundamental axioms of information theory. Let $I_X(x)$ be the information carried by a specific outcome $x$ when sampling the random variable $X$ with probability mass function $p_X(x)$. Then, the axioms are as follows:
-\begin{enumerate}
-    \item  $I_X(x)$ is a monotonically decreasing function in $p_X(x)$. The more likely an outcome is, the less information it carries.
-    \item Outcomes that are certain to happen carry no information. $I_X(1) = 0$.
-    \item If an outcome $x_i$ is independent of another outcome $x_j$, then $I(x_i x_j) = I(x_i) + I(x_j)$. The information carried by independent events is the sum of the information carried by each event.
+First characterised by Claude Shannon in 1948 \cite{shannon_mathematical_1948}, information entropy, $H(X)$, is a measure of the average amount of information contained in a discrete random variable $X$. Shannon's definition follows from three fundamental axioms of information theory. Let $I_X(x)$ be the information carried by a specific outcome $x$ of sampling the random variable $X$ with probability mass function $p_X(x)$. Then, these axioms are as follows:
+\begin{enumerate}[label=(\Roman*)]
+    \item The more likely an outcome is, the less information it carries; $I_X(x)$ is a monotonically decreasing function in $p_X(x)$.
+    \item Outcomes that are certain to happen carry no information; $I_X(1) = 0$.
+    \item The total information carried by independent outcomes is the sum of the information carried by each outcome; $I(x_i, x_j) = I(x_i) + I(x_j)$ if $x_i$ and $x_j$ are independent. 
 \end{enumerate}
 
-From these axioms, Shannon derived the following expression for the information content of an event $x$ with probability $p_X(x)$:
+From these axioms, Shannon found that a suitable function for the \emph{information content} of an outcome $x$ with probability $p_X(x)$ is the logarithm of the inverse probability,
+%
 \begin{equation}
-    I_X(x) = -\log_b p_X(x)
+    I_X(x) = -\log_b p_X(x) \enspace .
 \end{equation}
+%
+Information content is said to be measured in units of bits when using a logarithm with base $b=2$, or nats if $b=e$. 
 
+To illustrate the \dots \lesstodo[inline]{Come up with a suitable example explaining the intuition behind information entropy.}
 
-
-information entropy of a random variable $X$ with $n$ possible outcomes:
+The information entropy of a random variable $X$ is defined as the \emph{expected information content} of an outcome of $X$,
+%
 \begin{equation}
-    H(X) = -\sum_{i=1}^n p_i \log p_i
+    H(X) = \mathbb{E}_X\left[I_X(x)\right] = - \sum_{x\in X} p_X(x) \log p_X(x) \enspace .
 \end{equation}
+%
+Intuitively, the entropy $H(X)$ of a discrete random variable $X$ is a measure of the amount of uncertainty associated with the value of $X$ when only its distribution is known. \todo{Rewrite}
+
+
+\subsection{Continuous entropy}
+\lesstodo[inline]{Discuss differential entropy as a generalization to continuous case.}
+% Other important information theoretic quantities include Rényi entropy (a generalization of entropy), differential entropy (a generalization of quantities of information to continuous distributions), and the conditional mutual information.
 
 
 
+% \cite{kabir_neural_2018} Survey of uncertainty quantification in deep learning.
 
 
 % Two kinds of uncertainty:\\
