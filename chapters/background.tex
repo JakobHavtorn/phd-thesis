@@ -20,11 +20,11 @@ In this context, uncertainty is understood as the information entropy of a rando
 
 
 \subsection{Information entropy}
-First characterised by Claude Shannon in 1948 \cite{shannon_mathematical_1948}, information entropy, $H(X)$, is a measure of the average amount of information contained in a discrete random variable $X$. Shannon's definition follows from three fundamental axioms of information theory. Let $I_X(x)$ be the information carried by a specific outcome $x$ of sampling the random variable $X$ with probability mass function $p_X(x)$. Then, these axioms are as follows:
+First characterized by Claude Shannon in 1948 \cite{shannon_mathematical_1948}, information entropy, $H(X)$, is a measure of the average amount of information contained in a discrete random variable $X$. Shannon's definition follows from three fundamental axioms of information theory. Let $I_X(x)$ be the information carried by a specific outcome $x$ of sampling the random variable $X$ with probability mass function $p_X(x)$. Then, these axioms are as follows:
 \begin{enumerate}[label=(\Roman*)]
     \item The more likely an outcome is, the less information it carries; $I_X(x)$ is a monotonically decreasing function in $p_X(x)$.
     \item Outcomes that are certain to happen carry no information; $I_X(1) = 0$.
-    \item The total information carried by independent outcomes is the sum of the information carried by each outcome; $I(x_i, x_j) = I(x_i) + I(x_j)$ if $x_i$ and $x_j$ are independent. 
+    \item The joint information carried by independent outcomes is the sum of the information carried by each outcome; $I(x_i, x_j) = I(x_i) + I(x_j)$ if $x_i$ and $x_j$ are independent. 
 \end{enumerate}
 
 From these axioms, Shannon found that a suitable function for the \emph{information content} of an outcome $x$ with probability $p_X(x)$ is the logarithm of the inverse probability,
@@ -96,6 +96,8 @@ Intuitively, the entropy $H(X)$ of a discrete random variable $X$ is a measure o
 
 
 
+\iffalse
+
 
 Modelling paradigms
 \begin{enumerate}
@@ -130,3 +132,4 @@ Furthermore, there has been a surge of interest in ensemble methods for uncertai
 Despite the progress made in uncertainty estimation for machine learning models, challenges still remain. One key concern is the interpretability of uncertainty measures. While probabilistic outputs are more informative than point estimates, effectively communicating uncertainty to end-users and decision-makers is not trivial. Developing visualization techniques and intuitive explanations for uncertainty is an ongoing area of research. Additionally, quantifying uncertainty in high-dimensional data or complex models with massive amounts of parameters requires careful consideration and efficient computational strategies.
 
 
+\fi 

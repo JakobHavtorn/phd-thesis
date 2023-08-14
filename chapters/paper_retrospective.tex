@@ -2,7 +2,7 @@
 
 \chapter[a retrospective study on machine learning-assisted stroke recognition for medical helpline calls]{A Retrospective Study on Machine Learning-Assisted Stroke Recognition for Medical Helpline Calls}
 \label{chp:paper-retrospective}
-% \ifthenelse{\equal{\skippapers}{true}}{}{
+\ifthenelse{\equal{\skippapers}{true}}{}{
 
 
 % cite21 = borgholt_endtoend_2020
@@ -180,11 +180,7 @@ In conclusion, using the largest collection of audio calls from patients with st
 
 \subsection{Contributors}
 
-JW, JDH and LB share lead authorship and contributed equally to the original drafting of the paper, review and editing, data curation, formal analysis, methodology, validation, and conceptualisation. JDH and LB contributed to software development and funding acquisition. SNFB contributed to the conceptualisation, data curation, funding acquisition, supervision, and writing - review and editing. LM contributed to conceptualisation, funding acquisition, project administration, supervision, and writing - review and editing. MS contributed to supervision and writing - review and editing. HC contributed to the methodology, supervision, and writing - review and editing. CK contributed to the conceptualisation, funding acquisition, methodology, project administration, supervision, and writing - review and editing. HCC contributed to the conceptualisation, data curation, funding acquisition, methodology, project administration, supervision, and writing - review and editing.
-
-HCC and CK share last authorship.
-
-The three lead authors directly accessed and verified the underlying data reported in this manuscript. JW's affiliations are exclusively academic.
+JW, JDH and LB share lead authorship and contributed equally to the original drafting of the paper, review and editing, data curation, formal analysis, methodology, validation, and conceptualisation. JDH and LB contributed to software development and funding acquisition. SNFB contributed to the conceptualisation, data curation, funding acquisition, supervision, and writing - review and editing. LM contributed to conceptualisation, funding acquisition, project administration, supervision, and writing - review and editing. MS contributed to supervision and writing - review and editing. HC contributed to the methodology, supervision, and writing - review and editing. CK contributed to the conceptualisation, funding acquisition, methodology, project administration, supervision, and writing - review and editing. HCC contributed to the conceptualisation, data curation, funding acquisition, methodology, project administration, supervision, and writing - review and editing. HCC and CK share last authorship. The three lead authors directly accessed and verified the underlying data reported in this manuscript. JW's affiliations are exclusively academic.
 
 
 \section{Methods}
@@ -237,9 +233,9 @@ We employed a two-step machine learning pipeline. First, a call was transcribed 
     \resizebox*{0.98\textwidth}{!}{%
     \begin{tabular}{l|lr|lr}
         \toprule
-                    & \multicolumn{2}{c}{Positive ranking score} & \multicolumn{2}{c}{Negative ranking score} \\
+                    & \multicolumn{2}{c|}{Positive ranking score} & \multicolumn{2}{c}{Negative ranking score} \\
         \midrule
-                    & \multicolumn{2}{c}{Stroke predictions, $D=1,897$} & \multicolumn{2}{c}{Non-stroke predictions, $D=342,133$} \\
+                    & \multicolumn{2}{c|}{Stroke predictions, $D=1,897$} & \multicolumn{2}{c}{Non-stroke predictions, $D=342,133$} \\
         \midrule
                     & Word, $w$ \textit{(translated)} & Occurences, $D^{(w)}$ & Word, $w$ \textit{(translated)} & Occurences, $D^{(w)}$ \\
         \midrule
@@ -342,4 +338,4 @@ JDH and LB received funding from the Innovation Fund Denmark. JDH and LB used Co
 
 We thank the staff of the CEMS for their role in generating the data used in this study. We thank Emilie Grunddal Pedersen, Mette Bjerg Lindhøj, and Jens Morten Haugård for their help and cooperation in accessing the data sources. We also thank the Centre for IT and Medical Technology (CIMT) and Corti employees Akihiro Inui and Nathaniel Joselson for their assistance in setting up and using the cloud-computing environment for training and evaluating the machine learning framework of this study.
 
-% }
+}

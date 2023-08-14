@@ -3,25 +3,63 @@
 % ~2 pages
 
 \chapter[main contributions]{Main contributions}\label{chp:main-contributions}
+\newcommand{\contribitem}[1]{{\vspace{1em}\noindent\scshape\bfseries{\color{dtured}\cref{#1}}\\\ucnameref{#1}\\}}
 
-As previously mentioned, the chapters of the thesis are self-contained studies and therefore detail their own contributions. 
+The chapters of the thesis are self-contained studies and therefore detail their own contributions. 
 They are however written without consideration to the other chapters. 
 For that reason, this chapter will provide a high-level overview of the organization of the thesis and describe its main
 contributions in relation to the overall research topic.
 
-\newcommand{\contribitem}[1]{{\vspace{1em}\noindent\scshape\bfseries{\color{dtured}\cref{#1}}\\\ucnameref{#1}\\}}
 
 \contribitem{part:background}
-This part of the thesis provides the necessary background for the rest of the thesis.
+This is the part of the thesis you are currently reading. \Cref{chp:introduction} provided a general introduction to the thesis and gave motivating examples for speech recognition and assistance in medical diagnostics. \Cref{chp:technical-background} provided the necessary technical background for the rest of the thesis by introducing uncertainty as a concept in the context of information theory and probability theory and providing a brief overview of generative latent variable models. 
+\lesstodo[inline]{Update the contributions of the technical background section accordingly.}
 
-\contribitem{part:unsupervised-learning}
+
+\contribitem{part:unsupervised-uncertainty-estimation}
+This part of the thesis is concerned with unsupervised uncertainty estimation and consists of three papers. The first two papers are concerned with out-of-distribution detection using generative models. The first paper proposes a new method for out-of-distribution detection using hierarchical latent variable models. The second paper builds on the first and proposes a model-agnostic method for out-of-distribution detection that can be used with any differentiable, explicit likelihood generative model. The third paper proposes a new hierarchical latent variable model for speech
+
 
 \contribitem{chp:paper-hierarchical}
-This paper proposes a new method for unsupervised out-of-distribution detection using hierarchical latent variable models. The paper provides evidence that the failure of deep generative models to assign lower likelihoods to data from outside the training distribution is due to overemphasis on low-level features that generalize between distributions. To solve this, the proposed method computes a likelihood-ratio score for OOD detection that requires data to be in-distribution across all feature-levels. The method is computationally efficient, scalable, fully unsupervised and achieves state-of-the-art performance on several image-based OOD detection benchmarks.
+This paper proposes a new method for unsupervised out-of-distribution detection using hierarchical latent variable models. The paper provides evidence that the failure of deep generative models to assign lower likelihoods to data from outside the training distribution is due to overemphasis on low-level features that generalize between distributions. To solve this, the proposed method computes a likelihood-ratio score for out-of-distribution detection that requires data to be in-distribution across all feature-levels. The proposed method is computationally efficient, fully unsupervised, and performs well on several image-based out-of-distribution detection benchmarks.
+Methods like this are important for the development of safe and reliable machine learning systems, especially in medical applications where the consequences of errors can be significant. 
 
 
-\contribitem{chp:paper-benchmarking} This paper proposes a new hierarchical latent variable model for speech inspired by the Clockwork VAE \cite{saxena_clockwork_2021}. The model is benchmarked against other latent variable models and autoregressive models for speech. It is shown that a hierarchy of latent variables improves the likelihood of the model. Finally, the latent space of the models are analyzed in terms of phonetic content.
+\contribitem{chp:paper-modelagnostic}
+This paper builds on the previous paper and proposes a model-agnostic method for out-of-distribution detection that can be used with any differentiable, explicit likelihood generative model. The method is based on combining a classical parametric test with the recently introduced typicality test using Fisher's method. We show that this leads to a more accurate out-of-distribution test. We also discuss the benefits of casting out-of-distribution detection as a statistical testing problem, for instance enabling false positive rate control which is valuable for practical out-of-distribution detection, especially in high-risk applications such as in medical devices or services.
 
 
-\contribitem{chp:paper-review} This paper provides a comprehensive review of self-supervised speech representation learning. Previous work is grouped into three main categories of methods: contrastive, autoregressive, and generative, and the methods are compared in terms of their training objectives, model architectures, and performance on downstream tasks. The review also provides a discussion of the current state of the field and promising future directions of research.
+\contribitem{chp:paper-benchmarking}
+This paper proposes a new hierarchical latent variable model for speech inspired by the Clockwork VAE \cite{saxena_clockwork_2021}. The model is benchmarked against other latent variable models and autoregressive models for speech abnd we show that using a hierarchy of latent variables improves the likelihood of the model. Finally, we show that the learned latent space captures information relevant for speech recognition such as phonetic content.
+
+
+\contribitem{part:self-supervised-speech-representation-learning}
+This part of the thesis is concerned with self-supervised speech representation learning and consists of a single paper that provides a substantial review of the field \cite{mohamed_selfsupervised_2022}. 
+Self-supervised learning is a promising approach to speech representation learning that has shown a fast, wide and successful adoption across speech modelling over the course of the last few years. 
+As measured by performance on common downstream tasks such as speech recognition and spoken language understanding, self-supervised representations generally outperform representations learned via probabilistic methods such as those investigated in \cref{part:unsupervised-uncertainty-estimation}. 
+In this review paper, we do not consider uncertainty estimation, but in future work, consideration should be given to the use of self-supervised learning as an alternative paradigm to generative models for learning representations for unsupervised uncertainty estimation. We shall return to this in the discussion of \cref{chp:paper-review}.
+
+\todo[options]{Update this paragraph according to the discussion of self-supervised learning for uncertainty estimation}
+% \cite{nava_stateconsistency_2021, nava_uncertaintyaware_2021} Within robotics but not really related.
+
+
+\contribitem{chp:paper-review}
+This paper provides a comprehensive review of self-supervised speech representation learning. Previous work is grouped into three main categories of methods: contrastive, autoregressive, and generative, and the methods are compared in terms of their training objectives, model architectures, and performance on downstream tasks. The review also provides a discussion of the current state of the field and promising future directions of research. 
+
+An early version of this review paper \cite{borgholt_brief_2022} included a review of generative latent variable models for speech representation learning and a comparison between the two modelling paradigms. Due to the superior performance of self-supervised methods and a desire to focus on self-supervised methods, the paper in \cref{chp:paper-review} does not focus on generative latent variable models. The early version is included in \cref{app:paper-brief} for reference.
+
+\todo[inline]{Should we include the brief review paper as a chapter instead of the long review paper?}
+
+ 
+\contribitem{part:medical-applications}
+This part contains studies on machine learning methods applied for tasks in a medical setting. While uncertainty estimation is not a central theme to any of the two papers, the first paper performs a substantial evaluation of the explainability of the proposed model via an occlusion analysis on the text input. Later, in the discussion, we shall further consider uncertainty estimation in relation to these two papers.
+\lesstodo[inline]{Revise and add more details to this section.}
+
+Prior to this thesis, but relevant to mention in this section, we published work on question tracking for calls to emergency services using a multimodal approach that combines automatic transcripts with the raw audio \cite{havtorn_multiqt_2020}. 
+
+
+\contribitem{chp:paper-retrospective}
+
+
+\contribitem{chp:paper-automated}
 
