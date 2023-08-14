@@ -39,14 +39,14 @@ Self-supervised learning is a promising approach to speech representation learni
 As measured by performance on common downstream tasks such as speech recognition and spoken language understanding, self-supervised representations generally outperform representations learned via probabilistic methods such as those investigated in \cref{part:unsupervised-uncertainty-estimation}. 
 In this review paper, we do not consider uncertainty estimation, but in future work, consideration should be given to the use of self-supervised learning as an alternative paradigm to generative models for learning representations for unsupervised uncertainty estimation. We shall return to this in the discussion of \cref{chp:paper-review}.
 
-\todo[options]{Update this paragraph according to the discussion of self-supervised learning for uncertainty estimation}
+\todo[inline]{Update this paragraph according to the discussion of self-supervised learning for uncertainty estimation}
 % \cite{nava_stateconsistency_2021, nava_uncertaintyaware_2021} Within robotics but not really related.
 
 
 \contribitem{chp:paper-review}
 This paper provides a comprehensive review of self-supervised speech representation learning. Previous work is grouped into three main categories of methods: contrastive, autoregressive, and generative, and the methods are compared in terms of their training objectives, model architectures, and performance on downstream tasks. The review also provides a discussion of the current state of the field and promising future directions of research. 
 
-An early version of this review paper \cite{borgholt_brief_2022} included a review of generative latent variable models for speech representation learning and a comparison between the two modelling paradigms. Due to the superior performance of self-supervised methods and a desire to focus on self-supervised methods, the paper in \cref{chp:paper-review} does not focus on generative latent variable models. The early version is included in \cref{app:paper-brief} for reference.
+An early version of this review paper \cite{borgholt_brief_2022} included a review of generative latent variable models for speech representation learning and a comparison between the two modelling paradigms. Due to the superior performance of self-supervised methods and a desire to focus on self-supervised methods, the paper in \cref{chp:paper-review} does not focus on generative latent variable models. The early version is included in \cref{chp:appendix-paper-brief} for reference.
 
 \todo[inline]{Should we include the brief review paper as a chapter instead of the long review paper?}
 
@@ -55,10 +55,14 @@ An early version of this review paper \cite{borgholt_brief_2022} included a revi
 This part contains studies on machine learning methods applied for tasks in a medical setting. While uncertainty estimation is not a central theme to any of the two papers, the first paper performs a substantial evaluation of the explainability of the proposed model via an occlusion analysis on the text input. Later, in the discussion, we shall further consider uncertainty estimation in relation to these two papers.
 \lesstodo[inline]{Revise and add more details to this section.}
 
-Prior to this thesis, but relevant to mention in this section, we published work on question tracking for calls to emergency services using a multimodal approach that combines automatic transcripts with the raw audio \cite{havtorn_multiqt_2020}. 
+Prior to this thesis, we published related work on question tracking for calls to emergency services using a multimodal approach that combines automatic transcripts with the raw audio \cite{havtorn_multiqt_2020}. 
 
 
 \contribitem{chp:paper-retrospective}
+Effective stroke treatment depends on recognition by call-takers at prehospital telehealth services. This paper aimed to develop and assess the potential of machine learning in improving prehospital stroke recognition during medical helpline calls. 
+We used calls from Copenhagen during 2015 to 2020, to develop a machine learning-based classification pipeline. First, calls are transcribed by a speech recognition model and then categorised as stroke or non-stroke using a text classification model.
+On test data from 2021, call-takers achieved an overall sensitivity of 52.7\% (95\% confidence interval 49.2-56.4\%) with a positive predictive value (PPV) of 17.1\% (15.5-18.6\%) while the machine learning framework performed significantly better (p < 0.0001) with a sensitivity of 63.0\% (62.0-64.1\%) and a PPV of 24.9\% (24.3-25.5\%).
+This study provides preliminary evidence that a machine learning framework for recognizing stroke in prehospital medical helpline calls could become a supportive tool for call-takers, aiding in early and accurate stroke recognition.
 
 
 \contribitem{chp:paper-automated}
