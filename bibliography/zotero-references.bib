@@ -558,9 +558,9 @@
   title = {Data2vec: {{A General Framework}} for {{Self-supervised Learning}} in {{Speech}}, {{Vision}} and {{Language}}},
   author = {Baevski, Alexei and Hsu, Wei-Ning and Xu, Qiantong and Babu, Arun and Gu, Jiatao and Auli, Michael},
   date = {2022-01},
-  publisher = {{Facebook AI Research blog}},
   abstract = {While the general idea of self-supervised learning is identical across modalities, the actual algorithms and objectives differ widely because they were developed with a single modality in mind. To get us closer to general self-supervised learning, we present data2vec, a framework that uses the same learning method for either speech, NLP or computer vision. The core idea is to predict latent representations of the full input data based on a masked view of the input in a selfdistillation setup using a standard Transformer architecture. Instead of predicting modality-specific targets such as words, visual tokens or units of human speech which are local in nature, data2vec predicts contextualized latent representations that contain information from the entire input. Experiments on the major benchmarks of speech recognition, image classification, and natural language understanding demonstrate a new state of the art or competitive performance to predominant approaches. Models and code are available at www.github.com/pytorch/fairseq/ tree/master/examples/data2vec.},
-  langid = {english}
+  langid = {english},
+  organization = {{Facebook AI Research blog}}
 }
 
 @unpublished{baevski_effectiveness_2020,
@@ -759,6 +759,17 @@
   urldate = {2022-02-02},
   abstract = {Unsupervised pre-training is now the predominant approach for both text and speech understanding. Self-attention models pre-trained on large amounts of unannotated data have been hugely successful when fine-tuned on downstream tasks from a variety of domains and languages. This paper takes the universality of unsupervised language pre-training one step further, by unifying speech and text pre-training within a single model. We build a single encoder with the BERT objective on unlabeled text together with the w2v-BERT objective on unlabeled speech. To further align our model representations across modalities, we leverage alignment losses, specifically Translation Language Modeling (TLM) and Speech Text Matching (STM) that make use of supervised speech-text recognition data. We demonstrate that incorporating both speech and text data during pre-training can significantly improve downstream quality on CoVoST 2 speech translation, by around 1 BLEU compared to single-modality pre-trained models, while retaining close to SotA performance on LibriSpeech and SpeechStew ASR tasks. On four GLUE tasks and text-normalization, we observe evidence of capacity limitations and interference between the two modalities, leading to degraded performance compared to an equivalent text-only model, while still being competitive with BERT. Through extensive empirical analysis we also demonstrate the importance of the choice of objective function for speech pre-training, and the beneficial effect of adding additional supervised signals on the quality of the learned representations.},
   langid = {english}
+}
+
+@article{baranski_atomic_2012,
+  title = {The Atomic Mass Unit, the {{Avogadro}} Constant, and the Mole: A Way to Understanding},
+  author = {Baranski, Andrzej},
+  date = {2012},
+  journaltitle = {Journal of Chemical Education},
+  volume = {89},
+  number = {1},
+  pages = {97--102},
+  publisher = {{ACS Publications}}
 }
 
 @inproceedings{barber_ensemble_1998,
@@ -2696,7 +2707,7 @@
   title = {{{FOLK1}}: {{Population}} Quarterly Database ({{February}} 2023)},
   author = {{Danmarks Statistik (Statistics Denmark)}},
   date = {2023-02},
-  publisher = {{Danmarks Statistik (Statistics Denmark)}}
+  organization = {{Danmarks Statistik (Statistics Denmark)}}
 }
 
 @article{cite18,
@@ -3267,6 +3278,17 @@
   urldate = {2018-11-23},
   abstract = {In this article, we describe a method for automatically detecting syllable nuclei in order to measure speech rate without the need for a transcription. A script written in the software program Praat (Boersma \& Weenink, 2007) detects syllables in running speech. Peaks in intensity (dB) that are preceded and followed by dips in intensity are considered to be potential syllable nuclei. The script subsequently discards peaks that are not voiced. Testing the resulting syllable counts of this script on two corpora of spoken Dutch, we obtained high correlations between speech rate calculated from human syllable counts and speech rate calculated from automatically determined syllable counts. We conclude that a syllable count measured in this automatic fashion suffices to reliably assess and compare speech rates between participants and tasks.},
   langid = {english}
+}
+
+@article{debievre_atomic_1992,
+  title = {'{{Atomic}} Weight': {{The}} Name, Its History, Definition, and Units},
+  author = {family=Bièvre, given=Paul, prefix=de, useprefix=true and Peiser, H Steffen},
+  date = {1992},
+  journaltitle = {Pure and applied chemistry},
+  volume = {64},
+  number = {10},
+  pages = {1535--1543},
+  publisher = {{De Gruyter}}
 }
 
 @article{dehak_frontend_2011a,
@@ -4451,7 +4473,7 @@
   title = {{{TIMIT Acoustic-Phonetic Continuous Speech Corpus LDC93S1}}},
   author = {Garofolo, John S.},
   date = {1993},
-  publisher = {{Linguistic Data Consortium}},
+  organization = {{Linguistic Data Consortium}},
   annotation = {Web Download}
 }
 
@@ -6388,6 +6410,15 @@
   abstract = {Denoising autoencoders (DAE) are trained to reconstruct their clean inputs with noise injected at the input level, while variational autoencoders (VAE) are trained with noise injected in their stochastic hidden layer, with a regularizer that encourages this noise injection. In this paper, we show that injecting noise both in input and in the stochastic hidden layer can be advantageous and we propose a modified variational lower bound as an improved objective function in this setup. When input is corrupted, then the standard VAE lower bound involves marginalizing the encoder conditional distribution over the input noise, which makes the training criterion intractable. Instead, we propose a modified training criterion which corresponds to a tractable bound when input is corrupted. Experimentally, we find that the proposed denoising variational autoencoder (DVAE) yields better average log-likelihood than the VAE and the importance weighted autoencoder on the MNIST and Frey Face datasets.}
 }
 
+@book{internationalbureauofweightsandmeasures_systeme_2019,
+  title = {Le {{Système}} International d’unités [{{The International System}} of {{Units}}]},
+  author = {{International Bureau of Weights and Measures,}},
+  date = {2019},
+  edition = {9},
+  isbn = {978-92-822-2272-0},
+  langid = {english}
+}
+
 @unpublished{ioannou_decision_2016,
   title = {Decision {{Forests}}, {{Convolutional Networks}} and the {{Models}} in-{{Between}}},
   author = {Ioannou, Yani and Robertson, Duncan and Zikic, Darko and Kontschieder, Peter and Shotton, Jamie and Brown, Matthew and Criminisi, Antonio},
@@ -6616,6 +6647,28 @@
   langid = {english}
 }
 
+@article{jaynes_information_1957,
+  title = {Information {{Theory}} and {{Statistical Mechanics}}},
+  author = {Jaynes, Edwin T},
+  date = {1957},
+  journaltitle = {Physical review},
+  volume = {106},
+  number = {4},
+  pages = {620},
+  publisher = {{APS}}
+}
+
+@article{jaynes_prior_1968,
+  title = {Prior {{Probabilities}}},
+  author = {Jaynes, Edwin T},
+  date = {1968},
+  journaltitle = {IEEE Transactions on Systems Science and Cybernetics},
+  volume = {4},
+  number = {3},
+  pages = {227--241},
+  publisher = {{IEEE}}
+}
+
 @article{jeffreys_invariant_1946,
   title = {An {{Invariant Form}} for the {{Prior Probability}} in {{Estimation Problems}}},
   author = {Jeffreys, H.},
@@ -6778,9 +6831,9 @@
   eprint = {2201.02797},
   eprinttype = {arxiv},
   eprintclass = {cs},
-  publisher = {{arXiv}},
   abstract = {Automated medical coding, an essential task for healthcare operation and delivery, makes unstructured data manageable by predicting medical codes from clinical documents. Recent advances in deep learning models in natural language processing have been widely applied to this task. However, it lacks a unified view of the design of neural network architectures for medical coding. This review proposes a unified framework to provide a general understanding of the building blocks of medical coding models and summarizes recent advanced models under the proposed framework. Our unified framework decomposes medical coding into four main components, i.e., encoder modules for text feature extraction, mechanisms for building deep encoder architectures, decoder modules for transforming hidden representations into medical codes, and the usage of auxiliary information. Finally, we discuss key research challenges and future directions.},
-  issue = {arXiv:2201.02797}
+  issue = {arXiv:2201.02797},
+  organization = {{arXiv}}
 }
 
 @article{johnson_accelerating_2013,
@@ -7556,9 +7609,9 @@
   date = {2017-01},
   eprint = {1412.6980},
   eprinttype = {arxiv},
-  publisher = {{arXiv}},
   abstract = {We introduce Adam, an algorithm for first-order gradient-based optimization of stochastic objective functions, based on adaptive estimates of lower-order moments. The method is straightforward to implement, is computationally efficient, has little memory requirements, is invariant to diagonal rescaling of the gradients, and is well suited for problems that are large in terms of data and/or parameters. The method is also appropriate for non-stationary objectives and problems with very noisy and/or sparse gradients. The hyper-parameters have intuitive interpretations and typically require little tuning. Some connections to related algorithms, on which Adam was inspired, are discussed. We also analyze the theoretical convergence properties of the algorithm and provide a regret bound on the convergence rate that is comparable to the best known results under the online convex optimization framework. Empirical results demonstrate that Adam works well in practice and compares favorably to other stochastic optimization methods. Finally, we discuss AdaMax, a variant of Adam based on the infinity norm.},
-  issue = {arXiv:1412.6980}
+  issue = {arXiv:1412.6980},
+  organization = {{arXiv}}
 }
 
 @misc{kipf_variational_2016,
@@ -10048,7 +10101,7 @@
   title = {Lecture {{Notes}} for "15-750 {{Graduate Algorithms}}": {{Lecture}} 1: {{Introduction}} and {{Strassen}}’s {{Algorithm}}},
   author = {Miller, Gary},
   date = {2016-01},
-  publisher = {{Carnegie Mellon University, Department of Computer Science}}
+  organization = {{Carnegie Mellon University, Department of Computer Science}}
 }
 
 @book{minsky_introduction_1969,
@@ -11012,9 +11065,9 @@
   date = {2021-02},
   eprint = {1911.03347},
   eprinttype = {arxiv},
-  publisher = {{arXiv}},
   abstract = {The 'macro F1' metric is frequently used to evaluate binary, multi-class and multi-label classification problems. Yet, we find that there exist two different formulas to calculate this quantity. In this note, we show that only under rare circumstances the two computations can be considered equivalent. More specifically, one formula well 'rewards' classifiers which produce a skewed error type distribution. In fact, the difference in outcome of the two computations can be as high as 0.5. The two computations may not only diverge in their scalar result but can also lead to different classifier rankings.},
-  issue = {arXiv:1911.03347}
+  issue = {arXiv:1911.03347},
+  organization = {{arXiv}}
 }
 
 @article{oponowicz_spoken_2018,
@@ -11535,9 +11588,9 @@
   title = {The {{Matrix Cookbook}}},
   author = {Petersen, Kaare Breandt and Pedersen, Michael Syskind},
   date = {2012},
-  publisher = {{Technical University of Denmark}},
   location = {{Kongens Lyngby, Denmark}},
   abstract = {These pages are a collection of facts (identities, approxima- tions, inequalities, relations, ...) about matrices and matters relating to them. It is collected in this form for the convenience of anyone who wants a quick desktop reference .},
+  organization = {{Technical University of Denmark}},
   keywords = {★}
 }
 
@@ -15824,9 +15877,9 @@
   date = {2022-10},
   eprint = {2210.03304},
   eprinttype = {arxiv},
-  publisher = {{arXiv}},
   abstract = {Automatic International Classification of Diseases (ICD) coding aims to assign multiple ICD codes to a medical note with average length of 3,000+ tokens. This task is challenging due to a high-dimensional space of multi-label assignment (tens of thousands of ICD codes) and the long-tail challenge: only a few codes (common diseases) are frequently assigned while most codes (rare diseases) are infrequently assigned. This study addresses the long-tail challenge by adapting a prompt-based fine-tuning technique with label semantics, which has been shown to be effective under few-shot setting. To further enhance the performance in medical domain, we propose a knowledge-enhanced longformer by injecting three domain-specific knowledge: hierarchy, synonym, and abbreviation with additional pretraining using contrastive learning. Experiments on MIMIC-III-full, a benchmark dataset of code assignment, show that our proposed method outperforms previous state-of-the-art method in 14.5\% in marco F1 (from 10.3 to 11.8, P{$<$}0.001). To further test our model on few-shot setting, we created a new rare diseases coding dataset, MIMIC-III-rare50, on which our model improves marco F1 from 17.1 to 30.4 and micro F1 from 17.2 to 32.6 compared to previous method.},
-  issue = {arXiv:2210.03304}
+  issue = {arXiv:2210.03304},
+  organization = {{arXiv}}
 }
 
 @inproceedings{yanMedicalCodingClassification2010,

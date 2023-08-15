@@ -4,50 +4,173 @@
 
 \chapter[technical background]{Technical Background}\label{chp:technical-background}
 
-\section{Uncertainty}
+\section{Uncertainty and information}
 
 % https://en.wikipedia.org/wiki/Uncertainty#cite_note-3
 % https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8371683
 
 In society, the concept of uncertainty goes by many names, and its meaning can vary depending on the specific context. However, across most quantitative scientific fields, a consensus definition appears to align with the following \cite{hubbard_how_2014}:
-
+%
 \begin{center}
     \textit{Uncertainty is the lack of certainty; a state of limited knowledge where it is impossible to exactly describe the existing state, a future outcome, or more than one possible outcome.}
 \end{center}
+%
+While such a purely lexical definition of uncertainty might trigger a philosophical inquisition, it highlights an important connection between uncertainty, information and probability. When information is not complete, we can describe the state of the world only with uncertainty; we are simply not certain. In that sense, uncertainty is a word we use to refer to information that is missing. A natural way to describe a state of the world with uncertainty is to use probabilities. To our luck, information theory provides exactly that; a mathematically rigorous method for quantifying information through the language of probabilities. In this context, uncertainty can be understood as the information entropy of a random variable \cite{mackay_information_2003}. 
 
-While such a purely lexical definition of uncertainty might trigger a philosophical inquisition, information theory provides a mathematically rigorous method for quantifying uncertainty through the language of probabilities. 
-In this context, uncertainty is understood as the information entropy of a random variable \cite{mackay_information_2003}. 
 
-
-\subsection{Information entropy}
-First characterized by Claude Shannon in 1948 \cite{shannon_mathematical_1948}, information entropy, $H(X)$, is a measure of the average amount of information contained in a discrete random variable $X$. Shannon's definition follows from three fundamental axioms of information theory. Let $I_X(x)$ be the information carried by a specific outcome $x$ of sampling the random variable $X$ with probability mass function $p_X(x)$. Then, these axioms are as follows:
+\subsection{Entropy for discrete random variables}
+First characterized by Claude Shannon in 1948 \cite{shannon_mathematical_1948}, information entropy, $H(X)$, is a measure of the average amount of information contained in a discrete random variable $X$. Shannon's definition follows from three fundamental axioms of information theory. Let $I_X(x)$ be the information carried by a specific outcome $x$ of sampling the discrete random variable $X$ with probability mass function $p_X(x)$. Then, these axioms are as follows:
 \begin{enumerate}[label=(\Roman*)]
     \item The more likely an outcome is, the less information it carries; $I_X(x)$ is a monotonically decreasing function in $p_X(x)$.
-    \item Outcomes that are certain to happen carry no information; $I_X(1) = 0$.
-    \item The joint information carried by independent outcomes is the sum of the information carried by each outcome; $I(x_i, x_j) = I(x_i) + I(x_j)$ if $x_i$ and $x_j$ are independent. 
+    \item Outcomes that are certain to happen carry no information; if $p_X(x) = 1$ then $I_X(x) = 0$.
+    \item The joint information carried by independent outcomes is the sum of the information carried by each outcome; if $x_i$ and $x_j$ are independent then $I(x_i, x_j) = I(x_i) + I(x_j)$. 
 \end{enumerate}
 
-From these axioms, Shannon found that a suitable function for the \emph{information content} of an outcome $x$ with probability $p_X(x)$ is the logarithm of the inverse probability,
+From these axioms, Shannon found that the \emph{information content} $I_X(x)$ of an outcome $x$ with probability $p_X(x)$ can suitably be defined as the negative logarithm of the probability of the outcome,
 %
-\begin{equation}
+\begin{equation} \label{eq:information-content}
     I_X(x) = -\log_b p_X(x) \enspace .
 \end{equation}
 %
-Information content is measured in units of bits when the logarithm base $b$ is $2$, or nats when $b=e$. 
+% Information content is measured in units of bits when the logarithm base $b$ is $2$, or nats when $b=e$.
 
-The information entropy of a random variable $X$ is defined as the \emph{expected information content} of an outcome of $X$,
+The \emph{information entropy} of a random variable $X$ is defined as the \emph{expected information content} of an outcome of $X$,
 %
-\begin{equation}
+\begin{equation} \label{eq:information-entropy}
     H(X) = \mathbb{E}_X\left[I_X(x)\right] = - \sum_{x\in X} p_X(x) \log p_X(x) \enspace .
 \end{equation}
 %
-Intuitively, the entropy $H(X)$ of a discrete random variable $X$ is a measure of the amount of uncertainty associated with the value of $X$ when only its distribution is known. \todo{Rewrite}
+This means that $H(X)$ measures the amount of information we can expect to gain from observing an outcome of $X$, when we know only its distribution $p_X(x)$. 
 
-To illustrate the \dots \lesstodo[inline]{Come up with a suitable example explaining the intuition behind information entropy.}
+\lesstodo[inline]{Come up with a suitable example explaining the intuition behind information entropy.}
 
-\subsection{Continuous entropy}
-\lesstodo[inline]{Discuss differential entropy as a generalization to continuous case.}
-% Other important information theoretic quantities include Rényi entropy (a generalization of entropy), differential entropy (a generalization of quantities of information to continuous distributions), and the conditional mutual information.
+
+\subsection{Entropy for continuous random variables}
+To generalize the concept of information entropy to continuous random variables, Shannon originally replaced the sum over the probability mass function in \eqref{eq:information-entropy} with an integral over the probability density function, as suggested by the definition $H(X) = \mathbb{E}_X\left[I_X(x)\right]$. This leads to the definition of the information entropy of a continuous random variable $X$ as the \emph{differential entropy} \cite{shannon_mathematical_1948}, 
+%
+\begin{equation} \label{eq:differential-entropy}
+    H(X) = \mathbb{E}_X\left[I_X(x)\right] = - \int_{\mathcal{X}} p_X(x) \log p_X(x) \, dx \enspace ,
+\end{equation}
+%
+where $\mathcal{X}$ is the support of $X$. 
+
+However, the differential entropy does not have several of the desired attributes of the discrete version; it can be negative, it is not invariant under a change of variables, and it is not dimensionally correct%
+\footnote{
+    Information entropy has the same dimensionality as information content which is typically measured in units of bits, depending on the base of the logarithm. 
+    However, the bit is not a base unit of the International System of Units (SI), nor is it an official derived unit.
+    A bit is quite simply a number, specifically 0 or 1. If something is said to have a size of 4 bits, it means that it can be described with 4 binary digits, i.e. 4 numbers that are either 0 or 1.
+
+    As such, it might be useful to think of information as a dimensionless quantity rather than a quantity with units.
+    Following this interpretation, the dimensionality of the discrete information entropy in \cref{eq:information-entropy} is also dimensionless, since a probability mass function is dimensionless. 
+    For probability density functions, which have dimensionality of the inverse of some quantity, e.g. inverse length, the dimensionality of differential entropy in \cref{eq:differential-entropy} becomes,
+    \begin{equation}
+        \text{dim} \left( H(X) \right) = \text{dim} \left( \int_{\mathcal{X}} p_X(x) \log p_X(x) \, dx \right) = \frac{1}{\text{length}} \log\left(\text{length}\right) \enspace .
+    \end{equation}
+    This is clearly not dimensionless and therefore does not correspond to the discrete information entropy.
+    
+    % As a final twist on this story, note that the SI system does actually have a unit for an amount of substance: the mole \cite{internationalbureauofweightsandmeasures_systeme_2019}. 
+    % The mole is defined as the amount of substance that contains as many elementary entities as there are atoms in $\SI{12}{g}$ of carbon-12, that is $\SI{1}{mol} = 6.02214076\times10^{23}$.
+    % Taking the position that a mole is quite simply a number (not a number of particles) \cite{debievre_atomic_1992,baranski_atomic_2012}, and a bit is a number of elementary (information) entities, we could define a bit as a derived unit from the mole as $\SI{1}{bit} = \SI{1}{mol} / 6.02214076\times10^{23}$.
+}. 
+For these reasons, the differential entropy may not be a suitable measure of information, or uncertainty, for continuous random variables. 
+
+Instead, it can be argued that the information entropy of a continuous distribution should be defined via the limiting density for discrete points \cite{jaynes_information_1957,jaynes_prior_1968}. Following the derivation of \textcite{jaynes_information_1957}, in the discrete entropy expression in \cref{eq:information-entropy}, we assume that the number of discrete points $x_i, i=1,2,\dots,N$, in the support of $X$ grows larger such that in the limit $N\rightarrow\infty$, the density of points becomes a continuous function $m(x)$ and we can replace the sum with an integral. Denoting the number of points satisfying $a<x_i<b$ by $N_{a,b}$, we have
+%
+\begin{equation}
+    \lim_{N\rightarrow\infty} \frac{N_{a,b}}{N} = \int_a^b m(x) \, dx \enspace .
+\end{equation}
+%
+If this limit behaves sufficiently well, adjacent differences $(x_{i+1} - x_{i})$ in the neighbourhood of any particular value of $x$ will also tend to zero, so that
+%
+\begin{equation} \label{eq:limiting-density-discrete-to-continuous}
+    \lim_{N\rightarrow\infty} \left[ N(x_{i+1} - x_{i}) \right] = \left[ m(x_{i}) \right]^{-1} \enspace .
+\end{equation}
+%
+In the limit, the value of the discrete probability mass function will become a continuous probability density function $w(x)$, according to the limiting form of
+%
+\begin{equation}
+    p_i = w(x_i)\left(x_{i+1} - x_{i}\right) \enspace ,
+\end{equation}
+%
+where $p_i$ is the value of the probability mass function at $x_i$ which via \cref{eq:limiting-density-discrete-to-continuous} becomes,
+%
+\begin{equation}
+    p_i = w(x_i)\left[Nm(x_i)\right]^{-1} \enspace .
+\end{equation}
+%
+Consequently, the discrete entropy expression in \cref{eq:information-entropy} becomes,
+%
+\begin{align}
+    H_{N,\text{discrete}}(X) &= - \sum_{i} p_i \log p_i \nonumber \\
+    &= - \sum_{i\in\mathcal{X}} w(x_i)\left[Nm(x_i)\right]^{-1} \log \left( w(x_i)\left[Nm(x_i)\right]^{-1} \right) \nonumber \\
+    &= - \sum_{i\in\mathcal{X}} w(x_i)\left[Nm(x_i)\right]^{-1} (\log w(x_i) - \log N - \log m(x_i)) \nonumber  \\
+    &= 1
+\end{align}
+
+%
+\begin{align}
+    % H_{N,\text{discrete}}(X) &= - \int_\mathcal{X} w(x)\left[Nm(x)\right]^{-1} \, dx \, \log \left[\frac{w(x)}{Nm(x)}\right] \nonumber \\
+    % &= - \int_\mathcal{X} w(x) \, dx \, \log \left[\frac{w(x)}{Nm(x)}\right]
+    H_{N,\text{discrete}}(X) &= - \int_\mathcal{X} w(x) \, dx \, \log \left[\frac{w(x)}{Nm(x)}\right] \nonumber \\
+\end{align}
+%
+and taking the limit $N\rightarrow\infty$,
+%
+\begin{equation}
+    \lim_{N\rightarrow\infty} H_{N,\text{discrete}}(X) = H_{N} = \log N - \int_\mathcal{X} w(x) \log \left[\frac{w(x)}{m(x)}\right] \enspace .
+\end{equation}
+%
+Note that since $\lim_{N\rightarrow\infty} \log N = \infty$, this procedure suggests that the entropy in the discrete sense of a continuous random variable should be infinite.
+
+
+% I apologize for any confusion. Let's clarify step 6, focusing on the transition from the discrete entropy expression to the continuous entropy expression. I'll provide a more detailed explanation.
+
+% Step 6: Expression for Discrete Entropy
+% - The discrete entropy $H_{N,\text{discrete}}(X)$ using the probability mass function $p_i$ is given by:
+%   \[ H_{N,\text{discrete}}(X) = - \sum_{i} p_i \log p_i. \]
+% - We transition from discrete to continuous terms, keeping in mind that $p_i = w(x_i)[Nm(x_i)]^{-1}$.
+% - So, the discrete entropy expression becomes:
+%   \[ H_{N,\text{discrete}}(X) = - \sum_{i} w(x_i)\left[Nm(x_i)\right]^{-1} \log \left( w(x_i)\left[Nm(x_i)\right]^{-1} \right). \]
+
+% Now, let's simplify the above expression by breaking it down step by step:
+
+% 1. **Simplify the term inside the logarithm:**
+%    \[ w(x_i)\left[Nm(x_i)\right]^{-1} = \frac{w(x_i)}{Nm(x_i)}. \]
+
+% 2. **Apply the logarithm property $\log(ab) = \log a + \log b$:**
+%    \[ \log \left( \frac{w(x_i)}{Nm(x_i)} \right) = \log w(x_i) - \log (Nm(x_i)). \]
+
+% 3. **Distribute the negative sign from the entropy definition:**
+%    \[ -w(x_i)\left[Nm(x_i)\right]^{-1} \log \left( \frac{w(x_i)}{Nm(x_i)} \right) = -w(x_i) \log w(x_i) + w(x_i) \log (Nm(x_i)). \]
+
+% 4. **Combine the logarithms using properties of logarithms:**
+%    \[ w(x_i) \log (Nm(x_i)) = \log \left( [Nm(x_i)]^{w(x_i)} \right) = \log \left( N^{w(x_i)} \cdot [m(x_i)]^{w(x_i)} \right). \]
+
+% 5. **Apply the property $\log(a^b) = b \log a$:**
+%    \[ \log \left( N^{w(x_i)} \cdot [m(x_i)]^{w(x_i)} \right) = w(x_i) \log N + w(x_i) \log m(x_i). \]
+
+% 6. **Substitute this result back into the expression:**
+%    \[ -w(x_i) \log w(x_i) + w(x_i) \log (Nm(x_i)) = -w(x_i) \log w(x_i) + w(x_i) \log N + w(x_i) \log m(x_i). \]
+
+% 7. **Use the sum notation to represent the terms:**
+%    \[ H_{N,\text{discrete}}(X) = - \sum_{i} \left( -w(x_i) \log w(x_i) + w(x_i) \log N + w(x_i) \log m(x_i) \right). \]
+
+% 8. **Combine the terms inside the sum:**
+%    \[ H_{N,\text{discrete}}(X) = \sum_{i} w(x_i) \log w(x_i) - \sum_{i} w(x_i) \log N - \sum_{i} w(x_i) \log m(x_i). \]
+
+% 9. **Recognize that the first term is the entropy of a discrete distribution:**
+%    \[ \sum_{i} w(x_i) \log w(x_i) = -\sum_{i} w(x_i) \log \frac{1}{w(x_i)} = -H(X). \]
+
+% 10. **Recognize that the second term is $\log N$ multiplied by the sum of probabilities, which is 1:**
+%    \[ \sum_{i} w(x_i) \log N = \log N \sum_{i} w(x_i) = \log N \cdot 1 = \log N. \]
+
+% 11. **Substitute back into the expression:**
+%    \[ H_{N,\text{discrete}}(X) = -H(X) - \log N - \sum_{i} w(x_i) \log m(x_i). \]
+
+% This should give you a more detailed understanding of how the transition from the discrete entropy expression to the continuous entropy expression is made while taking into account the continuous limit.
+
+
+
 
 
 
