@@ -1,0 +1,100 @@
+# PhD thesis outline
+
+## Assessment committee
+1. An expert on VAEs
+2. An expert on speech/SSL
+3. Internal
+
+## Outline
+- Title
+    - Keywords: Uncertainty, speech, medical
+    - Uncertainty and medical conversations: Towards self-assessment  in machine learning models
+- Abstract (EN)
+- Abstract (DA)
+- Publications list
+- Acknowledgments
+- Part I: Background 
+    - C1: Introduction
+        - Broad intro:
+            - https://en.wikipedia.org/wiki/Decision_support_system
+            - https://en.wikipedia.org/wiki/Clinical_decision_support_system
+            - Start historically. First examples of using algorithms or mathematics for making decisions (decision support).
+                - Seafaring navigation
+                - Artillery
+            - Algorithms are "hard" - strongly rule-based. There's a tendency to see machine learning models as inflexible and un-nuanced.
+            - Include example from media of a model that made a catastrophic (hard) decision (decision support). Why is this not an appropriate way to act in reality?
+            - Thomas Bayes, updating prior beliefs, using probabilities 
+        - Corti case:
+            - Why is it important to incorporate a notion of uncertainty for decision support in medical conversations and systems?
+            - Stroke case: Including uncertainty in transcripts
+            - Machine-to-machine uncertainty propagation / Machine-to-human uncertainty communication
+                - For humans: Which alternative words could it have been? Mention the importance of user interface design for effective impact of machine suggestions on human decisions.
+                - Between machines: Propagation via probability distributions, Bayesian modelling
+        - Outro, what to expect in what's to come:
+            - Using machine learning as a way to make health-care/decision support human again.
+            - Uncertainty estimation lies somewhere between high-performing models and explainable models, in some sense at least.
+            - Explainability: There is a trade-off between how complex a decision support system becomes and how interpretable it is. Maybe, to improve on human performance, model predictions will inevitably become hard to explain in a way that humans can understand. In the same way that a physicist can explain the wave-function of the hydrogen atom to a lay-person without that person understanding it - it is still an explanation.
+            - How will we deal with uncertainty in the coming chapters. (also: medical conversations)
+            - We will work with the following tasks
+                - Uncertainty: 
+                    - Supervised / unsupervised
+                    - Models and representations: 
+                        - VAE's and Bayesian modelling. Built-in uncertainty via probabilistic modelling.
+                        - Self-supervised learning: No explicit uncertainty modelling but 
+                    - 
+    - C2: Technical background
+    - C3: Main contributions
+        - We can/should mention perspectives on our contributions.
+        - Part II: 
+            - C4 and C5 deal with uncertainty estimation using especially VAEs.
+            - C6 deals with VAEs generalised to sequential data with the aim of moving towards applying these models for uncertainty estimation.
+        - Part III: 
+            - Start with tying back to part II. ""
+        - Chapter 7:
+            - Abstract adapted to relate to the main narrative. Replace technicalities with references to narrative.
+        - Part IV: 
+            - Why is uncertainty estimation especially important in medical applications? Cost of false positives and false negatives.
+            - End with: "While uncertainty estimation is not a central theme to any of the two papers, the ﬁrst paper performs a substantial evaluation of the explainability of the proposed model via an occlusion analysis on the text input."
+            - "We have dedicated a substantial part of the discussion to further elaborate on the criticality of uncertainty in medical applications."
+- Part II: Unsupervised Uncertainty Estimation
+    - C4: Hierarchical VAEs Know What They Don't Know
+    - C5: Model-agnostic out of distribution detection using combined statistical tests
+    - C6: Benchmarking latent variable models for speech
+- Part III: Self-supervised Speech Representation Learning
+    - C7: Self-supervised speech representation learning: A review
+- Part IV: Medical Applications
+    - C8: A retrospective study on machine learning-assisted stroke recognition for medical helpline calls
+    - C9: Automated medical coding on MIMIC-III and MIMIC-IV: A critical review and replicability study
+- Part V: Discussion and Conclusions
+    - C10: Discussion
+        - C4+C5+C6: 
+            - Discuss sensitivity to “implicit" prior such as architecture (and probably optimization method and other). Include reference to [14] discussing the usefulness of using a maximum likelihood objective for representation learning in generative models. Write up factorization of ELBO into MI in background.
+            - In relation to this, in C6, we see that the learned representations are only slightly better than spectrograms for phoneme recognition.
+        - C7: 
+            - These methods enable learning very useful representations for speech (as opposed to C5-C7), but are do they represent uncertainty?
+            - Small literature review on uncertainty quantification for SSL representation models.
+                - Kristoffer Wickstrōm: "RELAX: Representation Learning Explainability" https://link.springer.com/article/10.1007/s11263-023-01773-2
+            - Provide some preliminary results through an experiment:
+                - wav2vec 2.0 fine-tuned and pre-trained versions.
+                - Uncertainty should correlate with errors in transcript.
+                - Find errors in transcript: [Longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence).
+                - Quantify uncertainty by masking
+                    - masking out specific words in the input (aligned librispeech).
+                    - masking iteratively with a certain mask size.
+                - Quantify uncertainty by Monte Carlo dropout to obtain empirical distribution of transcripts.
+                - Quantify uncertainty by Monte Carlo dropout to obtain cosine similarities between SSL representations.
+                - Visualize how uncertainty matches transcript (aligned librispeech).
+        - C8+C9: 
+            - Issue of miscalibration.
+            - Stroke: 
+                - If we have 5 different calls, each classified with confidence of 80%, we would expect that one of these classifications is incorrect. But this is usually not the case.
+            - Automated medical coding: 
+                - Do class positives correlate with assigned confidences?
+                - For independent (but mutually exclusive) classes, predicted with almost equal confidence, can we use uncertainty to perform tie breaks?
+            - Small literature review on uncertainty quantification for classification models.
+                - Calibration methods are plug and play.
+                - Others require changes to model architecture and training.
+                - Lipschitz continuity as a general trend.
+    - C11: Conclusions and outlook
+        - How to learn representations that are useful for both downstream task performance and uncertainty estimation.
+

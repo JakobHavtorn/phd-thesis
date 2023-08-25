@@ -201,11 +201,11 @@ The approximate posterior similarly factorizes over time,
 \end{equation}
 From this, the ELBO for the VRNN is
 \begin{equation}
-    \mathcal{L}(\xb) = ~ \mathbb{E}_{q(\zb_{1:T}|\xb_{1:T})} \bigg[ \sum_{t} \log p(\xb_t|\xb_{<t},\zb_{\leq t}) - D_\text{KL}\left( q(\zb_t|\xb_{\leq t},\zb_{<t}) \, || \, p(\zb_t|\xb_{<t},\zb_{<t}) \right)  \bigg] \label{eq: vrnn elbo} \enspace .
+    \mathcal{L}(\xb) = ~ \mathbb{E}_{q(\zb_{1:T}|\xb_{1:T})} \bigg[ \sum_{t} \log p(\xb_t|\xb_{<t},\zb_{\leq t}) - D_\text{KL}\left( q(\zb_t|\xb_{\leq t},\zb_{<t}) \parallel p(\zb_t|\xb_{<t},\zb_{<t}) \right)  \bigg] \label{eq: vrnn elbo} \enspace .
 \end{equation}
 % \begin{equation}
 % \begin{split}
-%     \mathcal{L}(\xb) =&~ \mathbb{E}_{q(\zb_{1:T}|\xb_{1:T})} \bigg[ \sum_{t} \log p(\xb_t|\xb_{<t},\zb_{\leq t}) \\ & - \text{KL}\left( q(\zb_t|\xb_{\leq t},\zb_{<t}) \, || \, p(\zb_t|\xb_{<t},\zb_{<t}) \right)  \bigg] \enspace .
+%     \mathcal{L}(\xb) =&~ \mathbb{E}_{q(\zb_{1:T}|\xb_{1:T})} \bigg[ \sum_{t} \log p(\xb_t|\xb_{<t},\zb_{\leq t}) \\ & - \text{KL}\left( q(\zb_t|\xb_{\leq t},\zb_{<t}) \parallel p(\zb_t|\xb_{<t},\zb_{<t}) \right)  \bigg] \enspace .
 %     \label{eq: vrnn elbo}
 % \end{split}
 % \end{equation}

@@ -4,10 +4,12 @@
 
 \chapter[technical background]{Technical Background}\label{chp:technical-background}
 
-\section{Uncertainty and information}
+While the papers in this thesis were written to be self-contained, page limits and the need to maintain a specific focus, forced us to limit the scope of technical background each paper provides. In this chapter, we present a more in-depth overview of the technical background relevant to the papers in this thesis. 
+We start by introducing the concept of uncertainty, and how it relates to information and probability. We then introduce the task of out-of-distribution detection and a few ways to tackle it.
+Then, we present variational autoencoders, and how they can be used to learn representations of speech. Finally, we introduce the concept of self-supervised learning.
 
-% https://en.wikipedia.org/wiki/Uncertainty#cite_note-3
-% https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8371683
+
+\section{Uncertainty and information}
 
 In society, the concept of uncertainty goes by many names, and its meaning can vary depending on the specific context. However, across most quantitative scientific fields, a consensus definition appears to align with the following \cite{hubbard_how_2014}:
 %
@@ -19,6 +21,7 @@ While such a purely lexical definition of uncertainty might trigger a philosophi
 
 
 \subsection{Entropy for discrete random variables}
+
 First characterized by Claude Shannon in 1948 \cite{shannon_mathematical_1948}, information entropy, $H(X)$, is a measure of the average amount of information contained in a discrete random variable $X$. Shannon's definition follows from three fundamental axioms of information theory. Let $I_X(x)$ be the information carried by a specific outcome $x$ of sampling the discrete random variable $X$ with probability mass function $p_X(x)$. Then, these axioms are as follows:
 \begin{enumerate}[label=(\Roman*)]
     \item The more likely an outcome is, the less information it carries; $I_X(x)$ is a monotonically decreasing function in $p_X(x)$.
@@ -32,7 +35,6 @@ From these axioms, Shannon found that the \emph{information content} $I_X(x)$ of
     I_X(x) = -\log_b p_X(x) \enspace .
 \end{equation}
 %
-% Information content is measured in units of bits when the logarithm base $b$ is $2$, or nats when $b=e$.
 
 The \emph{information entropy} of a random variable $X$ is defined as the \emph{expected information content} of an outcome of $X$,
 %
@@ -40,47 +42,152 @@ The \emph{information entropy} of a random variable $X$ is defined as the \emph{
     H(X) = \mathbb{E}_X\left[I_X(x)\right] = - \sum_{x\in X} p_X(x) \log p_X(x) \enspace .
 \end{equation}
 %
-This means that $H(X)$ measures the amount of information we can expect to gain from observing an outcome of $X$, when we know only its distribution $p_X(x)$. 
+This means that $H(X)$ measures the amount of information we can expect to gain from observing an outcome of $X$, when we know only its distribution $p_X(x)$. If all possible outcomes are equally likely, then $H(X)$ is maximized, and if only one outcome is possible, then $H(X)$ is minimized.
 
 \lesstodo[inline]{Come up with a suitable example explaining the intuition behind information entropy.}
 
 
 \subsection{Entropy for continuous random variables}
-To generalize the concept of information entropy to continuous random variables, Shannon originally replaced the sum over the probability mass function in \eqref{eq:information-entropy} with an integral over the probability density function, as suggested by the definition $H(X) = \mathbb{E}_X\left[I_X(x)\right]$. This leads to the definition of the information entropy of a continuous random variable $X$ as the \emph{differential entropy} \cite{shannon_mathematical_1948}, 
+
+To generalize the concept of information entropy to continuous random variables, Shannon originally replaced the sum over the probability mass function in \eqref{eq:information-entropy} with an integral over the probability density function, as suggested by the definition $H(X) = \mathbb{E}_X\left[I_X(x)\right]$. This approach leads to the definition of the information entropy of a continuous random variable $X$ as, 
 %
 \begin{equation} \label{eq:differential-entropy}
-    H(X) = \mathbb{E}_X\left[I_X(x)\right] = - \int_{\mathcal{X}} p_X(x) \log p_X(x) \, dx \enspace ,
+    H(X) = - \int_{\mathcal{X}} p_X(x) \log p_X(x) \, dx \enspace ,
 \end{equation}
 %
-where $\mathcal{X}$ is the support of $X$. 
+which is called the \emph{differential entropy} \cite{shannon_mathematical_1948}. Here, $\mathcal{X}$ is the support of $X$. 
 
-However, the differential entropy does not have several of the desired attributes of the discrete version; it can be negative, it is not invariant under a change of variables, and it is not dimensionally correct%
-\footnote{
+However, the differential entropy does not have several of the desirable attributes of the discrete version; it can be negative, it is not invariant under a change of variables, and it is not dimensionally correct%
+\footnote{\label{fn:dimensional-analysis-of-differential-entropy}
     Information entropy has the same dimensionality as information content which is typically measured in units of bits, depending on the base of the logarithm. 
     However, the bit is not a base unit of the International System of Units (SI), nor is it an official derived unit.
-    A bit is quite simply a number, specifically 0 or 1. If something is said to have a size of 4 bits, it means that it can be described with 4 binary digits, i.e. 4 numbers that are either 0 or 1.
+    A bit is quite simply a number, specifically 0 or 1. If something is said to have a size of 4 bits, it means that it can be described with 4 binary digits, i.e. 4 numbers, each either 0 or 1.
 
     As such, it might be useful to think of information as a dimensionless quantity rather than a quantity with units.
-    Following this interpretation, the dimensionality of the discrete information entropy in \cref{eq:information-entropy} is also dimensionless, since a probability mass function is dimensionless. 
-    For probability density functions, which have dimensionality of the inverse of some quantity, e.g. inverse length, the dimensionality of differential entropy in \cref{eq:differential-entropy} becomes,
-    \begin{equation}
-        \text{dim} \left( H(X) \right) = \text{dim} \left( \int_{\mathcal{X}} p_X(x) \log p_X(x) \, dx \right) = \frac{1}{\text{length}} \log\left(\text{length}\right) \enspace .
-    \end{equation}
-    This is clearly not dimensionless and therefore does not correspond to the discrete information entropy.
-    
+    Following this interpretation, the discrete information entropy in \cref{eq:information-entropy} is also dimensionless, since a probability mass function is dimensionless. 
+    Since probability density functions have dimensionality of the inverse of some quantity, e.g. inverse length, the dimensionality of the continuous differential entropy in \cref{eq:differential-entropy} becomes,
+    \begin{equation*}
+        \text{dim} \left( H(X) \right) = \text{dim} \left( \int_{\mathcal{X}} p_X(x) \log p_X(x) \, dx \right) = \frac{1}{\text{length}} \log\left(\text{length}\right) \enspace ,
+    \end{equation*}
+    which is clearly not dimensionless and therefore does not correspond to the discrete information entropy.
     % As a final twist on this story, note that the SI system does actually have a unit for an amount of substance: the mole \cite{internationalbureauofweightsandmeasures_systeme_2019}. 
     % The mole is defined as the amount of substance that contains as many elementary entities as there are atoms in $\SI{12}{g}$ of carbon-12, that is $\SI{1}{mol} = 6.02214076\times10^{23}$.
     % Taking the position that a mole is quite simply a number (not a number of particles) \cite{debievre_atomic_1992,baranski_atomic_2012}, and a bit is a number of elementary (information) entities, we could define a bit as a derived unit from the mole as $\SI{1}{bit} = \SI{1}{mol} / 6.02214076\times10^{23}$.
 }. 
 For these reasons, the differential entropy may not be a suitable measure of information, or uncertainty, for continuous random variables. 
 
-Instead, it can be argued that the information entropy of a continuous distribution should be defined via the limiting density for discrete points \cite{jaynes_information_1957,jaynes_prior_1968}. Following the derivation of \textcite{jaynes_information_1957}, in the discrete entropy expression in \cref{eq:information-entropy}, we assume that the number of discrete points $x_i, i=1,2,\dots,N$, in the support of $X$ grows larger such that in the limit $N\rightarrow\infty$, the density of points becomes a continuous function $m(x)$ and we can replace the sum with an integral. Denoting the number of points satisfying $a<x_i<b$ by $N_{a,b}$, we have
+Instead, \textcite{jaynes_information_1957} argued that the information entropy of a continuous distribution should be defined as the limiting density of increasingly dense discrete distributions \cite{jaynes_prior_1968}. This argument leads to an expression for the information entropy of a continuous random variable $X$ as,
+%
+\begin{equation} \label{eq:corrected-differential-entropy-jaynes}
+    H_{N\rightarrow\infty}(X) = \lim_{N\rightarrow\infty} [H_{N}(X) - \log N] = - \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace ,
+\end{equation}
+%
+where $H_N(X)$ is the limiting density for discrete points, $q(x)$ is a uniform density over the quantization of the continuous space, and we have subtracted a $\log N$ term that would go to infinity in the limit of infinite points.
+By doing this, the information entropy becomes dimensionally correct, and invariant under a change of variables%
+\footnote{\label{fn:change-of-variables-invariance-of-corrected-differential-entropy}
+    Under a change of independent variable from $x$ to $y(x)$, we have that
+    \begin{align*}
+        \widetilde{w}(y)\,dy = w(x)\,dx \enspace , \quad
+        \widetilde{q}(y)\,dy = q(x)\,dx \enspace .
+    \end{align*}
+    Plugging this into the differential entropy \cref{eq:corrected-differential-entropy-jaynes} we arrive at the original expression but now with $y$ as the independent variable,
+    \begin{equation*}
+        H_{N\rightarrow\infty}(y(x)) =  = - \int_\mathcal{Y} \widetilde{w}(y)\,\frac{dy}{dx} \log \frac{\widetilde{w}(y)\frac{dy}{dx}}{\widetilde{q}(y)\frac{dy}{dx}} \, dx = - \int_\mathcal{Y} w(y) \log \frac{w(y)}{q(y)} \, dy \enspace .
+    \end{equation*}
+}.
+
+The form on the right-hand side of \cref{eq:corrected-differential-entropy-jaynes} can be recognized as the negative Kullback-Leibler divergence of $p(x)$ to $q(x)$ \cite{kullback_information_1959},
+%
+\begin{equation} \label{eq:kullback-leibler-divergence}
+    D_{KL}(P\parallel Q) = \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
+\end{equation}
+%
+The Kullback-Leibler divergence $D_{KL}(p\parallel q)$ is often interpreted as the amount of additional information required to represent events from distribution the $P$ with density $p(x)$ using a code optimized for distribution $Q$ with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $Q$ to represent events from distribution $P$.
+The KL-divergence is also known as the \emph{relative entropy} of $P$ with respect to $Q$, or simply as the \emph{information gain}. 
+
+Returning to Jaynes and \cref{eq:corrected-differential-entropy-jaynes}, the argument can be interpreted to say that the information entropy of a continuous random variable $X$ should be defined in relative terms as the expected difference in information entropy between its actual density and a uniform density.
+The Kullback-Leibler divergence as a measure of (relative) information entropy also provides a natural point of convergence of this section since it is equivalently defined for both discrete and continuous random variables.
+
+% In fact, Kullback initially motivated the divergence as an expected likelihood ratio \cref{kullback_information_1959}.
+
+
+\subsection{Two kinds of uncertainty}
+
+Uncertainty can be divided into two kinds: aleatoric and epistemic. 
+
+Aleatoric uncertainty is defined as being inherent to the data, and is irreducible. 
+
+Epistemic uncertainty is uncertainty due to lack of knowledge, and can be reduced with more data. 
+
+
+
+\section{Unsupervised out-of-distribution detection}
+
+Unsupervised out-of-distribution detection (OOD) is the task of identifying data that is unlikely to originate from the distribution of the training data.
+
+
+
+% Out-of-distribution detection and anomaly detection are both related concepts in machine learning and deep learning, but they address slightly different problems and have distinct focuses.
+
+% Out-of-Distribution Detection (OOD Detection):
+% Out-of-distribution detection involves determining whether a given input or data point belongs to the same distribution as the training data. In other words, it helps identify whether an input is coming from a category or distribution that the model has never encountered during training. This is especially important for safety-critical applications where the model should not make predictions on inputs that are significantly different from what it has seen before. OOD detection aims to prevent the model from making confident predictions on unfamiliar inputs that might lead to incorrect results.
+% Anomaly Detection:
+% Anomaly detection, on the other hand, focuses on identifying rare and unusual instances within the data, regardless of whether they belong to the same distribution as the training data or not. Anomalies can be defined as data points that deviate significantly from the norm or expected behavior. Anomaly detection is used to find instances that are different from the majority and might indicate potential errors, fraud, faults, or other unusual occurrences.
+% In summary, the key differences are:
+
+% Focus:
+% OOD Detection: Focuses on detecting inputs that are coming from distributions that differ significantly from the training data distribution.
+% Anomaly Detection: Focuses on identifying rare and unusual instances, regardless of whether they come from a different distribution or not.
+% Purpose:
+% OOD Detection: Primarily used for safety and robustness, ensuring that the model doesn't make confident predictions on unfamiliar data.
+% Anomaly Detection: Used for various applications such as fraud detection, fault detection, and identifying outliers in the data.
+% Detection Approach:
+% OOD Detection: Often involves measuring the uncertainty of the model's predictions. High uncertainty indicates that the input might be out-of-distribution.
+% Anomaly Detection: Focuses on detecting data points that are statistically rare or far from the norm.
+% It's worth noting that while the concepts are distinct, they can sometimes overlap. An out-of-distribution data point could also be considered an anomaly, but not all anomalies are necessarily out-of-distribution. Anomaly detection methods might use OOD detection techniques as part of their process to flag anomalous instances that are not in line with the expected distribution.
+
+
+
+
+% Nice review:
+% https://openaccess.thecvf.com/content/CVPR2023W/VAND/papers/Graham_Denoising_Diffusion_Models_for_Out-of-Distribution_Detection_CVPRW_2023_paper.pdf
+
+% \cite{kabir_neural_2018} Survey of uncertainty quantification in deep learning.
+
+% Two kinds of uncertainty:\\
+% - Aleatoric: Uncertainty inherent to the data. Irreducible. "Known unknowns". \\
+% - Epistemic: Uncertainty due to lack of knowledge. Can be reduced with more data. "Unknown unknowns".\\
+
+
+% https://arxiv.org/pdf/2306.05674.pdf
+
+
+
+
+\section{Variational autoencoders}
+
+
+
+% Trouble in paradise: factoriing the ELBO to show that we minimize the mutual information between z and x. 
+% Use this as transition to self-supervised methods as alternative for representation learning: 
+% https://jmtomczak.github.io/blog/13/13_trouble_in_paradise.html
+
+
+\section{Speech representation learning}
+
+
+
+\iffalse
+
+
+% TODO Delete this probably
+Following the derivation of \textcite{jaynes_information_1957}, in the discrete entropy expression in \cref{eq:information-entropy}, we assume that the number of discrete points, $x_i, i=1,2,\dots,N$, in the support of $X$ grows larger such that in the limit $N\rightarrow\infty$, the density of points becomes a continuous function $m(x)$, and we can replace the sum with an integral. Denoting the number of points satisfying $a<x_i<b$ by $N_{a,b}$, we have
 %
 \begin{equation}
     \lim_{N\rightarrow\infty} \frac{N_{a,b}}{N} = \int_a^b m(x) \, dx \enspace .
 \end{equation}
 %
-If this limit behaves sufficiently well, adjacent differences $(x_{i+1} - x_{i})$ in the neighbourhood of any particular value of $x$ will also tend to zero, so that
+If this limit behaves sufficiently well, adjacent differences $(x_{i+1} - x_{i})$ in the neighborhood of any particular value of $x$ will also tend to zero, so that
 %
 \begin{equation} \label{eq:limiting-density-discrete-to-continuous}
     \lim_{N\rightarrow\infty} \left[ N(x_{i+1} - x_{i}) \right] = \left[ m(x_{i}) \right]^{-1} \enspace .
@@ -99,15 +206,6 @@ where $p_i$ is the value of the probability mass function at $x_i$ which via \cr
 \end{equation}
 %
 Consequently, the discrete entropy expression in \cref{eq:information-entropy} becomes,
-%
-\begin{align}
-    H_{N,\text{discrete}}(X) &= - \sum_{i} p_i \log p_i \nonumber \\
-    &= - \sum_{i\in\mathcal{X}} w(x_i)\left[Nm(x_i)\right]^{-1} \log \left( w(x_i)\left[Nm(x_i)\right]^{-1} \right) \nonumber \\
-    &= - \sum_{i\in\mathcal{X}} w(x_i)\left[Nm(x_i)\right]^{-1} (\log w(x_i) - \log N - \log m(x_i)) \nonumber  \\
-    &= 1
-\end{align}
-
-%
 \begin{align}
     % H_{N,\text{discrete}}(X) &= - \int_\mathcal{X} w(x)\left[Nm(x)\right]^{-1} \, dx \, \log \left[\frac{w(x)}{Nm(x)}\right] \nonumber \\
     % &= - \int_\mathcal{X} w(x) \, dx \, \log \left[\frac{w(x)}{Nm(x)}\right]
@@ -123,102 +221,6 @@ and taking the limit $N\rightarrow\infty$,
 Note that since $\lim_{N\rightarrow\infty} \log N = \infty$, this procedure suggests that the entropy in the discrete sense of a continuous random variable should be infinite.
 
 
-% I apologize for any confusion. Let's clarify step 6, focusing on the transition from the discrete entropy expression to the continuous entropy expression. I'll provide a more detailed explanation.
-
-% Step 6: Expression for Discrete Entropy
-% - The discrete entropy $H_{N,\text{discrete}}(X)$ using the probability mass function $p_i$ is given by:
-%   \[ H_{N,\text{discrete}}(X) = - \sum_{i} p_i \log p_i. \]
-% - We transition from discrete to continuous terms, keeping in mind that $p_i = w(x_i)[Nm(x_i)]^{-1}$.
-% - So, the discrete entropy expression becomes:
-%   \[ H_{N,\text{discrete}}(X) = - \sum_{i} w(x_i)\left[Nm(x_i)\right]^{-1} \log \left( w(x_i)\left[Nm(x_i)\right]^{-1} \right). \]
-
-% Now, let's simplify the above expression by breaking it down step by step:
-
-% 1. **Simplify the term inside the logarithm:**
-%    \[ w(x_i)\left[Nm(x_i)\right]^{-1} = \frac{w(x_i)}{Nm(x_i)}. \]
-
-% 2. **Apply the logarithm property $\log(ab) = \log a + \log b$:**
-%    \[ \log \left( \frac{w(x_i)}{Nm(x_i)} \right) = \log w(x_i) - \log (Nm(x_i)). \]
-
-% 3. **Distribute the negative sign from the entropy definition:**
-%    \[ -w(x_i)\left[Nm(x_i)\right]^{-1} \log \left( \frac{w(x_i)}{Nm(x_i)} \right) = -w(x_i) \log w(x_i) + w(x_i) \log (Nm(x_i)). \]
-
-% 4. **Combine the logarithms using properties of logarithms:**
-%    \[ w(x_i) \log (Nm(x_i)) = \log \left( [Nm(x_i)]^{w(x_i)} \right) = \log \left( N^{w(x_i)} \cdot [m(x_i)]^{w(x_i)} \right). \]
-
-% 5. **Apply the property $\log(a^b) = b \log a$:**
-%    \[ \log \left( N^{w(x_i)} \cdot [m(x_i)]^{w(x_i)} \right) = w(x_i) \log N + w(x_i) \log m(x_i). \]
-
-% 6. **Substitute this result back into the expression:**
-%    \[ -w(x_i) \log w(x_i) + w(x_i) \log (Nm(x_i)) = -w(x_i) \log w(x_i) + w(x_i) \log N + w(x_i) \log m(x_i). \]
-
-% 7. **Use the sum notation to represent the terms:**
-%    \[ H_{N,\text{discrete}}(X) = - \sum_{i} \left( -w(x_i) \log w(x_i) + w(x_i) \log N + w(x_i) \log m(x_i) \right). \]
-
-% 8. **Combine the terms inside the sum:**
-%    \[ H_{N,\text{discrete}}(X) = \sum_{i} w(x_i) \log w(x_i) - \sum_{i} w(x_i) \log N - \sum_{i} w(x_i) \log m(x_i). \]
-
-% 9. **Recognize that the first term is the entropy of a discrete distribution:**
-%    \[ \sum_{i} w(x_i) \log w(x_i) = -\sum_{i} w(x_i) \log \frac{1}{w(x_i)} = -H(X). \]
-
-% 10. **Recognize that the second term is $\log N$ multiplied by the sum of probabilities, which is 1:**
-%    \[ \sum_{i} w(x_i) \log N = \log N \sum_{i} w(x_i) = \log N \cdot 1 = \log N. \]
-
-% 11. **Substitute back into the expression:**
-%    \[ H_{N,\text{discrete}}(X) = -H(X) - \log N - \sum_{i} w(x_i) \log m(x_i). \]
-
-% This should give you a more detailed understanding of how the transition from the discrete entropy expression to the continuous entropy expression is made while taking into account the continuous limit.
-
-
-
-
-
-
-% \cite{kabir_neural_2018} Survey of uncertainty quantification in deep learning.
-
-
-% Two kinds of uncertainty:\\
-% - Aleatoric: Uncertainty inherent to the data. Irreducible. "Known unknowns".\\
-% - Epistemic: Uncertainty due to lack of knowledge. Can be reduced with more data. "Unknown unknowns".\\
-
-
-
-
-% https://arxiv.org/pdf/2306.05674.pdf
-
-% We compare our framework with several major related lines of work. First, our work focuses on the quantification of epistemic uncertainty, which refers to the errors coming from the inadequacy of the model or data noises. This is different from aleatoric uncertainty, which refers to the intrinsic stochasticity of the problem [87, 91, 112, 59, 34], or predictive uncertainty which captures the sum of epistemic and aleatoric uncertainties (but not their dissection) [89, 92, 12, 3, 22]. Regarding epistemic uncertainty, a related line of study is deep ensemble that aggregates predictions from multiple independent training replications [76, 70, 38, 8, 89]. This approach, as we will make clear later, can reduce and potentially quantify procedural variability, but a naive use would require demanding retraining effort and does not address data variability. Another line is the Bayesian UQ approach on neural networks [41, 2]. This regards network weights as parameters subject to common priors such as Gaussian. Because of the computation difficulties in exact inference, an array of studies investigate efficient approximate inference approaches to estimate the posteriors [40, 46, 16, 31, 30, 90, 74, 53]. While powerful, these approaches nonetheless possess inference error that could be hard to quantify, and ultimately finding rigorous guarantees on the performance of these approximate posteriors remains open to our best knowledge.
-
-% 87: 
-% 91: 
-% 112:
-% 59: 
-% 34: 
-
-% 89: 
-% 92: 
-% 12:
-% 3: 
-% 22: 
-
-% 76: 
-% 70: 
-% 38: 
-% 8: 
-% 89: 
-
-
-
-\section{Probabilistic latent variable models}
-
-
-
-
-\section{Speech representation learning}
-
-
-
-
-\iffalse
 
 
 Modelling paradigms
@@ -243,15 +245,6 @@ Approaches to uncertainty in deep learning:\\
 - Tuning of supervised classifiers to output well-calibrated probabilities that correspond to the actual likelihood of the prediction being correct (on some validation set).\\
 - Learning rich unsupervised representations of the data that can be used to estimate the uncertainty of the prediction (e.g. by measuring the distance to the nearest training example in the latent space).\\
 - Learning of a probability distribution over the parameters of the model, which can then be used to compute the uncertainty of the prediction (Bayesian neural networks).\\
-
-
-In the field of machine learning, uncertainty is often represented by a probability distribution. The most common approach is to use Bayesian methods, where uncertainty is captured by posterior distributions over model parameters and predictions. Bayesian neural networks, for instance, offer a powerful framework to model uncertainty in deep learning architectures. By incorporating prior beliefs and updating them based on observed data, these networks can produce probabilistic predictions that provide a measure of uncertainty. This is particularly useful in applications where high-confidence predictions are required, and the consequences of errors can be significant.
-
-Recently, another promising approach to uncertainty estimation in machine learning is the use of Monte Carlo Dropout \cite{gal_dropout_2016}. Monte Carlo Dropout leverages the idea of dropout regularization, originally employed during training to prevent overfitting. To form a prediction with associated uncertainty, Monte Carlo Dropout proposes to make multiple forward passes through the network while sampling different dropout masks for each one. This leads to obtaining a distribution of outputs for each input sample and the variance among these sampled predictions serves as a measure of uncertainty. Monte Carlo Dropout has shown remarkable success in various tasks such as image classification, object detection, and natural language processing. It is computationally efficient and can be easily incorporated into existing deep learning architectures, making it an attractive choice for uncertainty estimation.
-
-Furthermore, there has been a surge of interest in ensemble methods for uncertainty estimation. Ensembles combine the predictions of multiple models to obtain a more robust and calibrated uncertainty measure. Bagging and boosting techniques, which have been widely used in the field of statistics, have found their way into the realm of machine learning for uncertainty estimation as well. By training multiple models with different initializations or using diverse learning algorithms, ensembles can capture different sources of uncertainty, thereby providing a comprehensive assessment of the overall uncertainty in the predictions.
-
-Despite the progress made in uncertainty estimation for machine learning models, challenges still remain. One key concern is the interpretability of uncertainty measures. While probabilistic outputs are more informative than point estimates, effectively communicating uncertainty to end-users and decision-makers is not trivial. Developing visualization techniques and intuitive explanations for uncertainty is an ongoing area of research. Additionally, quantifying uncertainty in high-dimensional data or complex models with massive amounts of parameters requires careful consideration and efficient computational strategies.
 
 
 \fi 

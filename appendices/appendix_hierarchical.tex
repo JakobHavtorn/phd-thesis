@@ -299,7 +299,7 @@ From the above, we can see that since the decomposition is in a reverse order, w
 \begin{align}
     \log p(\xb) &\ge \mathbb{E}_{q(\zb_1, \zb_2|\xb)} \left[ \log p(\xb|\zb_1) \right] \\
     &\qquad + \mathbb{E}_{q(\zb_1|\xb)}\left[ \mathbb{E}_{q(\zb_2|\zb_1)}\left[\log \frac{p(\zb_1|\zb_2)}{q(\zb_1|\xb)}\right]\right] \notag \\
-    &\qquad + \mathbb{E}_{q(\zb_1|\xb)}\left[-D_\text{KL}[q(\zb_2|\zb_1)||p(\zb_2)]\right] \notag \ .
+    &\qquad + \mathbb{E}_{q(\zb_1|\xb)}\left[-D_\text{KL}[q(\zb_2|\zb_1)\parallel p(\zb_2)]\right] \notag \ .
 \end{align}
 
 
@@ -324,8 +324,8 @@ From the above, we can see that since the decomposition is in a reverse order, w
     The KL-divergence terms can now easily be computed by:
     \begin{align}
         \log p(\xb) &\ge \mathbb{E}_{q(\zb_1, \zb_2|\xb)} \left[ \log p(\xb|\zb_1) \right] \\
-    &\qquad - D_\text{KL}[q(\zb_2|\xb)||p(\zb_2)] \notag \\ 
-    &\qquad - \mathbb{E}_{q(\zb_2|\xb)}\left[D_\text{KL}[q(\zb_1|\zb_2)||p(\zb_1|\zb_2)\right] \notag \ .
+    &\qquad - D_\text{KL}[q(\zb_2|\xb)\parallel p(\zb_2)] \notag \\ 
+    &\qquad - \mathbb{E}_{q(\zb_2|\xb)}\left[D_\text{KL}[q(\zb_1|\zb_2)\parallel p(\zb_1|\zb_2)\right] \notag \ .
 \end{align}
 Note that the KL-divergence in the second layer is not exact since it is dependent on the sample-noise from the layer below. An exact solution can only be derived if the latent variables $\mathbf{z}$ are all conditionally independent. However, this comes at the cost of not learning a covariance structure.
 

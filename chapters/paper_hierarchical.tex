@@ -178,14 +178,14 @@ In this paper, we provide an explanation of those results, and significantly imp
 \section{OOD detection with hierarchical VAEs}
 \subsection{A bound for semantic OOD detection}
 If the lowest latent variable in the VAE hierarchy codes for a large part of the low-level features required to reconstruct the input with high accuracy, as exemplified in \cref{fig_hierarchical:reconstructions-fashionmnist}-\ref{fig_hierarchical:biva-reconstructions-celeba}, then $p_\thetab(\xb|\zb_1)$ will be high for both in- and out-of-distribution data.
-Hence, any OOD detection capabilities based on the ELBO $\mathcal{L} = \mathbb{E}_{q_\phib(\zb|\xb)}[\log p_\thetab(\xb|\zb_1)] - D_{\mathrm{KL}}( q_\phib(\zb|\xb) || p(\zb))$ from \cref{eq_hierarchical:elbo} relies on the KL-term for OOD detection. For a bottom-up hierarchical VAE, the KL-term $D_{\mathrm{KL}}( q_\phib(\zb|\xb) || p(\zb))$ can be expressed by a hierarchical sum% over the hierarchy
+Hence, any OOD detection capabilities based on the ELBO $\mathcal{L} = \mathbb{E}_{q_\phib(\zb|\xb)}[\log p_\thetab(\xb|\zb_1)] - D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel  p(\zb))$ from \cref{eq_hierarchical:elbo} relies on the KL-term for OOD detection. For a bottom-up hierarchical VAE, the KL-term $D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel  p(\zb))$ can be expressed by a hierarchical sum% over the hierarchy
 % \begin{multline}
 %     \mathcal{L}(\xb) =  \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \log p_\thetab(\xb|\zb_1) \\
 %                      + \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb_i|\zb_{i+1})}{q_\phib(\zb_i|\zb_{i-1})} 
 %                      + \log \frac{p_\thetab(\zb_L)}{q_\phib(\zb_L|\zb_{L-1})} \Big] .
 % \end{multline}
 % \begin{multline}
-%     D_{\mathrm{KL}}( q(\zb|\xb) || p(\zb)) = \\
+%     D_{\mathrm{KL}}( q(\zb|\xb) \parallel p(\zb)) = \\
 %     \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb_i|\zb_{i+1})}{q_\phib(\zb_i|\zb_{i-1})} + \log \frac{p_\thetab(\zb_L)}{q_\phib(\zb_L|\zb_{L-1})} \Big] .
 % \end{multline}
 \begin{equation}
@@ -231,13 +231,13 @@ On the contrary, a high value indicates that $\mathcal{L}^{>k}$ is looser on the
 
 We can gather further insights about this score if we write the regular ELBO and the $\mathcal{L}^{>k}$ bounds in the exact form that includes the intractable KL-divergence between the approximate and true posteriors,
 \begin{align}
-    \mathcal{L}      &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( q_\phib(\zb|\xb) || p_\thetab(\zb|\xb)\right), \label{eq_hierarchical:likelihoods-as-exact} \\ 
-    \mathcal{L}^{>k} &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( p_\thetab(\zb_{\leq k }|\zb_{>k}) q_\phib(\zb_{>k}|\xb) || p_\thetab(\zb|\xb)\right) \nonumber \ .
+    \mathcal{L}      &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( q_\phib(\zb|\xb) \parallel p_\thetab(\zb|\xb)\right), \label{eq_hierarchical:likelihoods-as-exact} \\ 
+    \mathcal{L}^{>k} &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( p_\thetab(\zb_{\leq k }|\zb_{>k}) q_\phib(\zb_{>k}|\xb) \parallel p_\thetab(\zb|\xb)\right) \nonumber \ .
 \end{align}
 Subtracting these cancel out the two data likelihood terms $\log p_\thetab(\xb)$ and only the KL-divergences from the approximate to the true posterior remain,
 \begin{align}
-    LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phib(\zb|\xb) || p_\thetab(\zb|\xb)\right) \\
-                 &\quad + D_{\mathrm{KL}}\left( p_\thetab(\zb_{\leq k}|\zb_{>k}) q_\phib(\zb_{>k}|\xb) || p_\thetab(\zb|\xb)\right) \ . \notag
+    LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phib(\zb|\xb) \parallel p_\thetab(\zb|\xb)\right) \\
+                 &\quad + D_{\mathrm{KL}}\left( p_\thetab(\zb_{\leq k}|\zb_{>k}) q_\phib(\zb_{>k}|\xb) \parallel p_\thetab(\zb|\xb)\right) \ . \notag
 \end{align}\label{eq_hierarchical:llr-as-kls}
 
 Hence, it is clear that compared to the likelihood bound $\mathcal{L}^{>k}$, this likelihood-ratio measures divergence exclusively in the latent space whereas $\mathcal{L}^{>k}$ includes the $\log p_\thetab(\xb)$ term similar to the ELBO.
@@ -248,7 +248,7 @@ Now, it can be noted that if we replace the regular ELBO, $\mathcal{L}$, in \cre
 \end{equation}
 then, in the limit $S\rightarrow\infty$, we have $\mathcal{L}_{S} \rightarrow \log p_\thetab(\xb)$ and the likelihood ratio reduces to
 \begin{equation}
-    LLR^{>k}_{S}(\xb) \rightarrow D_{\mathrm{KL}}( p(\zb_{\leq k}|\zb_{>k}) q(\zb_{>k}|\xb) || p(\zb|\xb))
+    LLR^{>k}_{S}(\xb) \rightarrow D_{\mathrm{KL}}( p(\zb_{\leq k}|\zb_{>k}) q(\zb_{>k}|\xb) \parallel p(\zb|\xb))
 \end{equation}\label{eq_hierarchical:llr-as-kls-iwae-reduced}
 which, in practice, is well-approximated for a finite $S$. We expect this importance weighted likelihood ratio to monotonically improve upon the one in \cref{eq_hierarchical:llr-as-kls} as $S$ increases and the KL-divergence in the regular ELBO that contains terms for which $\zb_i$ is high-dimensional goes to zero.
 
