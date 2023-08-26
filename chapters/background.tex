@@ -2,7 +2,7 @@
 
 % ~8 pages
 
-\chapter[technical background]{Technical Background}\label{chp:technical-background}
+\chapter[technical background]{Technical background}\label{chp:technical-background}
 
 While the papers in this thesis were written to be self-contained, page limits and the need to maintain a specific focus, forced us to limit the scope of technical background each paper provides. In this chapter, we present a more in-depth overview of the technical background relevant to the papers in this thesis. 
 We start by introducing the concept of uncertainty, and how it relates to information and probability. We then introduce the task of out-of-distribution detection and a few ways to tackle it.
@@ -17,7 +17,7 @@ In society, the concept of uncertainty goes by many names, and its meaning can v
     \textit{Uncertainty is the lack of certainty; a state of limited knowledge where it is impossible to exactly describe the existing state, a future outcome, or more than one possible outcome.}
 \end{center}
 %
-While such a purely lexical definition of uncertainty might trigger a philosophical inquisition, it highlights an important connection between uncertainty, information and probability. When information is not complete, we can describe the state of the world only with uncertainty; we are simply not certain. In that sense, uncertainty is a word we use to refer to information that is missing. A natural way to describe a state of the world with uncertainty is to use probabilities. To our luck, information theory provides exactly that; a mathematically rigorous method for quantifying information through the language of probabilities. In this context, uncertainty can be understood as the information entropy of a random variable \cite{mackay_information_2003}. 
+While such a purely lexical definition of uncertainty might prompt a philosophical inquiry, it highlights an important connection between uncertainty, information and probability. When information is not complete, we can describe the state of the world only with uncertainty; we are simply not certain. In that sense, uncertainty is a word we use to refer to information that is missing. A natural way to describe a state of the world with uncertainty is to use probabilities. To our luck, information theory provides exactly that; a mathematically rigorous method for quantifying information through the language of probabilities. In this context, uncertainty can be understood as the information entropy of a random variable \cite{mackay_information_2003}. 
 
 
 \subsection{Entropy for discrete random variables}
@@ -64,7 +64,7 @@ However, the differential entropy does not have several of the desirable attribu
     A bit is quite simply a number, specifically 0 or 1. If something is said to have a size of 4 bits, it means that it can be described with 4 binary digits, i.e. 4 numbers, each either 0 or 1.
 
     As such, it might be useful to think of information as a dimensionless quantity rather than a quantity with units.
-    Following this interpretation, the discrete information entropy in \cref{eq:information-entropy} is also dimensionless, since a probability mass function is dimensionless. 
+    Following this interpretation, the discrete information entropy in \cref{eq:information-entropy} is also dimensionless, because a probability mass function is dimensionless. 
     Since probability density functions have dimensionality of the inverse of some quantity, e.g. inverse length, the dimensionality of the continuous differential entropy in \cref{eq:differential-entropy} becomes,
     \begin{equation*}
         \text{dim} \left( H(X) \right) = \text{dim} \left( \int_{\mathcal{X}} p_X(x) \log p_X(x) \, dx \right) = \frac{1}{\text{length}} \log\left(\text{length}\right) \enspace ,
@@ -112,6 +112,8 @@ The Kullback-Leibler divergence as a measure of (relative) information entropy a
 
 
 \subsection{Two kinds of uncertainty}
+
+\todo[inline]{Consider not using the terms aleatoric and epistemic uncertainty. Instead use the terms ``uncertainty due to lack of knowledge (reducible)" and ``uncertainty inherent to the data (irreducible)".}
 
 Uncertainty can be divided into two kinds: aleatoric and epistemic. 
 

@@ -6,31 +6,32 @@
 
 % Information overlead + administrative burden + lack of resources + rapid scientific progress in medicine and healthcare
 In an era where technology increasingly intertwines with healthcare, artificial intelligence is on the verge of becoming part of standard medical practice. 
-Growing administrative burdens, rapid scientific progress in medicine, and ageing populations have created a need to rethink how medical professionals are best enabled to successfully do their job. 
+Growing administrative burdens, rapid scientific progress in medicine, and aging populations have created a need to rethink how medical professionals are best enabled to successfully do their job. 
 The application of artificial intelligence in medical decision-making, particularly in diagnosing and recommending treatments, is likely to hold significant potential for improving patient outcomes by reducing the effect of these issues. 
 However, this prospect also raises concerns related to the reliability of such models as their decisions impact critical aspects of human health and well-being.
 
-\todo[inline]{Can we find a better example than the Rhind Papyrus? It could be more on-point with decision-making and more well-known. Ideally, weave in an example of a failure of such technology.}
-The evolution of technology to support and automate human decision-making can be traced back to the development of algorithms and mathematical techniques by many ancient civilizations. 
+\todo[inline]{Can we find a better example than the Rhind Papyrus, or an additional one? It could be more on-point with decision-making and more well-known. Ideally, weave in an example of a failure of such technology.}
+The evolution of technology to support and automate decision-making can be traced back to the development of algorithms and mathematical techniques by ancient civilizations. 
 One example is the Egyptian Rhind Mathematical Papyrus, dated around 1550 BCE. It contains various mathematical techniques for calculations involving as multiplication, division, and fractions which were used for practical purposes like measuring land, constructing buildings, and sharing resources \cite{georges_universal_2001}. 
-Concurrently, the Babylonians developed a sophisticated system of mathematics, including algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \cite{fowler_square_1998}. 
+Around the same time, the Babylonians had developed a sophisticated system of mathematics, including algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \cite{fowler_square_1998}. 
 
-However, these new tools also brought new challenges. The Babylonian system of mathematics did not formalize the difference between rational and irrational numbers often leading to approximation errors and the common practice of approximating $\pi$ with 3. Besides system limitations, human error was also a factor in the application of the new tools. The Plimpton 322 clay tablet, for instance, contains several errors presumably made by a novice in Babylonian mathematics \cite{britton_plimpton_2011} (\cref{fig:plimpton_332}).
+However, these new computing tools also brought new challenges. The Babylonian system of mathematics did not formalize the difference between rational and irrational numbers often leading to approximation errors and the common practice of approximating $\pi$ with 3. Apart from limitations inherent to the tools, inadequate human proficiency in their use was also a source of error. The Plimpton 322 clay tablet, for instance, contains several errors presumably made by a novice in Babylonian mathematics (\cref{fig:plimpton_332}) \cite{britton_plimpton_2011}.
 These examples highlight the importance of understanding the limitations of technology, even in ancient times.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.80\textwidth]{plimpton_322.png}
-    \caption{Technology is difficult. The author of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets, presumably struggling to grasp Babylonian mathematics.}
+    \caption{Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets, presumably struggling to grasp Babylonian mathematics.}
     \label{fig:plimpton_332}
 \end{figure}
 
 While the quest to ease human decision-making has been ongoing for thousands of years, it was not until 1642 that the first mechanical calculator was successfully built by Blaise Pascal. And while the idea of a programmable computer with applications beyond pure arithmetic was first proposed by Ada Lovelace in 1843, 
 it was not until the 1940s and 50s that % / 
 % it took one-hundred years before / 
-the first programmable, electronic, general-purpose digital computers were developed, starting with the ENIAC in 1945 \cite{georges_universal_2001} (\cref{fig:eniac_programmers}). 
-Initially used for computing artillery trajectories, as they became more accessible general-purpose computers were adopted widely across society for various applications in the sciences, in industry and in healthcare.
-The societal changes brought about by the widespread adoption of computer technology through the latter half of the 20th century have been so profound that some scholars refer to the current era as the information age \cite{georges_universal_2001, harari_sapiens_2011}.
+the first programmable, electronic, general-purpose digital computers were developed, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}) \cite{georges_universal_2001}. 
+As they became more accessible, general-purpose computers were adopted widely across society for various applications in science and industry, including healthcare.
+The societal changes brought about by the widespread adoption of computer technology through the latter half of the 20th century were so profound that some scholars refer to the current era as the information age \cite{georges_universal_2001, harari_sapiens_2011}.
+\todo[inline]{Expand on the history of modern computing.}
 
 \begin{figure}[t]
     \centering
@@ -40,43 +41,109 @@ The societal changes brought about by the widespread adoption of computer techno
 \end{figure}
 
 With the advent of the internet and the widespread adoption of digital technologies, the amount of data available to decision-makers has grown exponentially. 
-This has led to a surge of interest in the scientific field of machine learning, specifically deep learning, subfields of artificial intelligence that focus on developing algorithms that can learn from data and make predictions to guide decisions based on that knowledge. 
+This has led to a surge of interest in the scientific field of machine learning, a subfield of artificial intelligence that focus on developing algorithms that can learn from data and make predictions to guide decisions based on that knowledge. 
 Such methods have set new standards for the performance of computer systems in various domains, including speech recognition, computer vision, and natural language processing \cite{lecun_deep_2015}.
 In recent years, machine learning has also been applied within healthcare, where it has shown promising results in tasks such as medical imaging \cite{lundervold_overview_2019}, drug discovery \cite{chen_rise_2018}, and clinical decision support \cite{cite15, cite14}.
 
-However, these technologies come with the same risks as did previous generations, and in some cases, they may exacerbate them.
+However, these technologies come with the same risks as previous generations did, and in some cases, they may exacerbate them. Inherent limitations of the technology itself, human error, and the complexity of the real world are all factors that can lead to failures. A pertinent example is the use of machine learning in autonomous driving systems: 
 In 2018, the first incident of a self-driving car killing a pedestrian took place in Tempe, Arizona. 
 The car, an SUV operated by Uber, was driving in autonomous mode when it struck a pedestrian crossing the street, pushing her bicycle. 
 According to the investigation by the National Transportation Safety Board, the car's sensors detected the pedestrian $5.6$ seconds before the crash, but it did not correctly predict her path or reduce the SUV's speed (\cref{fig:uber_nhsa_accident}). 
 Specifically, during those seconds, the system incorrectly classified the pedestrian more than ten times, first as a vehicle, then as an unknown object and ultimately as a bicyclist, each time changing, or resetting, the predicted path. 
 About one second before the crash, the system determined that a collision was imminent, but the situation exceeded the constraints within which the autonomous driving system was allowed to operate, and the car's safety driver failed to intervene \cite{nationaltransportationsafetyboardnhsa_collision_2019}. 
-This incident highlights the need for autonomous systems to be able to accurately assess their own uncertainty and act accordingly; requirements that European policymakers seek to impose on applications of machine learning via the European Artificial Inteliigence Act \cite{europeancommission_briefing_2021}.
 
-\begin{figure}
+\begin{figure}[t]
     \centering
     \includegraphics[width=0.95\textwidth]{uber_nhsa_accident.png}
-    \caption{A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018. The car's sensors detected the pedestrian $5.6$ seconds before the crash, but it did not correctly predict her path or reduce the SUV's speed \cite{nationaltransportationsafetyboardnhsa_collision_2019}.}
+    \caption{A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018. The car's sensors detected the pedestrian $5.6$ seconds before the crash, but the self-driving system failed to recognize the uncertainty of multiple object misclassifications and so did not correctly predict her path or reduce the SUV's speed \cite{nationaltransportationsafetyboardnhsa_collision_2019}.}
     % \caption{Aerial view of crash location showing path of pedestrian as she attempted to cross N. Mill Avenue and movement and speed of SUV at three points before impact. Pedestrian's path shows her position from initial detection ($5.6$ seconds before impact) until impact; SUV's position is shown at corresponding times beginning $4.2$ seconds before impact \cite{nationaltransportationsafetyboardnhsa_collision_2019}.}
     \label{fig:uber_nhsa_accident}
 \end{figure}
 
-\todo[inline]{Add something here about probability theory, Bayesian modelling etc. as a warm-up for potential solutions.}
+Though this incident is an extreme one, it highlights the challenges of applying machine learning in real-world scenarios and underlines the need for machine learning systems to be able to accurately assess their own uncertainty and operate accordingly. 
+Recently, European policymakers proposed a set of requirements for applications of machine learning to ensure that they are safe, reliable, and trustworthy \cite{europeancommission_briefing_2021}. This AI Act groups applications into three categories based on the potential risk they pose to society: limited risk, high risk, and unacceptable risk. Limited risk applications, for instance within gaming, must meet transparency requirements, and unacceptable risk applications, such as public use of facial recognition, are banned. Applications within healthcare are considered high risk and must meet a strict set of requirements focusing on anti-discrimination and robustness. A recent study by the European Parliamentary Research Services concluded: \textit{"Future AI solutions for healthcare should be implemented by integrating uncertainty estimation, a relatively new field of research that aims to provide clinicians with clinically useful indications on the degree of confidence in AI predictions"} \cite{europeanparliament_artificial_2022}. 
+
+% \todo[inline]{Add something here about probability theory, Bayesian modelling etc. as a warm-up for potential solutions.}
+
+\vspace{1em}
+\begin{center}
+\noindent\rule{0.2\textwidth}{0.5pt}
+\end{center}
+\vspace{1em}
+
+\noindent The research presented in this thesis will focus on the use of machine learning in relation to uncertainty estimation, speech processing, and medical conversations. 
+The research project of this thesis was formulated and carried out in collaboration with the Danish company Corti, which develops computer software for medical decision support. 
+In the rest of this chapter, we will provide a high-level introduction to these topics and discuss the motivation behind the research project.
+
+
+\section{Motivation and Corti's use-cases}
+
+At the start of this project in 2020, Corti's main product was a software system providing decision-support for emergency medical dispatchers.
+The system 
+% was in use in several countries, including the 1-1-2 line in Copenhagen, Denmark and the 9-1-1 line in Seattle, Washington in the United States and 
+provides an interface for navigating a graph-based protocol, defined by the local emergency medical services, which dispatchers use to triage patients during emergency calls. Calls are transcribed in real-time using customer-domain automatic speech recognition and the system makes suggestions for the dispatcher to use in the conversation with the caller, including notifications about forgotten protocol questions \cite{havtorn_multiqt_2020} and potential cases of cardiac arrests \cite{cite15, cite14}. The system logs the details about the call and the dispatcher's actions to be used for later review and quality assurance. 
+
+
+\subsection{Stroke recognition in emergency calls}
+In 2021, Corti entered a research collaboration with the Capital Region of Denmark and the Copenhagen Emergency Services to develop a system for recognizing stroke cases in calls to the 1-1-2 emergency line and the 1813 medical helpline. 
+Stroke is one of the biggest causes of disability and death worldwide \cite{cite1,cite2,cite3}. Effective treatment is highly time-sensitive \cite{cite4,cite5} and the most common gateway to specialized treatment and hospital admittance is through prehospital telehealth services like emergency medical call centers, nurse advice call lines, and out-of-hours health services \cite{cite6,cite7}. However, studies have found that approximately half of all patients with stroke do not receive the correct triage for their condition from call-takers \cite{cite10,cite11,cite12}. This may be due to the fact that stroke is a complex condition with a wide range of symptoms and that the symptoms may be difficult to recognize over the phone. Additionally, out of total call volume, stroke cases are relatively rare, occurring in only $0.25\%$ of all calls to the Copenhagen 1-1-2 emergency line in 2021, which makes it difficult for call-takers to gain practical experience in recognizing stroke cases.
+
+A reasonable machine learning pipeline for recognizing stroke might consist of an automatic speech recognition model to transcribe the conversation and a binary classifier to estimate the probability that what the transcript describes is a case of stroke. 
+% The performance of such a system would depend on the quality of the automatic speech recognition model, the quality of the classifier, and the quality of the data used to train them. 
+In such a system, many factors can lead to classification errors, and when that happens, we would like the model to express high degree of uncertainty. 
+The automatic speech recognition model might be make an error in the transcription of particular word or phrase due to a noisy environment, overlapping, slurred or mumbling speech, or words outside the training distribution of the model. 
+The classifier might misclassify a conversation due to ambiguous symptoms, a general lack of information, or errors of the speech recognizer propagated via the transcription. 
+How to best make such models accurately represent and estimate the uncertainty of given predictions, and how to use it to improve the value of such a system, especially in cooperation with the call taker is an open question.
+What is clear, however, is that the ability of such a system to accurately estimate the uncertainty of given predictions is crucial for its safe and reliable deployment in the real world. Overconfident predictions could lead to misdiagnoses and potentially fatal consequences for patients. Underconfident predictions could lead to unnecessary delays in treatment and increased costs for the healthcare system. 
+
+
+% Corti's machine learning systems are not exempt from the challenges that come with real-world applications. The development is an ongoing effort to improve performance and to ensure robustness, reliability and compliance with current regulations. This thesis 
+
+
+% One of the challenges faced by Corti's systems is the need to be able to recognize and handle rare events.
+% For instance, the system for emergency medical dispatchers is designed to recognize cases of cardiac arrest in emergency calls.
+% Cardiac arrest is a rare event, occurring in only $0.1\%$ of emergency calls \cite{cite14}, and the system must be able to recognize it in order to provide the dispatcher with the correct protocol to follow.
+% The system is trained on a dataset of calls where the dispatcher has indicated that the patient was in cardiac arrest, but the dataset is small and imbalanced, making it difficult to train a model that can reliably recognize cardiac arrest cases.
+% In addition, the system must be able to recognize cardiac arrest cases in calls from different countries, where the protocols and the way dispatchers handle calls may differ.
+% This is a challenging task as the system must be able to generalize to unseen data and adapt to different contexts.
 
 
 
-\section{Motivation: Medical conversations}
 
-This research project was formulated and carried out in collaboration with the Danish company Corti, which develops computer software for medical decision support. 
-
+\subsection{Medical coding of clinical notes}
 
 
+During the course of the project presented in this thesis, Corti's product portfolio has expanded to include several new products. 
+One of these is a software system for medical coding of clinical notes. 
+When a patient is admitted to a hospital, the medical staff will write a clinical note describing the patient's diagnosis and the procedures they underwent, including drug prescriptions. 
+These notes are then used for billing and reimbursement purposes, as well as for research and quality assurance. 
+The clinical notes are written in natural language, usually following a certain structure, and a medical coder will assign a set of medical codes to the note based on its content. 
+This process is time-consuming and error-prone task due to the complexity of medical diagnoses and procedures and the immense number of medical codes in the most common standards such as the Internation Classification of Diseases (ICD) versions 10 and 11 with 55,000 and 85,000 codes, respectively \cite{worldhealthorganisationwho_international_2023}.
+
+\todo[inline]{
+Discuss the role of uncertainty estimation in medical coding. 
+Special challenges include significant class imbalance that cannot be removed by stratification since each example is associated with multiple labels.
+Mutually dependent classes also complicates uncertainty estimation. Some classes are mutually exclusive, while others are not. Some classes are easily confused with each other.
+}
 
 
 
+\section{Machine learning trustworthiness}
+
+Many modern machine learning models are deep neural networks with millions or even billions of parameters. 
+These models are often referred to as black-box models as it is difficult to understand how they arrive at their predictions.
+The lack of interpretability makes it difficult to assess the reliability of the model's predictions.
+Furthermore, a number of factors including the ability of deep neural networks to overfit, or even memorize, the training data \cite{arpit_closer_2017, burg_memorization_2021}, as well as the use of training objectives that are proxies for the evaluation metrics of interest, often lead to models that are miscalibrated; that is, the probability of a class predicted by the model does not reflect the true probability of the predicted class \cite{guo_calibration_2017, kull_temperature_2019}. Commonly, the predicted probabilities are too extreme, leading to overconfident predictions. This means a model will often assign a high probability to the predicted class, even when it is wrong.
+
+\todo[inline]{Expand in this discussion of overconfidence and calibration. E.g.: Calibration is fairly well understood in the context of classification, especially binary, but is harder in structured prediction such as automated speech recognition.}
 
 
 
+\section{Scope of the thesis}
 
+The complete set of research published as part of this project covers a varied set of topics. One group of the produced studies is concerned with generative latent variable models and their applications to uncertainty estimation and speech modelling \cite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. Another group of studies is concerned with self-supervised speech representation learning and automatic speech recognition \cite{borgholt_scaling_2021,borgholt_we_2021,mohamed_selfsupervised_2022,borgholt_brief_2022}. A final group deals with applications within the medical domain including recognition of stroke cases in calls to medical helplines \cite{wenstrup_retrospective_2023} and medical coding of clinical notes \cite{edin_automated_2023}. 
+
+This first part of the thesis ties together these different studies by providing a high-level overview of the research topic and summarizing the main contributions of the thesis.
 
 
 
@@ -174,13 +241,6 @@ Furthermore, there has been an interest in ensemble methods for uncertainty esti
 % 74:
 % 53:
 
-
-
-\section{Scope of the thesis}
-
-The complete set of research published as part of this project covers a varied set of topics. One group of the produced studies is concerned with generative latent variable models and their applications to uncertainty estimation and speech modelling \cite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. Another group of studies is concerned with self-supervised speech representation learning and automatic speech recognition \cite{borgholt_scaling_2021,borgholt_we_2021,mohamed_selfsupervised_2022,borgholt_brief_2022}. A final group deals with applications within the medical domain including recognition of stroke cases in calls to medical helplines \cite{wenstrup_retrospective_2023} and medical coding of clinical notes \cite{edin_automated_2023}. 
-
-This first part of the thesis ties together these different studies by providing a high-level overview of the research topic and summarizing the main contributions of the thesis.
 
 
 

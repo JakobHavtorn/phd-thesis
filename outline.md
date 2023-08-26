@@ -30,7 +30,7 @@
             - Machine-to-machine uncertainty propagation / Machine-to-human uncertainty communication
                 - For humans: Which alternative words could it have been? Mention the importance of user interface design for effective impact of machine suggestions on human decisions.
                 - Between machines: Propagation via probability distributions, Bayesian modelling
-        - Outro, what to expect in what's to come:
+        - Outro, scope, what to expect in what's to come:
             - Using machine learning as a way to make health-care/decision support human again.
             - Uncertainty estimation lies somewhere between high-performing models and explainable models, in some sense at least.
             - Explainability: There is a trade-off between how complex a decision support system becomes and how interpretable it is. Maybe, to improve on human performance, model predictions will inevitably become hard to explain in a way that humans can understand. In the same way that a physicist can explain the wave-function of the hydrogen atom to a lay-person without that person understanding it - it is still an explanation.
