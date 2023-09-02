@@ -1,1 +1,2 @@
 {"rule":"ANY_BODY","sentence":"^\\QAs a final twist on this story, note that the SI system does actually have a unit for a number of some thing of interest: the mole.\\E$"}
+{"rule":"LIGATURES","sentence":"^\\QHC has received funding from the Velux Foundation, Tværsfonden, Helsefonden, Hartmann Fonden, Lundbeck Foundation, and Novo Nordisk Foundation; royalties from Gyldendal; honoraria from Bayer and Bristol Meyers Squibb, and is chair of Action Plan for stroke in Europe Implementation, Co-chair of the Scientific Stroke Panel EAN and Senior Guest Editor of AHA Stroke.\\E$"}
