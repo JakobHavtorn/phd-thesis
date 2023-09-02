@@ -2,6 +2,7 @@ Akihiro
 Aleatoric
 aleatoric
 aleatoric
+aleatorius
 autoencoders
 Bjerg
 Blaise
@@ -11,6 +12,7 @@ Corti
 Drachmann
 ENIAC
 ensembling
+epistḗmē
 Fonden
 Grunddal
 Haugård
