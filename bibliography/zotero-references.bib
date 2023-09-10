@@ -462,6 +462,30 @@
   langid = {english}
 }
 
+@article{astudillo_integration_2013,
+  title = {Integration of Beamforming and Uncertainty-of-Observation Techniques for Robust {{ASR}} in Multi-Source Environments},
+  author = {Astudillo, Ramón Fernandez and Kolossa, Dorothea and Abad, Alberto and Zeiler, Steffen and Saeidi, Rahim and Mowlaee, Pejman and family=Silva Neto, given=João Paulo, prefix=da, useprefix=true and Martin, Rainer},
+  date = {2013},
+  journaltitle = {Computer Speech \& Language},
+  volume = {27},
+  number = {3},
+  pages = {837--850},
+  issn = {0885-2308},
+  abstract = {This paper presents a new approach for increasing the robustness of multi-channel automatic speech recognition in noisy and reverberant multi-source environments. The proposed method uses uncertainty propagation techniques to dynamically compensate the speech features and the acoustic models for the observation uncertainty determined at the beamforming stage. We present and analyze two methods that allow integrating classical multi-channel signal processing approaches like delay and sum beamformers or Zelinski-type Wiener filters, with uncertainty-of-observation techniques like uncertainty decoding or modified imputation. An analysis of the results on the PASCAL-CHiME task shows that this approach consistently outperforms conventional beamformers with a minimal increase in computational complexity. The use of dynamic compensation based on observation uncertainty also outperforms conventional static adaptation with no need of adaptation data.},
+  keywords = {Beamforming,Robust speech recognition,Uncertainty decoding,Uncertainty propagation}
+}
+
+@article{astudillo_uncertainty_2010,
+  title = {An Uncertainty Propagation Approach to Robust {{ASR}} Using the {{ETSI}} Advanced Front-End},
+  author = {Astudillo, Ramon Fernandez and Kolossa, Dorothea and Mandelartz, Philipp and Orglmeister, Reinhold},
+  date = {2010},
+  journaltitle = {IEEE Journal of Selected Topics in Signal Processing},
+  volume = {4},
+  number = {5},
+  pages = {824--833},
+  publisher = {{IEEE}}
+}
+
 @article{atan_deep-treat_nodate,
   title = {Deep-{{Treat}}: {{Learning Optimal Personalized Treatments}} from {{Observational Data}} Using {{Neural Networks}}},
   author = {Atan, Onur and Jordon, James},
@@ -1116,6 +1140,14 @@
   number = {1},
   pages = {289--300},
   publisher = {{Wiley Online Library}}
+}
+
+@inproceedings{bennett_using_2003,
+  title = {Using Asymmetric Distributions to Improve Text Classifier Probability Estimates},
+  booktitle = {Proceedings of the 26th Annual International {{ACM SIGIR}} Conference on {{Research}} and Development in Informaion Retrieval},
+  author = {Bennett, Paul N},
+  date = {2003},
+  pages = {111--118}
 }
 
 @misc{berg_idf_2020,
@@ -1782,6 +1814,15 @@
   urldate = {2021-06-15},
   abstract = {Recent advances in deep generative models have led to impressive results in a variety of application domains. Motivated by the possibility that deep learning models might memorize part of the input data, there have been increased efforts to understand how memorization can occur. In this work, we extend a recently proposed measure of memorization for supervised learning (Feldman, 2019) to the unsupervised density estimation problem and simplify the accompanying estimator. Next, we present an exploratory study that demonstrates how memorization can arise in probabilistic deep generative models, such as variational autoencoders. This reveals that the form of memorization to which these models are susceptible differs fundamentally from mode collapse and overfitting. Finally, we discuss several strategies that can be used to limit memorization in practice.},
   langid = {english}
+}
+
+@article{burkart_survey_2021,
+  title = {A Survey on the Explainability of Supervised Machine Learning},
+  author = {Burkart, Nadia and Huber, Marco F},
+  date = {2021},
+  journaltitle = {Journal of Artificial Intelligence Research},
+  volume = {70},
+  pages = {245--317}
 }
 
 @article{burnsSystematicReviewDischarge2012,
@@ -4551,6 +4592,13 @@
   pmcid = {PMC8387496}
 }
 
+@article{garczarek_classification_2002,
+  title = {Classification Rules in Standardized Partition Spaces},
+  author = {Garczarek, Ursula},
+  date = {2002},
+  publisher = {{Universität Dortmund}}
+}
+
 @misc{garipov_loss_2018,
   title = {Loss {{Surfaces}}, {{Mode Connectivity}}, and {{Fast Ensembling}} of {{DNNs}}},
   author = {Garipov, Timur and Izmailov, Pavel and Podoprikhin, Dmitrii and Vetrov, Dmitry and Wilson, Andrew Gordon},
@@ -6754,6 +6802,14 @@
   langid = {english}
 }
 
+@unpublished{jayashankar_detecting_2020,
+  title = {Detecting Audio Attacks on {{ASR}} Systems with Dropout Uncertainty},
+  author = {Jayashankar, Tejas and Roux, Jonathan Le and Moulin, Pierre},
+  date = {2020},
+  eprint = {2006.01906},
+  eprinttype = {arxiv}
+}
+
 @article{jaynes_information_1957,
   title = {Information {{Theory}} and {{Statistical Mechanics}}},
   author = {Jaynes, Edwin T},
@@ -8068,6 +8124,19 @@
   urldate = {2018-10-31}
 }
 
+@inproceedings{kull_beta_2017,
+  title = {Beta Calibration: A Well-Founded and Easily Implemented Improvement on Logistic Calibration for Binary Classifiers},
+  booktitle = {Proceedings of the 20th International Conference on Artificial Intelligence and Statistics},
+  author = {Kull, Meelis and Filho, Telmo Silva and Flach, Peter},
+  editor = {Singh, Aarti and Zhu, Jerry},
+  date = {2017-04-20/2017-04-22},
+  series = {Proceedings of Machine Learning Research},
+  volume = {54},
+  pages = {623--631},
+  publisher = {{PMLR}},
+  abstract = {For optimal decision making under variable class distributions and misclassification costs a classifier needs to produce well-calibrated estimates of the posterior probability. Isotonic calibration is a powerful non-parametric method that is however prone to overfitting on smaller datasets; hence a parametric method based on the logistic curve is commonly used. While logistic calibration is designed for normally distributed per-class scores, we demonstrate experimentally that many classifiers including Naive Bayes and Adaboost suffer from a particular distortion where these score distributions are heavily skewed. In such cases logistic calibration can easily yield probability estimates that are worse than the original scores. Moreover, the logistic curve family does not include the identity function, and hence logistic calibration can easily uncalibrate a perfectly calibrated classifier. In this paper we solve all these problems with a richer class of calibration maps based on the beta distribution. We derive the method from first principles and show that fitting it is as easy as fitting a logistic curve. Extensive experiments show that beta calibration is superior to logistic calibration for Naive Bayes and Adaboost.}
+}
+
 @incollection{kull_temperature_2019,
   title = {Beyond Temperature Scaling: {{Obtaining}} Well-Calibrated Multiclass Probabilities with Dirichlet Calibration},
   booktitle = {Proceedings of the 33rd {{International Conference}} on {{Neural Information Processing Systems}} ({{NeurIPS}})},
@@ -8836,6 +8905,17 @@
   date = {2016},
   eprint = {1603.02199},
   eprinttype = {arxiv}
+}
+
+@inproceedings{lewis_sequential_1995,
+  title = {A Sequential Algorithm for Training Text Classifiers: {{Corrigendum}} and Additional Data},
+  booktitle = {Acm Sigir Forum},
+  author = {Lewis, David D},
+  date = {1995},
+  volume = {29},
+  number = {2},
+  pages = {13--19},
+  publisher = {{ACM New York, NY, USA}}
 }
 
 @misc{li_advancing_2018,
@@ -10619,6 +10699,15 @@
   abstract = {A truncated version of the Cauchy distribution is introduced. Un-like the Cauchy distribution, this possesses finite moments of all orders and could therefore be a better model for certain practical situations. More than 10 practical situations where the truncated distribution could be applied are dis-cussed. Explicit expressions are derived for the moments, L moments, mean deviations, moment generating function, characteristic function, convolution properties, Bonferroni curve, Lorenz curve, entropies, order statistics and the asymptotic distribution of the extreme order statistics. Estimation procedures are detailed by the method of moments and the method of maximum likeli-hood and expressions derived for the associated Fisher information matrix. Simulation issues are discussed. Finally, an application is illustrated for con-sumer price indices from the six major economics.}
 }
 
+@inproceedings{naeini_obtaining_2015,
+  title = {Obtaining Well Calibrated Probabilities Using Bayesian Binning},
+  booktitle = {Proceedings of the {{AAAI}} Conference on Artificial Intelligence},
+  author = {Naeini, Mahdi Pakdaman and Cooper, Gregory and Hauskrecht, Milos},
+  date = {2015},
+  volume = {29},
+  number = {1}
+}
+
 @misc{nagano_wrapped_2019,
   title = {A {{Wrapped Normal Distribution}} on {{Hyperbolic Space}} for {{Gradient-Based Learning}}},
   author = {Nagano, Yoshihiro and Yamaguchi, Shoichiro and Fujita, Yasuhiro and Koyama, Masanori},
@@ -11777,6 +11866,17 @@
   isbn = {978-1-4799-4334-0}
 }
 
+@article{platt_probabilistic_1999,
+  title = {Probabilistic Outputs for Support Vector Machines and Comparisons to Regularized Likelihood Methods},
+  author = {Platt, John and others},
+  date = {1999},
+  journaltitle = {Advances in large margin classifiers},
+  volume = {10},
+  number = {3},
+  pages = {61--74},
+  publisher = {{Cambridge, MA}}
+}
+
 @online{poli_hyena_2023,
   title = {Hyena {{Hierarchy}}: {{Towards Larger Convolutional Language Models}}},
   shorttitle = {Hyena {{Hierarchy}}},
@@ -12409,6 +12509,19 @@
   eprinttype = {arxiv},
   urldate = {2018-04-01},
   abstract = {We propose Scheduled Auxiliary Control (SAC-X), a new learning paradigm in the context of Reinforcement Learning (RL). SAC-X enables learning of complex behaviors - from scratch - in the presence of multiple sparse reward signals. To this end, the agent is equipped with a set of general auxiliary tasks, that it attempts to learn simultaneously via off-policy RL. The key idea behind our method is that active (learned) scheduling and execution of auxiliary policies allows the agent to efficiently explore its environment - enabling it to excel at sparse reward RL. Our experiments in several challenging robotic manipulation settings demonstrate the power of our approach.}
+}
+
+@online{rieger_bayesspeech_2023,
+  title = {{{BayesSpeech}}: {{A Bayesian Transformer Network}} for {{Automatic Speech Recognition}}},
+  shorttitle = {{{BayesSpeech}}},
+  author = {Rieger, Will},
+  date = {2023-01-16},
+  eprint = {2301.11276},
+  eprinttype = {arxiv},
+  eprintclass = {cs, eess},
+  urldate = {2023-09-09},
+  abstract = {Recent developments using End-to-End Deep Learning models have been shown to have near or better performance than state of the art Recurrent Neural Networks (RNNs) on Automatic Speech Recognition tasks. These models tend to be lighter weight and require less training time than traditional RNN-based approaches. However, these models take frequentist approach to weight training. In theory, network weights are drawn from a latent, intractable probability distribution. We introduce BayesSpeech for end-to-end Automatic Speech Recognition. BayesSpeech is a Bayesian Transformer Network where these intractable posteriors are learned through variational inference and the local reparameterization trick without recurrence. We show how the introduction of variance in the weights leads to faster training time and near state-of-the-art performance on LibriSpeech-960.},
+  pubstate = {preprint}
 }
 
 @article{rieser_natural_2009,
@@ -16321,6 +16434,14 @@
   langid = {english}
 }
 
+@inproceedings{zadrozny_transforming_2002,
+  title = {Transforming Classifier Scores into Accurate Multiclass Probability Estimates},
+  booktitle = {Proceedings of the Eighth {{ACM SIGKDD}} International Conference on {{Knowledge}} Discovery and Data Mining},
+  author = {Zadrozny, Bianca and Elkan, Charles},
+  date = {2002},
+  pages = {694--699}
+}
+
 @inproceedings{zaken_bitfit_2022,
   title = {{{BitFit}}: {{Simple}} Parameter-Efficient Fine-Tuning for Transformer-Based Masked Language-Models},
   booktitle = {Proceedings of the {{Annual Meeting}} of the {{Association}} for {{Computational Linguistics}} ({{ACL}})},
@@ -16723,6 +16844,16 @@
   urldate = {2018-05-06},
   abstract = {Recently recurrent neural networks (RNN) has been very successful in handling sequence data. However, understanding RNN and finding the best practices for RNN is a difficult task, partly because there are many competing and complex hidden units (such as LSTM and GRU). We propose a gated unit for RNN, named as Minimal Gated Unit (MGU), since it only contains one gate, which is a minimal design among all gated hidden units. The design of MGU benefits from evaluation results on LSTM and GRU in the literature. Experiments on various sequence data show that MGU has comparable accuracy with GRU, but has a simpler structure, fewer parameters, and faster training. Hence, MGU is suitable in RNN's applications. Its simple architecture also means that it is easier to evaluate and tune, and in principle it is easier to study MGU's properties theoretically and empirically.},
   keywords = {★}
+}
+
+@article{zhou_survey_2022,
+  title = {A Survey on Epistemic (Model) Uncertainty in Supervised Learning: {{Recent}} Advances and Applications},
+  author = {Zhou, Xinlei and Liu, Han and Pourpanah, Farhad and Zeng, Tieyong and Wang, Xizhao},
+  date = {2022},
+  journaltitle = {Neurocomputing},
+  volume = {489},
+  pages = {449--465},
+  publisher = {{Elsevier}}
 }
 
 @inproceedings{zhouAutomaticICDCoding2021,

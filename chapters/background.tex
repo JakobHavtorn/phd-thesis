@@ -37,7 +37,7 @@ From these axioms, Shannon found that the \emph{information content} $I_X(x)$ of
 \end{equation}
 %
 
-The \emph{information entropy} of a random variable $X$ is defined as the \emph{expected information content} of an outcome of $X$,
+The \emph{information entropy of a discrete random variable} $X$ is defined as the \emph{expected information content} of an outcome of $X$,
 %
 \begin{equation} \label{eq:information-entropy}
     H(X) = \mathbb{E}_X\left[I_X(x)\right] = - \sum_{x\in X} p_X(x) \log p_X(x) \enspace .
@@ -50,7 +50,7 @@ This means that $H(X)$ measures the amount of information we can expect to gain 
 
 \subsection{Entropy for continuous random variables}
 
-To generalize the concept of information entropy to continuous random variables, Shannon originally replaced the sum over the probability mass function in \eqref{eq:information-entropy} with an integral over the probability density function, as suggested by the definition $H(X) = \mathbb{E}_X\left[I_X(x)\right]$. This approach leads to the definition of the information entropy of a continuous random variable $X$ as, 
+To generalize the concept of information entropy to continuous random variables, Shannon originally replaced the sum over the probability mass function in \eqref{eq:information-entropy} with an integral over the probability density function, as suggested by the definition $H(X) = \mathbb{E}_X\left[I_X(x)\right]$. This approach leads to the definition of the \emph{information entropy of a continuous random variable} $X$ as, 
 %
 \begin{equation} \label{eq:differential-entropy}
     H(X) = - \int_{\mathcal{X}} p_X(x) \log p_X(x) \, dx \enspace ,
@@ -77,14 +77,14 @@ However, the differential entropy does not have several of the desirable attribu
 }. 
 For these reasons, the differential entropy may not be a suitable measure of information, or uncertainty, for continuous random variables. 
 
-Instead, \textcite{jaynes_information_1957} argued that the information entropy of a continuous distribution should be defined as the limiting density of increasingly dense discrete distributions \cite{jaynes_prior_1968}. This argument leads to an expression for the information entropy of a continuous random variable $X$ as,
+Instead, \textcite{jaynes_information_1957,jaynes_prior_1968} argued that the information entropy of a continuous distribution should be defined as the limiting density of increasingly dense discrete distributions, $H_{N\rightarrow\infty}(X)$. This argument leads to,
 %
 \begin{equation} \label{eq:corrected-differential-entropy-jaynes}
     H_{N\rightarrow\infty}(X) = \lim_{N\rightarrow\infty} [H_{N}(X) - \log N] = - \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace ,
 \end{equation}
 %
 where $H_N(X)$ is the limiting density for discrete points, $q(x)$ is a uniform density over the quantization of the continuous space, and we have subtracted a $\log N$ term that would go to infinity in the limit of infinite points.
-By doing this, the information entropy becomes dimensionally correct, and invariant under a change of variables%
+By doing this, the information entropy becomes positive, dimensionally correct, and invariant under a change of variables%
 \footnote{\label{fn:change-of-variables-invariance-of-corrected-differential-entropy}
     Under a change of independent variable from $x$ to $y(x)$, we have that
     \begin{align*}
@@ -103,24 +103,30 @@ The form on the right-hand side of \cref{eq:corrected-differential-entropy-jayne
     D_{KL}(P\parallel Q) = \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
 \end{equation}
 %
-The Kullback-Leibler divergence $D_{KL}(p\parallel q)$ is often interpreted as the amount of additional information required to represent events from distribution the $P$ with density $p(x)$ using a code optimized for distribution $Q$ with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $Q$ to represent events from distribution $P$.
-The KL-divergence is also known as the \emph{relative entropy} of $P$ with respect to $Q$, or simply as the \emph{information gain}. 
+The Kullback-Leibler divergence $D_{KL}(P\parallel Q)$ is often interpreted as the amount of additional information required to represent events from distribution $P$ with density $p(x)$ using a code optimized for distribution $Q$ with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $Q$ to represent events from distribution $P$, i.e. the \emph{relative entropy} of $P$ with respect to $Q$. 
+The KL-divergence is also known as the \emph{information gain}. 
 
-Returning to Jaynes and \cref{eq:corrected-differential-entropy-jaynes}, the argument can be interpreted to say that the information entropy of a continuous random variable $X$ should be defined in relative terms as the expected difference in information entropy between its actual density and a uniform density.
-The Kullback-Leibler divergence as a measure of (relative) information entropy also provides a natural point of convergence of this section since it is equivalently defined for both discrete and continuous random variables.
+Returning to Jaynes' argument and \cref{eq:corrected-differential-entropy-jaynes}, we can interpret this to say that the information entropy of a continuous random variable $X$ should be defined as the expected difference in information entropy between its density and a uniform density. 
+Identifying the Kullback-Leibler divergence as a measure of (relative) information entropy provides a natural point of convergence for this section since it is equivalently defined for both discrete and continuous random variables as opposed to the differential entropy. 
+In this view, information entropy (relative or absolute) is a quantity that distills the distribution of a random variable into a single number that describes the diversity of the potential outcomes of the random variable. 
 
 % In fact, Kullback initially motivated the divergence as an expected likelihood ratio \cref{kullback_information_1959}.
 
 
-\subsection{Two kinds of uncertainty}
+% \subsection{Two kinds of uncertainty}
 
-\todo[inline]{Consider not using the terms aleatoric and epistemic uncertainty. Instead use the terms ``uncertainty due to lack of knowledge (reducible)" and ``uncertainty inherent to the data (irreducible)".}
+% \todo[inline]{Consider not using the terms aleatoric and epistemic uncertainty. Instead use the terms ``uncertainty due to lack of knowledge (reducible)" and ``uncertainty inherent to the data (irreducible)".}
 
-Uncertainty can be divided into two kinds: aleatoric and epistemic. 
+% Uncertainty can be divided into two kinds: aleatoric and epistemic. 
 
-Aleatoric uncertainty is defined as being inherent to the data, and is irreducible. 
+% Aleatoric uncertainty is defined as being inherent to the data, and is irreducible. 
 
-Epistemic uncertainty is uncertainty due to lack of knowledge, and can be reduced with more data. 
+% Epistemic uncertainty is uncertainty due to lack of knowledge, and can be reduced with more data. 
+
+
+% Two kinds of uncertainty:\\
+% - Aleatoric: Uncertainty inherent to the data. Irreducible. "Known unknowns". \\
+% - Epistemic: Uncertainty due to lack of knowledge. Can be reduced with more data. "Unknown unknowns".\\
 
 
 
@@ -156,11 +162,6 @@ Unsupervised out-of-distribution detection (OOD) is the task of identifying data
 % https://openaccess.thecvf.com/content/CVPR2023W/VAND/papers/Graham_Denoising_Diffusion_Models_for_Out-of-Distribution_Detection_CVPRW_2023_paper.pdf
 
 % \cite{kabir_neural_2018} Survey of uncertainty quantification in deep learning.
-
-% Two kinds of uncertainty:\\
-% - Aleatoric: Uncertainty inherent to the data. Irreducible. "Known unknowns". \\
-% - Epistemic: Uncertainty due to lack of knowledge. Can be reduced with more data. "Unknown unknowns".\\
-
 
 % https://arxiv.org/pdf/2306.05674.pdf
 

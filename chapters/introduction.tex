@@ -1,7 +1,7 @@
 %!TEX root = ../thesis.tex
 
 \chapter[introduction]{Introduction}\label{chp:introduction}
-%s
+%
 % SIZE: ~9 pages
 %
 % OUTLINE: Broad introduction to the topic.
@@ -11,43 +11,46 @@
 
 In an era where technology increasingly intertwines with healthcare, artificial intelligence is on the verge of becoming part of standard medical practice. 
 Growing administrative burdens, rapid scientific progress in medicine, and aging populations have created a need to rethink how medical professionals are best enabled to successfully do their job. 
-The application of artificial intelligence in medical decision-making, particularly in diagnosing and recommending treatments, is likely to hold significant potential for improving patient outcomes by reducing the effect of these issues. 
-However, this prospect also raises concerns related to the reliability of such models as their decisions impact critical aspects of human health and well-being.
+The application of artificial intelligence in medical decision-making and particularly for diagnosing and recommending treatments is likely to hold significant potential to reduce the effect of these issues and improve patient outcomes. 
+However, as such decisions impact critical aspects of human health and well-being, this prospect also raises concerns related to the reliability of artificial intelligence systems.
 
 \todo[inline]{Can we find a better example than the Rhind Papyrus, or an additional one? It could be more on-point with decision-making and more well-known. Ideally, weave in an example of a failure of such technology.}
 The evolution of technology to support and automate decision-making can be traced back to the development of algorithms and mathematical techniques by ancient civilizations. 
-One example is the Egyptian Rhind Mathematical Papyrus, dated around 1550 BCE. It contains various mathematical techniques for calculations involving as multiplication, division, and fractions which were used for practical purposes like measuring land, constructing buildings, and sharing resources \cite{georges_universal_2001}. 
-Around the same time, the Babylonians had developed a sophisticated system of mathematics, including algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \cite{fowler_square_1998}. 
+One example is the Egyptian Rhind Mathematical Papyrus, dated around 1550 BCE. It describes various mathematical techniques for doing calculations involving multiplication, division, and fractions, and how to use them for practical purposes like measuring land, constructing buildings, and sharing resources \cite{georges_universal_2001}. 
+Around the same time, the Babylonians had developed a sophisticated system of mathematics that included algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \cite{fowler_square_1998}. 
 
-However, these new computing tools also brought new challenges. The Babylonian system of mathematics did not formalize the difference between rational and irrational numbers often leading to approximation errors and the common practice of approximating $\pi$ with 3. Apart from limitations inherent to the tools, inadequate human proficiency in their use was also a source of error. The Plimpton 322 clay tablet, for instance, contains several errors presumably made by a novice in Babylonian mathematics (\cref{fig:plimpton_332}) \cite{britton_plimpton_2011}. 
-It is easy to forget that the challenges we face today in adopting new technologies are not new but have been faced by humans for thousands of years. Even in ancient times, it was important to understand the limitations of technology and the need for human expertise in using it.
+However, these computing tools brought with them novel challenges. The Babylonian mathematics, for instance, did not formalize the difference between rational and irrational numbers often leading to approximation errors such as the common practice of approximating $\pi$ with 3 \cite{georges_universal_2001}. Apart from limitations inherent to the tools, inadequate human proficiency in their use was also a source of error. The Plimpton 322 clay tablet, for instance, contains several errors presumably made by a novice in Babylonian mathematics (\cref{fig:plimpton_332}) \cite{britton_plimpton_2011}. 
+% Easy to overlook, the challenges we face in adopting new technologies today are not new but have been faced by humans for thousands of years. Today, as in ancient times, it was important to understand the limitations of technology and the need for human expertise in its use.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.90\textwidth]{plimpton_322.png}
+    % \includegraphics[width=0.90\textwidth]{plimpton_322.png}
+    \includegraphics[height=0.4\textheight]{plimpton_322.png}
     \caption{Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets, presumably struggling to grapple with Babylonian mathematics.}
     \label{fig:plimpton_332}
 \end{figure}
 
-While the quest to ease human decision-making has been ongoing for thousands of years, it was not until 1642 that the first mechanical calculator was successfully built by Blaise Pascal. 
-And while the idea of a programmable computer with applications beyond pure arithmetic was first proposed by Ada Lovelace in 1843, 
-it was not until the 1940s and 50s that % / 
+While the quest to ease human decision-making has been ongoing for thousands of years, it was not until 1642 that the first mechanical calculator was successfully designed by Blaise Pascal. Refined by Gottfried Leibniz during the latter half of the 17th century, the mechanical calculator marked the beginning of a new era where rudimentary calculations could be automated and performed with greater speed and accuracy than humans. 
+In the following centuries, the development of computing machines continued, and in the 1820s, Charles Babbage proposed the first programmable mechanical computer, the Difference Engine. Although never completed, it laid the foundation for his later design of the Analytical Engine in 1837 which is considered to be the first general-purpose computer design. 
+Working with Babbage, Ada Lovelace is widely regarded as the first to have recognized that general-purpose programmable computers could have applications beyond pure arithmetic. However, it was not until the advent of electronics that the first successful general-purpose programmable computers were developed, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}).
+% While the potential of a general-purpose programmable computer with applications beyond pure arithmetic was recognized by Ada Lovelace,  
+% it was not until the 1940s and 50s that % / 
 % it took one-hundred years before / 
-the first programmable, electronic, general-purpose digital computers were developed, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}) \cite{georges_universal_2001}. 
-As they became more accessible, general-purpose computers were adopted widely across society for various applications in science and industry, including healthcare.
+% the first programmable, electronic, general-purpose digital computers were developed, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}) \cite{georges_universal_2001}. 
+As manufacturing processes were developed and scaled, electronic computers were adopted widely across society for various applications in science and industry, including healthcare. 
 The societal changes brought about by the widespread adoption of computer technology through the latter half of the 20th century were so profound that some scholars refer to the era as the information age \cite{georges_universal_2001, harari_sapiens_2011}.
-\todo[inline]{Expand on the history of modern computing.}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.95\textwidth]{eniac_programmers.jpeg}
-    \caption{Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the female programmers of the ENIAC.} %Photo: \copyright Corbis/ Getty Images.}
+    % \includegraphics[width=0.95\textwidth]{eniac_programmers.jpeg}
+    \includegraphics[height=0.4\textheight]{eniac_programmers.jpeg}
+    \caption{Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC.} %Photo: \copyright Corbis/ Getty Images.}
     \label{fig:eniac_programmers}
 \end{figure}
 
-With the advent of the internet and the widespread adoption of digital technologies, the amount of data available to decision-makers has grown exponentially. 
+With the advent of electronic computers, the internet, and the widespread adoption of digital technologies, the amount of data available to decision-makers has grown exponentially. 
 This has led to a surge of interest in the scientific field of machine learning, a subfield of artificial intelligence that focuses on developing algorithms that can learn from data to recognize salient patterns and make predictions to guide decisions. 
-Enabled by a massive increase in the power and availability of parallel computing resources, such methods have set new standards for the performance of computer systems in various domains, including speech recognition, computer vision, and natural language processing \cite{lecun_deep_2015}. 
+Enabled by a massive increase in the performance and availability of parallel computing resources, such methods have set new standards for the abilities of computer systems in various domains, including speech recognition, computer vision, and natural language processing \cite{lecun_deep_2015}. 
 In recent years, machine learning has also been applied within healthcare, where it has shown promising results in tasks such as medical imaging \cite{lundervold_overview_2019}, drug discovery \cite{chen_rise_2018}, and clinical decision support \cite{cite15, cite14}. 
 
 However, these technologies come with the same risks as previous generations did, and in some cases, they may exacerbate them. 
@@ -66,11 +69,11 @@ About one second before the crash, the system determined that a collision was im
     \label{fig:uber_nhsa_accident}
 \end{figure}
 
-Though this incident is an extreme one, it highlights the challenges of applying machine learning in real-world scenarios and underlines the need for machine learning systems to be robust to adverse or difficult situations.
-Recently, European policymakers proposed a set of requirements for applications of machine learning to ensure that they are safe, reliable, and trustworthy \cite{europeancommission_briefing_2021}. This AI Act groups applications into three categories based on the potential risk they pose to society: limited risk, high risk, and unacceptable risk. Limited risk applications, for instance within gaming, must meet transparency requirements, and unacceptable risk applications, such as public use of facial recognition, are banned. High risk applications include those in healthcare and must meet a strict set of requirements focusing on anti-discrimination and robustness. 
+Though this incident is an extreme one, it highlights the challenges of applying machine learning in real-world scenarios and underlines the need for machine learning systems to be robust in rare, adverse or difficult situations.
+Recently, European policymakers proposed a set of requirements for applications of machine learning to ensure that they are safe, reliable, and trustworthy \cite{europeancommission_briefing_2021}. This AI Act groups applications of machine learning into three categories based on the potential risk they pose to society: limited risk, high risk, and unacceptable risk. Limited risk applications, for instance within gaming, must meet transparency requirements, and unacceptable risk applications, such as public use of facial recognition, are banned. High risk applications include those in healthcare and must meet a strict set of requirements focusing on anti-discrimination and robustness. 
 %
 One of the key ways to improve the safety, reliability and trustworthiness of machine learning systems is to equip them with the ability accurately estimate the uncertainty of their predictions. 
-A model that can accurately estimate the uncertainty of its predictions can communicate to other systems or humans when it is unsure about a prediction, and so avoid making potentially catastrophic mistakes.
+A model that can accurately estimate the uncertainty of its predictions is able to communicate to other systems or humans when it is not to be trusted, and so, is able to reduce the risk of wrong predictions leading to catastrophic mistakes. 
 Fittingly, a recent study by the European Parliamentary Research Services concluded: 
 
 \begin{center}
@@ -89,7 +92,7 @@ Fittingly, a recent study by the European Parliamentary Research Services conclu
 
 % OUTLINE: Primer overview of the thesis. What are the topics and what is the context of the research.
 \noindent The research presented in this thesis will focus on the use of machine learning in relation to uncertainty estimation, speech processing, and medical conversations. 
-The research project of this thesis was formulated and carried out in collaboration with the Danish company Corti, which develops computer software for medical decision support. 
+The research project was partially funded by a grant from the national Danish Innovation Fund (grant no.\@ 0153-00167B) and defined and carried out in collaboration with the Danish company Corti, which develops computer software for medical decision support. 
 In the rest of this chapter, we will provide a high-level introduction to these topics and discuss the motivation behind the research project.
 
 
@@ -101,70 +104,70 @@ In the rest of this chapter, we will provide a high-level introduction to these 
 % - What are the practical implications of the research? 
 % - What are the challenges and limitations of the current state-of-the-art?
 %
-At the start of this project in 2020, Corti's main product was a software system providing decision-support for emergency medical dispatchers which operate the 1-1-2 emergency line in Copenhagen, Denmark and the 9-1-1 emergency line in Seattle, Washington in the United States.
+At the start of this project in 2020, Corti's main product was a software system providing decision-support for emergency medical dispatchers operating the 1-1-2 emergency line in Copenhagen, Denmark, and the 9-1-1 emergency line in Seattle, Washington, in the United States.
 The system, having been further developed, is still in use in 2023, and provides an interface for navigating a graph-based protocol, defined by the local emergency medical services, which dispatchers use to triage patients during emergency calls. 
-Calls are transcribed in real-time using customer-domain automatic speech recognition and the system makes suggestions for the dispatcher to use in the conversation with the caller, including notifications about forgotten protocol questions \cite{havtorn_multiqt_2020} and potential cases of cardiac arrests \cite{cite15, cite14}. The system logs the details about the call and the dispatcher's actions to be used for later review and quality assurance. 
+Calls are transcribed in real-time using automatic speech recognition built for the customer-domain and the system makes suggestions for the dispatcher to use in the conversation with the caller, including notifications about forgotten protocol questions \cite{havtorn_multiqt_2020} and potential cases of cardiac arrests \cite{cite15, cite14}. The system logs the details about the call and the actions taken by the dispatcher for later use in review, training and quality assurance. 
 
 
 \subsection{Stroke recognition in emergency calls}
 %
 In 2021, Corti entered a research collaboration with the Capital Region of Denmark and the Copenhagen Emergency Services to develop a system for recognizing stroke cases in calls to the 1-1-2 emergency line and the 1813 medical helpline. 
 Stroke is one of the biggest causes of disability and death worldwide \cite{cite1,cite2,cite3} and effective treatment is highly time-sensitive \cite{cite4,cite5}. The most common gateway to specialized treatment and hospital admittance is through prehospital telehealth services like emergency medical call centers, nurse advice call lines, and out-of-hours health services \cite{cite6,cite7}, however, studies have found that approximately half of all patients with stroke do not receive the correct triage for their condition from call-takers \cite{cite10,cite11,cite12}. 
-This is likely due to the complexity of stroke cases which exhibit a wide range of symptoms that can be difficult to recognize over the phone. Additionally, out of total call volume, stroke cases are relatively rare, occurring in only $0.25\%$ of all calls to the Copenhagen 1-1-2 emergency line in 2021. This makes it difficult for call-takers to gain practical experience in recognizing stroke cases which exacerbates the general difficulty of recognizing the cases in the first place. Although several efforts have been made to improve the recognition of stroke cases in emergency calls \cite{cite13,cite14,cite15}, there is still a need for better tools to support call-takers in recognizing stroke cases.
+This is likely due to the complexity of stroke cases which exhibit a wide range of symptoms that can be difficult to recognize over the phone. Additionally, stroke cases are relatively rare, occurring in only $0.25\%$ of all calls made to the Copenhagen 1-1-2 emergency line in 2021. This makes it difficult for call-takers to gain practical experience with stroke cases which exacerbates the difficulty of recognizing them in the first place. Although several efforts have been made to improve the recognition of stroke cases in emergency calls, there is still a need for better tools to support call-takers in recognizing stroke cases \cite{cite13,cite14,cite15}.
 
-A reasonable machine learning pipeline to assist in recognizing stroke on calls to emergency services might consist of an automatic speech recognition model to transcribe the conversation and a binary classifier to estimate the probability that what the transcript describes is a case of stroke. 
-Such a system might be trained on a dataset calls with verified stroke and non-stroke cases and evaluated against a held-out test set of calls where the call-taker has indicated that they suspect a stroke. Due to the low prevalence of stroke cases, the dataset would likely be imbalanced, and the number of stroke cases limited. 
+A reasonable machine learning pipeline to assist in recognizing stroke cases on calls to emergency services might consist of an automatic speech recognition model that transcribes the conversation and a binary classifier that estimates the probability that the transcript describes a case of stroke. 
+Such a system might be trained on a dataset calls with verified stroke and non-stroke cases and evaluated against a held-out test set of calls where the call-taker has indicated whether they suspect a stroke. Due to the low prevalence of stroke cases, the dataset would likely be imbalanced, and the number of stroke cases limited. 
 % The performance of such a system would depend on the quality of the automatic speech recognition model, the quality of the classifier, and the quality of the data used to train them. 
 In such a system, many factors can lead to classification errors, and when that happens, we would like the model to express high degree of uncertainty. 
-The automatic speech recognition model might be make an error in the transcription of particular word or phrase due to a noisy environment, overlapping, slurred or mumbling speech, or words not in the model's training data. 
-The classifier might misclassify a conversation due to medically ambiguous symptoms, a general lack of information in the conversation, or errors of the speech recognizer propagated via the transcription. 
+For instance, the automatic speech recognition model might make an error in the transcription of particular word or phrase due to a noisy environment, overlapping, slurred or mumbling speech, or words not in the model's training data. 
+The classifier might misclassify a conversation due to medically ambiguous symptoms, a general lack of information given in the conversation, or errors of the speech recognizer propagated via the transcription. 
 How to best make such models accurately represent and estimate the uncertainty of given predictions, and how to use it to improve the value of such a system, especially in cooperation with the call taker, is an open question.
 What is clear, however, is that the ability of such a system to accurately estimate the uncertainty of given predictions is crucial for its safe and reliable deployment in the real world. Underconfident predictions could lead to unnecessary delays in treatment and increased costs for the healthcare system. Overconfident predictions could lead to misdiagnoses and potentially fatal consequences for patients.
 
 
 \subsection{Medical coding of clinical notes}
 %
-During the course of the project presented in this thesis, Corti's product portfolio has expanded to include several new products. 
+During the course of this project, Corti's product portfolio has expanded to include several new products. 
 One of these is a software system for medical coding of clinical notes. 
-When a patient is admitted to a hospital, the medical staff will write a clinical note describing the patient's diagnosis and the procedures they underwent, which includes drug prescriptions. 
+When a patient is admitted to a hospital, the medical staff will write a clinical note describing the patient's diagnosis and the procedures they underwent, including drug prescriptions. 
 These notes are then used for billing and reimbursement purposes, as well as for research and quality assurance. 
-The clinical notes are written in natural language adhering to a certain structure, usually by a doctor. Later, a medical coder will assign a set of medical codes to the note based on its content. 
-The process of medical coding is time-consuming and error-prone due to the number and complexity of medical diagnoses and procedures. For instance, the widely used International Classification of Diseases (ICD) standard consist of 55,000 medical codes in version 10 and 85,000 in version 11 \cite{worldhealthorganisationwho_international_2023}. Additionally, a single medical note will usually contain several diagnoses and procedures which must all be inferred from the clinical note. In public benchmarking datasets such as MIMIC-III and IV the number is around 15. Official guidelines describe how to code specific diagnoses and procedures and combinations thereof \cite{centersformedicaremedicaidservicesus_icd10cm_2023}. 
-For instance, a code may have several exclusion or inclusion criteria which define when certain other codes must be coded along with it, or when they must not. 
+The clinical notes are written, usually by a doctor, in natural language adhering to a certain structure. Later, a medical coder will assign a set of medical codes to the note based on its content. 
+The process of medical coding is time-consuming and error-prone due to the vast number and high complexity of medical diagnoses and procedures. For instance, the widely used International Classification of Diseases (ICD) standard consist of 55,000 medical codes in version 10 and 85,000 in version 11 \cite{worldhealthorganisationwho_international_2023}. Additionally, a single medical note will usually contain several diagnoses and procedures which must all be inferred from the clinical note. In public benchmarking datasets such as MIMIC-III and IV the number is around 15 \cite{johnsonMIMICIIIFreelyAccessible2016,johnsonMIMICIVFreelyAccessible2023}. Official guidelines describe how to code specific diagnoses and procedures and combinations thereof \cite{centersformedicaremedicaidservicesus_icd10cm_2023}. 
+For instance, a code may have several exclusion or inclusion criteria which define which other codes must be coded along with it, or when they must not. 
 
-\todo[inline]{
-Discuss the role of uncertainty estimation in medical coding. 
-Special challenges include significant class imbalance that cannot be removed by stratification since each example is associated with multiple labels.
-Mutually dependent classes also complicates uncertainty estimation. Some classes are mutually exclusive, while others are not. Some classes are easily confused with each other. Uncertainty can be helpful in identifying code candidates as uncertain codes may need human review.
-}
-
-Many codes are rarely used and datasets for medical coding usually have a considerable class-imbalance which can be impossible to exactly correct for by stratified sampling since each example is associated with multiple labels. 
-
-\todo[inline]{Write paragraph on using machine learning for medical coding and the role of uncertainty estimation in that.}
-
+A reasonable machine learning pipeline to assist in medical coding might consist of a natural language processing model that extracts relevant information from the clinical note and outputs a number of probability distributions that each estimate the probability that the note should be assigned one of the medical codes. Training and using such as system comes with several challenges, however. 
+For instance, the prevalence of different medical codes in the training data is highly imbalanced; it is common to have several orders of magnitude difference between the frequency of the most frequent code and the least frequent codes. Since each clinical note is associated with multiple codes that have complex co-occurence patterns, it is often impossible to exactly correct for this class imbalance by stratified sampling, which is an otherwise common approach to deal with class imbalance in machine learning. This also gives rise to 
+Furthermore, some codes are easily confused with each other, for instance the ICD-10 codes Z87.891 ``Personal history of nicotine dependence'' and F17.210 ``Nicotine dependence, cigarettes, uncomplicated", but in practice only one of them should be assigned to a given note. 
+As with the stroke recognition system, we would like the model to express high degree of uncertainty when it makes a mistake. For example, if the model is uncertain about two similar codes, it might be appropriate to ask a human expert to review the note and make the final decision. Additionally, the lack of training data for the rarest codes makes it difficult to learn to robustly predict those codes, so we would in general want the model to be uncertain about such codes.
 
 
 
 \section{Machine learning reliability}
 %
-Many modern machine learning models are deep neural networks with millions or even billions of parameters. 
-These models are often referred to as black-box models as it is difficult to understand how they arrive at their predictions. 
-The lack of interpretability makes it difficult to assess the reliability of the model's predictions. 
-Furthermore, a number of factors, including the ability of deep neural networks to overfit, or even memorize, the training data \cite{arpit_closer_2017, burg_memorization_2021}, and the use of training objectives that are proxies for the evaluation metrics of interest, lead to models that often are miscalibrated; that is, the probability of a class predicted by the model does not reflect the true probability of the predicted class under the circumstances \cite{guo_calibration_2017, kull_temperature_2019}. Usually, the predicted probabilities are too extreme which leads to overconfident predictions. This means a model will often assign a high probability to the predicted class, even when it is wrong. 
-In practice, such a model can be hard to trust. No model is perfect, but the inability to judge the certainty of a model's predictions makes it difficult to know how to weigh the model's predictions in a decision-making process. 
+Several factors contribute to the reliability of a machine learning model. 
+Besides model performance and accuracy, important factors include the interpretability of how the model functions, the explainability of its predictions, fairness in its treatment of different groups, and robustness to noise, outliers and adversarial attacks. 
+% In medical applications, it has been argued that another factor
+Since many modern machine learning models are deep neural networks with millions or billions of parameters, their size and complexity make them inherently difficult to interpret, and their predictions hard to explain. Due to high cost and practical infeasibility, the vast amounts of data needed to train such models are often not manually curated for quality, and so, may contain biases and errors which models are well-equipped to learn to mirror \cite{burkart_survey_2021}. 
+Finally, a number of factors, including the ability of deep neural networks to overfit, or even memorize, the training data \cite{arpit_closer_2017, burg_memorization_2021}, can lead to models that are sensitive adverse noise conditions and outliers. 
 
-A connection can be made back to the incident with the Uber self-driving car. 
-The multitude of rapid misclassifications made by the Uber self-driving car in Tempe is likely an indication that the model responsible for object-classification was overconfident in its predictions and unable to represent or communicate uncertainty to other systems in the car, or the safety driver. Instead, the model's predictions were taken at face value and subsystems in the car acted on them without appropriate consideration to their reliability.   
+The ability of a model to accurately estimate the uncertainty of its predictions plays an important role in its reliability. However, the tendency of deep neural networks to overfit or memorize the training data \cite{arpit_closer_2017, burg_memorization_2021} and the use of training objectives that are proxies for the evaluation metrics of interest lead to models that often are miscalibrated; that is, the predicted probability of a class does not reflect the true probability of the class. This means, for instance, that if for a certain input the model assigns 70\% probability to a class, it would not generally be right 70\% of the time, if we could repeat the prediction multiple times under similar circumstances \cite{guo_calibration_2017, kull_temperature_2019}. Usually, the predicted probabilities are too extreme which leads to overconfident predictions. This means a model will often assign a high probability to the predicted class, even when it is wrong. 
+
+In practice, miscalibrated models are not reliable in high risk applications. Although no model is perfect, the inability of a human, or another model, to assess the certainty with which a prediction was made, makes it impossible to know how to weigh it in a decision-making process. 
+A connection can be made back to the incident with the Uber self-driving car. The multitude of rapid misclassifications made by the Uber self-driving car in Tempe is likely an indication that the model responsible for object-classification was overconfident in its predictions and unable to represent or communicate uncertainty to other systems in the car, or the safety driver. Instead, the model's predictions were taken at face value and subsystems in the car acted on them without appropriate consideration to their reliability.
 
 
 \subsection{Model calibration}
+% 
+The problem of miscalibration in machine learning models is well-known and has been studied extensively \cite{lewis_sequential_1995, platt_probabilistic_1999, garczarek_classification_2002, zadrozny_transforming_2002, bennett_using_2003}. One of the best known methods for calibrating a binary classifier is Platt scaling which fits a logistic regression model to the model outputs, assuming that the miscalibration can be corrected by a logarithmic function \cite{platt_probabilistic_1999}. Another method is isotonic regression which instead fits a non-parametric, monotonic function \cite{zadrozny_transforming_2002}. 
+More recently, \textcite{guo_calibration_2017} proposed a single-parameter variant of Platt-scaling that fits only a temperature parameter on the logits of a neural network classifier. 
+These methods are generally simple and effective, but not without limitations. 
+To perform the calibration, most of the methods require a held-out validation set on which the model was not trained. Platt scaling and isotonic regression are not naively applicable to multi-class classification problems. How to calibrate models for structured prediction tasks such as speech recognition and machine translation remains an open problem \cite{astudillo_uncertainty_2010, astudillo_integration_2013, jayashankar_detecting_2020}.
 
-\todo[inline]{
-    Expand in this discussion of overconfidence and calibration. E.g.: Calibration is fairly well understood in the context of classification, especially binary, but is harder in structured prediction such as automated speech recognition. Also: 
-    Even if a model is well-calibrated, it can still be overconfident in wrong predictions - this is a problem in particular for rare events or adverse examples that were not presented to the model during training. Such examples are sometimes called out-of-distribution examples with reference to the training distribution. 
-    For instance, a model trained to classify images of cats and dogs may have been well-calibrated, but if it is presented with an image of a horse, it has no option but to assign 100\% total probability to the cat and dog categories, even though that is clearly wrong. 
-    Worse yet, we might expect the model to then at least assign 50\% probability to each of the cat and dog categories, but that behavior is not guaranteed. Specifically, since no horses were in the training data, the model will assign arbitrary probabilities to either class and so still risks being confidently wrong.
-}
+It is also important to realize that correct calibration does not guarantee that the probability of a prediction is accurate. 
+Specifically, even if a model is well-calibrated, it can still be overconfident for data that were not presented to the model during training such as rare events, outliers, and adverse examples. Such data are sometimes called out-of-distribution examples with reference to the training distribution. 
+For instance, a model trained to classify images of cats and dogs and provide calibrated class probabilities will still fail if presented with an image of a horse. In this case, it has no option but to distribute 100\% total probability across the cat and dog categories, even though that is clearly wrong. 
+Worse yet, we might expect the model to then at least assign 50\% probability to each of the cat and dog categories, to indicate the uncertainty, but that behavior is not guaranteed. Indeed, since no horses were in the training data, the model will not have learned specialized features for horses, nor learned to associate known features with horses. So, if some features of a particular horse resemble those learned for a dog more than for a cat, the model might assign arbitrarily high probability to the dog class and therefore risks being confidently wrong \cite{zhou_survey_2022}. 
+
 
 \subsection{Understanding uncertainty}
 % 
@@ -172,47 +175,39 @@ The multitude of rapid misclassifications made by the Uber self-driving car in T
 % - Discuss the distinction between them and how they relate to the problem of uncertainty estimation in machine learning.
 % - 
 % 
-%
-The distinction in uncertainty estimation between known and unknown unknowns is sometimes referred to in terms of \textit{aleatoric uncertainty} and \textit{epistemic uncertainty} \cite{kendall_what_2017}. Both categories of uncertainty are usually used to describe uncertainties in a model's predictions or the model itself including its parameters, but they differ in their sources. 
-Aleatoric uncertainty (from Latin (aleatorius) 'dice player' or 'gambler') refers to uncertainty in the data itself due to true randomness which is irreducible even with infinite data. 
-Epistemic uncertainty (from Greek (epistḗmē) 'knowledge') refers to uncertainty due to things one could in principle know but does not in practice. 
-% It could arise because a measurement is not accurate, because the model neglects certain effects, or because particular data have been deliberately hidden. 
-Epistemic uncertainty is sometimes referred to as \textit{systematic uncertainty} and aleatoric uncertainty as \textit{stochastic uncertainty} \cite{kendall_what_2017}. 
-%, or, \textit{reducible} and \textit{irreducible} uncertainty, respectively. This latter terminology is somewhat misleading since epistemic uncertainty might not be reducible by additional data collection if the model is not sufficiently expressive to represent the data distribution, and aleatoric uncertainty is not necessarily irreducible if we can reduce inherent noise by improving the instruments used to collect the data \cite{kendall_what_2017}. 
+As hinted at in the previous section, there are different sources of uncertainty in machine learning models. 
+At a fundamental level, we can distinguish between uncertainty that is present in the knowledge we have, and uncertainty that originates from the knowledge that we do not have.
+This is sometimes called known unknowns and unknown unknowns, and is referred to in terms of \textit{aleatoric uncertainty} and \textit{epistemic uncertainty} \cite{kendall_what_2017}. 
+Aleatoric uncertainty (from Latin (aleatorius) 'dice player' or 'gambler') refers to uncertainty present in the data itself due to randomness in the process that generated the data. This kind of uncertainty is commonly seen as irreducible but, since it is represented in the collected data, it can usually be modelled directly. 
+Epistemic uncertainty (from Greek (epistḗmē) 'knowledge') refers to uncertainty due to things one could in principle know, but does not in practice. This lack of knowledge could be due to a lack of data, or an improper model specification. 
+Aleatoric uncertainty is sometimes referred to as \textit{stochastic uncertainty} and epistemic uncertainty as \textit{systematic uncertainty} \cite{kendall_what_2017}. 
 Although the distinction between aleatoric and epistemic uncertainty is important, it is not always useful. For instance, a model may be uncertain about a particular prediction due to any of these two kinds of uncertainty. For that reason, the quantity of interest is usually the ``total" uncertainty, often referred to as \textit{predictive uncertainty}, which is simply the combined epistemic and aleatoric uncertainties. 
 
-An example of aleatoric uncertainty is the uncertainty in the transcription of a word due to a noisy environment, overlapping, slurred or mumbling speech. We can reduce this uncertainty by improving the automatic speech recognition model, but we cannot eliminate it completely. 
+An example of aleatoric uncertainty is the uncertainty in the transcription of a word due to a noisy environment, overlapping, slurred or mumbling speech. 
+Unknown words are arguably sources of epistemic uncertainty although a good speech recognition model may generalize well if the word's spelling and pronunciation follow the same patterns as the words in the training data. Another example of epistemic uncertainty is the occurrence of truly out-of-distribution examples, such as the horse in the image classifier example above: inputs unlike anything the model has seen during training, especially if they require outputs unavailable to the model. 
+In high-dimensional data with a practically unlimited diversity in possible out-of-distribution examples, it is impossible to collect enough data to eliminate all sources of epistemic uncertainty. If we included horses in the training data, the model would likely learn to recognize them, but it would still be unable to recognize giraffes, or zebras, or unicorns. 
+Ultimately, any practical machine learning model will have some non-negligible sources of epistemic uncertainty. 
 
-Words not present in the training data are arguably sources of epistemic uncertainty although a good speech recognition model may generalize well to unseen words if its spelling and pronunciation follow the same patterns as the words in the training data. 
-
-A stronger example of epistemic uncertainty is the occurrence of truly out-of-distribution examples, such as the horse in the image classifier example above: inputs unlike anything the model has seen during training that potentially require outputs unavailable to the model. 
-In high-dimensional data with a practically unlimited diversity in possible out-of-distribution examples, it is impossible to collect enough data to eliminate epistemic uncertainty. If we included some horses in the training data, the model would likely be able to recognize them, but it would still be unable to recognize giraffes, or zebras, or unicorns. 
-Ultimately, any practical machine learning model will have at least some sources of epistemic uncertainty i.e. unknown sources of uncertainty. 
-
-% Aleatory uncertainty is often pretty straightforward to model since it is available in the data. Epistemic is much harder since we don't know much about it, other than we have only examples of where it is low.
-
-% In real life applications, both kinds of uncertainties are present. Uncertainty quantification intends to explicitly express both types of uncertainty separately. The quantification for the aleatoric uncertainties can be relatively straightforward, where traditional (frequentist) probability is the most basic form. Techniques such as the Monte Carlo method are frequently used. A probability distribution can be represented by its moments (in the Gaussian case, the mean and covariance suffice, although, in general, even knowledge of all moments to arbitrarily high order still does not specify the distribution function uniquely), or more recently, by techniques such as Karhunen–Loève and polynomial chaos expansions. To evaluate epistemic uncertainties, the efforts are made to understand the (lack of) knowledge of the system, process or mechanism. Epistemic uncertainty is generally understood through the lens of Bayesian probability, where probabilities are interpreted as indicating how certain a rational person could be regarding a specific claim.
-
-% In mathematics, uncertainty is often characterized in terms of a probability distribution. From that perspective, epistemic uncertainty means not being certain what the relevant probability distribution is, and aleatoric uncertainty means not being certain what a random sample drawn from a probability distribution will be.
-
-\todo[inline]{Wrap this up. How to model aleatoric and epistemic uncertainty. Why do we care most about epistemic uncertainty (because we care about correctly estimating predictive uncertainty, and aleatoric is easy to model).}
+In practice, we are interested in the predictive uncertainty, so we need to include both aleatoric and epistemic uncertainty in the estimate. 
+Since sources of epistemic uncertainty are by definition those sources not represented in the data, it is not possible to model them directly, as it is for aleatoric uncertainty. This generally makes epistemic uncertainty more difficult to model and quantify than aleatoric uncertainty. 
+Some methods for estimating epistemic uncertainty include Bayesian neural networks \cite{mackay_practical_1992, neal_bayesian_1995}, Monte Carlo dropout \cite{gal_dropout_2016}, and ensembling \cite{lakshminarayanan_simple_2017}. Common to these methods is that they represent epistemic uncertainty by an implicit or explicit distribution over the model parameters. This is in contrast to aleatoric uncertainty, which is usually represented by a distribution over the data. The methods often require multiple forward passes through the model to estimate the predictive uncertainty. This makes them computationally expensive and impractical for real-time applications such as speech recognition. 
 
 
-\section{Scope of the thesis}
+\section{Thesis scope and outline}
 %
 % OUTLINE: 
 % - Tie together the different topics of the thesis and point briefly to the relevant papers.
 %
-The complete set of research published as part of this project covers a number of topics related to decision-support in medical conversations. 
-One group of the produced studies is concerned with generative latent variable models and their applications to uncertainty estimation and speech modelling \cite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. 
-Another group of studies is concerned with self-supervised speech representation learning and automatic speech recognition \cite{borgholt_scaling_2021,borgholt_we_2021,mohamed_selfsupervised_2022,borgholt_brief_2022}. 
-A final group deals with applications of machine learning within the medical domain, including recognition of stroke cases in calls to medical helplines \cite{wenstrup_retrospective_2023} and medical coding of clinical notes \cite{edin_automated_2023}. 
+% The complete set of research published as part of this project covers a number of topics related to decision-support in medical conversations. 
+% One group of the primary papers is concerned with generative latent variable models and their applications to estimation of epistemic uncertainty and speech modelling \cite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. 
+% Another group of studies examines self-supervised speech representation learning as an alternative to generative latent variable models \cite{mohamed_selfsupervised_2022,borgholt_brief_2022} and explores them for speech recognition \cite{borgholt_scaling_2021} and spoken language understanding \cite{borgholt_we_2021}. 
+% Finally, a group deals with applications of machine learning within the medical domain, including recognition of stroke cases in calls to medical helplines \cite{wenstrup_retrospective_2023} and medical coding of clinical notes \cite{edin_automated_2023}. 
 
-This first part of the thesis ties together these different studies by providing a high-level overview of the research topic and summarizing the main contributions of the thesis.
+This introduction provided a high-level overview of the motivation behind the research project and highlighted important use-cases of speech processing, natural language processing and the importance of uncertainty quantification. The remainder of \cref{part:background} consists of two chapters. \Cref{chp:technical-background} provides relevant technical background to the papers of the thesis, including uncertainty, out-of-distribution detection, and variational autoencoders. Finally, \cref{chp:main-contributions} outlines the main contributions of the thesis in relation to the published papers and the research project as a whole.
 
+\Cref{part:unsupervised-uncertainty-estimation,part:self-supervised-speech-representation-learning,part:medical-applications} each contain a number of chapters that each correspond to a primary paper. \Cref{part:unsupervised-uncertainty-estimation} contains papers on variational autoencoders and their applications to estimation of epistemic uncertainty and speech modelling \cite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. \Cref{part:self-supervised-speech-representation-learning} contains a review paper on self-supervised speech representation learning \cite{mohamed_selfsupervised_2022}. \Cref{part:medical-applications} contains papers on applications of machine learning within the medical domain, including recognition of stroke cases in calls to medical helplines \cite{wenstrup_retrospective_2023} and medical coding of clinical notes \cite{edin_automated_2023}. 
 
-
-
+Finally, \cref{part:discussion-and-conclusion} concludes the thesis by summarizing the main contributions and discussing the presented work and future directions for research.
 
 
 
