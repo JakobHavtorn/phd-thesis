@@ -3472,6 +3472,18 @@
   abstract = {(1) The outputs of a typical multi-output classification network do not satisfy the axioms of probability; probabilities should be positive and sum to one. This problem can be solved by treating the trained network as a preprocessor that produces a feature vector that can be further processed, for instance by classical statistical estimation techniques. (2) We present a method for computing the first two moments ofthe probability distribution indicating the range of outputs that are consistent with the input and the training data. It is particularly useful to combine these two ideas: we implement the ideas of section 1 using Parzen windows, where the shape and relative size of each window is computed using the ideas of section 2. This allows us to make contact between important theoretical ideas (e.g. the ensemble formalism) and practical techniques (e.g. back-prop). Our results also shed new light on and generalize the well-known "soft max" scheme.}
 }
 
+@online{denouden_improving_2018,
+  title = {Improving {{Reconstruction Autoencoder Out-of-distribution Detection}} with {{Mahalanobis Distance}}},
+  author = {Denouden, Taylor and Salay, Rick and Czarnecki, Krzysztof and Abdelzad, Vahdat and Phan, Buu and Vernekar, Sachin},
+  date = {2018-12-06},
+  eprint = {1812.02765},
+  eprinttype = {arxiv},
+  eprintclass = {cs, stat},
+  urldate = {2023-09-10},
+  abstract = {There is an increasingly apparent need for validating the classifications made by deep learning systems in safety-critical applications like autonomous vehicle systems. A number of recent papers have proposed methods for detecting anomalous image data that appear different from known inlier data samples, including reconstruction-based autoencoders. Autoencoders optimize the compression of input data to a latent space of a dimensionality smaller than the original input and attempt to accurately reconstruct the input using that compressed representation. Since the latent vector is optimized to capture the salient features from the inlier class only, it is commonly assumed that images of objects from outside of the training class cannot effectively be compressed and reconstructed. Some thus consider reconstruction error as a kind of novelty measure. Here we suggest that reconstruction-based approaches fail to capture particular anomalies that lie far from known inlier samples in latent space but near the latent dimension manifold defined by the parameters of the model. We propose incorporating the Mahalanobis distance in latent space to better capture these out-of-distribution samples and our results show that this method often improves performance over the baseline approach.},
+  pubstate = {preprint}
+}
+
 @misc{desa_representation_2018,
   title = {Representation {{Tradeoffs}} for {{Hyperbolic Embeddings}}},
   author = {De Sa, Christopher and Gu, Albert and Ré, Christopher and Sala, Frederic},
@@ -9511,6 +9523,22 @@
   issn = {2379-190X},
   abstract = {In this paper we propose a Sequential Representation Quantization AutoEncoder (SeqRQ-AE) to learn from primarily unpaired audio data and produce sequences of representations very close to phoneme sequences of speech utterances. This is achieved by proper temporal segmentation to make the representations phoneme-synchronized, and proper phonetic clustering to have total number of distinct representations close to the number of phonemes. Mapping between the distinct representations and phonemes is learned from a small amount of annotated paired data. Preliminary experiments on LJSpeech demonstrated the learned representations for vowels have relative locations in latent space in good parallel to that shown in the IPA vowel chart defined by linguistics experts. With less than 20 minutes of annotated speech, our method outperformed existing methods on phoneme recognition and is able to synthesize intelligible speech that beats our baseline model.},
   eventtitle = {{{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})}
+}
+
+@inproceedings{liu_unsupervised_2023a,
+  title = {Unsupervised Out-of-Distribution Detection with Diffusion Inpainting},
+  booktitle = {Proceedings of the {{International Conference}} on {{Machine Learning}} ({{ICML}})},
+  author = {Liu, Zhenzhen and Zhou, Jin Peng and Wang, Yufan and Weinberger, Kilian Q.},
+  editor = {Krause, Andreas and Brunskill, Emma and Cho, Kyunghyun and Engelhardt, Barbara and Sabato, Sivan and Scarlett, Jonathan},
+  date = {2023-07-23/2023-07-29},
+  series = {Proceedings of Machine Learning Research},
+  volume = {202},
+  eprint = {2302.10326},
+  eprinttype = {arxiv},
+  pages = {22528--22538},
+  publisher = {{PMLR}},
+  location = {{Honolulu, Hawaii, USA}},
+  eventtitle = {International {{Conference}} on {{Machine Learning}} ({{ICML}})}
 }
 
 @misc{liu_variance_2019,
@@ -15581,6 +15609,15 @@
   series = {Cambridge Monographs on Applied and Computational Mathematics},
   publisher = {{Cambridge University Press}},
   location = {{Cambridge}}
+}
+
+@article{watanabe2010asymptotic,
+  title = {Asymptotic Equivalence of {{Bayes}} Cross Validation and Widely Applicable Information Criterion in Singular Learning Theory.},
+  author = {Watanabe, Sumio and Opper, Manfred},
+  date = {2010},
+  journaltitle = {Journal of machine learning research},
+  volume = {11},
+  number = {12}
 }
 
 @article{weber_reinforced_2015,
