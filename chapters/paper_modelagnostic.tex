@@ -207,7 +207,7 @@ All these methods, however, require additional knowledge of the OOD data for eit
 
 Another line of works blame the models themselves and not the test statistics. \textcite{zhang_understanding_2021} argued that model misestimation is the main cause of higher likelihood assigned to OOD data. This can be due to both the model architecture and the maximum likelihood objective. \textcite{kirichenko_why_2020} and \textcite{schirrmeister_understanding_2020} showed that normalizing flows can achieve better OOD performance despite achieving a worse likelihood if one changes some model design choices.
 %
-Other works in the literature focused on deriving specific test statistics that works only for a specific model, for example for VAEs \parencite{xiao_likelihood_2020, maaloe_biva_2019, havtorn_hierarchical_2021}, or for normalizing flows \parencite{kirichenko_why_2020, ahmadian_likelihoodfree_2021}.
+Other works in the literature focused on deriving specific test statistics that work only for a specific model, for example for VAEs \parencite{xiao_likelihood_2020, maaloe_biva_2019, havtorn_hierarchical_2021}, or for normalizing flows \parencite{kirichenko_why_2020, ahmadian_likelihoodfree_2021}.
 
 %All the solutions we presented can be described in terms of the following two categories: \emph{model-agnostic} vs \emph{model-specific} test statistics and statistics \emph{with OOD assumptions} vs statistics \emph{with no OOD assumptions}. In this work, we are mostly interested in model-agnostic scores with no OOD assumptions, i.e.\@ scores that can be directly computed with any models and that do not need any explicit assumption on the OOD data. 
 
