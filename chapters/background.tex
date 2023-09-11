@@ -133,40 +133,56 @@ In this view, information entropy (relative or absolute) is a quantity that dist
 \section{Out-of-distribution detection}
 % 
 % OUTLINE: C.f. https://openaccess.thecvf.com/content/CVPR2023W/VAND/papers/Graham_Denoising_Diffusion_Models_for_Out-of-Distribution_Detection_CVPRW_2023_paper.pdf
+% - Formalize the problem. https://arxiv.org/pdf/2302.10326.pdf
+%   - Assume we have a dataset $\mathcal{D}_{\text{train}}$ of in-distribution data and we would like to build a model that can be used to assess whether a certain data point $\vx$ is sampled from $\mathcal{D}_{\text{train}}$ or not. Given a test point $\vx$, the model outputs a score $s(\vx)$ that indicates whether $\vx$ is in-distribution or out-of-distribution. 
+%   - In the context of neural networks, this problem dates back to at least 1994 \cite{bishop_novelty_1994}. 
 % - Categorisation into supervised and unsupervised. 
 %   - Supervised: Whether p(y|x) should be trusted for a given x. 
 %   - Unsupervised: Whether x should be trusted and used at all. 
 % - Supervised OODD:
-%   - Requires some examples of OODD data, which in some sense makes it inherently flawed. We can never really be sure that we have good enough coverage of OODD data.
-%   - One limitation of model-dependent OoD techniques is that they may discard information about p(x) in learning the task-specific model p(y|x)
-%   - \cite{ren_likelihood_2019} Likelihood Ratios for Out-of-Distribution Detection
+%   - Requires some examples of (synthetic) OODD data, which in some sense makes it inherently flawed. We can never really be sure that we have good enough coverage of OODD data.
+%   - One limitation of model-dependent OoD techniques is that they may discard information about p(x) in learning the task-specific model p(y|x). That information may be useful for OoD detection.
+%   - Likelihood Ratios for Out-of-Distribution Detection \cite{ren_likelihood_2019} provides a number of baselines for supervised OODD:
 %       - 1 Maximum class probability of the predictive distribution p(y|x) \cite{hendrycks_baseline_2017}
-%       - 2 Entropy of predictive distribution p(y|x)
-%       - 3 ODIN (Liang et al., 2018), MC Dropout (Gal & Ghahramani, 2016) and Deep- Ensemble (Lakshminarayanan et al., 2017) model a calibrated predictive distribution for a classification task.
-%       
-%       - 6 The log-odds of a binary classifier trained to distinguish between in-distribution inputs from all classes as one class and randomly perturbed in-distribution inputs as the other.
-%       - 7 The maximum class probability over K in-distribution classes of a (K + 1)-class classifier where the additional class is perturbed in-distribution.
-%       - 8 The maximum class probability over K in-distribution classes of a (K + 1)-class classifier where the additional class is perturbed in-distribution.
-%       - Predictive distribution p(y|x) with noise class
-%       - Predictive distribution p(y|x) with calibration on OOD data
-%       - Ensemble of 20 classifiers [1, 6] \cite{ren_likelihood_2019, lakshminarayanan_simple_2017}
-%       - Variational information bottleneck (VIB) (Alemi et al., 2018b) performs divergence estimation in latent space to detect OoD, but is technically a model-dependent technique be- cause the latent code is trained jointly with the downstream classification task.
-%   - Mahalanobis distance [1,5]
-%   - [7] 
-%   - [9] 
+%       - 2 Entropy of predictive distribution p(y|x) \cite{ren_likelihood_2019}
+%       - 3 ODIN \cite{liang_enhancing_2018} (Uses synthetic OOD data by adding noise to in-distribution)
+%       - 4 Mahalanobis distance to class conditional Gaussian distribution \cite{lee_training_2018}
+%       - 5 DeepEnsemble \cite{lakshminarayanan_simple_2017} The classifier-based ensemble method that uses the average of the predictions from multiple independently trained models with random initialization of network parameters and random shuffling of training inputs
+%       - 6 The log-odds of a binary classifier trained to distinguish between in-distribution inputs from all classes as one class and randomly perturbed in-distribution inputs as the other. \cite{ren_likelihood_2019}
+%       - 7 The maximum class probability over K in-distribution classes of a (K + 1)-class classifier where the additional class is perturbed in-distribution. \cite{ren_likelihood_2019}
+%       - 8 The maximum class probability of a K-class classifier for in-distribution classes but the predicted class distribution is explicitly trained to output uniform distribution on perturbed in-distribution inputs. \cite{ren_likelihood_2019}. This is similar to using simulated OOD inputs from GAN \cite{lee_training_2018} or using auxiliary datasets of outliers \cite{hendrycks_deep_2019} for calibration purpose.
+%   - Variational information bottleneck (VIB) (Alemi et al., 2018b) performs divergence estimation in latent space to detect OoD, but is technically a model-dependent technique because the latent code is trained jointly with the downstream classification task. \cite{alemi_deep_2017}
 % - Unsupervised ODDD
 %   - No OODD data required. Isolates uncertainty related to the input data.
+%   - Unsupervised can be categorised into generative and reconstructive.
 %   - Generative
 %       - 9 Compute WAIC (\cite{watanabe_algebraic_2009, watanabe_asymptotic_2010}) using ensemble of generative models \cite{choi_waic_2019}
+%       - Likelihood Ratios for Out-of-Distribution Detection \cite{ren_likelihood_2019}
+%       - Input complexity and out-of-distribution detection with likelihood-based generative models \cite{serra_input_2020}
+%       - Likelihood regret for variational autoencoders \cite{xiao_likelihood_2020}
+%       - Typicality test for generative OODD (Detecting out-of-distribution inputs to deep generative models using typicality) \cite{nalisnick_detecting_2019}
+%       - Density of states estimation for out of distribution detection \cite{morningstar_density_2021}
 %   - Reconstructive
 %       - A review of novelty detection \cite{pimentel_review_2014}
-%       - Outlier detection using autoencoders (Olga Lyudchik)
-%       - Density of states estimation for out of distribution detection \cite{morningstar_density_2021}
+%       - Outlier detection using autoencoders \cite{lyudchik_outlier_2016} and ensembles of autoencoders \cite{chen_outlier_2017}
 %       - Improving reconstruction autoencoder out-of-distribution detection with mahalanobis distance \cite{denouden_improving_2018}
-%   - [8] Likelihood regret
-%   - Recent: Diffusion inpainting \cite{liu_unsupervised_2023a}
+%       - Denosing diffusion models for out-of-distribution detection \cite{graham_denoising_2023}
+%       - Diffusion inpainting \cite{liu_unsupervised_2023a}
 
-Unsupervised out-of-distribution detection (OOD) is the task of identifying data that is unlikely to originate from the distribution of the training data. 
+% , MC Dropout (Gal & Ghahramani, 2016) and  model a calibrated predictive distribution for a classification task.
+
+In this section we will introduce the task of out-of-distribution detection, relate it to the concept of uncertainty and relate it to the previous section on information entropy.
+We will also provide a brief overview of some of the methods that have been proposed to tackle the task of out-of-distribution detection to supplement the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic}. 
+
+Out-of-distribution detection (OOD) is the task of identifying data that is unlikely to originate from the distribution of the training data. 
+Assume we have a dataset $\mathcal{D}_{\text{train}}$ of in-distribution data and we would like to build a model that can be used to assess whether a certain data point $\vx$ is sampled from $\mathcal{D}_{\text{train}}$ or not. Given a test point $\vx$, the model outputs a score $s(\vx)$ that indicates whether $\vx$ is in-distribution or out-of-distribution. 
+In the context of neural networks, this problem dates back to at least 1994 \cite{bishop_novelty_1994}. 
+
+Out-of-distribution detection is closely related to the concept of uncertainty. 
+\todo[inline]{Relate to epistemic uncertainty}
+
+One way to subdivide approaches to out-of-distribution detection is based on whether the model estimates a conditional probability distribution $p(y|\vx)$ over some target given the input, or whether it estimates a probability distribution $p(\vx)$ over the input itself. We might refer to the former as \emph{supervised} out-of-distribution detection, and the latter as \emph{unsupervised} out-of-distribution detection. 
+
 
 
 
