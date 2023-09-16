@@ -60,7 +60,7 @@ which is called the \emph{differential entropy} \cite{shannon_mathematical_1948}
 
 However, the differential entropy does not have several of the desirable attributes of the discrete version; it can be negative, it is not invariant under a change of variables, and it is not dimensionally correct%
 \footnote{\label{fn:dimensional-analysis-of-differential-entropy}
-    Information entropy has the same dimensionality as information content which is typically measured in units of bits, depending on the base of the logarithm. 
+    Information entropy has the same dimensionality as information content which is typically measured in units of bits, but depends on the base of the logarithm. 
     However, the bit is not a base unit of the International System of Units (SI), nor is it an official derived unit.
     A bit is quite simply a number, specifically 0 or 1. If something is said to have a size of 4 bits, it means that it can be described with 4 binary digits, i.e. 4 numbers, each either 0 or 1.
 
@@ -70,7 +70,7 @@ However, the differential entropy does not have several of the desirable attribu
     \begin{equation*}
         \text{dim} \left( H(X) \right) = \text{dim} \left( \int_{\mathcal{X}} p_X(x) \log p_X(x) \, dx \right) = \frac{1}{\text{length}} \log\left(\text{length}\right) \enspace ,
     \end{equation*}
-    which is clearly not dimensionless and therefore does not correspond to the discrete information entropy.
+    which is clearly not dimensionless and therefore cannot correspond directly to the discrete information entropy.
     % As a final twist on this story, note that the SI system does actually have a unit for an amount of substance: the mole \cite{internationalbureauofweightsandmeasures_systeme_2019}. 
     % The mole is defined as the amount of substance that contains as many elementary entities as there are atoms in $\SI{12}{g}$ of carbon-12, that is $\SI{1}{mol} = 6.02214076\times10^{23}$.
     % Taking the position that a mole is quite simply a number (not a number of particles) \cite{debievre_atomic_1992,baranski_atomic_2012}, and a bit is a number of elementary (information) entities, we could define a bit as a derived unit from the mole as $\SI{1}{bit} = \SI{1}{mol} / 6.02214076\times10^{23}$.
@@ -80,7 +80,7 @@ For these reasons, the differential entropy may not be a suitable measure of inf
 Instead, \textcite{jaynes_information_1957,jaynes_prior_1968} argued that the information entropy of a continuous distribution should be defined as the limiting density of increasingly dense discrete distributions, $H_{N\rightarrow\infty}(X)$. This argument leads to,
 %
 \begin{equation} \label{eq:corrected-differential-entropy-jaynes}
-    H_{N\rightarrow\infty}(X) = \lim_{N\rightarrow\infty} [H_{N}(X) - \log N] = - \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace ,
+    H_{N\rightarrow\infty}(X) \equiv \lim_{N\rightarrow\infty} [H_{N}(X) - \log N] = - \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace ,
 \end{equation}
 %
 where $H_N(X)$ is the limiting density for discrete points, $q(x)$ is a uniform density over the quantization of the continuous space, and we have subtracted a $\log N$ term that would go to infinity in the limit of infinite points.
@@ -103,38 +103,21 @@ The form on the right-hand side of \cref{eq:corrected-differential-entropy-jayne
     D_{KL}(P\parallel Q) = \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
 \end{equation}
 %
-The Kullback-Leibler divergence $D_{KL}(P\parallel Q)$ is often interpreted as the amount of additional information required to represent events from distribution $P$ with density $p(x)$ using a code optimized for distribution $Q$ with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $Q$ to represent events from distribution $P$, i.e. the \emph{relative entropy} of $P$ with respect to $Q$. 
-The KL-divergence is also known as the \emph{information gain}. 
+The Kullback-Leibler divergence $D_{KL}(P\parallel Q)$, also known as the \emph{information gain}, is often interpreted as the amount of additional information required to represent events from distribution $P$ with density $p(x)$ using a code optimized for distribution $Q$ with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $Q$ to represent events from distribution $P$, i.e. the \emph{relative entropy} of $P$ with respect to $Q$.
 
 Returning to Jaynes' argument and \cref{eq:corrected-differential-entropy-jaynes}, we can interpret this to say that the information entropy of a continuous random variable $X$ should be defined as the expected difference in information entropy between its density and a uniform density. 
-Identifying the Kullback-Leibler divergence as a measure of (relative) information entropy provides a natural point of convergence for this section since it is equivalently defined for both discrete and continuous random variables as opposed to the differential entropy. 
-In this view, information entropy (relative or absolute) is a quantity that distills the distribution of a random variable into a single number that describes the diversity of the potential outcomes of the random variable. 
+Identifying the Kullback-Leibler divergence as a measure of this relative information entropy provides a natural point of convergence for this section since it is equivalently defined for both discrete and continuous random variables, contrary to the differential entropy. 
+In this view, information entropy is a quantity that distills the distribution of a random variable into a single number that describes the diversity of the potential outcomes of the random variable. 
+% In the following, we will see that this interpretation of information entropy as a measure of diversity is useful for understanding the concept of uncertainty in machine learning.
 
 % In fact, Kullback initially motivated the divergence as an expected likelihood ratio \cref{kullback_information_1959}.
-
-
-% \subsection{Two kinds of uncertainty}
-
-% \todo[inline]{Consider not using the terms aleatoric and epistemic uncertainty. Instead use the terms ``uncertainty due to lack of knowledge (reducible)" and ``uncertainty inherent to the data (irreducible)".}
-
-% Uncertainty can be divided into two kinds: aleatoric and epistemic. 
-
-% Aleatoric uncertainty is defined as being inherent to the data, and is irreducible. 
-
-% Epistemic uncertainty is uncertainty due to lack of knowledge, and can be reduced with more data. 
-
-
-% Two kinds of uncertainty:\\
-% - Aleatoric: Uncertainty inherent to the data. Irreducible. "Known unknowns". \\
-% - Epistemic: Uncertainty due to lack of knowledge. Can be reduced with more data. "Unknown unknowns".\\
-
 
 
 \section{Out-of-distribution detection}
 % 
 % OUTLINE: C.f. https://openaccess.thecvf.com/content/CVPR2023W/VAND/papers/Graham_Denoising_Diffusion_Models_for_Out-of-Distribution_Detection_CVPRW_2023_paper.pdf
 % - Formalize the problem. https://arxiv.org/pdf/2302.10326.pdf
-%   - Assume we have a dataset $\mathcal{D}_{\text{train}}$ of in-distribution data and we would like to build a model that can be used to assess whether a certain data point $\vx$ is sampled from $\mathcal{D}_{\text{train}}$ or not. Given a test point $\vx$, the model outputs a score $s(\vx)$ that indicates whether $\vx$ is in-distribution or out-of-distribution. 
+%   - Assume we have a dataset $\mathcal{D}_{\text{train}}$ of in-distribution data and we would like to build a model that can be used to assess whether a certain data point $\xb$ is sampled from $\mathcal{D}_{\text{train}}$ or not. Given a test point $\xb$, the model outputs a score $s(\xb)$ that indicates whether $\xb$ is in-distribution or out-of-distribution. 
 %   - In the context of neural networks, this problem dates back to at least 1994 \cite{bishop_novelty_1994}. 
 % - Categorisation into supervised and unsupervised. 
 %   - Supervised: Whether p(y|x) should be trusted for a given x. 
@@ -151,6 +134,7 @@ In this view, information entropy (relative or absolute) is a quantity that dist
 %       - 6 The log-odds of a binary classifier trained to distinguish between in-distribution inputs from all classes as one class and randomly perturbed in-distribution inputs as the other. \cite{ren_likelihood_2019}
 %       - 7 The maximum class probability over K in-distribution classes of a (K + 1)-class classifier where the additional class is perturbed in-distribution. \cite{ren_likelihood_2019}
 %       - 8 The maximum class probability of a K-class classifier for in-distribution classes but the predicted class distribution is explicitly trained to output uniform distribution on perturbed in-distribution inputs. \cite{ren_likelihood_2019}. This is similar to using simulated OOD inputs from GAN \cite{lee_training_2018} or using auxiliary datasets of outliers \cite{hendrycks_deep_2019} for calibration purpose.
+%   - X Deep semi-supervised anomaly detection \cite{ruff_deep_2020}.
 %   - Variational information bottleneck (VIB) (Alemi et al., 2018b) performs divergence estimation in latent space to detect OoD, but is technically a model-dependent technique because the latent code is trained jointly with the downstream classification task. \cite{alemi_deep_2017}
 % - Unsupervised ODDD
 %   - No OODD data required. Isolates uncertainty related to the input data.
@@ -171,19 +155,62 @@ In this view, information entropy (relative or absolute) is a quantity that dist
 
 % , MC Dropout (Gal & Ghahramani, 2016) and  model a calibrated predictive distribution for a classification task.
 
-In this section we will introduce the task of out-of-distribution detection, relate it to the concept of uncertainty and relate it to the previous section on information entropy.
-We will also provide a brief overview of some of the methods that have been proposed to tackle the task of out-of-distribution detection to supplement the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic}. 
+In this section we will introduce out-of-distribution detection, relate it to the concept of uncertainty and to the previous section on information entropy.
+To supplement the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic}, we will also provide a brief overview of some of the related methods that have been proposed in the literature. 
 
-Out-of-distribution detection (OOD) is the task of identifying data that is unlikely to originate from the distribution of the training data. 
-Assume we have a dataset $\mathcal{D}_{\text{train}}$ of in-distribution data and we would like to build a model that can be used to assess whether a certain data point $\vx$ is sampled from $\mathcal{D}_{\text{train}}$ or not. Given a test point $\vx$, the model outputs a score $s(\vx)$ that indicates whether $\vx$ is in-distribution or out-of-distribution. 
+Out-of-distribution detection is the task of identifying data that is unlikely to originate from the distribution of the training data. 
+In the general case, we assume that we have a dataset $\mathcal{D}_{\text{training}}$ of in-distribution data and we would like to build a model that can be used to assess whether a certain data point $\xb$ is sampled from $\mathcal{D}_{\text{training}}$ or not. 
+Out-of-distribution detection is closely related to the concept of uncertainty. Specifically, since such data is unknown to the model, it is, by definition, a source of epistemic uncertainty. Only in cases where strong prior knowledge of the data is incorporated into the model, can we expect the model to be able to make predictions on out-of-distribution data.
+
+One way to categorize the many approaches to out-of-distribution detection is based on whether the method estimates a conditional probability distribution $p(y|\xb)$ over some target variable given the input, or a probability distribution $p(\xb)$ over the input itself. We might refer to the former as \emph{supervised} out-of-distribution detection, and the latter as \emph{unsupervised} out-of-distribution detection \cite{graham_denoising_2023,liu_unsupervised_2023a}. Supervised out-of-distribution detection tries to assess whether the model's prediction $p(y|\xb)$ should be trusted for a given input $\xb$, whereas unsupervised out-of-distribution detection seeks to assess whether the input $\xb$ should be trusted and used at all.
+
+\subsection{Supervised out-of-distribution detection}
+
+In the supervised setting the supervision can come from different sources that result in different levels of informedness. 
+If one assumes access to representative out-of-distribution data, then one can train a model to distinguish between in-distribution and out-of-distribution data. 
+The out-of-distribution data can either be synthetic or real.
+Such approaches have achieved high performance \cite{lee_training_2018,hendrycks_deep_2019,ruff_deep_2020} but require access to out-of-distribution data, which in some sense makes it inherently flawed; it is often not possible to guarantee good enough coverage of out-of-distribution data to cover all possibilities. 
+\todo[inline]{Describe an example method or two...}
+
+Less informed approaches only assume access to in-distribution data when learning the task-specific model $p(y|\xb)$. 
+One particularly simple approach requiring only in-distribution data uses the maximum class probability of the predictive distribution $p(y|\xb)$ to evaluate whether the example is in-distribution or not \cite{hendrycks_baseline_2017}. 
+Other simple methods presented by \textcite{ren_likelihood_2019} include using the entropy of $p(y|\xb)$, the maximum class probability with an additional class trained to predict perturbed in-distribution data, the maximum class probability where the predicted class distribution is explicitly trained to output uniform distribution on perturbed in-distribution inputs, and the log-odds of a binary classifier trained to distinguish between original and perturbed in-distribution data. 
+
+In ODIN \cite{liang_enhancing_2018}, the authors propose to add input-dependent noise to the inputs of a pre-trained classifier and use the calibrated maximum class probability of the predictive distribution $p(y|\xb)$ to evaluate whether the example is in-distribution or not. This method does not require retraining the classifier and generally improves on the simpler methods mentioned above. 
+In \textcite{lee_training_2018}, the authors fit a multivariate Gaussian distribution to the activations of the penultimate layer of a pre-trained classifier and use the Mahalanobis distance to this distribution to evaluate whether the example is in-distribution or not. \todo[inline]{Continue here ...}
+
+%       - 2 Entropy of predictive distribution p(y|x) \cite{ren_likelihood_2019}
+%       - 6 The log-odds of a binary classifier trained to distinguish between in-distribution inputs from all classes as one class and randomly perturbed in-distribution inputs as the other. \cite{ren_likelihood_2019}
+%       - 7 The maximum class probability over K in-distribution classes of a (K + 1)-class classifier where the additional class is perturbed in-distribution. \cite{ren_likelihood_2019}
+%       - 8 The maximum class probability of a K-class classifier for in-distribution classes but the predicted class distribution is explicitly trained to output uniform distribution on perturbed in-distribution inputs. \cite{ren_likelihood_2019}. This is similar to using simulated OOD inputs from GAN \cite{lee_training_2018} or using auxiliary datasets of outliers \cite{hendrycks_deep_2019} for calibration purpose.
+
+
+%       - 3 ODIN \cite{liang_enhancing_2018} (Uses synthetic OOD data by adding noise to in-distribution)
+%       - 4 Mahalanobis distance to class conditional Gaussian distribution \cite{lee_training_2018}
+%       - 5 DeepEnsemble \cite{lakshminarayanan_simple_2017} The classifier-based ensemble method that uses the average of the predictions from multiple independently trained models with random initialization of network parameters and random shuffling of training inputs
+
+%   - Variational information bottleneck (VIB) (Alemi et al., 2018b) performs divergence estimation in latent space to detect OoD, but is technically a model-dependent technique because the latent code is trained jointly with the downstream classification task. \cite{alemi_deep_2017}
+
+
+\cite{hendrycks_baseline_2017, lakshminarayanan_simple_2017, lliang_enhancing_2018, lee_simple_2018, huang_importance_2021, wang_vim_2022}
+
+
+
+
+ either synthetic out-of-distribution data or from real out-of-distribution data. Synthetic out-of-distribution data is data that is generated by some process that is known to be out-of-distribution. For example, if we are training a model to classify images of cats and dogs, we could generate synthetic out-of-distribution data by adding noise to the images. Real out-of-distribution data is data that is known to be out-of-distribution, but is not generated synthetically. For example, if we are training a model to classify images of cats and dogs, we could use images of cars as real out-of-distribution data.
+
+ requires some examples of out-of-distribution data, 
+
+ which in some sense makes it inherently flawed. As we discussed earlier, for many modern applications of machine learning, the data is high dimensional and complex which makes sufficiently sampling the space of out-of-distribution data intractable and makes it impossible to guarantee robust out-of-distribution detection. Another weakness of supervised out-of-distribution detection is that in learning the task-specific model $p(y|\xb)$ a model may discard information about $p(\xb)$ which could be useful for out-of-distribution detection.
+
+
+ \subsection{Unsupervised out-of-distribution detection}
+
+% Assume we have a dataset $\mathcal{D}_{\text{training}}$ of in-distribution data and we would like to build a model that can be used to assess whether a certain data point $\xb$ is sampled from $\mathcal{D}_{\text{training}}$ or not. Given a test point $\xb$, the model outputs a score $s(\xb)$ that indicates whether $\xb$ is in-distribution or out-of-distribution. 
 In the context of neural networks, this problem dates back to at least 1994 \cite{bishop_novelty_1994}. 
 
-Out-of-distribution detection is closely related to the concept of uncertainty. 
-\todo[inline]{Relate to epistemic uncertainty}
 
-One way to subdivide approaches to out-of-distribution detection is based on whether the model estimates a conditional probability distribution $p(y|\vx)$ over some target given the input, or whether it estimates a probability distribution $p(\vx)$ over the input itself. We might refer to the former as \emph{supervised} out-of-distribution detection, and the latter as \emph{unsupervised} out-of-distribution detection. 
-
-
+Continual novelty detection \cite{aljundi_continual_2022}
 
 
 % Out-of-distribution detection and anomaly detection are both related concepts in machine learning and deep learning, but they address slightly different problems and have distinct focuses.

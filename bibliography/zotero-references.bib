@@ -201,6 +201,15 @@
   abstract = {Question Generation (QG) and Question Answering (QA) are key challenges facing systems that interact with natural languages. The potential benefits of using automated systems to generate questions helps reduce the dependency on humans to generate questions and other needs associated with systems interacting with natural languages. In this paper we consider a system that automates generation of questions from a sentence, given a sentence, the system, will generate all possible questions which this sentence contain these questions answers. Since the given sentence may be a complex sentence, the system will generate elementary sentences, from the input complex sentences, using a syntactic parser. A part of speech tagger and a named entity recogniser are used to encode needed information. Based on the subject, verb, object and preposition the sentence will be classified, in order determine the type of questions that can possibly be generated from this sentence. We use development data provided by the Question Generation Shared Task Evaluation Challenge 2010. Keywords:}
 }
 
+@inproceedings{aljundi_continual_2022,
+  title = {Continual Novelty Detection},
+  booktitle = {Conference on {{Lifelong Learning Agents}}},
+  author = {Aljundi, Rahaf and Reino, Daniel Olmeda and Chumerin, Nikolay and Turner, Richard E},
+  date = {2022},
+  pages = {1004--1025},
+  publisher = {{PMLR}}
+}
+
 @inproceedings{alpay_learning_2016,
   title = {Learning {{Multiple Timescales}} in {{Recurrent Neural Networks}}},
   booktitle = {Artificial {{Neural Networks}} and {{Machine Learning}} – {{ICANN}} 2016},
@@ -6465,6 +6474,15 @@
   publisher = {{PMLR}},
   abstract = {Importance weighted variational inference (Burda et al., 2015) uses multiple i.i.d. samples to have a tighter variational lower bound. We believe a joint proposal has the potential of reducing the number of redundant samples, and introduce a hierarchical structure to induce correlation. The hope is that the proposals would coordinate to make up for the error made by one another to reduce the variance of the importance estimator. Theoretically, we analyze the condition under which convergence of the estimator variance can be connected to convergence of the lower bound. Empirically, we confirm that maximization of the lower bound does implicitly minimize variance. Further analysis shows that this is a result of negative correlation induced by the proposed hierarchical meta sampling scheme, and performance of inference also improves when the number of samples increases.},
   eventtitle = {International {{Conference}} on {{Machine Learning}}}
+}
+
+@article{huang_importance_2021,
+  title = {On the Importance of Gradients for Detecting Distributional Shifts in the Wild},
+  author = {Huang, Rui and Geng, Andrew and Li, Yixuan},
+  date = {2021},
+  journaltitle = {Advances in Neural Information Processing Systems},
+  volume = {34},
+  pages = {677--689}
 }
 
 @inproceedings{huang_improving_2022,
@@ -12875,6 +12893,17 @@
   langid = {english}
 }
 
+@online{ruff_deep_2020,
+  title = {Deep {{Semi-Supervised Anomaly Detection}}},
+  author = {Ruff, Lukas and Vandermeulen, Robert A. and Görnitz, Nico and Binder, Alexander and Müller, Emmanuel and Müller, Klaus-Robert and Kloft, Marius},
+  date = {2020-02-14},
+  eprint = {1906.02694},
+  eprinttype = {arxiv},
+  urldate = {2023-09-12},
+  abstract = {Deep approaches to anomaly detection have recently shown promising results over shallow methods on large and complex datasets. Typically anomaly detection is treated as an unsupervised learning problem. In practice however, one may have---in addition to a large set of unlabeled samples---access to a small pool of labeled samples, e.g. a subset verified by some domain expert as being normal or anomalous. Semi-supervised approaches to anomaly detection aim to utilize such labeled samples, but most proposed methods are limited to merely including labeled normal samples. Only a few methods take advantage of labeled anomalies, with existing deep approaches being domain-specific. In this work we present Deep SAD, an end-to-end deep methodology for general semi-supervised anomaly detection. We further introduce an information-theoretic framework for deep anomaly detection based on the idea that the entropy of the latent distribution for normal data should be lower than the entropy of the anomalous distribution, which can serve as a theoretical interpretation for our method. In extensive experiments on MNIST, Fashion-MNIST, and CIFAR-10, along with other anomaly detection benchmark datasets, we demonstrate that our method is on par or outperforms shallow, hybrid, and deep competitors, yielding appreciable performance improvements even when provided with only little labeled data.},
+  pubstate = {preprint}
+}
+
 @article{rumelhart_learning_1986,
   title = {Learning Representations by Back-Propagating Errors},
   author = {Rumelhart, David E. and Hinton, Geoffrey E. and Williams, Ronald J.},
@@ -15585,6 +15614,14 @@
   abstract = {We propose an approach for pre-training speech representations via a masked reconstruction loss. Our pre-trained encoder networks are bidirectional and can therefore be used directly in typical bidirectional speech recognition models. The pre-trained networks can then be fine-tuned on a smaller amount of supervised data for speech recognition. Experiments with this approach on the LibriSpeech and Wall Street Journal corpora show promising results. We find that the main factors that lead to speech recognition improvements are: masking segments of sufficient width in both time and frequency, pre-training on a much larger amount of unlabeled data than the labeled data, and domain adaptation when the unlabeled and labeled data come from different domains. The gain from pre-training is additive to that of supervised data augmentation.}
 }
 
+@inproceedings{wang_vim_2022,
+  title = {Vim: {{Out-of-distribution}} with Virtual-Logit Matching},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF}} Conference on Computer Vision and Pattern Recognition},
+  author = {Wang, Haoqi and Li, Zhizhong and Feng, Litong and Zhang, Wayne},
+  date = {2022},
+  pages = {4921--4930}
+}
+
 @misc{wang_vlmo_2021,
   title = {{{VLMo}}: {{Unified Vision-Language Pre-Training}} with {{Mixture-of-Modality-Experts}}},
   shorttitle = {{{VLMo}}},
@@ -15634,7 +15671,7 @@
   location = {{Cambridge}}
 }
 
-@article{watanabe2010asymptotic,
+@article{watanabe_asymptotic_2010,
   title = {Asymptotic Equivalence of {{Bayes}} Cross Validation and Widely Applicable Information Criterion in Singular Learning Theory.},
   author = {Watanabe, Sumio and Opper, Manfred},
   date = {2010},
