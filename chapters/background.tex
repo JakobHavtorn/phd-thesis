@@ -168,7 +168,7 @@ As the most informed approaches, this group of methods is also limited by the in
 The least informed supervised OOD detection methods do not require instantiations of real or synthetic OOD data. 
 A generalized version of ODIN \cite{hsu_generalized_2020} removes the need for simulating OOD data by following a probabilistic motivation and computing output logits as a fraction between two carefully designed network branches. The authors note that most current methods make a closed world assumption and implicitly condition on the in-domain $d_\text{in}$ in the form of the predictive distribution $p(y|\xb, d_\text{in})$. With this observation, the authors decompose the $p(y|\xb, d_\text{in})$ into a joint class-domain probability and a domain probability,
 \begin{equation}
-    p(y|d_\text{in},\xb) = \frac{p(y, d_\text{in}|\xb)}{p(d_\text{in}|\xb)} \enspace .
+    p(y|\xb,d_\text{in}) = \frac{p(y, d_\text{in}|\xb)}{p(d_\text{in}|\xb)} \enspace .
 \end{equation}
 
 \todo[inline]{This here is WIP}
