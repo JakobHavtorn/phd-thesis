@@ -35,6 +35,7 @@ nats
 OOD
 Plimpton
 Rhind
+softmax
 Trygfonden
 Underconfident
 underconfident

@@ -113,7 +113,7 @@ In this view, information entropy is a quantity that distills the distribution o
 % In fact, Kullback initially motivated the divergence as an expected likelihood ratio \cref{kullback_information_1959}.
 
 
-\section{Out-of-distribution detection}
+\section{Out-of-distribution detection} \label{sec:out-of-distribution-detection}
 % 
 % OUTLINE: C.f. https://openaccess.thecvf.com/content/CVPR2023W/VAND/papers/Graham_Denoising_Diffusion_Models_for_Out-of-Distribution_Detection_CVPRW_2023_paper.pdf
 % - Formalize the problem. https://arxiv.org/pdf/2302.10326.pdf
@@ -125,14 +125,34 @@ In this view, information entropy is a quantity that distills the distribution o
 %   - Unsupervised: Whether x should be trusted and used at all. 
 %
 In this section we will introduce out-of-distribution (OOD) detection, relate it to the concept of uncertainty and to the previous section on information entropy. 
-To supplement the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic}, we will also provide a brief overview of some of the related methods that have been proposed in the literature. 
+To supplement the short related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic}, we will then provide a concise review of the literature on out-of-distribution detection. 
 
-
-OOD detection is the task of identifying data that is unlikely to originate from the distribution of the training data and, in the context of neural networks, the task dates back to at least 1994 \cite{bishop_novelty_1994}. 
-In the general case, we assume that we have a dataset $\mathcal{D}_{\text{training}}$ of in-distribution data, and we would like to build a model that can be used to assess whether a certain data point $\xb$ is sampled from $\mathcal{D}_{\text{training}}$ or not. 
+\subsection{An overview of the task}
+%
+OOD detection is the task of identifying data that is unlikely to originate from the distribution of the training data and, in the context of neural networks, dates back several decades \cite{bishop_novelty_1994, chang_figure_1993}. 
+In the literature, the task is also referred to as open-set \cite{bendale_open_2016, cardoso_weightless_2017, panaredabusto_open_2017}, outlier-rejection \cite{xu_deep_2014, mor_confidence_2018}, or selective prediction \cite{geifman_selective_2017}. A closely related field is that of network-based uncertainty estimation [14, 10, 36, 20].
+In the general case, we assume that we have a domain of in-distribution data, $\mathcal{D}_{\text{in}}$, and we would like to build a model that can be used to assess whether a certain data point $\xb$ is sampled from that domain or not. 
 Since such OOD data is unknown to the model, it is, by definition, a source of epistemic uncertainty. This makes OOD detection closely related to uncertainty quantification. Only in cases where strong prior knowledge of the data is incorporated into a model, can we expect it to be able to make reliable predictions on OOD data.
 
-Many approaches for OOD detection have been proposed in the literature. One way to categorize the different approaches is based on whether the method estimates a conditional probability distribution $p(y|\xb)$ over some target variable given the input, or a probability distribution $p(\xb)$ over the input itself. We might refer to the former as \emph{supervised} OOD detection, and the latter as \emph{unsupervised} OOD detection \cite{graham_denoising_2023,liu_unsupervised_2023a}. Supervised OOD detection tries to assess whether the model's prediction $p(y|\xb)$ should be trusted for a given input $\xb$, whereas unsupervised OOD detection judges whether the input $\xb$ should be trusted and used at all. 
+Recently, several approaches for deep neural networks have been developed that formally address the rejection of samples $\xb\notin\mathcal{D}_{\text{in}}$. 
+One way to categorize the different approaches is based on whether the method estimates a conditional probability distribution $p(y|\xb)$ over some target variable given the input, or a probability distribution $p(\xb)$ over the input itself. We might refer to the former as \emph{supervised} OOD detection, and the latter as \emph{unsupervised} OOD detection \cite{graham_denoising_2023,liu_unsupervised_2023a}, although it is important to note that this distinction relates only to the availability of some target value, $y$ - not whether OOD data is available for supervision\footnote{
+    In our overview, we distinguish between supervised and unsupervised out-of-distribution by letting methods be classified as supervised that use any kind of target value $y$, whether it relates to the original task, available OOD data, or both. This is the same distinction made by \textcite{graham_denoising_2023} and \textcite{liu_unsupervised_2023a}. 
+    However, it is important to note that in other works, the distinction is made based on whether the model is trained on OOD data or not \cite{hendrycks_baseline_2017,liu_energy-based_2020}. This difference in nomenclature is currently unresolved in the literature. 
+}. 
+Supervised OOD detection tries to assess whether the model's prediction $p(y|\xb)$ should be trusted for a given input $\xb$, whereas unsupervised OOD detection judges whether the input $\xb$ should be trusted and used at all. 
+
+Central to any OOD detection method is the ability to assign a score $s(\xb) \in \mathbb{R}$ to a given input $\xb$ that indicates the degree to which the input is likely to be OOD. After obtaining such a scoring method, we typically use a validation set to tune a threshold $\tau$ such that $\xb$ is considered OOD if $s(\xb) > \tau$. The threshold is typically chosen such that performance on the validation set is above some standard, for instance by imposing constraints on the recall and precision. 
+
+There are many ways to obtain such a scoring method. 
+Unsupervised methods often derive the score 
+from the \emph{likelihood} assigned to the input \cite{bishop_novelty_1994,choi_waic_2019,kirichenko_why_2020,ren_likelihood_2019,serra_input_2020,xiao_likelihood_2020,morningstar_density_2021,nalisnick_detecting_2019,bergamin_modelagnostic_2022,maaloe_biva_2019,havtorn_hierarchical_2021}, 
+from a \emph{reconstruction} of the input $\xb$ \cite{sakurada_anomaly_2014,xia_learning_2015,lyudchik_outlier_2016,zhou_anomaly_2017,chen_outlier_2017,schlegl_unsupervised_2017,zong_deep_2018,li_madgan_2019,graham_denoising_2023,liu_unsupervised_2023a}, or 
+from a latent \emph{representation} of the input \cite{denouden_improving_2018,hendrycks_using_2019,ahmadian_likelihoodfree_2021,bergman_classificationbased_2020,tack_csi_2020,sehwag_ssd_2021,xiao_we_2021}.  % https://arxiv.org/pdf/2302.10326.pdf
+Supervised methods often derive the score 
+from the \emph{probabilities} given by the predictive distribution $p(y|\xb)$ \cite{hendrycks_baseline_2017,hendrycks_scaling_2022} or 
+from the \emph{logits} of $p(y|\xb)$ \cite{hendrycks_2022_scaling,liu_energy-based_2020,}. 
+Other methods use a latent \emph{representation} of the input \cite{lee_simple_2018,li_anomaly_2019,ndiour_outofdistribution_2020,cook_outlier_2020,zaeemzadeh_outofdistribution_2021}, similar to unsupervised methods. 
+In the following sections, we provide a more in-depth overview of the different approaches to OOD detection following the above categorization into supervised and unsupervised methods. For the supervised methods we further distinguish between whether methods use real OOD data, synthetic OOD data, or no OOD data at all. 
 
 \subsection{Supervised out-of-distribution detection}
 % OUTLINE:
@@ -153,38 +173,86 @@ Many approaches for OOD detection have been proposed in the literature. One way 
 %
 % - ViM: Out-Of-Distribution with Virtual-logit Matchinghttps://arxiv.org/pdf/2203.10807.pdf in cludes a short overview of many modern methods
 %
-In the supervised setting the supervision can come from different sources depending on how much we know, or assume to know, about the OOD data. 
-The most informed approaches assume we have access to representative OOD data such that we can modify the training procedure to explicitly model the OOD data. 
-Such approaches have achieved high performance, but are inherently limited by the availability of such OOD data and how well it covers the large variation in OOD data \cite{hendrycks_deep_2019,ruff_deep_2020}.  
-As we discussed earlier, for many modern applications of machine learning, the data is high dimensional and complex which makes sufficiently sampling the space of out-of-distribution data intractable. 
+In the supervised setting the supervision can come from different sources depending on how much we know, or assume to know, about the OOD data. In the least informed setting, the supervision is from the target variable $y$ only. In the most informed setting we also assume access to representative OOD data. 
 
-A number of less informed methods do not require access to actual OOD data but instead use synthetic OOD data. 
+% Actual OOD data
+\paragraph{Methods using real OOD data}
+Methods that use representative OOD data have achieved high performance since they can directly learn to distinguish between in-distribution and OOD data. 
+\textcite{hendrycks_deep_2019} augments the original training objective with a task-dependent outlier exposure loss that aims to make the output logits different for outlier data. 
+In a similar vein, \textcite{dhamija_reducing_2018} propose losses designed to maximize the entropy of $p(y|\xb)$ and decrease feature magnitudes for OOD data sampled from other datasets. 
+\textcite{ruff_deep_2020} use semi-supervised learning and learn representations of in-distribution data that concentrate close to a centroid in latent space while labelled outliers are pushed away from the centroid. 
+Other methods including MCD \cite{yu_unsupervised_2019}, NGC \cite{wu_ngc_2021}, and UDG \cite{yang_semantically_2021} utilize external, unlabeled, noisy data to improve OOD detection performance without requiring cleanly labelled OOD examples.
+As we discussed earlier, for many modern applications of machine learning, input data is often high dimensional and complex making sufficiently sampling the space of out-of-distribution data intractable. 
+Therefore, methods that rely on samples of OOD data are inherently limited by its availability and how well it covers the large variation in OOD data. 
+
+% Synthetic OOD data
+\paragraph{Methods using synthetic OOD data}
+A number of methods do not require access to actual OOD data but synthesize it instead. 
 Several methods synthesize this OOD data by adding noise to in-distribution data \cite{liang_enhancing_2018, lee_simple_2018, ren_likelihood_2019}. 
-For instance, \textcite{ren_likelihood_2019} propose a number of baselines including training a binary classifier to distinguish between original and perturbed in-distribution data, using an additional class trained to predict perturbed in-distribution data, and training the predicted class distribution to output uniform distribution for perturbed in-distribution inputs \cite{dhamija_reducing_2018}. 
-In ODIN \cite{liang_enhancing_2018}, the authors propose to add gradient-based, input-dependent noise to the inputs of a pre-trained classifier and use the calibrated maximum class probability of the predictive distribution $p(y|\xb)$ to evaluate whether the example is in-distribution or not. This method does not require retraining the classifier and generally improves on the previous, simple methods. 
-A different approach generates OOD inputs using a GAN \cite{lee_training_2018}. 
-As the most informed approaches, this group of methods is also limited by the intractability of sampling the space of OOD data.
+For instance, \textcite{ren_likelihood_2019} propose a number of baselines including training a binary classifier to distinguish between original and perturbed in-distribution data. They also propose adding an OOD class to softmax classifiers and training it to predict perturbed in-distribution data, or alternatively, training the predicted class distribution to output uniform distribution for perturbed in-distribution inputs. 
+With ODIN \cite{liang_enhancing_2018}, the authors propose to calibrate $p(y|\xb)$ with temperature scaling \cite{guo_calibration_2017} and add gradient-based, input-dependent perturbations to the inputs to use the calibrated maximum class probability as the OOD score. This method does not require retraining the classifier and generally improves on the baselines of \textcite{ren_likelihood_2019}. 
+\textcite{vyas_outofdistribution_2018} train an ensemble of classifiers on different subsets of the training data, with the left out data taken as OOD, and propose novel loss over $p(y|\xb)$ that seeks to maintain a set margin between its average entropy for the OOD and in-distribution examples. 
+Another approach generates OOD inputs using a GAN \cite{lee_training_2018}. 
+Similar to actual OOD data, the usefulness of synthetic OOD data is also fundamentally limited by the intractability of sampling the complete space of OOD data.
 
-The least informed supervised OOD detection methods do not require instantiations of real or synthetic OOD data. 
-A generalized version of ODIN \cite{hsu_generalized_2020} removes the need for simulating OOD data by following a probabilistic motivation and computing output logits as a fraction between two carefully designed network branches. The authors note that most current methods make a closed world assumption and implicitly condition on the in-domain $d_\text{in}$ in the form of the predictive distribution $p(y|\xb, d_\text{in})$. With this observation, the authors decompose the $p(y|\xb, d_\text{in})$ into a joint class-domain probability and a domain probability,
-\begin{equation}
-    p(y|\xb,d_\text{in}) = \frac{p(y, d_\text{in}|\xb)}{p(d_\text{in}|\xb)} \enspace .
+% No OOD data, probs
+\paragraph{Methods not using OOD data}
+The least informed supervised OOD detection methods do not require instantiations of any kind of OOD data, real or synthetic. 
+A baseline approach uses the maximum class probability of $p(y|\xb)$ directly by noting that it tends to be larger for correctly classified examples \cite{hendrycks_baseline_2017}. Another baseline method proposes that a high entropy of $p(y|\xb)$ indicates an OOD input \cite{ren_likelihood_2019} 
+Other methods that derive the score from the classifier probabilities include \textcite{lakshminarayanan_simple_2017} who propose to use an ensemble of independently trained classifiers to discriminate between in-distribution and OOD data by evaluating the agreement between the classifiers, \textcite{devries_learning_2018} who augment the network with a confidence estimation branch that learns to estimate the confidence of the classifier separately from the probability, and \textcite{huang_importance_2021} who compute the gradient of the KL-divergence of the predictive distribution $p(y|\xb)$ to a uniform distribution noting that the magnitude of gradients is higher for in-distribution data than for OOD data. 
+The Variational Information Bottleneck \cite{alemi_deep_2017} jointly learns a probabilistic latent representation, $\zb$ and $p(y|\xb)$, using a generalized variational autoencoder \cite{kingma_autoencoding_2014} that tries to maximize the mutual information between $\zb$ and $y$.
+
+\textcite{hsu_generalized_2020} proposes a generalized version of ODIN that removes the need for simulating OOD data.
+The authors note that most current methods make a closed world assumption and implicitly condition on the in-domain $\mathcal{D}_{\text{in}}$ in the form of the predictive distribution $p(y|\xb, \mathcal{D}_{\text{in}})$. With this observation, the authors decompose the $p(y|\xb, \mathcal{D}_{\text{in}})$ into a joint class-domain probability and a domain probability,
+%
+\begin{equation} \label{eq: joint class-domain and domain probability}
+    p(y|\xb,\mathcal{D}_{\text{in}}) = \frac{p(y, \mathcal{D}_{\text{in}}|\xb)}{p(\mathcal{D}_{\text{in}}|\xb)} \enspace .
 \end{equation}
+%
+Without data from the out-domain, it is not possible to directly learn either $p(y, \mathcal{D}_{\text{in}}|\xb)$ or $p(\mathcal{D}_{\text{in}}|\xb)$. Instead, the authors use this observation to impose the inductive bias of predicting logits as a fraction between two carefully designed network branches, imitating the form of \cref{eq: joint class-domain and domain probability}. 
 
-\todo[inline]{This here is WIP}
+% No OOD data, logits
+A number of works have noted that the maximum softmax probability is not generally a reliable score for OOD detection \cite{hendrycks_scaling_2022,liu_energy-based_2020}. 
+\textcite{liu_energy-based_2020} make an interesting argument as to why based on the energy $E(\xb; f)$ of a softmax classifier $f(\xb)$ \cite{lecun_tutorial_2006},
+%
+\begin{equation} \label{eq:softmax-classifier-energy}
+    E(\xb; f) = - \log \sum_{i=1}^K \exp \left( f_i(\xb) \right) \enspace .
+\end{equation}
+%
+Specifically, the authors relate the maximum softmax probability,
+%
+\begin{align} \label{eq:softmax-classifier-maximum-probability}
+    \max_y p(y|\xb;f) 
+    = \max_y \frac{\exp f_y(\xb)}{\sum_{i=1}^K \exp f_i(\xb)} 
+    = \frac{\exp f^\text{max}(\xb)}{\sum_{i=1}^K \exp f_i(\xb)} \enspace ,
+\end{align}
+%
+to the energy by noting that,
+%
+\begin{align}
+    \log \max_y p(y|\xb;f) = E(\xb; f(\xb) - f^\text{max}(\xb)) = E(\xb; f) - f^\text{max}(\xb) \enspace .
+\end{align}
+%
+This shows that log of the softmax confidence score is equivalent to the special case of the energy score, where all the logits are shifted by their maximum logit value. 
+The authors empirically show that $E(\xb;f)$ is a more reliable score for OOD detection than the maximum softmax probability and note that the energy $E(\xb; f)$ tends to be larger for OOD data than for in-distribution data - contrary to the maximum softmax probability.
+They conclude that this shift results in $\max_y p(y|\xb;f)$ being a biased score for OOD detection and propose instead to use the energy directly as the OOD score. This energy-score is improved in ReAct by feature clipping \cite{sun_react_2021}. 
 
-One particularly simple approach uses the maximum class probability of $p(y|\xb)$ to evaluate whether the example is in-distribution or not by noting that it tends to be larger for correctly classified examples \cite{hendrycks_baseline_2017}. Another simple method proposes that a high entropy of $p(y|\xb)$ indicates an OOD $\xb$ \cite{ren_likelihood_2019} while \textcite{hendrycks_scaling_2019} suggested using the maximum logit value and KL-divergence matching. 
+% No OOD, feature
+The final category of supervised methods derive the score from a latent representation of the input. 
+Some methods define OOD classes. \textcite{huang_mos_2021} groups the classes of the target variable $y$ and defines an OOD class for each group. Each training example is then the correct target for one group and an OOD example for all other groups; a kind of hierarchical version of the OOD class of simpler baselines based on noise augmentation \cite{ren_likelihood_2019}. 
+Similarly, to represent a virtual OOD class, \textcite{wang_vim_2022} generates an additional logit by first computing the residual of the input's latent space representation against a principal feature space and then converting it to a valid logit by matching its mean over training samples to the average maximum logits. 
 
+Other methods note that the difficulty of detecting OOD data might be attributed to the curse of dimensionality in the learned feature spaces and propose to use dimensionality reduction techniques. In \textcite{ndiour_outofdistribution_2020}, apply dimensionality reduction on learned, high-dimensional features to capture the true feature subspace and compute the norm of the difference between the original feature and the pre-image of its low-dimensional manifold embedding. 
+\textcite{zaeemzadeh_outofdistribution_2021} forces the ID samples to embed into a union of 1-dimensional subspaces during training and computes the minimum angular distance from the feature to the class-wise subspaces. 
+NuSA \cite{cook_outlier_2020} uses projects features onto the column space of the classification weight matrix and computes the ratio of the norm the projected and original features.
+\textcite{lee_simple_2018} fit a multivariate Gaussian distribution to the activations of the penultimate layer of a pre-trained classifier and use the Mahalanobis distance to this distribution to evaluate whether inputs are OOD. This method can also be seen as ameliorating the curse of dimensionality by clustering the high-dimensional feature space.
 
-\textcite{lee_simple_2018} fit a multivariate Gaussian distribution to the activations of the penultimate layer of a pre-trained classifier and use the Mahalanobis distance to this distribution to evaluate whether inputs are in-distribution or not. 
-\textcite{lakshminarayanan_simple_2017} propose to use an ensemble of independently trained classifiers to discriminate between in-distribution and OOD data by evaluating the agreement between the classifiers. 
-\textcite{huang_importance_2021} compute the gradient of the KL-divergence of the predictive distribution $p(y|\xb)$ to a uniform distribution noting that the magnitude of gradients is higher for in-distribution data than for OOD data. 
+% Summary and weaknesses of supervised OOD detection approaches
+% Methods that use real OOD data achieve high performance but are limited by the availability of OOD data and how well it covers the large variation in OOD data.
+% A general weakness of all supervised out-of-distribution detection is that in learning the task-specific model $p(y|\xb)$ a model may discard information about $p(\xb)$ which could be useful for out-of-distribution detection.
 
-Other approaches  \cite{devries_learning_2018, huang_mos_2021, zaeemzadeh_outofdistribution_2021}
-
-
-\cite{liu_energy-based_2020} propose to use an energy-based model to detect OOD data. UNSUPERVISED?
-
+% This makes them inherently flawed since we can never really be sure that we have good enough coverage of OOD data.
+% Furthermore, the methods that use synthetic OOD data are limited by the intractability of sampling the complete space of OOD data. 
 
 
 %       - 2 Entropy of predictive distribution p(y|x) \cite{ren_likelihood_2019}
@@ -192,23 +260,13 @@ Other approaches  \cite{devries_learning_2018, huang_mos_2021, zaeemzadeh_outofd
 %       - 7 The maximum class probability over K in-distribution classes of a (K + 1)-class classifier where the additional class is perturbed in-distribution. \cite{ren_likelihood_2019}
 %       - 8 The maximum class probability of a K-class classifier for in-distribution classes but the predicted class distribution is explicitly trained to output uniform distribution on perturbed in-distribution inputs. \cite{ren_likelihood_2019}. This is similar to using simulated OOD inputs from GAN \cite{lee_training_2018} or using auxiliary datasets of outliers \cite{hendrycks_deep_2019} for calibration purpose.
 
-
 %       - 3 ODIN \cite{liang_enhancing_2018} (Uses synthetic OOD data by adding noise to in-distribution)
 %       - 4 Mahalanobis distance to class conditional Gaussian distribution \cite{lee_training_2018}
 %       - 5 DeepEnsemble \cite{lakshminarayanan_simple_2017} The classifier-based ensemble method that uses the average of the predictions from multiple independently trained models with random initialization of network parameters and random shuffling of training inputs
 
 %   - Variational information bottleneck (VIB) (Alemi et al., 2018b) performs divergence estimation in latent space to detect OoD, but is technically a model-dependent technique because the latent code is trained jointly with the downstream classification task. \cite{alemi_deep_2017}
 
-
-\cite{lakshminarayanan_simple_2017, liang_enhancing_2018 , huang_importance_2021, wang_vim_2022} % lee_simple_2018, hendrycks_baseline_2017
-
-
-
-A general weakness of all supervised out-of-distribution detection is that in learning the task-specific model $p(y|\xb)$ a model may discard information about $p(\xb)$ which could be useful for out-of-distribution detection.
-
-
-either synthetic out-of-distribution data or from real out-of-distribution data. Synthetic out-of-distribution data is data that is generated by some process that is known to be out-of-distribution. For example, if we are training a model to classify images of cats and dogs, we could generate synthetic out-of-distribution data by adding noise to the images. Real out-of-distribution data is data that is known to be out-of-distribution, but is not generated synthetically. For example, if we are training a model to classify images of cats and dogs, we could use images of cars as real out-of-distribution data.
-
+% either synthetic out-of-distribution data or from real out-of-distribution data. Synthetic out-of-distribution data is data that is generated by some process that is known to be out-of-distribution. For example, if we are training a model to classify images of cats and dogs, we could generate synthetic out-of-distribution data by adding noise to the images. Real out-of-distribution data is data that is known to be out-of-distribution, but is not generated synthetically. For example, if we are training a model to classify images of cats and dogs, we could use images of cars as real out-of-distribution data.
 
 
 \subsection{Unsupervised out-of-distribution detection}
@@ -234,8 +292,17 @@ either synthetic out-of-distribution data or from real out-of-distribution data.
 
 % Assume we have a dataset $\mathcal{D}_{\text{training}}$ of in-distribution data and we would like to build a model that can be used to assess whether a certain data point $\xb$ is sampled from $\mathcal{D}_{\text{training}}$ or not. Given a test point $\xb$, the model outputs a score $s(\xb)$ that indicates whether $\xb$ is in-distribution or out-of-distribution. 
 
+Unsupervised methods often derive the score ...
 
-Continual novelty detection \cite{aljundi_continual_2022}
+\paragraph{Likelihood-based}
+from the likelihood assigned to the input \cite{bishop_novelty_1994,choi_waic_2019,kirichenko_why_2020,ren_likelihood_2019,serra_input_2020,xiao_likelihood_2020,morningstar_density_2021,nalisnick_detecting_2019,bergamin_modelagnostic_2022,maaloe_biva_2019,havtorn_hierarchical_2021}, 
+
+\paragraph{Reconstruction-based}
+from a reconstruction of the input $\xb$ \cite{sakurada_anomaly_2014,xia_learning_2015,lyudchik_outlier_2016,zhou_anomaly_2017,chen_outlier_2017,schlegl_unsupervised_2017,zong_deep_2018,li_madgan_2019,graham_denoising_2023,liu_unsupervised_2023a}, or 
+
+\paragraph{Representation-based}
+from a latent representation of the input \cite{denouden_improving_2018, hendrycks_using_2019, ahmadian_likelihoodfree_2021,bergman_classificationbased_2020, tack_csi_2020, sehwag_ssd_2021, xiao_we_2021}.  % https://arxiv.org/pdf/2302.10326.pdf
+
 
 
 % Out-of-distribution detection and anomaly detection are both related concepts in machine learning and deep learning, but they address slightly different problems and have distinct focuses.
@@ -273,6 +340,15 @@ Continual novelty detection \cite{aljundi_continual_2022}
 \section{Variational autoencoders}
 
 
+VAE \cite{kingma_autoencoding_2014,rezende_stochastic_2014}
+
+Derive ELBO
+
+Importance sampling \cite{burda_importance_2016}
+
+Semi-supervised learning \cite{kingma_semi-supervised_2014,maaloe_semi-supervised_2017,siddharth_learning_2017}
+
+Trouble in paradise \cite{tomczak_trouble_2022}
 
 % Trouble in paradise: factoriing the ELBO to show that we minimize the mutual information between z and x. 
 % Use this as transition to self-supervised methods as alternative for representation learning: 

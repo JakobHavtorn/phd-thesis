@@ -4,14 +4,9 @@
   urldate = {2023-08-25}
 }
 
-@online{_report_,
-  title = {Report: {{Tesla Autopilot Involved}} in 736 {{Crashes}} since 2019},
-  urldate = {2023-08-25}
-}
-
 @inproceedings{abati_conditional_2020,
   title = {Conditional {{Channel Gated Networks}} for {{Task-Aware Continual Learning}}},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Abati, Davide and Tomczak, Jakub and Blankevoort, Tijmen and Calderara, Simone and Cucchiara, Rita and Bejnordi, Babak Ehteshami},
   date = {2020-06},
   pages = {3930--3939},
@@ -19,7 +14,7 @@
   location = {{Seattle, WA, USA}},
   urldate = {2022-03-30},
   abstract = {Convolutional Neural Networks experience catastrophic forgetting when optimized on a sequence of learning problems: as they meet the objective of the current training examples, their performance on previous tasks drops drastically. In this work, we introduce a novel framework to tackle this problem with conditional computation. We equip each convolutional layer with task-specific gating modules, selecting which filters to apply on the given input. This way, we achieve two appealing properties. Firstly, the execution patterns of the gates allow to identify and protect important filters, ensuring no loss in the performance of the model for previously learned tasks. Secondly, by using a sparsity objective, we can promote the selection of a limited set of kernels, allowing to retain sufficient model capacity to digest new tasks. Existing solutions require, at test time, awareness of the task to which each example belongs to. This knowledge, however, may not be available in many practical scenarios. Therefore, we additionally introduce a task classifier that predicts the task label of each example, to deal with settings in which a task oracle is not available. We validate our proposal on four continual learning datasets. Results show that our model consistently outperforms existing methods both in the presence and the absence of a task oracle. Notably, on Split SVHN and Imagenet-50 datasets, our model yields up to 23.98\% and 17.42\% improvement in accuracy w.r.t. competing methods.},
-  eventtitle = {{{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  eventtitle = {{{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   isbn = {978-1-72817-168-5},
   langid = {english}
 }
@@ -1009,6 +1004,14 @@
   pages = {33--66}
 }
 
+@inproceedings{bendale_open_2016,
+  title = {Towards Open Set Deep Networks},
+  booktitle = {Proceedings of the {{IEEE}} Conference on Computer Vision and Pattern Recognition},
+  author = {Bendale, Abhijit and Boult, Terrance E},
+  date = {2016},
+  pages = {1563--1572}
+}
+
 @article{bender_climbing_,
   title = {Climbing towards {{NLU}}: {{On Meaning}}, {{Form}}, and {{Understanding}} in the {{Age}} of {{Data}}},
   author = {Bender, Emily M and Koller, Alexander},
@@ -1183,6 +1186,15 @@
   location = {{Valencia, Span}},
   abstract = {We present simple methods for out-ofdistribution detection using a trained generative model. These techniques, based on classical statistical tests, are model-agnostic in the sense that they can be applied to any differentiable generative model. The idea is to combine a classical parametric test (Rao’s score test) with the recently introduced typicality test. These two test statistics are both theoretically well-founded and exploit different sources of information based on the likelihood for the typicality test and its gradient for the score test. We show that combining them using Fisher’s method overall leads to a more accurate out-of-distribution test. We also discuss the benefits of casting out-ofdistribution detection as a statistical testing problem, noting in particular that false positive rate control can be valuable for practical out-of-distribution detection. Despite their simplicity and generality, these methods can be competitive with model-specific outof-distribution detection algorithms without any assumptions on the out-distribution.},
   langid = {english}
+}
+
+@inproceedings{bergman_classificationbased_2020,
+  title = {Classification-Based Anomaly Detection for General Data},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
+  author = {Bergman, Liron and Hoshen, Yedid},
+  date = {2020},
+  location = {{Addis Ababa, Ethiopia}},
+  eventtitle = {International {{Conference}} on {{Learning Representations}}}
 }
 
 @incollection{bergstra_algorithms_2011,
@@ -1923,6 +1935,17 @@
   abstract = {The International Classification of Diseases (ICD) provides a standardized way for classifying diseases, which endows each disease with a unique code. ICD coding aims to assign proper ICD codes to a medical record. Since manual coding is very laborious and prone to errors, many methods have been proposed for the automatic ICD coding task. However, most of existing methods independently predict each code, ignoring two important characteristics: Code Hierarchy and Code Co-occurrence. In this paper, we propose a Hyperbolic and Co-graph Representation method (HyperCore) to address the above problem. Specifically, we propose a hyperbolic representation method to leverage the code hierarchy. Moreover, we propose a graph convolutional network to utilize the code co-occurrence. Experimental results on two widely used datasets demonstrate that our proposed model outperforms previous state-of-the-art methods.}
 }
 
+@article{cardoso_weightless_2017,
+  title = {Weightless Neural Networks for Open Set Recognition},
+  author = {Cardoso, Douglas O and Gama, João and França, Felipe MG},
+  date = {2017},
+  journaltitle = {Machine Learning},
+  volume = {106},
+  number = {9-10},
+  pages = {1547--1567},
+  publisher = {{Springer}}
+}
+
 @inproceedings{carion_endtoend_2020,
   title = {End-to-End Object Detection with Transformers},
   booktitle = {Proceedings of the 16th {{European Conference}} on {{Computer Vision}} ({{ECCV}})},
@@ -2109,6 +2132,14 @@
   eprintclass = {cs, eess},
   urldate = {2021-10-18},
   abstract = {Self-supervised pretraining on speech data has achieved a lot of progress. High-fidelity representation of the speech signal is learned from a lot of untranscribed data and shows promising performance. Recently, there are several works focusing on evaluating the quality of self-supervised pretrained representations on various tasks without domain restriction, e.g. SUPERB. However, such evaluations do not provide a comprehensive comparison among many ASR benchmark corpora. In this paper, we focus on the general applications of pretrained speech representations, on advanced end-to-end automatic speech recognition (E2E-ASR) models. We select several pretrained speech representations and present the experimental results on various open-source and publicly available corpora for E2E-ASR. Without any modification of the back-end model architectures or training strategy, some of the experiments with pretrained representations, e.g., WSJ, WSJ0-2mix with HuBERT, reach or outperform current state-of-the-art (SOTA) recognition performance. Moreover, we further explore more scenarios for whether the pretraining representations are effective, such as the cross-language or overlapped speech. The scripts, configuratons and the trained models have been released in ESPnet to let the community reproduce our experiments and improve them.}
+}
+
+@article{chang_figure_1993,
+  title = {Figure of Merit Training for Detection and Spotting},
+  author = {Chang, Eric and Lippmann, Richard P},
+  date = {1993},
+  journaltitle = {Advances in Neural Information Processing Systems},
+  volume = {6}
 }
 
 @misc{chang_neural_2018,
@@ -2731,7 +2762,7 @@
   title = {Multi-Column {{Deep Neural Networks}} for {{Image Classification}}},
   author = {Cireşan, Dan and Meier, Ueli and Schmidhuber, Jürgen},
   date = {2012-02-13},
-  journaltitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  journaltitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
   eprint = {22386783},
   eprinttype = {pmid},
   pages = {3642--3649},
@@ -3149,6 +3180,18 @@
   abstract = {Evolution strategies (ES) are a family of black-box optimization algorithms able to train deep neural networks roughly as well as Q-learning and policy gradient methods on challenging deep reinforcement learning (RL) problems, but are much faster (e.g. hours vs. days) because they parallelize better. However, many RL problems require directed exploration because they have reward functions that are sparse or deceptive (i.e. contain local optima), and it is not known how to encourage such exploration with ES. Here we show that algorithms that have been invented to promote directed exploration in small-scale evolved neural networks via populations of exploring agents, specifically novelty search (NS) and quality diversity (QD) algorithms, can be hybridized with ES to improve its performance on sparse or deceptive deep RL tasks, while retaining scalability. Our experiments confirm that the resultant new algorithms, NS-ES and a version of QD we call NSR-ES, avoid local optima encountered by ES to achieve higher performance on tasks ranging from playing Atari to simulated robots learning to walk around a deceptive trap. This paper thus introduces a family of fast, scalable algorithms for reinforcement learning that are capable of directed exploration. It also adds this new family of exploration algorithms to the RL toolbox and raises the interesting possibility that analogous algorithms with multiple simultaneous paths of exploration might also combine well with existing RL algorithms outside ES.}
 }
 
+@online{cook_outlier_2020,
+  title = {Outlier {{Detection}} through {{Null Space Analysis}} of {{Neural Networks}}},
+  author = {Cook, Matthew and Zare, Alina and Gader, Paul},
+  date = {2020-07-02},
+  eprint = {2007.01263},
+  eprinttype = {arxiv},
+  eprintclass = {cs, stat},
+  urldate = {2023-09-17},
+  abstract = {Many machine learning classification systems lack competency awareness. Specifically, many systems lack the ability to identify when outliers (e.g., samples that are distinct from and not represented in the training data distribution) are being presented to the system. The ability to detect outliers is of practical significance since it can help the system behave in an reasonable way when encountering unexpected data. In prior work, outlier detection is commonly carried out in a processing pipeline that is distinct from the classification model. Thus, for a complete system that incorporates outlier detection and classification, two models must be trained, increasing the overall complexity of the approach. In this paper we use the concept of the null space to integrate an outlier detection method directly into a neural network used for classification. Our method, called Null Space Analysis (NuSA) of neural networks, works by computing and controlling the magnitude of the null space projection as data is passed through a network. Using these projections, we can then calculate a score that can differentiate between normal and abnormal data. Results are shown that indicate networks trained with NuSA retain their classification performance while also being able to detect outliers at rates similar to commonly used outlier detection algorithms.},
+  pubstate = {preprint}
+}
+
 @online{cordonnier_relationship_2020,
   title = {On the {{Relationship}} between {{Self-Attention}} and {{Convolutional Layers}}},
   author = {Cordonnier, Jean-Baptiste and Loukas, Andreas and Jaggi, Martin},
@@ -3467,7 +3510,7 @@
 
 @inproceedings{deng_imagenet_2009,
   title = {{{ImageNet}}: {{A}} Large-Scale Hierarchical Image Database},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Deng, Jia and Dong, Wei and Socher, Richard and Li, Li-Jia and Li, Kai and Fei-Fei, Li},
   date = {2009},
   eprint = {21914436},
@@ -3730,7 +3773,7 @@
 
 @inproceedings{donahue_longterm_2015,
   title = {Long-Term Recurrent Convolutional Networks for Visual Recognition and Description},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Donahue, Jeffrey and Anne Hendricks, Lisa and Guadarrama, Sergio and Rohrbach, Marcus and Venugopalan, Subhashini and Saenko, Kate and Darrell, Trevor},
   date = {2015},
   pages = {2625--2634}
@@ -3821,12 +3864,11 @@
   publisher = {{Green Tea Press}}
 }
 
-@article{dozat_incorporating_2016,
+@inproceedings{dozat_incorporating_2016,
   title = {Incorporating {{Nesterov Momentum}} into {{Adam}}},
+  booktitle = {International {{Conference}} on {{Learning Representations}} ({{ICLR}}) {{Workshop}}},
   author = {Dozat, Timothy},
   date = {2016},
-  journaltitle = {International Conference on Learning Representations (ICLR) Workshop},
-  number = {1},
   pages = {2013--2016},
   abstract = {This work aims to improve upon the recently proposed and rapidly popular-ized optimization algorithm Adam (Kingma \& Ba, 2014). Adam has two main components—a momentum component and an adaptive learning rate component. However, regular momentum can be shown conceptually and empirically to be in-ferior to a similar algorithm known as Nesterov's accelerated gradient (NAG). We show how to modify Adam's momentum component to take advantage of insights from NAG, and then we present preliminary evidence suggesting that making this substitution improves the speed of convergence and the quality of the learned mod-els.}
 }
@@ -3919,7 +3961,7 @@
 @inproceedings{duke_sstvos_2021,
   title = {{{SSTVOS}}: {{Sparse Spatiotemporal Transformers}} for {{Video Object Segmentation}}},
   shorttitle = {{{SSTVOS}}},
-  booktitle = {{{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Duke, Brendan and Ahmed, Abdalla and Wolf, Christian and Aarabi, Parham and Taylor, Graham W.},
   date = {2021-06},
   pages = {5908--5917},
@@ -3968,7 +4010,7 @@
 
 @inproceedings{durall_watch_2020,
   title = {Watch {{Your Up-Convolution}}: {{CNN Based Generative Deep Neural Networks Are Failing}} to {{Reproduce Spectral Distributions}}},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Durall, R. and Keuper, M. and Keuper, J.},
   date = {2020-06},
   pages = {7887--7896},
@@ -4106,7 +4148,7 @@
 
 @inproceedings{engel_ddsp_2020,
   title = {{{DDSP}}: {{Differentiable}} Digital Signal Processing},
-  booktitle = {Proceedings of the 8th {{International Conference}} on {{Learning Representations}} (Iclr)},
+  booktitle = {Proceedings of the 8th {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Engel, Jesse H. and Hantrakul, Lamtharn and Gu, Chenjie and Roberts, Adam},
   date = {2020},
   eprint = {2001.04643},
@@ -4699,6 +4741,14 @@
   abstract = {The prevalent approach to neural machine translation relies on bi-directional LSTMs to encode the source sentence. We present a faster and simpler architecture based on a succession of convolutional layers. This allows to encode the source sentence simultaneously compared to recurrent networks for which computation is constrained by temporal dependencies. On WMT'16 English-Romanian translation we achieve competitive accuracy to the state-of-the-art and on WMT'15 English-German we outper-form several recently published results. Our models obtain almost the same accuracy as a very deep LSTM setup on WMT'14 English-French translation. We speed up CPU decoding by more than two times at the same or higher accuracy as a strong bi-directional LSTM. 1}
 }
 
+@article{geifman_selective_2017,
+  title = {Selective Classification for Deep Neural Networks},
+  author = {Geifman, Yonatan and El-Yaniv, Ran},
+  date = {2017},
+  journaltitle = {Advances in neural information processing systems},
+  volume = {30}
+}
+
 @inproceedings{gelas_developments_2012,
   title = {Developments of {{Swahili}} Resources for an Automatic Speech Recognition System},
   booktitle = {Spoken {{Language Technologies}} for {{Under-Resourced Languages}}},
@@ -4897,7 +4947,7 @@
 
 @inproceedings{girshick_rich_2014,
   title = {Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Girshick, Ross and Donahue, Jeff and Darrell, Trevor and Malik, Jitendra},
   date = {2014},
   pages = {580--587}
@@ -5831,6 +5881,18 @@
   pagetotal = {152}
 }
 
+@article{hawkins_waymo_2023,
+  entrysubtype = {newspaper},
+  title = {Waymo’s Driverless Cars Were Involved in Two Crashes and 18 ‘Minor Contact Events’ over 1 Million Miles},
+  author = {Hawkins, Andrew J.},
+  date = {2023-02-28},
+  journaltitle = {The Verge},
+  urldate = {2023-09-18},
+  abstract = {The Alphabet-owned company pulls back the curtain on more stats from its public road testing. Of the 20 incidents, only two met the federal government’s reporting criteria, and no one was injured.},
+  journalsubtitle = {Tech},
+  langid = {english}
+}
+
 @inproceedings{hayashi_backtranslationstyle_2018,
   title = {Back-Translation-Style Data Augmentation for End-to-End {{ASR}}},
   booktitle = {{{IEEE Spoken Language Technology Workshop}}},
@@ -5855,7 +5917,7 @@
   title = {Deep Residual Learning for Image Recognition},
   author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
   date = {2015-12-10},
-  journaltitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  journaltitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
   eprint = {1512.03385},
   eprinttype = {arxiv},
   pages = {770--778},
@@ -6009,12 +6071,27 @@
   eventtitle = {International {{Conference}} on {{Learning Representations}}}
 }
 
-@unpublished{hendrycks2019scaling,
+@inproceedings{hendrycks_scaling_2022,
   title = {Scaling Out-of-Distribution Detection for Real-World Settings},
+  booktitle = {Proceedings of the {{International Conference}} on {{Machine Learning}} ({{ICML}})},
   author = {Hendrycks, Dan and Basart, Steven and Mazeika, Mantas and Zou, Andy and Kwon, Joe and Mostajabi, Mohammadreza and Steinhardt, Jacob and Song, Dawn},
-  date = {2019},
+  date = {2022},
+  series = {Proceedings of {{Machine Learning Research}}},
+  volume = {162},
   eprint = {1911.11132},
-  eprinttype = {arxiv}
+  eprinttype = {arxiv},
+  pages = {8759--8773},
+  publisher = {{PMLR}},
+  location = {{Baltimore, Maryland, USA}},
+  eventtitle = {International {{Conference}} on {{Machine Learning}}}
+}
+
+@article{hendrycks_using_2019,
+  title = {Using Self-Supervised Learning Can Improve Model Robustness and Uncertainty},
+  author = {Hendrycks, Dan and Mazeika, Mantas and Kadavath, Saurav and Song, Dawn},
+  date = {2019},
+  journaltitle = {Advances in Neural Information Processing Systems},
+  volume = {32}
 }
 
 @book{herlau_introduction_2016,
@@ -6026,7 +6103,7 @@
 
 @inproceedings{hermann_multilingual_2013,
   title = {Multilingual {{Distributed Representations Without Word Alignment}}},
-  booktitle = {International Conference on Learning Representations ({{ICLR}})},
+  booktitle = {International {{Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Hermann, Karl Moritz and Blunsom, Phil},
   date = {2013-12-20},
   eprint = {1312.6173},
@@ -6536,10 +6613,11 @@
 
 @inproceedings{huang_mos_2021,
   title = {{{MoS}}: {{Towards Scaling Out-of-Distribution Detection}} for {{Large Semantic Space}}},
-  booktitle = {{{CVF}} Conference on Computer Vision and Pattern Recognition ({{CVPR}}) Pp},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Huang, Rui and Li, Yixuan},
   date = {2021},
-  pages = {8706--8715}
+  pages = {8706--8715},
+  eventtitle = {Conference on {{Computer Vision}} and {{Pattern Recognition}}}
 }
 
 @inproceedings{huang_strassen_2016,
@@ -7441,7 +7519,7 @@
 
 @inproceedings{karpathy_deep_2015,
   title = {Deep Visual-Semantic Alignments for Generating Image Descriptions},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Karpathy, Andrej and Fei-Fei, Li},
   date = {2015},
   pages = {3128--3137}
@@ -7449,7 +7527,7 @@
 
 @inproceedings{karpathy_largescale_2014,
   title = {Large-Scale Video Classification with Convolutional Neural Networks},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Karpathy, Andrej and Toderici, George and Shetty, Sanketh and Leung, Thomas and Sukthankar, Rahul and Fei-Fei, Li},
   date = {2014},
   pages = {1725--1732}
@@ -8528,9 +8606,9 @@
   langid = {english}
 }
 
-@inproceedings{le_auto-encoding_2018,
+@inproceedings{le_autoencoding_2018,
   title = {Auto-{{Encoding Sequential Monte Carlo}}},
-  booktitle = {6th {{International Conference}} on {{Learning Representations}} ({{ICLR}} 2018)},
+  booktitle = {Proceedings of the 6th {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Le, Tuan Anh and Igl, Maximilian and Rainforth, Tom and Jin, Tom and Wood, Frank},
   date = {2018},
   publisher = {{OpenReview.net}},
@@ -8629,7 +8707,7 @@
   date = {2004},
   volume = {2},
   pages = {II-104 Vol.2},
-  eventtitle = {{{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})}
+  eventtitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})}
 }
 
 @article{lecun_mnist_1998,
@@ -9007,6 +9085,18 @@
   isbn = {9781538646588}
 }
 
+@online{li_anomaly_2019,
+  title = {Anomaly {{Detection}} with {{Generative Adversarial Networks}} for {{Multivariate Time Series}}},
+  author = {Li, Dan and Chen, Dacheng and Goh, Jonathan and Ng, See-kiong},
+  date = {2019-01-15},
+  eprint = {1809.04758},
+  eprinttype = {arxiv},
+  eprintclass = {cs, stat},
+  urldate = {2023-09-17},
+  abstract = {Today's Cyber-Physical Systems (CPSs) are large, complex, and affixed with networked sensors and actuators that are targets for cyber-attacks. Conventional detection techniques are unable to deal with the increasingly dynamic and complex nature of the CPSs. On the other hand, the networked sensors and actuators generate large amounts of data streams that can be continuously monitored for intrusion events. Unsupervised machine learning techniques can be used to model the system behaviour and classify deviant behaviours as possible attacks. In this work, we proposed a novel Generative Adversarial Networks-based Anomaly Detection (GAN-AD) method for such complex networked CPSs. We used LSTM-RNN in our GAN to capture the distribution of the multivariate time series of the sensors and actuators under normal working conditions of a CPS. Instead of treating each sensor's and actuator's time series independently, we model the time series of multiple sensors and actuators in the CPS concurrently to take into account of potential latent interactions between them. To exploit both the generator and the discriminator of our GAN, we deployed the GAN-trained discriminator together with the residuals between generator-reconstructed data and the actual samples to detect possible anomalies in the complex CPS. We used our GAN-AD to distinguish abnormal attacked situations from normal working conditions for a complex six-stage Secure Water Treatment (SWaT) system. Experimental results showed that the proposed strategy is effective in identifying anomalies caused by various attacks with high detection rate and low false positive rate as compared to existing methods.},
+  pubstate = {preprint}
+}
+
 @article{li_applications_2012,
   title = {Applications of {{Bayesian}} Methods in Wind Energy Conversion Systems},
   author = {Li, Gong and Shi, Jing},
@@ -9084,6 +9174,19 @@
   date = {2016},
   pages = {1177--1186},
   location = {{New York, NY, USA}}
+}
+
+@inproceedings{li_madgan_2019,
+  title = {{{MAD-GAN}}: {{Multivariate}} Anomaly Detection for Time Series Data with Generative Adversarial Networks},
+  booktitle = {Proceedings of the {{International Conference}} on {{Artificial Neural Networks}} ({{ICANN}})},
+  author = {Li, Dan and Chen, Dacheng and Jin, Baihong and Shi, Lei and Goh, Jonathan and Ng, See-Kiong},
+  editor = {Tetko, Igor V. and Kurková, Vera and Karpov, Pavel and Theis, Fabian J.},
+  date = {2019},
+  volume = {11730},
+  pages = {703--716},
+  publisher = {{Springer}},
+  location = {{Munich, Germany}},
+  eventtitle = {International {{Conference}} on {{Artificial Neural Networks}}}
 }
 
 @inproceedings{li_measuring_2018,
@@ -9657,7 +9760,7 @@
 
 @inproceedings{long_fully_2015,
   title = {Fully {{Convolutional Networks}} for {{Semantic Segmentation}}},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Long, Jonathan and Shelhamer, Evan and Darrell, Trevor},
   date = {2015},
   eprint = {16190471},
@@ -10288,7 +10391,7 @@
 @inproceedings{meng_adavit_2022,
   title = {{{AdaViT}}: {{Adaptive Vision Transformers}} for {{Efficient Image Recognition}}},
   shorttitle = {{{AdaViT}}},
-  booktitle = {2022 {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Meng, Lingchen and Li, Hengduo and Chen, Bor-Chun and Lan, Shiyi and Wu, Zuxuan and Jiang, Yu-Gang and Lim, Ser-Nam},
   date = {2022-06},
   pages = {12299--12308},
@@ -10296,7 +10399,7 @@
   location = {{New Orleans, LA, USA}},
   urldate = {2022-10-08},
   abstract = {Built on top of self-attention mechanisms, vision transformers have demonstrated remarkable performance on a variety of tasks recently. While achieving excellent performance, they still require relatively intensive computational cost that scales up drastically as the numbers of patches, self-attention heads and transformer blocks increase. In this paper, we argue that due to the large variations among images, their need for modeling long-range dependencies between patches differ. To this end, we introduce AdaViT, an adaptive computation framework that learns to derive usage policies on which patches, self-attention heads and transformer blocks to use throughout the backbone on a perinput basis, aiming to improve inference efficiency of vision transformers with a minimal drop of accuracy for image recognition. Optimized jointly with a transformer backbone in an end-to-end manner, a light-weight decision network is attached to the backbone to produce decisions on-the-fly. Extensive experiments on ImageNet demonstrate that our method obtains more than 2× improvement on efficiency compared to state-of-the-art vision transformers with only 0.8\% drop of accuracy, achieving good efficiency/accuracy trade-offs conditioned on different computational budgets. We further conduct quantitative and qualitative analysis on learned usage polices and provide more insights on the redundancy in vision transformers. Code is available at https://github.com/MengLcool/AdaViT.},
-  eventtitle = {2022 {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  eventtitle = {{{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   isbn = {978-1-66546-946-3},
   langid = {english}
 }
@@ -10670,6 +10773,15 @@
   langid = {english}
 }
 
+@inproceedings{mor_confidence_2018,
+  title = {Confidence Prediction for Lexicon-Free {{OCR}}},
+  booktitle = {2018 {{IEEE}} Winter Conference on Applications of Computer Vision ({{WACV}})},
+  author = {Mor, Noam and Wolf, Lior},
+  date = {2018},
+  pages = {218--225},
+  publisher = {{IEEE}}
+}
+
 @inproceedings{morningstar_density_2021,
   title = {Density of {{States Estimation}} for {{Out}} of {{Distribution Detection}}},
   booktitle = {International {{Conference}} on {{Artificial Intelligence}} and {{Statistics}} ({{AISTATS}})},
@@ -10969,6 +11081,16 @@
   pages = {107501}
 }
 
+@online{ndiour_outofdistribution_2020,
+  title = {Out-of-Distribution Detection with Subspace Techniques and Probabilistic Modeling of Features},
+  author = {Ndiour, Ibrahima and Ahuja, Nilesh and Tickoo, Omesh},
+  date = {2020},
+  number = {2012.04250},
+  eprint = {2012.04250},
+  eprinttype = {arxiv},
+  pubstate = {preprint}
+}
+
 @article{neal_bayesian_1993,
   title = {Bayesian Learning via Stochastic Dynamics},
   author = {Neal, Radford M.},
@@ -11081,7 +11203,7 @@
 
 @inproceedings{nguyen_deep_2015,
   title = {Deep Neural Networks Are Easily Fooled: {{High}} Confidence Predictions for Unrecognizable Images},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Nguyen, Anh and Yosinski, Jason and Clune, Jeff},
   date = {2015},
   volume = {07-12-June},
@@ -11438,7 +11560,7 @@
 
 @inproceedings{oquab_learning_2014,
   title = {Learning and Transferring Mid-Level Image Representations Using Convolutional Neural Networks},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Oquab, Maxime and Bottou, Léon and Laptev, Ivan and Sivic, Josef},
   date = {2014},
   pages = {1717--1724}
@@ -11530,6 +11652,14 @@
   urldate = {2022-10-08},
   abstract = {The self-attention-based model, transformer, is recently becoming the leading backbone in the field of computer vision. In spite of the impressive success made by transformers in a variety of vision tasks, it still suffers from heavy computation and intensive memory costs. To address this limitation, this paper presents an Interpretability-Aware REDundancy REDuction framework (IA-RED\$\^2\$). We start by observing a large amount of redundant computation, mainly spent on uncorrelated input patches, and then introduce an interpretable module to dynamically and gracefully drop these redundant patches. This novel framework is then extended to a hierarchical structure, where uncorrelated tokens at different stages are gradually removed, resulting in a considerable shrinkage of computational cost. We include extensive experiments on both image and video tasks, where our method could deliver up to 1.4x speed-up for state-of-the-art models like DeiT and TimeSformer, by only sacrificing less than 0.7\% accuracy. More importantly, contrary to other acceleration approaches, our method is inherently interpretable with substantial visual evidence, making vision transformer closer to a more human-understandable architecture while being lighter. We demonstrate that the interpretability that naturally emerged in our framework can outperform the raw attention learned by the original visual transformer, as well as those generated by off-the-shelf interpretation methods, with both qualitative and quantitative results. Project Page: http://people.csail.mit.edu/bpan/ia-red/.},
   pubstate = {preprint}
+}
+
+@inproceedings{panaredabusto_open_2017,
+  title = {Open Set Domain Adaptation},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Computer Vision}} ({{ICCV}})},
+  author = {Panareda Busto, Pau and Gall, Juergen},
+  date = {2017},
+  pages = {754--763}
 }
 
 @inproceedings{panayotov_librispeech_2015,
@@ -12326,7 +12456,7 @@
 
 @inproceedings{ranzato_unsupervised_2007,
   title = {Unsupervised {{Learning}} of {{Invariant Feature Hierarchies}} with {{Applications}} to {{Object Recognition}}},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Ranzato, Marc'Aurelio and Huang, Fu Jie and Boureau, Y-Lan and LeCun, Yann A.},
   date = {2007-06},
   eprint = {4270182},
@@ -12477,7 +12607,7 @@
   title = {You {{Only Look Once}}: {{Unified}}, {{Real-Time Object Detection}}},
   author = {Redmon, Joseph and Divvala, Santosh and Girshick, Ross and Farhadi, Ali},
   date = {2015},
-  journaltitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  journaltitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
   eprint = {27295650},
   eprinttype = {pmid},
   pages = {779--788},
@@ -12996,6 +13126,15 @@
   isbn = {978-1-5386-1032-9}
 }
 
+@inproceedings{sakurada_anomaly_2014,
+  title = {Anomaly Detection Using Autoencoders with Nonlinear Dimensionality Reduction},
+  booktitle = {Proceedings of the {{MLSDA}} 2014 2nd {{Workshop}} on {{Machine Learning}} for {{Sensory Data Analysis}} ({{MLSDA}})},
+  author = {Sakurada, Mayu and Yairi, Takehisa},
+  date = {2014},
+  pages = {4--11},
+  location = {{Gold Coast, QLD, Austrailia}}
+}
+
 @inproceedings{salakhutdinov_restricted_2007,
   title = {Restricted {{Boltzmann Machines}} for {{Collaborative Filtering}}},
   booktitle = {Proceedings of the {{International Conference}} on {{Machine Learning}} ({{ICML}})},
@@ -13213,6 +13352,16 @@
   author = {Schirrmeister, Robin and Zhou, Yuxuan and Ball, Tonio and Zhang, Dan},
   date = {2020},
   location = {{Virtual}}
+}
+
+@inproceedings{schlegl_unsupervised_2017,
+  title = {Unsupervised Anomaly Detection with Generative Adversarial Networks to Guide Marker Discovery},
+  booktitle = {International {{Conference}} on {{Information Processing}} in {{Medical Imaging}} ({{IPMI}})},
+  author = {Schlegl, Thomas and Seeböck, Philipp and Waldstein, Sebastian M and Schmidt-Erfurth, Ursula and Langs, Georg},
+  date = {2017},
+  pages = {146--157},
+  publisher = {{Springer}},
+  location = {{Boone, NC, USA}}
 }
 
 @article{schmidhuber_deep_2015,
@@ -13446,6 +13595,15 @@
   isbn = {9780769543000}
 }
 
+@inproceedings{sehwag_ssd_2021,
+  title = {{{SSD}}: {{A}} Unified Framework for Self-Supervised Outlier Detection},
+  booktitle = {International {{Conference}} on {{Learning Representations}}},
+  author = {Sehwag, Vikash and Chiang, Mung and Mittal, Prateek},
+  date = {2021-05},
+  location = {{Virtual}},
+  eventtitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})}
+}
+
 @misc{semeniuta_hybrid_2017,
   title = {A {{Hybrid Convolutional Variational Autoencoder}} for {{Text Generation}}},
   author = {Semeniuta, Stanislau and Severyn, Aliaksei and Barth, Erhardt},
@@ -13591,7 +13749,7 @@
 
 @inproceedings{sharifrazavian_cnn_2014,
   title = {Cnn {{Features Off-the-Shelf}}: {{An Astounding Baseline}} for {{Recognition}}},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Sharif Razavian, Ali and Azizpour, Hossein and Sullivan, Josephine and Carlsson, Stefan},
   date = {2014},
   pages = {806--813}
@@ -13771,6 +13929,18 @@
   date = {2017},
   pages = {5925--5935},
   location = {{Long Beach, CA, USA}}
+}
+
+@article{siddiqui_17_2023,
+  entrysubtype = {newspaper},
+  title = {17 Fatalities, 736 Crashes; {{The}} Shocking Toll of {{Tesla}}'s {{Autopilot}}},
+  author = {Siddiqui, Faiz and Merril, Jeremy B.},
+  date = {2023-06-10},
+  journaltitle = {The Washington Post},
+  urldate = {2023-09-18},
+  abstract = {Tesla's driver-assistance system, known as Autopilot, has been involved in far more crashes than previously reported.},
+  journalsubtitle = {Tech},
+  langid = {english}
 }
 
 @article{silver_deterministic_2014,
@@ -14322,6 +14492,15 @@
   isbn = {978-1-60558-325-9}
 }
 
+@article{sun_react_2021,
+  title = {React: {{Out-of-distribution}} Detection with Rectified Activations},
+  author = {Sun, Yiyou and Guo, Chuan and Li, Yixuan},
+  date = {2021},
+  journaltitle = {Advances in Neural Information Processing Systems},
+  volume = {34},
+  pages = {144--157}
+}
+
 @misc{sun_training_2018,
   title = {Training {{Augmentation}} with {{Adversarial Examples}} for {{Robust Speech Recognition}}},
   author = {Sun, Sining and Yeh, Ching-Feng and Ostendorf, Mari and Hwang, Mei-Yuh and Xie, Lei},
@@ -14446,7 +14625,7 @@
 
 @inproceedings{szegedy_going_2015,
   title = {Going Deeper with Convolutions},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Szegedy, Christian and Liu, Wei and Jia, Yangqing and Sermanet, Pierre and Reed, Scott and Anguelov, Dragomir and Erhan, Dumitru and Vanhoucke, Vincent and Rabinovich, Andrew},
   date = {2015},
   pages = {1--9}
@@ -14475,7 +14654,7 @@
   title = {Rethinking the {{Inception Architecture}} for {{Computer Vision}}},
   author = {Szegedy, Christian and Vanhoucke, Vincent and Ioffe, Sergey and Shlens, Jonathon and Wojna, Zbigniew},
   date = {2015},
-  journaltitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  journaltitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
   eprint = {8190083},
   eprinttype = {pmid},
   pages = {2818--2826},
@@ -14492,6 +14671,15 @@
   volume = {56},
   pages = {181--194},
   publisher = {{Elsevier}}
+}
+
+@article{tack_csi_2020,
+  title = {{{CSI}}: {{Novelty}} Detection via Contrastive Learning on Distributionally Shifted Instances},
+  author = {Tack, Jihoon and Mo, Sangwoo and Jeong, Jongheon and Shin, Jinwoo},
+  date = {2020},
+  journaltitle = {Advances in Neural Information Processing Systems},
+  volume = {33},
+  pages = {11839--11852}
 }
 
 @article{tagliasacchi_pretraining_2020,
@@ -14517,7 +14705,7 @@
 
 @inproceedings{taigman_deepface_2014,
   title = {Deepface: {{Closing}} the Gap to Human-Level Performance in Face Verification},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Taigman, Yaniv and Yang, Ming and Ranzato, Marc'Aurelio and Wolf, Lior},
   date = {2014},
   pages = {1701--1708}
@@ -14772,7 +14960,7 @@
 
 @inproceedings{toshev_deeppose_2014,
   title = {Deeppose: {{Human}} Pose Estimation via Deep Neural Networks},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Toshev, Alexander and Szegedy, Christian},
   date = {2014},
   pages = {1653--1660}
@@ -14808,7 +14996,7 @@
 
 @inproceedings{townsend_practical_2019,
   title = {Practical {{Lossless Compression With Latent Variables Using Bits Back Coding}}},
-  booktitle = {7th {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
+  booktitle = {Proceedings of the 7th {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Townsend, James and Bird, Thomas and Barber, David},
   date = {2019},
   pages = {13},
@@ -14911,7 +15099,7 @@
 
 @inproceedings{tucker_doubly_2019,
   title = {Doubly {{Reparameterized Gradient Estimators}} for {{Monte Carlo Objectives}}},
-  booktitle = {7th {{International Conference}} on {{Learning Representations}} ({{ICLR}} 2019)},
+  booktitle = {Proceedings of the 7th {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Tucker, George and Lawson, Dieterich and Gu, Shixiang and Maddison, Chris J.},
   date = {2019},
   publisher = {{OpenReview.net}},
@@ -15208,7 +15396,7 @@
   title = {Show and {{Tell}}: {{A Neural Image Caption Generator}}},
   author = {Vinyals, Oriol and Toshev, Alexander and Bengio, Samy and Erhan, Dumitru},
   date = {2015},
-  journaltitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  journaltitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
   eprint = {1411.4555},
   eprinttype = {arxiv},
   pages = {3156--3164},
@@ -15285,15 +15473,17 @@
   publisher = {{Curran Associates, Inc.}}
 }
 
-@online{vyas_outofdistribution_2018,
+@inproceedings{vyas_outofdistribution_2018,
   title = {Out-of-{{Distribution Detection Using}} an {{Ensemble}} of {{Self Supervised Leave-out Classifiers}}},
+  booktitle = {Proceedings of the {{European Conference}} on {{Computer Vision}} ({{ECCV}})},
   author = {Vyas, Apoorv and Jammalamadaka, Nataraj and Zhu, Xia and Das, Dipankar and Kaul, Bharat and Willke, Theodore L.},
   date = {2018-09-04},
   eprint = {1809.03576},
   eprinttype = {arxiv},
+  pages = {550--564},
+  publisher = {{arXiv}},
   urldate = {2022-09-04},
-  abstract = {As deep learning methods form a critical part in commercially important applications such as autonomous driving and medical diagnostics, it is important to reliably detect out-of-distribution (OOD) inputs while employing these algorithms. In this work, we propose an OOD detection algorithm which comprises of an ensemble of classifiers. We train each classifier in a self-supervised manner by leaving out a random subset of training data as OOD data and the rest as in-distribution (ID) data. We propose a novel margin-based loss over the softmax output which seeks to maintain at least a margin \$m\$ between the average entropy of the OOD and in-distribution samples. In conjunction with the standard cross-entropy loss, we minimize the novel loss to train an ensemble of classifiers. We also propose a novel method to combine the outputs of the ensemble of classifiers to obtain OOD detection score and class prediction. Overall, our method convincingly outperforms Hendrycks et al.[7] and the current state-of-the-art ODIN[13] on several OOD detection benchmarks.},
-  pubstate = {preprint}
+  abstract = {As deep learning methods form a critical part in commercially important applications such as autonomous driving and medical diagnostics, it is important to reliably detect out-of-distribution (OOD) inputs while employing these algorithms. In this work, we propose an OOD detection algorithm which comprises of an ensemble of classifiers. We train each classifier in a self-supervised manner by leaving out a random subset of training data as OOD data and the rest as in-distribution (ID) data. We propose a novel margin-based loss over the softmax output which seeks to maintain at least a margin \$m\$ between the average entropy of the OOD and in-distribution samples. In conjunction with the standard cross-entropy loss, we minimize the novel loss to train an ensemble of classifiers. We also propose a novel method to combine the outputs of the ensemble of classifiers to obtain OOD detection score and class prediction. Overall, our method convincingly outperforms Hendrycks et al.[7] and the current state-of-the-art ODIN[13] on several OOD detection benchmarks.}
 }
 
 @article{wald_tests_1943,
@@ -16051,6 +16241,14 @@
   langid = {english}
 }
 
+@inproceedings{wu_ngc_2021,
+  title = {{{NGC}}: {{A Unified Framework}} for {{Learning}} with {{Open-World Noisy Data}}},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Wu, Zhi-Fan and Wei, Tong and Jiang, Jianwen and Mao, Chaojie and Tang, Mingqian and Li, Yu-Feng},
+  date = {2021},
+  pages = {62--71}
+}
+
 @online{wu_streaming_2020,
   title = {Streaming {{Transformer-based Acoustic Models Using Self-attention}} with {{Augmented Memory}}},
   author = {Wu, Chunyang and Wang, Yongqiang and Shi, Yangyang and Yeh, Ching-Feng and Zhang, Frank},
@@ -16086,6 +16284,15 @@
   urldate = {2019-08-01},
   abstract = {Over-dependence on domain ontology and lack of knowledge sharing across domains are two practical and yet less studied problems of dialogue state tracking. Existing approaches generally fall short in tracking unknown slot values during inference and often have difficulties in adapting to new domains. In this paper, we propose a TRAnsferable Dialogue statE generator (TRADE) that generates dialogue states from utterances using a copy mechanism, facilitating knowledge transfer when predicting (domain, slot, value) triplets not encountered during training. Our model is composed of an utterance encoder, a slot gate, and a state generator, which are shared across domains. Empirical results demonstrate that TRADE achieves state-of-the-art joint goal accuracy of 48.62\% for the five domains of MultiWOZ, a human-human dialogue dataset. In addition, we show its transferring ability by simulating zero-shot and few-shot dialogue state tracking for unseen domains. TRADE achieves 60.58\% joint goal accuracy in one of the zero-shot domains, and is able to adapt to few-shot cases without forgetting already trained domains.},
   langid = {english}
+}
+
+@inproceedings{xia_learning_2015,
+  title = {Learning Discriminative Reconstructions for Unsupervised Outlier Removal},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Computer Vision}} ({{ICCV}})},
+  author = {Xia, Yan and Cao, Xudong and Wen, Fang and Hua, Gang and Sun, Jian},
+  date = {2015},
+  pages = {1511--1519},
+  location = {{Santiago, Chile}}
 }
 
 @online{xia_vision_2022,
@@ -16138,6 +16345,16 @@
   pubstate = {preprint}
 }
 
+@online{xiao_we_2021,
+  title = {Do We Really Need to Learn Representations from In-Domain Data for Outlier Detection?},
+  author = {Xiao, Zhisheng and Yan, Qing and Amit, Yali},
+  date = {2021},
+  number = {2105.09270},
+  eprint = {2105.09270},
+  eprinttype = {arxiv},
+  pubstate = {preprint}
+}
+
 @inproceedings{xieEHRCodingMultiscale2019,
   title = {{{EHR Coding}} with {{Multi-scale Feature Attention}} and {{Structured Knowledge Graph Propagation}}},
   booktitle = {Proceedings of the 28th {{ACM International Conference}} on {{Information}} and {{Knowledge Management}}},
@@ -16167,6 +16384,14 @@
   date = {2016},
   eprint = {1603.01417},
   eprinttype = {arxiv}
+}
+
+@article{xu_deep_2014,
+  title = {Deep Convolutional Neural Network for Image Deconvolution},
+  author = {Xu, Li and Ren, Jimmy S and Liu, Ce and Jia, Jiaya},
+  date = {2014},
+  journaltitle = {Advances in Neural Information Processing Systems},
+  volume = {27}
 }
 
 @online{xu_evovit_2021,
@@ -16244,6 +16469,14 @@
   langid = {english}
 }
 
+@inproceedings{yang_semantically_2021,
+  title = {Semantically Coherent Out-of-Distribution Detection},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Yang, Jingkang and Wang, Haoqi and Feng, Litong and Yan, Xiaopeng and Zheng, Huabin and Zhang, Wayne and Liu, Ziwei},
+  date = {2021},
+  pages = {8301--8309}
+}
+
 @misc{yang_semisupervised_2017,
   title = {Semi-{{Supervised QA}} with {{Generative Domain-Adaptive Nets}}},
   author = {Yang, Zhilin and Hu, Junjie and Salakhutdinov, Ruslan and Cohen, William W.},
@@ -16257,7 +16490,7 @@
 
 @inproceedings{yang_stacked_2016,
   title = {Stacked Attention Networks for Image Question Answering},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Yang, Zichao and He, Xiaodong and Gao, Jianfeng and Deng, Li and Smola, Alex},
   date = {2016},
   pages = {21--29}
@@ -16385,7 +16618,7 @@
 @inproceedings{yin_avit_2022,
   title = {A-{{ViT}}: {{Adaptive Tokens}} for {{Efficient Vision Transformer}}},
   shorttitle = {A-{{ViT}}},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Yin, Hongxu and Vahdat, Arash and Alvarez, Jose and Mallya, Arun and Kautz, Jan and Molchanov, Pavlo},
   date = {2022-03-29},
   eprint = {2112.07658},
@@ -16501,6 +16734,14 @@
   abstract = {The paper reviews the recent developments of incorporating prior domain knowledge into inductive machine learning, and proposes a guideline that incorporates prior domain knowledge in three key issues of inductive machine learning algorithms: consistency, gen-eralization and convergence. With respect to each issue, this paper gives some approaches to improve the performance of the inductive machine learning algorithms and discusses the risks of incorporating domain knowledge. As a case study, a hierarchical modelling method, VQSVM, is proposed and tested over some imbalanced data sets with various imbalance ratios and various numbers of subclasses.}
 }
 
+@inproceedings{yu_unsupervised_2019,
+  title = {Unsupervised Out-of-Distribution Detection by Maximum Classifier Discrepancy},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF International Conference}} on {{Computer Vision}} ({{ICCV}})},
+  author = {Yu, Qing and Aizawa, Kiyoharu},
+  date = {2019},
+  pages = {9518--9526}
+}
+
 @misc{yuan_machine_2017,
   title = {Machine {{Comprehension}} by {{Text-to-Text Neural Question Generation}}},
   author = {Yuan, Xingdi and Wang, Tong and Gulcehre, Caglar and Sordoni, Alessandro and Bachman, Philip and Subramanian, Sandeep and Zhang, Saizheng and Trischler, Adam},
@@ -16573,10 +16814,11 @@
 
 @inproceedings{zaeemzadeh_outofdistribution_2021,
   title = {Out-of-Distribution Detection Using Union of 1-Dimensional Subspaces},
-  booktitle = {Proceedings of the {{IEEE}}/{{CVF}} Conference on Computer Vision and Pattern Recognition},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Zaeemzadeh, Alireza and Bisagno, Niccolo and Sambugaro, Zeno and Conci, Nicola and Rahnavard, Nazanin and Shah, Mubarak},
   date = {2021},
-  pages = {9452--9461}
+  pages = {9452--9461},
+  eventtitle = {Conference on {{Computer Vision}} and {{Pattern Recognition}}}
 }
 
 @inproceedings{zaken_bitfit_2022,
@@ -16663,7 +16905,7 @@
 @inproceedings{zeng_not_2022,
   title = {Not {{All Tokens Are Equal}}: {{Human-centric Visual Analysis}} via {{Token Clustering Transformer}}},
   shorttitle = {Not {{All Tokens Are Equal}}},
-  booktitle = {2022 {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Zeng, Wang and Jin, Sheng and Liu, Wentao and Qian, Chen and Luo, Ping and Ouyang, Wanli and Wang, Xiaogang},
   date = {2022-06},
   pages = {11091--11101},
@@ -16671,7 +16913,7 @@
   location = {{New Orleans, LA, USA}},
   urldate = {2022-10-08},
   abstract = {Vision transformers have achieved great successes in many computer vision tasks. Most methods generate vision tokens by splitting an image into a regular and fixed grid and treating each cell as a token. However, not all regions are equally important in human-centric vision tasks, e.g., the human body needs a fine representation with many tokens, while the image background can be modeled by a few tokens. To address this problem, we propose a novel Vision Transformer, called Token Clustering Transformer (TCFormer), which merges tokens by progressive clustering, where the tokens can be merged from different locations with flexible shapes and sizes. The tokens in TCFormer can not only focus on important areas but also adjust the token shapes to fit the semantic concept and adopt a fine resolution for regions containing critical details, which is beneficial to capturing detailed information. Extensive experiments show that TCFormer consistently outperforms its counterparts on different challenging human-centric tasks and datasets, including whole-body pose estimation on COCO-WholeBody and 3D human mesh reconstruction on 3DPW. Code is available at https://github.com/ zengwang430521/TCFormer.git.},
-  eventtitle = {2022 {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  eventtitle = {{{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   isbn = {978-1-66546-946-3},
   langid = {english},
   keywords = {Medium}
@@ -16706,7 +16948,7 @@
 
 @inproceedings{zhai_scaling_2022,
   title = {Scaling {{Vision Transformers}}},
-  booktitle = {{{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Zhai, Xiaohua and Kolesnikov, Alexander and Houlsby, Neil and Beyer, Lucas},
   date = {2022-06},
   pages = {1204--1213},
@@ -16813,11 +17055,11 @@
   langid = {english}
 }
 
-@article{zhang_understanding_2017,
+@inproceedings{zhang_understanding_2017,
   title = {Understanding {{Deep Learning Requires Rethinking Generalization}}},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Zhang, Chiyuan and Bengio, Samy and Hardt, Moritz and Recht, Benjamin and Vinyals, Oriol},
   date = {2017},
-  journaltitle = {International Conference on Learning Representations (ICLR)},
   urldate = {2018-10-12},
   abstract = {Despite their massive size, successful deep artificial neural networks can exhibit a remarkably small difference between training and test performance. Conventional wisdom attributes small generalization error either to properties of the model family, or to the regularization techniques used during training.  Through extensive systematic experiments, we show how these traditional approaches fail to explain why large neural networks generalize well in practice. Specifically, our experiments establish that state-of-the-art convolutional networks for image classification trained with stochastic gradient methods easily fit a random labeling of the training data. This phenomenon is qualitatively unaffected by explicit regularization, and occurs even if we replace the true images by completely unstructured random noise. We corroborate these experimental findings with a theoretical construction showing that simple depth two neural networks already have perfect finite sample expressivity as soon as the number of parameters exceeds the number of data points as it usually does in practice.  We interpret our experimental findings by comparison with traditional models.},
   langid = {english}
@@ -16914,7 +17156,7 @@
 
 @inproceedings{zheng_rethinking_2021,
   title = {Rethinking {{Semantic Segmentation}} from a {{Sequence-to-Sequence Perspective}} with {{Transformers}}},
-  booktitle = {{{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Zheng, Sixiao and Lu, Jiachen and Zhao, Hengshuang and Zhu, Xiatian and Luo, Zekun and Wang, Yabiao and Fu, Yanwei and Feng, Jianfeng and Xiang, Tao and Torr, Philip H.S. and Zhang, Li},
   date = {2021-06},
   pages = {6877--6886},
@@ -16925,6 +17167,14 @@
   eventtitle = {{{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   isbn = {978-1-66544-509-2},
   langid = {english}
+}
+
+@inproceedings{zhou_anomaly_2017,
+  title = {Anomaly Detection with Robust Deep Autoencoders},
+  booktitle = {Proceedings of the 23rd {{ACM SIGKDD International Conference}} on {{Knowledge Discovery}} and {{Data Mining}}},
+  author = {Zhou, Chong and Paffenroth, Randy C},
+  date = {2017},
+  pages = {665--674}
 }
 
 @online{zhou_comparison_2020,
@@ -17050,12 +17300,12 @@
 
 @inproceedings{zhu_s3vae_2020,
   title = {{{S3VAE}}: {{Self-supervised}} Sequential {{VAE}} for Representation Disentanglement and Data Generation},
-  booktitle = {Proceedings of the {{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
   author = {Zhu, Yizhe and Min, Martin Renqiang and Kadav, Asim and Graf, Hans Peter},
   date = {2020},
   pages = {6537--6546},
   location = {{Seattle, WA, USA}},
-  eventtitle = {{{IEEE Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})}
+  eventtitle = {{{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}}}
 }
 
 @unpublished{zhu_wav2vecs_2021,
@@ -17079,4 +17329,12 @@
   urldate = {2019-09-20},
   abstract = {Many sequential processing tasks require complex nonlinear transition functions from one step to the next. However, recurrent neural networks with "deep" transition functions remain difficult to train, even when using Long Short-Term Memory (LSTM) networks. We introduce a novel theoretical analysis of recurrent networks based on Geršgorin’s circle theorem that illuminates several modeling and optimization issues and improves our understanding of the LSTM cell. Based on this analysis we propose Recurrent Highway Networks, which extend the LSTM architecture to allow step-to-step transition depths larger than one. Several language modeling experiments demonstrate that the proposed architecture results in powerful and efficient models. On the Penn Treebank corpus, solely increasing the transition depth from 1 to 10 improves word-level perplexity from 90.6 to 65.4 using the same number of parameters. On the larger Wikipedia datasets for character prediction (text8 and enwik8), RHNs outperform all previous results and achieve an entropy of 1.27 bits per character.},
   langid = {english}
+}
+
+@inproceedings{zong_deep_2018,
+  title = {Deep Autoencoding Gaussian Mixture Model for Unsupervised Anomaly Detection},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
+  author = {Zong, Bo and Song, Qi and Min, Martin Renqiang and Cheng, Wei and Lumezanu, Cristian and Cho, Daeki and Chen, Haifeng},
+  date = {2018},
+  location = {{Vancouver, BC, Canada}}
 }
