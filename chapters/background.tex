@@ -135,22 +135,22 @@ In the general case, we assume that we have a domain of in-distribution data, $\
 Since such OOD data is unknown to the model, it is, by definition, a source of epistemic uncertainty. This makes OOD detection closely related to uncertainty quantification. Only in cases where strong prior knowledge of the data is incorporated into a model, can we expect it to be able to make reliable predictions on OOD data.
 
 Recently, several approaches for deep neural networks have been developed that formally address the rejection of samples $\xb\notin\mathcal{D}_{\text{in}}$. 
-One way to categorize the different approaches is based on whether the method estimates a conditional probability distribution $p(y|\xb)$ over some target variable given the input, or a probability distribution $p(\xb)$ over the input itself. We might refer to the former as \emph{supervised} OOD detection, and the latter as \emph{unsupervised} OOD detection \cite{graham_denoising_2023,liu_unsupervised_2023a}, although it is important to note that this distinction relates only to the availability of some target value, $y$ - not whether OOD data is available for supervision\footnote{
+One way to categorize the different approaches is based on whether the underlying model is a classifier that estimates a conditional probability distribution $p(y|\xb)$ over some target variable given the input, or a model that learns a probability density $p(\xb)$ over the input itself. We might refer to the former as \emph{supervised} OOD detection, and the latter as \emph{unsupervised} OOD detection \cite{graham_denoising_2023,liu_unsupervised_2023a}, although it is important to note that this distinction relates only to the availability of some target value, $y$ - not whether OOD data is available for supervision\footnote{
     In our overview, we distinguish between supervised and unsupervised out-of-distribution by letting methods be classified as supervised that use any kind of target value $y$, whether it relates to the original task, available OOD data, or both. This is the same distinction made by \textcite{graham_denoising_2023} and \textcite{liu_unsupervised_2023a}. 
     However, it is important to note that in other works, the distinction is made based on whether the model is trained on OOD data or not \cite{hendrycks_baseline_2017,liu_energy-based_2020}. This difference in nomenclature is currently unresolved in the literature. 
 }. 
-Supervised OOD detection tries to assess whether the model's prediction $p(y|\xb)$ should be trusted for a given input $\xb$, whereas unsupervised OOD detection judges whether the input $\xb$ should be trusted and used at all. 
+Supervised OOD detection tries to assess whether the model's prediction $\hat{y}$ via $p(y|\xb)$ should be trusted for a given input $\xb$, whereas unsupervised OOD detection judges whether the input $\xb$ should be trusted and used at all. 
 
-Central to any OOD detection method is the ability to assign a score $s(\xb) \in \mathbb{R}$ to a given input $\xb$ that indicates the degree to which the input is likely to be OOD. After obtaining such a scoring method, we typically use a validation set to tune a threshold $\tau$ such that $\xb$ is considered OOD if $s(\xb) > \tau$. The threshold is typically chosen such that performance on the validation set is above some standard, for instance by imposing constraints on the recall and precision. 
+Central to any OOD detection method is the ability to assign a score $s(\xb) \in \mathbb{R}$ to a given input $\xb$ that indicates the degree to which the input is likely to be OOD. After defining a score, we typically use a validation set to tune a threshold $\tau$ such that $\xb$ is considered OOD if $s(\xb) > \tau$. The threshold is typically chosen such that performance on the validation set is above some standard, for instance by imposing constraints on the recall and precision. Many works also evaluate the performance of OOD detection methods using the area under the receiver operating characteristic (AUROC) curve which does not require a threshold to be chosen.
 
-There are many ways to obtain such a scoring method. 
+The many different ways of defining a score $s(\xb)$ can be used to further categorize OOD detection methods.
 Unsupervised methods often derive the score 
 from the \emph{likelihood} assigned to the input \cite{bishop_novelty_1994,choi_waic_2019,kirichenko_why_2020,ren_likelihood_2019,serra_input_2020,xiao_likelihood_2020,morningstar_density_2021,nalisnick_detecting_2019,bergamin_modelagnostic_2022,maaloe_biva_2019,havtorn_hierarchical_2021}, 
 from a \emph{reconstruction} of the input $\xb$ \cite{sakurada_anomaly_2014,xia_learning_2015,lyudchik_outlier_2016,zhou_anomaly_2017,chen_outlier_2017,schlegl_unsupervised_2017,zong_deep_2018,li_madgan_2019,graham_denoising_2023,liu_unsupervised_2023a}, or 
 from a latent \emph{representation} of the input \cite{denouden_improving_2018,hendrycks_using_2019,ahmadian_likelihoodfree_2021,bergman_classificationbased_2020,tack_csi_2020,sehwag_ssd_2021,xiao_we_2021}.  % https://arxiv.org/pdf/2302.10326.pdf
 Supervised methods often derive the score 
 from the \emph{probabilities} given by the predictive distribution $p(y|\xb)$ \cite{hendrycks_baseline_2017,hendrycks_scaling_2022} or 
-from the \emph{logits} of $p(y|\xb)$ \cite{hendrycks_2022_scaling,liu_energy-based_2020,}. 
+from the \emph{logits} of $p(y|\xb)$ \cite{hendrycks_scaling_2022,liu_energy-based_2020}. 
 Other methods use a latent \emph{representation} of the input \cite{lee_simple_2018,li_anomaly_2019,ndiour_outofdistribution_2020,cook_outlier_2020,zaeemzadeh_outofdistribution_2021}, similar to unsupervised methods. 
 In the following sections, we provide a more in-depth overview of the different approaches to OOD detection following the above categorization into supervised and unsupervised methods. For the supervised methods we further distinguish between whether methods use real OOD data, synthetic OOD data, or no OOD data at all. 
 
@@ -245,7 +245,8 @@ Similarly, to represent a virtual OOD class, \textcite{wang_vim_2022} generates 
 Other methods note that the difficulty of detecting OOD data might be attributed to the curse of dimensionality in the learned feature spaces and propose to use dimensionality reduction techniques. In \textcite{ndiour_outofdistribution_2020}, apply dimensionality reduction on learned, high-dimensional features to capture the true feature subspace and compute the norm of the difference between the original feature and the pre-image of its low-dimensional manifold embedding. 
 \textcite{zaeemzadeh_outofdistribution_2021} forces the ID samples to embed into a union of 1-dimensional subspaces during training and computes the minimum angular distance from the feature to the class-wise subspaces. 
 NuSA \cite{cook_outlier_2020} uses projects features onto the column space of the classification weight matrix and computes the ratio of the norm the projected and original features.
-\textcite{lee_simple_2018} fit a multivariate Gaussian distribution to the activations of the penultimate layer of a pre-trained classifier and use the Mahalanobis distance to this distribution to evaluate whether inputs are OOD. This method can also be seen as ameliorating the curse of dimensionality by clustering the high-dimensional feature space.
+\textcite{lee_simple_2018} fit a multivariate Gaussian distribution to the activations of the penultimate layer of a pre-trained classifier and use the Mahalanobis distance to this distribution to evaluate whether inputs are OOD. This method can also be seen as ameliorating the curse of dimensionality by clustering the high-dimensional feature space. 
+Finally, Bayesian neural networks have also been proposed for OOD detection although their performance is not yet competitive with other methods \cite{henning_are_2021,dangelo_outofdistribution_2022,nguyen_out_2022}. 
 
 % Summary and weaknesses of supervised OOD detection approaches
 % Methods that use real OOD data achieve high performance but are limited by the availability of OOD data and how well it covers the large variation in OOD data.
@@ -292,16 +293,123 @@ NuSA \cite{cook_outlier_2020} uses projects features onto the column space of th
 
 % Assume we have a dataset $\mathcal{D}_{\text{training}}$ of in-distribution data and we would like to build a model that can be used to assess whether a certain data point $\xb$ is sampled from $\mathcal{D}_{\text{training}}$ or not. Given a test point $\xb$, the model outputs a score $s(\xb)$ that indicates whether $\xb$ is in-distribution or out-of-distribution. 
 
-Unsupervised methods often derive the score ...
+For high-dimensional data, the most successful unsupervised models for OOD detection are deep autoencoders \cite{hinton_reducing_2006} and deep generative models. 
+Deep generative models are a class of models that learn a probabilistic representation of the input data and can be used to generate new samples from the same distribution. 
+There exist at least six main classes of deep generative models: variational autoencoders \cite{kingma_autoencoding_2014,rezende_stochastic_2014}, flow-based models \cite{dinh_nice_2015,kingma_glow_2018}, autoregressive models \cite{oord_conditional_2016,oord_wavenet_2016}, diffusion models \cite{sohl-dickstein_deep_2015,ho_denoising_2020}, energy-based models \cite{lecun_tutorial_2006,salakhutdinov_efficient_2010,grathwohl_your_2020}, and generative adversarial networks \cite{goodfellow_generative_2014,arjovsky_wasserstein_2017}.
+Besides data generation, common properties of deep generative models include the ability to compute an exact or approximate likelihood of input $p(\xb)$, reconstruct an input $\xb$ from its latent representation $\zb$, and represent an input $\xb$ in a latent space. These properties enable various methods for their use in OOD detection. 
+
+Other important density estimation methods that have been applied to OOD detection include kernel density estimation \cite{parzen_estimation_1962}, nearest neighbor methods \cite{cover_nearest_1967}, support vector machines \cite{cortes_supportvector_1995,scholkopf_estimating_2001}, and Gaussian mixture models \cite{dempster_maximum_1977}. 
+However, compared to deep generative models, these methods are not well suited for high-dimensional data such as images, text or audio, and have had little direct impact on the recent work on OOD detection. 
+
+% In the following we will review the literature on unsupervised OOD detection using deep generative models and categorize the different approaches based on whether they derive their OOD score from the likelihood, a reconstruction, or a latent representation of the input.
 
 \paragraph{Likelihood-based}
-from the likelihood assigned to the input \cite{bishop_novelty_1994,choi_waic_2019,kirichenko_why_2020,ren_likelihood_2019,serra_input_2020,xiao_likelihood_2020,morningstar_density_2021,nalisnick_detecting_2019,bergamin_modelagnostic_2022,maaloe_biva_2019,havtorn_hierarchical_2021}, 
+% \cite{
+%     X bishop_novelty_1994,
+%     X choi_waic_2019,
+%     X kirichenko_why_2020,
+%     X ren_likelihood_2019,
+%     X serra_input_2020,
+%     X xiao_likelihood_2020,
+%     X morningstar_density_2021,
+%     X nalisnick_detecting_2019,
+%     X bergamin_modelagnostic_2022,
+%     X maaloe_biva_2019,
+%     X havtorn_hierarchical_2021
+% },
+%
+Among the deep generative models that compute exact likelihoods are flow-based models, autoregressive models, and diffusion models, whereas variational autoencoders compute a lower bound on the likelihood, energy-based models usually require approximate methods, and generative adversarial networks do not compute an explicit likelihood at all.
+\textcite{bishop_novelty_1994} first proposed to use the likelihood assigned to data by a generative model as a measure for detecting anomalous data. Simply put, since the likelihood measures ``how probable the data is'', OOD data is expected to give lower likelihoods than in-distribution data. Although, this method originally gave encouraging results, the advent of deep generative models and their application to high-dimensional data has lead many to observe likelihoods for OOD data that are higher than for in-distribution data \cite{choi_waic_2019,nalisnick_detecting_2019,kirichenko_why_2020}. Such results have sparked interest in trying to explain this phenomenon and many works have proposed new scores for OOD detection derived from the likelihood. 
+
+In \textcite{ren_likelihood_2019}, the authors propose to use the likelihood ratio between a model trained on in-distribution data and a background model trained on perturbed in-distribution data as the OOD score. 
+\textcite{serra_input_2020} argue that the failure of DGMs is due to the high-influence that the input complexity has on the likelihood. Therefore, they propose to use a general lossless image compression algorithm as a background model. 
+\textcite{choi_waic_2019} propose to use the Watanabe information criterion (WAIC) computed from the likelihood \cite{watanabe_algebraic_2009, watanabe_asymptotic_2010}. 
+For variational autoencoders, other work proposes to refit the encoder on a test data example, hypothesizing that the likelihood of OOD data will improve more than for in-distribution data, and use this ``likelihood regret" as the OOD score \cite{xiao_likelihood_2020}. 
+\textcite{maaloe_biva_2019} provide initial results that a loosened variational bound on the likelihood, using only encoded representations from the top-most latent variables in a hierarchical variationa autoencoder, can improve OOD detection performance. In \textcite{havtorn_hierarchical_2021}, we show that variational autoencoders are surprisingly good at reconstructing OOD data and propose an improved score based on the likelihood ratio of such loosened bounds \textcite{maaloe_biva_2019}.
+
+A different approach is to use the typicality set hypothesis \cite{nalisnick_detecting_2019}. The typicality set is the subset of the model full support in data space, where the model samples from, that does not overlap with regions of maximal likelihood. \textcite{nalisnick_detecting_2019} propose to use the typicality set as a test statistic for OOD detection while \textcite{morningstar_density_2021} propose to use the related idea of density of states of the model. 
+In \textcite{bergamin_modelagnostic_2022} we use Fisher's method \cite{fisher_statistical_1925} to combine Rao's score test statistic \cite{rao_large_1948} with the typicality set test statistic hence including information from both the gradient and the likelihood.
+
 
 \paragraph{Reconstruction-based}
-from a reconstruction of the input $\xb$ \cite{sakurada_anomaly_2014,xia_learning_2015,lyudchik_outlier_2016,zhou_anomaly_2017,chen_outlier_2017,schlegl_unsupervised_2017,zong_deep_2018,li_madgan_2019,graham_denoising_2023,liu_unsupervised_2023a}, or 
+% \cite{
+%     X sakurada_anomaly_2014                 encode and decode data with autoencoders.
+%     X xia_learning_2015                     encode and decode data with autoencoders.
+%     zhou_anomaly_2017                     encode and decode data with autoencoders.
+%     zong_deep_2018                        encode and decode data with autoencoders.
+%     lyudchik_outlier_2016                 encode and decode data with autoencoders.
+%     chen_outlier_2017                     encode and decode data with an ensemble of autoencoders.
+%     schlegl_unsupervised_2017             perform GAN inversion for a data point, and evaluate its reconstruction error and discriminator confidence under the inverted latent variable.
+%     li_madgan_2019                        perform GAN inversion for a data point, and evaluate its reconstruction error and discriminator confidence under the inverted latent variable.
+%     graham_denoising_2023                 leverages diffusion models to reconstruct images at varied diffusion steps, while we mask and inpaint an image repeatedly with fixed steps.
+%     liu_unsupervised_2023a                LMD lifts an image off its original manifold by corrupting it, and maps it towards the in-domain manifold with a diffusion model. For an out-of-domain image, the mapped image would have a large distance away from its original manifold, and LMD would identify it as OOD accordingly.
+% }
+%
+A number of methods derive the OOD score from a reconstruction error. 
+Among the first methods are \textcite{sakurada_anomaly_2014} and \textcite{xia_learning_2015} who use deep autoencoders to reconstruct the input and use the reconstruction error as the OOD score. 
+% In \textcite{zhou_anomaly_2017} 
 
 \paragraph{Representation-based}
-from a latent representation of the input \cite{denouden_improving_2018, hendrycks_using_2019, ahmadian_likelihoodfree_2021,bergman_classificationbased_2020, tack_csi_2020, sehwag_ssd_2021, xiao_we_2021}.  % https://arxiv.org/pdf/2302.10326.pdf
+% https://arxiv.org/pdf/2302.10326.pdf
+% \cite{
+%     denouden_improving_2018,              leverages the latent variables of an autoencoder, and evaluates the Mahalanobis distance in the latent space along with the data reconstruction error
+%     ahmadian_likelihoodfree_2021,         extracts low-level features from the encoder of an invertible generative model.
+%     hendrycks_using_2019,                 learn a representation over the in-domain data through self-supervised training
+%     bergman_classificationbased_2020,     learn a representation over the in-domain data through self-supervised training
+%     tack_csi_2020,                        learn a representation over the in-domain data through self-supervised training
+%     sehwag_ssd_2021,                      learn a representation over the in-domain data through self-supervised training
+%     xiao_we_2021                          further shows that one can instead use a strong pretrained feature extractor while maintaining comparable performance.
+% }
+%
+
+
+
+
+
+
+% \subsubsection{Model agnostic: Related works}
+% Since \textcite{nalisnick_deep_2019} and \textcite{hendrycks_deep_2019}, different test statistics or methodologies for OOD detection using DGMs were proposed. Most of the recent solutions were highly influenced by three major lines of work: \emph{typicality set}, \emph{likelihood ratio} test statistics, and \emph{model misestimation}. 
+
+% The typicality set hypothesis was introduced by \textcite{nalisnick_detecting_2019} as a possible explanation for the DGMs assigning higher likelihood to OOD data. The typicality set is the subset of the model full support where the model samples from and this does not intersect with the region of higher likelihood. While the typicality test was introduced for batch-OOD detection, \textcite{morningstar_density_2021} shows that it also works well in the single-sample case. This is also confirmed by our own experiments. 
+
+% The likelihood ratio test statistic method by \textcite{ren_likelihood_2019} assumes that every input is composed by a background component and a semantic component. For OOD detection, only the semantic component matters. In addition to a model trained on the in-distribution data, they proposed to train a background model on perturbed inputs data and then for each test example consider as OOD score the likelihood ratio between the two models. \textcite{schirrmeister_understanding_2020}, instead, trained the background model on a more general distribution of images by considering 80 million general tiny images. Similarly to these approaches, \textcite{serra_input_2020} argued that the failure of DGMs is due to the high-influence that the input complexity has on the likelihood. Therefore, they proposed to use a general lossless image compression algorithm as a background model.
+% All these methods, however, require additional knowledge of the OOD data for either choosing an image augmentation procedure to perturb the input data or for choosing a specific compressor. 
+
+% Another line of works blame the models themselves and not the test statistics. \textcite{zhang_understanding_2021} argued that model misestimation is the main cause of higher likelihood assigned to OOD data. This can be due to both the model architecture and the maximum likelihood objective. \textcite{kirichenko_why_2020} and \textcite{schirrmeister_understanding_2020} showed that normalizing flows can achieve better OOD performance despite achieving a worse likelihood if one changes some model design choices.
+% %
+% Other works in the literature focused on deriving specific test statistics that work only for a specific model, for example for VAEs \parencite{xiao_likelihood_2020, maaloe_biva_2019, havtorn_hierarchical_2021}, or for normalizing flows \parencite{kirichenko_why_2020, ahmadian_likelihoodfree_2021}.
+
+% %All the solutions we presented can be described in terms of the following two categories: \emph{model-agnostic} vs \emph{model-specific} test statistics and statistics \emph{with OOD assumptions} vs statistics \emph{with no OOD assumptions}. In this work, we are mostly interested in model-agnostic scores with no OOD assumptions, i.e.\@ scores that can be directly computed with any models and that do not need any explicit assumption on the OOD data. 
+
+% As mentioned in the introduction, we frame the OOD detection problem in terms of statistical tests problem. Recently, \textcite{haroush_statistical_2021} showed that adopting hypothesis testing at the layer and channel level of a neural network can be used for OOD detection in the discriminative setting. They used both Fisher's method and Simes' method to combine class-conditional $p$-values computed for each convolutional and dense layer of a deep neural network. We focus on the unsupervised setting using DGMs and use hypothesis testing on statistics that can be computed on all differentiable DGM. As already explained in section \cref{sec_modelagnostic:combination_p_values}, \textcite{morningstar_density_2021} considered the combination of different statistics for OOD detection. The main difference with their approach is that we propose statistics that can be applied to any differentiable generative model and combine them by using Fisher's method, which takes advantage of using only one-sided independent statistics. Concurrently, \textcite{choi_robust_2021} derived the score statistic by starting from the likelihood ratio statistic and applying a Laplace approximation. They computed the score statistic only for certain layers of the model and for a specific example, the OOD score is given by the infinity norm of these different layer scores after a ReLU operation. Our procedure differs both in the derivation of the score statistic and its usage since we compute the score statistic for the entire model.
+
+
+% \subsubsection{Hierarchical: Related works}
+
+% So far, no reliable direct likelihood-based method has been found for fully unsupervised deep generative model OOD detection.
+% A major line of work considers developing new scores that are more reliable than the likelihood.
+% This includes the \textit{typicality} test presented by \textcite{nalisnick_detecting_2019} which is an OOD detection test based on the typicality of a batch of potentially OOD examples.
+% This approach however requires a batch of examples from the same class (OOD or not) which limits its practical applicability.
+% In \textcite{ren_likelihood_2019}, the \textit{likelihood ratio} between a primary model and a background model was shown to be an effective score for OOD detection.
+% However, to train the background model, the in-distribution data is perturbed via a data augmentation technique that is designed with knowledge about the confounding factors between the in-distribution data and the OOD data. Furthermore, it is tuned towards high performance on a known OOD dataset.
+% \textcite{serra_input_2020} take a similar approach and attribute the failure to detect OOD data to the high influence of the input complexity on the likelihood and choose a generic lossless compression algorithm as the background model.
+% Although this method gives good results, no single best choice of compression algorithm exists for all types of OOD data, and any particular choice encodes prior knowledge about the data into the detection method.
+% Both these methods can be seen as correcting for low-level features of the OOD data being assigned high model likelihood by using a second model focused exclusively on these features.
+
+% Similar to these methods, the majority of the approaches to OOD detection make assumptions about the nature of the OOD data.
+% The assumptions encompass using labels on the in-distribution data \cite{hendrycks_baseline_2017, liang_enhancing_2018, alemi_uncertainty_2018, lee_simple_2018, lakshminarayanan_simple_2017}, examples of OOD data \cite{hendrycks_deep_2019}, augmenting in-distribution data to mimic it \cite{ren_likelihood_2019}, or assuming a certain data type \cite{serra_input_2020}.
+% Any of these assumptions encode implicit biases into the model about the attributes of OOD data which, in turn, might impair performance on truly unknown data examples (unknown unknowns).
+
+% % Introduce the contrast to results with VAEs
+% While some of these methods achieve very good results on OOD detection with autoregressive models \cite{oord_pixel_2016, salimans_pixelcnn_2017} and invertible flow-based models \cite{kingma_glow_2018}, it was recently shown that they can be much less effective for VAEs \cite{xiao_likelihood_2020} highlighting the need for a more reliable OOD score for VAEs.
+% Although VAEs have the same failure cases as autoregressive and flow-based models, the caveat is that the difference in the likelihood is generally not as big and reconstructions of OOD can be surprisingly good \cite{xiao_likelihood_2020}.
+% \textcite{xiao_likelihood_2020} alleviate this by refitting the inference network, as previously proposed by \textcite{cremer_inference_2018, mattei_refit_2018}, to a potentially OOD example and measuring the so-called \textit{likelihood regret}.
+% However, refitting the inference network can be computationally expensive, especially for the large hierarchical VAEs that are used to model complex data \cite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}. Furthermore, this scales poorly to large amounts of potentially OOD examples as the optimization is done per example.
+
+% A few methods have approached OOD detection in a completely unsupervised fashion \cite{maaloe_biva_2019, choi_waic_2019, xiao_likelihood_2020}.
+% The work of \textcite{maaloe_biva_2019} is the most related to ours. They introduce BIVA, a deep hierarchy of stochastic latent variables with a top-down and bottom-up inference model and achieve state-of-the-art likelihood scores. 
+% They also provide early results indicative that a looser likelihood bound may have value in OOD detection.
+% In this paper, we provide an explanation of those results, and significantly improve upon them.
 
 
 

@@ -3236,6 +3236,17 @@
   isbn = {9781510829008}
 }
 
+@article{cover_nearest_1967,
+  title = {Nearest Neighbor Pattern Classification},
+  author = {Cover, Thomas and Hart, Peter},
+  date = {1967},
+  journaltitle = {IEEE Transactions on Information Theory},
+  volume = {13},
+  number = {1},
+  pages = {21--27},
+  publisher = {{IEEE}}
+}
+
 @misc{crabbe_explaining_2021,
   title = {Explaining {{Time Series Predictions}} with {{Dynamic Masks}}},
   author = {Crabbé, Jonathan and family=Schaar, given=Mihaela, prefix=van der, useprefix=true},
@@ -3384,6 +3395,18 @@
   date = {2020}
 }
 
+@online{dangelo_outofdistribution_2022,
+  title = {On Out-of-Distribution Detection with {{Bayesian}} Neural Networks},
+  author = {D'Angelo, Francesco and Henning, Christian},
+  date = {2022-02-21},
+  eprint = {2110.06020},
+  eprinttype = {arxiv},
+  eprintclass = {cs, stat},
+  urldate = {2023-09-19},
+  abstract = {The question whether inputs are valid for the problem a neural network is trying to solve has sparked interest in out-of-distribution (OOD) detection. It is widely assumed that Bayesian neural networks (BNNs) are well suited for this task, as the endowed epistemic uncertainty should lead to disagreement in predictions on outliers. In this paper, we question this assumption and show that proper Bayesian inference with function space priors induced by neural networks does not necessarily lead to good OOD detection. To circumvent the use of approximate inference, we start by studying the infinite-width case, where Bayesian inference can be exact due to the correspondence with Gaussian processes. Strikingly, the kernels derived from common architectural choices lead to function space priors which induce predictive uncertainties that do not reflect the underlying input data distribution and are therefore unsuited for OOD detection. Importantly, we find the OOD behavior in this limiting case to be consistent with the corresponding finite-width case. To overcome this limitation, useful function space properties can also be encoded in the prior in weight space, however, this can currently only be applied to a specified subset of the domain and thus does not inherently extend to OOD data. Finally, we argue that a trade-off between generalization and OOD capabilities might render the application of BNNs for OOD detection undesirable in practice. Overall, our study discloses fundamental problems when naively using BNNs for OOD detection and opens interesting avenues for future research.},
+  pubstate = {preprint}
+}
+
 @misc{dauphin_identifying_2014,
   title = {Identifying and Attacking the Saddle Point Problem in High-Dimensional Non-Convex Optimization},
   author = {Dauphin, Yann and Pascanu, Razvan and Gulcehre, Caglar and Cho, Kyunghyun and Ganguli, Surya and Bengio, Yoshua},
@@ -3499,6 +3522,17 @@
   pages = {4},
   abstract = {In this paper we evaluate the performance of 8 different speech rate estimators [1, 2, 3, 4, 5] previously described in the literature by applying them on a multilingual test database [6]. All the estimators show an underestimation at high speech rates and some also suffer from an overestimation at low speech rates. Overall the tested methods obtain high correlation coefficients with the reference speech rate. The Temporal Correlation and Selected Sub-band Correlation method (tcssbc), which uses sub-band and time domain correlation for detecting the number of vowels or diphthongs present in the speech signal, shows little errors and appears to be the most appropriate overall technique for speech rate estimation.},
   langid = {english}
+}
+
+@article{dempster_maximum_1977,
+  title = {Maximum {{Likelihood}} from {{Incomplete Data Via}} the {{Em Algorithm}}},
+  author = {Dempster, Arthur P and Laird, Nan M and Rubin, Donald B},
+  date = {1977},
+  journaltitle = {Journal of the Royal Statistical Society: Series B (methodological)},
+  volume = {39},
+  number = {1},
+  pages = {1--22},
+  publisher = {{Wiley Online Library}}
 }
 
 @misc{deng_binary_2010,
@@ -5227,6 +5261,15 @@
   langid = {english}
 }
 
+@inproceedings{grathwohl_your_2020,
+  title = {Your Classifier Is Secretly an Energy Based Model and You Should Treat It like One},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
+  author = {Grathwohl, Will and Wang, Kuan-Chieh and Jacobsen, Jörn-Henrik and Duvenaud, David and Norouzi, Mohammad and Swersky, Kevin},
+  date = {2020},
+  publisher = {{OpenReview.net}},
+  location = {{Addis Ababa, Ethiopia}}
+}
+
 @misc{graves_adaptive_2017,
   title = {Adaptive {{Computation Time}} for {{Recurrent Neural Networks}}},
   author = {Graves, Alex},
@@ -6092,6 +6135,14 @@
   date = {2019},
   journaltitle = {Advances in Neural Information Processing Systems},
   volume = {32}
+}
+
+@inproceedings{henning_are_2021,
+  title = {Are {{Bayesian}} Neural Networks Intrinsically Good at Out-of-Distribution Detection?},
+  booktitle = {Proceedings of the {{ICML}} 2021 {{Workshop}} on {{Uncertainty}} \& {{Robustness}} in {{Deep Learning}}},
+  author = {Henning, Christian and D'Angelo, Francesco and Grewe, Benjamin F},
+  date = {2021-07},
+  location = {{Virtual}}
 }
 
 @book{herlau_introduction_2016,
@@ -11231,6 +11282,16 @@
   abstract = {We analyze the expressiveness and loss surface of practical deep convolutional neural networks (CNNs) with shared weights and max pooling layers. We show that such CNNs produce linearly independent features at a "wide" layer which has more neurons than the number of training samples. This condition holds e.g. for the VGG network. Furthermore, we provide for such wide CNNs necessary and sufficient conditions for global minima with zero training error. For the case where the wide layer is followed by a fully connected layer, we show that almost every critical point of the empirical loss is a global minimum with zero training error. Our analysis suggests that both depth and width are very important in deep learning. While depth brings more representational power and allows the network to learn high level features, width smoothes the optimization landscape of the loss function in the sense that a sufficiently wide network has a well-behaved loss surface with potentially no bad local minima.}
 }
 
+@inproceedings{nguyen_out_2022,
+  title = {Out of Distribution Data Detection Using Dropout Bayesian Neural Networks},
+  booktitle = {Proceedings of the {{AAAI Conference}} on {{Artificial Intelligence}}},
+  author = {Nguyen, Andre T and Lu, Fred and Munoz, Gary Lopez and Raff, Edward and Nicholas, Charles and Holt, James},
+  date = {2022},
+  volume = {36},
+  number = {7},
+  pages = {7877--7885}
+}
+
 @article{nguyen_structured_,
   title = {Structured {{Dropout Variational Inference}} for {{Bayesian Neural Networks}}},
   author = {Nguyen, Son and Nguyen, Duong and Nguyen, Khai and Than, Khoat and Bui, Hung and Ho, Nhat},
@@ -11818,6 +11879,17 @@
   eprint = {1904.01624},
   eprinttype = {arxiv},
   pubstate = {preprint}
+}
+
+@article{parzen_estimation_1962,
+  title = {On Estimation of a Probability Density Function and Mode},
+  author = {Parzen, Emanuel},
+  date = {1962},
+  journaltitle = {The Annals of Mathematical Statistics},
+  volume = {33},
+  number = {3},
+  pages = {1065--1076},
+  publisher = {{JSTOR}}
 }
 
 @article{pasad_contributions_2019,
@@ -13135,6 +13207,15 @@
   location = {{Gold Coast, QLD, Austrailia}}
 }
 
+@inproceedings{salakhutdinov_efficient_2010,
+  title = {Efficient Learning of Deep {{Boltzmann}} Machines},
+  booktitle = {Proceedings of the {{International Conference}} on {{Artificial Intelligence}} and {{Statistics}} ({{AISTATS}})},
+  author = {Salakhutdinov, Ruslan and Larochelle, Hugo},
+  date = {2010},
+  pages = {693--700},
+  publisher = {{JMLR Workshop and Conference Proceedings}}
+}
+
 @inproceedings{salakhutdinov_restricted_2007,
   title = {Restricted {{Boltzmann Machines}} for {{Collaborative Filtering}}},
   booktitle = {Proceedings of the {{International Conference}} on {{Machine Learning}} ({{ICML}})},
@@ -13422,6 +13503,17 @@
   issn = {14764687},
   abstract = {An artificial-intelligence system uses machine learning from massive training sets to teach itself to play 49 classic computer games, demonstrating that it can adapt to a variety of tasks. See Letter p.529},
   isbn = {doi:10.1038/518486a}
+}
+
+@article{scholkopf_estimating_2001,
+  title = {Estimating the Support of a High-Dimensional Distribution},
+  author = {Schölkopf, Bernhard and Platt, John C and Shawe-Taylor, John and Smola, Alex J and Williamson, Robert C},
+  date = {2001},
+  journaltitle = {Neural Computation},
+  volume = {13},
+  number = {7},
+  pages = {1443--1471},
+  publisher = {{MIT Press One Rogers Street, Cambridge, MA 02142-1209}}
 }
 
 @inproceedings{schroeder_codeexcited_1985,
@@ -15897,7 +15989,7 @@
   title = {Asymptotic Equivalence of {{Bayes}} Cross Validation and Widely Applicable Information Criterion in Singular Learning Theory.},
   author = {Watanabe, Sumio and Opper, Manfred},
   date = {2010},
-  journaltitle = {Journal of machine learning research},
+  journaltitle = {Journal of Machine Learning Research (JMLR)},
   volume = {11},
   number = {12}
 }

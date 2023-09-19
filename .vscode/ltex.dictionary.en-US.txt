@@ -3,6 +3,7 @@ Aleatoric
 aleatoric
 aleatoric
 aleatorius
+autoencoder
 autoencoders
 Bjerg
 Blaise
@@ -39,4 +40,6 @@ softmax
 Trygfonden
 Underconfident
 underconfident
+VAE
+VAEs
 Wescoff
