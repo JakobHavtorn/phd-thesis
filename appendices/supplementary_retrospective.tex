@@ -170,9 +170,9 @@ Compared to the test set (\cref{tab_retrospective:table2}), model performance on
         \midrule
         PPV [\%] $\uparrow$ & \makecell{19.0 \\ (18.3-19.7)} & \makecell{25.6 \\ (24.8-26.4)} & \makecell{12.7 \\ (12.0-13.4)} & \makecell{28.7 \\ (27.9-29.5)} \\
         \midrule
-        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - specificity)}  & \makecell{0.077 \\ (0.073-0.080)} & \makecell{0.102 \\ (0.097-0.106)} & \makecell{0.034 \\ (0.032-0.036)} & \makecell{0.318 \\ (0.305-0.331)} \\
+        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - NPV)}  & \makecell{0.077 \\ (0.073-0.080)} & \makecell{0.102 \\ (0.097-0.106)} & \makecell{0.034 \\ (0.032-0.036)} & \makecell{0.318 \\ (0.305-0.331)} \\
         \midrule
-        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - NPV)} & \makecell{0.45 \\ (0.446-0.463)} & \makecell{0.483 \\ (0.473-0.494)} & \makecell{0.264 \\ (0.258-0.270)} & \makecell{1.335 \\ (1.308-1.362)} \\
+        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell{0.45 \\ (0.446-0.463)} & \makecell{0.483 \\ (0.473-0.494)} & \makecell{0.264 \\ (0.258-0.270)} & \makecell{1.335 \\ (1.308-1.362)} \\
 
         \bottomrule
     \end{tabular}%
@@ -195,19 +195,100 @@ Compared to the test set (\cref{tab_retrospective:table2}), model performance on
 
         \midrule
 
-        F1-score [\%] $\uparrow$ & \makecell{30.4 \\ (29.3-31.5)} & \makecell{35.2 \\ (34.0-36.4)} & \makecell{24.3 \\ (23.0-25.7)} & \makecell{36.6 \\ (35.6-37.6)} \\
+        F1-score [\%] $\uparrow$                                 & \makecell{30.4 \\ (29.3-31.5)} & \makecell{35.2 \\ (34.0-36.4)} & \makecell{24.3 \\ (23.0-25.7)} & \makecell{36.6 \\ (35.6-37.6)} \\
         \midrule
-        Sensitivity [\%] $\uparrow$ & \makecell{44.5 \\ (42.9-46.0)} & \makecell{52.8 \\ (51.1-54.4)} & \makecell{45.6 \\ (43.4-47.9)} & \makecell{49.2 \\ (47.9-50.5)} \\
+        Sensitivity [\%] $\uparrow$                              & \makecell{44.5 \\ (42.9-46.0)} & \makecell{52.8 \\ (51.1-54.4)} & \makecell{45.6 \\ (43.4-47.9)} & \makecell{49.2 \\ (47.9-50.5)} \\
         \midrule
-        PPV [\%] $\uparrow$ & \makecell{23.1 \\ (22.2-24.1)} & \makecell{26.4 \\ (25.3-27.4)} & \makecell{16.6 \\ (15.5-17.5)} & \makecell{29.1 \\ (28.2-30.0)} \\
+        PPV [\%] $\uparrow$                                      & \makecell{23.1 \\ (22.2-24.1)} & \makecell{26.4 \\ (25.3-27.4)} & \makecell{16.6 \\ (15.5-17.5)} & \makecell{29.1 \\ (28.2-30.0)} \\
         \midrule
-        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell{0.152 \\ (0.146-0.159)} & \makecell{0.155 \\ (0.147-0.162)} & \makecell{0.058 \\ (0.055-0.062)} & \makecell{0.372 \\ (0.359-0.386)} \\
+        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - NPV)}         & \makecell{0.152 \\ (0.146-0.159)} & \makecell{0.155 \\ (0.147-0.162)} & \makecell{0.058 \\ (0.055-0.062)} & \makecell{0.372 \\ (0.359-0.386)} \\
         \midrule
-        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - NPV)} & \makecell{0.404 \\ (0.394-0.414)} & \makecell{0.480 \\ (0.467-0.494)} & \makecell{0.246 \\ (0.239-0.254)} & \makecell{0.873 \\ (0.852-0.894)} \\
+        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell{0.404 \\ (0.394-0.414)} & \makecell{0.480 \\ (0.467-0.494)} & \makecell{0.246 \\ (0.239-0.254)} & \makecell{0.873 \\ (0.852-0.894)} \\
 
         \bottomrule
     \end{tabular}%
     % }
+\end{table}
+
+
+\section{Additional results: Model with patient age and sex as explicit inputs}
+
+To assess the importance of patient age and sex for accurate model stroke recognition we have performed an experiment to test whether explicitly adding the age and sex of the patient as inputs to the model improves performance.
+
+Specifically, we encode patient sex as two binary numbers which we concatenate to the bag-of-words input representation. The first has the value of 1 if the patient is female, and the second has the value of 1 if the patient is male. Neither is 1 if the patient's sex is unknown/undisclosed. Similarly, we include patient age as a 15-dimensional one-hot vector where the first value represents patients with an age below 25 and the last value represents patients with an age of 90 or above. Values in between represent 5-year intervals.
+
+We trained the model similarly to how we performed our ablation experiments. That is, we used the hyperparameters that gave the best performance on the validation set to train 11 differently seeded versions of the model and then report mean metrics and associated CIs on the MH-1813 test data. The results are as shown in \cref{tab_retrospective:tableA4} below.
+
+\begin{table}[h]
+    \centering
+    \caption{Overall performance on MH-1813 test data for the model that also takes patient age and sex as direct inputs. We also list the original performance of call-takers and the model (w/o sex and age) from the main manuscript for ease of comparison [mean (95\% CI)].}
+    \label{tab_retrospective:tableA4}
+    \resizebox*{0.98\textwidth}{!}{%
+    \begin{tabular}{l|ccccc}
+        \toprule
+        & F1-score [\%] $\uparrow$ & Sensitivity [\%] $\uparrow$ & PPV [\%] $\uparrow$ & \makecell[c]{FOR [\%] $\downarrow$ \\ (1 - NPV)} & \makecell[c]{FPR [\%] $\downarrow$ \\ (1 - specificity)} \\
+        \midrule
+        & \multicolumn{5}{c}{\textit{Overall}} \\
+        \midrule
+        
+        Call-takers                             & \makecell[c]{25.8 \\ (23.7-27.9)} & \makecell[c]{52.7 \\ (49.2-56.4)} & \makecell[c]{17.1 \\ (15.5-18.6)} & \makecell[c]{0.105 \\ (0.094-0.116)} & \makecell[c]{0.565 \\ (0.539-0.590)} \\
+        \midrule
+        \makecell[l]{Model \\ w/o sex and age}  & \makecell[c]{35.7 \\ (35.0-36.4)} & \makecell[c]{63.0 \\ (62.0-64.1)} & \makecell[c]{24.9 \\ (24.3-25.5)} & \makecell[c]{0.082 \\ (0.079-0.085)} & \makecell[c]{0.419 \\ (0.413-0.426)} \\
+        \midrule
+        \makecell[l]{Model \\ w/ sex and age}   & \makecell[c]{35.8 \\ (35.1-36.5)} & \makecell[c]{64.1 \\ (63.1-65.1)} & \makecell[c]{24.9 \\ (24.3-25.4)} & \makecell[c]{0.080 \\ (0.077-0.082)} & \makecell[c]{0.427 \\ (0.421-0.434)} \\
+ 
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+We note that the performance difference between the original model and the models with age and sex inputs is statistically insignificant (p > 0.05). We hypothesize this might be because information regarding the age and sex of the patient is, in many cases, already present in the transcript. Another reason might be that the patient's age and sex are less useful discriminators than other indicative factors. This latter hypothesis is supported by our occlusion analysis and \cref{tab_retrospective:table3} where no highly ranked words directly refer to the patient's age or sex.
+
+It is important to note that in practice the information about patient sex and age is extracted from the patient's CPR number which is typically entered by the patient themselves while queuing for MH-1813. However, at call lines in countries without similar systems in place, such information may not be readily available and cannot be incorporated as an explicit input feature. The same is the case for the 1-1-2 call line in Denmark.
+
+
+\section{Additional results: Model without MH-1813 training data}
+%
+The ablation study in the main manuscript that examines the importance of the two different source domains (1-1-2 and MH-1813) includes only two of the three possible combinations of data sources, specifically: training on both 1-1-2 and MH-1813 data, and training only on MH-1813 excluding 1-1-2 data. For this reason, we have conducted an experiment that includes the remaining combination: training only on 1-1-2 excluding MH-1813 data.
+
+Since the manuscript focuses on the MH-1813 line, the main purpose of experimenting with including and excluding the 1-1-2 data was to examine whether using the out-of-domain 1-1-2 data could improve stroke recognition performance of the machine learning framework on the MH-1813 data. This has interest since many prehospital call centres operate both a high acuity emergency line (like 1-1-2) and a low-acuity medical helpline (like MH-1813) which makes high-acuity data available for modelling and a potentially valuable data source. The ablation experiment performed here, on the other hand, has a different purpose. It aims to show whether a model to assist the MH-1813 helpline could be developed also in the hypothetical case of only having access to out-of-domain, high-acuity training data from 1-1-2. This prospect may be interesting for some call centres that, for instance, have only recently started operating a medical helpline, and so, do not have in-domain training data available.
+
+We trained the models and provided the results of this experiment in \cref{tab_retrospective:tableA5} below using the same methods as in the main manuscript. We tested the significance of these results using the same statistical significance testing methods as used and described in the main manuscript.
+
+We see that the performance of the ensemble model trained only with 1-1-2 data compared to training only with MH-1813 data was worse in terms of sensitivity and FOR (p < 0.0001), but on-par in terms of F1-score and PPV, and better in terms of FPR (p < 0.0001). Compared to training with all data, training only on 1-1-2 was worse on all metrics (p < 0.0001) except FPR, where it was better (p < 0.0001). We note that the model still performed better than the call-takers in terms of F1-score, PPV, and FPR (p < 0.0001) and was on-par in terms of sensitivity and FOR.
+
+In summary, training on only 1-1-2 data was only somewhat worse than training on only MH-1813 data, and still outperformed call-takers to some degree. This indicates that the domain shift between different call lines, even with different acuity levels, is small enough that naive domain transfer of models works fairly well.
+
+\begin{table}[h]
+    \centering
+    \caption{Overall performance on MH-1813 test data, performance without 1-1-2 training data, and performance without 1813 training data [mean (95\% CI)].}
+    \label{tab_retrospective:tableA5}
+    \resizebox*{0.98\textwidth}{!}{%
+    \begin{tabular}{l|ccccc}
+        \toprule
+        & F1-score [\%] $\uparrow$ & Sensitivity [\%] $\uparrow$ & PPV [\%] $\uparrow$ & \makecell[c]{FOR [\%] $\downarrow$ \\ (1 - NPV)} & \makecell[c]{FPR [\%] $\downarrow$ \\ (1 - specificity)} \\
+        \midrule
+        & \multicolumn{5}{c}{\textit{Overall}} \\
+        \midrule
+        
+        Call-takers  & \makecell[c]{25.8 \\ (23.7-27.9)} & \makecell[c]{52,7 \\ (49,2-56.4)} & \makecell[c]{17.1 \\ (15.5-18.6)} & \makecell[c]{0.105 \\ (0.094-0.116)} & \makecell[c]{0.565 \\ (0.539-0.590)} \\
+        \midrule
+        Model        & \makecell[c]{35.7 \\ (35.0-36.4)} & \makecell[c]{63.0 \\ (62.0-64.1)} & \makecell[c]{24.9 \\ (24.3-25.5)} & \makecell[c]{0.082 \\ (0.079-0.085)} & \makecell[c]{0.419 \\ (0.413-0.426)} \\
+        \midrule
+        & \multicolumn{5}{c}{\textit{Without 1-1-2 training data (only MH-1813 data)}} \\
+        \midrule
+        
+        Model        & \makecell[c]{32.4 \\ (31.8-33.1)} & \makecell[c]{60.4 \\ (59.3-61.4)} & \makecell[c]{22.2 \\ (21.6-22.7)} & \makecell[c]{0.088 \\ (0.085-0.091)} & \makecell[c]{0.467 \\ (0.460-0.474)} \\
+
+        \midrule
+        & \multicolumn{5}{c}{\textit{Without MH-1813 training data (only 1-1-2 data)}} \\
+        \midrule
+
+        Model        & \makecell[c]{31.4 \\ (30.7-32.1)} & \makecell[c]{50.4 \\ (49.3-51.4)} & \makecell[c]{22.8 \\ (22.2-23.4)} & \makecell[c]{0.110 \\ (0.106-0.113)} & \makecell[c]{0.375 \\ (0.369-0.381)} \\
+
+        \bottomrule
+    \end{tabular}%
+    }
 \end{table}
 
 
@@ -217,7 +298,7 @@ Compared to the test set (\cref{tab_retrospective:table2}), model performance on
 \begin{table}[h]
     \centering
     \caption{Mean impact for words with the largest positive rank score in calls predicted as stroke.}
-    \label{tab_retrospective:tableA4}
+    \label{tab_retrospective:tableA6}
     \resizebox*{\textwidth}{!}{%
     \begin{tabular}{l|llccc}
         \toprule
@@ -264,7 +345,7 @@ Compared to the test set (\cref{tab_retrospective:table2}), model performance on
 \begin{table}[h]
     \centering
     \caption{Mean impact for words with the largest negative rank score in calls predicted as non-stroke.}
-    \label{tab_retrospective:tableA5}
+    \label{tab_retrospective:tableA7}
     \resizebox*{\textwidth}{!}{%
     \begin{tabular}{l|llcrr}
         \toprule
@@ -309,6 +390,41 @@ Compared to the test set (\cref{tab_retrospective:table2}), model performance on
 \end{table}
 
 
+\section{Additional results: Fine-tuning of Danish BERT model for stroke recognition}
+%
+During the preliminary experimental phase, we fine-tuned a BERT model pre-trained on Danish text from CommonCrawl, Wikipedia, OpenSubtitles, and other Danish online forums (available at \url{https://github.com/certainlyio/nordic_bert}). 
+The model was fine-tuned for 10,000 updates using linear learning rate warm-up (1,000 updates) and decay (9,000 updates). 
+The maximum learning rate was set to $5\times 10^{-5}$ and an accumulated batch size of 128. 
+The maximum sequence length of the pre-trained model was 512 input tokens. 
+To accommodate longer input sequences, which was necessary for our dataset, we concatenated several copies of the original positional embedding matrix. 
+The results of the final model are presented in \cref{tab_retrospective:tableA8}. 
+
+We see that the fine-tuned BERT model performs slightly worse across F1-score, sensitivity, PPV and FOR (p < 0.0001), but better in terms of FPR (p < 0.0001), compared the MLP model presented in the main manuscript. As described in the discussion section, we hypothesize that the number of stroke positives was too small for these advanced models to learn more complex patterns than the MLP ensemble. In addition, the BERT model would likely benefit from pre-training on text data from the target domain, or a domain close to it, rather than various online fora.
+
+\begin{table}[h]
+    \centering
+    \caption{Overall performance on MH-1813 test data for the model that also takes patient age and sex as direct inputs. We also list the original performance of call-takers and the model (w/o sex and age) from the main manuscript for ease of comparison [mean (95\% CI)].}
+    \label{tab_retrospective:tableA8}
+    \resizebox*{0.98\textwidth}{!}{%
+    \begin{tabular}{l|ccccc}
+        \toprule
+        & F1-score [\%] $\uparrow$ & Sensitivity [\%] $\uparrow$ & PPV [\%] $\uparrow$ & \makecell[c]{FOR [\%] $\downarrow$ \\ (1 - NPV)} & \makecell[c]{FPR [\%] $\downarrow$ \\ (1 - specificity)} \\
+        \midrule
+        & \multicolumn{5}{c}{\textit{Overall}} \\
+        \midrule
+        
+        Call-takers                             & \makecell[c]{25.8 \\ (23.7-27.9)} & \makecell[c]{52.7 \\ (49.2-56.4)} & \makecell[c]{17.1 \\ (15.5-18.6)} & \makecell[c]{0.105 \\ (0.094-0.116)} & \makecell[c]{0.565 \\ (0.539-0.590)} \\
+        \midrule
+        \makecell[l]{MLP}                       & \makecell[c]{35.7 \\ (35.0-36.4)} & \makecell[c]{63.0 \\ (62.0-64.1)} & \makecell[c]{24.9 \\ (24.3-25.5)} & \makecell[c]{0.082 \\ (0.079-0.085)} & \makecell[c]{0.419 \\ (0.413-0.426)} \\
+        \midrule
+        \makecell[l]{BERT \\ (fine-tuned)}      & \makecell[c]{33.8 \\ (31.5-36.2)} & \makecell[c]{57.5 \\ (53.9-60.9)} & \makecell[c]{23.9 \\ (21.9-25.9)} & \makecell[c]{0.094 \\ (0.084-0.104)} & \makecell[c]{0.403 \\ (0.381-0.424)} \\
+ 
+        \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+
 \section{Simulation of a prospective study on 2021 data}
 
 \subsection{Method}
@@ -316,7 +432,7 @@ Compared to the test set (\cref{tab_retrospective:table2}), model performance on
 The machine learning frameworks can be deployed in different forms in clinical practice. To assess the potential outcomes of deploying this framework in a future prospective study, we performed an experiment using the 2021 test data to simulate different scenarios. Each scenario included two main variables.
 %
 \begin{enumerate}[label=\Roman*.]
-    \item Presentation of the model prediction to the call taker.
+    \item When is the model prediction presented to the call taker?
     \item How does prediction influence the diagnostic code the call taker assigns to the call?
 \end{enumerate}
 %
@@ -343,13 +459,13 @@ We also report the results of the model itself (C). This method corresponds to c
 
 \subsection{Results}
 
-As expected (\cref{tab_retrospective:tableA6}), method 2.C (raw model predictions during calls) yielded slightly worse results than 1.C (raw model predictions after calls). Compared with method C, method A (call takers mirror model positives) led to increased sensitivity and decreased PPV, whereas method B (call takers mirror model negatives) led to decreased sensitivity and increased PPV, as expected. The numerical changes compared with method C are quite large because, in our simulation, the call taker is assumed to strictly follow methods A or B without divergence.
+As expected (\cref{tab_retrospective:tableA9}), method 2.C (raw model predictions during calls) yielded slightly worse results than 1.C (raw model predictions after calls). Compared with method C, method A (call takers mirror model positives) led to increased sensitivity and decreased PPV, whereas method B (call takers mirror model negatives) led to decreased sensitivity and increased PPV, as expected. The numerical changes compared with method C are quite large because, in our simulation, the call taker is assumed to strictly follow methods A or B without divergence.
 
 % \todo[inline]{Insert table A6 here}
 \begin{table}[h]
     \centering
     \caption{Overall performance of model, call takers and simulated combinations of model and call takers on MH-1813 test data.}
-    \label{tab_retrospective:tableA6}
+    \label{tab_retrospective:tableA9}
     \resizebox*{0.98\textwidth}{!}{%
     \begin{tabular}{c|c|cc|cc|cc}
         \toprule
@@ -361,15 +477,15 @@ As expected (\cref{tab_retrospective:tableA6}), method 2.C (raw model prediction
         Method & - & 1.C & 2.C & 1.A & 1.B & 2.A & 2.B \\
         \midrule
 
-        F1-score [\%] $\uparrow$ & \makecell{25.8 \\ (23.7-27.9)} & \makecell{35.7 \\ (35.0-36.4)} & \makecell{33.1 \\ (32.4-33.7)} & \makecell{28.9 \\ (28.3-29.5)} & \makecell{33.3 \\ (32.5-34.1)} & \makecell{27.6 \\ (27.0-28.1)} & \makecell{32.7 \\ (31.8-33.5)} \\
+        \makecell[l]{F1-score [\%] $\uparrow$}                   & \makecell[c]{25.8 \\ (23.7-27.9)} & \makecell[c]{35.7 \\ (35.0-36.4)} & \makecell[c]{33.1 \\ (32.4-33.7)} & \makecell[c]{28.9 \\ (28.3-29.5)} & \makecell[c]{33.3 \\ (32.5-34.1)} & \makecell[c]{27.6 \\ (27.0-28.1)} & \makecell[c]{32.7 \\ (31.8-33.5)} \\
         \midrule
-        Sensitivity [\%] $\uparrow$ & \makecell{52.7 \\ (49.2-56.4)} & \makecell{63.0 \\ (62.0-64.1)} & \makecell{58.7 \\ (57.7-59.8)} & \makecell{72.4 \\ (71.5-73.3)} & \makecell{43.4 \\ (42.3-44.5)} & \makecell{72.3 \\ (71.4-73.3)} & \makecell{39.1 \\ (38.1-40.1)} \\
+        \makecell[l]{Sensitivity [\%] $\uparrow$}                & \makecell[c]{52.7 \\ (49.2-56.4)} & \makecell[c]{63.0 \\ (62.0-64.1)} & \makecell[c]{58.7 \\ (57.7-59.8)} & \makecell[c]{72.4 \\ (71.5-73.3)} & \makecell[c]{43.4 \\ (42.3-44.5)} & \makecell[c]{72.3 \\ (71.4-73.3)} & \makecell[c]{39.1 \\ (38.1-40.1)} \\
         \midrule
-        PPV [\%] $\uparrow$ & \makecell{17.1 \\ (15.5-18.6)} & \makecell{24.9 \\ (24.3-25.5)} & \makecell{23.0 \\ (22.5-23.6)} & \makecell{18.0 \\ (17.6-18.4)} & \makecell{27.0 \\ (26.3-27.8)} & \makecell{17.0 \\ (16.7-17.4)} & \makecell{28.1 \\ (27.3-28.9)} \\
+        \makecell[l]{PPV [\%] $\uparrow$}                        & \makecell[c]{17.1 \\ (15.5-18.6)} & \makecell[c]{24.9 \\ (24.3-25.5)} & \makecell[c]{23.0 \\ (22.5-23.6)} & \makecell[c]{18.0 \\ (17.6-18.4)} & \makecell[c]{27.0 \\ (26.3-27.8)} & \makecell[c]{17.0 \\ (16.7-17.4)} & \makecell[c]{28.1 \\ (27.3-28.9)} \\
         \midrule
-        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell{0.105 \\ (0.094-0.116)} & \makecell{0.082 \\ (0.079-0.085)} & \makecell{0.091 \\ (0.088-0.094)} & \makecell{0.061 \\ (0.059-0.064)} & \makecell{0.125 \\ (0.121-0.129)} & \makecell{0.061 \\ (0.059-0.064)} & \makecell{0.134 \\ (0.131-0.138)} \\
+        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - NPV)}         & \makecell[c]{0.105 \\ (0.094-0.116)} & \makecell[c]{0.082 \\ (0.079-0.085)} & \makecell[c]{0.091 \\ (0.088-0.094)} & \makecell[c]{0.061 \\ (0.059-0.064)} & \makecell[c]{0.125 \\ (0.121-0.129)} & \makecell[c]{0.061 \\ (0.059-0.064)} & \makecell[c]{0.134 \\ (0.131-0.138)} \\
         \midrule
-        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - NPV)} & \makecell{0.565 \\ (0.539-0.590)} & \makecell{0.419 \\ (0.413-0.426)} & \makecell{0.432 \\ (0.426-0.439)} & \makecell{0.726 \\ (0.717-0.735)} & \makecell{0.258 \\ (0.253-0.263)} & \makecell{0.776 \\ (0.767-0.786)} & \makecell{0.221 \\ (0.216-0.226)} \\
+        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell[c]{0.565 \\ (0.539-0.590)} & \makecell[c]{0.419 \\ (0.413-0.426)} & \makecell[c]{0.432 \\ (0.426-0.439)} & \makecell[c]{0.726 \\ (0.717-0.735)} & \makecell[c]{0.258 \\ (0.253-0.263)} & \makecell[c]{0.776 \\ (0.767-0.786)} & \makecell[c]{0.221 \\ (0.216-0.226)} \\
 
         \bottomrule
     \end{tabular}%
