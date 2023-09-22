@@ -1,6 +1,6 @@
 \chapter[supplementary material: a retrospective study on machine learning-assisted stroke recognition for medical helpline calls]{Supplementary Material for: A Retrospective Study on Machine Learning-Assisted Stroke Recognition for Medical Helpline Calls}
 \label{app:supplementary-retrospective}
-\ifthenelse{\equal{\skipappendices}{true}}{}{
+% \ifthenelse{\equal{\skipappendices}{true}}{}{
 
 \section{Data flow digram}
 
@@ -92,13 +92,13 @@ Therefore, we used a different ensemble method, which is briefly described in th
 Let $z^{(n,d)}$ be the logit output of model $n$ for transcript $d$, $t^{(n)}$ be the tuned logit threshold of model $n$, and $N$ be the number of models in the ensemble. The output score $p^{(n)}$ is then given by 
 %
 \begin{equation}
-    p^{(d)} = \frac{1}{N} \sum_{n=1}^N \sigma(z^{(n,d)} - t^{(n)}) \enspace ,
+    p^{(d)} = \frac{1}{N} \sum_{n=1}^N \sigma\left(z^{(n,d)} - t^{(n)}\right) \enspace ,
 \end{equation}
 %
 where $\sigma(\cdot)$ is the sigmoid function (or standard logistic function). The final ensembel predction $s^{(d)}$ is then simply 
 %
 \begin{equation}
-    s^{(d)} = I_{p^{(d)} > 0.5}(p^{(d)}) \enspace ,
+    s^{(d)} = I_{p^{(d)} > 0.5}\left(p^{(d)}\right) \enspace ,
 \end{equation}
 %
 where $I_{\cdot}(\cdot)$ is the indicator function that returns 1 if the subscript condition is satisfied and 0 otherwise. 
@@ -152,62 +152,62 @@ Compared to the test set (\cref{tab_retrospective:table2}), model performance on
 % \todo[inline]{Insert table A2 here}
 \begin{table}[h]
     \centering
-    \caption{Model performance based on sex and age [mean (95\% CI)] when 1-1-2 training data is not used for training.}
+    \caption{Model performance for sex and age subgroups [mean (95\% CI)] on the MH-1813 test data when 1-1-2 training data is not used for training.}
     \label{tab_retrospective:tableA2}
-    % \resizebox*{0.98\textwidth}{!}{%
+    \resizebox*{0.85\textwidth}{!}{%
     \begin{tabular}{l|cc|cc}
         \toprule
 
-         & \multicolumn{2}{c|}{Model} & \multicolumn{2}{c}{Model} \\
+         & \multicolumn{4}{c|}{Model w/o 1-1-2 training data} \\
         \midrule
          & Female & Male & 18-64 years & 65+ years \\
 
         \midrule
 
-        F1-score [\%] $\uparrow$ & \makecell{28.7 \\ (27.8-29.6)} & \makecell{36.2 \\ (35.3-37.2)} & \makecell{20.5 \\ (19.5-21.5)} & \makecell{39.4 \\ (38.6-40.3)} \\
+        F1-score [\%] $\uparrow$ & \makecell[c]{28.7 \\ (27.8-29.6)} & \makecell[c]{36.2 \\ (35.3-37.2)} & \makecell[c]{20.5 \\ (19.5-21.5)} & \makecell[c]{39.4 \\ (38.6-40.3)} \\
         \midrule
-        Sensitivity [\%] $\uparrow$ & \makecell{58.2 \\ (56.7-59.9)} & \makecell{62.1 \\ (60.7-63.6)} & \makecell{53.0 \\ (50.9-55.0)} & \makecell{63.0 \\ (61.9-64.3)} \\
+        Sensitivity [\%] $\uparrow$ & \makecell[c]{58.2 \\ (56.7-59.9)} & \makecell[c]{62.1 \\ (60.7-63.6)} & \makecell[c]{53.0 \\ (50.9-55.0)} & \makecell[c]{63.0 \\ (61.9-64.3)} \\
         \midrule
-        PPV [\%] $\uparrow$ & \makecell{19.0 \\ (18.3-19.7)} & \makecell{25.6 \\ (24.8-26.4)} & \makecell{12.7 \\ (12.0-13.4)} & \makecell{28.7 \\ (27.9-29.5)} \\
+        PPV [\%] $\uparrow$ & \makecell[c]{19.0 \\ (18.3-19.7)} & \makecell[c]{25.6 \\ (24.8-26.4)} & \makecell[c]{12.7 \\ (12.0-13.4)} & \makecell[c]{28.7 \\ (27.9-29.5)} \\
         \midrule
-        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - NPV)}  & \makecell{0.077 \\ (0.073-0.080)} & \makecell{0.102 \\ (0.097-0.106)} & \makecell{0.034 \\ (0.032-0.036)} & \makecell{0.318 \\ (0.305-0.331)} \\
+        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - NPV)}  & \makecell[c]{0.077 \\ (0.073-0.080)} & \makecell[c]{0.102 \\ (0.097-0.106)} & \makecell[c]{0.034 \\ (0.032-0.036)} & \makecell[c]{0.318 \\ (0.305-0.331)} \\
         \midrule
-        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell{0.45 \\ (0.446-0.463)} & \makecell{0.483 \\ (0.473-0.494)} & \makecell{0.264 \\ (0.258-0.270)} & \makecell{1.335 \\ (1.308-1.362)} \\
+        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell[c]{0.45 \\ (0.446-0.463)} & \makecell[c]{0.483 \\ (0.473-0.494)} & \makecell[c]{0.264 \\ (0.258-0.270)} & \makecell[c]{1.335 \\ (1.308-1.362)} \\
 
         \bottomrule
     \end{tabular}%
-    % }
+    }
 \end{table}
 
 
 % \todo[inline]{Insert table A3 here}
 \begin{table}[h]
     \centering
-    \caption{Model performance based on sex and age [mean (95\% CI)] on the 2021 data without diagnostic category.}
+    \caption{Model performance for sex and age subgroups [mean (95\% CI)] on the 2021 data without diagnostic category.}
     \label{tab_retrospective:tableA3}
-    % \resizebox*{0.98\textwidth}{!}{%
+    \resizebox*{0.85\textwidth}{!}{%
     \begin{tabular}{l|cc|cc}
         \toprule
 
-         & \multicolumn{2}{c|}{Model} & \multicolumn{2}{c}{Model} \\
+         & \multicolumn{4}{c|}{Model} \\
         \midrule
          & Female & Male & 18-64 years & 65+ years \\
 
         \midrule
 
-        F1-score [\%] $\uparrow$                                 & \makecell{30.4 \\ (29.3-31.5)} & \makecell{35.2 \\ (34.0-36.4)} & \makecell{24.3 \\ (23.0-25.7)} & \makecell{36.6 \\ (35.6-37.6)} \\
+        F1-score [\%] $\uparrow$                                 & \makecell[c]{30.4 \\ (29.3-31.5)} & \makecell[c]{35.2 \\ (34.0-36.4)} & \makecell[c]{24.3 \\ (23.0-25.7)} & \makecell[c]{36.6 \\ (35.6-37.6)} \\
         \midrule
-        Sensitivity [\%] $\uparrow$                              & \makecell{44.5 \\ (42.9-46.0)} & \makecell{52.8 \\ (51.1-54.4)} & \makecell{45.6 \\ (43.4-47.9)} & \makecell{49.2 \\ (47.9-50.5)} \\
+        Sensitivity [\%] $\uparrow$                              & \makecell[c]{44.5 \\ (42.9-46.0)} & \makecell[c]{52.8 \\ (51.1-54.4)} & \makecell[c]{45.6 \\ (43.4-47.9)} & \makecell[c]{49.2 \\ (47.9-50.5)} \\
         \midrule
-        PPV [\%] $\uparrow$                                      & \makecell{23.1 \\ (22.2-24.1)} & \makecell{26.4 \\ (25.3-27.4)} & \makecell{16.6 \\ (15.5-17.5)} & \makecell{29.1 \\ (28.2-30.0)} \\
+        PPV [\%] $\uparrow$                                      & \makecell[c]{23.1 \\ (22.2-24.1)} & \makecell[c]{26.4 \\ (25.3-27.4)} & \makecell[c]{16.6 \\ (15.5-17.5)} & \makecell[c]{29.1 \\ (28.2-30.0)} \\
         \midrule
-        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - NPV)}         & \makecell{0.152 \\ (0.146-0.159)} & \makecell{0.155 \\ (0.147-0.162)} & \makecell{0.058 \\ (0.055-0.062)} & \makecell{0.372 \\ (0.359-0.386)} \\
+        \makecell[l]{FOR [\%] $\downarrow$ \\ (1 - NPV)}         & \makecell[c]{0.152 \\ (0.146-0.159)} & \makecell[c]{0.155 \\ (0.147-0.162)} & \makecell[c]{0.058 \\ (0.055-0.062)} & \makecell[c]{0.372 \\ (0.359-0.386)} \\
         \midrule
-        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell{0.404 \\ (0.394-0.414)} & \makecell{0.480 \\ (0.467-0.494)} & \makecell{0.246 \\ (0.239-0.254)} & \makecell{0.873 \\ (0.852-0.894)} \\
+        \makecell[l]{FPR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell[c]{0.404 \\ (0.394-0.414)} & \makecell[c]{0.480 \\ (0.467-0.494)} & \makecell[c]{0.246 \\ (0.239-0.254)} & \makecell[c]{0.873 \\ (0.852-0.894)} \\
 
         \bottomrule
     \end{tabular}%
-    % }
+    }
 \end{table}
 
 
@@ -261,7 +261,7 @@ In summary, training on only 1-1-2 data was only somewhat worse than training on
 
 \begin{table}[h]
     \centering
-    \caption{Overall performance on MH-1813 test data, performance without 1-1-2 training data, and performance without 1813 training data [mean (95\% CI)].}
+    \caption{Overall performance on MH-1813 test data for the original model, the model without 1-1-2 training data, and the model without 1813 training data along with call-taker performance [mean (95\% CI)].}
     \label{tab_retrospective:tableA5}
     \resizebox*{0.98\textwidth}{!}{%
     \begin{tabular}{l|ccccc}
@@ -275,16 +275,17 @@ In summary, training on only 1-1-2 data was only somewhat worse than training on
         \midrule
         Model        & \makecell[c]{35.7 \\ (35.0-36.4)} & \makecell[c]{63.0 \\ (62.0-64.1)} & \makecell[c]{24.9 \\ (24.3-25.5)} & \makecell[c]{0.082 \\ (0.079-0.085)} & \makecell[c]{0.419 \\ (0.413-0.426)} \\
         \midrule
-        & \multicolumn{5}{c}{\textit{Without 1-1-2 training data (only MH-1813 data)}} \\
+        \makecell[l]{Model \\ w/o 1-1-2} & \makecell[c]{32.4 \\ (31.8-33.1)} & \makecell[c]{60.4 \\ (59.3-61.4)} & \makecell[c]{22.2 \\ (21.6-22.7)} & \makecell[c]{0.088 \\ (0.085-0.091)} & \makecell[c]{0.467 \\ (0.460-0.474)} \\
         \midrule
-        
-        Model        & \makecell[c]{32.4 \\ (31.8-33.1)} & \makecell[c]{60.4 \\ (59.3-61.4)} & \makecell[c]{22.2 \\ (21.6-22.7)} & \makecell[c]{0.088 \\ (0.085-0.091)} & \makecell[c]{0.467 \\ (0.460-0.474)} \\
+        \makecell[l]{Model \\ w/o MH-1813} & \makecell[c]{31.4 \\ (30.7-32.1)} & \makecell[c]{50.4 \\ (49.3-51.4)} & \makecell[c]{22.8 \\ (22.2-23.4)} & \makecell[c]{0.110 \\ (0.106-0.113)} & \makecell[c]{0.375 \\ (0.369-0.381)} \\
 
-        \midrule
-        & \multicolumn{5}{c}{\textit{Without MH-1813 training data (only 1-1-2 data)}} \\
-        \midrule
+        % & \multicolumn{5}{c}{\textit{Without 1-1-2 training data (only MH-1813 data)}} \\
+        % \midrule
+        % Model        & \makecell[c]{32.4 \\ (31.8-33.1)} & \makecell[c]{60.4 \\ (59.3-61.4)} & \makecell[c]{22.2 \\ (21.6-22.7)} & \makecell[c]{0.088 \\ (0.085-0.091)} & \makecell[c]{0.467 \\ (0.460-0.474)} \\
 
-        Model        & \makecell[c]{31.4 \\ (30.7-32.1)} & \makecell[c]{50.4 \\ (49.3-51.4)} & \makecell[c]{22.8 \\ (22.2-23.4)} & \makecell[c]{0.110 \\ (0.106-0.113)} & \makecell[c]{0.375 \\ (0.369-0.381)} \\
+        % & \multicolumn{5}{c}{\textit{Without MH-1813 training data (only 1-1-2 data)}} \\
+        % \midrule
+        % Model        & \makecell[c]{31.4 \\ (30.7-32.1)} & \makecell[c]{50.4 \\ (49.3-51.4)} & \makecell[c]{22.8 \\ (22.2-23.4)} & \makecell[c]{0.110 \\ (0.106-0.113)} & \makecell[c]{0.375 \\ (0.369-0.381)} \\
 
         \bottomrule
     \end{tabular}%
@@ -293,6 +294,9 @@ In summary, training on only 1-1-2 data was only somewhat worse than training on
 
 
 \section{Additional results: Detailed model explainability tables}
+
+In \cref{tab_retrospective:tableA6,tab_retrospective:tableA7} we provide detailed versions of the data presented in the model explainability section in the main manuscript. Specifically, we include the Danish word, its English translation, the rank and impact scores and the number of occurrences of each word.
+
 
 % % \todo[inline]{Insert table A4 here}
 \begin{table}[h]
@@ -304,7 +308,7 @@ In summary, training on only 1-1-2 data was only somewhat worse than training on
         \toprule
         \multicolumn{6}{c}{Stroke predictions, $D=1,897$} \\
         \midrule
-         & Word, $w$ (\textit{Danish}) & Translation (\textit{English}) & Rank, $r^{(w)}$ & Occurences, $D^{(w)}$ & \makecell{Impact, $i^{(d,w)}$ \\ mean $\pm$ std.} \\
+         & \makecell{Word, $w$ \\ (\textit{Danish})} & \makecell{Translation, $w$ \\ (\textit{English})} & Rank, $r^{(w)}$ & Count, $D^{(w)}$ & \makecell{Impact, $i^{(d,w)}$ \\ mean $\pm$ std.} \\
         \midrule    
         1. & Ambulance & Ambulance & $1.000$ & $1,$680 & $0.52 \pm 0.51$ \\
         2. & Blodprop & Blood clot & $0.599$ & $89$5 & $0.51 \pm 0.58$ \\
@@ -351,7 +355,7 @@ In summary, training on only 1-1-2 data was only somewhat worse than training on
         \toprule
         \multicolumn{6}{c}{Non-stroke predictions, $D=342,133$} \\
         \midrule
-         & Word, $w$ (\textit{Danish}) & Translation (\textit{English}) & Rank, $r^{(w)}$ & Occurences, $D^{(w)}$ & \makecell{Impact, $i^{(d,w)}$ \\ mean $\pm$ std.} \\
+         & \makecell{Word, $w$ \\ (\textit{Danish})} & \makecell{Translation, $w$ \\ (\textit{English})} & Rank, $r^{(w)}$ & Count, $D^{(w)}$ & \makecell{Impact, $i^{(d,w)}$ \\ mean $\pm$ std.} \\
         \midrule    
         1. & Stivkrampe & Tetanus & $-1.000$ & $4378$ & $-19.40 \pm 10.61$ \\
         2. & Gravid & Pregnant & $-0.901$ & $8749$ & $-12.08 \pm 8.64$ \\
@@ -448,8 +452,8 @@ Option 1 is identical to the method used in the main study. In option 2, predict
 As we can only assume how call takers are influenced by model predictions (II), precisely evaluating the hypothetical performance of call takers when supported by a machine learning framework is impossible. Furthermore, option 2 may influence the conversation, further complicating matters. Therefore, we report the results combining the call taker and the model under the following two assumptions:
 %
 \begin{enumerate}[label=\Alph*.]
-    \item Call takers change any stroke prediction from negative to positive if the model predicts a positive (call takers mirror model positives).
-    \item Call takers change any stroke prediction from positive to negative if the model predicts a negative (call takers mirror model negatives).
+    \item Call-takers change any stroke prediction from negative to positive if the model predicts a positive (call takers mirror model positives).
+    \item Call-takers change any stroke prediction from positive to negative if the model predicts a negative (call takers mirror model negatives).
 \end{enumerate}
 %
 By definition, method A tended to increase sensitivity and decrease PPV, whereas method B tended to decrease sensitivity and increase PPV.
@@ -513,4 +517,101 @@ This study is the first to investigate the use of a machine learning framework f
 
 Implementing the framework described in this study could lead to improved recognition of patients with stroke during initial contact with health services. Improving recognition would result in more patients being eligible for advanced stroke treatment and better overall outcomes owing to faster referral to a stroke unit.
 
+
+\section{Research in context search term results}
+The search terms stroke AND (artificial intelligence OR machine learning OR deep learning) AND (EMS OR emergency medical services OR dispatch OR telephone) yielded 88 articles in PubMed. These articles are listed below:
+
+{\small
+\begin{enumerate}
+    \item Soun JE, Chow DS, Nagamine M et al. Artificial intelligence and acute stroke imaging. AJNR. American journal of neuroradiology 2021; 42: 2-11.
+    \item Murray NM, Unberath M, Hager GD, Hui FK. Artificial intelligence to diagnose ischemic stroke and identify large vessel occlusions: a systematic review. Journal of neurointerventional surgery 2020; 12: 156-64.
+    \item Shlobin NA, Baig AA, Waqas M et al. Artificial intelligence for large-vessel occlusion stroke: a systematic review. World neurosurgery 2022; 159: 207-20.e1.
+    \item Linder SM, Rosenfeldt AB, Bay RC, Sahu K, Wolf SL, Alberts JL. Improving quality of life and depression after stroke through telerehabilitation. The American journal of occupational therapy: official publication of the American Occupational Therapy Association 2015; 69: 6902290020p1-10.
+    \item Humphreys K, Shover CL, Andrews CM et al. Responding to the opioid crisis in North America and beyond: recommendations of the Stanford-Lancet Commission. Lancet (London, England) 2022; 399: 555-604.
+    \item Fassbender K, Lesmeister M, Merzou F. Prehospital stroke management and mobile stroke units. Current opinion in neurology 2023; 36: 140-6.
+    \item McDonough RV, Ospel JM, Majoie CBLM et al. Clinical outcome of patients with mild pre-stroke morbidity following endovascular treatment: a HERMES substudy. Journal of neurointerventional surgery 2023; 15: 214-20.
+    \item Bat-Erdene BO, Saver JL. Automatic acute stroke symptom detection and emergency medical systems alerting by mobile health technologies: a review. Journal of stroke and cerebrovascular diseases: the official journal of National Stroke Association 2021; 30: 105826.
+    \item Bonini N, Vitolo M, Imberti JF et al. Mobile health technology in atrial fibrillation. Expert review of medical devices 2022; 19: 327-40.
+    \item Scholz ML, Collatz-Christensen H, Blomberg SNF, Boebel S, Verhoeven J, Krafft T. Artificial intelligence in Emergency Medical Services dispatching: assessing the potential impact of an automatic speech recognition software on stroke detection taking the Capital Region of Denmark as case in point. Scandinavian journal of trauma, resuscitation and emergency medicine 2022; 30: 36.
+    \item Gupta R, Krishnam SP, Schaefer PW, Lev MH, Gonzalez RG. An East Coast perspective on artificial intelligence and machine learning: part 2: ischemic stroke imaging and triage. Neuroimaging clinics of North America 2020; 30: 467-78.
+    \item Esbjörnsson M, Ullberg T. Safety and usability of wearable accelerometers for stroke detection the STROKE ALARM PRO 1 study. Journal of stroke and cerebrovascular diseases: the official journal of National Stroke Association 2022; 31: 106762.
+    \item Fast L, Temuulen U, Villringer K et al. Machine learning-based prediction of clinical outcomes after first-ever ischemic stroke. Frontiers in neurology 2023; 14: 1114360.
+    \item Gupta R, Krishnam SP, Schaefer PW, Lev MH, Gilberto Gonzalez R. An East Coast perspective on artificial intelligence and machine learning: part 1: hemorrhagic stroke imaging and triage. Neuroimaging clinics of North America 2020; 30: 459-66.
+    \item Cai T, Ni H, Yu M et al. DeepStroke: An efficient stroke screening framework for emergency rooms with multimodal adversarial deep learning. Medical image analysis 2022; 80: 102522.
+    \item Zachrison KS, Dhand A, Schwamm LH, Onnela JP. A network approach to stroke systems of care. Circulation. Cardiovascular quality and outcomes 2019; 12: e005526.
+    \item O'Connell GC, Walsh KB, Smothers CG et al. Use of deep artificial neural networks to identify stroke during triage via subtle changes in circulating cell counts. BMC neurology 2022; 22: 206.
+    \item Yang L, Liu Q, Zhao Q, Zhu X, Wang L. Machine learning is a valid method for predicting prehospital delay after acute ischemic stroke. Brain and behavior 2020; 10: e01794.
+    \item Aldridge CM, McDonald MM, Wruble M et al. Human vs. machine learning based detection of facial weakness using video analysis. Frontiers in neurology 2022; 13: 878282.
+    \item Lachance CC, Ford C. Portable stroke detection devices for patients with stroke symptoms: a review of diagnostic accuracy and cost-effectiveness. Canadian Agency for Drugs and Technologies in Health 2019
+    \item Fardoun HM, Mashat AS. Methodologies, models and algorithms for patients rehabilitation. Methods of information in medicine 2016; 55: 60-4.
+    \item Wibring K, Magnusson C, Axelsson C, Lundgren P, Herlitz J, Andersson Hagiwara M. Towards definitions of time-sensitive conditions in prehospital care. Scandinavian journal of trauma, resuscitation and emergency medicine 2020; 28: 7.
+    \item Mayampurath A, Parnianpour Z, Richards CT et al. Improving prehospital stroke diagnosis using natural language processing of paramedic reports. Stroke 2021; 52: 2676-9.
+    \item Morey JR, Zhang X, Yaeger KA et al. Real-world experience with artificial intelligence-based triage in transferred large vessel occlusion stroke patients. Cerebrovascular diseases (Basel, Switzerland) 2021; 50: 450-5.
+    \item Sung SF, Hung LC, Hu YH. Developing a stroke alert trigger for clinical decision support at emergency triage using machine learning. International journal of medical informatics 2021; 152: 104505.
+    \item Zhang Z, Zhou D, Zhang J et al. Multilayer perceptron-based prediction of stroke mimics in prehospital triage. Scientific reports 2022; 12: 17994.
+    \item Park E, Lee K, Han T, Nam HS. Automatic grading of stroke symptoms for rapid assessment using optimized machine learning and 4-limb kinematics: clinical validation study. Journal of medical Internet research 2020; 22: e20641.
+    \item Chen M, Tan X, Padman R. A machine learning approach to support urgent stroke triage using administrative data and social determinants of health at hospital presentation: retrospective study. Journal of medical Internet research 2023; 25: e36477.
+    \item Uchida K, Kouno J, Yoshimura S et al. Development of machine learning models to predict probabilities and types of stroke at prehospital stage: the Japan urgent stroke triage score using machine learning (JUST-ML). Translational stroke research 2022; 13: 370-81.
+    \item Finck T, Schinz D, Grundl L et al. Automated detection of ischemic stroke and subsequent patient triage in routinely acquired head CT. Clinical neuroradiology 2022; 32: 419-26.
+    \item Sangal RB, Fodeh S, Taylor A et al. Identification of patients with nontraumatic intracranial hemorrhage using administrative claims data. Journal of stroke and cerebrovascular diseases: the official journal of National Stroke Association 2020; 29: 105306.
+    \item Adedinsewo D, Carter RE, Attia Z et al. Artificial intelligence-enabled ECG algorithm to identify patients with left ventricular systolic dysfunction presenting to the emergency department with dyspnea. Circulation. Arrhythmia and electrophysiology 2020; 13: e008437.
+    \item Liu L, Yu B, Han M, Yuan S, Wang N. Mild cognitive impairment understanding: an empirical study by data-driven approach. BMC bioinformatics 2019; 20: 481.
+    \item Hayashi Y, Shimada T, Hattori N et al. A prehospital diagnostic algorithm for strokes using machine learning: a prospective observational study. Scientific reports 2021; 11: 20519.
+    \item Grant L, Joo P, Nemnom MJ, Thiruganasambandamoorthy V. Machine learning versus traditional methods for the development of risk stratification scores: a case study using original Canadian Syncope Risk Score data. Internal and emergency medicine 2022; 17: 1145-53.
+    \item van Meenen LCC, van Stigt MN, Marquering HA et al. Detection of large vessel occlusion stroke with electroencephalography in the emergency room: first results of the ELECTRA-STROKE study. Journal of neurology 2022; 269: 2030-8.
+    \item van Meenen LCC, den Hartog SJ, Groot AE et al. Relationship between primary stroke center volume and time to endovascular thrombectomy in acute ischemic stroke. European journal of neurology 2021; 28: 4031-8.
+    \item Chien HC, Yang TL, Juang WC, Chen YA, Li YJ, Chen CY. Pilot report for intracranial hemorrhage detection with deep learning implanted head computed tomography images at emergency department. Journal of medical systems 2022; 46: 49.
+    \item Huo D, Leppert M, Pollard R et al. Large vessel occlusion prediction in the emergency department with national institutes of health stroke scale components: a machine learning approach. Journal of stroke and cerebrovascular diseases: the official journal of National Stroke Association 2021; 30: 106030.
+    \item Wu MR, Chen YT, Li ZX et al. Dysphagia screening and pneumonia after subarachnoid hemorrhage: findings from the Chinese stroke center alliance. CNS neuroscience \& therapeutics 2022; 28: 913-21.
+    \item Bacchi S, Oakden-Rayner L, Zerner T, Kleinig T, Patel S, Jannes J. Deep learning natural language processing successfully predicts the cerebrovascular cause of transient ischemic attack-like presentations. Stroke 2019; 50: 758-60.
+    \item Heldt FS, Vizcaychipi MP, Peacock S et al. Early risk assessment for COVID-19 patients from emergency department data using machine learning. Scientific reports 2021; 11: 4200.
+    \item Lu Z, Xiong Y, Yang K et al. What predicts large vessel occlusion in mild stroke patients. BMC neurology 2023; 23: 29.
+    \item Marijon E, Garcia R, Narayanan K, Karam N, Jouven X. Fighting against sudden cardiac death: need for a paradigm shift-adding near-term prevention and pre-emptive action to long-term prevention. European heart journal 2022; 43: 1457-64.
+    \item You J, Yu PLH, Tsang ACO et al. 3D dissimilar-Siamese-u-net for hyperdense Middle cerebral artery sign segmentation. Computerized medical imaging and graphics: the official journal of the Computerized Medical Imaging Society 2021; 90: 101898.
+    \item Moral-Munoz JA, Zhang W, Cobo MJ, Herrera-Viedma E, Kaber DB. Smartphone-based systems for physical rehabilitation applications: a systematic review. Assistive technology: the official journal of RESNA 2021; 33: 223-36.
+    \item Salman OH, Aal-Nouman MI, Taha ZK, Alsabah MQ, Hussein YS, Abdelkareem ZA. Formulating multi diseases dataset for identifying, triaging and prioritizing patients to multi medical emergency levels: Simulated dataset accompanied with codes. Data in brief 2021; 34: 106576.
+    \item Desai A, Zumbo A, Giordano M et al. Word2vec Word embedding-based artificial intelligence model in the triage of patients with suspected diagnosis of major ischemic stroke: a feasibility study. International journal of environmental research and public health 2022; 19: 15295.
+    \item Rinkel LA, Prick JCM, Slot RER et al. Impact of the COVID-19 outbreak on acute stroke care. Journal of neurology 2021; 268: 403-8.
+    \item Chilamkurthy S, Ghosh R, Tanamala S et al. Deep learning algorithms for detection of critical findings in head CT scans: a retrospective study. Lancet (London, England) 2018; 392: 2388-96.
+    \item Kramer NM, Demaerschalk BM. A novel application of teleneurology: robotic telepresence in supervision of neurology trainees. Telemedicine journal and e-health: the official journal of the American Telemedicine Association 2014; 20: 1087-92.
+    \item Yadav K, Sarioglu E, Choi HA, Cartwright WB, Hinds PS, Chamberlain JM. Automated outcome classification of computed tomography imaging reports for pediatric traumatic brain injury. Academic emergency medicine: official journal of the Society for Academic Emergency Medicine 2016; 23: 171-8.
+    \item van Meenen LCC, Riedijk F, Stolp J et al. Pre- and interhospital workflow times for patients with large vessel occlusion stroke transferred for endovasvular thrombectomy. Frontiers in neurology 2021; 12: 730250.
+    \item Saberi-Movahed F, Mohammadifard M, Mehrpooya A et al. Decoding clinical biomarker space of COVID-19: Exploring matrix factorization-based feature selection methods. Computers in biology and medicine 2022; 146: 105426.
+    \item Shimada T, Matsubara K, Koyama D et al. Development of evaluation system for cerebral artery occlusion in emergency medical services: noninvasive measurement and utilization of pulse waves. Scientific reports 2023; 13: 3339.
+    \item Gil-Jardiné C, Chenais G, Pradeau C et al. Trends in reasons for emergency calls during the COVID-19 crisis in the department of Gironde, France using artificial neural network for natural language classification. Scandinavian journal of trauma, resuscitation and emergency medicine 2021; 29: 55.
+    \item Santala OE, Lipponen JA, Jäntti H et al. Continuous mHealth Patch Monitoring for the Algorithm-Based Detection of Atrial Fibrillation: Feasibility and Diagnostic Accuracy Study. JMIR cardio 2022; 6: e31230.
+    \item O'Brien MK, Shawen N, Mummidisetty CK et al. Activity recognition for persons with stroke using mobile phone technology: toward improved performance in a home setting. Journal of medical Internet research 2017; 19: e184.
+    \item Bateman RM, Sharpe MD, Jagger JE et al. 36th international symposium on intensive care and emergency medicine: Brussels, Belgium. 15-18 March 2016. Critical care (London, England) 2016; 20: 94.
+    \item Modica CM, Johnson BR, Zalewski C et al. Hearing loss and irritability reporting without vestibular differences in explosive breaching professionals. Frontiers in neurology 2020; 11: 588377.
+    \item Palmcrantz S, Plantin J, Borg J. Factors affecting the usability of an assistive soft robotic glove after stroke or multiple sclerosis. Journal of rehabilitation medicine 2020; 52: jrm00027.
+    \item Mitsopoulos K, Fiska V, Tagaras K et al. NeuroSuitUp: System architecture and validation of a motor rehabilitation wearable robotics and serious game platform. Sensors (Basel, Switzerland) 2023; 23: 3281.
+    \item Meng G, Tan Y, Fang M, Yang H, Liu X, Zhao Y. Meteorological factors related to emergency admission of elderly stroke patients in shanghai: analysis with a multilayer perceptron neural network. Medical science monitor: international medical journal of experimental and clinical research 2015; 21: 3600-7.
+    \item Iglesias JE, Schleicher R, Laguna S et al. Quantitative Brain Morphometry of Portable Low-Field-Strength MRI Using Super-Resolution Machine Learning. Radiology 2023; 306: e220522.
+    \item Lai F. Stroke networks based on robotic telepresence. Journal of telemedicine and telecare 2009; 15: 135-6
+    \item Kim D, Oh J, Im H, Yoon M, Park J, Lee J. Automatic classification of the Korean triage acuity scale in simulated emergency rooms using speech recognition and natural language processing: a proof of concept study. Journal of Korean medical science 2021; 36: e175.
+    \item Jonsson A, Binongo J, Patel P et al. Mastering the learning curve for robotic-assisted coronary artery bypass surgery. The Annals of thoracic surgery 2023; 115: 1118-25.
+    \item Knowlton SM, Sencan I, Aytar Y et al. Sickle cell detection using a smartphone. Scientific reports 2015; 5: 15022.
+    \item Che F, Liu Y, Gong X et al. Extracranial carotid plaque hemorrhage is independently associated with poor 3-month functional outcome after acute ischemic stroke-a prospective cohort study. Frontiers in neurology 2021; 12: 780436.
+    \item Boers AMM, Jansen IGH, Brown S et al. Mediation of the relationship between endovascular therapy and functional outcome by follow-up infarct volume in patients with acute ischemic stroke. JAMA neurology 2019; 76: 194-202.
+    \item Stone JR, Avants BB, Tustison NJ et al. Functional and structural neuroimaging correlates of repetitive low-level blast exposure in career breachers. Journal of neurotrauma 2020; 37: 2468-81.
+    \item Rickards CA, Vyas N, Ryan KL et al. Are you bleeding? Validation of a machine-learning algorithm for determination of blood volume status: application to remote triage. Journal of applied physiology (Bethesda, Md. : 1985) 2014; 116: 486-94.
+    \item Edwards KA, Greer K, Leete J et al. Neuronally-derived tau is increased in experienced breachers and is associated with neurobehavioral symptoms. Scientific reports 2021; 11: 19527.
+    \item Cheng AL, Liu J, Bravo S, Miller JC, Pahlevan NM. Screening left ventricular systolic dysfunction in children using intrinsic frequencies of carotid pressure waveforms measured by a novel smartphone-based device. Physiological measurement 2023; 44.
+    \item Grunwald IQ, Kulikovski J, Reith W et al. Collateral automation for triage in stroke: evaluating automated scoring of collaterals in acute stroke on computed tomography scans. Cerebrovascular diseases (Basel, Switzerland) 2019; 47: 217-22.
+    \item Hyakutake K, Morishita T, Saita K et al. Effects of home-based robotic therapy involving the single-joint hybrid assistive limb robotic suit in the chronic phase of stroke: a pilot study. BioMed research international 2019; 2019: 5462694.
+    \item Murray C, Ortiz E, Kubin C. Application of a robot for critical care rounding in small rural hospitals. Critical care nursing clinics of North America 2014; 26: 477-85.
+    \item Edwards KA, Leete JJ, Tschiffely AE et al. Blast exposure results in tau and neurofilament light chain changes in peripheral blood. Brain injury 2020; 34: 1213-21.
+    \item Oresko JJ, Duschl H, Cheng AC. A wearable smartphone-based platform for real-time cardiovascular disease detection via electrocardiogram processing. IEEE transactions on information technology in biomedicine : a publication of the IEEE Engineering in Medicine and Biology Society 2010; 14: 734-40.
+    \item Alcoceba-Herrero I, Coco-Martín MB, Leal-Vega L et al. Randomized controlled trial evaluating the benefit of a novel clinical decision support system for the management of COVID-19 patients in home quarantine: a study protocol. International journal of environmental research and public health 2023; 20: 2300.
+    \item van Meenen LCC, Groot AE, Venema E et al. Interhospital transfer vs. direct presentation of patients with a large vessel occlusion not eligible for IV thrombolysis. Journal of neurology 2020; 267: 2142-50.
+    \item Forghani R, Gupta R. Case of the Season: Artificial intelligence in clinical practice-large vessel occlusion triage in stroke imaging. Seminars in roentgenology 2023; 58: 147-51.
+    \item Jabbour P, Gonzalez LF, Tjoumakaris S, Randazzo C, Rosenwasser R. Stroke in the robotic era. World neurosurgery 2010; 73: 603-4.
+    \item Larkin H. On the spot when doc is not. Hospitals \& health networks 2008; 82: 41-2.
+    \item Jiang Y, Guarino P, Ma S et al. Bayesian accrual prediction for interim review of clinical studies: open source R package and smartphone application. Trials 2016; 17: 336.
+    \item Lee JH, Oh BJ, Ahn JY et al. Effectiveness of automatic acute stroke alert system based on UMLS mapped local terminology codes at emergency department. AMIA ... Annual Symposium proceedings. AMIA Symposium 2008; 1018.
+    \item Robot saves ED stroke patients, addresses subspecialist shortage. ED management: the monthly update on emergency department management 2011; 23: 13-5.
+    \item Nagy Z, Simon P, Sipos E, Kozmann G. The main elements of the information system of the National Stroke Program (Smart Card - Telecommunication - Knowledge Bases). Medinfo. MEDINFO 1995; 8 Pt 2: 1496-9.
+\end{enumerate}
 }
+
+% }
