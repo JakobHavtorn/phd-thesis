@@ -1728,6 +1728,18 @@
   langid = {english}
 }
 
+@online{brock_large_2019,
+  title = {Large {{Scale GAN Training}} for {{High Fidelity Natural Image Synthesis}}},
+  author = {Brock, Andrew and Donahue, Jeff and Simonyan, Karen},
+  date = {2019-02-25},
+  eprint = {1809.11096},
+  eprinttype = {arxiv},
+  eprintclass = {cs, stat},
+  urldate = {2023-09-22},
+  abstract = {Despite recent progress in generative image modeling, successfully generating high-resolution, diverse samples from complex datasets such as ImageNet remains an elusive goal. To this end, we train Generative Adversarial Networks at the largest scale yet attempted, and study the instabilities specific to such scale. We find that applying orthogonal regularization to the generator renders it amenable to a simple "truncation trick," allowing fine control over the trade-off between sample fidelity and variety by reducing the variance of the Generator's input. Our modifications lead to models which set the new state of the art in class-conditional image synthesis. When trained on ImageNet at 128x128 resolution, our models (BigGANs) achieve an Inception Score (IS) of 166.5 and Frechet Inception Distance (FID) of 7.4, improving over the previous best IS of 52.52 and FID of 18.6.},
+  pubstate = {preprint}
+}
+
 @misc{brockman_openai_2016,
   title = {{{OpenAI Gym}}},
   author = {Brockman, Greg and Cheung, Vicki and Pettersson, Ludwig and Schneider, Jonas and Schulman, John and Tang, Jie and Zaremba, Wojciech},
@@ -3974,6 +3986,14 @@
   langid = {english}
 }
 
+@article{du_implicit_2019,
+  title = {Implicit Generation and Modeling with Energy Based Models},
+  author = {Du, Yilun and Mordatch, Igor},
+  date = {2019},
+  journaltitle = {Advances in Neural Information Processing Systems},
+  volume = {32}
+}
+
 @online{duan_faster_2023,
   title = {Faster {{Matrix Multiplication}} via {{Asymmetric Hashing}}},
   author = {Duan, Ran and Wu, Hongxun and Zhou, Renfei},
@@ -4794,6 +4814,15 @@
   volume = {2},
   number = {2},
   pages = {291--298}
+}
+
+@article{gawlikowski_survey_2023,
+  title = {A Survey of Uncertainty in Deep Neural Networks},
+  author = {Gawlikowski, Jakob and Tassi, Cedrique Rovile Njieutcheu and Ali, Mohsin and Lee, Jongseok and Humt, Matthias and Feng, Jianxiang and Kruspe, Anna and Triebel, Rudolph and Jung, Peter and Roscher, Ribana and others},
+  date = {2023},
+  journaltitle = {Artificial Intelligence Review},
+  pages = {1--77},
+  publisher = {{Springer}}
 }
 
 @misc{ge_speaker_2017,
@@ -6339,6 +6368,17 @@
   eprinttype = {arxiv}
 }
 
+@article{hinton_fast_2006,
+  title = {A Fast Learning Algorithm for Deep Belief Nets},
+  author = {Hinton, Geoffrey E and Osindero, Simon and Teh, Yee-Whye},
+  date = {2006},
+  journaltitle = {Neural computation},
+  volume = {18},
+  number = {7},
+  pages = {1527--1554},
+  publisher = {{MIT Press One Rogers Street, Cambridge, MA 02142-1209, USA journals-info …}}
+}
+
 @misc{hinton_how_2021,
   title = {How to Represent Part-Whole Hierarchies in a Neural Network},
   author = {Hinton, Geoffrey},
@@ -7672,6 +7712,14 @@
   urldate = {2020-03-18},
   abstract = {We describe a new training methodology for generative adversarial networks. The key idea is to grow both the generator and discriminator progressively: starting from a low resolution, we add new layers that model increasingly fine details as training progresses. This both speeds the training up and greatly stabilizes it, allowing us to produce images of unprecedented quality, e.g., CELEBA images at 10242. We also propose a simple way to increase the variation in generated images, and achieve a record inception score of 8.80 in unsupervised CIFAR10. Additionally, we describe several implementation details that are important for discouraging unhealthy competition between the generator and discriminator. Finally, we suggest a new metric for evaluating GAN results, both in terms of image quality and variation. As an additional contribution, we construct a higher-quality version of the CELEBA dataset.},
   langid = {english}
+}
+
+@inproceedings{karras_stylebased_2019,
+  title = {A Style-Based Generator Architecture for Generative Adversarial Networks},
+  booktitle = {Proceedings of the {{IEEE}}/{{CVF Conference}} on {{Computer Vision}} and {{Pattern Recognition}} ({{CVPR}})},
+  author = {Karras, Tero and Laine, Samuli and Aila, Timo},
+  date = {2019},
+  pages = {4401--4410}
 }
 
 @misc{katharopoulos_biased_2017,
@@ -12233,6 +12281,16 @@
   isbn = {978-1-4799-4334-0}
 }
 
+@article{pimentel_review_2014,
+  title = {A Review of Novelty Detection},
+  author = {Pimentel, Marco AF and Clifton, David A and Clifton, Lei and Tarassenko, Lionel},
+  date = {2014},
+  journaltitle = {Signal processing},
+  volume = {99},
+  pages = {215--249},
+  publisher = {{Elsevier}}
+}
+
 @article{platt_probabilistic_1999,
   title = {Probabilistic Outputs for Support Vector Machines and Comparisons to Regularized Likelihood Methods},
   author = {Platt, John and others},
@@ -12406,6 +12464,13 @@
   date = {1979},
   volume = {4},
   pages = {578--581}
+}
+
+@article{radford_improving_2018,
+  title = {Improving Language Understanding by Generative Pre-Training},
+  author = {Radford, Alec and Narasimhan, Karthik and Salimans, Tim and Sutskever, Ilya and others},
+  date = {2018},
+  publisher = {{OpenAI}}
 }
 
 @article{radford_language_2019,
@@ -15359,6 +15424,17 @@
   urldate = {2020-07-13},
   abstract = {Normalizing flows, autoregressive models, variational autoencoders (VAEs), and deep energy-based models are among competing likelihood-based frameworks for deep generative learning. Among them, VAEs have the advantage of fast and tractable sampling and easy-to-access encoding networks. However, they are currently outperformed by other models such as normalizing flows and autoregressive models. While the majority of the research in VAEs is focused on the statistical challenges, we explore the orthogonal direction of carefully designing neural architectures for hierarchical VAEs. We propose Nouveau VAE (NVAE), a deep hierarchical VAE built for image generation using depth-wise separable convolutions and batch normalization. NVAE is equipped with a residual parameterization of Normal distributions and its training is stabilized by spectral regularization. We show that NVAE achieves state-of-the-art results among non-autoregressive likelihood-based models on the MNIST, CIFAR-10, and CelebA HQ datasets and it provides a strong baseline on FFHQ. For example, on CIFAR-10, NVAE pushes the state-of-the-art from 2.98 to 2.91 bits per dimension, and it produces high-quality images on CelebA HQ as shown in Fig. 1. To the best of our knowledge, NVAE is the first successful VAE applied to natural images as large as 256×256 pixels.},
   langid = {english}
+}
+
+@inproceedings{vahdat_scorebased_2021,
+  title = {Score-Based Generative Modeling in Latent Space},
+  booktitle = {Advances in Neural Information Processing Systems},
+  author = {Vahdat, Arash and Kreis, Karsten and Kautz, Jan},
+  editor = {Ranzato, M. and Beygelzimer, A. and Dauphin, Y. and Liang, P.S. and Vaughan, J. Wortman},
+  date = {2021},
+  volume = {34},
+  pages = {11287--11302},
+  publisher = {{Curran Associates, Inc.}}
 }
 
 @inproceedings{valk_voxlingua107_2021,
