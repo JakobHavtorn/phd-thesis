@@ -12,9 +12,8 @@
 In an era where technology increasingly intertwines with healthcare, artificial intelligence is on the verge of becoming part of standard medical practice. 
 Growing administrative burdens, rapid scientific progress in medicine, and aging populations have created a need to rethink how medical professionals are best enabled to successfully do their job. 
 The application of artificial intelligence in medical decision-making and particularly for diagnosing and recommending treatments is likely to hold significant potential to reduce the effect of these issues and improve patient outcomes. 
-However, as such decisions impact critical aspects of human health and well-being, this prospect also raises concerns related to the reliability of artificial intelligence systems.
+However, as such decisions impact critical aspects of human health and well-being, this prospect also raises concerns related to the reliability of artificial intelligence systems \cite{chen_ethical_2021, shailaja_machine_2018, ahmad_interpretable_2018}.
 
-\todo[inline]{Can we find a better example than the Rhind Papyrus, or an additional one? It could be more on-point with decision-making and more well-known. Ideally, weave in an example of a failure of such technology.}
 The evolution of technology to support and automate decision-making can be traced back to the development of algorithms and mathematical techniques by ancient civilizations. 
 One example is the Egyptian Rhind Mathematical Papyrus, dated around 1550 BCE. It describes various mathematical techniques for doing calculations involving multiplication, division, and fractions, and how to use them for practical purposes like measuring land, constructing buildings, and sharing resources \cite{georges_universal_2001}. 
 Around the same time, the Babylonians had developed a sophisticated system of mathematics that included algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \cite{fowler_square_1998}. 
@@ -32,7 +31,7 @@ However, these computing tools brought with them novel challenges. The Babylonia
 
 While the quest to ease human decision-making has been ongoing for thousands of years, it was not until 1642 that the first mechanical calculator was successfully designed by Blaise Pascal. Refined by Gottfried Leibniz during the latter half of the 17th century, the mechanical calculator marked the beginning of a new era where rudimentary calculations could be automated and performed with greater speed and accuracy than humans. 
 In the following centuries, the development of computing machines continued, and in the 1820s, Charles Babbage proposed the first programmable mechanical computer, the Difference Engine. Although never completed, it laid the foundation for his later design of the Analytical Engine in 1837 which is considered to be the first general-purpose computer design. 
-Working with Babbage, Ada Lovelace is widely regarded as the first to have recognized that general-purpose programmable computers could have applications beyond pure arithmetic. However, it was not until the advent of electronics that the first successful general-purpose programmable computers were developed, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}).
+Working with Babbage, Ada Lovelace is widely regarded as the first to have recognized that programmable computers could have applications beyond pure arithmetic. However, it was not until the advent of electronics that the first successful general-purpose computers were developed, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}).
 % While the potential of a general-purpose programmable computer with applications beyond pure arithmetic was recognized by Ada Lovelace,  
 % it was not until the 1940s and 50s that % / 
 % it took one-hundred years before / 
@@ -48,16 +47,16 @@ The societal changes brought about by the widespread adoption of computer techno
     \label{fig:eniac_programmers}
 \end{figure}
 
-With the advent of electronic computers, the internet, and the widespread adoption of digital technologies, the amount of data available to decision-makers has grown exponentially. 
-This has led to a surge of interest in the scientific field of machine learning, a subfield of artificial intelligence that focuses on developing algorithms that can learn from data to recognize salient patterns and make predictions to guide decisions. 
-Enabled by a massive increase in the performance and availability of parallel computing resources, such methods have set new standards for the abilities of computer systems in various domains, including speech recognition, computer vision, and natural language processing \cite{lecun_deep_2015}. 
-In recent years, machine learning has also been applied within healthcare, where it has shown promising results in tasks such as medical imaging \cite{lundervold_overview_2019}, drug discovery \cite{chen_rise_2018}, and clinical decision support \cite{cite15, cite14}. 
+With the advent of electronic computers, the internet, and the widespread adoption of digital technologies continuing into the 21st century, the amount of data available to decision-makers has grown exponentially. 
+This has led to a surge of interest in the scientific field of machine learning, a subfield of artificial intelligence that focuses on developing algorithms that can learn from data to recognize patterns and make predictions to guide decision-making. 
+Enabled by a massive increase in the performance and availability of parallel computing resources, such methods have set new standards for the abilities of computer systems in various domains, such as speech recognition, computer vision, and natural language processing \cite{lecun_deep_2015}. 
+In recent years, machine learning has made its way into the healthcare sector, where it has shown promising results in tasks such as medical imaging \cite{lundervold_overview_2019}, drug discovery \cite{chen_rise_2018}, and clinical decision support \cite{cite15, cite14}. 
 
 However, these technologies come with the same risks as previous generations did, and in some cases, they may exacerbate them. 
-Inherent limitations of the technology itself, human error, and the complexity of the real world are all factors that can lead to failures. A pertinent example is the nascent use of machine learning in autonomous driving systems: 
+Limitations of the technology itself, human error, and the complexity of the real world are all factors that can lead to failures. A pertinent example is the use of machine learning in autonomous driving systems: 
 In 2018, the first incident of a self-driving car killing a pedestrian took place in Tempe, Arizona. 
 The car, an SUV operated by Uber, was driving in autonomous mode when it struck a pedestrian crossing the street with her bicycle. 
-According to the investigation by the National Transportation Safety Board, the car's sensors detected the pedestrian $5.6$ seconds before the crash, but it did not correctly predict her path or reduce the SUV's speed (\cref{fig:uber_nhsa_accident}). 
+According to the investigation by the National Transportation Safety Board, the car's sensors detected the pedestrian $5.6$ seconds before the crash, but it did not manage to correctly predict her path or reduce the SUV's speed (\cref{fig:uber_nhsa_accident}). 
 Specifically, during those seconds, the system incorrectly classified the pedestrian more than ten times, first as a vehicle, then as an unknown object and ultimately as a bicyclist, each time changing, or resetting, the predicted path. 
 About one second before the crash, the system determined that a collision was imminent, but the situation exceeded the constraints within which the autonomous driving system was allowed to operate, and the car's safety driver failed to intervene \cite{nationaltransportationsafetyboardnhsa_collision_2019}. 
 
@@ -69,12 +68,14 @@ About one second before the crash, the system determined that a collision was im
     \label{fig:uber_nhsa_accident}
 \end{figure}
 
-Uber is not the only actor facing the challenges of applying machine learning in real-world scenarios. A recent report by the Washington Post found that Tesla's Autopilot system has been involved in at least 736 crashes in the last four years with 16 fatalities \cite{siddiqui_17_2023}. 
-Although recent statistics published by Waymo, the self-driving car company owned by Google's parent company Alphabet, revealed far fewer crashes, with only 2 of 20 incidents over 1 million miles meeting reporting criteria, it is interesting to note that the cars are all operated in the sunny states of California and Arizona, where driving conditions vary relatively little \cite{hawkins_waymo_2023}. 
-While driver-assistance systems undoubtedly help reduce accidents in many case, and has great future potential, the issues of current systems highlight the need for machine learning systems to be robust in rare, adverse or difficult situations. 
+And Uber is not the only actor facing the challenges of applying machine learning in real-world scenarios. A recent report by the Washington Post found that Tesla's Autopilot system has been involved in at least 736 crashes in the last four years with 16 fatalities \cite{siddiqui_17_2023}. 
+% And though recent statistics published by Waymo, 
+% %the self-driving car company owned by Google's parent company Alphabet, 
+% revealed far fewer crashes, with only 2 of 20 incidents over 1 million miles meeting reporting criteria, it is interesting to note that the cars are all operated in the sunny states of California and Arizona, where driving conditions vary relatively little \cite{hawkins_waymo_2023}. 
+While driver-assistance systems undoubtedly help reduce accidents in many cases, and has great future potential, the issues of current systems highlight the need for machine learning systems that are robust in rare, adverse or difficult situations. 
 
-Recently, European policymakers proposed a set of requirements for applications of machine learning to ensure that they are safe, reliable, and trustworthy \cite{europeancommission_briefing_2021}. This AI Act groups applications of machine learning into three categories based on the potential risk they pose to society: limited risk, high risk, and unacceptable risk. Limited risk applications, for instance within gaming, must meet transparency requirements, and unacceptable risk applications, such as public use of facial recognition, are banned. High risk applications include those in healthcare and must meet a strict set of requirements focusing on anti-discrimination and robustness. 
-%
+Recently, European policymakers proposed a set of requirements for applications of machine learning to ensure that they are safe, reliable, and trustworthy \cite{europeancommission_briefing_2021}. This AI Act groups applications of machine learning into three categories based on the potential risk they pose to society: limited risk, high risk, and unacceptable risk. Limited risk applications, such as in computer games, must meet transparency requirements, and unacceptable risk applications, such as public use of facial recognition, are banned. High risk applications, such as in autonomous vehicles and healthcare, must meet a strict set of requirements focusing on anti-discrimination and robustness.
+
 One of the key ways to improve the safety, reliability and trustworthiness of machine learning systems is to equip them with the ability accurately estimate the uncertainty of their predictions. 
 A model that can accurately estimate the uncertainty of its predictions is able to communicate to other systems or humans when it is not to be trusted, and so, is able to reduce the risk of wrong predictions leading to catastrophic mistakes. 
 Fittingly, a recent study by the European Parliamentary Research Services concluded: 
@@ -87,17 +88,20 @@ Fittingly, a recent study by the European Parliamentary Research Services conclu
 
 % \todo[inline]{Add something here about probability theory, Bayesian modelling etc. as a warm-up for potential solutions.}
 
-\vspace{1em}
+\vspace{0.5em}
 \begin{center}
 \noindent\rule{0.2\textwidth}{0.5pt}
 \end{center}
 \vspace{1em}
 
 % OUTLINE: Primer overview of the thesis. What are the topics and what is the context of the research.
-\noindent The research presented in this thesis will focus on the use of machine learning in relation to uncertainty estimation, speech processing, and medical conversations. 
+% \noindent The research presented in this thesis will focus on the use of machine learning in relation to uncertainty estimation, speech processing, and medical conversations. 
+\noindent The research presented in this thesis deals with the use of machine learning for medical conversations with a focus on uncertainty estimation and speech processing. 
 The research project was partially funded by a grant from the national Danish Innovation Fund (grant no.\@ 0153-00167B) and defined and carried out in collaboration with the Danish company Corti, which develops computer software for medical decision support. 
 In the rest of this chapter, we will provide a high-level introduction to these topics and discuss the motivation behind the research project.
 
+
+\todo[inline]{Can we find a better example than the Rhind Papyrus, or an additional one? It could be more on-point with decision-making and more well-known. Ideally, weave in an example of a failure of such technology.}
 
 \section{Motivation and Corti's use-cases}
 %
@@ -212,7 +216,6 @@ This introduction provided a high-level overview of the motivation behind the re
 \Cref{part:unsupervised-uncertainty-estimation,part:self-supervised-speech-representation-learning,part:medical-applications} each contain a number of chapters that each correspond to a primary paper. \Cref{part:unsupervised-uncertainty-estimation} contains papers on variational autoencoders and their applications to estimation of epistemic uncertainty and speech modelling \cite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. \Cref{part:self-supervised-speech-representation-learning} contains a review paper on self-supervised speech representation learning \cite{mohamed_selfsupervised_2022}. \Cref{part:medical-applications} contains papers on applications of machine learning within the medical domain, including recognition of stroke cases in calls to medical helplines \cite{wenstrup_retrospective_2023} and medical coding of clinical notes \cite{edin_automated_2023}. 
 
 Finally, \cref{part:discussion-and-conclusion} concludes the thesis by summarizing the main contributions and discussing the presented work and future directions for research.
-
 
 
 
