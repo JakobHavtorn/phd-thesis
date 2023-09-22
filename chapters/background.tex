@@ -167,7 +167,7 @@ In the following sections, we provide a more in-depth overview of the different 
 %       - 5 DeepEnsemble \cite{lakshminarayanan_simple_2017} The classifier-based ensemble method that uses the average of the predictions from multiple independently trained models with random initialization of network parameters and random shuffling of training inputs
 %       - 6 The log-odds of a binary classifier trained to distinguish between in-distribution inputs from all classes as one class and randomly perturbed in-distribution inputs as the other. \cite{ren_likelihood_2019}
 %       - 7 The maximum class probability over K in-distribution classes of a (K + 1)-class classifier where the additional class is perturbed in-distribution. \cite{ren_likelihood_2019}
-%       - 8 The maximum class probability of a K-class classifier for in-distribution classes but the predicted class distribution is explicitly trained to output uniform distribution on perturbed in-distribution inputs. \cite{ren_likelihood_2019}. This is similar to using simulated OOD inputs from GAN \cite{lee_training_2018} or using auxiliary datasets of outliers \cite{hendrycks_deep_2019} for calibration purpose.
+%       - 8 The maximum class probability of a K-class classifier for in-distribution classes but the predicted class distribution is explicitly trained to output uniform distribution on perturbed in-distribution inputs. \cite{ren_likelihood_2019}. This is similar to using simulated OOD inputs from generative adversarial networks \cite{lee_training_2018} or using auxiliary datasets of outliers \cite{hendrycks_deep_2019} for calibration purpose.
 %   - X Deep semi-supervised anomaly detection \cite{ruff_deep_2020}.
 %   - Variational information bottleneck (VIB) (Alemi et al., 2018b) performs divergence estimation in latent space to detect OoD, but is technically a model-dependent technique because the latent code is trained jointly with the downstream classification task. \cite{alemi_deep_2017}
 %
@@ -192,7 +192,7 @@ Several methods synthesize this OOD data by adding noise to in-distribution data
 For instance, \textcite{ren_likelihood_2019} propose a number of baselines including training a binary classifier to distinguish between original and perturbed in-distribution data. They also propose adding an OOD class to softmax classifiers and training it to predict perturbed in-distribution data, or alternatively, training the predicted class distribution to output uniform distribution for perturbed in-distribution inputs. 
 With ODIN \cite{liang_enhancing_2018}, the authors propose to calibrate $p(y|\xb)$ with temperature scaling \cite{guo_calibration_2017} and add gradient-based, input-dependent perturbations to the inputs to use the calibrated maximum class probability as the OOD score. This method does not require retraining the classifier and generally improves on the baselines of \textcite{ren_likelihood_2019}. 
 \textcite{vyas_outofdistribution_2018} train an ensemble of classifiers on different subsets of the training data, with the left out data taken as OOD, and propose novel loss over $p(y|\xb)$ that seeks to maintain a set margin between its average entropy for the OOD and in-distribution examples. 
-Another approach generates OOD inputs using a GAN \cite{lee_training_2018}. 
+Another approach generates OOD inputs using a generative adversarial network \cite{lee_training_2018}. 
 Similar to actual OOD data, the usefulness of synthetic OOD data is also fundamentally limited by the intractability of sampling the complete space of OOD data.
 
 % No OOD data, probs
@@ -259,7 +259,7 @@ Finally, Bayesian neural networks have also been proposed for OOD detection alth
 %       - 2 Entropy of predictive distribution p(y|x) \cite{ren_likelihood_2019}
 %       - 6 The log-odds of a binary classifier trained to distinguish between in-distribution inputs from all classes as one class and randomly perturbed in-distribution inputs as the other. \cite{ren_likelihood_2019}
 %       - 7 The maximum class probability over K in-distribution classes of a (K + 1)-class classifier where the additional class is perturbed in-distribution. \cite{ren_likelihood_2019}
-%       - 8 The maximum class probability of a K-class classifier for in-distribution classes but the predicted class distribution is explicitly trained to output uniform distribution on perturbed in-distribution inputs. \cite{ren_likelihood_2019}. This is similar to using simulated OOD inputs from GAN \cite{lee_training_2018} or using auxiliary datasets of outliers \cite{hendrycks_deep_2019} for calibration purpose.
+%       - 8 The maximum class probability of a K-class classifier for in-distribution classes but the predicted class distribution is explicitly trained to output uniform distribution on perturbed in-distribution inputs. \cite{ren_likelihood_2019}. This is similar to using simulated OOD inputs from generative adversarial networks \cite{lee_training_2018} or using auxiliary datasets of outliers \cite{hendrycks_deep_2019} for calibration purpose.
 
 %       - 3 ODIN \cite{liang_enhancing_2018} (Uses synthetic OOD data by adding noise to in-distribution)
 %       - 4 Mahalanobis distance to class conditional Gaussian distribution \cite{lee_training_2018}
@@ -333,20 +333,30 @@ In \textcite{bergamin_modelagnostic_2022} we use Fisher's method \cite{fisher_st
 
 \paragraph{Reconstruction-based}
 % \cite{
-%     X sakurada_anomaly_2014                 encode and decode data with autoencoders.
-%     X xia_learning_2015                     encode and decode data with autoencoders.
-%     zhou_anomaly_2017                     encode and decode data with autoencoders.
-%     zong_deep_2018                        encode and decode data with autoencoders.
-%     lyudchik_outlier_2016                 encode and decode data with autoencoders.
-%     chen_outlier_2017                     encode and decode data with an ensemble of autoencoders.
-%     schlegl_unsupervised_2017             perform GAN inversion for a data point, and evaluate its reconstruction error and discriminator confidence under the inverted latent variable.
-%     li_madgan_2019                        perform GAN inversion for a data point, and evaluate its reconstruction error and discriminator confidence under the inverted latent variable.
-%     graham_denoising_2023                 leverages diffusion models to reconstruct images at varied diffusion steps, while we mask and inpaint an image repeatedly with fixed steps.
-%     liu_unsupervised_2023a                LMD lifts an image off its original manifold by corrupting it, and maps it towards the in-domain manifold with a diffusion model. For an out-of-domain image, the mapped image would have a large distance away from its original manifold, and LMD would identify it as OOD accordingly.
+%     X sakurada_anomaly_2014                 encode and decode data with autoencoders. Dimensionality reduction
+%     X lyudchik_outlier_2016                 encode and decode data with autoencoders.
+%     X xia_learning_2015                     encode and decode data with autoencoders. We observe that when data are reconstructed from low-dimensional representations, the inliers and the outliers can be well separated according to their reconstruction errors. Based on this basic observation, we gradually inject discriminative information in the learning process of an autoencoder to make the inliers and the outliers more separable.
+%     X zhou_anomaly_2017                     encode and decode data with autoencoders. inspired by Robust Principal Component Analysis, and we split the input data X into two parts, , where  can be effectively reconstructed by a deep autoencoder and  contains the outliers and noise in the original data X
+%     X zong_deep_2018                        encode and decode data with autoencoders. jointly learn a deep autoencoder and a Gaussian Mixture Model on the learned hidden representations and link their method to neural variational inference \cite{mnih_neural_2014}.
+%     X chen_outlier_2017                     encode and decode data with an ensemble of autoencoders.
+%     X schlegl_unsupervised_2017             perform generative adversarial networks inversion for a data point, and evaluate its reconstruction error and discriminator confidence under the inverted latent variable.
+%     X li_madgan_2019                        perform generative adversarial networks inversion for a data point, and evaluate its reconstruction error and discriminator confidence under the inverted latent variable.
+%     X graham_denoising_2023                 leverages diffusion models to reconstruct images at varied diffusion steps, while we mask and inpaint an image repeatedly with fixed steps.
+%     X liu_unsupervised_2023a                LMD lifts an image off its original manifold by corrupting it, and maps it towards the in-domain manifold with a diffusion model. For an out-of-domain image, the mapped image would have a large distance away from its original manifold, and LMD would identify it as OOD accordingly.
 % }
 %
 A number of methods derive the OOD score from a reconstruction error. 
-Among the first methods are \textcite{sakurada_anomaly_2014} and \textcite{xia_learning_2015} who use deep autoencoders to reconstruct the input and use the reconstruction error as the OOD score. 
+Among the first methods are \textcite{sakurada_anomaly_2014, lyudchik_outlier_2016} who note that dimensionality reduction helps separate inliers and outliers and propose to use deep autoencoders to reconstruct the input and evaluate the reconstruction error. \textcite{xia_learning_2015} take a similar approach but also propose to inject discriminative information in the learning process. 
+Drawing inspiration from Robust Principal Component Analysis, \textcite{zhou_anomaly_2017} propose to first split the input data into a dense low-rank factor and a sparse factor, assuming that outliers are caught in the sparse factor, and then use a deep autoencoder to reconstruct the dense factor. 
+\textcite{zong_deep_2018} jointly learn a deep autoencoder and a Gaussian Mixture Model on the learned hidden representations and draw parallels of their method to neural variational inference \cite{mnih_neural_2014}. 
+Similarly to the ensemble-based methods for supervised OOD detection, \textcite{chen_outlier_2017} propose to use an ensemble of autoencoders to reconstruct the input and use the median reconstruction error as the OOD score. 
+
+Although generative adversarial networks do not have the ability to encode a given data point, methods have been proposed to invert the generator to find a latent representation that can be used to reconstruct the input and use the reconstruction error as well as a discriminator score for OOD detection \cite{schlegl_unsupervised_2017,li_madgan_2019}. 
+
+Diffusion models have also been used for OOD detection via a reconstruction-based score. \textcite{graham_denoising_2023} add varying amounts of diffusion noise to an input image and show that reconstructions of OOD inputs from appropriate noise levels fall back onto the in-domain manifold resulting in high reconstruction error. 
+\textcite{liu_unsupervised_2023a} lift an image off its original manifold by sampling a number of masks, and then maps it towards the in-domain manifold with a diffusion model, using the median reconstruction error as the OOD score.
+
+
 % In \textcite{zhou_anomaly_2017} 
 
 \paragraph{Representation-based}
@@ -358,11 +368,11 @@ Among the first methods are \textcite{sakurada_anomaly_2014} and \textcite{xia_l
 %     bergman_classificationbased_2020,     learn a representation over the in-domain data through self-supervised training
 %     tack_csi_2020,                        learn a representation over the in-domain data through self-supervised training
 %     sehwag_ssd_2021,                      learn a representation over the in-domain data through self-supervised training
-%     xiao_we_2021                          further shows that one can instead use a strong pretrained feature extractor while maintaining comparable performance.
+%     X xiao_we_2021                          further shows that one can instead use a strong pretrained feature extractor (self-supervised)  while maintaining comparable performance.
 % }
 %
 
-
+\texticite{xiao_we_2021} propose to use an existing, strong foundation model, pre-trained with a self-supervised objective, to extract features from the input, fit a parametric density estimator to the features and use the Mahalanobis distance as the OOD score. 
 
 
 
