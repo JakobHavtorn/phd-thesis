@@ -3,13 +3,14 @@
 \ifthenelse{\equal{\skipappendices}{true}}{}{
 
 \section{Data flow digram}
+In \cref{fig_retrospective:data_flowchart} we present an overview of the data flow from the initial data sources to the final stroke dataset.
 
-\begin{figure}[h]
+\begin{sidewaysfigure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{paper_retrospective/data_flowchart.pdf}
+    \includegraphics[width=0.8\textwidth]{paper_retrospective/data_flowchart.pdf}
     \caption[Overview of data flow from the initial data sources to the final stroke dataset.]{Overview of data flow from the initial data sources to the final stroke dataset.}
     \label{fig_retrospective:data_flowchart}
-\end{figure}
+\end{sidewaysfigure}
 
 
 \section{Machine learning pipeline}
@@ -22,7 +23,7 @@ We used stochastic gradient descent on mini-batches of data to train the stroke 
 
 The selection of hyperparameters followed a simple two-stage process using validation data (table A1). First, a manual search was conducted by running different model configurations with varying numbers of epochs, updates per epoch, batch sizes, vectoriser types, and hyperparameters. Subsequently, a structured grid search was performed to further tune a subset of these hyperparameters.
 
-\begin{table}[h]
+\begin{table}[t]
     \centering
     \caption{Overview of hyperparameters used for training the text classification models.}
     \label{tab_retrospective:tableA1-hyperparameters}
@@ -71,7 +72,7 @@ Each transcript was transformed into a fixed-size bag-of-words vector to serve a
 
 As part of our manual hyperparameter search, we trained the models using vectorisers of different sizes. We discovered that using 5,000-word n-grams and 5,000-character n-grams (M=5,000) struck a good trade-off between size, feature quality, and model performance, yielding 10,000 bag-of-words features.
 
-\begin{figure}[h]
+\begin{figure}[t]
     \centering
     \includegraphics[width=0.95\textwidth]{paper_retrospective/model_sketch.pdf}
     \caption[Overview of machine learning pipeline for stroke recognition.]{Overview of machine learning pipeline. Panel A presents a schematic overview of the machine learning pipeline. The individual models are broken down in panels B and C. The 2D convolutional layers have parameters [input channels, output channels]-[kernel width, kernel height]-[stride width, stride height]. The long short-term memory (LSTM) blocks have parameters hidden units-number of layers. The rectified linear unit (ReLU), sigmoid, and softmax layers have parameters [input features, output features]. Joining arrows indicate the concatenation of two vector sequences along the feature dimension. The full set of model hyperparameters is listed in \cref{sec_retrospective:hyperparameters}.}
