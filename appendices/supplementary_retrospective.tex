@@ -1,6 +1,6 @@
 \chapter[supplementary material: a retrospective study on machine learning-assisted stroke recognition for medical helpline calls]{Supplementary Material for: A Retrospective Study on Machine Learning-Assisted Stroke Recognition for Medical Helpline Calls}
 \label{app:supplementary-retrospective}
-% \ifthenelse{\equal{\skipappendices}{true}}{}{
+\ifthenelse{\equal{\skipappendices}{true}}{}{
 
 \section{Data flow digram}
 
@@ -145,9 +145,9 @@ We used Python version 3.8.10. PyTorch version 1.12.1 + cu113 was used to train 
 
 \section{Additional results: Model performance across demographics}
 
-When 1-1-2 data were not used for training (\cref{tab_retrospective:tableA2}), the model performed significantly better in men than in women on the test set in terms of all metrics (p < 0.0001) and significantly better on the 65+ group than on the 1864 group in terms of all metrics (p < 0.0001). As noted in the main text, both these statements were also true when 1-1-2 data were used for the training (\cref{tab_retrospective:table2}) and that including 1-1-2 data significantly improved overall performance (p < 0.0001).
+When 1-1-2 data were not used for training (\cref{tab_retrospective:tableA2}), the model performed significantly better in men than in women on the test set in terms of all metrics (p < 0.0001) and significantly better on the 65+ group than on the 1864 group in terms of all metrics (p < 0.0001). As noted in the main text, both these statements were also true when 1-1-2 data were used for the training (\cref{tab_retrospective:table2-main-results}) and that including 1-1-2 data significantly improved overall performance (p < 0.0001).
 
-Compared to the test set (\cref{tab_retrospective:table2}), model performance on the 2021 calls without diagnostic category was significantly worse in all demographic subgroups (\cref{tab_retrospective:tableA3}) in terms of all metrics (p < 0.0001), except for positive predictive value (PPV) for male (where p = 0.0056 [significant]) and for the false positive rate (FPR) on females and individuals aged 65+ years (where p = 0.213 and p = 0.362, respectively [insignificant]).
+Compared to the test set (\cref{tab_retrospective:table2-main-results}), model performance on the 2021 calls without diagnostic category was significantly worse in all demographic subgroups (\cref{tab_retrospective:tableA3}) in terms of all metrics (p < 0.0001), except for positive predictive value (PPV) for male (where p = 0.0056 [significant]) and for the false positive rate (FPR) on females and individuals aged 65+ years (where p = 0.213 and p = 0.362, respectively [insignificant]).
 
 % \todo[inline]{Insert table A2 here}
 \begin{table}[h]
@@ -466,7 +466,7 @@ We also report the results of the model itself (C). This method corresponds to c
 As expected (\cref{tab_retrospective:tableA9}), method 2.C (raw model predictions during calls) yielded slightly worse results than 1.C (raw model predictions after calls). Compared with method C, method A (call takers mirror model positives) led to increased sensitivity and decreased PPV, whereas method B (call takers mirror model negatives) led to decreased sensitivity and increased PPV, as expected. The numerical changes compared with method C are quite large because, in our simulation, the call taker is assumed to strictly follow methods A or B without divergence.
 
 % \todo[inline]{Insert table A6 here}
-\begin{table}[h]
+\begin{sidewaystable}[h]
     \centering
     \caption{Overall performance of model, call takers and simulated combinations of model and call takers on MH-1813 test data.}
     \label{tab_retrospective:tableA9}
@@ -494,7 +494,7 @@ As expected (\cref{tab_retrospective:tableA9}), method 2.C (raw model prediction
         \bottomrule
     \end{tabular}%
     }
-\end{table}
+\end{sidewaystable}
 
 Method 1.A (call takers mirror model positives after a call) yields a better F1-score, sensitivity, PPV, and FOR than call takers alone, although at the cost of a slightly higher FPR. This stands in contrast to methods 1.B, 2.A, and 2.B where either the sensitivity or the PPV is worse for the combined system than for call takers alone. Regardless, the F1-score (harmonic mean of sensitivity and PPV) is higher for all methods of combining call takers and model (1.A through 2.C).
 
@@ -614,4 +614,4 @@ The search terms stroke AND (artificial intelligence OR machine learning OR deep
 \end{enumerate}
 }
 
-% }
+}

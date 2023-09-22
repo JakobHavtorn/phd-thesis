@@ -72,6 +72,14 @@
   langid = {english}
 }
 
+@inproceedings{ahmad_interpretable_2018,
+  title = {Interpretable Machine Learning in Healthcare},
+  booktitle = {Proceedings of the 2018 {{ACM}} International Conference on Bioinformatics, Computational Biology, and Health Informatics},
+  author = {Ahmad, Muhammad Aurangzeb and Eckert, Carly and Teredesai, Ankur},
+  date = {2018},
+  pages = {559--560}
+}
+
 @inproceedings{ahmadian_likelihoodfree_2021,
   title = {Likelihood-Free out-of-Distribution Detection with Invertible Generative Models},
   booktitle = {Proceedings of the Thirtieth International Joint Conference on Artificial Intelligence, {{IJCAI-21}}},
@@ -774,6 +782,13 @@
   abstract = {The Gumbel trick is a method to sample from a discrete probability distribution, or to estimate its normalizing partition function. The method relies on repeatedly applying a random perturbation to the distribution in a particular way, each time solving for the most likely configuration. We derive an entire family of related methods, of which the Gumbel trick is one member, and show that the new methods have superior properties in several settings with minimal additional computational cost. In particular, for the Gumbel trick to yield computational benefits for discrete graphical models, Gumbel perturbations on all configurations are typically replaced with socalled low-rank perturbations. We show how a subfamily of our new methods adapts to this setting, proving new upper and lower bounds on the log partition function and deriving a family of sequential samplers for the Gibbs distribution. Finally, we balance the discussion by showing how the simpler analytical form of the Gumbel trick enables additional theoretical results.},
   langid = {english},
   keywords = {Medium,Unread}
+}
+
+@misc{baluenfeldt_national_2021,
+  title = {National {{Neurologisk Behandlingsvejledning}}: {{Iskæmisk}} Apopleksi - Akut Udredning Og Behandling},
+  author = {Baluenfeldt, Rolf and Wienecke, Troels and {Dansk Neurologisk Selskab}},
+  date = {2021-10-25},
+  urldate = {2023-09-19}
 }
 
 @article{baoMedicalCodePrediction2021,
@@ -2229,6 +2244,16 @@
   pages = {347--356},
   publisher = {{IEEE}},
   abstract = {The recently developed vision transformer (ViT) has achieved promising results on image classification compared to convolutional neural networks. Inspired by this, in this paper, we study how to learn multi-scale feature representations in transformer models for image classification. To this end, we propose a dual-branch transformer to combine image patches (i.e., tokens in a transformer) of different sizes to produce stronger image features. Our approach processes small-patch and large-patch tokens with two separate branches of different computational complexity and these tokens are then fused purely by attention multiple times to complement each other. Furthermore, to reduce computation, we develop a simple yet effective token fusion module based on cross attention, which uses a single token for each branch as a query to exchange information with other branches. Our proposed cross-attention only requires linear time for both computational and memory complexity instead of quadratic time otherwise. Extensive experiments demonstrate that our approach performs better than or on par with several concurrent works on vision transformer, in addition to efficient CNN models. For example, on the ImageNet1K dataset, with some architectural changes, our approach outperforms the recent DeiT by a large margin of 2\textbackslash\% with a small to moderate increase in FLOPs and model parameters. Our source codes and models are available at \textbackslash url\{https://github.com/IBM/CrossViT\}.}
+}
+
+@article{chen_ethical_2021,
+  title = {Ethical Machine Learning in Healthcare},
+  author = {Chen, Irene Y and Pierson, Emma and Rose, Sherri and Joshi, Shalmali and Ferryman, Kadija and Ghassemi, Marzyeh},
+  date = {2021},
+  journaltitle = {Annual review of biomedical data science},
+  volume = {4},
+  pages = {123--144},
+  publisher = {{Annual Reviews}}
 }
 
 @inproceedings{chen_gigaspeech_2021,
@@ -4610,6 +4635,19 @@
   langid = {english}
 }
 
+@online{galke_bagofwords_2022,
+  title = {Bag-of-{{Words}} vs. {{Graph}} vs. {{Sequence}} in {{Text Classification}}: {{Questioning}} the {{Necessity}} of {{Text-Graphs}} and the {{Surprising Strength}} of a {{Wide MLP}}},
+  shorttitle = {Bag-of-{{Words}} vs. {{Graph}} vs. {{Sequence}} in {{Text Classification}}},
+  author = {Galke, Lukas and Scherp, Ansgar},
+  date = {2022-04-12},
+  eprint = {2109.03777},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  urldate = {2023-09-22},
+  abstract = {Graph neural networks have triggered a resurgence of graph-based text classification methods, defining today's state of the art. We show that a wide multi-layer perceptron (MLP) using a Bag-of-Words (BoW) outperforms the recent graph-based models TextGCN and HeteGCN in an inductive text classification setting and is comparable with HyperGAT. Moreover, we fine-tune a sequence-based BERT and a lightweight DistilBERT model, which both outperform all state-of-the-art models. These results question the importance of synthetic graphs used in modern text classifiers. In terms of efficiency, DistilBERT is still twice as large as our BoW-based wide MLP, while graph-based models like TextGCN require setting up an \$\textbackslash mathcal\{O\}(N\^2)\$ graph, where \$N\$ is the vocabulary plus corpus size. Finally, since Transformers need to compute \$\textbackslash mathcal\{O\}(L\^2)\$ attention weights with sequence length \$L\$, the MLP models show higher training and inference speeds on datasets with long sequences.},
+  pubstate = {preprint}
+}
+
 @inproceedings{gall_faster_2012,
   title = {Faster {{Algorithms}} for {{Rectangular Matrix Multiplication}}},
   booktitle = {2012 {{IEEE}} 53rd {{Annual Symposium}} on {{Foundations}} of {{Computer Science}}},
@@ -5266,7 +5304,6 @@
   booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Grathwohl, Will and Wang, Kuan-Chieh and Jacobsen, Jörn-Henrik and Duvenaud, David and Norouzi, Mohammad and Swersky, Kevin},
   date = {2020},
-  publisher = {{OpenReview.net}},
   location = {{Addis Ababa, Ethiopia}}
 }
 
@@ -5594,6 +5631,14 @@
   location = {{Virtual}}
 }
 
+@unpublished{gururangan_don_2020,
+  title = {Don't Stop Pretraining: {{Adapt}} Language Models to Domains and Tasks},
+  author = {Gururangan, Suchin and Marasović, Ana and Swayamdipta, Swabha and Lo, Kyle and Beltagy, Iz and Downey, Doug and Smith, Noah A},
+  date = {2020},
+  eprint = {2004.10964},
+  eprinttype = {arxiv}
+}
+
 @article{gutmann_noisecontrastive_2012,
   title = {Noise-Contrastive Estimation of Unnormalized Statistical Models, with Applications to Natural Image Statistics.},
   author = {Gutmann, Michael U and Hyvärinen, Aapo},
@@ -5655,6 +5700,14 @@
   issn = {1939-4608, 1939-4616},
   urldate = {2021-10-30},
   langid = {english}
+}
+
+@inproceedings{han_deep_2017,
+  title = {Deep Learning-Based Telephony Speech Recognition in the Wild.},
+  booktitle = {Interspeech},
+  author = {Han, Kyu J and Hahm, Seongjun and Kim, Byung-Hak and Kim, Jungsuk and Lane, Ian R},
+  date = {2017},
+  pages = {1323--1327}
 }
 
 @inproceedings{han_eie_2016,
@@ -6746,6 +6799,14 @@
   urldate = {2021-12-16},
   langid = {english},
   organization = {{inFERENCe}}
+}
+
+@inproceedings{hvingelby_dane_2020,
+  title = {{{DaNE}}: {{A Named Entity Resource}} for {{Danish}}},
+  booktitle = {Proceedings of the 12th Language Resources and Evaluation Conference},
+  author = {Hvingelby, Rasmus and Pauli, Amalie Brogaard and Barrett, Maria and Rosted, Christina and Lidegaard, Lasse Malm and Søgaard, Anders},
+  date = {2020},
+  pages = {4597--4604}
 }
 
 @misc{iandola_squeezenet_2016,
@@ -12374,6 +12435,15 @@
   langid = {english}
 }
 
+@inproceedings{radford_robust_2023,
+  title = {Robust Speech Recognition via Large-Scale Weak Supervision},
+  booktitle = {International Conference on Machine Learning},
+  author = {Radford, Alec and Kim, Jong Wook and Xu, Tao and Brockman, Greg and McLeavey, Christine and Sutskever, Ilya},
+  date = {2023},
+  pages = {28492--28518},
+  publisher = {{PMLR}}
+}
+
 @misc{radford_unsupervised_2015,
   title = {Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks},
   author = {Radford, Alec and Metz, Luke and Chintala, Soumith},
@@ -13791,6 +13861,15 @@
   urldate = {2018-12-20},
   abstract = {Big data applications are typically associated with systems involving large numbers of users, massive complex software systems, and large-scale heterogeneous computing and storage architectures. The construction of such systems involves many distributed design choices. The end products (e.g., recommendation systems, medical analysis tools, real-time game engines, speech recognizers) thus involves many tunable configuration parameters. These parameters are often specified and hard-coded into the software by various developers or teams. If optimized jointly, these parameters can result in significant improvements. Bayesian optimization is a powerful tool for the joint optimization of design choices that is gaining great popularity in recent years. It promises greater automation so as to increase both product quality and human productivity. This review paper introduces Bayesian optimization, highlights some of its methodological aspects, and showcases a wide range of applications.},
   langid = {english}
+}
+
+@inproceedings{shailaja_machine_2018,
+  title = {Machine Learning in Healthcare: {{A}} Review},
+  booktitle = {2018 {{Second}} International Conference on Electronics, Communication and Aerospace Technology ({{ICECA}})},
+  author = {Shailaja, K and Seetharamulu, Banoth and family=Jabbar, given=MA, given-i=MA},
+  date = {2018},
+  pages = {910--914},
+  publisher = {{IEEE}}
 }
 
 @article{shamir_withoutreplacement_2016,
@@ -16157,6 +16236,15 @@
   author = {Wilcoxon, Frank},
   date = {1992},
   publisher = {{Springer}}
+}
+
+@article{wildenschild_registration_2013,
+  title = {Registration of Acute Stroke: {{Validity}} in the {{Danish Stroke Registry}} and the {{Danish National Registry}} of {{Patients}}},
+  author = {Wildenschild, Cathrine and Mehnert, Frank and Thomsen, Reimar Wernich and Iversen, Helle Klingenberg and Vestergaard, Karsten and Ingeman, Annette and Johnsen, Søren Paaske},
+  date = {2013},
+  journaltitle = {Clinical epidemiology},
+  pages = {27--36},
+  publisher = {{Taylor \& Francis}}
 }
 
 @article{wilks_large-sample_1938,
