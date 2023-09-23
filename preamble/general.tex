@@ -102,6 +102,14 @@
   }
 }
 
+% Checkmark and cross for brief overview paper
+\usepackage{pifont}
+\definecolor{ForestGreen}{RGB}{34,139,34}
+\definecolor{xred}{HTML}{C91E12}
+\newcommand{\cmark}{{\color{ForestGreen}\ding{51}}}%
+\newcommand{\xmark}{{\color{xred}\ding{55}}}%
+
+
 
 % Language
 % \usepackage{polyglossia}    % multilingual typesetting and appropriate hyphenation
@@ -118,9 +126,10 @@
   abbreviate=false,
   dateabbrev=false,
   maxbibnames=14,
-  urldate=short,
+  urldate=long,
+  date=year,
+  url=false,
   backref=true,
-  alldates=year,
   sortcites
 ]{biblatex}
 \renewcommand*{\bibfont}{\normalfont\footnotesize}  % make bibliography font smaller

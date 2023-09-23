@@ -791,6 +791,18 @@
   urldate = {2023-09-19}
 }
 
+@online{bansal_speechtotext_2017,
+  title = {Towards Speech-to-Text Translation without Speech Recognition},
+  author = {Bansal, Sameer and Kamper, Herman and Lopez, Adam and Goldwater, Sharon},
+  date = {2017-02-13},
+  eprint = {1702.03856},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  urldate = {2023-09-23},
+  abstract = {We explore the problem of translating speech to text in low-resource scenarios where neither automatic speech recognition (ASR) nor machine translation (MT) are available, but we have training data in the form of audio paired with text translations. We present the first system for this problem applied to a realistic multi-speaker dataset, the CALLHOME Spanish-English speech translation corpus. Our approach uses unsupervised term discovery (UTD) to cluster repeated patterns in the audio, creating a pseudotext, which we pair with translations to create a parallel text and train a simple bag-of-words MT model. We identify the challenges faced by the system, finding that the difficulty of cross-speaker UTD results in low recall, but that our system is still able to correctly translate some content words in test data.},
+  pubstate = {preprint}
+}
+
 @article{baoMedicalCodePrediction2021,
   title = {Medical Code Prediction via Capsule Networks and {{ICD}} Knowledge},
   author = {Bao, Weidong and Lin, Hongfei and Zhang, Yijia and Wang, Jian and Zhang, Shaowu},
@@ -1284,6 +1296,28 @@
   urldate = {2019-12-20},
   abstract = {Unsupervised representation learning via generative modeling is a staple to many computer vision applications in the absence of labeled data. Variational Autoencoders (VAEs) are powerful generative models that learn representations useful for data generation. However, due to inherent challenges in the training objective, VAEs fail to learn useful representations amenable for downstream tasks. Regularization-based methods that attempt to improve the representation learning aspect of VAEs come at a price: poor sample generation. In this paper, we explore this representation-generation trade-off for regularized VAEs and introduce a new family of priors, namely decoupled priors, or dpVAEs, that decouple the representation space from the generation space. This decoupling enables the use of VAE regularizers on the representation space without impacting the distribution used for sample generation, and thereby reaping the representation learning benefits of the regularizations without sacrificing the sample generation. dpVAE leverages invertible networks to learn a bijective mapping from an arbitrarily complex representation distribution to a simple, tractable, generative distribution. Decoupled priors can be adapted to the state-of-the-art VAE regularizers without additional hyperparameter tuning. We showcase the use of dpVAEs with different regularizers. Experiments on MNIST, SVHN, and CelebA demonstrate, quantitatively and qualitatively, that dpVAE fixes sample generation for regularized VAEs.},
   langid = {english}
+}
+
+@online{bhati_segmental_2021,
+  title = {Segmental {{Contrastive Predictive Coding}} for {{Unsupervised Word Segmentation}}},
+  author = {Bhati, Saurabhchand and Villalba, Jesús and Żelasko, Piotr and Moro-Velazquez, Laureano and Dehak, Najim},
+  date = {2021-06-03},
+  eprint = {2106.02170},
+  eprinttype = {arxiv},
+  eprintclass = {cs, eess},
+  urldate = {2023-09-23},
+  abstract = {Automatic detection of phoneme or word-like units is one of the core objectives in zero-resource speech processing. Recent attempts employ self-supervised training methods, such as contrastive predictive coding (CPC), where the next frame is predicted given past context. However, CPC only looks at the audio signal's frame-level structure. We overcome this limitation with a segmental contrastive predictive coding (SCPC) framework that can model the signal structure at a higher level e.g. at the phoneme level. In this framework, a convolutional neural network learns frame-level representation from the raw waveform via noise-contrastive estimation (NCE). A differentiable boundary detector finds variable-length segments, which are then used to optimize a segment encoder via NCE to learn segment representations. The differentiable boundary detector allows us to train frame-level and segment-level encoders jointly. Typically, phoneme and word segmentation are treated as separate tasks. We unify them and experimentally show that our single model outperforms existing phoneme and word segmentation methods on TIMIT and Buckeye datasets. We analyze the impact of boundary threshold and when is the right time to include the segmental loss in the learning process.},
+  pubstate = {preprint}
+}
+
+@article{bhati_unsupervised_2022,
+  title = {Unsupervised Speech Segmentation and Variable Rate Representation Learning Using Segmental Contrastive Predictive Coding},
+  author = {Bhati, Saurabhchand and Villalba, Jesús and Żelasko, Piotr and Moro-Velazquez, Laureano and Dehak, Najim},
+  date = {2022},
+  journaltitle = {IEEE/ACM Transactions on Audio, Speech, and Language Processing},
+  volume = {30},
+  pages = {2002--2014},
+  publisher = {{IEEE}}
 }
 
 @inproceedings{binder_layerwise_2016,
@@ -3016,7 +3050,7 @@
 
 @article{cite7,
   title = {Mobile Stroke Units: Evidence, Gaps, and next Steps},
-  author = {Navi, Babak B and Audebert, Heinrich J and Alexandrov, Anne W and Cadilhac, Dominique A and Grotta, James C and Group, PRESTO (Prehospital Stroke Treatment Organization) Writing},
+  author = {Navi, Babak B and Audebert, Heinrich J and Alexandrov, Anne W and Cadilhac, Dominique A and Grotta, James C and {PRESTO (Prehospital Stroke Treatment Organization) Writing Group}},
   date = {2022},
   journaltitle = {Stroke},
   shortjournal = {Stroke},
@@ -3058,6 +3092,19 @@
   urldate = {2021-02-09},
   abstract = {Much of machine learning research focuses on producing models which perform well on benchmark tasks, in turn improving our understanding of the challenges associated with those tasks. From the perspective of ML researchers, the content of the task itself is largely irrelevant, and thus there have increasingly been calls for benchmark tasks to more heavily focus on problems which are of social or cultural relevance. In this work, we introduce Kuzushiji-MNIST, a dataset which focuses on Kuzushiji (cursive Japanese), as well as two larger, more challenging datasets, Kuzushiji-49 and Kuzushiji-Kanji. Through these datasets, we wish to engage the machine learning community into the world of classical Japanese literature.},
   langid = {english}
+}
+
+@online{clark_electra_2020,
+  title = {{{ELECTRA}}: {{Pre-training Text Encoders}} as {{Discriminators Rather Than Generators}}},
+  shorttitle = {{{ELECTRA}}},
+  author = {Clark, Kevin and Luong, Minh-Thang and Le, Quoc V. and Manning, Christopher D.},
+  date = {2020-03-23},
+  eprint = {2003.10555},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  urldate = {2023-09-23},
+  abstract = {Masked language modeling (MLM) pre-training methods such as BERT corrupt the input by replacing some tokens with [MASK] and then train a model to reconstruct the original tokens. While they produce good results when transferred to downstream NLP tasks, they generally require large amounts of compute to be effective. As an alternative, we propose a more sample-efficient pre-training task called replaced token detection. Instead of masking the input, our approach corrupts it by replacing some tokens with plausible alternatives sampled from a small generator network. Then, instead of training a model that predicts the original identities of the corrupted tokens, we train a discriminative model that predicts whether each token in the corrupted input was replaced by a generator sample or not. Thorough experiments demonstrate this new pre-training task is more efficient than MLM because the task is defined over all input tokens rather than just the small subset that was masked out. As a result, the contextual representations learned by our approach substantially outperform the ones learned by BERT given the same model size, data, and compute. The gains are particularly strong for small models; for example, we train a model on one GPU for 4 days that outperforms GPT (trained using 30x more compute) on the GLUE natural language understanding benchmark. Our approach also works well at scale, where it performs comparably to RoBERTa and XLNet while using less than 1/4 of their compute and outperforms them when using the same amount of compute.},
+  pubstate = {preprint}
 }
 
 @misc{clark_improving_2016,
@@ -3329,6 +3376,15 @@
   urldate = {2019-06-11},
   abstract = {Artificially intelligent agents equipped with strategic skills that can negotiate during their interactions with other natural or artificial agents are still underdeveloped. This paper describes a successful application of Deep Reinforcement Learning (DRL) for training intelligent agents with strategic conversational skills, in a situated dialogue setting. Previous studies have modelled the behaviour of strategic agents using supervised learning and traditional reinforcement learning techniques, the latter using tabular representations or learning with linear function approximation. In this study, we apply DRL with a high-dimensional state space to the strategic board game of Settlers of Catan—where players can offer resources in exchange for others and they can also reply to offers made by other players. Our experimental results report that the DRL-based learnt policies significantly outperformed several baselines including random, rule-based, and supervised-based behaviours. The DRL-based policy has a 53\% win rate versus 3 automated players (‘bots’), whereas a supervised player trained on a dialogue corpus in this setting achieved only 27\%, versus the same 3 bots. This result supports the claim that DRL is a promising framework for training dialogue systems, and strategic agents with negotiation abilities.},
   langid = {english}
+}
+
+@inproceedings{cuervo_contrastive_2022,
+  title = {Contrastive Prediction Strategies for Unsupervised Segmentation and Categorization of Phonemes and Words},
+  booktitle = {Proceedings of the {{International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  author = {Cuervo, Santiago and Grabias, Maciej and Chorowski, Jan and Ciesielski, Grzegorz and Łańcucki, Adrian and Rychlikowski, Paweł and Marxer, Ricard},
+  date = {2022},
+  pages = {3189--3193},
+  publisher = {{IEEE}}
 }
 
 @article{cui_multilingual_2015,
@@ -3793,6 +3849,14 @@
   isbn = {1532-4435}
 }
 
+@inproceedings{doersch_unsupervised_2015,
+  title = {Unsupervised Visual Representation Learning by Context Prediction},
+  booktitle = {Proceedings of the {{IEEE}} International Conference on Computer Vision},
+  author = {Doersch, Carl and Gupta, Abhinav and Efros, Alexei A},
+  date = {2015},
+  pages = {1422--1430}
+}
+
 @online{doersch_unsupervised_2016,
   title = {Unsupervised {{Visual Representation Learning}} by {{Context Prediction}}},
   author = {Doersch, Carl and Gupta, Abhinav and Efros, Alexei A.},
@@ -4085,6 +4149,13 @@
   booktitle = {Annual {{Conference}} of the {{International Speech Communication Association}}},
   author = {Dunbar, Ewan and Karadayi, Julien and Bernard, Mathieu and Cao, Xuan-Nga and Algayres, Robin and Ondel, Lucas and Besacier, Laurent and Sakti, Sakriani and Dupoux, Emmanuel},
   date = {2020}
+}
+
+@article{dunbar_zero_2021,
+  title = {The Zero Resource Speech Challenge 2021: Spoken Language Modelling},
+  author = {Dunbar, Ewan and Bernard, Mathieu and Hamilakis, Nicolas and Nguyen, Tu and family=Seyssel, given=Maureen, prefix=de, useprefix=true and Rozé, Patricia and Rivière, Morgane and Kharitonov, Eugene and Dupoux, Emmanuel},
+  date = {2021},
+  journaltitle = {IEEE Transactions on Pattern Analysis and Machine Intelligence}
 }
 
 @inproceedings{durall_watch_2020,
@@ -4482,6 +4553,24 @@
   langid = {english}
 }
 
+@article{fischer_bounding_2011,
+  title = {Bounding the Bias of Contrastive Divergence Learning},
+  author = {Fischer, A. and Igel, C.},
+  date = {2011},
+  journaltitle = {Neural Computation},
+  volume = {23},
+  pages = {664--673}
+}
+
+@article{fischer_training_2014,
+  title = {Training Restricted {{Boltzmann}} Machines: {{An}} Introduction},
+  author = {Fischer, A. and Igel, C.},
+  date = {2014},
+  journaltitle = {Pattern Recognition},
+  volume = {47},
+  pages = {25--39}
+}
+
 @book{fisher_statistical_1925,
   title = {Statistical Methods for Research Workers},
   author = {Fisher, R.A.},
@@ -4644,14 +4733,13 @@
 
 @inproceedings{galibert_methodologies_2013,
   title = {Methodologies for the Evaluation of Speaker Diarization and Automatic Speech Recognition in the Presence of Overlapping Speech},
-  booktitle = {Interspeech 2013},
+  booktitle = {Proceedings of the {{Annual Conference}} of the {{International Speech Communication Association}} ({{Interspeech}})},
   author = {Galibert, Olivier},
   date = {2013-08-25},
   pages = {1131--1134},
   publisher = {{ISCA}},
   urldate = {2023-04-14},
   abstract = {Speaker Diarization and Automatic Speech Recognition have been a topic of research for decades. Evaluating the developed systems has been required for almost as long. Following the NIST initiatives a number of metrics have become standard to handle these evaluations, namely the Diarization Error Rate and the Word Error Rate.},
-  eventtitle = {Interspeech 2013},
   langid = {english}
 }
 
@@ -5668,10 +5756,10 @@
   eprinttype = {arxiv}
 }
 
-@article{gutmann_noisecontrastive_2012,
+@article{gutmann_noisecontrastive_2010,
   title = {Noise-Contrastive Estimation of Unnormalized Statistical Models, with Applications to Natural Image Statistics.},
   author = {Gutmann, Michael U and Hyvärinen, Aapo},
-  date = {2012},
+  date = {2010},
   journaltitle = {Journal of Machine Learning Research},
   volume = {13},
   number = {2}
@@ -5733,7 +5821,7 @@
 
 @inproceedings{han_deep_2017,
   title = {Deep Learning-Based Telephony Speech Recognition in the Wild.},
-  booktitle = {Interspeech},
+  booktitle = {Proceedings of the {{Annual Conference}} of the {{International Speech Communication Association}} ({{Interspeech}}},
   author = {Han, Kyu J and Hahm, Seongjun and Kim, Byung-Hak and Kim, Jungsuk and Lane, Ian R},
   date = {2017},
   pages = {1323--1327}
@@ -6972,6 +7060,15 @@
   journaltitle = {Advances in Neural Information Processing Systems (NIPS)}
 }
 
+@inproceedings{jacobs_acoustic_2021,
+  title = {Acoustic Word Embeddings for Zero-Resource Languages Using Self-Supervised Contrastive Learning and Multilingual Adaptation},
+  booktitle = {2021 {{IEEE}} Spoken Language Technology Workshop ({{SLT}})},
+  author = {Jacobs, Christiaan and Matusevych, Yevgen and Kamper, Herman},
+  date = {2021},
+  pages = {919--926},
+  publisher = {{IEEE}}
+}
+
 @misc{jaderberg_population_2017,
   title = {Population {{Based Training}} of {{Neural Networks}}},
   author = {Jaderberg, Max and Dalibard, Valentin and Osindero, Simon and Czarnecki, Wojciech M. and Donahue, Jeff and Razavi, Ali and Vinyals, Oriol and Green, Tim and Dunning, Iain and Simonyan, Karen and Fernando, Chrisantha and Kavukcuoglu, Koray},
@@ -7038,10 +7135,10 @@
   langid = {english}
 }
 
-@misc{jang_categorical_2017,
+@misc{jang_categorical_2016,
   title = {Categorical {{Reparameterization}} with {{Gumbel-Softmax}}},
   author = {Jang, Eric and Gu, Shixiang and Poole, Ben},
-  date = {2017-08-05},
+  date = {2016},
   eprint = {1611.01144},
   eprinttype = {arxiv},
   urldate = {2019-12-05},
@@ -7628,6 +7725,13 @@
   issn = {2379-190X},
   abstract = {Deep neural networks (DNNs) have become a standard component in supervised ASR, used in both data-driven feature extraction and acoustic modelling. Supervision is typically obtained from a forced alignment that provides phone class targets, requiring transcriptions and pronunciations. We propose a novel unsupervised DNN-based feature extractor that can be trained without these resources in zero-resource settings. Using unsupervised term discovery, we find pairs of isolated word examples of the same unknown type; these provide weak top-down supervision. For each pair, dynamic programming is used to align the feature frames of the two words. Matching frames are presented as input-output pairs to a deep autoencoder (AE) neural network. Using this AE as feature extractor in a word discrimination task, we achieve 64\% relative improvement over a previous state-of-the-art system, 57\% improvement relative to a bottom-up trained deep AE, and come to within 23\% of a supervised system.},
   eventtitle = {{{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})}
+}
+
+@article{kamper_unsupervised_2021,
+  title = {Towards Unsupervised Phone and Word Segmentation Using Self-Supervised Vector-Quantized Neural Networks},
+  author = {Kamper, Herman and family=Niekerk, given=Benjamin, prefix=van, useprefix=true},
+  date = {2021},
+  journaltitle = {Proceedings of the Annual Conference of the International Speech Communication Association (Interspeech)}
 }
 
 @inproceedings{kamper_visually_2018,
@@ -8365,6 +8469,29 @@
   langid = {english}
 }
 
+@article{kramer_nonlinear_1991,
+  title = {Nonlinear Principal Component Analysis Using Autoassociative Neural Networks},
+  author = {Kramer, Mark A},
+  date = {1991},
+  journaltitle = {AIChE journal},
+  volume = {37},
+  number = {2},
+  pages = {233--243},
+  publisher = {{Wiley Online Library}}
+}
+
+@online{kreuk_selfsupervised_2020,
+  title = {Self-{{Supervised Contrastive Learning}} for {{Unsupervised Phoneme Segmentation}}},
+  author = {Kreuk, Felix and Keshet, Joseph and Adi, Yossi},
+  date = {2020-08-06},
+  eprint = {2007.13465},
+  eprinttype = {arxiv},
+  eprintclass = {cs, eess, stat},
+  urldate = {2023-09-23},
+  abstract = {We propose a self-supervised representation learning model for the task of unsupervised phoneme boundary detection. The model is a convolutional neural network that operates directly on the raw waveform. It is optimized to identify spectral changes in the signal using the Noise-Contrastive Estimation principle. At test time, a peak detection algorithm is applied over the model outputs to produce the final boundaries. As such, the proposed model is trained in a fully unsupervised manner with no manual annotations in the form of target boundaries nor phonetic transcriptions. We compare the proposed approach to several unsupervised baselines using both TIMIT and Buckeye corpora. Results suggest that our approach surpasses the baseline models and reaches state-of-the-art performance on both data sets. Furthermore, we experimented with expanding the training set with additional examples from the Librispeech corpus. We evaluated the resulting model on distributions and languages that were not seen during the training phase (English, Hebrew and German) and showed that utilizing additional untranscribed data is beneficial for model performance.},
+  pubstate = {preprint}
+}
+
 @inproceedings{kreuk_textless_2022,
   title = {Textless Speech Emotion Conversion Using Discrete \& Decomposed Representations},
   booktitle = {Proceedings of the {{Conference}} on {{Empirical Methods}} in {{Natural Language Processing}} ({{EMNLP}})},
@@ -8572,6 +8699,15 @@
   date = {2019},
   location = {{Vancouver, BC, Canada}},
   eventtitle = {Neural {{Information Processing Systems}}}
+}
+
+@inproceedings{lai_semisupervised_2021,
+  title = {Semi-Supervised Spoken Language Understanding via Self-Supervised Speech and Language Model Pretraining},
+  booktitle = {Proceedings of the {{International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  author = {Lai, Cheng-I and Chuang, Yung-Sung and Lee, Hung-Yi and Li, Shang-Wen and Glass, James},
+  date = {2021},
+  pages = {7468--7472},
+  publisher = {{IEEE}}
 }
 
 @misc{lai_stochastic_2018,
@@ -9185,14 +9321,13 @@
   publisher = {{IEEE}}
 }
 
-@inproceedings{levin_fixed-dimensional_2013,
+@inproceedings{levin_fixeddimensional_2013,
   title = {Fixed-Dimensional Acoustic Embeddings of Variable-Length Segments in Low-Resource Settings},
-  booktitle = {2013 {{IEEE Workshop}} on {{Automatic Speech Recognition}} and {{Understanding}}},
+  booktitle = {Proceedings of the {{IEEE Workshop}} on {{Automatic Speech Recognition}} and {{Understanding}} ({{ASRU}})},
   author = {Levin, Keith and Henry, Katharine and Jansen, Aren and Livescu, Karen},
   date = {2013-12},
   pages = {410--415},
-  abstract = {Measures of acoustic similarity between words or other units are critical for segmental exemplar-based acoustic models, spoken term discovery, and query-by-example search. Dynamic time warping (DTW) alignment cost has been the most commonly used measure, but it has well-known inadequacies. Some recently proposed alternatives require large amounts of training data. In the interest of finding more efficient, accurate, and low-resource alternatives, we consider the problem of embedding speech segments of arbitrary length into fixed-dimensional spaces in which simple distances (such as cosine or Euclidean) serve as a proxy for linguistically meaningful (phonetic, lexical, etc.) dissimilarities. Such embeddings would enable efficient audio indexing and permit application of standard distance learning techniques to segmental acoustic modeling. In this paper, we explore several supervised and unsupervised approaches to this problem and evaluate them on an acoustic word discrimination task. We identify several embedding algorithms that match or improve upon the DTW baseline in low-resource settings.},
-  eventtitle = {2013 {{IEEE Workshop}} on {{Automatic Speech Recognition}} and {{Understanding}}}
+  abstract = {Measures of acoustic similarity between words or other units are critical for segmental exemplar-based acoustic models, spoken term discovery, and query-by-example search. Dynamic time warping (DTW) alignment cost has been the most commonly used measure, but it has well-known inadequacies. Some recently proposed alternatives require large amounts of training data. In the interest of finding more efficient, accurate, and low-resource alternatives, we consider the problem of embedding speech segments of arbitrary length into fixed-dimensional spaces in which simple distances (such as cosine or Euclidean) serve as a proxy for linguistically meaningful (phonetic, lexical, etc.) dissimilarities. Such embeddings would enable efficient audio indexing and permit application of standard distance learning techniques to segmental acoustic modeling. In this paper, we explore several supervised and unsupervised approaches to this problem and evaluate them on an acoustic word discrimination task. We identify several embedding algorithms that match or improve upon the DTW baseline in low-resource settings.}
 }
 
 @inproceedings{levin_segmental_2015,
@@ -10566,14 +10701,13 @@
 
 @inproceedings{merboldt_analysis_2019,
   title = {An {{Analysis}} of {{Local Monotonic Attention Variants}}},
-  booktitle = {Interspeech 2019},
+  booktitle = {Proceedings of the {{Annual Conference}} of the {{International Speech Communication Association}} ({{Interspeech}})},
   author = {Merboldt, André and Zeyer, Albert and Schlüter, Ralf and Ney, Hermann},
   date = {2019-09-15},
   pages = {1398--1402},
   publisher = {{ISCA}},
   urldate = {2023-04-14},
   abstract = {Speech recognition using attention-based models is an effective approach to transcribing audio directly to text within an integrated end-to-end architecture. Global attention approaches compute a weighting over the complete input sequence, whereas local attention mechanisms are restricted to only a localized window of the sequence. For speech, the latter approach supports the monotonicity property of the speech-text alignment. Therefore, we revise several variants of such models and provide a comprehensive comparison, which has been missing so far in the literature. Additionally, we introduce a simple technique to implement windowed attention. This can be applied on top of an existing global attention model. The goal is to transition into a local attention model, by using a local window for the otherwise unchanged attention mechanism, starting from the temporal position with the most recent most active attention energy. We test this method on Switchboard and LibriSpeech and show that the proposed model can even be trained from random initialization and achieve results comparable to the global attention baseline.},
-  eventtitle = {Interspeech 2019},
   langid = {english}
 }
 
@@ -10645,6 +10779,13 @@
   abstract = {The International Classification of Diseases (ICD) system is the international standard for classifying diseases and procedures during a healthcare encounter and is widely used for healthcare reporting and management purposes. Assigning correct codes for clinical procedures is important for clinical, operational and financial decision-making in healthcare. Contextual word embedding models have achieved state-of-the-art results in multiple NLP tasks. However, these models have yet to achieve state-of-the-art results in the ICD classification task since one of their main disadvantages is that they can only process documents that contain a small number of tokens which is rarely the case with real patient notes. In this paper, we introduce ICDBigBird a BigBird-based model which can integrate a Graph Convolutional Network (GCN), that takes advantage of the relations between ICD codes in order to create `enriched' representations of their embeddings, with a BigBird contextual model that can process larger documents. Our experiments on a real-world clinical dataset demonstrate the effectiveness of our BigBird-based model on the ICD classification task as it outperforms the previous state-of-the-art models.}
 }
 
+@article{michel_blind_2017,
+  title = {Blind Phoneme Segmentation with Temporal Prediction Errors},
+  author = {Michel, Paul and Rasanen, Okko and Thiollière, Roland and Dupoux, Emmanuel},
+  date = {2017},
+  journaltitle = {Association for Computational Linguistics (ACL) Student Research Workshop}
+}
+
 @misc{michelis_linear_2021,
   title = {On {{Linear Interpolation}} in the {{Latent Space}} of {{Deep Generative Models}}},
   author = {Michelis, Mike Yan and Becker, Quentin},
@@ -10677,6 +10818,17 @@
   eprinttype = {arxiv},
   urldate = {2018-04-24},
   abstract = {We propose two novel model architectures for computing continuous vector repre-sentations of words from very large data sets. The quality of these representations is measured in a word similarity task, and the results are compared to the previ-ously best performing techniques based on different types of neural networks. We observe large improvements in accuracy at much lower computational cost, i.e. it takes less than a day to learn high quality word vectors from a 1.6 billion words data set. Furthermore, we show that these vectors provide state-of-the-art perfor-mance on our test set for measuring syntactic and semantic word similarities.}
+}
+
+@inproceedings{mikolov_recurrent_2010,
+  title = {Recurrent Neural Network Based Language Model.},
+  booktitle = {Proceedings of the {{Annual Conference}} of the {{International Speech Communication Association}} ({{Interspeech}})},
+  author = {Mikolov, Tomas and Karafiát, Martin and Burget, Lukas and Cernockỳ, Jan and Khudanpur, Sanjeev},
+  date = {2010},
+  volume = {2},
+  number = {3},
+  pages = {1045--1048},
+  publisher = {{Makuhari}}
 }
 
 @article{mikolov_subword_nodate,
@@ -10942,6 +11094,15 @@
   author = {Mor, Noam and Wolf, Lior},
   date = {2018},
   pages = {218--225},
+  publisher = {{IEEE}}
+}
+
+@inproceedings{morais_endtoend_2021,
+  title = {End-to-End Spoken Language Understanding Using Transformer Networks and Self-Supervised Pre-Trained Features},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  author = {Morais, Edmilson and Kuo, Hong-Kwang J and Thomas, Samuel and Tüske, Zoltán and Kingsbury, Brian},
+  date = {2021},
+  pages = {7483--7487},
   publisher = {{IEEE}}
 }
 
@@ -11338,6 +11499,16 @@
   abstract = {Detecting and reading text from natural images is a hard computer vision task that is central to a variety of emerging applications. Related problems like document character recognition have been widely studied by computer vision and machine learning researchers and are virtually solved for practical applications like reading handwritten digits. Reliably recognizing characters in more complex scenes like photographs, however, is far more difficult: the best existing methods lag well behind human performance on the same tasks. In this paper we attack the problem of recognizing digits in a real application using unsupervised feature learning methods: reading house numbers from street level photos. To this end, we introduce a new benchmark dataset for research use containing over 600,000 labeled digits cropped from Street View images. We then demonstrate the difficulty of recognizing these digits when the problem is approached with hand-designed features. Finally, we employ variants of two recently proposed unsupervised feature learning methods and find that they are convincingly superior on our benchmarks.}
 }
 
+@book{neugebauer_mathematical_1945,
+  title = {Mathematical Cuneiform Texts},
+  author = {Neugebauer, O. and Sachs, Abraham and Götze, Albrecht and {American Schools of Oriental Research}},
+  date = {1945},
+  publisher = {{The American Oriental Society and the American Schools of Oriental Research New Haven, Conn.}},
+  location = {{New Haven, Conn.}},
+  langid = {english},
+  pagetotal = {177}
+}
+
 @article{neyman_use_1928,
   title = {On the Use and Interpretation of Certain Test Criteria for Purposes of Statistical Inference: {{Part I}}},
   author = {Neyman, Jerzy and Pearson, Egon S},
@@ -11702,7 +11873,7 @@
   booktitle = {Proceedings of the 9th {{ISCA Speech Synthesis Workshop}}},
   author = {family=Oord, given=Aäron, prefix=van den, useprefix=false and Dieleman, Sander and Zen, Heiga and Simonyan, Karen and Vinyals, Oriol and Graves, Alex and Kalchbrenner, Nal and Senior, Andrew and Kavukcuoglu, Koray},
   date = {2016-09-12},
-  location = {{Sunnyval, CA, USA}},
+  location = {{Sunnyvale, CA, USA}},
   urldate = {2018-05-22},
   abstract = {This paper introduces WaveNet, a deep neural network for generating raw audio waveforms. The model is fully probabilistic and autoregressive, with the predictive distribution for each audio sample conditioned on all previous ones; nonetheless we show that it can be efficiently trained on data with tens of thousands of samples per second of audio. When applied to text-to-speech, it yields state-of-the-art performance, with human listeners rating it as significantly more natural sounding than the best parametric and concatenative systems for both English and Mandarin. A single WaveNet can capture the characteristics of many different speakers with equal fidelity, and can switch between them by conditioning on the speaker identity. When trained to model music, we find that it generates novel and often highly realistic musical fragments. We also show that it can be employed as a discriminative model, returning promising results for phoneme recognition.}
 }
@@ -11947,7 +12118,7 @@
   pubstate = {preprint}
 }
 
-@misc{park_specaugment:_2019,
+@misc{park_specaugment_2019,
   title = {{{SpecAugment}}: {{A Simple Data Augmentation Method}} for {{Automatic Speech Recognition}}},
   shorttitle = {{{SpecAugment}}},
   author = {Park, Daniel S. and Chan, William and Zhang, Yu and Chiu, Chung-Cheng and Zoph, Barret and Cubuk, Ekin D. and Le, Quoc V.},
@@ -12016,6 +12187,18 @@
   booktitle = {{{IEEE Workshop}} on {{Automatic Speech Recognition}} and {{Understanding}} ({{ASRU}})},
   author = {Pasad, Ankita and Chou, Ju-Chieh and Livescu, Karen},
   date = {2021}
+}
+
+@online{pasad_use_2022,
+  title = {On the {{Use}} of {{External Data}} for {{Spoken Named Entity Recognition}}},
+  author = {Pasad, Ankita and Wu, Felix and Shon, Suwon and Livescu, Karen and Han, Kyu J.},
+  date = {2022-07-08},
+  eprint = {2112.07648},
+  eprinttype = {arxiv},
+  eprintclass = {cs, eess},
+  urldate = {2023-09-23},
+  abstract = {Spoken language understanding (SLU) tasks involve mapping from speech audio signals to semantic labels. Given the complexity of such tasks, good performance might be expected to require large labeled datasets, which are difficult to collect for each new task and domain. However, recent advances in self-supervised speech representations have made it feasible to consider learning SLU models with limited labeled data. In this work we focus on low-resource spoken named entity recognition (NER) and address the question: Beyond self-supervised pre-training, how can we use external speech and/or text data that are not annotated for the task? We draw on a variety of approaches, including self-training, knowledge distillation, and transfer learning, and consider their applicability to both end-to-end models and pipeline (speech recognition followed by text NER model) approaches. We find that several of these approaches improve performance in resource-constrained settings beyond the benefits from pre-trained representations alone. Compared to prior work, we find improved F1 scores of up to 16\%. While the best baseline model is a pipeline approach, the best performance when using external data is ultimately achieved by an end-to-end model. We provide detailed comparisons and analyses, showing for example that end-to-end models are able to focus on the more NER-specific words.},
+  pubstate = {preprint}
 }
 
 @article{pascanu_difficulty_,
@@ -12466,6 +12649,17 @@
   pages = {578--581}
 }
 
+@article{rabiner_tutorial_1989,
+  title = {A Tutorial on Hidden {{Markov}} Models and Selected Applications in Speech Recognition},
+  author = {Rabiner, Lawrence R},
+  date = {1989},
+  journaltitle = {Proceedings of the IEEE},
+  volume = {77},
+  number = {2},
+  pages = {257--286},
+  publisher = {{IEEE}}
+}
+
 @article{radford_improving_2018,
   title = {Improving Language Understanding by Generative Pre-Training},
   author = {Radford, Alec and Narasimhan, Karthik and Salimans, Tim and Sutskever, Ilya and others},
@@ -12742,13 +12936,12 @@
 
 @inproceedings{ravanelli_multitask_2020,
   title = {Multi-{{Task Self-Supervised Learning}} for {{Robust Speech Recognition}}},
-  booktitle = {{{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  booktitle = {Proceedings of the {{International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
   author = {Ravanelli, Mirco and Zhong, Jianyuan and Pascual, Santiago and Swietojanski, Pawel and Monteiro, Joao and Trmal, Jan and Bengio, Yoshua},
   date = {2020-05},
   pages = {6989--6993},
   issn = {2379-190X},
-  abstract = {Despite the growing interest in unsupervised learning, extracting meaningful knowledge from unlabelled audio remains an open challenge. To take a step in this direction, we recently proposed a problem-agnostic speech encoder (PASE), that combines a convolutional encoder followed by multiple neural networks, called workers, tasked to solve self-supervised problems (i.e., ones that do not require manual annotations as ground truth). PASE was shown to capture relevant speech information, including speaker voice-print and phonemes. This paper proposes PASE+, an improved version of PASE for robust speech recognition in noisy and reverberant environments. To this end, we employ an online speech distortion module, that contaminates the input signals with a variety of random disturbances. We then propose a revised encoder that better learns short- and long-term speech dynamics with an efficient combination of recurrent and convolutional networks. Finally, we refine the set of workers used in self-supervision to encourage better cooperation. Results on TIMIT, DIRHA and CHiME-5 show that PASE+ significantly outperforms both the previous version of PASE as well as common acoustic features. Interestingly, PASE+ learns transferable representations suitable for highly mismatched acoustic conditions.},
-  eventtitle = {{{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})}
+  abstract = {Despite the growing interest in unsupervised learning, extracting meaningful knowledge from unlabelled audio remains an open challenge. To take a step in this direction, we recently proposed a problem-agnostic speech encoder (PASE), that combines a convolutional encoder followed by multiple neural networks, called workers, tasked to solve self-supervised problems (i.e., ones that do not require manual annotations as ground truth). PASE was shown to capture relevant speech information, including speaker voice-print and phonemes. This paper proposes PASE+, an improved version of PASE for robust speech recognition in noisy and reverberant environments. To this end, we employ an online speech distortion module, that contaminates the input signals with a variety of random disturbances. We then propose a revised encoder that better learns short- and long-term speech dynamics with an efficient combination of recurrent and convolutional networks. Finally, we refine the set of workers used in self-supervision to encourage better cooperation. Results on TIMIT, DIRHA and CHiME-5 show that PASE+ significantly outperforms both the previous version of PASE as well as common acoustic features. Interestingly, PASE+ learns transferable representations suitable for highly mismatched acoustic conditions.}
 }
 
 @inproceedings{ravi_deciphering_2011,
@@ -13495,12 +13688,18 @@
   date = {2018}
 }
 
-@article{schatz_evaluating_nodate,
-  title = {Evaluating Speech Features with the {{Minimal-Pair ABX}} Task: {{Analysis}} of the Classical {{MFC}}/{{PLP}} Pipeline},
+@article{schatz_evaluating_2013,
+  title = {Evaluating Speech Features with the Minimal-Pair {{ABX}} Task: Analysis of the Classical {{MFC}}/{{PLP}} Pipeline},
   author = {Schatz, Thomas and Peddinti, Vijayaditya and Bach, Francis and Jansen, Aren and Hermansky, Hynek and Dupoux, Emmanuel},
-  pages = {5},
-  abstract = {We present a new framework for the evaluation of speech representations in zero-resource settings, that extends and complements previous work by Carlin, Jansen and Hermansky [1]. In particular, we replace their Same/Different discrimination task by several Minimal-Pair ABX (MP-ABX) tasks. We explain the analytical advantages of this new framework and apply it to decompose the standard signal processing pipelines for computing PLP and MFC coefficients. This method enables us to confirm and quantify a variety of well-known and not-so-well-known results in a single framework.},
-  langid = {english}
+  date = {2013},
+  journaltitle = {Proceedings of the Annual Conference of the International Speech Communication Association (Interspeech)}
+}
+
+@article{schatz_evaluating_2014,
+  title = {Evaluating Speech Features with the Minimal-Pair {{ABX}} Task ({{II}}): Resistance to Noise},
+  author = {Schatz, Thomas and Peddinti, Vijayaditya and Cao, Xuan-Nga and Bach, Francis and Hermansky, Hynek and Dupoux, Emmanuel},
+  date = {2014},
+  journaltitle = {Proceedings of the Annual Conference of the International Speech Communication Association (Interspeech)}
 }
 
 @inproceedings{schaul_high_2011,
@@ -14350,6 +14549,16 @@
   date = {2001}
 }
 
+@incollection{smolensky_chapter_1986,
+  title = {Chapter 6: {{Information}} Processing in Dynamical Systems: {{Foundations}} of Harmony Theory},
+  booktitle = {Parallel Distributed Processing: {{Explorations}} in the Microstructure of Cognition: {{Foundations}}},
+  author = {Smolensky, Paul},
+  editor = {D.E. Rumelhart, J.L. McClelland},
+  date = {1986},
+  pages = {194--281},
+  publisher = {{MIT Press}}
+}
+
 @inproceedings{snoek_can_2019,
   title = {Can You Trust Your Model's Uncertainty?  {{Evaluating}} Predictive Uncertainty under Dataset Shift},
   booktitle = {Proceedings of the 33rd {{Conference}} on {{Neural Information Processing Systems}} ({{NeurIPS}})},
@@ -14950,6 +15159,15 @@
   pages = {1701--1708}
 }
 
+@inproceedings{talnikar_joint_2021,
+  title = {Joint Masked Cpc and Ctc Training for Asr},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
+  author = {Talnikar, Chaitanya and Likhomanenko, Tatiana and Collobert, Ronan and Synnaeve, Gabriel},
+  date = {2021},
+  pages = {3045--3049},
+  publisher = {{IEEE}}
+}
+
 @misc{tan_survey_2021,
   title = {A {{Survey}} on {{Neural Speech Synthesis}}},
   author = {Tan, Xu and Qin, Tao and Soong, Frank and Liu, Tie-Yan},
@@ -15083,6 +15301,17 @@
   author = {Tieleman, Tijmen and Hinton, Geoffrey and others},
   date = {2012},
   journaltitle = {Coursera: Neural Networks for Machine Learning}
+}
+
+@article{tipping_probabilistic_1999,
+  title = {Probabilistic Principal Component Analysis},
+  author = {Tipping, Michael E and Bishop, Christopher M},
+  date = {1999},
+  journaltitle = {Journal of the Royal Statistical Society Series B: Statistical Methodology},
+  volume = {61},
+  number = {3},
+  pages = {611--622},
+  publisher = {{Oxford University Press}}
 }
 
 @article{tishby_consistent_1988,
@@ -15412,6 +15641,12 @@
   abstract = {We introduce RNADE, a new model for joint density estimation of real-valued vectors. Our model calculates the density of a datapoint as the product of onedimensional conditionals modeled using mixture density networks with shared parameters. RNADE learns a distributed representation of the data, while having a tractable expression for the calculation of densities. A tractable likelihood allows direct comparison with other methods and training by standard gradientbased optimizers. We compare the performance of RNADE on several datasets of heterogeneous and perceptual data, finding it outperforms mixture models in all but one case.},
   eventtitle = {Conference on {{Neural Information Processing Systems}}},
   langid = {english}
+}
+
+@artwork{usarmyresearchlaboratoryarltechnicallibrary_female_1940,
+  title = {Female Programmers of the {{ENIAC}}},
+  author = {{US Army Research Laboratory (ARL) Technical Library}},
+  date = {1940/1945}
 }
 
 @inproceedings{vahdat_nvae_2020,
@@ -16231,7 +16466,8 @@
   title = {A {{Retrospective Study}} on {{Machine Learning-Assisted Stroke Recognition}} for {{Medical Helpline Calls}}},
   author = {Wenstrup, Jonathan and Havtorn, Jakob D. and Borgholt, Lasse and Blomberg, Stig N. and Maaløe, Lars and Sayre, Michael and Christensen, Hanne and Kruuse, Christina},
   date = {2023},
-  journaltitle = {Nature Digital Medicine (under review)}
+  journaltitle = {npj Digital Medicine},
+  annotation = {(under review)}
 }
 
 @inproceedings{wenzel_how_2020,
