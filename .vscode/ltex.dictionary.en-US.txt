@@ -27,6 +27,7 @@ Kullback-Leibler
 Lichterman
 Lindhøj
 logit
+logits
 Lundbeck
 Marlyn
 Mette
@@ -35,6 +36,7 @@ miscalibration
 nats
 OOD
 Plimpton
+reparameterization
 Rhind
 softmax
 Trygfonden

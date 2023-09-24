@@ -100,10 +100,10 @@ By doing this, the information entropy becomes positive, dimensionally correct, 
 The form on the right-hand side of \cref{eq:corrected-differential-entropy-jaynes} can be recognized as the negative Kullback-Leibler divergence of $p(x)$ to $q(x)$ \cite{kullback_information_1959},
 %
 \begin{equation} \label{eq:kullback-leibler-divergence}
-    D_{KL}(P\parallel Q) = \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
+    D_{KL}(p(x)\parallel q(x)) = \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
 \end{equation}
 %
-The Kullback-Leibler divergence $D_{KL}(P\parallel Q)$, also known as the \emph{information gain}, is often interpreted as the amount of additional information required to represent events from distribution $P$ with density $p(x)$ using a code optimized for distribution $Q$ with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $Q$ to represent events from distribution $P$, i.e. the \emph{relative entropy} of $P$ with respect to $Q$.
+The Kullback-Leibler divergence $D_{KL}(p(x)\parallel q(x))$, also known as the \emph{information gain}, is often interpreted as the amount of additional information required to represent events from a distribution with density $p(x)$ using a code optimized for a distribution with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $q$ to represent events from distribution $p$, i.e. the \emph{relative entropy} of $p$ with respect to $q$.
 
 Returning to Jaynes' argument and \cref{eq:corrected-differential-entropy-jaynes}, we can interpret this to say that the information entropy of a continuous random variable $X$ should be defined as the expected difference in information entropy between its density and a uniform density. 
 Identifying the Kullback-Leibler divergence as a measure of this relative information entropy provides a natural point of convergence for this section since it is equivalently defined for both discrete and continuous random variables, contrary to the differential entropy. 
@@ -189,20 +189,19 @@ In the supervised setting the supervision can come from different sources depend
 % Actual OOD data
 \paragraph{Methods using real OOD data}
 Methods that use representative OOD data have achieved high performance since they can directly learn to distinguish between in-distribution and OOD data. 
-\textcite{hendrycks_deep_2019} augments the original training objective with a task-dependent outlier exposure loss that aims to make the output logits different for outlier data. 
+\textcite{hendrycks_deep_2019} augment the original training objective with a task-dependent outlier exposure loss that aims to make the output logits discriminative of outlier data. 
 In a similar vein, \textcite{dhamija_reducing_2018} propose losses designed to maximize the entropy of $p(y|\xb)$ and decrease feature magnitudes for OOD data sampled from other datasets. 
 \textcite{ruff_deep_2020} use semi-supervised learning and learn representations of in-distribution data that concentrate close to a centroid in latent space while labelled outliers are pushed away from the centroid. 
-Other methods including MCD \cite{yu_unsupervised_2019}, NGC \cite{wu_ngc_2021}, and UDG \cite{yang_semantically_2021} utilize external, unlabeled, noisy data to improve OOD detection performance without requiring cleanly labelled OOD examples.
-As we discussed earlier, for many modern applications of machine learning, input data is often high dimensional and complex making sufficiently sampling the space of out-of-distribution data intractable. 
-Therefore, methods that rely on samples of OOD data are inherently limited by its availability and how well it covers the large variation in OOD data. 
+Other methods including MCD \cite{yu_unsupervised_2019}, NGC \cite{wu_ngc_2021}, and UDG \cite{yang_semantically_2021} utilize external, unlabeled, noisy data to improve OOD detection performance without requiring cleanly labelled OOD examples. 
+As we discussed earlier, for many modern applications of machine learning, input data is often high dimensional and complex which makes it difficult to obtain enough representative OOD data to ensure robust OOD detection capabilities. 
 
 % Synthetic OOD data
 \paragraph{Methods using synthetic OOD data}
 A number of methods do not require access to actual OOD data but synthesize it instead. 
-Several methods synthesize this OOD data by adding noise to in-distribution data \cite{liang_enhancing_2018, lee_simple_2018, ren_likelihood_2019}. 
+Several methods do so by adding noise to in-distribution data \cite{liang_enhancing_2018, lee_simple_2018, ren_likelihood_2019}. 
 For instance, \textcite{ren_likelihood_2019} propose a number of baselines including training a binary classifier to distinguish between original and perturbed in-distribution data. They also propose adding an OOD class to softmax classifiers and training it to predict perturbed in-distribution data, or alternatively, training the predicted class distribution to output uniform distribution for perturbed in-distribution inputs. 
-With ODIN \cite{liang_enhancing_2018}, the authors propose to calibrate $p(y|\xb)$ with temperature scaling \cite{guo_calibration_2017} and add gradient-based, input-dependent perturbations to the inputs to use the calibrated maximum class probability as the OOD score. This method does not require retraining the classifier and generally improves on the baselines of \textcite{ren_likelihood_2019}. 
-\textcite{vyas_outofdistribution_2018} train an ensemble of classifiers on different subsets of the training data, with the left out data taken as OOD, and propose novel loss over $p(y|\xb)$ that seeks to maintain a set margin between its average entropy for the OOD and in-distribution examples. 
+While these methods are appealing, their weaknesses have been pointed out by later work which generally improve on their perforamnce. An example is ODIN \cite{liang_enhancing_2018}, in which the authors propose to calibrate $p(y|\xb)$ with temperature scaling \cite{guo_calibration_2017} and add gradient-based, input-dependent perturbations to the inputs and use the calibrated maximum class probability as the OOD score. 
+\textcite{vyas_outofdistribution_2018} train an ensemble of classifiers on different subsets of the training data, with the left out data taken as OOD, and propose novel loss over $p(y|\xb)$ that seeks to maintain a predefined margin between its average entropy for the OOD and in-distribution examples. 
 Another approach generates OOD inputs using a generative adversarial network \cite{lee_training_2018}. 
 Similar to actual OOD data, the usefulness of synthetic OOD data is also fundamentally limited by the intractability of sampling the complete space of OOD data.
 
@@ -223,30 +222,31 @@ The authors note that most current methods make a closed world assumption and im
 Without data from the out-domain, it is not possible to directly learn either $p(y, \mathcal{D}_{\text{in}}|\xb)$ or $p(\mathcal{D}_{\text{in}}|\xb)$. Instead, the authors use this observation to impose the inductive bias of predicting logits as a fraction between two carefully designed network branches, imitating the form of \cref{eq: joint class-domain and domain probability}. 
 
 % No OOD data, logits
-A number of works have noted that the maximum softmax probability is not generally a reliable score for OOD detection \cite{hendrycks_scaling_2022,liu_energy-based_2020}. 
+Although some works use the maximum softmax probability as a score for OOD detection \cite{hendrycks_deep_2019,ren_likelihood_2019}, several works have noted that it is not generally reliable \cite{hendrycks_scaling_2022,liu_energy-based_2020}. 
 \textcite{liu_energy-based_2020} make an interesting argument as to why based on the energy $E(\xb; f)$ of a softmax classifier $f(\xb)$ \cite{lecun_tutorial_2006},
 %
 \begin{equation} \label{eq:softmax-classifier-energy}
     E(\xb; f) = - \log \sum_{i=1}^K \exp \left( f_i(\xb) \right) \enspace .
 \end{equation}
 %
-Specifically, the authors relate the maximum softmax probability,
+Specifically, the authors write the maximum softmax probability as,
 %
 \begin{align} \label{eq:softmax-classifier-maximum-probability}
     \max_y p(y|\xb;f) 
-    = \max_y \frac{\exp f_y(\xb)}{\sum_{i=1}^K \exp f_i(\xb)} 
-    = \frac{\exp f^\text{max}(\xb)}{\sum_{i=1}^K \exp f_i(\xb)} \enspace ,
+    &= \max_y \frac{\exp f_y(\xb)}{\sum_{i=1}^K \exp f_i(\xb)} \nonumber \\
+    &= \frac{\exp f^\text{max}(\xb)}{\sum_{i=1}^K \exp f_i(\xb)} \nonumber \\
+    &= \frac{1}{\sum_{i=1}^K \exp \left(f_i(\xb) - f^\text{max}(\xb)\right)} \enspace ,
 \end{align}
-%
-to the energy by noting that,
+where $f^\text{max}(\xb) = \max_i f_i(\xb)$. 
+The authors then relate the maximum softmax probability to the energy by noting that,
 %
 \begin{align}
-    \log \max_y p(y|\xb;f) = E(\xb; f(\xb) - f^\text{max}(\xb)) = E(\xb; f) - f^\text{max}(\xb) \enspace .
+    \log \max_y p(y|\xb;f) = E\left(\xb; f(\xb) - f^\text{max}(\xb)\right) = E(\xb; f) - f^\text{max}(\xb) \enspace .
 \end{align}
 %
 This shows that log of the softmax confidence score is equivalent to the special case of the energy score, where all the logits are shifted by their maximum logit value. 
-The authors empirically show that $E(\xb;f)$ is a more reliable score for OOD detection than the maximum softmax probability and note that the energy $E(\xb; f)$ tends to be larger for OOD data than for in-distribution data - contrary to the maximum softmax probability.
-They conclude that this shift results in $\max_y p(y|\xb;f)$ being a biased score for OOD detection and propose instead to use the energy directly as the OOD score. This energy-score is improved in ReAct by feature clipping \cite{sun_react_2021}. 
+The authors then note that the energy $E(\xb; f)$ empirically tends to be larger for OOD data than for in-distribution data, while $f^\text{max}(\xb)$ tends to be smaller. 
+They conclude that this shift results in the maximum softmax probability being a biased score for OOD detection and propose to instead use the energy directly. This energy-score was improved in ReAct by feature clipping \cite{sun_react_2021}. 
 
 % No OOD, feature
 The final category of supervised methods derive the score from a latent representation of the input. 
@@ -386,43 +386,104 @@ Several other works also use self-supervised representations of the in-domain da
 
 \section{Variational autoencoders}
 
-A variational autoencoder (VAE) \cite{kingma_autoencoding_2014,rezende_stochastic_2014} is a type of deep generative model and an instance of a latent variable model. In the following, we will introduce VAEs starting from the general definition of latent variable models. We then derive the maximum likelihood objective used to train VAEs, discuss its different components, and highlight some central challenges. Finally, we discuss some of the most important extensions to VAEs made model speech data. 
 
+% A variational autoencoder (VAE) \cite{kingma_autoencoding_2014,rezende_stochastic_2014} is a type of deep generative model and an instance of a latent variable model. 
+In the following, we will introduce VAEs starting from the definition of the group of latent variable models to which they belong. We then derive the maximum likelihood objective used to train VAEs, discuss its different components, and highlight some central challenges. Finally, we discuss some of the most important extensions to VAEs made model speech data. 
+
+\paragraph{Latent variable models} 
 The fundamental assumption underlying the definition of latent variable models is that a data point $\xb$ is created via a generative process that involves one or more unobserved, stochastic latent variables  $\zb$. 
-Latent variable model design centers around capturing this generative process and learning to generate new data points $\xb$. The generative process is usually defined by a joint distribution $p(\xb, \zb)$ over the data and latent variables. In many models, the joint distribution is factorized as $p(\xb,\zb) = p(\xb|\zb)p(\zb)$, including Gaussian mixture models \cite{dempster_maximum_1977}, hidden Markov models \cite{rabiner_tutorial_1989}, and probabilstic principal component analysis \cite{tipping_probabilistic_1999}. In this case, we can write the marginal distribution of the data as,
-%
-\begin{equation} \label{eq:latent-variable-model-marginal-distribution}
-    p(\xb) = \int p(\xb|\zb)p(\zb) \, d\zb \enspace .
-\end{equation}
-%
-The ability to infer the latent variables $\zb$ from a given data point $\xb$ is of interest in applications that focus on representation learning. Inference is usually performed by computing the posterior distribution $p(\zb|\xb)$, which can be computed using Bayes' rule,
-%
-\begin{equation} \label{eq:latent-variable-model-posterior-distribution}
-    p(\zb|\xb) = \frac{p(\xb|\zb)p(\zb)}{p(\xb)} \enspace .
-\end{equation}
-%
-The marginal distribution $p(\xb)$ involves an integral over all possible values of the latent variable $\zb$ that is in many cases analytically intractable. This is especially true when the latent variable space is high-dimensional or if the conditional distribution $p(\xb|\zb)$ is complex, as with neural networks or non-conjugate models. Approximate methods such as variational inference \cite{jordan_introduction_1999} and Markov Chain Monte Carlo (MCMC) \cite{mohamed_monte_2019} are therefore often used to compute the marginal and posterior distributions but these methods can be computationally expensive.
-
-When the data is high-dimensional, an obvious choice for modelling the generative process is to use a deep neural network. This makes the marginal and posterior distributions intractable and requires approximate methods for inference. Variational autoencoders \cite{kingma_autoencoding_2014,rezende_stochastic_2014} use variational inference to learn a latent representation of the input data. 
-Variational inference introduces an approximate posterior distribution $q(\zb|\xb)$ that is optimized to be close to the true posterior distribution $p(\zb|\xb)$. 
+Latent variable model design centers around capturing this generative process and learning to generate new data points $\xb$. The generative process is usually defined by a joint distribution $p(\xb, \zb)$ over the data and latent variables. 
 We can write the marginal distribution of the data as,
 %
-\begin{align}
-    a
+\begin{equation} \label{eq:latent-variable-model-marginal-distribution}
+    p(\xb) = \int p(\xb,\zb) \, d\zb \enspace .
+\end{equation}
+%
+The ability to infer the latent variables $\zb$ from a given data point $\xb$ is of interest in applications that focus on representation learning. Inference is performed by computing the posterior distribution $p(\zb|\xb)$ via Bayes' theorem,
+%
+\begin{equation} \label{eq:latent-variable-model-posterior-distribution}
+    p(\zb|\xb) = \frac{p(\xb,\zb)}{p(\xb)} \enspace .
+\end{equation}
+%
+In latent variable models such as Gaussian mixture models \cite{dempster_maximum_1977}, hidden Markov models \cite{rabiner_tutorial_1989}, and probabilistic principal component analysis \cite{tipping_probabilistic_1999}, the joint distribution is factorized as $p(\xb,\zb) = p(\xb|\zb)p(\zb)$.
+
+The marginal distribution $p(\xb)$ involves an integral over all possible values of the latent variable $\zb$ that is often analytically intractable. This is the case when the latent variable space is high-dimensional or the conditional distribution $p(\xb|\zb)$ is complex, as with non-conjugate models or neural networks. 
+In these cases, approximate methods such as variational inference \cite{jordan_introduction_1999} and Markov Chain Monte Carlo (MCMC) \cite{mohamed_monte_2019} are used to compute the marginal and posterior distributions.
+
+
+\paragraph{Variational autoencoders} 
+To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to parameterize the generative model $p_\thetab(\xb|\zb)$ with a neural network with parameters $\thetab$. Since this makes the marginal and posterior distributions intractable, both training and inference require approximate methods. 
+While MCMC methods are computationally expensive for large neural networks, variational inference provides a more scalable alternative by estimating the posterior distribution $p(\zb|\xb)$ with a variational approximation. 
+
+Specifically, VAEs amortize the cost of inference by parameterizing $q_\phib(\zb|\xb)$ as a single neural network which makes it possible to efficiently compute approximate posterior distributions for any input $\xb$. With the approximate posterior, we can also compute the so-called evidence lower bound (ELBO) on the marginal distribution $p(\xb)$, 
+%
+ \begin{align} \label{eq:variational-autoencoder-elbo}
+    \log p(\xb)
+    &= \log \int p_\thetab(\xb|\zb)p(\zb),\textrm{d}\zb \nonumber \\
+    &= \log \int q_\phib(\zb|\xb) \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)}\,\textrm{d}\zb \nonumber \\
+    &\geq \int q_\phib(\zb|\xb) \log \left( \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right) \,\textrm{d}\zb \nonumber \\
+    &\geq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right] \triangleq \mathcal{L}_{\thetab,\phib}(\xb) \enspace .
 \end{align}
 %
 
-VAEs amortize the cost of inference by parameterizing the approximate posterior with a neural network $q_\phib(\zb|\xb)$ that can produce approximate posterior distributions for any input $\xb$.  
+Ideally, we want to use maximum likelihood estimation to maximize the ELBO with respect to the parameters $\thetab$ and $\phib$ and jointly optimize the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$. 
+Computing the gradient of the ELBO with respect to the parameters of the generative model, $\thetab$, is straightforward,
+%
+\begin{equation}
+    % \nabla_\thetab \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right] 
+    \nabla_\thetab \mathcal{L}_{\thetab,\phib}(\xb)
+    = \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \nabla_\thetab \log p_\thetab(\xb|\zb) \right] \enspace .
+\end{equation}
+%
+More troublesome is the gradient with respect to the parameters of the variational approximation, $\phib$. Here the parameters occur in the expectation itself and it is not possible to move the gradient inside the expectation. 
+However, by reparameterizing the latent variable $\zb$ as a deterministic function of the input $\xb$ and a random variable $\epsilonb\sim p(\epsilonb)$, $\zb = g_\phib(\xb,\epsilonb)$, we can write the gradient as,
+%
+\begin{equation}
+    % \nabla_\phib \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right] 
+    \nabla_\phib \mathcal{L}_{\thetab,\phib}(\xb)
+    = \mathbb{E}_{p(\epsilonb)} \left[ \nabla_\phib \log \frac{p_\thetab\left(\xb|g_\phib(\xb,\epsilonb)\right)p\left(g_\phib(\xb,\epsilonb)\right)}{q_\phib\left(g_\phib(\xb,\epsilonb)|\xb\right)} \right] \enspace .
+\end{equation}
+%
+The most important instantiation of this reparameterization is the diagonal Gaussian case, where $\zb = \mu_\phib(\xb) + \sigma_\phib(\xb) \odot \epsilonb$ with $\epsilonb\sim\mathcal{N}(0,\mathbf{I})$. It is usual to assume that the covariance matrix is diagonal which makes the method a mean-field approximation by assuming independence between the latent variables in $\zb$. 
 
-trained jointly with the generative model $p_\thetab(\xb|\zb)$ by maximizing the evidence lower bound (ELBO),
+Since the joint factorizes in VAEs, we can also write the ELBO in \cref{eq:variational-autoencoder-elbo} as,
+%
+\begin{align} \label{eq:variational-autoencoder-elbo-factorized}
+    \log p(\xb) \geq \mathcal{L}_{\thetab,\phib}(\xb)
+            % &\triangleq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)}\right] \nonumber \\
+            &= \mathbb{E}_{q_\phib(\zb|\xb)}\left[\log p_\thetab(\xb|\zb)\right] + \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p(\zb)}{q_\phib(\zb|\xb)}\right] \nonumber \\
+            &= \mathbb{E}_{q_\phib(\zb|\xb)}\left[\log p_\thetab(\xb|\zb)\right] - D_\text{KL}\left( q_\phib(\zb|\xb) \,||\, p(\zb) \right)
+\end{align}
+%
+This reveals an interpretation of the ELBO as the negative KL divergence between the variational approximation $q_\phib(\zb|\xb)$ and the prior distribution $p(\zb)$ plus the expected log-likelihood of the data under the generative model $p_\thetab(\xb|\zb)$. 
 
+The training of VAEs is usually performed by stochastic gradient descent on the ELBO. This method samples a mini-batch of data points $\xb$ from the empirical training data distribution $\hat{p}(\xb)$ and then evaluates the gradient of the ELBO with respect to the parameters $\thetab$ and $\phib$ on the mini-batch. 
+To gain some insight into the objective that we are optimizing, we will see if we can exploit the expectation over the data distribution $\hat{p}(\xb)$ to form a factorization similar to \cref{eq:variational-autoencoder-elbo-factorized} but with the aggregated posterior $q_\phib(\zb) = \int q_\phib(\zb|\xb)\hat{p}(\xb)\,\mathrm{d}\xb$ in the KL-divergence. It will turn out that we can indeed factor the ELBO into such a KL-divergence, a reconstruction term, and a third term \cite{tomczak_trouble_2022}. For ease of notation, we will let $q(\xb) = \hat{p}(\xb)$ so that $q_\phib(\zb,\xb) = q_{\phib}(\zb|\xb)\hat{p}(\xb)$. 
+%
+\begin{align}
+    \mathbb{E}_{\hat{p}(\xb)}\left[ \log p(\xb) \right] 
+    &= \mathbb{E}_{\hat{p}(\xb)}\left[ \log \int p_{\thetab}(\xb | \zb)\ p(\zb) \, \mathrm{d}\zb \right] \nonumber \\
+    &\geq \mathbb{E}_{\hat{p}(\xb)}\left[ \mathbb{E}_{q_{\phib}(\zb|\xb)}\left[ \log p_{\thetab}(\xb | \zb) + \log p(\zb) - \log q_{\phib}(\zb | \xb) \right] \right] \nonumber \\
+    &= \mathbb{E}_{q_{\phib}(\zb|\xb)\hat{p}(\xb)}\left[ \log p_{\thetab}(\xb | \zb) + \log p(\zb) - \log q_{\phib}(\zb | \xb) \right] \nonumber \\
+    &= \mathbb{E}_{q_{\phib}(\zb,\xb)}\left[ \log p_{\thetab}(\xb | \zb) \right] + \mathbb{E}_{q_{\phib}(\zb)}\left[ \log p(\zb) \right] \nonumber \\ 
+    &\quad - \mathbb{E}_{q_{\phib}(\zb,\xb)}\left[ \log q_{\phib}(\zb | \xb) \right]
+\end{align}
+%
+% where we let $q(\xb) = \hat{p}(\xb)$ for ease of notation so that $q_\phib(\zb,\xb) = q_{\phib}(\zb|\xb)\hat{p}(\xb)$ and we defined the aggregated posterior $q_\phib(\zb) = \int q_\phib(\zb|\xb)\hat{p}(\xb)\,\mathrm{d}\xb$. 
 
+\todo[inline]{We can do this without all the special terminology. Just add and subtract E_{q(z)}[log q(z)].}
 
-
-
-Any VAE aims to model this generative process by learning a generative model $p_\thetab(\xb, \zb)$
-
-
+We can observe that the second term $\mathbb{E}_{q_{\phib}(\zb)}\left[ \log p(\zb) \right]$ is the cross-entropy $H(q_\phib(\zb),p(\zb))$ which can also be written as $D_\text{KL}(q_\phib(\zb)||p(\zb)) + H(q_\phib(\zb))$. We can also observe that the third term $-\mathbb{E}_{q_{\phib}(\zb,\xb)}\left[ \log q_{\phib}(\zb | \xb) \right]$ is the conditional entropy $H_{q_\phib(\zb,\xb)}[\zb|\xb]$ which can be factored as $H_{q_\phib(\zb)}[\zb] - I_{q_\phib(\zb,\xb)}[\zb;\xb]$ where $I_{q_\phib(\zb,\xb)}[\zb;\xb]$ is the mutual information between $\zb$ and $\xb$ under the joint distribution $q_\phib(\zb,\xb)$. 
+This gives us the following decomposition of the ELBO,
+%
+\begin{align}
+    \mathbb{E}_{\hat{p}(\xb)}\left[ \log p(\xb) \right] 
+    &\geq \mathbb{E}_{q_{\phib}(\zb,\xb)}\left[ \log p_{\thetab}(\xb | \zb) \right] + H(q_\phib(\zb),p(\zb)) + H_{q_\phib(\zb,\xb)}[\zb|\xb]
+\end{align}
+%
+% \begin{align}
+%     a &= \mathbb{E}_{\xb,\zb \sim q_{\phib}(\zb|\xb)\hat{p}(\xb)}\left[ \log p_{\thetab}(\xb | \zb) \right]
+% \end{align}
 
 
 
@@ -431,15 +492,15 @@ For a more background on VAEs and a comparison with self-supervised methods, we 
 
 
 
-VAE \cite{kingma_autoencoding_2014,rezende_stochastic_2014}
+% VAE \cite{kingma_autoencoding_2014,rezende_stochastic_2014}
 
-Derive ELBO
+% Derive ELBO
 
-Importance sampling \cite{burda_importance_2016}
+% Importance sampling \cite{burda_importance_2016}
 
-Semi-supervised learning \cite{kingma_semi-supervised_2014,maaloe_semi-supervised_2017,siddharth_learning_2017}
+% Semi-supervised learning \cite{kingma_semi-supervised_2014,maaloe_semi-supervised_2017,siddharth_learning_2017}
 
-Trouble in paradise \cite{tomczak_trouble_2022}
+% Trouble in paradise \cite{tomczak_trouble_2022}
 
 % Trouble in paradise: factoriing the ELBO to show that we minimize the mutual information between z and x. 
 % Use this as transition to self-supervised methods as alternative for representation learning: 
@@ -447,7 +508,7 @@ Trouble in paradise \cite{tomczak_trouble_2022}
 
 
 
-Deep generative models are a class of models that learn a probabilistic representation of the input data and can be used to generate new samples from the same distribution. 
+\paragraph{Deep generative models} VAEs also belong to the class of deep generative models which are models that learn a probabilistic representation of the input data and can be used to generate new samples from the same distribution. 
 There exist at least six main classes of deep generative models: variational autoencoders \cite{kingma_autoencoding_2014,rezende_stochastic_2014,ranganath_hierarchical_2016,vahdat_nvae_2020,child_very_2021}, normalizing flow models \cite{dinh_nice_2015,rezende_variational_2015,dinh_density_2017,kingma_glow_2018,grathwohl_ffjord_2018}, diffusion models \cite{sohl-dickstein_deep_2015,song_generative_2019, ho_denoising_2020, vahdat_scorebased_2021}, energy-based models \cite{lecun_tutorial_2006,hinton_fast_2006,salakhutdinov_efficient_2010,du_implicit_2019}, autoregressive models \cite{oord_conditional_2016,oord_wavenet_2016,radford_improving_2018}, and generative adversarial networks \cite{goodfellow_generative_2014,arjovsky_wasserstein_2017,brock_large_2019,karras_stylebased_2019}.
 Besides data generation, common properties of deep generative models include the ability to compute an exact or approximate likelihood of input $p(\xb)$, reconstruct an input $\xb$ from its latent representation $\zb$, and represent an input $\xb$ in a latent space. These properties enable various methods for their use in OOD detection. 
 
