@@ -269,7 +269,7 @@ Hence, at a single timestep $t$, CPC forms multiple anchor representations $\hat
 %
 \noindent Each $z_{t}$ only encodes information from a limited receptive field, while $f_2(\cdot)$ is limited to condition each $h_t$ on previous timesteps $Z_{[1,t]}$. \ci{Without these restrictions}, the model could collapse to a trivial solution. $g_k$ is a unique transformation per \ci{offset} $k$ (e.g., a linear projection).
 The loss function measures the similarity between the anchor representation $\hat{z}_{t,k}$ and the positive $z_{t+k}$ normalized by the total similarity to the positive and negatives.}
-The approach is similar to previous work on Noise-Contrastive Estimation (NCE)~\cite{gutmann_noisecontrastive_2012}. \edit{Minimizing} the loss corresponds to maximizing a lower bound on the mutual information between $h_t$ and $z_{t+k}$ (and in turn $x_{t+k-u:t+k+u}$) and is hence called InfoNCE:
+The approach is similar to previous work on Noise-Contrastive Estimation (NCE)~\cite{gutmann_noisecontrastive_2010}. \edit{Minimizing} the loss corresponds to maximizing a lower bound on the mutual information between $h_t$ and $z_{t+k}$ (and in turn $x_{t+k-u:t+k+u}$) and is hence called InfoNCE:
 \begin{align}
     \mathcal{L}_{t,k} &= - \log \left(\frac{\exp(\hat{z}_{t,k}^{\text{\tiny T}}z_{t+k})}{\sum_{\ci{i \in \mathcal{I}}} \exp(\hat{z}_{t,k}^{\text{\tiny T}}z_{i})} \right)\enspace .
     \label{eq: cpc loss}

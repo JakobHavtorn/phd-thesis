@@ -37,6 +37,7 @@ nats
 OOD
 Plimpton
 reparameterization
+reparameterizing
 Rhind
 softmax
 Trygfonden

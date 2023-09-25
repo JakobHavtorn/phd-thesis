@@ -2481,6 +2481,18 @@
   eventtitle = {International {{Conference}} on {{Learning Representations}}}
 }
 
+@online{chira_image_2022,
+  title = {Image {{Super-Resolution With Deep Variational Autoencoders}}},
+  author = {Chira, Darius and Haralampiev, Ilian and Winther, Ole and Dittadi, Andrea and Liévin, Valentin},
+  date = {2022-10-26},
+  eprint = {2203.09445},
+  eprinttype = {arxiv},
+  eprintclass = {cs, eess},
+  urldate = {2023-09-25},
+  abstract = {Image super-resolution (SR) techniques are used to generate a high-resolution image from a low-resolution image. Until now, deep generative models such as autoregressive models and Generative Adversarial Networks (GANs) have proven to be effective at modelling high-resolution images. VAE-based models have often been criticised for their feeble generative performance, but with new advancements such as VDVAE, there is now strong evidence that deep VAEs have the potential to outperform current state-of-the-art models for high-resolution image generation. In this paper, we introduce VDVAE-SR, a new model that aims to exploit the most recent deep VAE methodologies to improve upon the results of similar models. VDVAE-SR tackles image super-resolution using transfer learning on pretrained VDVAEs. The presented model is competitive with other state-of-the-art models, having comparable results on image quality metrics.},
+  pubstate = {preprint}
+}
+
 @misc{chiu_selfsupervised_2022,
   title = {Self-Supervised {{Learning}} with {{Random-projection Quantizer}} for {{Speech Recognition}}},
   author = {Chiu, Chung-Cheng and Qin, James and Zhang, Yu and Yu, Jiahui and Wu, Yonghui},
@@ -6410,13 +6422,12 @@
 }
 
 @inproceedings{higgins_vvae_2017,
-  title = {β-{{Vae}}: {{Learning Basic Visual Concepts}} with a {{Constrained Variational Framework}}},
-  booktitle = {Proceedings of the 5th {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
+  title = {β-{{VAE}}: Learning Basic Visual Concepts with a Constrained Variational Framework},
+  booktitle = {Proceedings of the {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
   author = {Higgins, Irina and Matthey, Loic and Pal, Arka and Burgess, Christopher and Glorot, Xavier and Botvinick, Matthew and Mohamed, Shakir and Lerchner, Alexander},
   date = {2017},
   location = {{Palais des Congrès Neptune, Toulon, France}},
   abstract = {Learning an interpretable factorised representation of the independent data generative factors of the world without supervision is an important precursor for the development of artificial intelligence that is able to learn and reason in the same way that humans do. We introduce β-VAE, a new state-of-the-art framework for automated discovery of interpretable factorised latent representations from raw image data in a completely unsupervised manner. Our approach is a modification of the variational autoencoder (VAE) framework. We introduce an adjustable hyperparameter β that balances latent channel capacity and independence constraints with reconstruction accuracy. We demonstrate that β-VAE with appropriately tuned β {$>$} 1 qualitatively outperforms VAE (β = 1), as well as state of the art unsupervised (InfoGAN) and semi-supervised (DC-IGN) approaches to disentangled factor learning on a variety of datasets (celebA, faces and chairs). Furthermore, we devise a protocol to quantitatively compare the degree of disentanglement learnt by different models, and show that our approach also significantly outperforms all baselines quantitatively. Unlike InfoGAN, β-VAE is stable to train, makes few assumptions about the data and relies on tuning a single hyperparameter β, which can be directly optimised through a hyperparameter search using weakly labelled data or through heuristic visual inspection for purely unsupervised data.},
-  eventtitle = {International {{Conference}} on {{Learning Representations}} ({{ICLR}})},
   langid = {english}
 }
 
@@ -6729,6 +6740,14 @@
   author = {Hsu, Yen-Chang and Shen, Yilin and Jin, Hongxia and Kira, Zsolt},
   date = {2020},
   pages = {10951--10960}
+}
+
+@inproceedings{hsu_hierarchical_2019,
+  title = {Hierarchical Generative Modeling for Controllable Speech Synthesis},
+  booktitle = {Proceedings of the International Conference on Learning Representations ({{ICLR}})},
+  author = {Hsu, Wei-Ning and Zhang, Yu and Weiss, Ron J. and Zen, Heiga and Wu, Yonghui and Wang, Yuxuan and Cao, Yuan and Jia, Ye and Chen, Zhifeng and Shen, Jonathan and Nguyen, Patrick and Pang, Ruoming},
+  date = {2019},
+  location = {{New Orleans, LA, USA}}
 }
 
 @article{hsu_hubert_2021,
@@ -14623,6 +14642,14 @@
   location = {{Montreal, Quebec, Canada}},
   abstract = {Supervised deep learning has been successfully applied to many recognition problems. Although it can approximate a complex many-to-one function well when a large amount of training data is provided, it is still challenging to model complex structured output representations that effectively perform probabilistic inference and make diverse predictions. In this work, we develop a deep conditional generative model for structured output prediction using Gaussian latent variables. The model is trained efficiently in the framework of stochastic gradient variational Bayes, and allows for fast prediction using stochastic feed-forward inference. In addition, we provide novel strategies to build robust structured prediction algorithms, such as input noise-injection and multi-scale prediction objective at training. In experiments, we demonstrate the effectiveness of our proposed algorithm in comparison to the deterministic deep neural network counterparts in generating diverse but realistic structured output predictions using stochastic inference. Furthermore, the proposed training methods are complimentary, which leads to strong pixel-level object segmentation and semantic labeling performance on Caltech-UCSD Birds 200 and the subset of Labeled Faces in the Wild dataset.},
   langid = {english}
+}
+
+@inproceedings{sonderby_amortised_2017,
+  title = {Amortised {{MAP}} Inference for Image Super-Resolution},
+  booktitle = {Proceedings of the International Conference on Learning Representations ({{ICLR}})},
+  author = {Sønderby, Casper Kaae and Caballero, Jose and Theis, Lucas and Shi, Wenzhe and Huszár, Ferenc},
+  date = {2017},
+  location = {{Toulon, France}}
 }
 
 @inproceedings{sonderby_ladder_2016,
