@@ -107,6 +107,9 @@ We specifically hypothesize that models that are autoregressive in the observed 
 
 
 \begin{table}[t!]
+    \caption[Model likelihoods on TIMIT represented as a 16 bit linear PCM]{
+    Model likelihoods on TIMIT represented as a 16 bit linear PCM. The STCN converges to a poor local minimum and sometimes diverges when modeling linear PCM with $s=1$.
+    }
     \centering
     \begin{tabular}{ll|lr}
         \toprule
@@ -142,14 +145,14 @@ We specifically hypothesize that models that are autoregressive in the observed 
         \bottomrule
     \end{tabular}
     \vspace{2mm}
-    \caption[Model likelihoods on TIMIT represented as a 16 bit linear PCM]{
-    Model likelihoods on TIMIT represented as a 16 bit linear PCM. The STCN converges to a poor local minimum and sometimes diverges when modeling linear PCM with $s=1$.
-    }
     \label{tab: timit likelihoods dmol linear appendix}
 \end{table}
 
 
 \begin{table}[p]
+    \caption[Model likelihoods on TIMIT represented as a 16 bit $\boldsymbol{\mu}$-law PCM]{
+    Model likelihoods on TIMIT represented as a 16 bit $\boldsymbol{\mu}$-law encoded PCM.
+    }
     \centering
     \resizebox*{!}{\textheight}{
     \begin{tabular}{ll|lr}
@@ -211,14 +214,14 @@ We specifically hypothesize that models that are autoregressive in the observed 
         \bottomrule
     \end{tabular}%
     }
-    \caption[Model likelihoods on TIMIT represented as a 16 bit $\boldsymbol{\mu}$-law PCM]{
-    Model likelihoods on TIMIT represented as a 16 bit $\boldsymbol{\mu}$-law encoded PCM.
-    }
     \label{tab: timit likelihoods dmol mu-law appendix}
 \end{table}
 
 
 \begin{table}[t!]
+    \caption[Model likelihoods on TIMIT represented as globally normalized 16 bit linear PCM]{
+    Model likelihoods on TIMIT represented as globally normalized 16 bit linear PCM. Contrary to the other likelihoods reported in this paper, here they are given in units of nats and obtained by summing the likelihood over time and over all examples in the dataset and dividing by the total number of examples. In the table, Normal refers to using a Gaussian likelihood and GMM refers to using a  Gaussian Mixture Model likelihood with 20 components. Models with asterisks $^*$ are our implementations while remaining results are as reported in the referenced work.
+    }
     \centering
     \begin{tabular}{ll|lr}
         \toprule
@@ -246,9 +249,6 @@ We specifically hypothesize that models that are autoregressive in the observed 
         \bottomrule
     \end{tabular}
     \vspace{2mm}
-    \caption[Model likelihoods on TIMIT represented as globally normalized 16 bit linear PCM]{
-    Model likelihoods on TIMIT represented as globally normalized 16 bit linear PCM. Contrary to the other likelihoods reported in this paper, here they are given in units of nats and obtained by summing the likelihood over time and over all examples in the dataset and dividing by the total number of examples. In the table, Normal refers to using a Gaussian likelihood and GMM refers to using a  Gaussian Mixture Model likelihood with 20 components. Models with asterisks $^*$ are our implementations while remaining results are as reported in the referenced work.
-    }
     \label{tab: timit likelihoods gaussian appendix}
 \end{table}
 
@@ -272,6 +272,7 @@ Hence, with perfect prediction/reconstruction and the minimal variance ($0.01^2$
 
 
 \begin{table}[t!]
+    \caption[The highest possible Gaussian log-likelihoods attainable on the TIMIT test set]{The highest possible Gaussian log-likelihoods (max $\mathcal{L}$) attainable on the TIMIT test set as computed by \eqref{eq: gaussian ll with minimum variance} with different values of the minimum variance $\sigma^2_\text{min}$.}
     \centering
     \begin{tabular}{rrr}
     \toprule
@@ -287,7 +288,6 @@ Hence, with perfect prediction/reconstruction and the minimal variance ($0.01^2$
     \bottomrule
     \end{tabular}
     \vspace{2mm}
-    \caption[The highest possible Gaussian log-likelihoods attainable on the TIMIT test set]{The highest possible Gaussian log-likelihoods (max $\mathcal{L}$) attainable on the TIMIT test set as computed by \eqref{eq: gaussian ll with minimum variance} with different values of the minimum variance $\sigma^2_\text{min}$.}
     \label{tab:timit best gaussian ll}
 \end{table}
 

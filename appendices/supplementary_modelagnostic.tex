@@ -322,7 +322,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
         \end{tabular}
         \label{tab_modelagnostic:mmd}
     }
-    \vspace*{-0.85\baselineskip}
+    % \vspace*{-0.85\baselineskip}
 \end{table*}
 
 
@@ -362,7 +362,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
             \bottomrule
         \end{tabular}
         \label{tab_modelagnostic:all_combinations}
-    \vspace*{-\baselineskip}
+    % \vspace*{-\baselineskip}
 \end{table*}
 
 \subsection{Variability within the same model in different checkpoints}
@@ -390,7 +390,7 @@ As mentioned in the paper, we noticed that all statistics depend on choices we m
             \bottomrule
         \end{tabular}
         \label{tab_modelagnostic:variability}
-    \vspace*{-\baselineskip}
+    % \vspace*{-\baselineskip}
 \end{table*}
 
 
@@ -405,7 +405,7 @@ In the main paper we focused on the Benjamini-Hochberg procedure applied to a mo
     \includegraphics[scale=0.5]{graphics/paper_modelagnostic/cifar_hvae_type1_correct_font.pdf}
     \caption[Type I and Type II errors versus the significance level $\alpha$ on the combination values.]{Type I and Type II errors versus the significance level $\alpha$ on the combination values. We can control the FDR only for $\alpha > 0.2$ in this case. For $\alpha >0.2$, since we are using Benjamini-Hochberg procedure, we get that the Type I error stays below identity line.}
     \label{fig_modelagnostic:type1_cifar}
-    \vspace*{-\baselineskip}
+    % \vspace*{-\baselineskip}
 \end{figure}     
 
 % \subsection{False positive and False negative examples}
@@ -526,7 +526,7 @@ Since the method we propose is model-agnostic, we show that it can be used for o
         \end{tabular}
         \label{tab_modelagnostic:gmm_results}
     }
-    \vspace*{-\baselineskip}
+    % \vspace*{-\baselineskip}
 \end{table*}
 
 
@@ -612,7 +612,7 @@ In conclusion, with these experiments, we wanted to highlight the importance of 
     \includegraphics[scale=0.5]{graphics/paper_modelagnostic/celeba_difference_correct_font.pdf}
     \caption{Comparison of different interpolation methods for CelebA dataset.}
     \label{fig_modelagnostic:celeba}
-     \vspace*{-\baselineskip}
+    %  \vspace*{-\baselineskip}
 \end{figure}
 
 \begin{table*}[tb]
@@ -669,7 +669,7 @@ In conclusion, with these experiments, we wanted to highlight the importance of 
         \end{tabular}
         \label{table:celeba}
     }
-    \vspace*{-\baselineskip}
+    % \vspace*{-\baselineskip}
 \end{table*}
 
 
@@ -681,7 +681,7 @@ In this setting, since DoSE is using statistics that are HVAE and Glow specific,
 
 
 
-\begin{table}%[15]
+\begin{table}[tb]%[15]
     \vspace{-1.3em}
     \caption[Comparison between our method and DoSE using the original statistics]{Comparison between our method and DoSE using the original statistics. In these experiments we considered only Glow trained with Adam.}
         \centering
@@ -722,7 +722,7 @@ In this setting, since DoSE is using statistics that are HVAE and Glow specific,
             \bottomrule
     \end{tabular}
     \label{table:original_dose}
-    \vspace*{-\baselineskip}
+    % \vspace*{-\baselineskip}
 \end{table}
 
 

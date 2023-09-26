@@ -465,6 +465,7 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
 \subsection{Likelihood results}
 %
 \begin{table}[t]
+    \caption[Model likelihoods and phoneme error rate for TIMIT.]{In \cref{tab: likelihoods timit} we report model likelihoods $\mathcal{L}$ for TIMIT represented as a 16bit $\mu$-law encoded PCM for different stochastic latent variable models and deterministic autoregressive baselines. In \cref{tab: phoneme recognition (PER)} we report phoneme error rate (PER) of different representations for phoneme recognition on TIMIT.}
     \begin{subtable}[t]{.45\textwidth}
     \centering
     \begin{adjustbox}{center, totalheight=0.35\paperheight}
@@ -553,12 +554,15 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
     \vspace{-1mm}
     \label{tab: phoneme recognition (PER)}
     \end{subtable}%
-    \caption[Model likelihoods and phoneme error rate for TIMIT.]{In \cref{tab: likelihoods timit} we report model likelihoods $\mathcal{L}$ for TIMIT represented as a 16bit $\mu$-law encoded PCM for different stochastic latent variable models and deterministic autoregressive baselines. 
-    In \cref{tab: phoneme recognition (PER)} we report phoneme error rate (PER) of different representations for phoneme recognition on TIMIT. 
-    }
 \end{table}
 %
 \begin{table*}[t]
+    \caption[Model likelihoods on LibriSpeech test sets.]{
+    Model likelihoods $\mathcal{L}$ on LibriSpeech test sets represented as $\SI{16}{bit}$ $\mu$-law encoded PCM.
+    For the CW-VAE, $s$ refers to $s_1$ and the two-layered models have $s_2=8s_1$.
+    The models are trained on either the $\SI{10}{h}$ LibriLight subset or the $\SI{100}{h}$ LibriSpeech \textrm{train-clean-100} subset as indicated.
+    Likelihoods are given in units of bits per frame (bpf).
+    }
     \centering
     \begin{adjustbox}{center, totalheight=0.182\paperheight}
     \begin{tabular}{lll|rrrr}  % https://wandb.ai/vseq/icml_asr
@@ -582,12 +586,6 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
         \bottomrule
     \end{tabular}
     \end{adjustbox}
-    \caption[Model likelihoods on LibriSpeech test sets.]{
-    Model likelihoods $\mathcal{L}$ on LibriSpeech test sets represented as $\SI{16}{bit}$ $\mu$-law encoded PCM.
-    For the CW-VAE, $s$ refers to $s_1$ and the two-layered models have $s_2=8s_1$.
-    The models are trained on either the $\SI{10}{h}$ LibriLight subset or the $\SI{100}{h}$ LibriSpeech \textrm{train-clean-100} subset as indicated.
-    Likelihoods are given in units of bits per frame (bpf).
-    }
     \label{tab: likelihoods librispeech}
 \end{table*}
 %

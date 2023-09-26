@@ -111,6 +111,12 @@ We specifically hypothesize that models that are autoregressive in the observed 
 
 
 \begin{table*}[t]
+    \caption{
+    Model likelihoods $\mathcal{L}$ on \textbf{LibriSpeech} test sets represented as \textbf{16 bit $\boldsymbol{\mu}$-law encoded PCM}.
+    For the CW-VAE, $s$ refers to $s_1$ and the two-layered models have $s_2=8s_1$.
+    The models are trained on either the $\SI{10}{h}$ LibriLight subset or the $\SI{100}{h}$ LibriSpeech \textrm{train-clean-100} subset as indicated.
+    Likelihoods are given in units of bits per frame (bpf).
+    }
     \centering
     \resizebox{0.98\textwidth}{!}{
     \begin{tabular}{lll|rrrr}  % https://wandb.ai/vseq/icml_asr
@@ -134,17 +140,14 @@ We specifically hypothesize that models that are autoregressive in the observed 
         \bottomrule
     \end{tabular}
     }
-    \caption{
-    Model likelihoods $\mathcal{L}$ on \textbf{LibriSpeech} test sets represented as \textbf{16 bit $\boldsymbol{\mu}$-law encoded PCM}.
-    For the CW-VAE, $s$ refers to $s_1$ and the two-layered models have $s_2=8s_1$.
-    The models are trained on either the $\SI{10}{h}$ LibriLight subset or the $\SI{100}{h}$ LibriSpeech \textrm{train-clean-100} subset as indicated.
-    Likelihoods are given in units of bits per frame (bpf).
-    }
     \label{tab: likelihoods librispeech}
 \end{table*}
 
 
 \begin{table}[t!]
+    \caption{
+    Model likelihoods on TIMIT represented as a 16 bit linear PCM, obtained by different latent variable models and compared to autoregressive baselines all using a discretized mixture of logistics with 10 components as output distribution. Likelihoods are given in units of bits per frame (bpf) and obtained by normalizing the total likelihood of each sequence with the individual sequence length and then averaging over the dataset. The STCN converges to a poor local minimum and sometimes diverges when modeling linear PCM with $s=1$.
+    }
     \centering
     \begin{tabular}{lll|r}
         \toprule
@@ -179,14 +182,14 @@ We specifically hypothesize that models that are autoregressive in the observed 
         $256$      & STCN                & $D_z=256,L=5$         & $\leq$\textbf{8.196} \\
         \bottomrule
     \end{tabular}
-    \caption{
-    Model likelihoods on TIMIT represented as a 16 bit linear PCM, obtained by different latent variable models and compared to autoregressive baselines all using a discretized mixture of logistics with 10 components as output distribution. Likelihoods are given in units of bits per frame (bpf) and obtained by normalizing the total likelihood of each sequence with the individual sequence length and then averaging over the dataset. The STCN converges to a poor local minimum and sometimes diverges when modeling linear PCM with $s=1$.
-    }
     \label{tab: timit likelihoods dmol linear appendix}
 \end{table}
 
 
 \begin{table}[p]
+    \caption{
+    Model likelihoods on TIMIT represented as a \textbf{16 bit $\boldsymbol{\mu}$-law encoded PCM}, obtained by different latent variable models and compared to autoregressive baselines all using a discretized mixture of logistics with 10 components as output distribution. Likelihoods are given in units of bits per frame (bpf) and obtained by normalizing the total likelihood of each sequence with the individual sequence length and then averaging over the dataset.
+    }
     \centering
     \begin{tabular}{lll|r}
         \toprule
@@ -246,14 +249,14 @@ We specifically hypothesize that models that are autoregressive in the observed 
         $256$ & STCN              & $D_z=256,L=5$               & $\leq$12.52 \\
         \bottomrule
     \end{tabular}
-    \caption{
-    Model likelihoods on TIMIT represented as a \textbf{16 bit $\boldsymbol{\mu}$-law encoded PCM}, obtained by different latent variable models and compared to autoregressive baselines all using a discretized mixture of logistics with 10 components as output distribution. Likelihoods are given in units of bits per frame (bpf) and obtained by normalizing the total likelihood of each sequence with the individual sequence length and then averaging over the dataset.
-    }
     \label{tab: timit likelihoods dmol mu-law appendix}
 \end{table}
 
 
 \begin{table}[t!]
+    \caption{
+    Model likelihoods on TIMIT represented as globally normalized 16 bit linear PCM. Likelihoods are given in units of nats and obtained by summing the likelihood over time and over all examples in the dataset and dividing by the total number of examples. In the table, Normal refers to using a Gaussian likelihood and GMM refers to using a  Gaussian Mixture Model likelihood with 20 components. Models with asterisks $^*$ are our implementations while remaining results are as reported in the referenced work.
+    }
     \centering
     \begin{tabular}{lll|r}
         \toprule
@@ -280,9 +283,6 @@ We specifically hypothesize that models that are autoregressive in the observed 
         % 200 & CW-VAE$^*$                                         & $L=2, D_z=96$, Normal & $\geq$2090 \\  % https://wandb.ai/vseq/cwvae/runs/1so36fii?workspace=user-jaksen
         \bottomrule
     \end{tabular}
-    \caption{
-    Model likelihoods on TIMIT represented as globally normalized 16 bit linear PCM. Likelihoods are given in units of nats and obtained by summing the likelihood over time and over all examples in the dataset and dividing by the total number of examples. In the table, Normal refers to using a Gaussian likelihood and GMM refers to using a  Gaussian Mixture Model likelihood with 20 components. Models with asterisks $^*$ are our implementations while remaining results are as reported in the referenced work.
-    }
     \label{tab: timit likelihoods gaussian appendix}
 \end{table}
 
@@ -306,6 +306,7 @@ Hence, with perfect prediction/reconstruction and the minimal variance ($0.01^2$
 
 
 \begin{table}[t!]
+    \caption{The highest possible Gaussian log-likelihoods (max $\mathcal{L}$) attainable on the TIMIT test set as computed by \eqref{eq: gaussian ll with minimum variance} with different values of the minimum variance $\sigma^2_\text{min}$.}
     \centering
     \begin{tabular}{rrr}
     \toprule
@@ -320,7 +321,6 @@ Hence, with perfect prediction/reconstruction and the minimal variance ($0.01^2$
     $0.001$  & $0.000001$    &    $295651$ \\
     \bottomrule
     \end{tabular}
-    \caption{The highest possible Gaussian log-likelihoods (max $\mathcal{L}$) attainable on the TIMIT test set as computed by \eqref{eq: gaussian ll with minimum variance} with different values of the minimum variance $\sigma^2_\text{min}$.}
     \label{tab:timit best gaussian ll}
 \end{table}
 

@@ -4,8 +4,8 @@
 \label{app:supplementary-hierarchical}
 \ifthenelse{\equal{\skipappendices}{true}}{}{
 
-\section{Datasets}
-\cref{tab_hierarchical:datasets-overview} lists the datasets used in the paper. We use the predefined train/test splits for the datasets.
+\section{Datasets} \label{sec_hierarchical:datasets}
+\Cref{tab_hierarchical:datasets-overview} lists the datasets used in the paper. We use the predefined train/test splits for the datasets.
 
 For SmallNORB and Omniglot we resize the original grey-scale images to $28\times28$ with ordinary bi-linear interpolation.
 For each of these datasets, we also create a version where the grey-scale is inverted. We do this because, the overall white nature of the images tends to make detecting them as OOD from FashionMNIST artificially easy.
@@ -14,6 +14,7 @@ The inversion is done via the simple transformation $\xb_\text{inverted} = 255 -
 % Similar to \citet{serra_input_2020} and \citet{xiao_likelihood_2020}, we also create a uniform noise dataset ``UniformNoise'' and benchmark our model against this. We dynamically sample each pixel value uniformly as an integer between 0 and 255.
 
 \begin{table}[h!]
+    \caption{Overview of the used datasets.}
     \centering
     % \resizebox{0.7\columnwidth}{!}{%
     \begin{tabular}{llr}
@@ -33,12 +34,11 @@ The inversion is done via the simple transformation $\xb_\text{inverted} = 255 -
         \bottomrule
     \end{tabular}
     % }
-    \caption{Overview of the used datasets.}
     \label{tab_hierarchical:datasets-overview}
 \end{table}
 
 
-\section{Model details}\label{sec:model-details}
+\section{Model details}\label{sec_hierarchical:model-details}
 In \cref{tab_hierarchical:hyperparameters} we specify the hyperparameters used when training our models.
 We make our source code available at \url{https://github.com/JakobHavtorn/hvae-oodd}.
 
@@ -77,6 +77,7 @@ Training of a BIVA model took approximately a week on a single NVIDIA GTX 1080 T
 
 
 \begin{table}[h]
+    \caption[Selection of most important hyperparameters]{Selection of most important hyperparameters and their setting. Convolutional kernels are square and latent dimensions are given without spatial dimensions which are given in the text. See \cref{sec_hierarchical:model-details} for more details.}
     \centering
     % \resizebox{\columnwidth}{!}{%
     \begin{tabular}{ll}
@@ -110,12 +111,11 @@ Training of a BIVA model took approximately a week on a single NVIDIA GTX 1080 T
         \bottomrule
     \end{tabular}
     % }
-    \caption[Selection of most important hyperparameters]{Selection of most important hyperparameters and their setting. Convolutional kernels are square and latent dimensions are given without spatial dimensions which are given in the text. See \cref{sec:model-details} for more details.}
     \label{tab_hierarchical:hyperparameters}
 \end{table}
 
 
-\section{Analysis of the influence of latent variables on the marginal likelihood}
+\section{Analysis of the influence of latent variables on the marginal likelihood} \label{sec_hierarchical:analysis}
 In the paper, we argue that the lowest level latent variables, which have the highest dimensionality, contribute the most to the approximate likelihood.
 Here, we provide a stringent mathematical argument that generalizes this to the exact marginal likelihood in a model with a deterministic decoder.
 
@@ -185,7 +185,7 @@ Assuming that the increase in layer dimension $d_{i} - d_{i-1}$ is constant, the
 This super-exponential growth further implies that the first layers dominate the marginal likelihood $p(\xb)$.
 This is also visually evident in \cref{fig_hierarchical:Edet}.
 
-\section{Derivation of the \texorpdfstring{$\mathcal{L}^{>k}$}{Lk} bound}
+\section{Derivation of the \texorpdfstring{$\mathcal{L}^{>k}$}{Lk} bound} \label{sec_hierarchical:derivation_L_geq_k}
 In this section we present the derivation of $\mathcal{L}^{>k}$ and show that it is a lower bound on the marginal likelihood.
 
 First, we consider a two-layered VAE with bottom-up inference.
@@ -225,7 +225,7 @@ with samples from $q(\zb_{>k}|\xb)$ while
 $$p(\zb_{\leq k}|\zb_{>k})=p(\zb_{k}|\zb_{k+1})p(\zb_{k-1}|\zb_{k})\cdots p(\zb_{1}|\zb_{2})$$
 is evaluated for $\zb_k$ with $\zb_{k+1} \sim q(\zb_{>k}|\xb)$ and for $\zb_{<k}$ with $\zb_{>k}$ obtained conditionally from itself.
 
-\section{The complementary \texorpdfstring{$\mathcal{L}^{<l}$}{Ll} bound}
+\section{The complementary \texorpdfstring{$\mathcal{L}^{<l}$}{Ll} bound} \label{sec_hierarchical:complementary-bound}
 We can generalize the $\mathcal{L}^{>k}$ bound by introducing the flipped version, $\mathcal{L}^{<l}$, which compared to $\mathcal{L}^{>k}$, instead samples the $L-l$ \textit{highest} latent variables in the hierarchy from the prior $\zb_{l},\dots,\zb_L \sim p_\theta(\zb_{\geq l})=p_\theta(\zb_l|\zb_{l+1})\cdots p_\theta(\zb_L)$ and the remaining lower latents from the approximate posterior $\hat{\zb}_{1},\dots,\hat{\zb}_{l-1} \sim q_\phi(\zb_{<l}|\xb)=q_\phi(\zb_{1}|\xb)q_\phi(\zb_{2}|\zb_1)\cdots q_\phi(\zb_{l-1}|\zb_{l-2})$,
 \begin{equation}\label{eq_hierarchical:biva-<l}
     \mathcal{L}^{<l} = \mathbb{E}_{p_\theta(\zb_{\geq l}) q_\phi(\zb_{<l}|\xb)} \left[ \log \frac{p_\theta(\xb,\zb)p_\theta(\zb_{<l})}{q_\phi(\zb_{<l}|\xb)} \right].
@@ -330,12 +330,13 @@ From the above, we can see that since the decomposition is in a reverse order, w
 Note that the KL-divergence in the second layer is not exact since it is dependent on the sample-noise from the layer below. An exact solution can only be derived if the latent variables $\mathbf{z}$ are all conditionally independent. However, this comes at the cost of not learning a covariance structure.
 
 
-\section{Additional results}
+\section{Additional results} \label{sec_hierarchical:additional-results}
 We provide additional results for a model trained on FashionMNIST in \cref{tab_hierarchical:additional-results-fashionmnist}, a model trained on MNIST in \cref{tab_hierarchical:additional-results-mnist}, a model trained on CIFAR10 in \cref{tab_hierarchical:additional-results-cifar} and a model trained on SVHN in \cref{tab_hierarchical:additional-results-svhn}.
 
 We note that while the likelihood is highly unreliable across the datasets, the proposed log likelihood-ratio score is consistent and always allows correct OOD detection with high AUROC$\uparrow$.
 
 \begin{table}[t]
+    \caption[Additional results for the HVAE model trained on SVHN]{Additional results for the HVAE model trained on SVHN. All results computed with 1000 importance samples.}
     \centering
     % \resizebox{\columnwidth}{!}{%
     \begin{tabular}{llrrr}
@@ -361,12 +362,12 @@ We note that while the likelihood is highly unreliable across the datasets, the 
         \bottomrule
     \end{tabular}
     % }
-    \caption[Additional results for the HVAE model trained on SVHN]{Additional results for the HVAE model trained on SVHN. All results computed with 1000 importance samples.}
     \label{tab_hierarchical:additional-results-svhn}
 \end{table}
 % Results of SVHN model. (d64aa83013304864b974a3fca31e44f1)
 
 \begin{table}[t]
+    \caption[Additional results for the HVAE model trained on CIFAR10]{Additional results for the HVAE model trained on CIFAR10. All results computed with 1000 importance samples.}
     \centering
     % \resizebox{\columnwidth}{!}{%
     \begin{tabular}{llrrr}
@@ -392,13 +393,13 @@ CIFAR10       &  $LLR^{>1}$  &  0.469  &  0.479  &  0.835  \\
          \bottomrule
     \end{tabular}
     % }
-    \caption[Additional results for the HVAE model trained on CIFAR10]{Additional results for the HVAE model trained on CIFAR10. All results computed with 1000 importance samples.}
     \label{tab_hierarchical:additional-results-cifar}
 \end{table}
 % CIFAR10 model: 94f41e80fde444478403496071289a75
 
 
 \begin{table}[t]
+    \caption[Additional results for the HVAE model trained on FashionMNIST]{Additional results for the HVAE model trained on FashionMNIST. All results computed with 1000 importance samples.}
     \centering
     % \resizebox{\columnwidth}{!}{%
     \begin{tabular}{llrrr}
@@ -454,12 +455,12 @@ FashionMNIST             &  $LLR^{>1}$            &  0.488  &  0.496  &  0.811 \
          \bottomrule
     \end{tabular}
     % }
-    \caption[Additional results for the HVAE model trained on FashionMNIST]{Additional results for the HVAE model trained on FashionMNIST. All results computed with 1000 importance samples.}
     \label{tab_hierarchical:additional-results-fashionmnist}
 \end{table}
 % FMNIST model: d65f60927f174ab786a817024a0a4d75.  (alt 0e34596bfe6a4e60a5c0d2bf9440c70d)
 
 \begin{table}[t]
+    \caption[Additional results for the HVAE model trained on MNIST]{Additional results for the HVAE model trained on MNIST. All results computed with 1000 importance samples.}
     \centering
     % \resizebox{\columnwidth}{!}{%
     \begin{tabular}{llrrr}
@@ -515,7 +516,6 @@ MNIST                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$
          \bottomrule
     \end{tabular}
     % }
-    \caption[Additional results for the HVAE model trained on MNIST]{Additional results for the HVAE model trained on MNIST. All results computed with 1000 importance samples.}
     \label{tab_hierarchical:additional-results-mnist}
 \end{table}
 % Results of MNIST model. (57bed090cf4a4e44b896b4c2cce55500)

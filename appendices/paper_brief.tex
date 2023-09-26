@@ -4,9 +4,8 @@
 \label{app:paper-brief}
 \ifthenelse{\equal{\skipappendices}{true}}{}{
 
-\begin{abstract}
+\section*{Abstract}
 Unsupervised representation learning for speech processing has matured greatly in the last few years. Work in computer vision and natural language processing has paved the way, but speech data offers unique challenges. As a result, methods from other domains rarely translate directly. We review the development of unsupervised representation learning for speech over the last decade. We identify two primary model categories: self-supervised methods and probabilistic latent variable models. We describe the models and develop a comprehensive taxonomy. Finally, we discuss and compare models from the two categories.
-\end{abstract}
 
 
 \section{Introduction}
@@ -23,13 +22,13 @@ We provide a methodological review of the design choices related to each of the 
     \end{flushleft}
     \centering
     \includegraphics[width=0.90\textwidth]{paper_brief/SSL_LVM.pdf}
-    \caption{A schematic overview of the two groups of models covered in this survey. \textit{Left}: A model trained with self-supervised learning. We take these models to consist of two functions $f(\cdot)$ and $g(\cdot)$ (sec.~\ref{ssec:notation}). After pre-training, $f(\cdot)$ is fine-tuned or used for extracting features $\mathbf{c}$. $g(\cdot)$ is an auxiliary function used to accommodate the self-supervised pre-training task. \textit{Right}: A probabilistic latent variable model. In contrast to the self-supervised model, the functions $f(\cdot)$ and $g(\cdot)$ learn the parameters of distributions $q$ and $p$. The latent variable $\mathbf{z}$ is commonly used for representation learning.}
+    \caption{A schematic overview of the two groups of models covered in this survey. \textit{Left}: A model trained with self-supervised learning. We take these models to consist of two functions $f(\cdot)$ and $g(\cdot)$ (\cref{ssec:notation}). After pre-training, $f(\cdot)$ is fine-tuned or used for extracting features $\mathbf{c}$. $g(\cdot)$ is an auxiliary function used to accommodate the self-supervised pre-training task. \textit{Right}: A probabilistic latent variable model. In contrast to the self-supervised model, the functions $f(\cdot)$ and $g(\cdot)$ learn the parameters of distributions $q$ and $p$. The latent variable $\mathbf{z}$ is commonly used for representation learning.}
     \label{fig:ssl_lvm}
 \end{figure}
 
 \section{Unsupervised representation learning}\label{ssec:notation}
 
-In the following, we group previous work into \textit{self-supervised models} and \textit{probabilistic latent variable models}, and take a \emph{model} to comprise a neural architecture and a corresponding learning algorithm. A schematic overview is found in figure \ref{fig:ssl_lvm}. These categories are neither exhaustive nor mutually exclusive, but allow us to focus on the characteristics that have shaped different branches of research. 
+In the following, we group previous work into \textit{self-supervised models} and \textit{probabilistic latent variable models}, and take a \emph{model} to comprise a neural architecture and a corresponding learning algorithm. A schematic overview is found in \cref{fig:ssl_lvm}. These categories are neither exhaustive nor mutually exclusive, but allow us to focus on the characteristics that have shaped different branches of research. 
 
 With emphasis on recent successes in the field, we cover literature from the last 10 years. While a complete description of all relevant models is not within the scope of this work, we sketch important technicalities when they are particularly descriptive of certain models. We first define our high-level notation and conventions to ease discussion.
 
@@ -37,7 +36,7 @@ With emphasis on recent successes in the field, we cover literature from the las
 We use the subscript $i{:}j$ with $i{\leq}j$ to denote a vector sequence $\textbf{a}_{i:j}$ containing elements $\textbf{a}_{i}$ through $\textbf{a}_{j}$. We denote model input as $\mathbf{x}_{1:T}$ which, in practice, might be either a spectrogram or the raw speech signal, but we do not distinguish between the two in notation as it is not essential to understand the models. Also, models commonly downsample the temporal dimension, but again, this is not crucial to understand the models, so we maintain a notation based on a single temporal dimension $t\in\{1,\dots, T\}$.
 
 When discussing self-supervised models, we use $\mathbf{c}_{1:T}$ to denote a contextualized representation. For stochastic latent variable models, we use $\mathbf{z}_{1:T}$ as is customary to the field. 
-While some models are frozen and produce representations used as input for downstream tasks (\textbf{\textsc{frz}}, table \ref{tab:model-taxonomy}), others are designed to be fine-tuned (\textbf{\textsc{ftn}}, table \ref{tab:model-taxonomy}). In either case, we use $f(\cdot)$ to denote the model that is used for the downstream task. We use $g(\cdot)$ to denote any auxiliary model components (e.g., for a reconstruction task we might have $g: \mathbf{c}_t \mapsto \hat{\mathbf{x}}_t$). When a model can be naturally subdivided into multiple components, we simply use $f_*(\cdot)$ where $*$ may be any convenient descriptor. Finally, we often use a subscript when defining a loss, $\mathcal{L}_i$, to imply that the total loss is computed as a sum over $i$.
+While some models are frozen and produce representations used as input for downstream tasks (\textbf{\textsc{frz}}, \cref{tab:model-taxonomy}), others are designed to be fine-tuned (\textbf{\textsc{ftn}}, \cref{tab:model-taxonomy}). In either case, we use $f(\cdot)$ to denote the model that is used for the downstream task. We use $g(\cdot)$ to denote any auxiliary model components (e.g., for a reconstruction task we might have $g: \mathbf{c}_t \mapsto \hat{\mathbf{x}}_t$). When a model can be naturally subdivided into multiple components, we simply use $f_*(\cdot)$ where $*$ may be any convenient descriptor. Finally, we often use a subscript when defining a loss, $\mathcal{L}_i$, to imply that the total loss is computed as a sum over $i$.
 
 
 \subsection{Self-supervised models}
@@ -46,14 +45,14 @@ While some models are frozen and produce representations used as input for downs
 Self-supervised learning is a subset of unsupervised learning \cite{tsai_selfsupervised_2021}. Where other unsupervised methods can be seen as a means to an end in itself (e.g., clustering or data generation), self-supervised learning takes the form of a pretext task that only adds value when associated with a downstream task. This makes self-supervised learning tie naturally with semi-supervised learning, but it may also be part of a fully unsupervised setup \cite{baevski_unsupervised_2021}. Self-supervised learning is often characterized by automatically deriving the target from the input or other unlabeled examples \cite{ouali_overview_2020}.
 
 \paragraph{Predictive models}
-Similar to classic autoregressive language models \cite{mikolov_recurrent_2010}, contextualized speech representations can be learned by predicting future values of a simple representation \cite{oord_representation_2018, chung_unsupervised_2019, schneider_wav2vec_2019, chung_generative_2020, jiang_further_2021} (\textbf{\textsc{prd}}, table \ref{tab:model-taxonomy}). Modeling spectrograms directly, autoregressive predictive coding (APC, \citealp{chung_unsupervised_2019}) is perhaps the simplest example in this category. The forward pass and loss are computed as
+Similar to classic autoregressive language models \cite{mikolov_recurrent_2010}, contextualized speech representations can be learned by predicting future values of a simple representation \cite{oord_representation_2018, chung_unsupervised_2019, schneider_wav2vec_2019, chung_generative_2020, jiang_further_2021} (\textbf{\textsc{prd}}, \cref{tab:model-taxonomy}). Modeling spectrograms directly, autoregressive predictive coding (APC, \citealp{chung_unsupervised_2019}) is perhaps the simplest example in this category. The forward pass and loss are computed as
 \begin{align}
     \mathbf{c}_{t} &= f(\mathbf{x}_{1:t})  \label{eq_brief:apc_f} \\ 
     \hat{\mathbf{x}}_{t+k} &= g(\mathbf{c}_{t}) \\
     \mathcal{L}_t &= \lVert \hat{\mathbf{x}}_{t+k} - \mathbf{x}_{t+k} \rVert_1\enspace.
 \end{align}
 %
-\noindent Here, $f(\cdot)$ and $g(\cdot)$ are parameterized by neural networks such that each $\mathbf{c}_t$ is only conditioned on previous inputs $\mathbf{x}_{1:t}$ and $\hat{\mathbf{x}}_{t+k}$ is computed step-wise. \citet{chung_unsupervised_2019} use a stack of unidirectional LSTMs for $f(\cdot)$ and a linear regression layer for $g(\cdot)$. Tasks that seek to predict or reconstruct the input are very common. In the literature, these are often jointly referred to as reconstruction tasks (\textbf{\textsc{rec}}, table \ref{tab:model-taxonomy}) \cite{liu_tera_2021, wang_unispeech_2021}, although this is somewhat misleading in the case of prediction.
+\noindent Here, $f(\cdot)$ and $g(\cdot)$ are parameterized by neural networks such that each $\mathbf{c}_t$ is only conditioned on previous inputs $\mathbf{x}_{1:t}$ and $\hat{\mathbf{x}}_{t+k}$ is computed step-wise. \citet{chung_unsupervised_2019} use a stack of unidirectional LSTMs for $f(\cdot)$ and a linear regression layer for $g(\cdot)$. Tasks that seek to predict or reconstruct the input are very common. In the literature, these are often jointly referred to as reconstruction tasks (\textbf{\textsc{rec}}, \cref{tab:model-taxonomy}) \cite{liu_tera_2021, wang_unispeech_2021}, although this is somewhat misleading in the case of prediction.
 
 Contrary to generative models, such as WaveNet \cite{oord_wavenet_2016}, the APC model is not restricted to next-step prediction. Instead, it predicts $k > 0$ steps ahead in order to ensure that the model does not learn a trivial solution by exploiting the smoothness of the signal. Depending on the downstream task, we are often interested in learning so-called slow features that will typically span multiple input frames \cite{wiskott_slow_2002}. Even the smallest linguistic units of speech, phonemes, tend to span $0.1$ seconds on average \cite{garofolo_timit_1993}, whereas spectrogram frames $\mathbf{x}_t$ are typically computed at $0.01$ second intervals. However, sometimes local smoothness is explicitly used to define the task \cite{badino_autoencoder_2014, jati_speaker2vec_2017, jati_neural_2019}.
 
@@ -86,7 +85,7 @@ A model closely related to the original CPC model is wav2vec \cite{schneider_wav
 \noindent This model was among the first to show that learned representations can be used to improve end-to-end speech recognition. As we will see, the wav2vec framework has evolved to shape state-of-the-art representation learning for speech.
 
 
-\paragraph{Masking-based models} One downside of predictive tasks is that models are primarily unidirectional. Some work has extended APC and CPC inspired models with separate encoders operating in opposite directions \cite{ling_deep_2020, kawakami_learning_2020, borgholt_scaling_2021}, but these models are still restricted to process left and right context separately. Inspired by the masked language model task used for text-based representation learning \cite{devlin_bert_2018}, several papers have used masking to overcome this challenge (\textbf{\textsc{msk}}, table \ref{tab:model-taxonomy}). Masking refers to replacing parts of the input with zeros or a learned masking vector. For zero-masking \cite{jiang_improving_2019, liu_mockingjay_2020, wang_unsupervised_2020, chi_audio_2020, ling_decoar_2020}, we have
+\paragraph{Masking-based models} One downside of predictive tasks is that models are primarily unidirectional. Some work has extended APC and CPC inspired models with separate encoders operating in opposite directions \cite{ling_deep_2020, kawakami_learning_2020, borgholt_scaling_2021}, but these models are still restricted to process left and right context separately. Inspired by the masked language model task used for text-based representation learning \cite{devlin_bert_2018}, several papers have used masking to overcome this challenge (\textbf{\textsc{msk}}, \cref{tab:model-taxonomy}). Masking refers to replacing parts of the input with zeros or a learned masking vector. For zero-masking \cite{jiang_improving_2019, liu_mockingjay_2020, wang_unsupervised_2020, chi_audio_2020, ling_decoar_2020}, we have
 \begin{align}
     \mathbf{c}_{1:T} &= f(\mathbf{x}_{1:T} \circ \mathbf{m}_{1:T})\\
     \mathbf{\hat{x}}_{t} &= g(\mathbf{c}_{t}) \\
@@ -119,7 +118,7 @@ In general, masking is less data efficient than prediction, as only the masked p
 
 \noindent Non-autoregressive predictive coding (NPC, \citealp{liu_nonautoregressive_2020}) tries to resolve this by using a convolutional neural network where the kernel is masked instead of the input.
 This allows for complete data utilization, but limits the amount of context encoded in the learned representation.
-Figure \ref{fig:ssl_grid} summarizes the models discussed so far.
+\cref{fig:ssl_grid} summarizes the models discussed so far.
 
 \begin{figure}[!t]
     \centering
@@ -203,7 +202,7 @@ Figure \ref{fig:ssl_grid} summarizes the models discussed so far.
     
 
 \paragraph{Quantization} 
-Several models enforce a discrete latent space by quantizing the vector representation (\textbf{\textsc{qtz}}, table \ref{tab:model-taxonomy}). The two most popular approaches are the Gumbel-softmax \cite{jang_categorical_2016, maddison_concrete_2017} and the quantization used in the VQ-VAE \cite{oord_neural_2018}.
+Several models enforce a discrete latent space by quantizing the vector representation (\textbf{\textsc{qtz}}, \cref{tab:model-taxonomy}). The two most popular approaches are the Gumbel-softmax \cite{jang_categorical_2016, maddison_concrete_2017} and the quantization used in the VQ-VAE \cite{oord_neural_2018}.
 
 \textit{Gumbel-softmax approach:} 
 Say we want to quantize a vector $\mathbf{v}$ such that it takes one of $K$ possible values. We first map $\mathbf{v}$ to $\mathbf{l} \in \mathbb{R}^K$ and then map $\mathbf{l}$ to a probability vector $\mathbf{p} \in \mathbb{R}^K$ via the Gumbel softmax given by
@@ -214,9 +213,9 @@ for $i=1,\dots,K$. Here $\tau$ is a temperature parameter and $\mathbf{n}\in\mat
 As  $\tau \rightarrow 0$, $\mathbf{p}$ approaches a one-hot vector. The Gumbel noise $\mathbf{n}$ is a practical way to sample from the untempered categorical distribution (i.e., $\tau = 1$).
 $\mathbf{p}$ is mapped to a one-hot vector using a function $\varphi(\cdot)$, such that $\varphi(\mathbf{p})_i = 1$ if $i = \argmax_j p_j$ and $0$ otherwise. 
 As this function is non-differentiable, we must rely on the straight-through gradient estimator \cite{bengio_estimating_2013} which assumes that the Jacobian ${\partial \, \varphi}/{\partial \, \mathbf{p}}$ equals the identity matrix. 
-The one-hot vector can then be used for a codebook lookup to obtain the final quantized vector (e.g., $\mathbf{q}_t$ in eq.~\ref{eq_brief: w2v2 qtz}).
+The one-hot vector can then be used for a codebook lookup to obtain the final quantized vector (e.g., $\mathbf{q}_t$ in \cref{eq_brief: w2v2 qtz}).
 
-The wav2vec 2.0 quantization module (eq.~\ref{eq_brief: w2v2 qtz}) uses the Gumbel softmax. To ensure utilization of codebook vectors, a diversity loss is added to the task specific loss (eq. \ref{eq_brief: w2v2 loss})
+The wav2vec 2.0 quantization module (\cref{eq_brief: w2v2 qtz}) uses the Gumbel softmax. To ensure utilization of codebook vectors, a diversity loss is added to the task specific loss (\cref{eq_brief: w2v2 loss})
 %
 \begin{align}
     \mathcal{L} =  - H(\widetilde{\mathbf{p}}) / K \enspace,
@@ -241,7 +240,7 @@ Given our previous discussion of how it might not be beneficial to model localiz
 
 
 \paragraph{Global representations}
-The models covered so far learn representations that maintain a temporal resolution proportional to the input resolution. We say that they learn local representations (\textbf{\textsc{loc}}, table \ref{tab:model-taxonomy}). Now, we cover models that learn global representations (\textbf{\textsc{glb}}, table \ref{tab:model-taxonomy}).
+The models covered so far learn representations that maintain a temporal resolution proportional to the input resolution. We say that they learn local representations (\textbf{\textsc{loc}}, \cref{tab:model-taxonomy}). Now, we cover models that learn global representations (\textbf{\textsc{glb}}, \cref{tab:model-taxonomy}).
  
 Early work on global speech representation learning takes inspiration from the autoencoder framework \cite{kramer_nonlinear_1991}. \citet{chung_audio_2016} propose a simple sequence-to-sequence autoencoder for learning acoustic word embeddings:
 \begin{align}
@@ -254,7 +253,7 @@ The authors also propose a denoising autoencoder with masked inputs $f(\mathbf{x
 
 Prior to this work, \citet{kamper_unsupervised_2015} and \citet{renshaw_comparison_2015} introduced the \textit{correspondence autoencoder}. This method uses dynamic time warping to align input-target segment pairs extracted with unsupervised term discovery. In more recent work, the need for alignment has been alleviated by adopting the sequence-to-sequence framework \cite{kamper_truly_2019, jacobs_acoustic_2021}.
 
-Inspired by the work on semantic word embeddings for text \cite{mikolov_distributed_2013}, the sequence-to-sequence framework has also been used to implement speech-based versions of the skipgram and continuous bag-of-words models \cite{chung_learning_2017, chung_speech2vec_2018}. Given a segment corresponding to a single word $\mathbf{x}_{(n)} = \mathbf{x}_{t_{n}:t_{n+1}}$, the skipgram model is trained to predict neighboring words $\mathbf{x}_{(n + k)}$ where $k\ne0$. That is, instead of a single decoder, as in eq. \ref{eq_brief:dec-aw2v}, the skipgram model employs multiple decoders
+Inspired by the work on semantic word embeddings for text \cite{mikolov_distributed_2013}, the sequence-to-sequence framework has also been used to implement speech-based versions of the skipgram and continuous bag-of-words models \cite{chung_learning_2017, chung_speech2vec_2018}. Given a segment corresponding to a single word $\mathbf{x}_{(n)} = \mathbf{x}_{t_{n}:t_{n+1}}$, the skipgram model is trained to predict neighboring words $\mathbf{x}_{(n + k)}$ where $k\ne0$. That is, instead of a single decoder, as in \cref{eq_brief:dec-aw2v}, the skipgram model employs multiple decoders
 %
 \begin{align}
     \hat{\mathbf{x}}_{(n + k)} = g_k(\mathbf{c})\enspace.
@@ -270,9 +269,9 @@ The sequence-to-sequence models described above rely on speech segments correspo
 Contrastive learning has also been explored for global speech representation learning \citep{milde_unspeech_2018, jati_neural_2019, jansen_unsupervised_2018}. And prior to the widespread adoption of neural networks, \citet{levin_fixeddimensional_2013} explore principal component analysis and Laplacian eigenmaps for learning fixed-sized acoustic embeddings.
 
 \paragraph{Other work}
-Some models learn local representations with a variable temporal resolution that is not proportional to the input resolution (\textbf{\textsc{var}}, table \ref{tab:model-taxonomy}). In practice, this is often achieved implicitly, by learning segment boundaries or by taking repeated quantized values to belong to the same segment \cite{kamper_unsupervised_2021, chorowski_unsupervised_2019, michel_blind_2017, kreuk_selfsupervised_2020, wang_gate_2017, dieleman_variablerate_2021}. An exception is the recently proposed \emph{segmental contrastive predictive coding} (SCPC, \citealp{bhati_segmental_2021, bhati_unsupervised_2022}). With this approach, the model explicitly learns segment boundaries, which are used to downsample the representations during training. The same segmentation strategy has subsequently been applied in other models \cite{cuervo_contrastive_2022}.
+Some models learn local representations with a variable temporal resolution that is not proportional to the input resolution (\textbf{\textsc{var}}, \cref{tab:model-taxonomy}). In practice, this is often achieved implicitly, by learning segment boundaries or by taking repeated quantized values to belong to the same segment \cite{kamper_unsupervised_2021, chorowski_unsupervised_2019, michel_blind_2017, kreuk_selfsupervised_2020, wang_gate_2017, dieleman_variablerate_2021}. An exception is the recently proposed \emph{segmental contrastive predictive coding} (SCPC, \citealp{bhati_segmental_2021, bhati_unsupervised_2022}). With this approach, the model explicitly learns segment boundaries, which are used to downsample the representations during training. The same segmentation strategy has subsequently been applied in other models \cite{cuervo_contrastive_2022}.
 
-Most of the work presented so far fits neatly into the taxonomy presented in table \ref{tab:model-taxonomy}. One exception is the problem-agnostic speech encoder (PASE, \citealp{pascual_learning_2019, ravanelli_multitask_2020}) that combines multiple pre-training tasks. Furthermore, many of the presented models have been successfully applied to other use cases. For instance, wav2vec 2.0 and related models have been applied to learn cross-lingual and multi-lingual representations \cite{riviere_unsupervised_2020, conneau_unsupervised_2020, khurana_magic_2021} and proven well-suited for concurrently learning with labeled data \cite{talnikar_joint_2021, wang_unispeech_2021}. %We will discuss the downstream application of self-supervised representations further in section \ref{sec:eval}.
+Most of the work presented so far fits neatly into the taxonomy presented in \cref{tab:model-taxonomy}. One exception is the problem-agnostic speech encoder (PASE, \citealp{pascual_learning_2019, ravanelli_multitask_2020}) that combines multiple pre-training tasks. Furthermore, many of the presented models have been successfully applied to other use cases. For instance, wav2vec 2.0 and related models have been applied to learn cross-lingual and multi-lingual representations \cite{riviere_unsupervised_2020, conneau_unsupervised_2020, khurana_magic_2021} and proven well-suited for concurrently learning with labeled data \cite{talnikar_joint_2021, wang_unispeech_2021}. %We will discuss the downstream application of self-supervised representations further in \cref{sec:eval}.
 
 
 \subsection{Probabilistic latent variable models}
@@ -283,7 +282,7 @@ We then introduce the variational autoencoder framework (VAE, \citealp{kingma_au
 
 \paragraph{LVMs and inference}
 Fundamental to LVMs is the assumption that the data is produced by a generative process that involves unobserved stochastic latent variables $\textbf{z}$. 
-An LVM aims to model this generative process to enable generation of new data $\mathbf{x}$ (\textbf{\textsc{gen}}, table \ref{tab:model-taxonomy}) and inference of the latent variable associated with a given observed variable $\textbf{x}$. 
+An LVM aims to model this generative process to enable generation of new data $\mathbf{x}$ (\textbf{\textsc{gen}}, \cref{tab:model-taxonomy}) and inference of the latent variable associated with a given observed variable $\textbf{x}$. 
 For representation learning, the inference of latent variables is of primary interest.
 An LVM is defined by the observation model $p(\mathbf{x}|\mathbf{z})$, which defines the relationship between the observed and latent variables, and the prior $p(\mathbf{z})$, which defines the relationship among the latent variables \cite{bartholomew_latent_2011}. 
 An LVM models the generative process via the joint observation and prior model $p(\mathbf{x}, \mathbf{z})$ often referred to as the generative model. 
@@ -295,8 +294,8 @@ The likelihood of an LVM given an example $\textbf{x}$ can be written as
 The latent variable can be inferred with e.g. Markov Chain Monte Carlo (MCMC) methods \cite{mohamed_monte_2019} or variational inference \cite{jordan_introduction_1999}.
 
 For representation learning, LVMs are commonly defined using the VAE framework \cite{kingma_autoencoding_2014, rezende_stochastic_2014} which is also the focus of our exposition. 
-In the VAE framework, the observation model $p(\mathbf{x}|\mathbf{z})$ is parameterized using a deep neural network. This choice allows modeling complex and high-dimensional data but also makes the integral in eq.~\ref{eq_brief: lvm log-likelihood} analytically intractable. MCMC methods can be used to estimate it and the true model posterior $p(\mathbf{z}|\mathbf{x})$, but these methods are usually computationally expensive in this setting \cite{mohamed_monte_2019}. 
-To counter this and make gradient-based maximum likelihood training feasible, the VAE instead employs variational inference \cite{jordan_introduction_1999}. It approximates the intractable true model posterior by introducing a variational posterior distribution $q(\mathbf{z}|\mathbf{x})$, also parameterized by a deep neural network. From eq.~\ref{eq_brief: lvm log-likelihood}, via Jensen's inequality, this gives rise to a variational lower bound on the likelihood, also known as the evidence lower bound (ELBO).
+In the VAE framework, the observation model $p(\mathbf{x}|\mathbf{z})$ is parameterized using a deep neural network. This choice allows modeling complex and high-dimensional data but also makes the integral in \cref{eq_brief: lvm log-likelihood} analytically intractable. MCMC methods can be used to estimate it and the true model posterior $p(\mathbf{z}|\mathbf{x})$, but these methods are usually computationally expensive in this setting \cite{mohamed_monte_2019}. 
+To counter this and make gradient-based maximum likelihood training feasible, the VAE instead employs variational inference \cite{jordan_introduction_1999}. It approximates the intractable true model posterior by introducing a variational posterior distribution $q(\mathbf{z}|\mathbf{x})$, also parameterized by a deep neural network. From \cref{eq_brief: lvm log-likelihood}, via Jensen's inequality, this gives rise to a variational lower bound on the likelihood, also known as the evidence lower bound (ELBO).
 \begin{equation}
     \log p(\mathbf{x}) \geq \int q(\mathbf{z}|\mathbf{x}) \log \frac{p(\mathbf{x}| \mathbf{z})p(\mathbf{z})}{q(\mathbf{z}|\mathbf{x})} \,\text{d}\mathbf{z} \equiv \mathcal{L}_{\text{ELBO}} \enspace . \label{eq_brief: lvm likelihood bound (elbo)}
 \end{equation}
@@ -312,7 +311,7 @@ With reference to probabilistic coding theory, the approximate posterior is ofte
 It is still possible to evaluate and sample the true posterior distribution $p(\mathbf{z}|\mathbf{x})$ by applying MCMC methods such as Hamiltonian Monte Carlo on the decoder, but for computational reasons this is rarely done in practice. 
 
 \begin{table}[t!]
-\caption{A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable. The observation, prior and inference models may all belong to one or more of the categories listed under them as detailed in section \ref{sec:plvms}. The types listed here serve as primitives from which more complex structures can be constructed including models with hierarchies of multiple latent variables.}
+\caption{A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable. The observation, prior and inference models may all belong to one or more of the categories listed under them as detailed in \cref{sec:plvms}. The types listed here serve as primitives from which more complex structures can be constructed including models with hierarchies of multiple latent variables.}
 \label{tab:lvm-model-primitives}
 \begin{center}
     % \renewcommand{\arraystretch}{1.1}
@@ -348,7 +347,7 @@ It is still possible to evaluate and sample the true posterior distribution $p(\
 \end{table}
 
 \begin{sidewaystable*}[t]
-    \caption{Selected latent variable models classified according the attributes defined throughout section \ref{sec:plvms}. See table~\ref{tab:lvm-model-primitives} for the probability distributions that correspond to each of the attribute short-hands. \textbf{\textsc{hie}} indicates a hierarchical representation.}
+    \caption{Selected latent variable models classified according the attributes defined throughout \cref{sec:plvms}. See \cref{tab:lvm-model-primitives} for the probability distributions that correspond to each of the attribute short-hands. \textbf{\textsc{hie}} indicates a hierarchical representation.}
     \label{tab:lvm-taxonomy}
     \begin{center}
         \renewcommand{\arraystretch}{1.1}
@@ -394,42 +393,42 @@ It is still possible to evaluate and sample the true posterior distribution $p(\
 \end{sidewaystable*}
 
 We next review VAEs applied to speech. We consider the choices of observation, prior and inference models.
-We provide a model taxonomy for selected LVMs in table~\ref{tab:lvm-taxonomy}.
+We provide a model taxonomy for selected LVMs in \cref{tab:lvm-taxonomy}.
 
 
 \paragraph{Observation models} 
-A common choice for the observation model $p(\mathbf{x}|\mathbf{z})$ is to include an autoregressive dependency on the observed variable (\textbf{\textsc{arx}}, table \ref{tab:lvm-model-primitives}) that is, $p(\mathbf{x}_t|\mathbf{x}_{1:t-1}, \cdot)$ where $\cdot$ represents some dependency on the latent variable \cite{chung_recurrent_2015, fraccaro_sequential_2016, oord_neural_2018, oord_representation_2018}. This allows the latent representation to focus on correlations that cannot easily be predicted from the observed variable at previous time-steps \cite{oord_representation_2018}. In practice, the dependency on $\mathbf{x}_{1:t-1}$ is often assumed to be Markovian and hence only on $\mathbf{x}_{t-1}$. Another common choice is to depend on a local window $\mathbf{x}_{t-r:t-1}$ where $r>1$ is an integer denoting some receptive field. We will take a dependency on $\mathbf{x}_{1:t-1}$ to mean any one of these choices unless otherwise specified.
+A common choice for the observation model $p(\mathbf{x}|\mathbf{z})$ is to include an autoregressive dependency on the observed variable (\textbf{\textsc{arx}}, \cref{tab:lvm-model-primitives}) that is, $p(\mathbf{x}_t|\mathbf{x}_{1:t-1}, \cdot)$ where $\cdot$ represents some dependency on the latent variable \cite{chung_recurrent_2015, fraccaro_sequential_2016, oord_neural_2018, oord_representation_2018}. This allows the latent representation to focus on correlations that cannot easily be predicted from the observed variable at previous time-steps \cite{oord_representation_2018}. In practice, the dependency on $\mathbf{x}_{1:t-1}$ is often assumed to be Markovian and hence only on $\mathbf{x}_{t-1}$. Another common choice is to depend on a local window $\mathbf{x}_{t-r:t-1}$ where $r>1$ is an integer denoting some receptive field. We will take a dependency on $\mathbf{x}_{1:t-1}$ to mean any one of these choices unless otherwise specified.
 
 While the autoregressive dependency might be important for learning a powerful generative model, it might not benefit the learned latent representations. Specifically encouraging the latent representation to discard correlations across the temporal dimension might degrade the quality of the latent representation.
 Furthermore, since such a decoder can perform quite well by simply solving an autoregressive prediction problem, similar to WaveNet \cite{oord_wavenet_2016}, it can make the model prone to suffer from posterior collapse. This problem arises when the approximate and true posterior distributions collapse into the prior which renders the representations non-informative \cite{bowman_generating_2016, sonderby_ladder_2016}. Notably, posterior collapse is a local minimum of the ELBO since the KL-divergence becomes zero. 
 Some works alleviate this problem with tricks like KL-annealing and free bits \cite{bowman_generating_2016, sonderby_ladder_2016, kingma_improved_2016}. 
 The VQ-VAE uses a quantized latent space that is not susceptible to posterior collapse \textit{per se} \cite{oord_neural_2018}. How to equip LVMs with powerful decoders while avoiding posterior collapse is an open problem.
 
-Some LVMs do not use autoregressive observation models \cite{ebbers_hidden_2017, glarner_full_2018, hsu_unsupervised_2017, hsu_learning_2017, khurana_factorial_2019, khurana_convolutional_2020}. These more closely follow the assumption of \emph{local independence} which states that observed variables are conditionally independent given the local (\textbf{\textsc{loc}}, table \ref{tab:lvm-model-primitives}) and/or global (\textbf{\textsc{glb}}, table \ref{tab:lvm-model-primitives}) latent variables \cite{bartholomew_latent_2011}. 
+Some LVMs do not use autoregressive observation models \cite{ebbers_hidden_2017, glarner_full_2018, hsu_unsupervised_2017, hsu_learning_2017, khurana_factorial_2019, khurana_convolutional_2020}. These more closely follow the assumption of \emph{local independence} which states that observed variables are conditionally independent given the local (\textbf{\textsc{loc}}, \cref{tab:lvm-model-primitives}) and/or global (\textbf{\textsc{glb}}, \cref{tab:lvm-model-primitives}) latent variables \cite{bartholomew_latent_2011}. 
 However, this forces the latent variable to encode details about the observed variable to achieve a good reconstruction. This is opposite to contrastive self-supervised learning which allows models to discard details in $\mathbf{x}_{1:T}$ that do not inform the training objective \cite{baevski_wav2vec_2020}.
 
 
 
 \paragraph{Priors}
-Priors can be said to belong to one or more of four broad categories. See table~\ref{tab:lvm-model-primitives}. 
-Priors that are autoregressive on the observed variable (\textbf{\textsc{arx}}, table \ref{tab:lvm-model-primitives}) take the form $p(\mathbf{z}_t|\mathbf{x}_{1:t-1})$. This generally results in a slow-down of the generative process which may be of concern if the use-case is data generation. 
-Priors that are autoregressive on the latent variable (\textbf{\textsc{arz}}, table \ref{tab:lvm-model-primitives}) take the form $p(\mathbf{z}_t|\mathbf{z}_{1:t-1})$ and enable stochastic temporal transitions similar to hidden Markov models but with potentially nonlinear transition functions \cite{chung_recurrent_2015, fraccaro_sequential_2016, khurana_factorial_2019, khurana_convolutional_2020}.
-Locally independent priors (\textbf{\textsc{ind}}, table \ref{tab:lvm-model-primitives}) are rarely applied to sequential latent variables since they make the prior latent dynamics independent of the value of previous latent variables. Models that do impose such priors on sequential latents are quite limited in their generative power, unless they learn the prior dynamics post-hoc as done in the VQ-VAE \cite{oord_neural_2018}. 
-Global latent variables (\textbf{\textsc{glb}}, table \ref{tab:lvm-model-primitives}) are fundamentally limited in the amount of information they can encode. Hence, models usually use them in combination with another local latent variable, or to encode fixed length input segments \cite{khurana_factorial_2019, hsu_learning_2017, hsu_unsupervised_2017}.
+Priors can be said to belong to one or more of four broad categories. See \cref{tab:lvm-model-primitives}. 
+Priors that are autoregressive on the observed variable (\textbf{\textsc{arx}}, \cref{tab:lvm-model-primitives}) take the form $p(\mathbf{z}_t|\mathbf{x}_{1:t-1})$. This generally results in a slow-down of the generative process which may be of concern if the use-case is data generation. 
+Priors that are autoregressive on the latent variable (\textbf{\textsc{arz}}, \cref{tab:lvm-model-primitives}) take the form $p(\mathbf{z}_t|\mathbf{z}_{1:t-1})$ and enable stochastic temporal transitions similar to hidden Markov models but with potentially nonlinear transition functions \cite{chung_recurrent_2015, fraccaro_sequential_2016, khurana_factorial_2019, khurana_convolutional_2020}.
+Locally independent priors (\textbf{\textsc{ind}}, \cref{tab:lvm-model-primitives}) are rarely applied to sequential latent variables since they make the prior latent dynamics independent of the value of previous latent variables. Models that do impose such priors on sequential latents are quite limited in their generative power, unless they learn the prior dynamics post-hoc as done in the VQ-VAE \cite{oord_neural_2018}. 
+Global latent variables (\textbf{\textsc{glb}}, \cref{tab:lvm-model-primitives}) are fundamentally limited in the amount of information they can encode. Hence, models usually use them in combination with another local latent variable, or to encode fixed length input segments \cite{khurana_factorial_2019, hsu_learning_2017, hsu_unsupervised_2017}.
 
 
 \paragraph{Inference models} 
 LVMs based on the VAE perform so-called amortized variational inference. Here, a single inference network is used to infer the latent variables of any $\mathbf{x}$. 
 For this reason, all inference models covered here are conditioned on the observed sequence in some way. Generally, the inference model can be seen as solving either a filtering or smoothing problem.
-In filtering (\textbf{\textsc{flt}}, table \ref{tab:lvm-model-primitives}), the latent variables are assumed to depend only on past and current values of the observed variable, $q(\mathbf{z}_t|\mathbf{x}_{1:t})$ \cite{chung_recurrent_2015, khurana_convolutional_2020}. In global smoothing (\textbf{\textsc{gsm}}, table \ref{tab:lvm-model-primitives}), this causal dependency is replaced with a dependency on all observed values, $q(\mathbf{z}_t|\mathbf{x}_{1:T})$ \cite{fraccaro_sequential_2016, hsu_learning_2017}. 
-Smoothing can also be done locally (\textbf{\textsc{lsm}}, table \ref{tab:lvm-model-primitives}), where the latent variables then depend on $\mathbf{x}_{t-r:t+r}$ for some integer $r>0$ \cite{oord_neural_2018}. Compared to self-supervised models that often use transformer encoders it can be hypothesized that global smoothing offers a stronger case than local smoothing and filtering for representation learning.
+In filtering (\textbf{\textsc{flt}}, \cref{tab:lvm-model-primitives}), the latent variables are assumed to depend only on past and current values of the observed variable, $q(\mathbf{z}_t|\mathbf{x}_{1:t})$ \cite{chung_recurrent_2015, khurana_convolutional_2020}. In global smoothing (\textbf{\textsc{gsm}}, \cref{tab:lvm-model-primitives}), this causal dependency is replaced with a dependency on all observed values, $q(\mathbf{z}_t|\mathbf{x}_{1:T})$ \cite{fraccaro_sequential_2016, hsu_learning_2017}. 
+Smoothing can also be done locally (\textbf{\textsc{lsm}}, \cref{tab:lvm-model-primitives}), where the latent variables then depend on $\mathbf{x}_{t-r:t+r}$ for some integer $r>0$ \cite{oord_neural_2018}. Compared to self-supervised models that often use transformer encoders it can be hypothesized that global smoothing offers a stronger case than local smoothing and filtering for representation learning.
 
-The inference model may also be used to infer a global latent variable (\textbf{\textsc{glb}}, table \ref{tab:lvm-model-primitives}) that might encode global information about $\mathbf{x}$. 
+The inference model may also be used to infer a global latent variable (\textbf{\textsc{glb}}, \cref{tab:lvm-model-primitives}) that might encode global information about $\mathbf{x}$. 
 While it must be included in the prior model it might not be in the observation model, if the model also has a local latent variable. 
-Finally, latent variables are often made to depend autoregressively on past inferred values, e.g. $q(\mathbf{z}_t|\mathbf{z}_{1:t-1},\mathbf{x}_{1:t})$ (\textbf{\textsc{arz}}, table \ref{tab:lvm-model-primitives}) \cite{chung_recurrent_2015, fraccaro_sequential_2016}.
+Finally, latent variables are often made to depend autoregressively on past inferred values, e.g. $q(\mathbf{z}_t|\mathbf{z}_{1:t-1},\mathbf{x}_{1:t})$ (\textbf{\textsc{arz}}, \cref{tab:lvm-model-primitives}) \cite{chung_recurrent_2015, fraccaro_sequential_2016}.
 
 \paragraph{Multiscale and hierarchical models} 
-Some work has explored using a hierarchy of latent variables (\textbf{\textsc{hie}}, table \ref{tab:lvm-taxonomy}). This allows encoding the inductive bias that speech contains information at different temporal scales by letting the latent variables operate at different temporal scales \cite{hsu_unsupervised_2017}. \citet{khurana_factorial_2019} propose using a temporal latent variable along with a global latent variable. 
+Some work has explored using a hierarchy of latent variables (\textbf{\textsc{hie}}, \cref{tab:lvm-taxonomy}). This allows encoding the inductive bias that speech contains information at different temporal scales by letting the latent variables operate at different temporal scales \cite{hsu_unsupervised_2017}. \citet{khurana_factorial_2019} propose using a temporal latent variable along with a global latent variable. 
 Recent work has focused on learning a deeper latent hierarchy with five latent variables \cite{aksan_stcn_2019}. 
 
 \paragraph{Other work}
@@ -443,7 +442,7 @@ Non-neural LVMs for speech representation learning have also been explored
 \label{sec:mtax}
 
 \paragraph{From global to local} 
-In table \ref{tab:model-taxonomy}, we see that work on global representations within self-supervised learning precedes work on local representations. However, we find that the core ideas underlying the recent successes in learning local representation models have also been used for global representation learning; masking \cite{chung_audio_2016}, context prediction \cite{chung_speech2vec_2018}, and contrastive training \cite{milde_unspeech_2018} have been applied in both settings. Furthermore, where work on global representation learning has taken inspiration from Word2vec \cite{mikolov_distributed_2013}, the techniques used for learning local representations are inspired by contextualized word embeddings \cite{devlin_bert_2018}. Thus, the gap between these two model classes is largely a product of the developments in related fields and the general increase in computational resources.
+In \cref{tab:model-taxonomy}, we see that work on global representations within self-supervised learning precedes work on local representations. However, we find that the core ideas underlying the recent successes in learning local representation models have also been used for global representation learning; masking \cite{chung_audio_2016}, context prediction \cite{chung_speech2vec_2018}, and contrastive training \cite{milde_unspeech_2018} have been applied in both settings. Furthermore, where work on global representation learning has taken inspiration from Word2vec \cite{mikolov_distributed_2013}, the techniques used for learning local representations are inspired by contextualized word embeddings \cite{devlin_bert_2018}. Thus, the gap between these two model classes is largely a product of the developments in related fields and the general increase in computational resources.
 
 \paragraph{Representations beyond inference} 
 Predictive tasks are commonly used for self-supervised models, but they are not directly compatible with LVM training. 

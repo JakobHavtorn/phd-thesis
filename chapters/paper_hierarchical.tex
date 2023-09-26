@@ -177,7 +177,7 @@ In this paper, we provide an explanation of those results, and significantly imp
 
 \section{OOD detection with hierarchical VAEs}
 \subsection{A bound for semantic OOD detection}
-If the lowest latent variable in the VAE hierarchy codes for a large part of the low-level features required to reconstruct the input with high accuracy, as exemplified in \cref{fig_hierarchical:reconstructions-fashionmnist}-\ref{fig_hierarchical:biva-reconstructions-celeba}, then $p_\thetab(\xb|\zb_1)$ will be high for both in- and out-of-distribution data.
+If the lowest latent variable in the VAE hierarchy codes for a large part of the low-level features required to reconstruct the input with high accuracy, as exemplified in \crefrange{fig_hierarchical:reconstructions-fashionmnist}{fig_hierarchical:biva-reconstructions-celeba}, then $p_\thetab(\xb|\zb_1)$ will be high for both in- and out-of-distribution data.
 Hence, any OOD detection capabilities based on the ELBO $\mathcal{L} = \mathbb{E}_{q_\phib(\zb|\xb)}[\log p_\thetab(\xb|\zb_1)] - D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel  p(\zb))$ from \cref{eq_hierarchical:elbo} relies on the KL-term for OOD detection. For a bottom-up hierarchical VAE, the KL-term $D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel  p(\zb))$ can be expressed by a hierarchical sum% over the hierarchy
 % \begin{multline}
 %     \mathcal{L}(\xb) =  \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \log p_\thetab(\xb|\zb_1) \\
@@ -192,7 +192,7 @@ Hence, any OOD detection capabilities based on the ELBO $\mathcal{L} = \mathbb{E
     \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb_i|\zb_{i+1})}{q_\phib(\zb_i|\zb_{i-1})} + \log \frac{p_\thetab(\zb_L)}{q_\phib(\zb_L|\zb_{L-1})} \Big] \ .
 \end{equation}
 In general, the absolute log-ratios grow with $\mathrm{dim}(\zb_i)$ as the individual log probability terms are computed by summing over the dimensionality of $\zb_i$.
-This means that the value of the KL-term is dominated by terms where $\zb_i$ is high-dimensional. We refer to Appendix C for a more detailed argument.
+This means that the value of the KL-term is dominated by terms where $\zb_i$ is high-dimensional. We refer to \cref{sec_hierarchical:analysis} for a more detailed argument.
 Since hierarchical VAEs are generally constructed with a bottleneck type structure, the terms corresponding to latent variables towards the top of the hierarchy will have a vanishing influence on the value of the KL-term.
 However, as the semantic information most relevant for OOD detection has a tendency to be represented in the top-most latent variables, this makes OOD detection using the regular ELBO difficult, even for state-of-the-art models.
 This behavior has also been reported by \textcite{xiao_likelihood_2020}.
@@ -201,7 +201,7 @@ To shift the ELBO from primarily being based on the approximate posterior of the
 \begin{equation}\label{eq_hierarchical:biva->k}
     \mathcal{L}^{>k} = \mathbb{E}_{p_\thetab(\zb_{\leq k}|\zb_{>k}) q_\phib(\zb_{>k}|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p_\thetab(\zb_{>k})}{q_\phib(\zb_{>k}|\xb)} \right]
 \end{equation}
-where $k\in\{0,1,\dots,L\}$ (see Appendix for the derivation).
+where $k\in\{0,1,\dots,L\}$ (see \cref{sec_hierarchical:derivation_L_geq_k} for the derivation).
 We note that $\mathcal{L}^{>0}$ is the regular ELBO (\cref{eq_hierarchical:elbo}) and that empirically we always observe that $\mathcal{L}\geq\mathcal{L}^{>k} \, \forall \, k$ although this need not hold in general.
 The core idea behind this variation on the ELBO is to sample the $k$ lowest latent variables from the conditional prior $\zb_1,\dots,\zb_l \sim p_\thetab(\zb_{\leq k}|\zb_{>k})$ and only the $L-k$ highest from the approximate posterior $\zb_{k+1},\dots,\zb_L \sim q_\phib(\zb_{>k}|\xb)$.
 Importantly, this has the effect that the data likelihood $p(\xb|\zb)$ is dependent on the approximate posterior through a latent variable $\zb_{k+1}$ different from $\zb_1$ for all $k \geq 1$.
@@ -260,7 +260,7 @@ Empirical results indeed show that $\text{Var}(\widehat{LLR}^{>k})$ is larger th
 %Whether this decreases the variance to below the variance of any of the two bounds, we do not know, and we believe it to be difficult to verify mathematically.
 Nevertheless, the variance of the estimators is guaranteed to go to zero as the number of samples is increased.
 
-The OOD scores considered in this research all assume that what discriminates an out-of-distribution from an in-distribution data point are semantic, high-level features. Clearly, if this is not the case and the difference instead lies in low-level statistics, the scores would likely fail. We hypothesize that a complementary bound to \cref{eq_hierarchical:biva->k}, $\mathcal{L}^{<l}$ described in Appendix E, might be useful in these cases, but leave further examination to future work.
+The OOD scores considered in this research all assume that what discriminates an out-of-distribution from an in-distribution data point are semantic, high-level features. Clearly, if this is not the case and the difference instead lies in low-level statistics, the scores would likely fail. We hypothesize that a complementary bound to \cref{eq_hierarchical:biva->k}, $\mathcal{L}^{<l}$ described in \cref{sec_hierarchical:complementary-bound}, might be useful in these cases, but leave further examination to future work.
 
 
 \section{Experimental setup}
@@ -268,7 +268,7 @@ The OOD scores considered in this research all assume that what discriminates an
 \paragraph{Tasks} We follow existing literature \cite{nalisnick_deep_2019, hendrycks_deep_2019} and evaluate our method by setting up OOD detection tasks from FashionMNIST \cite{xiao_fashionmnist_2017} to MNIST \cite{lecun_gradientbased_1998} and from CIFAR10 \cite{krizhevsky_learning_2009} to SVHN \cite{netzer_reading_2011}.
 For each experiment we train our model on the train split of the former dataset and test its ability to recognize the test split of the latter dataset as OOD from the test split of the former dataset.
 We use the standard train/test splits for the datasets.
-More details on the datasets can be found in the Appendix.
+More details on the datasets can be found in the \cref{sec_hierarchical:datasets}.
 
 
 % Our model
@@ -326,7 +326,7 @@ A graphical representation of this model can be seen in \cref{fig_hierarchical:h
 We use a Bernoulli output distribution for FashionMNIST/MNIST and a discretized mixture of logistics output distribution \cite{salimans_pixelcnn_2017} for CIFAR10/SVHN.
 We use $L=3$ for grey-scale images and $L=4$ for natural images.
 % For CIFAR/SVHN, we also train a BIVA model \cite{maaloe_biva_2019} with $L=10$ and similar configuration as used by the original paper\footnote{Code available at \url{github.com/larsmaaloee/BIVA} and \url{github.com/vlievin/biva-pytorch}}.
-Full model details are in the Appendix.
+Full model details are in the \cref{sec_hierarchical:model-details}.
 
 
 % Baselines
@@ -354,10 +354,18 @@ This would not exclude the use of batching in our method, since $LLR^{>k}$ is co
 The likelihoods for our trained models are in \cref{tab_hierarchical:bits-per-dim-ood} alongside baseline results for in-distribution and OOD data.
 The main results of the paper on the OOD tasks can be seen along with comparisons to the baseline methods in \cref{tab_hierarchical:rocauc-ood}.
 We note that for all our results, the value of the score ($\mathcal{L}^{>k}$ and $LLR^{>k}$) for the training and test splits of the in-distribution data was observed to have the same empirical distribution to within sampling error hence yielding an AUROC score of $\approx0.5$ as expected.
-Results on additional commonly used datasets are found in Appendix G.
+Results on additional commonly used datasets are found in \cref{sec_hierarchical:additional-results}.
 
 
 \begin{table}[t!]
+    \caption[Average bits per dimension of different datasets for generative models trained on FashionMNIST and CIFAR10.]{%
+    Average bits per dimension of different datasets for models trained on FashionMNIST and CIFAR10.
+    For the hierarchical models we include the $\mathcal{L}^{>k}$ bounds.
+    The likelihoods of training and test splits of the in-distribution data are all cases close.
+    Since we train on dynamically binarized FashionMNIST, our bits/dim are smaller than for Glow.
+    As $k$ is increased for the $L^{>k}$ bound, the bound gets looser but the model eventually assigns higher likelihood to the in distribution data than to the OOD data.
+    Glow refers to \textcite{kingma_glow_2018, nalisnick_deep_2019}.
+    BIVA refers to our implementation of \textcite{maaloe_biva_2019}.}
     \centering
     \resizebox{0.8\columnwidth}{!}{%
     \begin{tabular}{lrrrrr}
@@ -389,14 +397,6 @@ Results on additional commonly used datasets are found in Appendix G.
          \bottomrule
     \end{tabular}
     }
-    \caption[Average bits per dimension of different datasets for generative models trained on FashionMNIST and CIFAR10.]{%
-    Average bits per dimension of different datasets for models trained on FashionMNIST and CIFAR10.
-    For the hierarchical models we include the $\mathcal{L}^{>k}$ bounds.
-    The likelihoods of training and test splits of the in-distribution data are all cases close.
-    Since we train on dynamically binarized FashionMNIST, our bits/dim are smaller than for Glow.
-    As $k$ is increased for the $L^{>k}$ bound, the bound gets looser but the model eventually assigns higher likelihood to the in distribution data than to the OOD data.
-    Glow refers to \textcite{kingma_glow_2018, nalisnick_deep_2019}.
-    BIVA refers to our implementation of \textcite{maaloe_biva_2019}.}
     \label{tab_hierarchical:bits-per-dim-ood}
     \vspace{0mm}
 \end{table}
@@ -405,6 +405,11 @@ Results on additional commonly used datasets are found in Appendix G.
     \textcite{serra_input_2020} performs the best when high likelihoods are assigned to OOD data such that the overlap with in-distribution data is low.
     Performance is worse when the overlap is high, cf. \textcite[Table 1]{serra_input_2020}, as seen with complex images.}
 \begin{table}[t!]
+    \caption[AUROC, AUPRC, and FPR80 of generative models for OOD detection (MNIST/FashionMNIST and SVHN/CIFAR10).]{%
+        AUROC$\uparrow$, AUPRC$\uparrow$ and FPR80$\downarrow$ for OOD detection for a FashionMNIST model using scores on the FashionMNIST test set as reference. We bold the best results within the "No OOD-specific assumptions" group since we only compare directly to those.
+        HVAE (ours) refers to our hierarchical bottom-up VAE.
+        BIVA (ours) refers to our implementation of the hierarchical BIVA model \cite{maaloe_biva_2019}.
+    }
     \centering
     \resizebox*{!}{0.9\textheight}{%
     \begin{tabular}{lrrr}
@@ -462,11 +467,6 @@ $LLR^{>2}$ + HVAE (ours)                            & $0.811$ & $0.837$ & $0.394
 $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathbf{0.875}$ & $\mathbf{0.172}$ \\
          \bottomrule
     \end{tabular}%
-    }
-    \caption[AUROC, AUPRC, and FPR80 of generative models for OOD detection (MNIST/FashionMNIST and SVHN/CIFAR10).]{%
-        AUROC$\uparrow$, AUPRC$\uparrow$ and FPR80$\downarrow$ for OOD detection for a FashionMNIST model using scores on the FashionMNIST test set as reference. We bold the best results within the "No OOD-specific assumptions" group since we only compare directly to those.
-        HVAE (ours) refers to our hierarchical bottom-up VAE.
-        BIVA (ours) refers to our implementation of the hierarchical BIVA model \cite{maaloe_biva_2019}.
     }
     \label{tab_hierarchical:rocauc-ood}
 \end{table}
@@ -549,7 +549,7 @@ We now move to the likelihood ratio-based score.
 We find that $LLR^{>k}$ separates the OOD MNIST data from in-distribution FashionMNIST to a higher degree than the likelihood estimates as can be seen by the empirical densities of the score in \cref{fig_hierarchical:FMNIST-llr}.
 We note that the likelihood ratio between the ELBO and the $\mathcal{L}^{>k}$ bound provides the highest degree of separation of MNIST and FashionMNIST as measured by the AUROC$\uparrow$ for $k=1$ smaller than $L$.
 This is not surprising since the value of $k$ that provides the maximal separation to the reference in-distribution dataset need not be the one for which $\mathcal{LLR}^{>k}$ is overall maximal for the OOD dataset.
-We also visualize the ROC curves resulting from using the $LLR^{>k}$ score for OOD detection on both FashionMNIST/MNIST and CIFAR10/SVHN and compare it to the ROC curves resulting from the different $\mathcal{L}^{>k}$ bounds in Figures \ref{fig_hierarchical:FMNIST-roc-llr} and \ref{fig_hierarchical:CIFAR10-roc-llr}, respectively.
+We also visualize the ROC curves resulting from using the $LLR^{>k}$ score for OOD detection on both FashionMNIST/MNIST and CIFAR10/SVHN and compare it to the ROC curves resulting from the different $\mathcal{L}^{>k}$ bounds in \cref{fig_hierarchical:FMNIST-roc-llr, fig_hierarchical:CIFAR10-roc-llr}, respectively.
 On both datasets we see significantly better discriminatory performance when using the $LLR^{>k}$ score.
 
 \cref{tab_hierarchical:rocauc-ood} shows that BIVA improves upon the HVAE model for OOD detection on CIFAR while \cref{tab_hierarchical:bits-per-dim-ood} shows that the BIVA model also improves upon the HVAE in terms of likelihood.

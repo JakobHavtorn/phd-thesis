@@ -13,7 +13,7 @@ Finally, \cref{part:discussion-and-conclusion} contains the discussion and concl
 
 
 \contribitem{part:background}
-\Cref{chp:introduction} provided a general introduction to the thesis and gave motivating examples for speech recognition and assistance in medical diagnostics. \Cref{chp:technical-background} provided additional technical background not included in the individual studies by introducing uncertainty as a concept in the context of information and probability theory, introducing the task of out-of-distribution detection and reviewing existing work on the problem, and providing an introduction to variational autoencoders. 
+\Cref{chp:introduction} provides a general introduction to the thesis and gives motivating examples for speech recognition and assistance in medical diagnostics. \Cref{chp:technical-background} provides additional technical background not included in the individual studies by introducing uncertainty as a concept in the context of information and probability theory, introducing the task of out-of-distribution detection and reviewing existing work on the problem, and providing an introduction to variational autoencoders. 
 
 
 \contribitem{part:unsupervised-uncertainty-estimation}
@@ -22,7 +22,6 @@ The first two papers are concerned with out-of-distribution detection using gene
 The second paper builds on the first and proposes a model-agnostic method for out-of-distribution detection that can be used with any differentiable generative model with explicit likelihood. 
 The third paper proposes a new hierarchical variational autoencoder for speech and benchmarks it against other variational autoencoders and autoregressive models.
 
-
 \contribitem{chp:paper-hierarchical}
 This paper proposes a new method for unsupervised out-of-distribution detection using hierarchical variational autoencoders. 
 The paper provides evidence that the failure of deep generative models to assign lower likelihoods to data from outside the training distribution is due to overemphasis on low-level features that generalize between distributions. 
@@ -30,12 +29,10 @@ To solve this, the proposed method computes a likelihood-ratio score for out-of-
 The proposed method is computationally efficient, fully unsupervised, and performs well on several out-of-distribution detection benchmarks. 
 % Methods like this are important for the development of safe and reliable machine learning systems, especially in medical applications where the consequences of errors can be significant. 
 
-
 \contribitem{chp:paper-modelagnostic}
 This paper proposes a model-agnostic method for out-of-distribution detection that can be used with any differentiable, explicit likelihood generative model. 
 The method is based on combining a classical parametric test with the recently introduced typicality test via Fisher's method. 
 We show that this leads to a more accurate out-of-distribution test. We also discuss the benefits of casting out-of-distribution detection as a statistical testing problem, for instance enabling false positive rate control which is valuable for practical applications, especially in high-risk settings such as medical decision-making.
-
 
 \contribitem{chp:paper-benchmarking}
 This paper proposes a new hierarchical variational autoencoder for speech inspired by the Clockwork VAE \cite{saxena_clockwork_2021}. 
@@ -48,7 +45,6 @@ Self-supervised learning is a promising approach to speech representation learni
 As measured by performance on common downstream tasks such as speech recognition and spoken language understanding, self-supervised representations generally outperform representations learned via probabilistic generative models such as those investigated in \cref{part:unsupervised-uncertainty-estimation}. 
 In this review paper, we do not consider uncertainty estimation, but in future work, consideration should be given to the use of self-supervised learning as an alternative paradigm to generative models for learning representations for unsupervised uncertainty estimation. We shall return to this in the discussion of \cref{chp:paper-review} in \cref{sec:discussion-paper-review}.
 
-
 \contribitem{chp:paper-review}
 This paper provides a comprehensive review of self-supervised speech representation learning. Previous work is grouped into three main categories of methods: contrastive, autoregressive, and generative, and the methods are compared in terms of their training objectives, model architectures, and performance on downstream tasks. The review also provides a discussion of the current state of the field and promising future directions of research. 
 
@@ -60,8 +56,6 @@ The early version is included in \cref{app:paper-brief} for reference.
 \contribitem{part:medical-applications}
 This part contains studies on machine learning methods applied for tasks in a medical setting. While uncertainty estimation is not a central theme to any of the two papers, the first paper performs a substantial evaluation of the explainability of the proposed model via an occlusion analysis on the text input. Later, in the discussion, we shall further consider uncertainty estimation in relation to these two papers.
 \todo[inline]{Revise and add more details to this section.}
-
-
 
 \contribitem{chp:paper-retrospective}
 Effective stroke treatment depends on recognition by call-takers at prehospital telehealth services. This paper aimed to develop and assess the potential of machine learning in improving prehospital stroke recognition during medical helpline calls. 
