@@ -17,4 +17,10 @@
 *.nlo
 *.tdo
 
+*.json
+*.csv
+*.log
+*.pt
+*.pkl
+
 .DS_Store
