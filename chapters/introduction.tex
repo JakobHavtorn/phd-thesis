@@ -25,7 +25,7 @@ These computing tools brought with them novel challenges. The Babylonian mathema
     \centering
     % \includegraphics[width=0.90\textwidth]{plimpton_322.png}
     \includegraphics[height=0.4\textheight]{plimpton_322.png}
-    \caption{Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets, presumably struggling to grapple with Babylonian mathematics. \cite[photo credit]{neugebauer_mathematical_1945}}
+    \caption{Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets, presumably struggling to grapple with Babylonian mathematics. \cite[photo credit][]{neugebauer_mathematical_1945}}
     \label{fig:plimpton_332}
 \end{figure}
 
@@ -43,7 +43,7 @@ The societal changes brought about by the widespread adoption of computer techno
     \centering
     % \includegraphics[width=0.95\textwidth]{eniac_programmers.jpeg}
     \includegraphics[height=0.4\textheight]{eniac_programmers.jpeg}
-    \caption{Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC. \cite[photo credit]{usarmyresearchlaboratoryarltechnicallibrary_female_1940}} %Photo: \copyright Corbis/ Getty Images.}
+    \caption{Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC. \cite[photo credit][]{usarmyresearchlaboratoryarltechnicallibrary_female_1940}} %Photo: \copyright Corbis/ Getty Images.}
     \label{fig:eniac_programmers}
 \end{figure}
 
@@ -63,7 +63,7 @@ About one second before the crash, the system determined that a collision was im
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.95\textwidth]{uber_nhsa_accident.png}
-    \caption{A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018. The car's sensors detected the pedestrian $5.6$ seconds before the crash, but the self-driving system failed to recognize its own uncertainty in multiple object misclassifications and so did not correctly predict her path or reduce the SUV's speed \cite[photo credit]{nationaltransportationsafetyboardnhsa_collision_2019}.}
+    \caption{A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018. The car's sensors detected the pedestrian $5.6$ seconds before the crash, but the self-driving system failed to recognize its own uncertainty in multiple object misclassifications and so did not correctly predict her path or reduce the SUV's speed \cite[photo credit][]{nationaltransportationsafetyboardnhsa_collision_2019}.}
     % \caption{Aerial view of crash location showing path of pedestrian as she attempted to cross N. Mill Avenue and movement and speed of SUV at three points before impact. Pedestrian's path shows her position from initial detection ($5.6$ seconds before impact) until impact; SUV's position is shown at corresponding times beginning $4.2$ seconds before impact \cite{nationaltransportationsafetyboardnhsa_collision_2019}.}
     \label{fig:uber_nhsa_accident}
 \end{figure}
@@ -118,7 +118,7 @@ The system is in continued use in 2023, and provides an interface for navigating
 Calls are transcribed in real-time using automatic speech recognition built for the customer-domain and the system makes suggestions for the dispatcher to use in the conversation with the caller, including notifications about forgotten protocol questions \cite{havtorn_multiqt_2020} and potential cases of cardiac arrests \cite{cite15, cite14}. The system logs the details about the call and the actions taken by the dispatcher for later use in review, training and quality assurance. 
 
 
-\subsection{Stroke recognition in emergency calls}
+\subsection{Stroke recognition in emergency calls} \label{subsec:motivation-stroke-recognition}
 %
 \paragraph{Motivation} In 2021, Corti entered a research collaboration with the Capital Region of Denmark and the Copenhagen Emergency Services to develop a system for recognizing stroke cases in calls to the 1-1-2 emergency line and the 1813 medical helpline. 
 Stroke is one of the biggest causes of disability and death worldwide \cite{cite1,cite2,cite3} and effective treatment is highly time-sensitive \cite{cite4,cite5}. The most common gateway to specialized treatment and hospital admittance is through prehospital telehealth services like emergency medical call centers, nurse advice call lines, and out-of-hours health services \cite{cite6,cite7}, however, studies have found that approximately half of all patients with stroke do not receive the correct triage for their condition from call-takers \cite{cite10,cite11,cite12}. 
@@ -134,7 +134,7 @@ How to best make such models accurately represent and estimate the uncertainty o
 What is clear, however, is that the ability of such a system to accurately estimate the uncertainty of given predictions is crucial for its safe and reliable deployment in the real world. Overconfident predictions could lead to unnecessary delays in treatment, misdiagnoses, increased costs for the healthcare system, and potentially fatal consequences for patients.
 
 
-\subsection{Medical coding of clinical notes}
+\subsection{Medical coding of clinical notes} \label{subsec:motivation-medical-coding}
 %
 \paragraph{Motivation} During the course of this project, Corti's portfolio has expanded to include a software system for medical coding of clinical notes. 
 When a patient is admitted to a hospital, the medical staff will write a clinical note describing the patient's diagnosis and the procedures they underwent, including drug prescriptions. 
@@ -153,7 +153,7 @@ Furthermore, some codes are highly similar, for instance the ICD-10 codes Z87.89
 As with the stroke recognition system, we would like the model to express high degree of uncertainty when it makes a mistake. For example, if the model is uncertain about two similar codes, it might be appropriate to ask a human expert to review the note and make the final decision. Additionally, the lack of training data for the rarest codes makes them difficult to learn to robustly predict, and so, we would often want the model to be uncertain for rare codes. 
 
 
-\section{Machine learning reliability}
+\section{Machine learning reliability} \label{sec:machine-learning-reliability}
 %
 Several factors contribute to the reliability of a machine learning model. 
 Besides model performance and accuracy, important factors include the interpretability of how the model functions, the explainability of its predictions, fairness in its treatment of different groups, and robustness to noise, outliers and adversarial attacks. 
@@ -163,12 +163,12 @@ Finally, a number of factors, including the ability of deep neural networks to o
 
 The ability of a model to accurately estimate the uncertainty of its predictions plays an important role in its reliability. However, the tendency of deep neural networks to overfit or memorize the training data \cite{arpit_closer_2017, burg_memorization_2021} and the use of training objectives that are proxies for the evaluation metrics of interest lead to models that often are miscalibrated; that is, the predicted probability of a class does not reflect the true probability of the class. This means, for instance, that if for a certain input the model assigns 70\% probability to a class, it would not generally be right 70\% of the time - if we could repeat the prediction multiple times under similar circumstances \cite{guo_calibration_2017, kull_temperature_2019}. Usually, the predicted probabilities are too extreme which leads to overconfident predictions. This means a model will often assign a high probability to the predicted class, even when it is wrong. 
 
-In practice, miscalibrated models are not reliable in high risk applications. Although no model is perfect, the inability of a human, or another model, to assess the certainty with which a prediction was made, makes it impossible to know how to weigh it in a decision-making process. 
+In practice, miscalibrated models are not reliable, especially in high risk applications. Although no model is perfect, the inability of a human, or another model, to assess the certainty with which a prediction was made, makes it impossible to know how to weigh it in a decision-making process. 
 % A connection can be made back to the incident with the Uber self-driving car. 
 The multitude of rapid misclassifications made by the Uber self-driving car in Tempe is likely an indication that the model responsible for object-classification was overconfident in its predictions and unable to represent or communicate uncertainty to other systems in the car, or the safety driver. Instead, the model's predictions were taken at face value and subsystems in the car acted on them without appropriate consideration to their reliability.
 
 
-\subsection{Model calibration}
+\subsection{Model calibration} \label{subsec:model-calibration}
 % 
 The problem of miscalibration in machine learning models is well-known and has been studied for decades \cite{lewis_sequential_1995, platt_probabilistic_1999, garczarek_classification_2002, zadrozny_transforming_2002, bennett_using_2003}. One of the best known methods for calibrating a binary classifier is Platt scaling which fits a logistic regression model to the model outputs, assuming that the miscalibration can be corrected by a logarithmic function \cite{platt_probabilistic_1999}. Another method is isotonic regression which instead fits a non-parametric, monotonic function \cite{zadrozny_transforming_2002}. 
 More recently, \textcite{guo_calibration_2017} proposed a single-parameter variant of Platt-scaling that fits only a temperature parameter on the logits of a neural network classifier. 
@@ -181,7 +181,7 @@ To give an example, a model trained to classify images of cats and dogs and prov
 Worse yet, to indicate the uncertainty, we might expect the model to assign 50\% probability to each of the cat and dog categories, but that behavior is not guaranteed. Indeed, since no horses were in the training data, the model will not have learned specialized features for horses, nor learned to associate relevant known features with horses. So, if some features of a particular horse resemble those learned for a dog more than for a cat, the model might assign arbitrarily high probability to the dog class and therefore risks being confidently wrong \cite{zhou_survey_2022}. 
 
 
-\subsection{Understanding uncertainty}
+\subsection{Understanding uncertainty} \label{subsec:understanding-uncertainty}
 % 
 % OUTLINE: Introduce aleatoric and epistemic uncertainty. 
 % - Discuss the distinction between them and how they relate to the problem of uncertainty estimation in machine learning.
@@ -202,8 +202,8 @@ Ultimately, we must accept that any practical machine learning model will have s
 
 Since aleatoric uncertainty is present in the data, it can usually be modelled directly. For instance, in the case of speech recognition, we can model the uncertainty in the transcription of a word by a distribution over the words in the vocabulary. But how do we model epistemic uncertainty? 
 Since sources of epistemic uncertainty are by definition those not represented in the data, it is not generally possible to model them directly. This makes epistemic uncertainty more difficult to quantify than aleatoric uncertainty. 
-Methods for estimating epistemic uncertainty include Bayesian neural networks \cite{mackay_practical_1992, neal_bayesian_1995} which represent it by an explicit distribution over learned model parameters. Ensembling methods \cite{gal_dropout_2016,lakshminarayanan_simple_2017} take a similar approach but use an implicit distribution. 
-Other approaches include anomaly detection and the recent field of out-of-distribution detection which for example represent epistemic uncertainty by special output classes for out-of-distribution data, distributions over data representations, or distances between them (see \cref{sec:out-of-distribution-detection}). 
+Methods for estimating epistemic uncertainty include Bayesian neural networks \cite{mackay_practical_1992, neal_bayesian_1995} which represent it by an explicit distribution over learned model parameters. Ensemble methods \cite{gal_dropout_2016,lakshminarayanan_simple_2017} take a similar approach but use an implicit distribution. 
+Other approaches include anomaly detection and the recent field of out-of-distribution detection which, for example, represent epistemic uncertainty by special output classes for out-of-distribution data, distributions over data representations, or distances between them (see \cref{sec:out-of-distribution-detection}). 
 
 % In practice, we are interested in the predictive uncertainty, so we need to include both aleatoric and epistemic parts in the uncertainty estimate. 
 % Since sources of epistemic uncertainty are by definition those not represented in the data, it is not generally possible to model them directly, as it is for aleatoric uncertainty. This makes epistemic uncertainty more difficult to model and quantify than aleatoric uncertainty. 
@@ -224,7 +224,7 @@ Other approaches include anomaly detection and the recent field of out-of-distri
 This introduction provided a high-level overview of the motivation behind the research project by focusing on the use-cases of stroke recognition and automated medical coding as well as speech processing and the importance of uncertainty quantification. 
 The remainder of \cref{part:background} consists of two chapters. \Cref{chp:technical-background} provides relevant technical background to the papers of the thesis, including uncertainty, out-of-distribution detection, and variational autoencoders while \cref{chp:main-contributions} outlines the main contributions of the thesis in relation to the published papers and the research project as a whole.
 
-\Cref{part:unsupervised-uncertainty-estimation,part:self-supervised-speech-representation-learning,part:medical-applications} contain a number of chapters that each correspond to a primary paper. \Cref{part:unsupervised-uncertainty-estimation} contains papers on variational autoencoders and their applications to estimation of epistemic uncertainty and speech modelling \cite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. \Cref{part:self-supervised-speech-representation-learning} contains a review paper on self-supervised speech representation learning \cite{mohamed_selfsupervised_2022}. \Cref{part:medical-applications} contains papers on applications of machine learning within the medical domain, including recognition of stroke cases in calls to medical helplines \cite{wenstrup_retrospective_2023} and medical coding of clinical notes \cite{edin_automated_2023}. 
+\Cref{part:unsupervised-uncertainty-estimation,part:self-supervised-speech-representation-learning,part:medical-applications} contain a number of chapters that each correspond to a primary paper. \Cref{part:unsupervised-uncertainty-estimation} contains papers on variational autoencoders and their applications to out-of-distribution detection and speech modelling \cite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. \Cref{part:self-supervised-speech-representation-learning} contains a review paper on self-supervised speech representation learning \cite{mohamed_selfsupervised_2022}. \Cref{part:medical-applications} contains papers on applications of machine learning within the medical domain, including recognition of stroke cases in calls to medical helplines \cite{wenstrup_retrospective_2023} and medical coding of clinical notes \cite{edin_automated_2023}. 
 
 Finally, \cref{part:discussion-and-conclusion} concludes the thesis by summarizing the main contributions and discussing the presented work and future directions for research.
 

@@ -2,12 +2,11 @@
 
 \chapter[publications]{Publications}
 
-The present thesis comprises a set of research papers based on the candidate's original research. The papers are classified into two categories: \textsc{primary} and \textsc{secondary}. 
-Papers labeled as \textsc{primary} are central to the main theme of the thesis and most have the candidate as a main author. The \textsc{secondary} papers are less central, or do not have the candidate as a main author.
+\newcommand{\main}{{\color{paper_main}[main author]}}
+\newcommand{\shared}{{\color{paper_shared}[shared main author]}}
+\newcommand{\co}{{\color{paper_co}[coauthor]}}
 
-
-\noindent Each \textsc{primary} paper constitutes a distinct chapter of the dissertation, whereas the \textsc{secondary} papers are included in the appendix. The included papers have been adjusted to conform to the formatting of the dissertation, but the substance of the papers has remained unchanged.
-
+The present thesis comprises the following set of research papers based on the candidate's original research. 
 
 \vspace{5mm}
 
@@ -16,19 +15,19 @@ Papers labeled as \textsc{primary} are central to the main theme of the thesis a
 \raggedleft\rule{\textwidth - 8mm}{0.4pt}
 
 \begin{enumerate}[leftmargin=8mm,topsep=0mm,label={[\Alph*]}]
-    \item \fullcite{havtorn_hierarchical_2021} [main author]
-    \item \fullcite{bergamin_modelagnostic_2022} [coauthor]
-    \item \fullcite{havtorn_benchmarking_2022} [main author]
+    \item \fullcite{havtorn_hierarchical_2021} \main
+    \item \fullcite{bergamin_modelagnostic_2022} \co
+    \item \fullcite{havtorn_benchmarking_2022} \main
 
-    \item \fullcite{mohamed_selfsupervised_2022} [shared main author]
+    \item \fullcite{mohamed_selfsupervised_2022} \shared \label{enumerate: paper-review}
     % Discussion:
     %   - Do people use SSL for uncertainty estimation? Very short literature review.
 
-    \item \fullcite{wenstrup_retrospective_2023} [shared main author]
+    \item \fullcite{wenstrup_retrospective_2023} \shared
     % Extra results: 
     %   - Binary classification
     %   - Plots of sigmoid probability for each class
-    \item \fullcite{edin_automated_2023} [coauthor]
+    \item \fullcite{edin_automated_2023} \co
     % Extra results:
     %   - Extreme multilabel
     %   - Plots of probability for each class
@@ -52,9 +51,9 @@ Papers labeled as \textsc{primary} are central to the main theme of the thesis a
     \setcounter{enumi}{3}
     % \item \fullcite{borgholt_endtoend_2020}  % Maybe remove since 2020
     % \item \fullcite{havtorn_multiqt_2020}  % Maybe remove since 2020
-    \item \fullcite{borgholt_scaling_2021} [coauthor]
-    \item \fullcite{borgholt_we_2021} [coauthor] % Maybe make primary
-    \item \fullcite{borgholt_brief_2022} [coauthor]
+    \item \fullcite{borgholt_scaling_2021} \co
+    \item \fullcite{borgholt_we_2021} \co % Maybe make primary
+    \item \fullcite{borgholt_brief_2022} \co \label{enumerate: paper-brief}
     % \item \fullcite{bergamin_modelagnostic_2022}  % Maybe make primary (relates uncertainty)
     % \item \fullcite{edin_automated_2023}
     % \item \fullcite{streaming_asr_whitepaper_2023}
@@ -63,5 +62,13 @@ Papers labeled as \textsc{primary} are central to the main theme of the thesis a
 % \raggedright
 
 \justifying
+
+\vspace{5mm}
+
+% The complete set of papers produced during the PhD project is listed below are classified into two categories: \textsc{primary} and \textsc{secondary}. 
+\noindent Papers labeled as \textsc{primary} are central to the main theme of the thesis and are included as chapters of the thesis. Most have the candidate as a main author. 
+The \textsc{secondary} papers are less central to the main theme, or do not have the candidate as a main author. These papers are not included in the thesis, although \ref{enumerate: paper-brief} is included in the appendix as an early version of \ref{enumerate: paper-review}. 
+%
+The included papers have had their layout and formatting adjusted to conform to the dissertation, but their substance has remained unchanged.
 
 \vspace*{\fill}

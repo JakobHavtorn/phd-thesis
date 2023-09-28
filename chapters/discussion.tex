@@ -1,25 +1,46 @@
 %!TEX root = ../thesis.tex
 
 \chapter[discussion]{Discussion}\label{chp:discussion}
-
 % ~5 pages
+
 
 \section{\Cref{chp:paper-hierarchical} revisited: \dots}
 
 \lesstodo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \cite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
-\lesstodo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimzing a mutual information term in the ELBO (derive this form).}
+\lesstodo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
 \lesstodo[inline]{Discuss some recent work e.g. \cref{morningstar_density_2021}}
 
 
 \section{\Cref{chp:paper-review} revisited: \dots} \label{sec:discussion-paper-review}
 
 \lesstodo[inline]{Are self-supervised speech representations useful for unsupervised uncertainty estimation? \cite{nava_stateconsistency_2021, nava_uncertaintyaware_2021} Within robotics but not really related.}
+\lesstodo[inline]{Are self-supervised speech representations useful for unsupervised uncertainty estimation?}
+% Since the main focus within self-supervised learning has been on improving downstream task performance, very limited work, if any, has investigated self-supervised representations in terms of uncertainty estimation. 
+% However, in the context of medical applications where data can be abundant but labels are sparse, unsupervised uncertainty estimation is a very interesting direction for future work.
+\lesstodo[inline]{OOD data: Generalization or detection (https://arxiv.org/pdf/2110.11334.pdf)?}
 
 
-\section{\Cref{chp:paper-retrospective} revisited: \dots}
+
+\section{\Cref{chp:paper-retrospective} revisited: Uncertainty}
+The work in \textcite{wenstrup_retrospective_2023} deals with predictive performance and analyses feature importance but does not explicitly consider uncertainty estimation. 
+
+\begin{figure}
+    \begin{subfigure}[c]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{python_plotting/calibration_curve_ensemble_and_all_models_uncalibrated.pdf}
+        \caption{}
+        \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
+    \end{subfigure}
+    % \hfill
+    \begin{subfigure}[c]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{python_plotting/histogram_ensemble_and_single_model.pdf}
+        \caption{}
+        \label{fig_hierarchical:histogram_ensemble_and_single_model}
+    \end{subfigure}
+\end{figure}
+
 
 \lesstodo[inline]{Discuss the calibration of the stroke model and report calibration curve.}
 \lesstodo[inline]{Report the results of calibrating the stroke model using e.g. Platt scaling or Isotonic scaling.} % https://scikit-learn.org/stable/modules/calibration.html
-
 \lesstodo[inline]{Maybe mention MultiQT paper \cite{havtorn_multiqt_2020}.}
-

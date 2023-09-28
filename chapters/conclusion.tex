@@ -1,13 +1,10 @@
 %!TEX root = ../thesis.tex
 
 \chapter[conclusions and outlook]{Conclusions and outlook}\label{chp:conclusion}
-
 % ~3 pages
 
-\lesstodo[inline]{Are self-supervised speech representations useful for unsupervised uncertainty estimation?}
-Since the main focus within self-supervised learning has been on improving downstream task performance, very limited work, if any, has investigated self-supervised representations in terms of uncertainty estimation. 
-However, in the context of medical applications where data can be abundant but labels are sparse, unsupervised uncertainty estimation is a very interesting direction for future work.
+In the introductory \cref{chp:introduction} we laid out how, through human history, progress-driving technological development has always introduced new challenges and risks of error whether via misuse, misunderstanding or inherent limitations. We emphasized that machine learning comes with these same types of risk may in some cases may amplify their impacts and argued that uncertainty estimation is a key component in developing safe and reliable machine learning systems. We provided the motivational cases of recognition of stroke cases in emergency calls \cref{subsec:motivation-stroke-recognition} and automated medical coding \cref{subsec:motivation-medical-coding} and gave examples of potential sources of uncertainty and of how correctly quantifying uncertainty can improve the usefulness of such tools in practice. Finally, we ended the introduction by connecting machine learning reliability \cref{sec:machine-learning-reliability} and model calibration \cref{subsec:model-calibration} and defining different types of uncertainty \cref{subsec:types-of-uncertainty}.
 
+\Cref{chp:technical-background} provided technical background only covered briefly by the individual studies. We first introduced uncertainty as a concept in the context of information and probability theory \cref{sec:information-theory}. Then, we defined the task of out-of-distribution detection and reviewed existing work on the problem \cref{\cref{sec:out-of-distribution-detection}}. Finally, we provided technical background for variational autoencoders \cref{sec:variational-autoencoders}.
 
-\lesstodo[inline]{OOD data: Generalization or detection (https://arxiv.org/pdf/2110.11334.pdf)?}
-
+\dots

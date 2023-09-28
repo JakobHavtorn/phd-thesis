@@ -243,19 +243,19 @@ In conclusion, using the largest collection of audio calls from patients with st
 
 \subsection{Data sources}
 
-\subsubsection{Copenhagen Emergency Medical Services (CEMS)}
+\paragraph{Copenhagen Emergency Medical Services (CEMS)}
 
 The CEMS is responsible for providing prehospital telehealth services in the Capital Region of Denmark, with a catchment area of 1.9 million \cite{cite17}. CEMS operates two call lines: the 1-1-2 emergency line, similar to 9-1-1 in the United States, intended for acute conditions. The other is the medical helpline 1813 (MH-1813, pronounced ``'eighteen-thirteen") intended for non- life-threatening conditions that cannot wait until a general practitioner is available.18
 
 Call-takers for both lines, who are nurses, paramedics, or physicians, can dispatch ambulances. The condition suspected by the call-taker is categorised based on a predefined diagnostic index and stored in an electronic record using a computer-aided dispatch (CAD) system. The CAD records are associated with the Danish civil registration number (CPR number) \cite{cite19} of the patient. The CPR number is a unique identification assigned to all Danish residents. It is used for interactions with health services and registries, enabling cross- referencing of the data sources used in this study. The call audio is recorded and stored separately from the CAD recordings using a telephone system.
 
-\subsubsection{Danish Stroke Registry (DanStroke)}
+\paragraph{Danish Stroke Registry (DanStroke)}
 
 All patients with a final diagnosis of stroke or transient ischaemic attack admitted to a Danish hospital within 5 days of symptom onset are recorded in the Danish Stroke Registry \cite{cite16}, also known as DanStroke. This record includes the patient-reported time of onset, stroke type (haemorrhagic, ischaemic, or transient ischaemic attack), and CPR number of the patient.
 The diagnosis is obtained according to the national guidelines \cite{baluenfeldt_national_2021}, which includes cerebral imaging and full diagnostic workup by neurologists. The validity of the Danish stroke registry has been shown to be high \cite{wildenschild_registration_2013}, and the number of stroke mimics is therefore minimised in our dataset.
 
 
-\subsubsection{Inclusion and ethics}
+\paragraph{Inclusion and ethics}
 
 The Danish Data Protection Agency (P-2021-475) approved this study. Danish law did not require approval from the Scientific Ethics Committee because the data were registry-based. CEMS approved the transcription of all calls made to 1-1-2 and MH-1813. All electronic records were anonymised before analysis, and the researchers did not inspect the calls manually.
 
@@ -266,11 +266,11 @@ Stroke prevalence in calls made to the MH-1813 is lower than that in calls made 
 
 \subsection{Stroke dataset}
 
-\subsubsection{Cross-referencing data sources}
+\paragraph{Cross-referencing data sources}
 
 From the CAD medical records, we included all calls that could be matched to a corresponding audio file. for 1-1-2 and MH-1813 from 2015 to 2021 for patients older than 18. The CAD records were matched with the telephone call recordings based on the call start, call duration, and call-taker identity. Due to data incompleteness, and the way the audio data is stored, at CEMS, 2,730,199 contacts could not be matched to their corresponding audiofile, however, 2,361,178 contacts were successfully matched. We found no obvious pattern in the matched and unmatched calls and we included all calls with at matching audio file. Next, a call was regarded as a case of ground truth stroke positive when the CPR number in the CAD record matched that of a DanStroke record, and the patient-reported time of onset was close to the call start time. We allowed a window of 72 hours before and 24 hours after the call starts to account for uncertainty in recording stroke onset time. We excluded calls involving subarachnoid haemorrhage cases. Finally, we considered a call to be a call-taker stroke positive when the call-taker selected the stroke diagnostic category during the call and dispatched an ambulance with the appropriate level of response \cite{cite20}. To ensure that the effect of the machine learning framework was not overestimated, we excluded calls where diagnostic category had not been registered from the test set. We still reported the population characteristics and model performance of this group of calls to assess potential bias introduced by excluding them. A data-flow diagram is included in \cref{app:supplementary-retrospective}. The resulting dataset is the largest dataset of audio files from stroke calls collected to date.
 
-\subsubsection{Dataset splitting}
+\paragraph{Dataset splitting}
 
 We reserved all the MH-1813 calls from 2021 for testing. We used stratified sampling to divide the MH-1813 calls from 2015 to 2020 into validation and training subsets. The training subset was further split into five folds which were used for ensemble training. The calls were stratified based on the ground truth stroke label and the presence of a diagnostic category. Calls without diagnostic categories were only included in the training set. The 1-1-2 calls were used only for training; however, calls from 2021 were discarded to avoid temporal overlap with the test period.
 
@@ -280,24 +280,24 @@ We reserved all the MH-1813 calls from 2021 for testing. We used stratified samp
 We employed a two-step machine learning pipeline. First, a call was transcribed using the speech recognition model. Second, the transcript was used as input for the text classification model. The final output score was used to classify whether the call concerned a stroke. The pipeline is illustrated in \cref{app:supplementary-retrospective}.
 
 
-\subsubsection{Speech recognition}
+\paragraph{Speech recognition}
 
 The call recordings from the CEMS were stored as 8-bit linear pulse-code modulated audio, sampled at 8 kHz. A call was converted into a log-Mel spectrogram before being input into the speech recognition model. This conversion is a commonly used input representation for speech-processing tasks, which facilitates the identification of linguistic content in audio signals. We used a speech recognition model with a neural network architecture \cite{borgholt_endtoend_2020}, consisting of two-dimensional convolutional layers \cite{cite22} and blocks of bidirectional long short-term memory layers \cite{hochreiter_long_1997} The output is a sequence of probability distributions over characters of the Danish alphabet, which were then converted into a human-readable transcript using a greedy decoder \cite{graves_connectionist_2006}.
 
 
-\subsubsection{Text classification}
+\paragraph{Text classification}
 
 As input for the classification model, each transcript was transformed into a fixed-size bag- of-words vector, which encoded the occurrence of word and character ($n$-grams) in a fixed vocabulary. The feature selection procedure is detailed in \cref{app:supplementary-retrospective}. The model was constructed as an ensemble \cite{hansen_neural_1990} of five identical, independently trained models. Each consists of a stack of neural network layers commonly referred to as a multi-layer perceptron \cite{rosenblatt_perceptron_1958}. The final layer has a single scalar output and applies a sigmoid nonlinearity to produce an output score between zero and one.
 
 
-\subsubsection{Threshold calibration and ensembling}
+\paragraph{Threshold calibration and ensembling}
 
 For each model in the ensemble, we selected the prediction threshold as the harmonic mean of the two thresholds that respectively ensure sensitivity and PPV equal to that of the call-takers. This simplifies the comparison by ensuring a trade-off between sensitivity and PPV, similar to that of call-takers.
 
 As the threshold differed for each model in the ensemble, computing the ensemble output score as the average output score of the individual models would not be meaningful. Instead, we first subtracted the threshold from the output score in the logit space (before sigmoid nonlinearity) for each model to obtain the same threshold (0.5). Subsequently, we defined the ensemble output score as the average of the centred output scores. The exact equations are provided in \cref{app:supplementary-retrospective}.
 
 
-\subsubsection{Model training}
+\paragraph{Model training}
 
 The speech recognition model was trained on 3,811 manually transcribed random calls (173 h) from the CEMS as part of a previous project.14 These calls exclusively originated from 1- 1-2 between 2015 and 2018, ensuring no overlap with the test data used for the text classification model. The model was trained using a connectionist temporal classification objective \cite{graves_connectionist_2006}.
 

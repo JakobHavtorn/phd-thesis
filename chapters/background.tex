@@ -416,7 +416,7 @@ The marginal distribution $p(\xb)$ involves an integral over all possible values
 In these cases, approximate methods such as variational inference \cite{jordan_introduction_1999} and Markov Chain Monte Carlo (MCMC) \cite{mohamed_monte_2019} are used to approximately compute the marginal and posterior distributions. 
 
 
-\subsection{Variational autoencoders} 
+\subsection{Variational autoencoders} \label{sec:variational-autoencoders}
 To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to parameterize the generative model $p_\thetab(\xb,\zb)$ with a neural network with parameters $\thetab$. Specifically, they use a neural network to parameterize the conditional distribution $p_\thetab(\xb|\zb)$ and a simple distribution for the prior $p(\zb)$. 
 Since this makes the marginal and posterior distributions intractable, both training and inference require approximate methods. 
 While MCMC methods are computationally expensive for large neural networks, variational inference provides a more scalable alternative by estimating the posterior distribution $p(\zb|\xb)$ with a variational approximation. 
@@ -550,11 +550,12 @@ This result indicates that the usual interpretation of $\zb$ as a representation
 
 \paragraph{Applications of VAEs}
 Despite the challenges facing the training of VAEs, they have been successfully applied to a number of tasks including image generation \cite{kingma_autoencoding_2014,rezende_stochastic_2014}, image inpainting \cite{pathak_context_2016}, image super-resolution \cite{sonderby_amortised_2017,chira_image_2022}, and speech synthesis \cite{hsu_unsupervised_2017,hsu_hierarchical_2019}. 
-VAEs have also proven themselves useful for semi-supervised learning \cite{kingma_semi-supervised_2014,kingma_improved_2016,maaloe_biva_2019}. Recent architectural advances have made it possible to train VAEs with a large number of latent variables \cite{sonderby_ladder_2016,vahdat_nvae_2020,child_very_2021} and have alleviated the posterior collapse problem \cite{maaloe_biva_2019}.
+VAEs have also proven themselves useful for semi-supervised learning \cite{kingma_semi-supervised_2014,kingma_improved_2016,maaloe_biva_2019}. Recent architectural advances have made it possible to train VAEs with many latent variables \cite{sonderby_ladder_2016,vahdat_nvae_2020,child_very_2021} and have alleviated the posterior collapse problem \cite{maaloe_biva_2019}.
 
 
 \paragraph{Self-supervised learning}
 An alternative approach to representation learning is provided by self-supervised learning \cite{mikolov_efficient_2013,devlin_bert_2018,chen_simple_2020,schneider_wav2vec_2019} which is a form of unsupervised learning where the training objective is derived from the data itself. 
 While it is fair to say that not all self-supervised training objectives are as well-motivated as the ELBO is for VAEs, they have shown impressive results within the field of natural language processing \cite{devlin_bert_2018,chen_simple_2020}, speech processing \cite{schneider_wav2vec_2019}, and computer vision \cite{chen_simple_2020}. 
 For a deeper comparison of VAEs and self-supervised methods for speech processing, we refer the reader to our paper \textcite{borgholt_brief_2022} included in \cref{app:paper-brief}. 
+\Cref{chp:paper-review} provides a comprehensive introduction to and review of self-supervised learning in speech recognition. 
 
