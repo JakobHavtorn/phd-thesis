@@ -102,6 +102,10 @@
   }
 }
 
+% Count footnotes consecutively
+\counterwithout{footnote}{chapter}
+
+
 % Checkmark and cross for brief overview paper
 \usepackage{pifont}
 \definecolor{ForestGreen}{RGB}{34,139,34}
@@ -127,8 +131,8 @@
 \usepackage[
   backend=biber,
   natbib=true, 
-  % style=numeric,
-  style=authoryear-comp,
+  style=numeric,
+  % style=authoryear-comp,
   abbreviate=false,
   dateabbrev=false,
   maxbibnames=14,
@@ -189,7 +193,7 @@
 % \usepackage{flafter}  % floats is positioned after or where it is defined! 
 \setfloatlocations{figure}{tbhp}   % Set floats for all figures
 \setfloatlocations{table}{tbhp}    % Set floats for all tables
-\setFloatBlockFor{section}         % Typeset floats before each section
+\setFloatBlockFor{chapter}         % Typeset floats before each section
 \usepackage[noabbrev,nameinlink]{cleveref}  % Clever references. Options: "fig. !1!" --> "!Figure 1!"
 \hangcaption
 \captionnamefont{\bfseries}

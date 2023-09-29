@@ -8,22 +8,22 @@
         Model & Unlabeled Data & LM & dev-clean & dev-other & test-clean & test-other \\
         \midrule\midrule
         \multicolumn{7}{c}{\textit{\textbf{Superivsed}}} \\
-        Conformer L~\cite{gulati_conformer_2020} & - & LSTM & - & - & 1.9 & 3.9 \\
+        Conformer L~\parencite{gulati_conformer_2020} & - & LSTM & - & - & 1.9 & 3.9 \\
         
         \midrule\midrule
         \multicolumn{7}{c}{\textit{\textbf{Self-Training}}} \\
-        IPL~\cite{xu_iterative_2020} & LL-60k & 4-gram + Transformer & 1.85 & 3.26 & 2.10 & 4.01 \\
-        Noisy Student~\cite{park_improved_2020} & LV-60k & LSTM & 1.6 & 3.4 & 1.7 & 3.4 \\
+        IPL~\parencite{xu_iterative_2020} & LL-60k & 4-gram + Transformer & 1.85 & 3.26 & 2.10 & 4.01 \\
+        Noisy Student~\parencite{park_improved_2020} & LV-60k & LSTM & 1.6 & 3.4 & 1.7 & 3.4 \\
         
         \midrule\midrule
         \multicolumn{7}{c}{\textit{\textbf{Pre-Training}}} \\
-        wav2vec 2.0 \textsc{Large}~\cite{baevski_wav2vec_2020} & LL-60k & Transformer & 1.6 & 3.0 & 1.8 & 3.3 \\
-        pre-trained Conformer XXL~\cite{zhang_pushing_2020} & LL-60k & LSTM & 1.5 & 3.0 & 1.5 & 3.1 \\
+        wav2vec 2.0 \textsc{Large}~\parencite{baevski_wav2vec_2020} & LL-60k & Transformer & 1.6 & 3.0 & 1.8 & 3.3 \\
+        pre-trained Conformer XXL~\parencite{zhang_pushing_2020} & LL-60k & LSTM & 1.5 & 3.0 & 1.5 & 3.1 \\
         
         \midrule\midrule
         \multicolumn{7}{c}{\textit{\textbf{Pre-Training + Self-Training}}} \\
-        wav2vec 2.0 + self-training~\cite{xu2020self} & LL-60k & Transformer & 1.1 & 2.7 & 1.5 & 3.1\\
-        pre-trained Conformer XXL + Noisy Student~\cite{zhang_pushing_2020} & LL-60k & LSTM & 1.3 & 2.6 & 1.4 & 2.6 \\
+        wav2vec 2.0 + self-training~\parencite{xu2020self} & LL-60k & Transformer & 1.1 & 2.7 & 1.5 & 3.1\\
+        pre-trained Conformer XXL + Noisy Student~\parencite{zhang_pushing_2020} & LL-60k & LSTM & 1.3 & 2.6 & 1.4 & 2.6 \\
         
         \midrule\midrule
         \multicolumn{7}{c}{\textit{\textbf{This work (Pre-Training)}}} \\

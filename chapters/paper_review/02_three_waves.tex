@@ -17,21 +17,21 @@ simple models in which the training data likelihood was optimized directly
 or via the expectation--maximization (EM) algorithm.
 
 Early work used simple clustering methods. For example, in work such
-as \cite{rabiner_considerations_1979,wilpon_modified_1985}, word patterns were clustered
+as \parencite{rabiner_considerations_1979,wilpon_modified_1985}, word patterns were clustered
 semi-automatically using techniques such as $k$-means, after which isolated words
 were recognized by finding the training cluster closest to 
   the test data.
 
 Through time, modeling techniques improved such that subword units were
-represented by Gaussian mixture models (GMMs) \cite{gauvain_maximum_1994}, which facilitated
+represented by Gaussian mixture models (GMMs) \parencite{gauvain_maximum_1994}, which facilitated
 the modeling of more variability in the input data. GMMs were first built for
 context-independent phonemes; state-clustering 
-algorithms~\cite{young_state_1994} then resulted in GMMs for context-dependent phonemes. 
+algorithms~\parencite{young_state_1994} then resulted in GMMs for context-dependent phonemes. 
 Each latent component of these mixture models acted as a template of a
 prototypical speech frame, 
 making it difficult to handle 
 large volumes of data with diverse characteristics. 
-Furthermore, dynamical models like hidden Markov models (HMMs)~\cite{bell_adaptation_2021}
+Furthermore, dynamical models like hidden Markov models (HMMs)~\parencite{bell_adaptation_2021}
 allowed for the processing of continuous speech rather than just isolated word
 recognition. These generative GMM and HMM models were trained by maximizing the
 likelihood of data given the model, which could be accomplished in either an
@@ -47,9 +47,9 @@ log-likelihood with respect to the model parameters (mixture weights, means, and
 variances) of the Gaussian mixtures. An extension of this approach (likelihood
 ratio score space) used the derivative of the log-likelihood ratio of two
 models, e.g., a background model and a foreground model. Examples of their use
-in speech processing include speech recognition~\cite{smith_speech_2001,venkataramani_support_2003} and
-speaker recognition~\cite{wan_svmsvm_2003}. Subsequent techniques in speaker and language
-verification~\cite{dehak_frontend_2011,dehak_language_2011} similarly extracted parameters
+in speech processing include speech recognition~\parencite{smith_speech_2001,venkataramani_support_2003} and
+speaker recognition~\parencite{wan_svmsvm_2003}. Subsequent techniques in speaker and language
+verification~\parencite{dehak_frontend_2011,dehak_language_2011} similarly extracted parameters
 (concatenated means) from trained background GMMs as representations that were
 then combined with low-rank projections of speaker/session- or language-specific
 vectors.
@@ -63,9 +63,9 @@ More recently, representation learning has seen a shift of focus towards neural 
 which, compared to GMMs and HMMs, offer distributed representations with more
 capacity to model diverse input signals into efficient latent binary codes. 
 Examples of early techniques include restricted Boltzmann machines
-(RBM)~\cite{hinton_reducing_2006}, denoising autoencoders~\cite{vincent_stacked_2010}, noise contrastive
-estimation (NCE)~\cite{gutmann_noisecontrastive_2010}, sparse coding~\cite{olshausen_emergence_1996,
-lee_efficient_2006, sivaram_sparse_2010}, and energy-based methods~\cite{ranzato_unified_2007}.
+(RBM)~\parencite{hinton_reducing_2006}, denoising autoencoders~\parencite{vincent_stacked_2010}, noise contrastive
+estimation (NCE)~\parencite{gutmann_noisecontrastive_2010}, sparse coding~\parencite{olshausen_emergence_1996,
+lee_efficient_2006, sivaram_sparse_2010}, and energy-based methods~\parencite{ranzato_unified_2007}.
 Many of these techniques have also been applied to CV and NLP problems, which
 provided inspiration for their application to speech.
 
@@ -73,7 +73,7 @@ Higher-capacity neural models were achieved by stacking several neural network
 layers to build progressively higher-level concept representations.
 However, these deeper networks also increased the training complexities. For
 example, approximate training methods such as contrastive divergence
-\cite{hinton_training_2002} were a practical technique to streamline RBM training. 
+\parencite{hinton_training_2002} were a practical technique to streamline RBM training. 
 Furthermore, deep networks had non-convex objective functions, which
 often resulted in long training times compared to GMMs, which are trained
 using full batches instead of mini-batch learning.
@@ -89,8 +89,8 @@ of relying on layer-wise pre-training
 very deep networks with more than ten layers are now common.
 (3)~It is common to evaluate a representation model on a wide range of tasks.
 For example, in NLP, a representation model is usually assessed on GLUE,
-which comprises nine tasks~\cite{wang_glue_2018}, whereas in speech, a representation model can be
-evaluated on SUPERB, which comprises ten tasks~\cite{yang_superb_2021}, 
+which comprises nine tasks~\parencite{wang_glue_2018}, whereas in speech, a representation model can be
+evaluated on SUPERB, which comprises ten tasks~\parencite{yang_superb_2021}, 
 as described in detail in \cref{sec:benchmark}.
 
 The cornerstone of this third wave is the design of a pretext task, which
@@ -101,28 +101,28 @@ abstract representations and
   not be so easy as to encourage the exploitation of low-level shortcuts.  % AMH: check
 Early breakthroughs included end-to-end learning of deep neural architectures
 via pretext tasks for restoring the true color of black-and-white
-images~\cite{zhang_colorful_2016}, joint learning of latent representations and their
-cluster assignments~\cite{caron_deep_2018}, and the prediction of the relative positions of
-image patches~\cite{doersch_unsupervised_2016}. Other popular approaches include variational
-autoencoders (VAEs)~\cite{kingma_autoencoding_2014, rezende_stochastic_2014}. While typical autoencoders learn data
+images~\parencite{zhang_colorful_2016}, joint learning of latent representations and their
+cluster assignments~\parencite{caron_deep_2018}, and the prediction of the relative positions of
+image patches~\parencite{doersch_unsupervised_2016}. Other popular approaches include variational
+autoencoders (VAEs)~\parencite{kingma_autoencoding_2014, rezende_stochastic_2014}. While typical autoencoders learn data
 representations using unsupervised objectives by reconstructing the input
-after passing it through an information bottleneck, VAEs estimate a neural model of a probability density function (pdf) that approximates the unknown “true” distribution of the observed data, for which we only have access to independently identically distributed (iid) samples. It is also important to mention dynamical VAEs \cite{girin_dynamical_2021}, which is an extension of VAE for sequential data such as speech.
+after passing it through an information bottleneck, VAEs estimate a neural model of a probability density function (pdf) that approximates the unknown “true” distribution of the observed data, for which we only have access to independently identically distributed (iid) samples. It is also important to mention dynamical VAEs \parencite{girin_dynamical_2021}, which is an extension of VAE for sequential data such as speech.
 
 In the SSL context, a pretext task related to autoencoding is to generate
 an object from its partial information. Such tasks are widely used in NLP, for
 example, using 
 the previous tokens 
 in a sentence to predict the next token such as in
-ELMo~\cite{peters_deep_2018}, the GPT
-series~\cite{radford_language_2019}, and 
-Megatron~\cite{shoeybi_megatronlm_2020}, or predicting the masked tokens in a
+ELMo~\parencite{peters_deep_2018}, the GPT
+series~\parencite{radford_language_2019}, and 
+Megatron~\parencite{shoeybi_megatronlm_2020}, or predicting the masked tokens in a
 sentence such as with the bidirectional encoder representations from Transformers
-(BERT) series~\cite{devlin_bert_2018,liu_roberta_2019}. 
+(BERT) series~\parencite{devlin_bert_2018,liu_roberta_2019}. 
 Another common pretext task in the third wave is contrastive
-learning~\cite{oord_representation_2018}, in which a model learns to identify a
+learning~\parencite{oord_representation_2018}, in which a model learns to identify a
 target instance from a set of negative samples. 
 This approach has become especially popular in the
-CV context~\cite{chen_simple_2020,he_momentum_2020,chen_improved_2020,caron_unsupervised_2020}.
+CV context~\parencite{chen_simple_2020,he_momentum_2020,chen_improved_2020,caron_unsupervised_2020}.
 In this survey, we will mainly focus on techniques for pretext task
 optimization for speech processing, and discuss these techniques in detail
 in \cref{sec:approach}.
@@ -133,13 +133,13 @@ A closely related area of research that is not covered in this review is
 semi-supervised pre-training methods such as pseudo-labeling (that is,
 self-training). Pseudo-labeling (PL) relies on a supervised teacher model to
 label a large volume of speech-only data, which is then used to augment the
-initial labeled data to train a student model~\cite{kemp_unsupervised_1999, lamel_lightly_2002,
+initial labeled data to train a student model~\parencite{kemp_unsupervised_1999, lamel_lightly_2002,
 ma_unsupervised_2006, parthasarathi_lessons_2019}. PL has been successful and widely adopted in the
 speech community since the 1990s. Other proposed variations of PL include
 augmenting speech-only data with noise to improve robustness, iterating
 over the PL process to improve teacher labeling quality, and training student
 models with more parameters than their original teachers to capture the
-complexities in vastly larger speech-only data~\cite{park_improved_2020,
+complexities in vastly larger speech-only data~\parencite{park_improved_2020,
 xu_iterative_2020, xiao_scaling_2021}. 
 Both SSL and PL leverage unlabeled speech-only data.
 One distinguishing factor in PL is the utilization of supervised data for a
@@ -150,13 +150,13 @@ a wide range of tasks.
 
 Transfer learning (TL) is another closely related area of research for
 pre-training speech models. TL transfers knowledge captured by models
-trained on one task to different but related tasks~\cite{caruana_multitask_1997}. 
+trained on one task to different but related tasks~\parencite{caruana_multitask_1997}. 
 The past few decades have seen active research on TL and its
 extension to multitask learning for more general representations. 
 Multilingual and cross-lingual supervised models have proven superior in
-low-resource speech recognition tasks~\cite{cui_multilingual_2015}.
+low-resource speech recognition tasks~\parencite{cui_multilingual_2015}.
 SSL can be regarded as a type of TL because knowledge learned from pre-training
 is used for different downstream tasks.
 This survey paper focuses on SSL, and not all TL technologies for speech. 
-One survey indeed addresses TL for speech processing~\cite{bell_adaptation_2021}
+One survey indeed addresses TL for speech processing~\parencite{bell_adaptation_2021}
 but does not include current SSL technologies for speech.  

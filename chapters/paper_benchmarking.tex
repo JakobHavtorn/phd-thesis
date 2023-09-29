@@ -10,16 +10,16 @@ Stochastic latent variable models (LVMs) achieve state-of-the-art performance on
 
 
 \section{Introduction}
-After the introduction of the variational autoencoder (VAE,  \textcite{kingma_autoencoding_2014, rezende_stochastic_2014}) quickly came two temporal extensions for modeling speech data \cite{chung_recurrent_2015, fraccaro_sequential_2016}. Since then, temporal LVMs have undergone little development compared to their counterparts in the image domain, where LVMs recently showed superior performance to autoregressive models such as PixelCNN \cite{oord_pixel_2016, oord_conditional_2016, salimans_pixelcnn_2017}. The improvements in the image domain have been driven mainly by top-down inference models and deeper latent hierarchies \cite{sonderby_ladder_2016, maaloe_biva_2019, vahdat_nvae_2020, child_very_2021,sinha_consistency_2021,kingma_variational_2021}. In speech modeling however, autoregressive models such as the WaveNet remain state-of-the-art \cite{oord_wavenet_2016}.
+After the introduction of the variational autoencoder (VAE,  \textcite{kingma_autoencoding_2014, rezende_stochastic_2014}) quickly came two temporal extensions for modeling speech data \parencite{chung_recurrent_2015, fraccaro_sequential_2016}. Since then, temporal LVMs have undergone little development compared to their counterparts in the image domain, where LVMs recently showed superior performance to autoregressive models such as PixelCNN \parencite{oord_pixel_2016, oord_conditional_2016, salimans_pixelcnn_2017}. The improvements in the image domain have been driven mainly by top-down inference models and deeper latent hierarchies \parencite{sonderby_ladder_2016, maaloe_biva_2019, vahdat_nvae_2020, child_very_2021,sinha_consistency_2021,kingma_variational_2021}. In speech modeling however, autoregressive models such as the WaveNet remain state-of-the-art \parencite{oord_wavenet_2016}.
 
-To compare and develop LVMs for speech, we need good benchmarks similar to those in the image domain. Image benchmarks commonly compare likelihood scores, but research in the speech domain often omits reporting a likelihood \cite{oord_wavenet_2016, hsu_unsupervised_2017, oord_neural_2018} or report likelihoods that are incomparable due to subtle differences in the assumed data distribution \cite{chung_recurrent_2015, fraccaro_sequential_2016, hsu_unsupervised_2017, aksan_stcn_2019}. Without a proper standard, it is difficult to compare explicit likelihood models for speech and develop them in an informed manner.
+To compare and develop LVMs for speech, we need good benchmarks similar to those in the image domain. Image benchmarks commonly compare likelihood scores, but research in the speech domain often omits reporting a likelihood \parencite{oord_wavenet_2016, hsu_unsupervised_2017, oord_neural_2018} or report likelihoods that are incomparable due to subtle differences in the assumed data distribution \parencite{chung_recurrent_2015, fraccaro_sequential_2016, hsu_unsupervised_2017, aksan_stcn_2019}. Without a proper standard, it is difficult to compare explicit likelihood models for speech and develop them in an informed manner.
 
 To advance the state of LVMs for speech, this paper (i) develops a benchmark for LVMs based on model likelihood, (ii) introduces a hierarchical LVM architecture without autoregressive decoder, (iii) compares LVMs to deterministic counterparts including WaveNet, and (iv) qualitatively and quantitatively evaluates the latent variables learned by different LVMs based on their usefulness for phoneme recognition. We find that:
 \begin{itemize}[leftmargin=8mm]
     \setlength\itemsep{-0em}
-    \item [(I)] State-of-the-art LVMs achieve likelihoods that are inferior to WaveNet at high temporal resolution but are superior at lower resolutions. Interestingly, we find that a standard LSTM \cite{hochreiter_long_1997} almost matches the likelihood of WaveNet.
+    \item [(I)] State-of-the-art LVMs achieve likelihoods that are inferior to WaveNet at high temporal resolution but are superior at lower resolutions. Interestingly, we find that a standard LSTM \parencite{hochreiter_long_1997} almost matches the likelihood of WaveNet.
     \item [(II)] LVMs with powerful autoregressive decoders achieve better likelihoods than the non-autoregressive LVM.
-    \item[(III)] The expressiveness of LVMs for speech increases with a deeper hierarchy of stochastic latent variables, similar to conclusions within image modeling. % \cite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
+    \item[(III)] The expressiveness of LVMs for speech increases with a deeper hierarchy of stochastic latent variables, similar to conclusions within image modeling. % \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
     \item[(IV)] LVMs learn rich representations that are as good or better than Mel spectrograms for phoneme recognition also when using only 10 minutes of labeled data.
 \end{itemize}
 At a high level, this benchmark brings order to LVM model comparisons for speech and also provides useful reference implementations of the models
@@ -158,22 +158,22 @@ Before presenting the results, we provide a brief survey of existing LVMs for sp
 
 % \linepenalty=1000
 % \subsection{Related work}
-LVMs formulated as VAEs continue to be of interest since they are able to learn an approximation to the posterior distribution of assumed latent variables. The posterior is usually of a reduced dimensionality compared to the input and lies close to a known prior distribution. Approximate posteriors have various applications e.g. semi-supervised learning \cite{kingma_semi-supervised_2014} and anomaly detection \cite{havtorn_hierarchical_2021}.
+LVMs formulated as VAEs continue to be of interest since they are able to learn an approximation to the posterior distribution of assumed latent variables. The posterior is usually of a reduced dimensionality compared to the input and lies close to a known prior distribution. Approximate posteriors have various applications e.g. semi-supervised learning \parencite{kingma_semi-supervised_2014} and anomaly detection \parencite{havtorn_hierarchical_2021}.
 
-In recent years, several complementary methods have been proposed to improve the expressiveness of VAEs. These include building more expressive priors via methods such as normalizing flows \cite{rezende_variational_2015} and building a deeper hierarchy of stochastic latent variables such as the Ladder VAE \cite{sonderby_ladder_2016}. In this research, we focus on the latter due to the recent breakthroughs in image modeling using VAEs without costly autoregressive dependencies on the observed variable \cite{maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}.
+In recent years, several complementary methods have been proposed to improve the expressiveness of VAEs. These include building more expressive priors via methods such as normalizing flows \parencite{rezende_variational_2015} and building a deeper hierarchy of stochastic latent variables such as the Ladder VAE \parencite{sonderby_ladder_2016}. In this research, we focus on the latter due to the recent breakthroughs in image modeling using VAEs without costly autoregressive dependencies on the observed variable \parencite{maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}.
 
-Several works have applied LVMs to speech. Among the first contributions were the VRNN \cite{chung_recurrent_2015} and SRNN \cite{fraccaro_sequential_2016} which can be seen as conditional VAEs per timestep. Other recent LVMs include the FH-VAE \cite{hsu_unsupervised_2017}, which leverages an additional latent variable to capture global features, and Z-forcing \cite{goyal_zforcing_2017}, which resembles the SRNN but includes an auxiliary task in the latent space to increase its utilization. The VQ-VAE \cite{oord_neural_2018} is a hybrid between an LVM and an autoregressive model which uses a quantized latent space to improve the quality of generated samples. The Stochastic WaveNet \cite{lai_stochastic_2018} and STCN \cite{aksan_stcn_2019} use WaveNet encoder and decoders and temporally independent latent variables.
+Several works have applied LVMs to speech. Among the first contributions were the VRNN \parencite{chung_recurrent_2015} and SRNN \parencite{fraccaro_sequential_2016} which can be seen as conditional VAEs per timestep. Other recent LVMs include the FH-VAE \parencite{hsu_unsupervised_2017}, which leverages an additional latent variable to capture global features, and Z-forcing \parencite{goyal_zforcing_2017}, which resembles the SRNN but includes an auxiliary task in the latent space to increase its utilization. The VQ-VAE \parencite{oord_neural_2018} is a hybrid between an LVM and an autoregressive model which uses a quantized latent space to improve the quality of generated samples. The Stochastic WaveNet \parencite{lai_stochastic_2018} and STCN \parencite{aksan_stcn_2019} use WaveNet encoder and decoders and temporally independent latent variables.
 
-In this paper, we focus on the VRNN, SRNN and STCN. We exclude the Stochastic WaveNet as it is similar to STCN and achieves inferior likelihoods \cite{aksan_stcn_2019}. The FH-VAE, with disjoint latent variables and discriminative objective, Z-forcing, with an auxiliary task, and the VQ-VAE, with a quantized latent space and autoregressive prior fitted after training, all introduce significant changes to the original VAE framework and are also not included here.
+In this paper, we focus on the VRNN, SRNN and STCN. We exclude the Stochastic WaveNet as it is similar to STCN and achieves inferior likelihoods \parencite{aksan_stcn_2019}. The FH-VAE, with disjoint latent variables and discriminative objective, Z-forcing, with an auxiliary task, and the VQ-VAE, with a quantized latent space and autoregressive prior fitted after training, all introduce significant changes to the original VAE framework and are also not included here.
 
-All selected models have autoregressive generative models which let future observed variables be generated by conditioning on previously generated values. Inspired by recent progress in the image domain, we therefore formulate and benchmark a novel temporal LVM which does not rely on an autoregressive decoder. We do so by adapting the hierarchical Clockwork Variational Autoencoder \cite{saxena_clockwork_2021}, originally proposed for video generation, to speech.
+All selected models have autoregressive generative models which let future observed variables be generated by conditioning on previously generated values. Inspired by recent progress in the image domain, we therefore formulate and benchmark a novel temporal LVM which does not rely on an autoregressive decoder. We do so by adapting the hierarchical Clockwork Variational Autoencoder \parencite{saxena_clockwork_2021}, originally proposed for video generation, to speech.
 
 
 \subsection{Sequential deep latent variable models}
-The selected models are all sequential deep latent variable models trained with variational inference and the reparameterization trick \cite{kingma_autoencoding_2014}.
-% The VRNN, SRNN, STCN and CW-VAE are all autoencoders trained with variational inference and the reparameterization trick \cite{kingma_autoencoding_2014}. 
+The selected models are all sequential deep latent variable models trained with variational inference and the reparameterization trick \parencite{kingma_autoencoding_2014}.
+% The VRNN, SRNN, STCN and CW-VAE are all autoencoders trained with variational inference and the reparameterization trick \parencite{kingma_autoencoding_2014}. 
 They take as input a variable-length sequence $\xb_{1:T} = \left(\xb_1, \xb_2, \dots, \xb_{T}\right)$ with $\xb_t \in \mathbb{R}^{D_x}$. 
-% The VRNN, SRNN, STCN and CW-VAE are all VAEs \cite{kingma_autoencoding_2014} that take as input a variable-length sequence $\xb_{1:T} = \left(\xb_1, \xb_2, \dots, \xb_{T}\right)$ with $\xb_t \in \mathbb{R}^{D_x}$. 
+% The VRNN, SRNN, STCN and CW-VAE are all VAEs \parencite{kingma_autoencoding_2014} that take as input a variable-length sequence $\xb_{1:T} = \left(\xb_1, \xb_2, \dots, \xb_{T}\right)$ with $\xb_t \in \mathbb{R}^{D_x}$. 
 We let $\xb_{1:T}$ refer to the observed variable or a downsampled version of it. We will sometimes use $\xb$ to refer to the sequence $\xb_{1:T}$ when it is not ambiguous.
 % In general, $\xb_{1:T}$ may refer to the original observed variable or a deterministically downsampled representation of the observed variable. We will sometimes use $\xb$ to refer to the full sequence $\xb_{1:T}$ when it is not ambiguous.
 
@@ -189,7 +189,7 @@ Graphical illustrations of the models can be seen in \cref{fig: autoregressive v
 
 
 \subsection{Variational recurrent neural network ({\small VRNN})}
-The VRNN \cite{chung_recurrent_2015} is essentially a VAE per timestep. At timestep $t$, the VAE is conditioned on the hidden state of a recurrent neural network (RNN), $\db_{t}\in\mathbb{R}^{D_d}$, with state transition $\db_{t} = f([\xb_{t-1}, \zb_{t-1}], \db_{t-1})$ where $[\cdot, \cdot]$ denotes concatenation. 
+The VRNN \parencite{chung_recurrent_2015} is essentially a VAE per timestep. At timestep $t$, the VAE is conditioned on the hidden state of a recurrent neural network (RNN), $\db_{t}\in\mathbb{R}^{D_d}$, with state transition $\db_{t} = f([\xb_{t-1}, \zb_{t-1}], \db_{t-1})$ where $[\cdot, \cdot]$ denotes concatenation. 
 The VRNN uses a Gated Recurrent Unit (GRU, \textcite{cho_properties_2014}) for $f$.
 The joint distribution factorizes over time and the latent variables are autoregressive in both the observed and latent space,
 \begin{equation}
@@ -223,11 +223,11 @@ The VRNN uses diagonal covariance Gaussian distributions $\mathcal{N}$ for the p
 \end{gather}
 All sets of distributional parameters, $\alphab_q,\alphab_p$ and $\betab$, are the outputs of densely connected neural networks which we notationally overload as functions in equations~\cref{eq: vrnn parameterization generative} and \cref{eq: vrnn parameterization inference}. It is common to refer to $\alphab_q$ as the inference model or encoder and $\betab$ as the decoder. Together with $\betab$, the structural model $\alphab_p$ forms the generative model.
 
-Since the decoder is dependent on $\db_t$, the transition function $f$ allows the VRNN to learn to ignore parts of or the entire latent variable and establish a purely deterministic transition from $\xb_{t-1}$ to $\db_t$ (\cref{fig: autoregressive vrnn srnn cwvae 1L graphs}). This failure mode is commonly referred to as posterior collapse and is a well-known weakness of VAEs with powerful decoders \cite{bowman_generating_2016, sonderby_ladder_2016}.
+Since the decoder is dependent on $\db_t$, the transition function $f$ allows the VRNN to learn to ignore parts of or the entire latent variable and establish a purely deterministic transition from $\xb_{t-1}$ to $\db_t$ (\cref{fig: autoregressive vrnn srnn cwvae 1L graphs}). This failure mode is commonly referred to as posterior collapse and is a well-known weakness of VAEs with powerful decoders \parencite{bowman_generating_2016, sonderby_ladder_2016}.
 
 
 \subsection{Stochastic recurrent neural network ({\small SRNN})}
-The SRNN \cite{fraccaro_sequential_2016} is similar to the VRNN but differs by separating the stochastic latent variables from the deterministic representations (\cref{fig: autoregressive vrnn srnn cwvae 1L graphs}). That is, the GRU state transition is independent of $\zb_{1:T}$ such that $\db_{t} = f(\xb_{t-1}, \db_{t-1})$. With this, the joint $p(\xb_{1:T},\zb_{1:T})$ can be written as for the VRNN in \cref{eq: vrnn joint factorization}. The approximate posterior of $\zb_t$ is conditioned on the full observed sequence,
+The SRNN \parencite{fraccaro_sequential_2016} is similar to the VRNN but differs by separating the stochastic latent variables from the deterministic representations (\cref{fig: autoregressive vrnn srnn cwvae 1L graphs}). That is, the GRU state transition is independent of $\zb_{1:T}$ such that $\db_{t} = f(\xb_{t-1}, \db_{t-1})$. With this, the joint $p(\xb_{1:T},\zb_{1:T})$ can be written as for the VRNN in \cref{eq: vrnn joint factorization}. The approximate posterior of $\zb_t$ is conditioned on the full observed sequence,
 \begin{align}
     \label{eq: srnn inference factorization}
     q(\zb_{1:T}|\xb_{1:T}) = \prod_{t=1}^{T} q(\zb_t|\xb_{1:T},\zb_{t-1}) \enspace .
@@ -238,7 +238,7 @@ This is achieved by introducing a second GRU that runs backwards in time with tr
         q(\zb_t|\xb_{1:T},\zb_{<t}) = \mathcal{N}\left(\alphab_{q}(\zb_{t-1},\ab_{t})\right) \enspace . \label{eq: srnn parameterization}
     % p(\xb_t|\xb_{<t},\zb_{\leq t}) &= \mathcal{D}\left(\vrho(\zb_{t},\db_{t})\right) \enspace . \label{eq: srnn parameterization observation}
 \end{gather}
-By inferring $\zb_t$ conditioned on the full sequence $\xb_{1:T}$, the SRNN performs smoothing. This has been noted to better approximate the true posterior of $\zb_t$ which can be shown to depend on the full observed sequence \cite{bayer_mind_2021}. Comparatively, the VRNN performs filtering.
+By inferring $\zb_t$ conditioned on the full sequence $\xb_{1:T}$, the SRNN performs smoothing. This has been noted to better approximate the true posterior of $\zb_t$ which can be shown to depend on the full observed sequence \parencite{bayer_mind_2021}. Comparatively, the VRNN performs filtering.
 
 
 \begin{figure*}[t]
@@ -355,14 +355,14 @@ We omit the deterministic variable of \cref{fig: autoregressive vrnn srnn cwvae 
 
 
 \subsection{Stochastic temporal convolutional network ({\small STCN})}
-The STCN \cite{aksan_stcn_2019} is a hierarchical latent variable model with an autoregressive generative model based on WaveNet \cite{oord_wavenet_2016}. Contrary to VRNN and SRNN, the latent variables have no transition functions connecting them over time.
+The STCN \parencite{aksan_stcn_2019} is a hierarchical latent variable model with an autoregressive generative model based on WaveNet \parencite{oord_wavenet_2016}. Contrary to VRNN and SRNN, the latent variables have no transition functions connecting them over time.
 Instead, a latent $\zb_t^{(l)}$ at layer $l$ is conditioned on a window of observed variables $\xb_{\scriptscriptstyle\mathcal{R}_t^{(l)}}$ via a WaveNet encoder where $\mathcal{R}_t^{(l)} = \cbra{t-r_l+1,\dots,t}$ and $r_l$ is the receptive field of the encoder at layer $l$. The window size grows exponentially with $l$.
 \begin{equation}
     p(\xb_{1:T},\zb_{1:T}^{(1:L)}) = \prod_{t=1}^{T} p(\xb_t|\zb^{(1:L)}_{{\scriptscriptstyle \mathcal{R}}_{t}^{(1)}}) \prod_{l=1}^{L} p(\zb^{(l)}_{t}|\xb_{\scriptscriptstyle\mathcal{R}_{t-1}^{(l)}},\zb^{(l+1)}_{t}) \enspace , \nonumber
     \label{eq: stcn joint factorization}
 \end{equation}
 where $\zb_t^{(L+1)}:=\emptyset$ for notational convenience. 
-The deterministic encoding is $\db_t^{(l)} = h(\xb_{\scriptscriptstyle\mathcal{R}_{t}^{(l)}})$ where $h$ is the encoder and $\db_t^{(l)}$ is extracted from the $l$'th layer similar to a Ladder VAE \cite{sonderby_ladder_2016}. 
+The deterministic encoding is $\db_t^{(l)} = h(\xb_{\scriptscriptstyle\mathcal{R}_{t}^{(l)}})$ where $h$ is the encoder and $\db_t^{(l)}$ is extracted from the $l$'th layer similar to a Ladder VAE \parencite{sonderby_ladder_2016}. 
 The approximate posterior is
 \begin{equation}
     q\pa{\zb_{1:T}^{(1:L)}|\xb_{1:T}} = \prod_{t=1}^{T}\prod_{l=1}^{L} q\pa{\zb_{t}^{(l)}|\xb_{\scriptscriptstyle\mathcal{R}_{t}^{(l)}},\zb_t^{(l+1)}} \enspace .
@@ -382,7 +382,7 @@ The decoder $\betab\left(\zb^{(1:L)}_{\scriptscriptstyle\mathcal{R}_{t}^{(1)}}\r
 
 
 \subsection{Clockwork variational autoencoder ({\small CW-VAE})}
-The CW-VAE \cite{saxena_clockwork_2021} is a hierarchical latent variable model recently introduced for video generation. As illustrated in figures~\cref{fig: autoregressive vrnn srnn cwvae 1L graphs} and \cref{fig: clockwork vae inference generative models 2 layered}, it is autoregressive in the latent space but not in the observed space, contrary to the VRNN, SRNN and STCN. Additionally, each latent variable is updated only every $s_l$ timesteps, where $s_l$ is a layer-dependent integer, or stride, and $s_1<s_2<\dots<s_L$.
+The CW-VAE \parencite{saxena_clockwork_2021} is a hierarchical latent variable model recently introduced for video generation. As illustrated in figures~\cref{fig: autoregressive vrnn srnn cwvae 1L graphs} and \cref{fig: clockwork vae inference generative models 2 layered}, it is autoregressive in the latent space but not in the observed space, contrary to the VRNN, SRNN and STCN. Additionally, each latent variable is updated only every $s_l$ timesteps, where $s_l$ is a layer-dependent integer, or stride, and $s_1<s_2<\dots<s_L$.
 This imposes the inductive bias that latent variables exist at different temporal resolutions with $\zb^{(l)}$ changing at lower frequency than $\zb^{(l-1)}$. 
 In speech, phonetic variation between $\SI{10}{}-\SI{400}{ms}$, morphological and semantic features at the word level and speaker-related variation at the global scale make this a reasonable assumption.
 
@@ -422,45 +422,45 @@ The encoder and decoder of the original CW-VAE are not applicable to speech. Hen
 
 
 \subsection{Output distribution}
-Audio, as well as image data, are naturally continuous signals that are represented in discrete form in computers. The signals are sampled with some bit depth $b$ which defines the range of attainable values, $\xb\in\{0,1,\dots,2^b-1\}$. The bit depth typically used in audio and image samplers is between $\SI{8}{}$ and $\SI{32}{bit}$ with $\SI{8}{bit}$ and $\SI{16}{bit}$ being the most common in the literature (MNIST \cite{lecun_gradientbased_1998}, CelebA \cite{liu_deep_2015}, CIFAR10 \cite{krizhevsky_learning_2009}, TIMIT \cite{garofolo_timit_1993}, LibriSpeech \cite{panayotov_librispeech_2015}).
+Audio, as well as image data, are naturally continuous signals that are represented in discrete form in computers. The signals are sampled with some bit depth $b$ which defines the range of attainable values, $\xb\in\{0,1,\dots,2^b-1\}$. The bit depth typically used in audio and image samplers is between $\SI{8}{}$ and $\SI{32}{bit}$ with $\SI{8}{bit}$ and $\SI{16}{bit}$ being the most common in the literature (MNIST \parencite{lecun_gradientbased_1998}, CelebA \parencite{liu_deep_2015}, CIFAR10 \parencite{krizhevsky_learning_2009}, TIMIT \parencite{garofolo_timit_1993}, LibriSpeech \parencite{panayotov_librispeech_2015}).
 
-In the image domain, the discrete nature of the data is usually modeled in one of two ways; either by using discrete distributions \cite{salimans_pixelcnn_2017, maaloe_biva_2019, child_very_2021} or by dequantizing the data and using a continuous distribution \cite{dinh_nice_2015, sonderby_ladder_2016, ho_flow_2019}, which yields a lower bound on the discrete distribution likelihood \cite{theis_note_2016}. 
-In the speech domain, however, the output distribution is often taken to be a continuous Gaussian \cite{hsu_unsupervised_2017,lai_stochastic_2018,zhu_s3vae_2020} which was also originally done in VRNN, SRNN and STCN. 
-This choice generally results in an ill-posed problem with a likelihood that is unbounded from above unless the variance is lower bounded \cite{mattei_leveraging_2018}. As a result, \emph{reported likelihoods can be sensitive to hyperparameter settings and be hard to compare}. We discuss this phenomenon further in appendix~\cref{app: gaussian likelihood unboundedness discussion}.
+In the image domain, the discrete nature of the data is usually modeled in one of two ways; either by using discrete distributions \parencite{salimans_pixelcnn_2017, maaloe_biva_2019, child_very_2021} or by dequantizing the data and using a continuous distribution \parencite{dinh_nice_2015, sonderby_ladder_2016, ho_flow_2019}, which yields a lower bound on the discrete distribution likelihood \parencite{theis_note_2016}. 
+In the speech domain, however, the output distribution is often taken to be a continuous Gaussian \parencite{hsu_unsupervised_2017,lai_stochastic_2018,zhu_s3vae_2020} which was also originally done in VRNN, SRNN and STCN. 
+This choice generally results in an ill-posed problem with a likelihood that is unbounded from above unless the variance is lower bounded \parencite{mattei_leveraging_2018}. As a result, \emph{reported likelihoods can be sensitive to hyperparameter settings and be hard to compare}. We discuss this phenomenon further in appendix~\cref{app: gaussian likelihood unboundedness discussion}.
 
-Most work normalizes the audio or standardizes it to values in a bounded interval $\xb\in[-1,1]$. Since $\xb$ becomes approximately continuous as the bit depth $b$ becomes large and the range of possible values becomes small, this alleviates the issue. However, commonly used datasets with bit-depths of $\SI{16}{}$ still result in a discretization gap between values that remains much larger than the gap between the almost continuous 32 bit floating point numbers which reinforces the problem \cite{bishop_pattern_2006}.
+Most work normalizes the audio or standardizes it to values in a bounded interval $\xb\in[-1,1]$. Since $\xb$ becomes approximately continuous as the bit depth $b$ becomes large and the range of possible values becomes small, this alleviates the issue. However, commonly used datasets with bit-depths of $\SI{16}{}$ still result in a discretization gap between values that remains much larger than the gap between the almost continuous 32 bit floating point numbers which reinforces the problem \parencite{bishop_pattern_2006}.
 
-In this work, we therefore benchmark models using a discretized mixture of logistics (DMoL) as output distribution. The DMoL was introduced for image modeling with autoregressive models \cite{salimans_pixelcnn_2017} but has become standard in other generative models \cite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}. 
-It was recently applied to autoregressive speech modeling of raw waveforms \cite{oord_parallel_2018}. 
+In this work, we therefore benchmark models using a discretized mixture of logistics (DMoL) as output distribution. The DMoL was introduced for image modeling with autoregressive models \parencite{salimans_pixelcnn_2017} but has become standard in other generative models \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}. 
+It was recently applied to autoregressive speech modeling of raw waveforms \parencite{oord_parallel_2018}. 
 As opposed to e.g.\@ a categorical distribution, the DMoL induces ordinality on the observed space such that values that are numerically close are also close in a probabilistic sense. This is a sensible inductive bias for images as well as audio where individual samples represent the amplitude of light or pressure, respectively. We discuss the DMoL for audio further in appendix~\cref{app: additional discussion on output distribution}.
 
 
 \section{Speech modeling benchmark}\label{sec:glvm_benchmark}
 \paragraph{Data}
-We train models on TIMIT \cite{garofolo_timit_1993}, LibriSpeech \cite{panayotov_librispeech_2015} and LibriLight \cite{kahn_libri-light_2020}. For TIMIT, we randomly sample 5\% of the training split for validation. 
+We train models on TIMIT \parencite{garofolo_timit_1993}, LibriSpeech \parencite{panayotov_librispeech_2015} and LibriLight \parencite{kahn_libri-light_2020}. For TIMIT, we randomly sample 5\% of the training split for validation. 
 We represent the audio as $\mu$-law encoded PCM standardized to values in $\bra{-1, 1}$ with discretization gap of ${2^{-b+1}}$. We use the original bit depth of $\SI{16}{bits}$ and sample rate of $\SI{16000}{Hz}$. We use this representation both as the input and the reconstruction target. We provide more details on the datasets in appendix~\cref{app: dataset details} and additional results on linear PCM in appendix~\cref{app: additional likelihood results appendix}.
 %
 \paragraph{Likelihood}
-We report likelihoods in units of bits per frame (bpf) as this yields a more interpretable and comparable likelihood than total likelihood in nats. It also has direct connections with information theory and compression \cite{shannon_mathematical_1948, townsend_practical_2019}. In units of bits per frame, lower is better. For LVMs, we report the one-sample ELBO. The likelihoods can be seen in \cref{tab: likelihoods timit,tab: likelihoods librispeech}. We describe how to convert likelihood to bpf in appendix~\cref{app: likelihood in bits per frame}.
+We report likelihoods in units of bits per frame (bpf) as this yields a more interpretable and comparable likelihood than total likelihood in nats. It also has direct connections with information theory and compression \parencite{shannon_mathematical_1948, townsend_practical_2019}. In units of bits per frame, lower is better. For LVMs, we report the one-sample ELBO. The likelihoods can be seen in \cref{tab: likelihoods timit,tab: likelihoods librispeech}. We describe how to convert likelihood to bpf in appendix~\cref{app: likelihood in bits per frame}.
 %
 \paragraph{Models}
 Architecture and training details are sketched below, while the full details are in appendices~\cref{app: model architectures} and \cref{app: training details} along with additional results for some alternative model configurations in appendix~\cref{app: additional likelihood results appendix}.
 We select model configurations that can be trained on GPUs with a maximum of 12GB of RAM and train all models until convergence on the validation set.
-We use a DMoL with 10 components for the output distribution of all models and model all datasets at their full bit depth of $\SI{16}{bits}$. We train and evaluate models on stacked waveforms similar to previous work \cite{chung_recurrent_2015, fraccaro_sequential_2016, aksan_stcn_2019} with stack sizes of $s=1$, $s=64$ and $s=256$. Hence, every model input $\xb_t$ is composed of $\tilde{x}_{t:t+s}$ where $\tilde{x}$ are waveform frames. We provide additional results with a Gaussian output distribution in appendix~\cref{app: additional likelihood results appendix}. 
+We use a DMoL with 10 components for the output distribution of all models and model all datasets at their full bit depth of $\SI{16}{bits}$. We train and evaluate models on stacked waveforms similar to previous work \parencite{chung_recurrent_2015, fraccaro_sequential_2016, aksan_stcn_2019} with stack sizes of $s=1$, $s=64$ and $s=256$. Hence, every model input $\xb_t$ is composed of $\tilde{x}_{t:t+s}$ where $\tilde{x}$ are waveform frames. We provide additional results with a Gaussian output distribution in appendix~\cref{app: additional likelihood results appendix}. 
 
 We configure WaveNet as in the original paper using ten layers per block and five blocks. We use $D_c=96$ channels. 
-We also train an LSTM model \cite{hochreiter_long_1997} which has fully connected encoders and decoders, as the VRNN and SRNN, but a deterministic recurrent cell and much fewer parameters than WaveNet. We report on LSTM models with $D_d=256$ hidden units. 
+We also train an LSTM model \parencite{hochreiter_long_1997} which has fully connected encoders and decoders, as the VRNN and SRNN, but a deterministic recurrent cell and much fewer parameters than WaveNet. We report on LSTM models with $D_d=256$ hidden units. 
 %Results with differently configured WaveNet and LSTM models that did not improve results can be found in appendix~\cref{app: additional likelihood results appendix}.
 
 The configuration of the VRNN and SRNN models is similar to the LSTM. For both models we set the latent variable equal in size to the hidden units, $D_z=256$. At stack size $s=1$, the models are computationally demanding and hence we train them on randomly sampled segments from each training example and only on TIMIT.
 
-The STCN is used in the ``dense" configuration of the original work \cite{aksan_stcn_2019}. It uses 256 convolutional channels and $L=5$ latent variables of dimensions 16, 32, 64, 128, 256 from the top down. We also run a one-layered ablation with the same architecture but only one latent variable of dimension $256$ at the top. 
+The STCN is used in the ``dense" configuration of the original work \parencite{aksan_stcn_2019}. It uses 256 convolutional channels and $L=5$ latent variables of dimensions 16, 32, 64, 128, 256 from the top down. We also run a one-layered ablation with the same architecture but only one latent variable of dimension $256$ at the top. 
 The CW-VAE is configured similar to the VRNN and SRNN models and with $c=8$. 
 We run the CW-VAE with $L=1$ and $2$ layers of latent variables. 
 The number of convolutional channels and is set equal to $D_z$ which is set to 96.
 %
 \paragraph{Baselines} We supply three elementary baselines that form approximate upper and lower bounds on the likelihood for arbitrary $s$. Specifically, we evaluate an uninformed per-frame discrete uniform distribution and a two-component DMoL fitted to the training set to benchmark worst case performance. 
-We also report the likelihood achieved by the lossless compression algorithm, FLAC \cite{coalson_free_2019} which establishes a notion of good performance, although not a strict best case. We report FLAC on linear PCM since it was designed for this encoding.
+We also report the likelihood achieved by the lossless compression algorithm, FLAC \parencite{coalson_free_2019} which establishes a notion of good performance, although not a strict best case. We report FLAC on linear PCM since it was designed for this encoding.
 
 \subsection{Likelihood results}
 %
@@ -612,22 +612,22 @@ The CW-VAE outperforms the VRNN and SRNN when configured with a hierarchy of lat
 With a single layer of latent variables, the CW-VAE is inferior to both SRNN and VRNN but notably still better than the LSTM. 
 These observations carry to $s=256$, where a multilayered CW-VAE outperforms the LSTM, VRNN and SRNN. 
 The STCN yields the best results at both $s=64$ and $s=256$. 
-For strides $s>1$, previous work has attributed the inferior performance of autoregressive models without latent variables, such as WaveNet and the LSTM, to the ability of LVMs to model intra-step correlations \cite{lai_re-examination_2019}. 
+For strides $s>1$, previous work has attributed the inferior performance of autoregressive models without latent variables, such as WaveNet and the LSTM, to the ability of LVMs to model intra-step correlations \parencite{lai_re-examination_2019}. 
 
 Decreasing the resolution $s$ improves the likelihood for all LVMs. However, the best performing models, STCN and CW-VAE are not yet scalable to this regime for reasons related to numerical instability and computational infeasibility. This seems to indicate that LVMs may be able to outperform autoregressive models at $s=1$ in the future.
 \paragraph{LibriSpeech}
 On LibriSpeech (\cref{tab: likelihoods librispeech}), results are similar to TIMIT. The STCN achieves the best likelihood at $s=64$ and the CW-VAE surpasses WaveNet and the LSTM. 
 \paragraph{Compression}
 A connection can be made between the model likelihoods and the compression rates of audio compression algorithms. 
-Lossy compression algorithms, such as MP3, exploit the dynamic range of human hearing to achieve 70-95\% reduction in bit rate \cite{brandenburg_mpeg-2_1998} while lossless compression algorithms, such as FLAC, achieve 50-70\% reduction \cite{coalson_free_2019} independent of audio content. 
+Lossy compression algorithms, such as MP3, exploit the dynamic range of human hearing to achieve 70-95\% reduction in bit rate \parencite{brandenburg_mpeg-2_1998} while lossless compression algorithms, such as FLAC, achieve 50-70\% reduction \parencite{coalson_free_2019} independent of audio content. 
 % On LibriSpeech, FLAC achieves an overall compression to about 58\% of the original bit rate.
 Although both the autoregressive models and the LVMs are lossy, their objective minimizes the amount of incurred loss. 
 The best likelihoods reported in tables~\cref{tab: likelihoods timit} and \cref{tab: likelihoods librispeech} correspond to about a 30\% reduction in bit rate which indicates that there are significant gains in likelihood to be made in speech modeling.
 
 \section{Phoneme recognition}\label{sec: phoneme recognition}
-Although the likelihood is a practical metric for model comparison and selection, a high likelihood does not guarantee that a model has learned useful representations \cite{huszar_is_2017}. 
+Although the likelihood is a practical metric for model comparison and selection, a high likelihood does not guarantee that a model has learned useful representations \parencite{huszar_is_2017}. 
 For speech data, we would expect models to learn features related to phonetics which would make them useful for tasks such as automatic speech recognition (ASR). 
-The Mel spectrogram is a well-established representation of audio designed for speech recognition and is predefined rather than learned. % \cite{??}. Basic Correlates of the Auditory Stimulus, https://psycnet.apa.org/record/1951-07758-017, modern mel scale https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=1170013&casa_token=UIyQaj3tBRAAAAAA:GtttZedngBkaxVumjnXctc5zS50fptexPMiWhr-7gDrmIVq3JqJPnGCWYedoymb0X5JTGElmHf8&tag=1,
+The Mel spectrogram is a well-established representation of audio designed for speech recognition and is predefined rather than learned. % \parencite{??}. Basic Correlates of the Auditory Stimulus, https://psycnet.apa.org/record/1951-07758-017, modern mel scale https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=1170013&casa_token=UIyQaj3tBRAAAAAA:GtttZedngBkaxVumjnXctc5zS50fptexPMiWhr-7gDrmIVq3JqJPnGCWYedoymb0X5JTGElmHf8&tag=1,
 To assess the usefulness of the representations learned by the benchmarked models, we compare them to the highly useful Mel spectrogram on the task of phoneme recognition. 
 Phonemes are fundamental units of speech that relate to how parts of words are pronounced (see also appendix~\cref{app: timit phoneme distributions}).
 % rather than characters or words themselves (see also appendix~\cref{apsp: timit phoneme distributions}).
@@ -637,7 +637,7 @@ We train an ASR model to recognize phonemes and compare its performance when usi
 For WaveNet and the LSTM, we use the hidden state as the representation. For all LVMs, we use the latent variable. For the hierarchical LVMs and WaveNet, we run the experiment using each possible representation and report only the best one here. 
 We compare the learned representations to a log Mel spectrogram with 80 filterbanks, hop length 64 and window size 128. 
 We also compared to using raw PCM in vectors of 64 elements standardized to $[-1,1]$ but found that the ASR did not reliably converge at all which highlights the importance of input representation. 
-The ASR model is a three-layered bidirectional LSTM with 256 hidden units. It is trained with the connectionist temporal classification (CTC) loss \cite{graves_connectionist_2006} which lets it jointly learn to align and classify without using label alignments. 
+The ASR model is a three-layered bidirectional LSTM with 256 hidden units. It is trained with the connectionist temporal classification (CTC) loss \parencite{graves_connectionist_2006} which lets it jointly learn to align and classify without using label alignments. 
 We pre-train all unsupervised models at $s=64$ on the full TIMIT training dataset excluding the validation data (3.7h) as in \cref{tab: likelihoods timit}. 
 We then train the ASR model on all 3.7h as well as 1h and 10m subsets. We report results on the test set in terms of phoneme error rates (PER) in \cref{tab: phoneme recognition (PER)}. 
 
@@ -652,7 +652,7 @@ When the amount of labeled data is reduced, LVM representations suffer slightly 
 
 \paragraph{Qualitative}
 We qualitatively asses the learned latent representations for the CW-VAE. 
-We infer the latent variables of all utterances by a single speaker from the TIMIT test set. We sample the latent sequence $100$ times to estimate the mean representation per time step. We then compute the average latent representation over the duration of each phoneme using aligned phoneme labels. This approximately marginalizes variation during the phoneme. We use linear discriminant analysis (LDA) \cite{fisher_use_1936} to obtain a low-dimensional linear subspace of the latent space. 
+We infer the latent variables of all utterances by a single speaker from the TIMIT test set. We sample the latent sequence $100$ times to estimate the mean representation per time step. We then compute the average latent representation over the duration of each phoneme using aligned phoneme labels. This approximately marginalizes variation during the phoneme. We use linear discriminant analysis (LDA) \parencite{fisher_use_1936} to obtain a low-dimensional linear subspace of the latent space. 
 We visualize the resulting representations colored according to test set phoneme classes in \cref{fig: latent space phoneme and knn}. We note that many phonemes are separable in the linear subspace and that related phonemes such as ``s" and ``sh" are close.
 
 We also show the average accuracy of a leave-one-out $k$-nearest-neighbor (KNN) classifier on the single left-out latent representation reduced with a 5-dimensional LDA as a function of the number of neighbors. 

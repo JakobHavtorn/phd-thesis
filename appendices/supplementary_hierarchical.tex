@@ -11,7 +11,7 @@ For SmallNORB and Omniglot we resize the original grey-scale images to $28\times
 For each of these datasets, we also create a version where the grey-scale is inverted. We do this because, the overall white nature of the images tends to make detecting them as OOD from FashionMNIST artificially easy.
 The inversion is done via the simple transformation $\xb_\text{inverted} = 255 - \xb_\text{original}$ since images are encoded as 8 bit unsigned integers.
 
-% Similar to \citet{serra_input_2020} and \citet{xiao_likelihood_2020}, we also create a uniform noise dataset ``UniformNoise'' and benchmark our model against this. We dynamically sample each pixel value uniformly as an integer between 0 and 255.
+% Similar to \textcite{serra_input_2020} and \textcite{xiao_likelihood_2020}, we also create a uniform noise dataset ``UniformNoise'' and benchmark our model against this. We dynamically sample each pixel value uniformly as an integer between 0 and 255.
 
 \begin{table}[h!]
     \caption{Overview of the used datasets.}
@@ -21,16 +21,16 @@ The inversion is done via the simple transformation $\xb_\text{inverted} = 255 -
         \toprule
         Dataset & Dimensionality & Examples \\
         \midrule
-        FashionMNIST \cite{xiao_fashionmnist_2017} & $28\times28\times1$ & 70,000 \\
-        MNIST \cite{lecun_gradientbased_1998} & $28\times28\times1$ & 70,000 \\
-        notMNIST \cite{bulatov_notmnist_2011} & $28\times28\times1$ & 547,838 \\
-        KMNIST \cite{clanuwat_deep_2018} & $28\times28\times1$ & 70,000 \\
-        Omniglot \cite{lake_humanlevel_2015} & $28\times28\times1$ & 32,460 \\
-        SmallNORB \cite{lecun_learning_2004} & $28\times28\times1$ & 97,200 \\
+        FashionMNIST \parencite{xiao_fashionmnist_2017} & $28\times28\times1$ & 70,000 \\
+        MNIST \parencite{lecun_gradientbased_1998} & $28\times28\times1$ & 70,000 \\
+        notMNIST \parencite{bulatov_notmnist_2011} & $28\times28\times1$ & 547,838 \\
+        KMNIST \parencite{clanuwat_deep_2018} & $28\times28\times1$ & 70,000 \\
+        Omniglot \parencite{lake_humanlevel_2015} & $28\times28\times1$ & 32,460 \\
+        SmallNORB \parencite{lecun_learning_2004} & $28\times28\times1$ & 97,200 \\
         % UniformNoise & $28\times28\times1$ & dynamic \\
         \midrule
-        CIFAR10 \cite{krizhevsky_learning_2009} & $32\times32\times3$ & 60,000 \\
-        SVHN \cite{netzer_reading_2011} & $32\times32\times3$ & 99,289 \\
+        CIFAR10 \parencite{krizhevsky_learning_2009} & $32\times32\times3$ & 60,000 \\
+        SVHN \parencite{netzer_reading_2011} & $32\times32\times3$ & 99,289 \\
         \bottomrule
     \end{tabular}
     % }
@@ -44,7 +44,7 @@ We make our source code available at \url{https://github.com/JakobHavtorn/hvae-o
 
 \subsection{Hierarchical VAE}
 Our Hierarchical VAE (HVAE) model uses bottom-up inference and top-down generative paths as specified in the paper.
-For grey-scale images, the output is parameterized by a Bernoulli distribution while for natural images we use a Discretized Logistic Mixture \cite{salimans_pixelcnn_2017}.
+For grey-scale images, the output is parameterized by a Bernoulli distribution while for natural images we use a Discretized Logistic Mixture \parencite{salimans_pixelcnn_2017}.
 The latent variables are parameterized by stochastic layers that output the mean and log-variance of a diagonal covariance Gaussian. The prior distribution on the top-most latent is a standard Gaussian.
 For grey-scale images, the lowest latent space is parameterized by a convolutional neural network and has dimensions $14\times14\times8$ interpreted as (height $\times$ width $\times$ latent dimension). The highest two latent variables are parameterized by dense transformations with $16$ and $8$ units, respectively.
 For natural images, the bottom-two latent variables are parameterized by convolutional neural networks and have dimensions $(16\times16)\times128$, $(8\times8)\times64$, respectively for $\zb_1, \zb_2$. The top-most latent, $\zb_3$, is densely connected with dimension $32$.
@@ -55,9 +55,9 @@ For both grey-scale and natural images, each deterministic transformation consis
     \yb = \textsc{conv}\left( \textsc{act} \left( \textsc{conv}_s \left( \textsc{act}(\xb) \right) \right) \right) + \xb \ ,
 \end{equation}
 where \textsc{conv} refers to a same-padded convolution and \textsc{act} to the activation function. Within a residual block, the first convolution always has stride 1 while the second convolution has stride $s$. In a deterministic transformation, any non-unit stride is performed in the third residual block. For grey-scale images, we stride by 2 in the first and second deterministic transformations but not the third. For natural images, we similarly stride by 2 in the first and second deterministic transformations. For grey-scale we use 64 channels while we use 256 for natural images.
-In both cases, the first deterministic block uses a kernel size of 5 and the latter two a kernel of size 3. We use the ReLU activation function \cite{fukushima_neocognitron_1980, nair_rectified_2010}.
+In both cases, the first deterministic block uses a kernel size of 5 and the latter two a kernel of size 3. We use the ReLU activation function \parencite{fukushima_neocognitron_1980, nair_rectified_2010}.
 
-Since the benefits and drawbacks of using batch normalization \cite{ioffe_batch_2015} in hierarchical VAEs is still the matter of some debate \cite{sonderby_ladder_2016, vahdat_nvae_2020, child_very_2021} we choose to use weight normalization \cite{salimans_weight_2016} as in other work \cite{maaloe_biva_2019} and initialize the model using the originally proposed data-dependent initialization.
+Since the benefits and drawbacks of using batch normalization \parencite{ioffe_batch_2015} in hierarchical VAEs is still the matter of some debate \parencite{sonderby_ladder_2016, vahdat_nvae_2020, child_very_2021} we choose to use weight normalization \parencite{salimans_weight_2016} as in other work \parencite{maaloe_biva_2019} and initialize the model using the originally proposed data-dependent initialization.
 To have the stochastic layers initialize to standard Gaussian distributions (zero mean, unit variance), with this initialization, we select the activation function for the variance as a Softplus,
 \begin{equation*}
     \textsc{softplus}(\xb) = \frac{1}{\beta}\log\left(1 + \exp(\beta\xb)\right) \ ,
@@ -68,7 +68,7 @@ Training of a HVAE model took approximately two days on a single NVIDIA GTX 1080
 
 
 \subsection{BIVA}
-For the BIVA model \cite{maaloe_biva_2019}, we use a specification that is very similar to that of the HVAE above, and to that of the original paper.
+For the BIVA model \parencite{maaloe_biva_2019}, we use a specification that is very similar to that of the HVAE above, and to that of the original paper.
 The model has 10 latent variables the lowest 3 of which are spatial and the rest are densely connected in order to have an architecture similar to the HVAE.
 The model uses an overall stride of 8, achieved by striding by 2 in the first, fourth and sixth deterministic transformations.
 From $\zb_1$ to $\zb_{10}$, the latents have the following dimensions: The lowest three latents are spatial $(16\times16)\times8$, $(16\times16)\times16$ and $(16\times16)\times32$, given as $(\text{height}\times\text{width})\times\text{dim})$, while the rest are dense vectors with dimensions of $42, 40, 38, 36, 34, 32, 30$.
@@ -76,7 +76,7 @@ From $\zb_1$ to $\zb_{10}$, the latents have the following dimensions: The lowes
 Training of a BIVA model took approximately a week on a single NVIDIA GTX 1080 Ti graphics card.
 
 
-\begin{table}[h]
+\begin{table}[t]
     \caption[Selection of most important hyperparameters]{Selection of most important hyperparameters and their setting. Convolutional kernels are square and latent dimensions are given without spatial dimensions which are given in the text. See \cref{sec_hierarchical:model-details} for more details.}
     \centering
     % \resizebox{\columnwidth}{!}{%
@@ -86,7 +86,7 @@ Training of a BIVA model took approximately a week on a single NVIDIA GTX 1080 T
         \midrule
         \multicolumn{2}{l}{\textbf{All}} \\
         \midrule
-        Optimization & Adam \cite{kingma_adam_2015} \\
+        Optimization & Adam \parencite{kingma_adam_2015} \\
         Learning rate & $3e-4$ \\
         Batch size & 128 \\
         Epochs & 2000 \\
@@ -95,7 +95,7 @@ Training of a BIVA model took approximately a week on a single NVIDIA GTX 1080 T
         Free bits annealed & 200 epochs \\
         Activation & ReLU \\
         \multirow{2}{*}{Initialization} & Data-dependent \\
-        & \cite{salimans_weight_2016} \\
+        & \parencite{salimans_weight_2016} \\
         \midrule
         \multicolumn{2}{l}{\textbf{HVAE}} \\
         Latent dimensionality & 128-64-32 (natural) / 8-16-8 (grey) \\
@@ -252,14 +252,14 @@ We hypothesize that this score, or the other possible permutations of it, might 
 
 
 \section{Note on the KL-term of hierarchical VAEs}
-In this research we choose model parameterizations relying on bottom-up inference \cite{burda_importance_2016},
+In this research we choose model parameterizations relying on bottom-up inference \parencite{burda_importance_2016},
 \begin{equation}
     q_\phi(\zb|\xb) = q_\phi(\zb_1|\xb)\textstyle\prod_{i=2}^{L} q_\phi(\zb_i|\zb_{i-1}) \ .
 \end{equation}
 We do this because bottom-up inference enables the model to learn covariance between the latent variables in the hierarchy.
 In the inference model, any latent variable is dependent on the latent variables below it in the hierarchy and, importantly, the top most latent variable is dependent on all other latent variables.
 
-In contrast, a top-down inference model \cite{sonderby_ladder_2016} has a topmost latent variable $\zb_L$ that is independent of the other latent variables and is directly given by $\xb$.
+In contrast, a top-down inference model \parencite{sonderby_ladder_2016} has a topmost latent variable $\zb_L$ that is independent of the other latent variables and is directly given by $\xb$.
 \begin{equation}
     q_\phi(\zb|\xb) = q_\phi(\zb_L|\xb)\textstyle\prod_{i=L-1}^{1} q_\phi(\zb_{i}|\zb_{i+1}) \ .
 \end{equation}
@@ -267,7 +267,7 @@ This, in essence, makes $\zb_L$ a mean-field approximation without any covarianc
 Furthermore, since the approximate posterior (and the prior) typically have diagonal covariance, $\zb_L$ is also mean-field within its own elements, $\text{Cov}(z_{L,i}, z_{L,j})=0$ for $i\ne j$.
 
 We hypothesize that the covariance of latent variables towards the top of the hierarchy with other latent variables is important for learning semantic representations.
-However, top-down inference models are easier to optimize as has recently been demonstrated \cite{sonderby_ladder_2016, vahdat_nvae_2020, child_very_2021}.
+However, top-down inference models are easier to optimize as has recently been demonstrated \parencite{sonderby_ladder_2016, vahdat_nvae_2020, child_very_2021}.
 
 In the following, we inspect the differences between the ELBO used for bottom-up inference and the ELBO used for top-down inference and show that it is not generally possible to decompose the total KL-divergence into separate KL-divergences per latent variable.
 Specifically, for top-down inference it is possible to obtain KL-divergence at the top-most latent variable and an expectation of a KL-divergence for the other latent variables.

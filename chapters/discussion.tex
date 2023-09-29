@@ -6,14 +6,14 @@
 
 \section{\Cref{chp:paper-hierarchical} revisited: \dots}
 
-\lesstodo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \cite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
+\lesstodo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \parencite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
 \lesstodo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
 \lesstodo[inline]{Discuss some recent work e.g. \cref{morningstar_density_2021}}
 
 
 \section{\Cref{chp:paper-review} revisited: \dots} \label{sec:discussion-paper-review}
 
-\lesstodo[inline]{Are self-supervised speech representations useful for unsupervised uncertainty estimation? \cite{nava_stateconsistency_2021, nava_uncertaintyaware_2021} Within robotics but not really related.}
+\lesstodo[inline]{Are self-supervised speech representations useful for unsupervised uncertainty estimation? \parencite{nava_stateconsistency_2021, nava_uncertaintyaware_2021} Within robotics but not really related.}
 \lesstodo[inline]{Are self-supervised speech representations useful for unsupervised uncertainty estimation?}
 % Since the main focus within self-supervised learning has been on improving downstream task performance, very limited work, if any, has investigated self-supervised representations in terms of uncertainty estimation. 
 % However, in the context of medical applications where data can be abundant but labels are sparse, unsupervised uncertainty estimation is a very interesting direction for future work.
@@ -37,7 +37,7 @@ The work in \textcite{wenstrup_retrospective_2023} focuses on predictive perform
         % \caption{}
         % \label{fig_discussion:histogram_ensemble_and_single_model}
     \end{subfigure}
-    \caption[Calibration curve for the uncalibrated stroke recognition model and empirical distribution of predicted probabilities.]{\subref{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated} \Cref{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated} shows the calibration curve for the uncalibrated ensemble model with median F1-score also reported in \cref{tab_retrospective:table3-occlusion-analysis} and \cref{fig_retrospective:figure1-roc-curve}. \subref{fig_discussion:histogram_ensemble_and_single_model} Histogram of predicted probabilities.}
+    \caption[Calibration curve for the uncalibrated stroke recognition model and empirical distribution of predicted probabilities.]{Calibration curve for the uncalibrated ensemble model with median F1-score also reported in \cref{tab_retrospective:table3-occlusion-analysis, fig_retrospective:figure1-roc-curve} (left) and the histogram of predicted probabilities (right).}
 \end{figure}
 
 % \subsectionP{Ensembling technique}
@@ -51,4 +51,4 @@ The work in \textcite{wenstrup_retrospective_2023} focuses on predictive perform
 
 \lesstodo[inline]{Discuss the calibration of the stroke model and report calibration curve.}
 \lesstodo[inline]{Report the results of calibrating the stroke model using e.g. Platt scaling or Isotonic scaling.} % https://scikit-learn.org/stable/modules/calibration.html
-\lesstodo[inline]{Maybe mention MultiQT paper \cite{havtorn_multiqt_2020}.}
+\lesstodo[inline]{Maybe mention MultiQT paper \parencite{havtorn_multiqt_2020}.}

@@ -67,7 +67,7 @@ The selection of hyperparameters followed a simple two-stage process using valid
 \end{table}
 
 
-\subsubsection{Bag-of-words selection}
+\paragraph{Bag-of-words selection}
 
 Each transcript was transformed into a fixed-size bag-of-words vector to serve as input for the classification model. These vectors encode the occurrence of words and character n-grams within a fixed vocabulary. We selected vocabulary by first computing the χ2-statistics for all word uni-and bi-grams and character three-, four-, and fivegrams that occurred in more than ten training calls. We then retained the M highest-scoring word n-grams and $M$ highest-scoring character n-grams, yielding $2M$ input features, where $M$ represents a tuned hyperparameter. By complementing word n-grams with character n-grams, the model can use out-of-vocabulary words not included in the word n-grams and robustly represent words misspelt by the speech recogniser. The feature vector was input into the classification model (\cref{fig_retrospective:model_sketch}).
 
@@ -108,7 +108,7 @@ where $I_{\cdot}(\cdot)$ is the indicator function that returns 1 if the subscri
 
 \section{Significance testing and confidence intervals}
 
-We used standard methods for significance testing and computing the confidence intervals. We used approximate methods owing to data size and to maintain computational feasibility \cite{dwass_modified_1957,eden_validity_1933}
+We used standard methods for significance testing and computing the confidence intervals. We used approximate methods owing to data size and to maintain computational feasibility \parencite{dwass_modified_1957,eden_validity_1933}
 
 We performed \emph{paired approximate permutation} tests by pairing each observation from the first sample to a random observation from the other sample (without replacement), while keeping each observation within its original sample. This allowed us to test the significance of the observed pairings on the chosen statistics, i.e. whether a significant difference was observed in the test statistics depending on whether the call taker or model made the prediction. We used this approach to test whether
 %

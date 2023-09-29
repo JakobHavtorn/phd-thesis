@@ -16,19 +16,19 @@ The stochastic latent variable models considered in this work do not provide an 
 The work presented here fundamentally deals with automated perception of speech and generation of speech. These applications of machine learning potentially raise a number of ethical concerns. For instance, the these models might see possibly adverse use in automated surveillance and generation of deep fakes. To counter some of these effects, this work has focused on openness by using publicly available datasets for model development and benchmarking. Additionally, the work will open source the source code used to create these results. 
 Ensuring the net positive effect of the development of these technologies is and must continue to be an ongoing effort.
 
-We do not associate any significant ethical concerns with the datasets used in this work. However, one might note that the TIMIT dataset has somewhat skewed distributions in terms of gender and race diversity. Specifically, the male to female ratio is about two to one while the vast majority of speakers are Caucasian. Such statistics might have an effect of some ethical concern on downstream applications derived from such a dataset as also highlighted in recent research \cite{koenecke_racial_2020}. In LibriSpeech, there is an approximately equal number of female and male speakers while the diversity in race is unknown to the authors.
+We do not associate any significant ethical concerns with the datasets used in this work. However, one might note that the TIMIT dataset has somewhat skewed distributions in terms of gender and race diversity. Specifically, the male to female ratio is about two to one while the vast majority of speakers are Caucasian. Such statistics might have an effect of some ethical concern on downstream applications derived from such a dataset as also highlighted in recent research \parencite{koenecke_racial_2020}. In LibriSpeech, there is an approximately equal number of female and male speakers while the diversity in race is unknown to the authors.
 
 
 \section{Datasets}\label{app: dataset details}
 \paragraph{TIMIT} 
-TIMIT \cite{garofolo_timit_1993} is a speech dataset which contains $\SI{16}{kHz}$ recordings of 630 speakers of eight major dialects of American English, each reading ten phonetically rich sentences. It amounts to 6300 total recordings splits approximately in 3.94 hours of audio for training and 1.43 hours of audio for testing. No speakers or sentences in the test set are in the training set. 
-The full train and test subsets of TIMIT are as in previous work \cite{chung_recurrent_2015, fraccaro_sequential_2016, aksan_stcn_2019}. 
+TIMIT \parencite{garofolo_timit_1993} is a speech dataset which contains $\SI{16}{kHz}$ recordings of 630 speakers of eight major dialects of American English, each reading ten phonetically rich sentences. It amounts to 6300 total recordings splits approximately in 3.94 hours of audio for training and 1.43 hours of audio for testing. No speakers or sentences in the test set are in the training set. 
+The full train and test subsets of TIMIT are as in previous work \parencite{chung_recurrent_2015, fraccaro_sequential_2016, aksan_stcn_2019}. 
 We randomly sample 5\% of the training set to use as a validation set. 
-TIMIT includes temporally aligned annotations of phonemes and words as well as speaker metadata such as gender, height, age, race, education level and dialect region \cite{garofolo_timit_1993}.
+TIMIT includes temporally aligned annotations of phonemes and words as well as speaker metadata such as gender, height, age, race, education level and dialect region \parencite{garofolo_timit_1993}.
 
 \paragraph{LibriSpeech and LibriLight}
-The LibriSpeech dataset \cite{panayotov_librispeech_2015} consists of readings of public domain audio books amounting to approximately $\SI{1000}{h}$ of audio. The data is derived from the LibriVox project.
-LibriLight \cite{kahn_libri-light_2020} is a subset of LibriSpeech created as an automatic speech transcription (ASR) benchmark with limited or no supervision.
+The LibriSpeech dataset \parencite{panayotov_librispeech_2015} consists of readings of public domain audio books amounting to approximately $\SI{1000}{h}$ of audio. The data is derived from the LibriVox project.
+LibriLight \parencite{kahn_libri-light_2020} is a subset of LibriSpeech created as an automatic speech transcription (ASR) benchmark with limited or no supervision.
 We specifically train on the $\SI{100}{h}$ \textrm{train-clean-100} subset of LibriSpeech and the $\SI{10}{h}$ subset of LibriLight. 
 In all cases we evaluate on all the test splits \textrm{dev-clean}, \textrm{dev-other}, \textrm{test-clean}, \textrm{test-other}.
 
@@ -39,21 +39,21 @@ Both datasets represent the audio as $\SI{16}{bit}$ pulse code modulation (PCM) 
 This section details model architectures. See appendix~\cref{app: additional graphical models} for graphical models and appendix~\cref{app: training details} for training details. 
 
 \paragraph{WaveNet}
-We implement WaveNet as described in the original work \cite{oord_wavenet_2016} but use a discretized mixture of logistics as the output distribution as also done in other work \cite{oord_parallel_2018}. Our WaveNet is not conditioned on any signal other than the raw waveform. The model applies the causal convolution directly to the raw waveform frames (i.e. one input channel). An alternative option that we did not examine is to replace the initial convolution with an embedding lookup with a learnable vector for each waveform frame value.
+We implement WaveNet as described in the original work \parencite{oord_wavenet_2016} but use a discretized mixture of logistics as the output distribution as also done in other work \parencite{oord_parallel_2018}. Our WaveNet is not conditioned on any signal other than the raw waveform. The model applies the causal convolution directly to the raw waveform frames (i.e. one input channel). An alternative option that we did not examine is to replace the initial convolution with an embedding lookup with a learnable vector for each waveform frame value.
 
 \paragraph{LSTM}
 The LSTM baseline uses an MLP encoder to embed the waveform subsegment $\xb_{t:t+s-1}$ to a feature vector before feeding it to the LSTM cell. The encoder is similar to the parameterization of $\phi_\text{vrnn}^\text{enc}$ for the VRNN described above. The LSTM cell produces the hidden state $\db_t$ from $\xb_{t:t+s-1}$ and passes it to a decoder. Like the encoder, the decoder is parameterized like $\phi_\text{vrnn}^\text{dec}$ of the VRNN. It outputs the waveform predictions $\xb_{t+s:t+2s-1}$ from the hidden state $\db_t$. The LSTM model uses a single vanilla unidirectional LSTM cell. 
 
 \paragraph{VRNN}
-We implement the VRNN as described in the original work \cite{chung_recurrent_2015} and verify that we can reproduce the original Gaussian likelihood TIMIT results. We replace the Gaussian output distribution with the DMoL. 
+We implement the VRNN as described in the original work \parencite{chung_recurrent_2015} and verify that we can reproduce the original Gaussian likelihood TIMIT results. We replace the Gaussian output distribution with the DMoL. 
 
 \paragraph{SRNN}
-We implement the VRNN as described in the original work \cite{fraccaro_sequential_2016} and verify that we can reproduce the original Gaussian likelihood TIMIT results. We replace the Gaussian output distribution with the DMoL. 
+We implement the VRNN as described in the original work \parencite{fraccaro_sequential_2016} and verify that we can reproduce the original Gaussian likelihood TIMIT results. We replace the Gaussian output distribution with the DMoL. 
 
-\paragraph{CW-VAE} We implement the CW-VAE based on the original work \cite{saxena_clockwork_2021} but with some modifications also briefly described in section~\cref{sec: cwvae on speech}. We replace the encoder/decoder model architectures of the original work with architectures designed for waveform modeling. Specifically, the encoder and decoder are based on the Conv-TasNet \cite{luo_conv-tasnet_2019} and uses similar residual block structure. However, contrary to the Conv-TasNet, we require downsampling factors larger than two. In order to achieve this we use strides of two in the separable convolution of each block. With e.g. six blocks we hence get an overall stride of $2^6=64$. We can then add additional blocks with unit stride.
+\paragraph{CW-VAE} We implement the CW-VAE based on the original work \parencite{saxena_clockwork_2021} but with some modifications also briefly described in section~\cref{sec: cwvae on speech}. We replace the encoder/decoder model architectures of the original work with architectures designed for waveform modeling. Specifically, the encoder and decoder are based on the Conv-TasNet \parencite{luo_conv-tasnet_2019} and uses similar residual block structure. However, contrary to the Conv-TasNet, we require downsampling factors larger than two. In order to achieve this we use strides of two in the separable convolution of each block. With e.g. six blocks we hence get an overall stride of $2^6=64$. We can then add additional blocks with unit stride.
 We also need to modify the residual connections that skip strided convolutions. Specifically, we replace the residual with a single convolution with stride equal to the stride used in the separable convolution. This convolution uses no nonlinearity and hence simply learns a local linear downsampling.
 
-\paragraph{STCN} We implement the STCN as described in the original work \cite{aksan_stcn_2019} and verify that we can reproduce the original Gaussian likelihood TIMIT results. We replace the Gaussian output distribution with the DMoL. We use the best-performing version of the STCN reported in the original paper, namedly the ``STCN-dense" variant which conditions the observed variable on all five latent variables in the hierarchy. For the ablation experiment, we remove the bottom four latent variables. That is, we completely remove the corresponding four small densely connected networks that parameterize the prior and posterior distributions based on deterministic representations of the WaveNet encoder. We keep the top most prior and posterior networks and use them to parameterize a latent variable of $256$. This maintains the widest bottleneck of the model as well as almost all of the model's capacity.
+\paragraph{STCN} We implement the STCN as described in the original work \parencite{aksan_stcn_2019} and verify that we can reproduce the original Gaussian likelihood TIMIT results. We replace the Gaussian output distribution with the DMoL. We use the best-performing version of the STCN reported in the original paper, namedly the ``STCN-dense" variant which conditions the observed variable on all five latent variables in the hierarchy. For the ablation experiment, we remove the bottom four latent variables. That is, we completely remove the corresponding four small densely connected networks that parameterize the prior and posterior distributions based on deterministic representations of the WaveNet encoder. We keep the top most prior and posterior networks and use them to parameterize a latent variable of $256$. This maintains the widest bottleneck of the model as well as almost all of the model's capacity.
 
 \paragraph{ASR model}
 The ASR model used for the phoneme recognition experiments is a three-layered bidirectional LSTM. We apply temporal dropout between the LSTM layers and also after the final layer. Temporal dropout works similar to regular dropout but samples the entries of the hidden state to mask only once and apply it to all timesteps, i.e. masking $\hb_{t}$ at vector index $i$ for all $t$ (and $i$). 
@@ -64,8 +64,8 @@ The only difference in model architecture between the evaluation of different re
 
 \section{Training details}\label{app: training details}
 \paragraph{Likelihood benchmark}
-We implement all models and training scripts in PyTorch 1.9 \cite{paszke_automatic_2017}.
-For both datasets we use the Adam optimizer \cite{kingma_adam_2015} with default parameters as given in PyTorch. We use learning rate $3\text{e}-4$ and no learning rate schedule.
+We implement all models and training scripts in PyTorch 1.9 \parencite{paszke_automatic_2017}.
+For both datasets we use the Adam optimizer \parencite{kingma_adam_2015} with default parameters as given in PyTorch. We use learning rate $3\text{e}-4$ and no learning rate schedule.
 We use PyTorch automatic mixed precision (AMP) to significantly reduce memory consumption. We did not observe any significant difference in final model performance compared to full ($\SI{32}{bit}$) precision.
 
 We train stateful models (LSTM, VRNN, SRNN and CW-VAE) on the full sequence lengths padding batches with zeros when examples are not of equal length. We sample batches such that they consist of examples that are approximately the same length to minimize the amount of computation wasted on padding.
@@ -76,7 +76,7 @@ For $s=64$ and $s=256$ we train the stateless models on the full example lengths
 In testing, we evaluate on the full sequences. Due to memory constrains, for LibriSpeech, we need to split the test examples into subsegments since the average sequence length in Librispeech is about 4 times longer than that of TIMIT. Hence, we do multiple forward passes per test example, one for each of several subsegments. We carry along the internal state for models that are autoregressive in training (LSTM, VRNN, SRNN, CW-VAE) and define segments to overlap according to model architecture.
 
 \paragraph{Phoneme recognition}
-The ASR experiment consists of two stages: 1) pre-training of the unsupervised model and 2) training of the ASR model. The pre-training is done as for the likelihood benchmark above. The ASR model is trained using the Adam optimizer \cite{kingma_adam_2015} with default parameters as given in PyTorch. We use learning rate $3\text{e}-4$ and no learning rate schedule. 
+The ASR experiment consists of two stages: 1) pre-training of the unsupervised model and 2) training of the ASR model. The pre-training is done as for the likelihood benchmark above. The ASR model is trained using the Adam optimizer \parencite{kingma_adam_2015} with default parameters as given in PyTorch. We use learning rate $3\text{e}-4$ and no learning rate schedule. 
 
 For the spectrogram, WaveNet and the LSTM, we extract the representation only once and train the ASR model on these. Since the models are deterministic and do not parameterize distributions, this is the only option. For the LVMs, we resample the latent representation of a training example at every epoch. This is the most principled approach as these models parameterize probability distributions. Furthermore, using a single sample would be subject to artificially high variance in the representations while it is not straightforward to establish a sound mean representation for sequential models.
 
@@ -97,11 +97,11 @@ For the LVMs, the term $\log_2 p(\xb_t^{i})$ is lower bounded by the ELBO in \eq
 
 \paragraph{TIMIT, linear, DMoL}: We provide results on TIMIT with audio represented as linear PCM (raw PCM) in \cref{tab: timit likelihoods dmol linear appendix}. Except for the encoding, details are as for $\mu$-law encoded TIMIT
 
-\paragraph{TIMIT, linear, Gaussian} We also provide some results on TIMIT with the audio instead represented as linear PCM (linearly encoded) and using Gaussian output distributions as has been done previously in the literature \cite{chung_recurrent_2015, fraccaro_sequential_2016, lai_stochastic_2018, aksan_stcn_2019}. We use $s=200$ for comparability to the previous work. We provide the results in \cref{tab: timit likelihoods gaussian appendix} and include likelihoods reported in the literature for reference. For our models, we use the same architectures as before but replace the discretized mixture of logistics with either a Gaussian distribution or a mixture of Gaussian distributions.
+\paragraph{TIMIT, linear, Gaussian} We also provide some results on TIMIT with the audio instead represented as linear PCM (linearly encoded) and using Gaussian output distributions as has been done previously in the literature \parencite{chung_recurrent_2015, fraccaro_sequential_2016, lai_stochastic_2018, aksan_stcn_2019}. We use $s=200$ for comparability to the previous work. We provide the results in \cref{tab: timit likelihoods gaussian appendix} and include likelihoods reported in the literature for reference. For our models, we use the same architectures as before but replace the discretized mixture of logistics with either a Gaussian distribution or a mixture of Gaussian distributions.
 
-We constrain the variance of the Gaussians used with our models to be at least $\sigma^2_\text{min} = 0.01^2$ in order to avoid the variance going to zero, the likelihood going to infinity and optimization becoming unstable. The Gaussian standard deviation is clamped at minimum $0.001$ by \cite{aksan_stcn_2019}.
+We constrain the variance of the Gaussians used with our models to be at least $\sigma^2_\text{min} = 0.01^2$ in order to avoid the variance going to zero, the likelihood going to infinity and optimization becoming unstable. The Gaussian standard deviation is clamped at minimum $0.001$ by \parencite{aksan_stcn_2019}.
 
-From \cref{tab: timit likelihoods gaussian appendix} we note that the performance of the CW-VAE with Gaussian output distribution when modeling linear PCM (i.e. not $\mu$-law encoded) does not compare as favorably to the other baselines as it did with the discretized mixture of logistics distribution. We hypothesize that this has to do with using a Gaussian output distribution in latent variable models which, as has been reported elsewhere \cite{mattei_leveraging_2018}, leads to a likelihood function that is unbounded above and can grow arbitrarily high. We discuss this phenomenon in further detail in section~\cref{app: gaussian likelihood unboundedness discussion}. 
+From \cref{tab: timit likelihoods gaussian appendix} we note that the performance of the CW-VAE with Gaussian output distribution when modeling linear PCM (i.e. not $\mu$-law encoded) does not compare as favorably to the other baselines as it did with the discretized mixture of logistics distribution. We hypothesize that this has to do with using a Gaussian output distribution in latent variable models which, as has been reported elsewhere \parencite{mattei_leveraging_2018}, leads to a likelihood function that is unbounded above and can grow arbitrarily high. We discuss this phenomenon in further detail in section~\cref{app: gaussian likelihood unboundedness discussion}. 
 
 We specifically hypothesize that models that are autoregressive in the observed variable (VRNN, SRNN, Stochastic WaveNet, STCN) are well-equipped to utilize local smoothness to put very high density on the correct next value and that this in turn leads to a high degree of exploitation of the unboundedness of the likelihood. Not being autoregressive in the observed variable, the CW-VAE cannot exploit this local smoothness in the same way. Instead, the reconstruction is conditioned on a stochastic latent variable, $p(\xb_t|\zb^1_t)$, which introduces uncertainty and likely larger reconstruction variances.
 
@@ -232,18 +232,18 @@ We specifically hypothesize that models that are autoregressive in the observed 
         1 & WaveNet                                                               & GMM-20 & 121681 \\
         \midrule
         % 200 & WaveNet                                                              & GMM    & XX.XX
-        200 & WaveNet {\scriptsize \cite{aksan_stcn_2019}}                        & GMM-20    & 30188 \\
-        200 & WaveNet {\scriptsize \cite{aksan_stcn_2019}}                        & Normal & -7443 \\
-        200 & Stochastic WaveNet$^*$ {\scriptsize \cite{lai_stochastic_2018}}     & Normal & $\geq$72463\\
-        % 200 & VRNN {\scriptsize \cite{chung_recurrent_2015}}                          & & \\
-        200 & VRNN {\scriptsize \cite{chung_recurrent_2015}}                      & Normal & $\approx$28982\\
-        % 200 & SRNN {\scriptsize \cite{fraccaro_sequential_2016}}                      & & \\
-        200 & SRNN {\scriptsize \cite{fraccaro_sequential_2016}}                  & Normal & $\geq$60550 \\
-        200 & STCN {\scriptsize \cite{aksan_stcn_2019}}                           & GMM-20 & $\geq$69195\\
-        200 & STCN {\scriptsize \cite{aksan_stcn_2019}}                           & Normal & $\geq$64913\\
-        200 & STCN-dense {\scriptsize \cite{aksan_stcn_2019}}                     & GMM-20 & $\geq$71386\\
-        200 & STCN-dense {\scriptsize \cite{aksan_stcn_2019}}                     & Normal & $\geq$70294\\
-        200 & STCN-dense-large {\scriptsize \cite{aksan_stcn_2019}}               & GMM-20 & $\geq$77438\\
+        200 & WaveNet {\scriptsize \parencite{aksan_stcn_2019}}                        & GMM-20    & 30188 \\
+        200 & WaveNet {\scriptsize \parencite{aksan_stcn_2019}}                        & Normal & -7443 \\
+        200 & Stochastic WaveNet$^*$ {\scriptsize \parencite{lai_stochastic_2018}}     & Normal & $\geq$72463\\
+        % 200 & VRNN {\scriptsize \parencite{chung_recurrent_2015}}                          & & \\
+        200 & VRNN {\scriptsize \parencite{chung_recurrent_2015}}                      & Normal & $\approx$28982\\
+        % 200 & SRNN {\scriptsize \parencite{fraccaro_sequential_2016}}                      & & \\
+        200 & SRNN {\scriptsize \parencite{fraccaro_sequential_2016}}                  & Normal & $\geq$60550 \\
+        200 & STCN {\scriptsize \parencite{aksan_stcn_2019}}                           & GMM-20 & $\geq$69195\\
+        200 & STCN {\scriptsize \parencite{aksan_stcn_2019}}                           & Normal & $\geq$64913\\
+        200 & STCN-dense {\scriptsize \parencite{aksan_stcn_2019}}                     & GMM-20 & $\geq$71386\\
+        200 & STCN-dense {\scriptsize \parencite{aksan_stcn_2019}}                     & Normal & $\geq$70294\\
+        200 & STCN-dense-large {\scriptsize \parencite{aksan_stcn_2019}}               & GMM-20 & $\geq$77438\\
         200 & CW-VAE$^*$                                         & $L=1, D_z=96$, Normal & $\geq$41629 \\  % https://wandb.ai/vseq/cwvae/runs/n8nu778t?workspace=user-jaksen
         % 200 & CW-VAE$^*$                                         & $L=2, D_z=96$, Normal & $\geq$2090 \\  % https://wandb.ai/vseq/cwvae/runs/1so36fii?workspace=user-jaksen
         \bottomrule
@@ -300,7 +300,7 @@ The model can learn to maximize likelihood by assigning a bit of probability mas
 While this is well-suited for autoregressive modeling, for which the distribution was developed, the potential multimodality poses a challenge for non-autoregressive latent variable models which independently sample multiple neighboring observations at the output.
 In fact, if multiple neighboring outputs defined by the subsequence $\xb_{t_1:t_2}$ have multimodal $p(\xb_t|\cdot)$, we risk sampling a subsequence where each neighboring value expresses different potential realities, independently. 
 
-Interestingly, most work on latent variable models with non-autoregressive output distributions seem to ignore this fact and simply employ the mixture distribution with 10 mixture components \cite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
+Interestingly, most work on latent variable models with non-autoregressive output distributions seem to ignore this fact and simply employ the mixture distribution with 10 mixture components \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
 However, given the empirically good results of latent variable models for image generation, this seems to have posed only a minor problem in practice. We speculate that this is due to the high degree of similarity between neighbouring pixels in images. I.e. if the neighboring pixels are nuances of red, then, in all likelihood, so is the central pixel.
 
 In the audio domain, however, neighbouring waveform frames can take wildly different values, especially at low sample rates. Furthermore, waveforms exhibit a natural symmetry between positive and negative amplitudes.
@@ -308,12 +308,12 @@ Hence, it seems plausible that multimodality may pose a larger problem in non-au
 
 
 \section{Additional graphical models}\label{app: additional graphical models}
-In \cref{fig: cwvae cell state graph} we show the graphical model of the recurrent cell of the CW-VAE for a single time step. As noted in \cite{saxena_clockwork_2021}, this cell is very similar to the one of the Recurrent State Space Model (RSSM) \cite{hafner_learning_2019}.
+In \cref{fig: cwvae cell state graph} we show the graphical model of the recurrent cell of the CW-VAE for a single time step. As noted in \parencite{saxena_clockwork_2021}, this cell is very similar to the one of the Recurrent State Space Model (RSSM) \parencite{hafner_learning_2019}.
 In \cref{fig: cwvae three-layered graphical models (inference and generative)} we show the unrolled graphical models of a three-layered CW-VAE with $k_1=1$ and $c=2$ yielding $k_2=2$ and $k_3=4$. 
 We show both the generative and inference models and highlight in blue the parameter sharing between the two models due to top-down inference.
-In \cref{fig: stcn graphical models (inference and generative)} we show the graphical models of the STCN \cite{aksan_stcn_2019} at a single timestep. The model has three layers and shares the parameters of the WaveNet encoder between the inference and generative models.
-In \cref{fig: vrnn graphical models (inference and generative)} we illustrate the unrolled graphical models of the inference and generative models of the VRNN \cite{chung_recurrent_2015}. We include the deterministic variable $\db_t$ in order to illustrate the difference to other latent variable models.
-Likewise, in \cref{fig: srnn graphical models (inference and generative)} we illustrate the unrolled graphical models the SRNN \cite{fraccaro_sequential_2016}.
+In \cref{fig: stcn graphical models (inference and generative)} we show the graphical models of the STCN \parencite{aksan_stcn_2019} at a single timestep. The model has three layers and shares the parameters of the WaveNet encoder between the inference and generative models.
+In \cref{fig: vrnn graphical models (inference and generative)} we illustrate the unrolled graphical models of the inference and generative models of the VRNN \parencite{chung_recurrent_2015}. We include the deterministic variable $\db_t$ in order to illustrate the difference to other latent variable models.
+Likewise, in \cref{fig: srnn graphical models (inference and generative)} we illustrate the unrolled graphical models the SRNN \parencite{fraccaro_sequential_2016}.
 
 
 \begin{figure}[t!]
@@ -352,7 +352,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
         \edge[blue] {s_t_l} {s_t_l_copy1}
         \edge[blue] {s_t_l} {s_t_l_copy2}
     \end{tikzpicture}
-\caption[CW-VAE cell state $\vs_t^l$ update]{CW-VAE cell state $\vs_t^l$ update. The cell state is given as $\vs_t^l=(\zb_t^l, \db_t^l)$ where $\db_t^l$ is the deterministic hidden state of a Gated Recurrent Unit \cite{cho_properties_2014}. The vector $\eb_t^l$ is computed from $\xb_t$ by the encoder network which outputs $L$ encodings, one for each latent variable, similar to that of a Ladder VAE \cite{sonderby_ladder_2016}. All blue arrows are shared between generation and inference. The dashed arrow is used only during inference. The solid arrow has unique transformations during inference and generation.}
+\caption[CW-VAE cell state $\vs_t^l$ update]{CW-VAE cell state $\vs_t^l$ update. The cell state is given as $\vs_t^l=(\zb_t^l, \db_t^l)$ where $\db_t^l$ is the deterministic hidden state of a Gated Recurrent Unit \parencite{cho_properties_2014}. The vector $\eb_t^l$ is computed from $\xb_t$ by the encoder network which outputs $L$ encodings, one for each latent variable, similar to that of a Ladder VAE \parencite{sonderby_ladder_2016}. All blue arrows are shared between generation and inference. The dashed arrow is used only during inference. The solid arrow has unique transformations during inference and generation.}
 \label{fig: cwvae cell state graph}
 \end{figure}
 
@@ -546,7 +546,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
     \label{fig: cwvae three-layered graphical model inference}
     \end{subfigure}
 \caption[Generative and inference models for three-layered CW-VAE]{
-    CW-VAE \cite{saxena_clockwork_2021} generative model $p(\xb,\zb)$ in (\subref{fig: cwvae three-layered graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: cwvae three-layered graphical model inference}) for a three-layered model with $k_1=1$ and $c=2$ giving $k_2=2$ and $k_3=4$ unrolled over eight steps in the observed variable. Blue arrows are (mostly) shared between the inference and generative models. See \cref{fig: cwvae cell state graph} for a detailed graphical model expanding on the latent nodes $\zb^l_t$ and parameter sharing.
+    CW-VAE \parencite{saxena_clockwork_2021} generative model $p(\xb,\zb)$ in (\subref{fig: cwvae three-layered graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: cwvae three-layered graphical model inference}) for a three-layered model with $k_1=1$ and $c=2$ giving $k_2=2$ and $k_3=4$ unrolled over eight steps in the observed variable. Blue arrows are (mostly) shared between the inference and generative models. See \cref{fig: cwvae cell state graph} for a detailed graphical model expanding on the latent nodes $\zb^l_t$ and parameter sharing.
 }
 \label{fig: cwvae three-layered graphical models (inference and generative)}
 \end{figure}
@@ -694,7 +694,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
     \label{fig: stcn graphical model inference}
     \end{subfigure}
 \caption[Generative and inference models for three-layered STCN]{
-    STCN \cite{aksan_stcn_2019} generative model $p(\xb,\zb)$ in (\subref{fig: stcn graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: stcn graphical model inference}) for a single time-step.
+    STCN \parencite{aksan_stcn_2019} generative model $p(\xb,\zb)$ in (\subref{fig: stcn graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: stcn graphical model inference}) for a single time-step.
     The WaveNet autoregressive encoder is shared between generative and inference models. It is depicted here with only one stack of three layers in order to illustrate the dilated convolution with limited space. In practice, the model uses ten layers in each of five stacks/cycles resulting in a much larger receptive field. Importantly, the model parameterizes the five latent variables using the last deterministic representation $\db^{(l)}$ from each stack, i.e. only every fifth $l$ starting from $l=5$ and ending at $l=25$.
     Note that the generative model uses the prior to transform the WaveNet hidden states $\db_{t}^{(l)}$ into the latent variable $\zb_{t+1}^{(l)}$ one step ahead in time compared to the approximate posterior which infers $\zb_{t}^{(l)}$.
     Also note that $\zb_t$ is constructed by concatenating all $\zb_t^{(l)}$. The original paper explores setting $\zb_t$ equal to $\zb_t^{(1)}$. The best-performing STCN for speech, which also the one we implement, uses a WaveNet decoder to predict $\xb_{t+1}$ from a sequence of $\zb_t$ rather than a per-timestep transform.
@@ -804,7 +804,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
     \label{fig: vrnn graphical model inference}
     \end{subfigure}
 \caption[Generative and inference models for VRNN]{
-    VRNN \cite{chung_recurrent_2015} generative model $p(\xb,\zb)$ in (\subref{fig: vrnn graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: vrnn graphical model inference}) unrolled over three steps in the observed variable. 
+    VRNN \parencite{chung_recurrent_2015} generative model $p(\xb,\zb)$ in (\subref{fig: vrnn graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: vrnn graphical model inference}) unrolled over three steps in the observed variable. 
     Blue arrows are shared between the inference and generative models.
 }
 \label{fig: vrnn graphical models (inference and generative)}
@@ -923,7 +923,7 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
     \label{fig: srnn graphical model inference}
     \end{subfigure}
 \caption[Generative and inference models for SRNN]{
-    SRNN \cite{fraccaro_sequential_2016} generative model $p(\xb,\zb)$ in (\subref{fig: srnn graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: srnn graphical model inference}) unrolled over three steps in the observed variable. 
+    SRNN \parencite{fraccaro_sequential_2016} generative model $p(\xb,\zb)$ in (\subref{fig: srnn graphical model generative}) and inference model $q(\zb|\xb)$ in (\subref{fig: srnn graphical model inference}) unrolled over three steps in the observed variable. 
     Blue arrows are shared between the inference and generative models.
 }
 \label{fig: srnn graphical models (inference and generative)}

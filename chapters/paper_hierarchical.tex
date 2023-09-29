@@ -27,18 +27,18 @@ We benchmark the method on a vast set of data and model combinations and achieve
 \end{figure}
 % First paragraph: Explains why OOD detection is important in a broad perspective
 The reliability and safety of machine learning systems applied in the real-world is contingent on the ability to detect when an input is different from the training distribution. %, an anomaly.
-Supervised classifiers built as deep neural networks are well-known to misclassify such \textit{out-of-distribution} (OOD) inputs to known classes with high confidence \cite{goodfellow_explaining_2015, nguyen_deep_2015}.
-Several approaches have been suggested to equip deep classifiers with OOD detection capabilities \cite{hendrycks_baseline_2017, lakshminarayanan_simple_2017, hendrycks_deep_2019, devries_learning_2018}.
+Supervised classifiers built as deep neural networks are well-known to misclassify such \textit{out-of-distribution} (OOD) inputs to known classes with high confidence \parencite{goodfellow_explaining_2015, nguyen_deep_2015}.
+Several approaches have been suggested to equip deep classifiers with OOD detection capabilities \parencite{hendrycks_baseline_2017, lakshminarayanan_simple_2017, hendrycks_deep_2019, devries_learning_2018}.
 % However, such methods are inherently supervised and require in-distribution labels or examples of OOD data from an a priori known distribution which limit their applicability.
 But, such methods are inherently supervised and require in-distribution labels or examples of OOD data limiting their applicability and generality.
 
 % Second paragraph: Outline deep generative modeling approach and their failure
 Unsupervised generative models that estimate an explicit likelihood should understand what it means to be in- and out-of-distribution without requiring labels or examples of OOD data.
-By directly modeling the training distribution, such models are expected to assign low likelihoods to OOD data as it originates from regions of little or no support under the learned density \cite{bishop_novelty_1994}.
-Recent advances in deep generative models \cite{kingma_autoencoding_2014, rezende_stochastic_2014, oord_pixel_2016, salimans_pixelcnn_2017, kingma_glow_2018} have enabled learning high quality generative models on complex data such as natural images, sequences including audio \cite{oord_wavenet_2016} and graphs \cite{kipf_variational_2016}.
-However, recent observations have brought into question the quality of the learned density estimates by showing that they often assign higher likelihoods to OOD data than to in-distribution data \cite{nalisnick_deep_2019, choi_waic_2019}.
+By directly modeling the training distribution, such models are expected to assign low likelihoods to OOD data as it originates from regions of little or no support under the learned density \parencite{bishop_novelty_1994}.
+Recent advances in deep generative models \parencite{kingma_autoencoding_2014, rezende_stochastic_2014, oord_pixel_2016, salimans_pixelcnn_2017, kingma_glow_2018} have enabled learning high quality generative models on complex data such as natural images, sequences including audio \parencite{oord_wavenet_2016} and graphs \parencite{kipf_variational_2016}.
+However, recent observations have brought into question the quality of the learned density estimates by showing that they often assign higher likelihoods to OOD data than to in-distribution data \parencite{nalisnick_deep_2019, choi_waic_2019}.
 Many complex data distributions can be explained to a large degree by low-level features, e.g. edges in images.
-However, such features do not explain high-level semantics of the data and may inhibit OOD detection \cite{ren_likelihood_2019, nalisnick_deep_2019}
+However, such features do not explain high-level semantics of the data and may inhibit OOD detection \parencite{ren_likelihood_2019, nalisnick_deep_2019}
 
 \textbf{In this paper}, we examine the failure cases of deep generative models on OOD detection tasks within the context of hierarchical VAEs, and make the following contributions:
 \begin{itemize}
@@ -64,13 +64,13 @@ However, such features do not explain high-level semantics of the data and may i
 \end{figure}
 
 The inability to detect out-of-distribution data with deep generative models is surprising.
-Before the advent of deep generative models, this was not considered a major issue for probabilistic models \cite{bishop_novelty_1994}.
+Before the advent of deep generative models, this was not considered a major issue for probabilistic models \parencite{bishop_novelty_1994}.
 Is the failure due to model pathologies or something different?
 
-Deep learning models are generally believed to form hierarchies of representations that range from low-level features to more conceptual ones related to semantics \cite{bengio_representation_2013}.
-This has also been observed within deep generative models \cite{maaloe_biva_2019, child_very_2021}.
-%Recent research \cite{maaloe_biva_2019, child_very_2021, vahdat_nvae_2020}, has shown that deep latent variable models are able to learn rich hierarchical representations with increasing levels of abstraction and global structure towards the top of the hierarchy.
-For image data there is a trend that the low-level features are quite similar across models (edge detectors, etc.). This raises the question to what extend such features are relevant when detecting OOD data, also suggested  by \cite{nalisnick_deep_2019} and examined for Glow and PixelCNN in \cite{schirrmeister_understanding_2020}.
+Deep learning models are generally believed to form hierarchies of representations that range from low-level features to more conceptual ones related to semantics \parencite{bengio_representation_2013}.
+This has also been observed within deep generative models \parencite{maaloe_biva_2019, child_very_2021}.
+%Recent research \parencite{maaloe_biva_2019, child_very_2021, vahdat_nvae_2020}, has shown that deep latent variable models are able to learn rich hierarchical representations with increasing levels of abstraction and global structure towards the top of the hierarchy.
+For image data there is a trend that the low-level features are quite similar across models (edge detectors, etc.). This raises the question to what extend such features are relevant when detecting OOD data, also suggested  by \parencite{nalisnick_deep_2019} and examined for Glow and PixelCNN in \parencite{schirrmeister_understanding_2020}.
 To investigate, we train two hierarchical VAEs (\cref{sec_paper_hierarchical:background-hie-VAE}) on FashionMNIST and MNIST, respectively, and compute the between-models correlation of the extracted features of in-distribution data and OOD data.
 The result appears in \cref{fig_hierarchical:correlations-heatmap}.
 We observe that features extracted in the early layers (low-level features) correlate strongly between the two models, and that this correlation drops as we get into later layers.
@@ -89,7 +89,7 @@ This suggests that as we fall back to the conditional priors of each layer, we a
     \includegraphics[width=1\columnwidth]{paper_hierarchical/biva_reconstructions.pdf}
     % https://docs.google.com/drawings/d/1UXdA3c18Oek9_env1vEB9mqOAHZ-tu0ijWmvqmapWCk/edit?usp=sharing
     \vspace{0mm}
-    \caption[Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables.]{Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables  \cite{maaloe_biva_2019}.
+    \caption[Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables.]{Reconstructions of in-distribution data (CelebA) of the BIVA model using higher latent variables  \parencite{maaloe_biva_2019}.
     The higher the latent variable, the more the reconstructions fall into the mode of the learned distribution.
     It is more common to wear regular glasses than sunglasses but most common not to wear glasses at all.
     A man with long hair collapses into the mode of the more common long-haired woman.}
@@ -98,7 +98,7 @@ This suggests that as we fall back to the conditional priors of each layer, we a
 \end{figure}
 Finally, we look at reconstructions of out-of-distribution data.
 \cref{fig_hierarchical:reconstructions-fashionmnist} illustrates that MNIST data is surprisingly well reconstructed by a hierarchical VAE trained on FashionMNIST.
-Similar results have been found elsewhere \cite{xiao_likelihood_2020}.
+Similar results have been found elsewhere \parencite{xiao_likelihood_2020}.
 We repeat the previous experiment and replace inference distributions by their corresponding conditional prior, and now observe that reconstructions from higher latent layers become increasingly similar to the data on which the model was trained.
 The reliance on conditional priors seems to prevent accurate reconstruction of out-of-distribution data.
 Some details are lost on in-distribution data too, but the distinction between that and out-of-distribution data becomes more clear.
@@ -112,7 +112,7 @@ We further suggest that OOD data are in-distribution with respect to these low-l
 \section{Background and related work}
 
 \subsection{Variational autoencoders}
-The variational autoencoder (VAE) \cite{kingma_autoencoding_2014, rezende_stochastic_2014} is a framework for constructing deep generative models defined by an observed variable $\mathbf{x}$ and a stochastic latent variable $\mathbf{z}$.
+The variational autoencoder (VAE) \parencite{kingma_autoencoding_2014, rezende_stochastic_2014} is a framework for constructing deep generative models defined by an observed variable $\mathbf{x}$ and a stochastic latent variable $\mathbf{z}$.
 Typically, a neural network with parameters $\thetab$ is chosen to parameterize the generative distribution $p_\thetab(\xb,\zb)=p_\thetab(\xb|\zb)p(\zb)$, where the prior $p(\zb)$ is commonly a standard Gaussian $\mathcal{N}(\0, \Ib)$.
 The true posterior $p(\zb|\xb)$ is generally not analytically tractable and is approximated by a variational distribution $q_\phib(\zb|\xb)$ parameterized via another neural network with parameters $\phib$. The approximate posterior $q_\phib(\zb|\xb)$ is most often  a diagonal covariance Gaussian.
 The model parameters $\thetab$ and variational parameters $\phib$ are jointly optimized by maximizing the \textit{evidence lower bound} (ELBO),
@@ -122,29 +122,29 @@ The model parameters $\thetab$ and variational parameters $\phib$ are jointly op
 For brevity, we will denote $\mathcal{L}(\xb; \thetab, \phib)$ as $\mathcal{L}(\xb)$ or $\mathcal{L}$. The reparameterization trick is used to backpropagate gradients through the stochastic latent variables with low variance.
 
 The VAE is defined with a single latent variable which limits the ability to learn a high likelihood representation of complex input distributions, e.g.\ natural images.
-There exists a few complementary approaches to make the VAE more flexible: (i) model a more expressive variational distribution $q_\phib(\zb|\xb)$ or prior distribution $p_\thetab(\zb)$ \cite{rezende_variational_2015, kingma_improved_2016}, (ii) model a more expressive posterior distribution $p_\thetab(\xb|\zb)$ e.g. with a autoregressive decoder \cite{oord_conditional_2016} and (iii) learn a deeper hierarchy of latent variables \cite{burda_importance_2016, sonderby_ladder_2016}.
+There exists a few complementary approaches to make the VAE more flexible: (i) model a more expressive variational distribution $q_\phib(\zb|\xb)$ or prior distribution $p_\thetab(\zb)$ \parencite{rezende_variational_2015, kingma_improved_2016}, (ii) model a more expressive posterior distribution $p_\thetab(\xb|\zb)$ e.g. with a autoregressive decoder \parencite{oord_conditional_2016} and (iii) learn a deeper hierarchy of latent variables \parencite{burda_importance_2016, sonderby_ladder_2016}.
 Here, we focus on the latter.
 
 
 \subsection{Hierarchical variational autoencoders}\label{sec_paper_hierarchical:background-hie-VAE}
 Hierarchical VAEs are a family of probabilistic latent variable models which extends the basic VAE by introducing a hierarchy of $L$ latent variables $\zb=\zb_1, \dots, \zb_L$.
 The most common generative model is defined from the top down as $p_\thetab(\xb|\zb)=p(\xb|\zb_1)p_\thetab(\zb_1|\zb_2)\cdots p_\thetab(\zb_{L-1}|\zb_L)$.
-The inference model can then be defined in two ways respectively referred to as \textit{bottom-up} \cite{burda_importance_2016}
+The inference model can then be defined in two ways respectively referred to as \textit{bottom-up} \parencite{burda_importance_2016}
 \begin{equation}
     %q_\phib(\zb|\xb)=q_\phib(\zb_1|\xb)q_\phib(\zb_2|\zb_1)\cdots q_\phib(\zb_L|\zb_{L-1})
     q_\phib(\zb|\xb) = q_\phib(\zb_1|\xb)\textstyle\prod_{i=2}^{L} q_\phib(\zb_i|\zb_{i-1})
 \end{equation}
-and \textit{top-down} \cite{sonderby_ladder_2016}
+and \textit{top-down} \parencite{sonderby_ladder_2016}
 \begin{equation}
     % q_\phib(\zb|\xb)=q_\phib(\zb_{L}|\xb)q_\phib(\zb_{L-1}|\zb_L)\cdots q_\phib(\zb_2|\zb_1),
     q_\phib(\zb|\xb) = q_\phib(\zb_L|\xb)\textstyle\prod_{i=L-1}^{1} q_\phib(\zb_{i}|\zb_{i+1}) \ .
 \end{equation}
 Regardless of the choice of inference model, a hierarchical VAE is still trained using the ELBO \cref{eq_hierarchical:elbo}.
 
-Until recently, hierarchical VAEs gave inferior likelihoods compared to state-of-the-art autoregressive \cite{ho_flow_2019} and flow-based models \cite{salimans_pixelcnn_2017}.
+Until recently, hierarchical VAEs gave inferior likelihoods compared to state-of-the-art autoregressive \parencite{ho_flow_2019} and flow-based models \parencite{salimans_pixelcnn_2017}.
 This was changed by \textcite{maaloe_biva_2019}, \textcite{vahdat_nvae_2020}, and \textcite{child_very_2021}, which introduced complementary methods to extend the number of latent variables to a very deep hierarchy resulting in state-of-the-art likelihood performance.
 
-In this paper we employ a simple hierarchical VAE with bottom-up inference paths and the more powerful BIVA variant with a bidirectional (top-down and bottom-up) inference model \cite{maaloe_biva_2019}. We employ skip connections between latent variables but omit them for brevity.
+In this paper we employ a simple hierarchical VAE with bottom-up inference paths and the more powerful BIVA variant with a bidirectional (top-down and bottom-up) inference model \parencite{maaloe_biva_2019}. We employ skip connections between latent variables but omit them for brevity.
 
 
 \subsection{Out-of-distribution detection}\label{sec_paper_hierarchical:background-ood-detection}
@@ -160,16 +160,16 @@ Although this method gives good results, no single best choice of compression al
 Both these methods can be seen as correcting for low-level features of the OOD data being assigned high model likelihood by using a second model focused exclusively on these features.
 
 Similar to these methods, the majority of the approaches to OOD detection make assumptions about the nature of the OOD data.
-The assumptions encompass using labels on the in-distribution data \cite{hendrycks_baseline_2017, liang_enhancing_2018, alemi_uncertainty_2018, lee_simple_2018, lakshminarayanan_simple_2017}, examples of OOD data \cite{hendrycks_deep_2019}, augmenting in-distribution data to mimic it \cite{ren_likelihood_2019}, or assuming a certain data type \cite{serra_input_2020}.
+The assumptions encompass using labels on the in-distribution data \parencite{hendrycks_baseline_2017, liang_enhancing_2018, alemi_uncertainty_2018, lee_simple_2018, lakshminarayanan_simple_2017}, examples of OOD data \parencite{hendrycks_deep_2019}, augmenting in-distribution data to mimic it \parencite{ren_likelihood_2019}, or assuming a certain data type \parencite{serra_input_2020}.
 Any of these assumptions encode implicit biases into the model about the attributes of OOD data which, in turn, might impair performance on truly unknown data examples (unknown unknowns).
 
 % Introduce the contrast to results with VAEs
-While some of these methods achieve very good results on OOD detection with autoregressive models \cite{oord_pixel_2016, salimans_pixelcnn_2017} and invertible flow-based models \cite{kingma_glow_2018}, it was recently shown that they can be much less effective for VAEs \cite{xiao_likelihood_2020} highlighting the need for a more reliable OOD score for VAEs.
-Although VAEs have the same failure cases as autoregressive and flow-based models, the caveat is that the difference in the likelihood is generally not as big and reconstructions of OOD can be surprisingly good \cite{xiao_likelihood_2020}.
+While some of these methods achieve very good results on OOD detection with autoregressive models \parencite{oord_pixel_2016, salimans_pixelcnn_2017} and invertible flow-based models \parencite{kingma_glow_2018}, it was recently shown that they can be much less effective for VAEs \parencite{xiao_likelihood_2020} highlighting the need for a more reliable OOD score for VAEs.
+Although VAEs have the same failure cases as autoregressive and flow-based models, the caveat is that the difference in the likelihood is generally not as big and reconstructions of OOD can be surprisingly good \parencite{xiao_likelihood_2020}.
 \textcite{xiao_likelihood_2020} alleviate this by refitting the inference network, as previously proposed by \textcite{cremer_inference_2018, mattei_refit_2018}, to a potentially OOD example and measuring the so-called \textit{likelihood regret}.
-However, refitting the inference network can be computationally expensive, especially for the large hierarchical VAEs that are used to model complex data \cite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}. Furthermore, this scales poorly to large amounts of potentially OOD examples as the optimization is done per example.
+However, refitting the inference network can be computationally expensive, especially for the large hierarchical VAEs that are used to model complex data \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}. Furthermore, this scales poorly to large amounts of potentially OOD examples as the optimization is done per example.
 
-A few methods have approached OOD detection in a completely unsupervised fashion \cite{maaloe_biva_2019, choi_waic_2019, xiao_likelihood_2020}.
+A few methods have approached OOD detection in a completely unsupervised fashion \parencite{maaloe_biva_2019, choi_waic_2019, xiao_likelihood_2020}.
 The work of \textcite{maaloe_biva_2019} is the most related to ours. They introduce BIVA, a deep hierarchy of stochastic latent variables with a top-down and bottom-up inference model and achieve state-of-the-art likelihood scores. 
 They also provide early results indicative that a looser likelihood bound may have value in OOD detection.
 In this paper, we provide an explanation of those results, and significantly improve upon them.
@@ -212,7 +212,7 @@ The notation $\mathcal{L}^{>k}$ highlights that for latent variables $\zb_{>k}$,
 
 \subsection{A likelihood-ratio score for all feature levels}
 While the $\mathcal{L}^{>k}$ bound provides a score for performing semantic OOD detection, it still relies on the data space likelihood function (see equation \cref{eq_hierarchical:likelihoods-as-exact} below), which is known to be problematic for OOD detection (\cref{sec_paper_hierarchical:background-ood-detection}). To alleviate this, we phrase OOD detection as a likelihood ratio test of being \emph{semantically} in-distribution.
-A standard likelihood ratio test \cite{buse_likelihood_1982} suggests to consider the ratio between the associated likelihoods, which we can approximate on a log-scale by the corresponding lower bounds $\mathcal{L}$ and $\mathcal{L}^{>k}$,
+A standard likelihood ratio test \parencite{buse_likelihood_1982} suggests to consider the ratio between the associated likelihoods, which we can approximate on a log-scale by the corresponding lower bounds $\mathcal{L}$ and $\mathcal{L}^{>k}$,
 \begin{equation}\label{eq_hierarchical:llr-as-difference-in-likelihoods}
     % LLR = - 2 log(L0 / L1)
     % where L0 < L1 so log(L0 / L1) < 0 and LLR > 0
@@ -242,7 +242,7 @@ Subtracting these cancel out the two data likelihood terms $\log p_\thetab(\xb)$
 
 Hence, it is clear that compared to the likelihood bound $\mathcal{L}^{>k}$, this likelihood-ratio measures divergence exclusively in the latent space whereas $\mathcal{L}^{>k}$ includes the $\log p_\thetab(\xb)$ term similar to the ELBO.
 Therefore, the $LLR^{>k}$ score should be an improved method for semantic OOD detection compared to $\mathcal{L}^{>k}$.
-Now, it can be noted that if we replace the regular ELBO, $\mathcal{L}$, in \cref{eq_hierarchical:likelihoods-as-exact} with the strictly tighter importance weighted bound \cite{burda_importance_2016},
+Now, it can be noted that if we replace the regular ELBO, $\mathcal{L}$, in \cref{eq_hierarchical:likelihoods-as-exact} with the strictly tighter importance weighted bound \parencite{burda_importance_2016},
 \begin{equation}
     \mathcal{L}_{S} = \mathbb{E}_{q(\zb|\xb)}\left[ \log \frac{1}{N} \sum_{s=1}^{S} \frac{p(\xb, \zb^{(s)})}{q(\zb^{(s)}|\xb)} \right] \ , \label{eq_hierarchical:iw-bound}
 \end{equation}
@@ -265,7 +265,7 @@ The OOD scores considered in this research all assume that what discriminates an
 
 \section{Experimental setup}
 
-\paragraph{Tasks} We follow existing literature \cite{nalisnick_deep_2019, hendrycks_deep_2019} and evaluate our method by setting up OOD detection tasks from FashionMNIST \cite{xiao_fashionmnist_2017} to MNIST \cite{lecun_gradientbased_1998} and from CIFAR10 \cite{krizhevsky_learning_2009} to SVHN \cite{netzer_reading_2011}.
+\paragraph{Tasks} We follow existing literature \parencite{nalisnick_deep_2019, hendrycks_deep_2019} and evaluate our method by setting up OOD detection tasks from FashionMNIST \parencite{xiao_fashionmnist_2017} to MNIST \parencite{lecun_gradientbased_1998} and from CIFAR10 \parencite{krizhevsky_learning_2009} to SVHN \parencite{netzer_reading_2011}.
 For each experiment we train our model on the train split of the former dataset and test its ability to recognize the test split of the latter dataset as OOD from the test split of the former dataset.
 We use the standard train/test splits for the datasets.
 More details on the datasets can be found in the \cref{sec_hierarchical:datasets}.
@@ -311,7 +311,7 @@ More details on the datasets can be found in the \cref{sec_hierarchical:datasets
     }
     }
     \caption[Inference and generative models for a bottom-up hierarchical VAEs.]{The inference and generative models, $q_\phib$ and $p_\thetab$, for an $L=2$ layered bottom-up hierarchical VAE as the one used in our experiments.
-    Dashed lines indicate deterministic skip connections which are employed in both networks. Skip connections are found to be useful for optimizing latent variable models \cite{dieng_avoiding_2019, maaloe_biva_2019}.}
+    Dashed lines indicate deterministic skip connections which are employed in both networks. Skip connections are found to be useful for optimizing latent variable models \parencite{dieng_avoiding_2019, maaloe_biva_2019}.}
     \label{fig_hierarchical:hvae-graphical-model}
     % \end{figure}
 %\end{wrapfigure}
@@ -320,12 +320,12 @@ More details on the datasets can be found in the \cref{sec_hierarchical:datasets
 
 
 \paragraph{Models} For each OOD task, we train a simple bottom-up hierarchical VAE with $L$ stochastic layers which we will refer to as ``HVAE''.
-To alleviate posterior collapse we include skip-connections that connect $\zb_i$ to $\zb_{i+2}$ for $i\in\{0, L-2\}$ and $\zb_0\equiv\xb$ in both the inference and generative models \cite{dieng_avoiding_2019} and employ the \textit{free bits} scheme with $\lambda=2$ \cite{kingma_improved_2016}.
-We use weight-normalization \cite{salimans_weight_2016} on all weights and residual networks in the deterministic paths. 
+To alleviate posterior collapse we include skip-connections that connect $\zb_i$ to $\zb_{i+2}$ for $i\in\{0, L-2\}$ and $\zb_0\equiv\xb$ in both the inference and generative models \parencite{dieng_avoiding_2019} and employ the \textit{free bits} scheme with $\lambda=2$ \parencite{kingma_improved_2016}.
+We use weight-normalization \parencite{salimans_weight_2016} on all weights and residual networks in the deterministic paths. 
 A graphical representation of this model can be seen in \cref{fig_hierarchical:hvae-graphical-model}.
-We use a Bernoulli output distribution for FashionMNIST/MNIST and a discretized mixture of logistics output distribution \cite{salimans_pixelcnn_2017} for CIFAR10/SVHN.
+We use a Bernoulli output distribution for FashionMNIST/MNIST and a discretized mixture of logistics output distribution \parencite{salimans_pixelcnn_2017} for CIFAR10/SVHN.
 We use $L=3$ for grey-scale images and $L=4$ for natural images.
-% For CIFAR/SVHN, we also train a BIVA model \cite{maaloe_biva_2019} with $L=10$ and similar configuration as used by the original paper\footnote{Code available at \url{github.com/larsmaaloee/BIVA} and \url{github.com/vlievin/biva-pytorch}}.
+% For CIFAR/SVHN, we also train a BIVA model \parencite{maaloe_biva_2019} with $L=10$ and similar configuration as used by the original paper\footnote{Code available at \url{github.com/larsmaaloee/BIVA} and \url{github.com/vlievin/biva-pytorch}}.
 Full model details are in the \cref{sec_hierarchical:model-details}.
 
 
@@ -336,7 +336,7 @@ For more information on each baseline, we refer to the original literature.
 
 
 % Metrics and Evaluation
-\paragraph{Evaluation} Following previous work \cite{hendrycks_baseline_2017, hendrycks_deep_2019, alemi_uncertainty_2018, ren_likelihood_2019, choi_waic_2019} we use the threshold-independent evaluation metrics of Area Under the Receiver Operator Characteristic (AUROC$\uparrow$), Area Under the Precision Recall Curve (AUPRC$\uparrow$) and False Positive Rate at 80\% true positive rate (FPR80$\downarrow$) where the arrow indicates the direction of improvement.
+\paragraph{Evaluation} Following previous work \parencite{hendrycks_baseline_2017, hendrycks_deep_2019, alemi_uncertainty_2018, ren_likelihood_2019, choi_waic_2019} we use the threshold-independent evaluation metrics of Area Under the Receiver Operator Characteristic (AUROC$\uparrow$), Area Under the Precision Recall Curve (AUPRC$\uparrow$) and False Positive Rate at 80\% true positive rate (FPR80$\downarrow$) where the arrow indicates the direction of improvement.
 Note that these metrics are only computable given examples of OOD data but faced with truly OOD data (unknown unknowns), there are many ways to select thresholds to use in practice e.g.\ as the one that yields a specific tolerable false positive rate on the in-distribution test data.
 To compute the metrics, we use an equal number of samples from the in-distribution and OOD datasets by including all examples in the smallest of the two sets and randomly sampling equally many from the larger. We compute the $LLR^{>k}$ score with one and $S$ importance samples denoted by $LLR^{>k}_S$.
 
@@ -401,17 +401,16 @@ Results on additional commonly used datasets are found in \cref{sec_hierarchical
     \vspace{0mm}
 \end{table}
 
-\footnotetext{%
-    \textcite{serra_input_2020} performs the best when high likelihoods are assigned to OOD data such that the overlap with in-distribution data is low.
-    Performance is worse when the overlap is high, cf. \textcite[Table 1]{serra_input_2020}, as seen with complex images.}
+
+\todo[inline]{Check out if we can make underbrace like curly brackets to the left of tab_hierarchical:rocauc-ood to decrease height and fit page better.}
 \begin{table}[t!]
     \caption[AUROC, AUPRC, and FPR80 of generative models for OOD detection (MNIST/FashionMNIST and SVHN/CIFAR10).]{%
         AUROC$\uparrow$, AUPRC$\uparrow$ and FPR80$\downarrow$ for OOD detection for a FashionMNIST model using scores on the FashionMNIST test set as reference. We bold the best results within the "No OOD-specific assumptions" group since we only compare directly to those.
         HVAE (ours) refers to our hierarchical bottom-up VAE.
-        BIVA (ours) refers to our implementation of the hierarchical BIVA model \cite{maaloe_biva_2019}.
+        BIVA (ours) refers to our implementation of the hierarchical BIVA model.
     }
     \centering
-    \resizebox*{!}{0.9\textheight}{%
+    \resizebox*{!}{0.82\textheight}{%
     \begin{tabular}{lrrr}
         \toprule
          Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
@@ -419,27 +418,27 @@ Results on additional commonly used datasets are found in \cref{sec_hierarchical
          \multicolumn{4}{c}{\textbf{FashionMNIST (in) / MNIST (out)}} \\
          \midrule
          \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
-Backgr. contrast. LR (PixelCNN) {\cite{ren_likelihood_2019}}               & $0.994$ & $0.993$ & $0.001$ \\
-Backgr. contrast. LR (VAE) {\cite{choi_waic_2019}}                    & $0.924$ & - & - \\
-Binary classiﬁer {\cite{ren_likelihood_2019}}                              & $0.455$ & $0.505$ & $0.886$ \\ % 6
-$p(\hat{y} | \xb)$ with OOD as noise class {\cite{ren_likelihood_2019}}     & $0.877$ & $0.871$ & $0.195$ \\ % 7
-$p(\hat{y} | \xb)$ with calibration on OOD {\cite{ren_likelihood_2019}}     & $0.904$ & $0.895$ & $0.139$ \\ % 8
-Input complexity ($S$, Glow) \cite{hendrycks_deep_2019}                    & $0.998$ & - & - \\
-Input complexity ($S$, PixelCNN++) \cite{hendrycks_deep_2019}              & $0.967$ & - & - \\
+Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.994$ & $0.993$ & $0.001$ \\
+Backgr. contrast. LR (VAE) {\parencite{choi_waic_2019}}                    & $0.924$ & - & - \\
+Binary classiﬁer {\parencite{ren_likelihood_2019}}                              & $0.455$ & $0.505$ & $0.886$ \\ % 6
+$p(\hat{y} | \xb)$ with OOD as noise class {\parencite{ren_likelihood_2019}}     & $0.877$ & $0.871$ & $0.195$ \\ % 7
+$p(\hat{y} | \xb)$ with calibration on OOD {\parencite{ren_likelihood_2019}}     & $0.904$ & $0.895$ & $0.139$ \\ % 8
+Input complexity ($S$, Glow) \parencite{hendrycks_deep_2019}                    & $0.998$ & - & - \\
+Input complexity ($S$, PixelCNN++) \parencite{hendrycks_deep_2019}              & $0.967$ & - & - \\
          \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
-$p(\hat{y} | \xb)$ {\cite{ren_likelihood_2019, hendrycks_baseline_2017}}                        & $0.734$ & $0.702$ & $0.506$ \\
-Entropy of $p(y | \xb)$ {\cite{ren_likelihood_2019}}                        & $0.746$ & $0.726$ & $0.448$ \\
-ODIN {\cite{ren_likelihood_2019, liang_enhancing_2018}}                                       & $0.752$ & $0.763$ & $0.432$ \\
-VIB \cite{alemi_uncertainty_2018, choi_waic_2019}                                          & $0.941$ & - & - \\
-Mahalanobis distance, CNN {\cite{ren_likelihood_2019}}                     & $0.942$ & $0.928$ & $0.088$ \\
-Mahalanobis distance, DenseNet {\cite{lee_simple_2018}}                & $0.986$ & - & - \\
-Ensemble, 20 classiﬁers {\cite{ren_likelihood_2019, lakshminarayanan_simple_2017}}                  & $0.857$ & $0.849$ & $0.240$ \\
+$p(\hat{y} | \xb)$ {\parencite{ren_likelihood_2019, hendrycks_baseline_2017}}                        & $0.734$ & $0.702$ & $0.506$ \\
+Entropy of $p(y | \xb)$ {\parencite{ren_likelihood_2019}}                        & $0.746$ & $0.726$ & $0.448$ \\
+ODIN {\parencite{ren_likelihood_2019, liang_enhancing_2018}}                                       & $0.752$ & $0.763$ & $0.432$ \\
+VIB \parencite{alemi_uncertainty_2018, choi_waic_2019}                                          & $0.941$ & - & - \\
+Mahalanobis distance, CNN {\parencite{ren_likelihood_2019}}                     & $0.942$ & $0.928$ & $0.088$ \\
+Mahalanobis distance, DenseNet {\parencite{lee_simple_2018}}                & $0.986$ & - & - \\
+Ensemble, 20 classiﬁers {\parencite{ren_likelihood_2019, lakshminarayanan_simple_2017}}                  & $0.857$ & $0.849$ & $0.240$ \\
          \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
          \multicolumn{4}{l}{\textit{- Ensembles}} \\
-WAIC, 5 models, VAE {\cite{choi_waic_2019}}                          & $0.766$ & - & - \\
-WAIC, 5 models, PixelCNN {\cite{ren_likelihood_2019}}                      & $0.221$ & $0.401$ & $0.911$ \\
+WAIC, 5 models, VAE {\parencite{choi_waic_2019}}                          & $0.766$ & - & - \\
+WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.221$ & $0.401$ & $0.911$ \\
         \multicolumn{4}{l}{\textit{- Not ensembles}} \\
-Likelihood regret \cite{xiao_likelihood_2020}                               & $\mathbf{0.988}$ & - & - \\
+Likelihood regret \parencite{xiao_likelihood_2020}                               & $\mathbf{0.988}$ & - & - \\
 $\mathcal{L}^{>0}$ + HVAE (ours)                    & $0.268$ & $0.363$ & $0.882$ \\
 $\mathcal{L}^{>1}$ + HVAE (ours)                    & $0.593$ & $0.591$ & $0.658$ \\
 $\mathcal{L}^{>2}$ + HVAE (ours)                    & $0.712$ & $0.750$ & $0.548$ \\
@@ -449,20 +448,21 @@ $LLR^{>1}_{250}$ + HVAE (ours)                      & $0.984$ & $\mathbf{0.984}$
          \multicolumn{4}{c}{\textbf{CIFAR10 (in) / SVHN (out)}} \\
          \midrule
          \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
-Backgr. contrast. LR (PixelCNN) {\cite{ren_likelihood_2019}}               & $0.930$ & $0.881$ & $0.066$ \\
-Backgr. contrast. LR (VAE) {\cite{xiao_likelihood_2020}}                    & $0.265$ & - & - \\
-Outlier exposure {\cite{hendrycks_deep_2019}}                              & $0.984$ & - & - \\
-Input complexity ($S$, Glow) \cite{serra_input_2020}                   & $0.950$ & - & - \\
-Input complexity ($S$, PixelCNN++) \cite{serra_input_2020}             & $0.929$ & - & - \\
-Input complexity ($S$, HVAE) (Ours) \cite{serra_input_2020}\footnotemark & $0.833$ & $0.855$ & $0.344$ \\
-         \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
-Mahalanobis distance {\cite{lee_simple_2018}}                          & $0.991$ & - & -  \\
+Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.930$ & $0.881$ & $0.066$ \\
+Backgr. contrast. LR (VAE) {\parencite{xiao_likelihood_2020}}                    & $0.265$ & - & - \\
+Outlier exposure {\parencite{hendrycks_deep_2019}}                              & $0.984$ & - & - \\
+Input complexity ($S$, Glow) \parencite{serra_input_2020}                   & $0.950$ & - & - \\
+Input complexity ($S$, PixelCNN++) \parencite{serra_input_2020}             & $0.929$ & - & - \\
+Input complexity ($S$, HVAE) (Ours) \parencite{serra_input_2020}\textsuperscript{\ref{footnote:serra_hierarchical_likelihood}} & $0.833$ & $0.855$ & $0.344$ \\
+% Input complexity ($S$, HVAE) (Ours) \parencite{serra_input_2020}\% \footnote{\textcite{serra_input_2020} performs the best when high likelihoods are assigned to OOD data such that the overlap with in-distribution data is low. Performance is worse when the overlap is high, cf. \textcite[Table 1]{serra_input_2020}, as seen with complex images.} & $0.833$ & $0.855$ & $0.344$ \\
+\multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
+Mahalanobis distance {\parencite{lee_simple_2018}}                          & $0.991$ & - & -  \\
          \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
          \multicolumn{4}{l}{\textit{- Ensembles}} \\
-WAIC, 5 models, Glow {\cite{choi_waic_2019}}                          & $1.000$ & - & - \\
-WAIC, 5 models, PixelCNN {\cite{ren_likelihood_2019}}                      & $0.628$ & $0.616$ & $0.657$ \\
+WAIC, 5 models, Glow {\parencite{choi_waic_2019}}                          & $1.000$ & - & - \\
+WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.628$ & $0.616$ & $0.657$ \\
          \multicolumn{4}{l}{\textit{- Not ensembles}} \\
-Likelihood regret \cite{xiao_likelihood_2020}                               & $0.875$ & - & - \\
+Likelihood regret \parencite{xiao_likelihood_2020}                               & $0.875$ & - & - \\
 $LLR^{>2}$ + HVAE (ours)                            & $0.811$ & $0.837$ & $0.394$ \\
 $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathbf{0.875}$ & $\mathbf{0.172}$ \\
          \bottomrule
@@ -470,6 +470,14 @@ $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathb
     }
     \label{tab_hierarchical:rocauc-ood}
 \end{table}
+
+\addtocounter{footnote}{1}
+\footnotetext{
+    \textcite{serra_input_2020} performs the best when high likelihoods are assigned to OOD data such that the overlap with in-distribution data is low.
+    Performance is worse when the overlap is high, cf. \textcite[Table 1]{serra_input_2020}, as seen with complex images.
+    \label{footnote:serra_hierarchical_likelihood}
+}
+
 
 
 \subsection{Likelihood-based OOD detection}
@@ -509,7 +517,7 @@ $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathb
 We first report the results of the different variations of the $\mathcal{L}^{>k}$ bound for OOD detection. 
 We reconfirm the results of \textcite{nalisnick_deep_2019} by observing that our hierarchical latent variable models also assign higher $\mathcal{L}^{>0}$ to the OOD dataset in the FashionMNIST/MNIST and CIFAR10/SVHN cases resulting in an AUROC$\uparrow$ inferior to random (\cref{tab_hierarchical:rocauc-ood}).
 Switching the in-distribution data for the OOD data in both cases result in correctly detecting the OOD data; an asymmetry also reported by \textcite{nalisnick_deep_2019}.
-\cref{fig_hierarchical:FMNIST-elbo-k0} shows the density of $\mathcal{L}^{>0}$ in bits per dimension \cite{theis_note_2016} by the model trained on FashionMNIST when evaluated on the FashionMNIST and MNIST test sets.
+\cref{fig_hierarchical:FMNIST-elbo-k0} shows the density of $\mathcal{L}^{>0}$ in bits per dimension \parencite{theis_note_2016} by the model trained on FashionMNIST when evaluated on the FashionMNIST and MNIST test sets.
 We observe a high degree of overlap, with less separation of the OOD data compared to similar results of autoregressive and flow-based models, like \textcite{xiao_likelihood_2020}.
 
 
@@ -518,7 +526,7 @@ We then evaluate the looser $\mathcal{L}^{>k}$ \cref{eq_hierarchical:biva->k} fo
 Like \textcite{maaloe_biva_2019}, we see that increasing the value of $k$ generally leads to improved OOD detection.
 However, we also observe that the two empirical distributions never cease to overlap.
 Importantly, depending on the OOD dataset, the amount of remaining overlap can be high which limits the discriminatory power of the likelihood-based $\mathcal{L}^{>k}$ bound.
-This is in-line with the pathological behavior of the raw likelihood of latent variable models when used for OOD detection \cite{xiao_likelihood_2020}.
+This is in-line with the pathological behavior of the raw likelihood of latent variable models when used for OOD detection \parencite{xiao_likelihood_2020}.
 Since a high degree of overlap also seems present in \textcite{maaloe_biva_2019}, and we see the same problem for our BIVA model trained on CIFAR10, we do not expect this to be due to the less expressive HVAE.
 
 
@@ -527,44 +535,45 @@ Since a high degree of overlap also seems present in \textcite{maaloe_biva_2019}
     \centering
     \begin{subfigure}[l]{0.495\columnwidth}
         \includegraphics[width=1\columnwidth]{paper_hierarchical/roc-FashionMNIST-test-MNIST-test-ll-and-llr-IW250_sohau.pdf}
-        \caption{}
+        % \caption{}
         % \caption{ROC curves with AUROC score for detecting MNIST as OOD with the HVAE model trained on FashionMNIST.
         % A ROC curve is plotted for each of the $\mathcal{L}^{>k}$ bounds including the ELBO along with one for the best-performing log likelihood-ratio $LLR^{>1}$.}
-        \label{fig_hierarchical:FMNIST-roc-llr}
+        % \label{fig_hierarchical:FMNIST-roc-llr}
     \end{subfigure}
     \hfill
     \begin{subfigure}[r]{0.495\columnwidth}
         \includegraphics[width=1\columnwidth]{paper_hierarchical/roc-biva-CIFAR10-SVHN-ll-and-llr_sohau.pdf}
-        \caption{}
+        % \caption{}
         % \caption{ROC curves with AUROC score for detecting SVHN as OOD with the BIVA model trained on CIFAR10.
         % A ROC curve is plotted for each of the $\mathcal{L}^{>k}$ bounds including the ELBO along with one for the best-performing log likelihood-ratio $LLR^{>2}$.}
-        \label{fig_hierarchical:CIFAR10-roc-llr}
+        % \label{fig_hierarchical:CIFAR10-roc-llr}
     \end{subfigure}
     \caption[ROC curves for out of distribution detection (MNIST/FashionMNIST and SVHN/CIFAR10).]{%
-        ROC curves with AUROC score for detecting \subref{fig_hierarchical:FMNIST-roc-llr} MNIST as OOD with the HVAE model trained on FashionMNIST and \subref{fig_hierarchical:CIFAR10-roc-llr} SVHN as OOD with the BIVA model trained on CIFAR10. 
+        ROC curves with AUROC score for detecting MNIST as OOD with the HVAE model trained on FashionMNIST (left) and SVHN as OOD with the BIVA model trained on CIFAR10 (right). 
         A ROC curve is plotted for each of the $\mathcal{L}^{>k}$ bounds including the ELBO along with one for the best-performing log likelihood-ratio $LLR^{>1}$.
     }
+    \label{fig_hierarchical:FMNIST-roc-llr and CIFAR10-roc-llr}
 \end{figure}
 We now move to the likelihood ratio-based score.
 We find that $LLR^{>k}$ separates the OOD MNIST data from in-distribution FashionMNIST to a higher degree than the likelihood estimates as can be seen by the empirical densities of the score in \cref{fig_hierarchical:FMNIST-llr}.
 We note that the likelihood ratio between the ELBO and the $\mathcal{L}^{>k}$ bound provides the highest degree of separation of MNIST and FashionMNIST as measured by the AUROC$\uparrow$ for $k=1$ smaller than $L$.
 This is not surprising since the value of $k$ that provides the maximal separation to the reference in-distribution dataset need not be the one for which $\mathcal{LLR}^{>k}$ is overall maximal for the OOD dataset.
-We also visualize the ROC curves resulting from using the $LLR^{>k}$ score for OOD detection on both FashionMNIST/MNIST and CIFAR10/SVHN and compare it to the ROC curves resulting from the different $\mathcal{L}^{>k}$ bounds in \cref{fig_hierarchical:FMNIST-roc-llr, fig_hierarchical:CIFAR10-roc-llr}, respectively.
+We also visualize the ROC curves resulting from using the $LLR^{>k}$ score for OOD detection on both FashionMNIST/MNIST and CIFAR10/SVHN and compare it to the ROC curves resulting from the different $\mathcal{L}^{>k}$ bounds in \cref{fig_hierarchical:FMNIST-roc-llr and CIFAR10-roc-llr}, respectively.
 On both datasets we see significantly better discriminatory performance when using the $LLR^{>k}$ score.
 
 \cref{tab_hierarchical:rocauc-ood} shows that BIVA improves upon the HVAE model for OOD detection on CIFAR while \cref{tab_hierarchical:bits-per-dim-ood} shows that the BIVA model also improves upon the HVAE in terms of likelihood.
-We hypothesize that models larger than our implementation of BIVA, with better likelihood scores may perform even better \cite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
+We hypothesize that models larger than our implementation of BIVA, with better likelihood scores may perform even better \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
 
 
 \subsection{Comparison to baselines}
 \paragraph{Performance} \cref{tab_hierarchical:rocauc-ood} summarize our results compared to baselines based on the commonly used AUROC$\uparrow$, AUPRC$\uparrow$ and FPR80$\downarrow$ metrics.
-Our method outperforms other generative model-based methods such as WAIC \cite{choi_waic_2019} with Glow model and performs similarly to the likelihood regret method of \cite{xiao_likelihood_2020}.
-Furthermore, our method performs similarly to the background constrative likelihood ratio method of \textcite{ren_likelihood_2019} on FashionMNIST/MNIST but contrary to the failure of that method on CIFAR10/SVHN reported by \cite{xiao_likelihood_2020}, our method performs very well on this task too.
-Our approach outperforms all supervised approaches that use in-distribution labels or synthetic examples of OOD data derived from the in-distribution data including ODIN \cite{liang_enhancing_2018} and the predictive distribution of a classifier $p(\hat{y}|\xb)$ trained and evaluated in various ways (see \textcite{ren_likelihood_2019}).
+Our method outperforms other generative model-based methods such as WAIC \parencite{choi_waic_2019} with Glow model and performs similarly to the likelihood regret method of \parencite{xiao_likelihood_2020}.
+Furthermore, our method performs similarly to the background constrative likelihood ratio method of \textcite{ren_likelihood_2019} on FashionMNIST/MNIST but contrary to the failure of that method on CIFAR10/SVHN reported by \parencite{xiao_likelihood_2020}, our method performs very well on this task too.
+Our approach outperforms all supervised approaches that use in-distribution labels or synthetic examples of OOD data derived from the in-distribution data including ODIN \parencite{liang_enhancing_2018} and the predictive distribution of a classifier $p(\hat{y}|\xb)$ trained and evaluated in various ways (see \textcite{ren_likelihood_2019}).
 
 \paragraph{Runtime} For a full evaluation of a single example across all feature levels of a model with $L$ stochastic layers, our method requires $L-1$ forward passes through the inference and generative networks as well as computing the likelihood ratio, of which the forward passes are dominant.
 For a typical forward pass that is linear in the input dimensionality, $D$, and the number of stochastic layers, $L$, this amounts to computation of $\mathcal{O}(DL)$.
-Compared to some related work that either requires an $M>1$ sized batch of inputs of which either all or none are OOD \cite{nalisnick_detecting_2019} or cannot be applied to batches due to the required per-example optimization \cite{xiao_likelihood_2020}, our method additionally is applicable to batches of any size that may consist of both OOD and in-distribution examples which provides drastic speed-ups via vectorization and parallelization.
+Compared to some related work that either requires an $M>1$ sized batch of inputs of which either all or none are OOD \parencite{nalisnick_detecting_2019} or cannot be applied to batches due to the required per-example optimization \parencite{xiao_likelihood_2020}, our method additionally is applicable to batches of any size that may consist of both OOD and in-distribution examples which provides drastic speed-ups via vectorization and parallelization.
 Furthermore, the method of \textcite{xiao_fashionmnist_2017} requires refitting the inference network of a VAE which can be computationally demanding.
 Compared to the likelihood ratio proposed in \textcite{ren_likelihood_2019}, our method requires training only a single model on a single dataset.
 
@@ -579,10 +588,10 @@ The findings from, amongst others, \textcite{nalisnick_deep_2019, serra_input_20
 Semantically complex in-distribution data yields models with diverse low-level feature sets that enable generalization across datasets.
 Simpler datasets can only yield models with less diverse low-level feature sets compared to complex training data.
 Hence, there can be an asymmetry where the likelihoods of simple OOD data can be high for a model trained on complex data, but not the other way around.
-Loosely put, the minimal number of bits required to losslessly compress data sampled from some distribution is the entropy of the generating process \cite{shannon_mathematical_1948, mackay_information_2003}.
+Loosely put, the minimal number of bits required to losslessly compress data sampled from some distribution is the entropy of the generating process \parencite{shannon_mathematical_1948, mackay_information_2003}.
 \textcite{townsend_practical_2019} recently showed that VAEs can be used for lossless compression at rates superior to more generic algorithms.
 
-We also note that since the hierarchical VAE is a probabilistic graphical latent variable model, it lends itself very naturally to manipulation at the feature level \cite{kingma_semi-supervised_2014, maaloe_auxiliary_2016, maaloe_semi-supervised_2017}.
+We also note that since the hierarchical VAE is a probabilistic graphical latent variable model, it lends itself very naturally to manipulation at the feature level \parencite{kingma_semi-supervised_2014, maaloe_auxiliary_2016, maaloe_semi-supervised_2017}.
 This property sets it apart from other generative models that do not explicitly define such a hierarchy of features.
 This in turn enables reliable OOD detection with our methodology while making no explicit assumptions about the nature of OOD data and only using a single model. This has not been achieved with autoregressive or flow-based models.
 
