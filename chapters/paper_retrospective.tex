@@ -78,11 +78,11 @@ Calls to the MH-1813 were divided into training, validation, and test subsets an
 
 The classification model outperformed the call-takers (\cref{tab_retrospective:table2-main-results}), with significant differences in all metrics (p < 0.0001). Excluding the 1-1-2 call line training data significantly degraded the model's performance (p < 0.0001), despite the domain mismatch with the MH-1813 call line test data. The performance on the 2021 calls without a diagnostic category was significantly worse than that of the test set regarding F1-score, sensitivity, false positive rate (FPR), and false omission rate (FOR) (p < 0.0001). The difference in positive predictive value (PPV) was not significant (p = 0.298).
 
-The receiver operating characteristic (ROC) curve (\cref{fig_retrospective:figure1}, left) illustrates the potential to increase the sensitivity while maintaining a FPR lower than or equal to that of the call-takers. Similarly, the PPV sensitivity curve (\cref{fig_retrospective:figure1}, right) demonstrates that sensitivity can be improved while retaining a PPV higher than that of the call-takers. The framework can thus be tuned to a sensitivity of around 73\%, while still having a higher positive predictive value than the human call-taker (\cref{fig_retrospective:figure1}, right) The ensemble model outperformed the individual models regardless of the threshold, except for one that exhibited a slightly better sensitivity at a high FPR exceeding 1.5\%. The confusion matrices (\cref{fig_retrospective:figure2}) illustrate the performance differences in absolute numbers, with the model exhibiting more true positives and fewer false positives than the call-takers.
+The receiver operating characteristic (ROC) curve (\cref{fig_retrospective:figure1-roc-curve}, left) illustrates the potential to increase the sensitivity while maintaining a FPR lower than or equal to that of the call-takers. Similarly, the PPV sensitivity curve (\cref{fig_retrospective:figure1-roc-curve}, right) demonstrates that sensitivity can be improved while retaining a PPV higher than that of the call-takers. The framework can thus be tuned to a sensitivity of around 73\%, while still having a higher positive predictive value than the human call-taker (\cref{fig_retrospective:figure1-roc-curve}, right) The ensemble model outperformed the individual models regardless of the threshold, except for one that exhibited a slightly better sensitivity at a high FPR exceeding 1.5\%. The confusion matrices (\cref{fig_retrospective:figure2-prediction-confusion-matrices}) illustrate the performance differences in absolute numbers, with the model exhibiting more true positives and fewer false positives than the call-takers.
 
 \begin{table}[t]
     \centering
-    \caption[Overall stroke recognition performance of model compared to call takers.]{Overall performance on MH-1813 test data, performance without 1-1-2 training data, and performance on data from 2021 without diagnostic categories as well as performance on MH-1813 based on demographic subgroups (age/sex) [mean (95\% CI)].}
+    \caption[Overall stroke recognition performance of model compared to call takers.]{Overall performance on MH-1813 test data, performance without 1-1-2 training data, and performance on data from 2021 without diagnostic categories as well as performance on MH-1813 test data based on demographic subgroups (age/sex) [mean (95\% CI)].}
     \label{tab_retrospective:table2-main-results}
     \resizebox*{0.98\textwidth}{!}{%
     \begin{tabular}{l|ccccc}
@@ -146,20 +146,20 @@ The model performed significantly better in the 65+ group than in the 18-64 year
     \centering
     \includegraphics[width=0.9\textwidth]{paper_retrospective/figure1.pdf}
     \caption[Receiver operator characteristic (ROC) curve and PPV-sensitivity curve for stroke recognition.]{Receiver operator characteristic (ROC) curve and PPV-sensitivity curve. Left, the ROC curve and, right, PPV-sensitivity curve (precision-recall curve). Models 1-5 are the individual models that make up the ensemble model.}
-    \label{fig_retrospective:figure1}
+    \label{fig_retrospective:figure1-roc-curve}
 \end{figure}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\textwidth]{paper_retrospective/figure2.pdf}
     \caption[Prediction confusion matrices for stroke recognition.]{Prediction confusion matrices. Confusion matrices of predictions for call takers and the model on the test set. Numbers for the model are given as the rounded mean over eleven runs.}
-    \label{fig_retrospective:figure2}
+    \label{fig_retrospective:figure2-prediction-confusion-matrices}
 \end{figure}
 
 
 \subsection{Model explainability}
 
-We performed an occlusion analysis to evaluate the importance of individual words for both positive and negative classifier predictions \cref{tab_retrospective:table3}
+We performed an occlusion analysis to evaluate the importance of individual words for both positive and negative classifier predictions \cref{tab_retrospective:table3-occlusion-analysis}
 Among the words with a positive rank score, several words are synonymous with stroke, such as ``blood clot", ``haemorrhagic stroke", and ``stroke". Ambulances are rarely dispatched because the MH-1813 is not intended for emergencies. Therefore, a word like ``ambulance" may also be a strong indicator of call-taker recognition, which the model has learned to mimic. Additionally, most of the remaining words can be linked to stroke-related symptoms such as ``double vision", ``difficulties speaking", and ``hangs". Particularly, words describing the side of the body where symptoms occur ranked high (such as ``left", ``right", and ``side"). Finally, some words were also related to the sudden onset of symptoms (including ``suddenly" and ``minutes").
 
 Among the words with a negative rank score, most were strong indicators for specific conditions, symptoms, or body parts that are unrelated to stroke (such as ``tetanus", ``pregnant", ``swollen", ``fever", and ``the knee"). Another group of words used to describe aspects of treatment that are unlikely to be addressed in a stroke call included ``prescription", ``bandage", and ``OTC". Finally, a small group of words described institutions that are not commonly involved in stroke treatment (such as ``psychiatric", ``the emergency room", and ``the police").
@@ -167,7 +167,7 @@ Among the words with a negative rank score, most were strong indicators for spec
 \begin{table}[t]
     \centering
     \caption[Words with the largest positive and negative ranking score in calls predicted as stroke and non-stroke, respectively.]{English translation of words with the largest positive and negative ranking score in calls predicted as stroke and non-stroke, respectively.}
-    \label{tab_retrospective:table3}
+    \label{tab_retrospective:table3-occlusion-analysis}
     \resizebox*{0.98\textwidth}{!}{%
     \begin{tabular}{l|lr|lr}
         \toprule

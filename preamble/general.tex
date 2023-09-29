@@ -127,7 +127,8 @@
 \usepackage[
   backend=biber,
   natbib=true, 
-  style=numeric,
+  % style=numeric,
+  style=authoryear-comp,
   abbreviate=false,
   dateabbrev=false,
   maxbibnames=14,
@@ -138,7 +139,6 @@
   sortcites
 ]{biblatex}
 \renewcommand*{\bibfont}{\normalfont\footnotesize}  % make bibliography font smaller
-
 
 \DefineBibliographyStrings{english}{%
   backrefpage = {cited on page},  % originally "cited on page"

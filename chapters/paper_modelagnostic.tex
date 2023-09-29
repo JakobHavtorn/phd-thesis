@@ -213,11 +213,11 @@ Other works in the literature focused on deriving specific test statistics that 
 
 As mentioned in the introduction, we frame the OOD detection problem in terms of statistical tests problem. Recently, \textcite{haroush_statistical_2021} showed that adopting hypothesis testing at the layer and channel level of a neural network can be used for OOD detection in the discriminative setting. They used both Fisher's method and Simes' method to combine class-conditional $p$-values computed for each convolutional and dense layer of a deep neural network. We focus on the unsupervised setting using DGMs and use hypothesis testing on statistics that can be computed on all differentiable DGM. As already explained in section \cref{sec_modelagnostic:combination_p_values}, \textcite{morningstar_density_2021} considered the combination of different statistics for OOD detection. The main difference with their approach is that we propose statistics that can be applied to any differentiable generative model and combine them by using Fisher's method, which takes advantage of using only one-sided independent statistics. Concurrently, \textcite{choi_robust_2021} derived the score statistic by starting from the likelihood ratio statistic and applying a Laplace approximation. They computed the score statistic only for certain layers of the model and for a specific example, the OOD score is given by the infinity norm of these different layer scores after a ReLU operation. Our procedure differs both in the derivation of the score statistic and its usage since we compute the score statistic for the entire model.
 
-\begin{figure*}[tbp]
+\begin{sidewaysfigure}[tbp]
     \includegraphics[width=\textwidth]{graphics/paper_modelagnostic/pvalues_comb_no_drop_correct_font.pdf}
     \caption[Distribution of the p-values of the typicality test, score statistic, Fisher's method and a combination of all.]{\emph{First plot}: $p$-values of the typicality test on the two test sets. We can see that under $\mathcal{H}_0$, they should be uniformly distributed. \emph{Second plot}: $p$-values of the score statistic. \emph{Third plot}: values obtained by the Fisher's method. In red, we plot the density function of a $\chi^2$-distribution with 4 degrees. This shows that the statistics are independent. \emph{Fourth plot}: $p$-values obtained of the combination. These plots refer to a PixelCNN++ trained on FashionMNIST without dropout.}
     \label{fig_modelagnostic:comb_p_values}
-\end{figure*} 
+\end{sidewaysfigure} 
 
 \begin{table*}[tb]
     %\renewcommand{\thetable}{4}
@@ -314,7 +314,7 @@ As \textcite{nalisnick_detecting_2019}, we consider how these test statistics ch
 \centering
 \caption{AUROC$\uparrow$ for two-sample OOD detection using the usual considered model.}\normalsize
     %\renewcommand{\thetable}{4}
-    \resizebox{0.80\textwidth}{!}{
+    \resizebox{0.90\textwidth}{!}{
         \scriptsize
         \begin{tabular}{ccccc}
             \toprule
@@ -374,7 +374,7 @@ As can be seen in \cref{fig_modelagnostic:type1}, we have that the Type I ratio 
 %%%%%%%%%%%%%%%%%%%%%%% FIGURE
 \begin{figure}[tb]
     \centering
-    \includegraphics[scale=0.48]{graphics/paper_modelagnostic/fashion_hvae_type1_correct_font.pdf}
+    \includegraphics[scale=0.6]{graphics/paper_modelagnostic/fashion_hvae_type1_correct_font.pdf}
     \caption[Type I and Type II errors versus the significance level $\alpha$ on the combination values]{Type I (probability of an inlier to be classified as outlier) and Type II (probability of an outlier to be considered as inlier) errors versus the significance level $\alpha$ on the combination values. By using Benjamini-Hochberg correction, we get that the Type I error stays below identity line.}
     \label{fig_modelagnostic:type1}
 \end{figure}

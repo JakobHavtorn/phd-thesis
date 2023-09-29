@@ -20,25 +20,33 @@
 \lesstodo[inline]{OOD data: Generalization or detection (https://arxiv.org/pdf/2110.11334.pdf)?}
 
 
-
 \section{\Cref{chp:paper-retrospective} revisited: Uncertainty}
-The work in \textcite{wenstrup_retrospective_2023} deals with predictive performance and analyses feature importance but does not explicitly consider uncertainty estimation. 
+The work in \textcite{wenstrup_retrospective_2023} focuses on predictive performance and an analysis of feature importance but does not explicitly consider uncertainty estimation. To 
 
 \begin{figure}
     \begin{subfigure}[c]{0.48\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{python_plotting/calibration_curve_ensemble_and_all_models_uncalibrated.pdf}
-        \caption{}
-        \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
+        % \caption{}
+        % \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
     \end{subfigure}
     % \hfill
     \begin{subfigure}[c]{0.48\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{python_plotting/histogram_ensemble_and_single_model.pdf}
-        \caption{}
-        \label{fig_hierarchical:histogram_ensemble_and_single_model}
+        % \caption{}
+        % \label{fig_discussion:histogram_ensemble_and_single_model}
     \end{subfigure}
+    \caption[Calibration curve for the uncalibrated stroke recognition model and empirical distribution of predicted probabilities.]{\subref{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated} \Cref{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated} shows the calibration curve for the uncalibrated ensemble model with median F1-score also reported in \cref{tab_retrospective:table3-occlusion-analysis} and \cref{fig_retrospective:figure1-roc-curve}. \subref{fig_discussion:histogram_ensemble_and_single_model} Histogram of predicted probabilities.}
 \end{figure}
+
+% \subsectionP{Ensembling technique}
+% To form an ensemble from several models, we need a method to form a single prediction from the outputs of the individual models.
+% To allow us to evaluate an impact score for each word feature in our ablation study, we wanted our ensemble to provide not only predictions but also associated probability scores on a continuous scale. A majority voting scheme would only provide as many different scores as models, in our case five, which is arguably too coarse a resolution. 
+
+
+
+
 
 
 \lesstodo[inline]{Discuss the calibration of the stroke model and report calibration curve.}
