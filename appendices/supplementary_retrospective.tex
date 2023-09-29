@@ -244,7 +244,7 @@ We trained the model similarly to how we performed our ablation experiments. Tha
     }
 \end{table}
 
-We note that the performance difference between the original model and the models with age and sex inputs is statistically insignificant (p > 0.05). We hypothesize this might be because information regarding the age and sex of the patient is, in many cases, already present in the transcript. Another reason might be that the patient's age and sex are less useful discriminators than other indicative factors. This latter hypothesis is supported by our occlusion analysis and \cref{tab_retrospective:table3} where no highly ranked words directly refer to the patient's age or sex.
+We note that the performance difference between the original model and the models with age and sex inputs is statistically insignificant (p > 0.05). We hypothesize this might be because information regarding the age and sex of the patient is, in many cases, already present in the transcript. Another reason might be that the patient's age and sex are less useful discriminators than other indicative factors. This latter hypothesis is supported by our occlusion analysis and \cref{tab_retrospective:table3-occlusion-analysis} where no highly ranked words directly refer to the patient's age or sex.
 
 It is important to note that in practice the information about patient sex and age is extracted from the patient's CPR number which is typically entered by the patient themselves while queuing for MH-1813. However, at call lines in countries without similar systems in place, such information may not be readily available and cannot be incorporated as an explicit input feature. The same is the case for the 1-1-2 call line in Denmark.
 
