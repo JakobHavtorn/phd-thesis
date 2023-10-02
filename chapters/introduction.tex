@@ -15,7 +15,7 @@ The application of artificial intelligence in medical decision-making and partic
 However, as such decisions impact critical aspects of human health and well-being, this prospect also raises concerns related to the reliability of artificial intelligence systems \parencite{chen_ethical_2021, shailaja_machine_2018, ahmad_interpretable_2018}.
 
 The evolution of technology to support and automate decision-making can be traced back to the development of algorithms and mathematical techniques by ancient civilizations. 
-The Egyptian Rhind Mathematical Papyrus, dated around 1550 BCE, describes various mathematical techniques for doing calculations involving multiplication, division, and fractions, and how to use them for practical purposes like measuring land, constructing buildings, and sharing resources \parencite{georges_universal_2001}. 
+The Egyptian Rhind Mathematical Papyrus, dated to around 1550 BCE, describes various mathematical techniques for doing calculations involving multiplication, division, and fractions, and how to use them for practical purposes like measuring land, constructing buildings, and sharing resources \parencite{georges_universal_2001}. 
 Around the same time, the Babylonians had developed a sophisticated system of mathematics that included algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \parencite{fowler_square_1998}. 
 
 These computing tools brought with them novel challenges. The Babylonian mathematics, for instance, did not formalize the difference between rational and irrational numbers often leading to approximation errors such as the common practice of approximating $\pi$ with 3 \parencite{georges_universal_2001}. Apart from such inherent limitations of the tools, inadequate human proficiency in their use was also a source of error. The Plimpton 322 clay tablet, for instance, contains several errors, presumably made by a novice in Babylonian mathematics (\cref{fig:plimpton_332}) \parencite{neugebauer_mathematical_1945,britton_plimpton_2011}. 
@@ -170,7 +170,7 @@ The multitude of rapid misclassifications made by the Uber self-driving car in T
 
 \subsection{Model calibration} \label{subsec:model-calibration}
 % 
-The problem of miscalibration in machine learning models is well-known and has been studied for decades \parencite{lewis_sequential_1995, platt_probabilistic_1999, garczarek_classification_2002, zadrozny_transforming_2002, bennett_using_2003}. One of the best known methods for calibrating a binary classifier is Platt scaling which fits a logistic regression model to the model outputs, assuming that the miscalibration can be corrected by a logarithmic function \parencite{platt_probabilistic_1999}. Another method is isotonic regression which instead fits a non-parametric, monotonic function \parencite{zadrozny_transforming_2002}. 
+The problem of miscalibration in machine learning models is well-known and has been studied for decades \parencite{lewis_sequential_1995, platt_probabilistic_1999, garczarek_classification_2002, zadrozny_transforming_2002, bennett_using_2003, niculescu-mizil_predicting_2005}. One of the best known methods for calibrating a binary classifier is Platt scaling which fits a logistic regression model to the model outputs, assuming that the miscalibration can be corrected by a logarithmic function \parencite{platt_probabilistic_1999}. Another method is isotonic regression which instead fits a non-parametric, monotonic function \parencite{zadrozny_transforming_2002}. 
 More recently, \textcite{guo_calibration_2017} proposed a single-parameter variant of Platt-scaling that fits only a temperature parameter on the logits of a neural network classifier. 
 These methods are generally simple and effective, but not without limitations. 
 To perform the calibration, most of the methods require a held-out validation set on which the model was not trained, Platt scaling and isotonic regression are not naively applicable to multi-class classification problems, and how to calibrate models for structured prediction tasks, such as speech recognition and machine translation, remains an open problem \parencite{astudillo_uncertainty_2010, astudillo_integration_2013, jayashankar_detecting_2020}.
@@ -213,16 +213,15 @@ Other approaches include anomaly detection and the recent field of out-of-distri
 
 \section{Thesis scope and outline}
 
-\todo[inline]{Formulate research hypotheses}
-
 This introduction provided a high-level overview of the motivation behind the research project by focusing on the use-cases of stroke recognition and automated medical coding as well as speech processing and the importance of uncertainty quantification. 
 The remainder of \cref{part:background} consists of two chapters. 
-\Cref{chp:main-contributions} outlines the research questions of the thesis via the published papers and presents their main contributions. 
-\Cref{chp:technical-background} provides relevant technical background to the papers of the thesis, including uncertainty, out-of-distribution detection, and variational autoencoders. 
+\Cref{chp:main-contributions} presents the research questions of the thesis and the main contributions made in the included papers. 
+\Cref{chp:technical-background} provides relevant technical background to the included papers, including uncertainty, out-of-distribution detection, and variational autoencoders. 
 
 \Cref{part:unsupervised-uncertainty-estimation,part:self-supervised-speech-representation-learning,part:medical-applications} contain a number of chapters that each correspond to a primary paper. 
-\Cref{part:unsupervised-uncertainty-estimation} contains papers on variational autoencoders and their applications to out-of-distribution detection and speech modelling \parencite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. 
-\Cref{part:self-supervised-speech-representation-learning} contains a review paper on self-supervised speech representation learning \parencite{mohamed_selfsupervised_2022}. \Cref{part:medical-applications} contains papers on applications of machine learning within the medical domain, including recognition of stroke cases in calls to medical helplines \parencite{wenstrup_retrospective_2023} and medical coding of clinical notes \parencite{edin_automated_2023}. 
+\Cref{part:unsupervised-uncertainty-estimation} is made up of three papers on variational autoencoders and their applications to out-of-distribution detection and speech modelling \parencite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. 
+\Cref{part:self-supervised-speech-representation-learning} is a single, comprehensive review paper on self-supervised speech representation learning \parencite{mohamed_selfsupervised_2022}. 
+\Cref{part:medical-applications} consists of two papers on applications of machine learning within the medical domain, specifically recognition of stroke cases in calls to medical helplines \parencite{wenstrup_retrospective_2023} and medical coding of clinical notes \parencite{edin_automated_2023}. 
 
 Finally, \cref{part:discussion-and-conclusion} concludes the thesis by summarizing the main contributions and discussing the presented work and future directions for research.
 

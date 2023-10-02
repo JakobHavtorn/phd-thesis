@@ -39,13 +39,15 @@ nats
 OOD
 Plimpton
 reparameterization
+reparameterize
 reparameterizing
 Rhind
 softmax
 Trygfonden
+Uncalibrated
+uncalibrated
 Underconfident
 underconfident
 VAE
 VAEs
 Wescoff
-reparameterize
