@@ -88,7 +88,7 @@ languages.
 Several datasets, including GigaSpeech~\parencite{chen_gigaspeech_2021}, TED-LIUM~3
 (TED3)~\parencite{hernandez_tedlium_2018}, TED-LIUM~2 (TED2)~\parencite{rousseau_tedlium_2012},
 Switchboard (SWB)~\parencite{godfrey_switchboard_1992}, 
-TIMIT~\parencite{garofolo_timit_1993}, and VoxLingua107~\parencite{valk_voxlingua107_2021}, are
+TIMIT~\parencite{garofolo_timit_1993}, and VoxLingua107 \parencite{valk_voxlingua107_2021}, are
 labeled and conventionally used for evaluation, while their audio streams are
 also aggregated to build diversified and large-scale corpora for unsupervised
 pre-training~\parencite{kawakami_learning_2020, song_speechxlnet_2020, babu_xlsr_2021}.
@@ -254,7 +254,8 @@ audio processing, we here provide only a list of these datasets for reference.
 \end{table*}
 
 \addtocounter{footnote}{1}
-\footnotetext{\label{footnote:table:datasets-abbrevations}We use the following abbreviations:
+\footnotetext{\label{footnote:table:datasets-abbrevations}
+In \cref{table:datasets}, we use the following abbreviations:
 \textbf{EN}: English; 
 \textbf{Multi}: multilingual;
 \textbf{ZH}: Chinese;
@@ -278,30 +279,26 @@ utterances was uttered by the same speaker.}
 \addtocounter{footnote}{1}
 \footnotetext{\label{footnote:MOSEI_license}\url{https://github.com/A2Zadeh/CMU-MultimodalSDK/blob/master/LICENSE.txt}}
 
-\begin{table*}[t]
+\begin{table*}
   \centering
   \tiny
   \caption[Summary of common experiment settings for various SSL
   evaluations (Part 1).]{A summary of common experiment settings for various SSL
-  evaluations (Part 1). Networks are usually pre-trained with SSL
+  evaluations (Part 1). 
+  Networks are usually pre-trained with SSL
   techniques, augmented with prediction heads, and fine-tuned (or trained) with
-  labeled data in downstream tasks for benchmarking. The 
-  \textbf{Pre-training corpus}, \textbf{Training (fine-tuning)}, and
-  \textbf{Test} columns list the datasets used in each work, and the \textbf{Task}
-  column lists the tasks performed in the corresponding papers. We follow
-  the abbreviation introduced in \cref{table:datasets}. The \textbf{Transfer}
-  column indicates whether the SSL technique is evaluated by its capability for
-  transfer learning, i.e., different datasets are utilized for pre-training and
-  fine-tuning. The \textbf{Fine-tuning labels used} column summarizes the
-  amount of labeled examples used in downstream fine-tuning.}
+  labeled data in downstream tasks for benchmarking. 
+  We follow the abbreviations introduced in \cref{table:datasets}.
+  Column descriptions are in \cref{footnote:table:method_data_setting}.
+  }
   \label{table:method_data_setting}
-  \resizebox*{0.97\textwidth}{!}{%
+  \resizebox*{0.99\textwidth}{!}{%
   {%\tabulinesep=1mm
   \renewcommand*\arraystretch{1.4}
-  \begin{tabular}{p{0.12\textwidth}p{0.12\textwidth}p{0.06\textwidth}p{0.13\textwidth}p{0.13\textwidth}p{0.06\textwidth}p{0.20\textwidth}}
+  \begin{tabular}{p{0.14\textwidth}p{0.12\textwidth}p{0.06\textwidth}p{0.15\textwidth}p{0.10\textwidth}p{0.05\textwidth}p{0.15\textwidth}}
     \toprule
     \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{Pre-training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
-     &  &  & Training (fine-tuning) & Test & & \\
+     &  &  & Fine-tuning & Test & & \\
     \midrule
     % CPC
     \multirow{2}{*}[0mm]{CPC \parencite{oord_representation_2018}} & \multirow{2}{*}[0mm]{LS 100 hrs} & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
@@ -355,7 +352,21 @@ utterances was uttered by the same speaker.}
 \end{table*}
 
 
-\begin{table*}[t]
+
+\addtocounter{footnote}{1}
+\footnotetext{\label{footnote:table:method_data_setting}
+  The \textbf{Pre-training corpus}, \textbf{Fine-tuning}, and
+  \textbf{Test} columns list the datasets used in each work, and the \textbf{Task}
+  column lists the tasks performed in the corresponding papers. 
+  The \textbf{Transfer} column indicates whether the SSL technique is evaluated by its capability for
+  transfer learning, i.e., different datasets are utilized for pre-training and
+  fine-tuning. The \textbf{Fine-tuning labels used} column summarizes the
+  amount of labeled examples used in downstream fine-tuning.
+}
+
+
+
+\begin{table*}
   \centering
   \tiny
   \caption[Summary of common experiment settings for various SSL
@@ -363,13 +374,13 @@ utterances was uttered by the same speaker.}
   evaluations (Part 2). See the caption of \cref{table:method_data_setting} for a
   detailed description of all the abbreviations used in this table.}
   \label{table:method_data_setting_2}
-  \resizebox*{0.97\textwidth}{!}{%
+  \resizebox*{0.99\textwidth}{!}{%
   {%\tabulinesep=1mm
   \renewcommand*\arraystretch{1.4}
-  \begin{tabular}{p{0.12\textwidth}p{0.12\textwidth}p{0.05\textwidth}p{0.18\textwidth}p{0.18\textwidth}p{0.05\textwidth}p{0.15\textwidth}}
+  \begin{tabular}{p{0.14\textwidth}p{0.12\textwidth}p{0.06\textwidth}p{0.15\textwidth}p{0.10\textwidth}p{0.05\textwidth}p{0.15\textwidth}}
     \toprule
     \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{Pre-training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
-     &  &  & Training (fine-tuning) & Test & & \\
+     &  &  & Fine-tuning & Test & & \\
     \midrule
     % BMR
     \multirow{2}{*}[0mm]{BMR \parencite{wang_unsupervised_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{WSJ si284,\\LS 960 hrs}} & ASR & WSJ si284 & WSJ eval92 & - & 81 hrs \\ \cline{3-7}
@@ -410,7 +421,7 @@ utterances was uttered by the same speaker.}
     wav2vec-c \parencite{sadhu_wav2vecc_2021} & Alexa-10k & ASR & \makecell[l]{Alexa-eval} & \makecell[l]{Alexa-eval} & \checkmark & 1k hrs \\ \hline
     UniSpeech-SAT \parencite{chen_unispeechsat_2021} & \makecell[l]{LL 60k hrs\\\;\;+ GigaSpeech-10k\\\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See SUPERB \parencite{yang_superb_2021} paper for details \\ \hline
     WavLM \parencite{chen_wavlm_2021} & \makecell[l]{LL 60k hrs\\\;\;+ GigaSpeech-10k\\\;\;+ VP-24k} & Multi & SUPERB & SUPERB & \checkmark & See \parencite{yang_superb_2021} for details \\ \hline
-    \multirow{4}{*}[0mm]{XLS-R \parencite{babu_xlsr_2021}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;+ CV-dataset-7k\\\;\;+ VL\\\;\;+ BBL}} & ASR & VP, MLS, CV-dataset, BBL, LS & VP, MLS, CV-dataset, BBL, LS & - & \multirow{4}{*}[0mm]{See \parencite{babu_xlsr_2021} for details} \\ \cline{3-6}
+    \multirow{4}{*}[0mm]{XLS-R \parencite{babu_xlsr_2021}} & \multirow{4}{*}[0mm]{\makecell[l]{VP-400k + MLS\\\;\;+ CV-dataset-7k\\\;\;+ VL\\\;\;+ BBL}} & ASR & \makecell[l]{VP, MLS,\\CV-dataset,\\BBL, LS} & \makecell[l]{VP, MLS,\\CV-dataset,\\BBL, LS} & - & \multirow{4}{*}[0mm]{See \parencite{babu_xlsr_2021} for details} \\ \cline{3-6}
     & & SID & VoxCeleb1 & VoxCeleb1 & \checkmark & \\ \cline{3-6}
     & & ST & CoVoST-2 & CoVoST-2 & \checkmark & \\ \cline{3-6}
     & & LID & VL & VL & - & \\

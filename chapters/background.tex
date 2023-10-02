@@ -257,7 +257,7 @@ Other methods note that the difficulty of detecting OOD data might be attributed
 \textcite{zaeemzadeh_outofdistribution_2021} forces the ID samples to embed into a union of 1-dimensional subspaces during training and computes the minimum angular distance from the feature to the class-wise subspaces. 
 NuSA \parencite{cook_outlier_2020} uses projects features onto the column space of the classification weight matrix and computes the ratio of the norm the projected and original features.
 \textcite{lee_simple_2018} fit a multivariate Gaussian distribution to the activations of the penultimate layer of a pre-trained classifier and use the Mahalanobis distance to this distribution to evaluate whether inputs are OOD. This method can also be seen as ameliorating the curse of dimensionality by clustering the high-dimensional feature space. 
-Finally, Bayesian neural networks have also been proposed for OOD detection although their performance is not yet competitive with other methods \parencite{henning_are_2021,dangelo_outofdistribution_2022,nguyen_out_2022}. 
+Finally, Bayesian neural networks have also been proposed for OOD detection, but their performance is not yet competitive with other methods \parencite{henning_are_2021,dangelo_outofdistribution_2022,nguyen_out_2022}. 
 
 % Summary and weaknesses of supervised OOD detection approaches
 A general weakness of all supervised out-of-distribution detection is that in learning the task-specific model $p(y|\xb)$ a model may discard information about $p(\xb)$ which could be useful for out-of-distribution detection.
@@ -483,11 +483,41 @@ However, by reparameterizing the latent variable $\zb$ as a deterministic functi
     = \mathbb{E}_{p(\epsilonb)} \left[ \nabla_\phib \log \frac{p_\thetab\left(\xb|g_\phib(\xb,\epsilonb)\right)p\left(g_\phib(\xb,\epsilonb)\right)}{q_\phib\left(g_\phib(\xb,\epsilonb)|\xb\right)} \right] \enspace . \\
 \end{equation}
 %
-The most important instantiation of this reparameterization is the diagonal Gaussian case, where $\zb = \mu_\phib(\xb) + \sigma_\phib(\xb) \odot \epsilonb$ with $\epsilonb\sim\mathcal{N}(0,\mathbf{I})$. It is usual to make a mean-field approximation by assuming the covariance matrix is diagonal imposing independence between the latent variables in $\zb$. 
+The most important instantiation of this reparameterization is the diagonal Gaussian case, where $\zb = \mu_\phib(\xb) + \sigma_\phib(\xb) \odot \epsilonb$ with $\epsilonb\sim\mathcal{N}(0,\mathbf{I})$. 
+By assuming the covariance matrix is diagonal, this is a mean-field approximation which imposes independence between the latent variables in $\zb$. 
 
-Although lower variance than alternatives, such as score function estimators, a number of works have attempted to reduce the variance. 
+Although the path-wise derivative has lower variance than most alternatives, such as score function estimators, a number of works have attempted to reduce its variance.
 \textcite{roeder_sticking_2017} note that the path-wise derivative can be factored into a path-wise estimator and a score function estimator and propose to ignore the score function factor to reduce gradient variance. 
-\textcite{rainforth_tighter_2019} that this problem is even larger for the importance weighted ELBO \parencite{burda_importance_2016} leading to diminishing returns for increasing numbers of samples. Instead of removing the score function factor in the gradient, \textcite{tucker_doubly_2019} propose to reparameterize the score function and derive low variance gradient estimators also for importance weighted ELBO.
+\textcite{rainforth_tighter_2019} show that this problem is even larger for the importance weighted ELBO \parencite{burda_importance_2016} and leads to diminishing returns when increasing the number of samples. 
+Rather than removing the score function factor in the estimate, \textcite{tucker_doubly_2019} propose to reparameterize it and derive low variance gradient estimators, also for importance weighted ELBO.
+
+\paragraph{Hierarchical models}\label{sec:hierarchical-vae-background}
+The usual mean-field assumption imposed by letting $\zb \sim\mathcal{N}(\mub,\mathbf{I}\sigmab^2)$ can often be more restrictive for model expressiveness than we would like. 
+While learning a full covariance is a simple solution, it is not always sufficiently computationally efficient and, in any case, enables learning only linear covariance between elements of $\zb$. 
+Along with the usual motivations of hierarchical models such as efficient representation, feature disentanglement, and data efficiency, this has led to research into using a hierarchy of several conditionally dependent latent variables. 
+This idea is commonly formalized by introducing a set of $L$ latent variables  $\zb=\zb_1, \dots, \zb_L$ and letting the generative model be defined as,
+%
+\begin{equation}
+    p_\thetab(\xb|\zb)=p(\xb|\zb_1) p_\thetab(\zb_1|\zb_2) \cdots p_\thetab(\zb_{L-1}|\zb_L) p(\zb_L) \enspace .
+\end{equation}
+%
+This top-down generative model can be efficiently sampled via ancestral sampling; first $\zb_L$ is drawn from the prior $p(\zb_L)$, and then each $\zb_l$ is drawn from the corresponding $p(\zb_l|\zb_{l+1})$ until we can draw $p(\xb|\zb_1)$. 
+
+The inference model can then be defined in two ways respectively referred to as \emph{bottom-up} \parencite{burda_importance_2016}
+\begin{equation}
+    %q_\phib(\zb|\xb)=q_\phib(\zb_1|\xb)q_\phib(\zb_2|\zb_1)\cdots q_\phib(\zb_L|\zb_{L-1})
+    q_\phib(\zb|\xb) = q_\phib(\zb_1|\xb)\textstyle\prod_{i=2}^{L} q_\phib(\zb_i|\zb_{i-1})
+\end{equation}
+and \emph{top-down} \parencite{sonderby_ladder_2016}
+\begin{equation}
+    % q_\phib(\zb|\xb)=q_\phib(\zb_{L}|\xb)q_\phib(\zb_{L-1}|\zb_L)\cdots q_\phib(\zb_2|\zb_1),
+    q_\phib(\zb|\xb) = q_\phib(\zb_L|\xb)\textstyle\prod_{i=L-1}^{1} q_\phib(\zb_{i}|\zb_{i+1}) \ .
+\end{equation}
+Regardless of the choice of inference model, the resulting hierarchical VAE is trained using the ELBO \cref{eq:variational-autoencoder-elbo} and the reparameterization trick.
+
+% Until recently, hierarchical VAEs gave inferior likelihoods compared to state-of-the-art autoregressive \parencite{ho_flow_2019} and flow-based models \parencite{salimans_pixelcnn_2017}.
+% This was changed by \textcite{maaloe_biva_2019}, \textcite{vahdat_nvae_2020}, and \textcite{child_very_2021}, which introduced complementary methods to extend the number of latent variables to a very deep hierarchy resulting in state-of-the-art likelihood performance.
+
 
 
 \paragraph{Mutual information interpretation}
@@ -535,16 +565,8 @@ Inserting this back into the ELBO in \cref{eq:variational-autoencoder-elbo-facto
 %
 In this form, the KL-divergence term of \cref{eq:variational-autoencoder-elbo-factorized} has been factored into the marginal KL-divergence of the aggregated posterior to the prior and the mutual information between the data and the latent variables. 
 The marginal KL-divergence is minimized by making the aggregated posterior $q_{}(\zb)$ match the prior $p(\zb)$. Contrary to the KL-divergence term of \cref{eq:variational-autoencoder-elbo-factorized}, driving the marginal KL-divergence to zero does not enforce independence between $\xb$ and $\zb$. 
-However, this alternative form reveals that the ELBO is maximized by minizing the mutual information between $\xb$ and $\zb$, $I_{q_{}(\xb,\zb)}\left[\xb ; \zb \right]$. 
-This result indicates that the usual interpretation of $\zb$ as a representation of $\xb$ is not a fundamental property arising from the ELBO and challenges the usefulness of variational autoencoders as representation learners. 
-
-
-% \paragraph{Hierarchical models}
-% VAEs can be extended to hierarchical models by introducing additional latent variables $\zb_1,\dots,\zb_L$ that are conditionally dependent on each other \parencite{ranganath_hierarchical_2016,sonderby_ladder_2016,vahdat_nvae_2020,child_very_2021,maaloe_biva_2019}. The generative model can then be written as,
-% %
-% \begin{equation}
-%     p_\thetab(\xb,\zb_1,\dots,\zb_L) = p_\thetab(\xb|\zb_1)\prod_{l=2}^L p_\thetab(\zb_{l-1}|\zb_{l}) \enspace .
-% \end{equation}
+However, this alternative form reveals that the ELBO is maximized by minimizing the mutual information between $\xb$ and $\zb$, $I_{q_{}(\xb,\zb)}\left[\xb ; \zb \right]$. 
+This result indicates that the usual interpretation of $\zb$ as a representation of $\xb$ is not a fundamental property arising from the ELBO and challenges the usefulness of variational autoencoders as representation learners.
 % %
 
 

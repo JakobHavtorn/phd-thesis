@@ -22,7 +22,7 @@ In \cref{subsec:zero}, the SSL representation is further used in scenarios where
 % What are we going to do % how to match
 %In the self-supervised learning framework, speech representations can be learned and used in the downstream tasks, but some labeled data for finetuning is needed.
 
-\begin{sidewaystable}[t]
+\begin{sidewaystable}
 \centering
 \caption[Performance of models within unsupervised ASR.]{
 	Unsupervised ASR.
@@ -412,7 +412,7 @@ Not only does this open the gate for language and dialect modeling without
 orthographic rules, but it also offers the opportunity to model other
 non-lexical information about how speech is delivered, e.g., speaker identity,
 emotion, hesitation, interruptions. 
-The generative spoken language model (GSLM)~\parencite{nguyen_generative_2022} utilizes discrete
+The generative spoken language model (GSLM) \parencite{nguyen_generative_2022} utilizes discrete
 representations from wav2vec~2.0, HuBERT, and CPC algorithms as inputs to an
 autoregressive language model trained by \edit{using the cross-entropy function} to maximize the
 probability of predicting the next discrete speech token. A \edit{synthesis} module

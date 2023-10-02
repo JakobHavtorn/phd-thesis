@@ -8,9 +8,9 @@
 Deep generative models have been demonstrated as state-of-the-art density estimators.
 Yet, recent work has found that they often assign a higher likelihood to data from outside the training distribution.
 This seemingly paradoxical behavior has caused concerns over the quality of the attained density estimates.
-In the context of hierarchical variational autoencoders, we provide evidence to explain this behavior by out-of-distribution data having in-distribution low-level features.
+In the context of hierarchical variational autoencoders, we provide evidence to explain this behavior by out-of-distribution data having in-distribution, low-level features.
 We argue that this is both expected and desirable behavior.
-With this insight in hand, we develop a fast, scalable and fully unsupervised likelihood-ratio score for OOD detection that requires data to be in-distribution across all feature-levels.
+With this insight in hand, we develop a fast, scalable, and fully unsupervised likelihood-ratio score for OOD detection that requires data to be in-distribution across all feature-levels.
 We benchmark the method on a vast set of data and model combinations and achieve state-of-the-art results on out-of-distribution detection.
 
 
@@ -178,7 +178,7 @@ In this paper, we provide an explanation of those results, and significantly imp
 \section{OOD detection with hierarchical VAEs}
 \subsection{A bound for semantic OOD detection}
 If the lowest latent variable in the VAE hierarchy codes for a large part of the low-level features required to reconstruct the input with high accuracy, as exemplified in \crefrange{fig_hierarchical:reconstructions-fashionmnist}{fig_hierarchical:biva-reconstructions-celeba}, then $p_\thetab(\xb|\zb_1)$ will be high for both in- and out-of-distribution data.
-Hence, any OOD detection capabilities based on the ELBO $\mathcal{L} = \mathbb{E}_{q_\phib(\zb|\xb)}[\log p_\thetab(\xb|\zb_1)] - D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel  p(\zb))$ from \cref{eq_hierarchical:elbo} relies on the KL-term for OOD detection. For a bottom-up hierarchical VAE, the KL-term $D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel  p(\zb))$ can be expressed by a hierarchical sum% over the hierarchy
+Hence, any OOD detection capabilities based on the ELBO $\mathcal{L} = \mathbb{E}_{q_\phib(\zb|\xb)}[\log p_\thetab(\xb|\zb_1)] - D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel  p(\zb))$ from \cref{eq_hierarchical:elbo} relies on the KL-term for OOD detection. For a bottom-up hierarchical VAE, the KL-term $D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel p(\zb))$ can be expressed by a hierarchical sum,% over the hierarchy
 % \begin{multline}
 %     \mathcal{L}(\xb) =  \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \log p_\thetab(\xb|\zb_1) \\
 %                      + \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb_i|\zb_{i+1})}{q_\phib(\zb_i|\zb_{i-1})} 

@@ -2,72 +2,79 @@
 
 % ~2 pages
 
-\chapter[main contributions]{Main contributions}\label{chp:main-contributions}
+\chapter[research questions and main contributions]{Research questions and main contributions}\label{chp:main-contributions}
 \newcommand{\contribitem}[1]{{\vspace{1em}\noindent\scshape\bfseries{\color{dtured}\cref{#1}}\\\ucnameref{#1}\\}}
 
-The following chapters of the thesis are self-contained studies and therefore detail their own contributions. 
-They are however written without consideration to the other chapters. 
-For that reason, this chapter will describe the main contributions of each chapter in relation to the overall research topic of the thesis. 
-The chapters are structured into three parts: \cref{part:unsupervised-uncertainty-estimation} is concerned with unsupervised uncertainty estimation, \cref{part:self-supervised-speech-representation-learning} is concerned with self-supervised speech representation learning, and \cref{part:medical-applications} contains studies on machine learning methods applied for tasks in a medical setting. 
-Finally, \cref{part:discussion-and-conclusion} contains the discussion and conclusions of the thesis.
+The following chapters of the thesis are self-contained studies and therefore detail their own research questions and contributions, but do so without consideration to the other chapters. 
+For that reason, we here lay out the research questions and main contributions of each chapter in relation to the overall research project of the thesis. 
+The chapters are structured into three parts: {\color{dtured}\cref{part:unsupervised-uncertainty-estimation}} is concerned with unsupervised uncertainty estimation, {\color{dtured}\cref{part:self-supervised-speech-representation-learning}} is concerned with self-supervised speech representation learning, and {\color{dtured}\cref{part:medical-applications}} contains studies on machine learning methods applied for tasks in a medical setting. 
+Finally, {\color{dtured}\cref{part:discussion-and-conclusion}} contains a discussion and the conclusion of the thesis.
 
 
 \contribitem{part:background}
-\Cref{chp:introduction} provides a general introduction to the thesis and gives motivating examples for speech recognition and assistance in medical encounters including stroke recognition on medical helplines and automation of medical coding. \Cref{chp:technical-background} provides additional technical background not included in the individual studies by introducing uncertainty as a concept in the context of information and probability theory, introducing the task of out-of-distribution detection and reviewing existing work on the problem, and providing an introduction to variational autoencoders. 
+\Cref{chp:introduction} provides a general introduction to the thesis and gives motivating examples for speech recognition and assistance in medical encounters including stroke recognition on medical helplines and automation of medical coding. \Cref{chp:technical-background} provides additional technical background not included in the individual studies. It introduces uncertainty as a concept in the context of information and probability theory, introduces the task of out-of-distribution detection and provides a review of existing work on the problem, and lays out the foundations for variational autoencoders. 
 
 
 \contribitem{part:unsupervised-uncertainty-estimation}
 This part of the thesis is concerned with unsupervised uncertainty estimation and consists of three papers. 
-The first two papers are approach unsupervised uncertainty estimation through the task of out-of-distribution detection using generative models. The first paper proposes a new method for out-of-distribution detection using hierarchical variational autoencoders. 
-The second paper builds on the first and proposes a model-agnostic method for out-of-distribution detection that can be used with any differentiable generative model with explicit likelihood. 
-The third paper proposes a new hierarchical variational autoencoder for speech and benchmarks it against other variational autoencoders and autoregressive models.
+The first two papers approach unsupervised uncertainty estimation through the task of out-of-distribution detection using generative models. 
+The first paper proposes a new method for out-of-distribution detection using hierarchical variational autoencoders and the second proposes a model-agnostic method for out-of-distribution detection that can be used with any differentiable generative model with explicit likelihood. 
+The third paper proposes a new hierarchical variational autoencoder for speech and benchmarks it against other variational and autoregressive models.
 
 \contribitem{chp:paper-hierarchical}
-This paper proposes a new method for unsupervised out-of-distribution detection using hierarchical variational autoencoders. 
-The paper provides evidence that the failure of deep generative models to assign lower likelihoods to data from outside the training distribution is due to overemphasis on low-level features that generalize between distributions. 
-To solve this, the proposed method computes a likelihood-ratio score for out-of-distribution detection that requires data to be in-distribution across all feature-levels. 
+In this work we hypothesize that the likelihood estimate of variational autoencoders is a poor score for out-of-distribution due to on overemphasis on low-level features that generalize between distributions. 
+We further hypothesize that a well-formed hierarchy of latent variables provides a tool that can be used to select between which features to emphasize for out-of-distribution detection and hence a way to improve the performance of variational autoencoders on this task. 
+We proceed to provide empirical and theoretical evidence that low-level features indeed do dominate the likelihood and propose a new method for out-of-distribution detection using hierarchical variational autoencoders. 
+The proposed method computes a likelihood-ratio score for out-of-distribution detection that requires data to be in-distribution across all feature-levels. 
 The proposed method is computationally efficient, fully unsupervised, and performs well on several out-of-distribution detection benchmarks. 
 % Methods like this are important for the development of safe and reliable machine learning systems, especially in medical applications where the consequences of errors can be significant. 
 
 \contribitem{chp:paper-modelagnostic}
-This paper proposes a model-agnostic method for out-of-distribution detection that can be used with any differentiable, explicit likelihood generative model. 
-The method is based on combining a classical parametric test with the recently introduced typicality test via Fisher's method. 
-We show that this leads to a more accurate out-of-distribution test. We also discuss the benefits of casting out-of-distribution detection as a statistical testing problem, for instance enabling false positive rate control which is valuable for practical applications, especially in high-risk settings such as medical decision-making.
+In this follow-up work, we note that many diverse methods have been proposed for out-of-distribution detection using different generative models and seek to develop a model-agnostic approach. 
+We hypothesize that by phrasing the problem as a statistical testing problem and combining different tests, the method's efficacy can be improved and weaknesses inherent to any particular test can be alleviated. 
+From this hypothesis, we develop a method that combines a classical parametric test with the recently introduced typicality test via Fisher's method and can be used with any differentiable, explicit likelihood generative model.
+We show that this leads to a more accurate out-of-distribution test. 
+Finally, we discuss the benefits of casting out-of-distribution detection as a statistical testing problem, for instance enabling false positive rate control. This is valuable for practical applications, especially in high-risk settings such as medical decision-making.
+
 
 \contribitem{chp:paper-benchmarking}
-This paper proposes a new hierarchical variational autoencoder for speech inspired by the Clockwork VAE \parencite{saxena_clockwork_2021}. 
-The model is benchmarked against other variational autoencoders and autoregressive models for speech. We show that using a hierarchy of latent variables improves the likelihood of the model and that the learned latent space captures information relevant for speech recognition such as phonetic content.
+In this paper, we focus on benchmarking hierarchical variational autoencoders for speech modelling. 
+We hypothesize that the improvements in likelihood scores proven by hierarchical models in other domains, most prominently images, can also carry over to speech modelling. 
+To this end, we benchmark a number of existing deterministic and stochastic models and adapt the hierarchical Clockwork VAE developed for video \parencite{saxena_clockwork_2021} to speech data. 
+We show that using a hierarchy of latent variables can improve the likelihood of the model and that the learned latent space captures information relevant for speech recognition, such as phonetic content. 
+% This paper proposes a new hierarchical variational autoencoder for speech inspired by the Clockwork VAE \parencite{saxena_clockwork_2021}. 
+% The model is benchmarked against other variational autoencoders and autoregressive models for speech. 
 
 
 \contribitem{part:self-supervised-speech-representation-learning}
 This part of the thesis is concerned with self-supervised speech representation learning and consists of a single paper that provides a substantial review of the field \parencite{mohamed_selfsupervised_2022}. 
 Self-supervised learning is a promising approach to speech representation learning that has shown a fast, wide and successful adoption across speech modelling over the course of the last few years. 
 As measured by performance on common downstream tasks such as speech recognition and spoken language understanding, self-supervised representations generally outperform representations learned via probabilistic generative models such as those investigated in \cref{part:unsupervised-uncertainty-estimation}. 
-In this review paper, we do not consider uncertainty estimation, but in future work, consideration should be given to the use of self-supervised learning as an alternative paradigm to generative models for learning representations for unsupervised uncertainty estimation. We shall return to this in the discussion of \cref{chp:paper-review} in \cref{sec:discussion-paper-review}.
+In this review paper, we do not consider uncertainty estimation, but in future work, consideration should be given to the use of self-supervised learning for learning representations for unsupervised uncertainty estimation. We shall return to this in the discussion of \cref{chp:paper-review} in \cref{sec:discussion-paper-review}.
+An early version of this review paper included a review of variational autoencoders for speech representation learning and a comparison between the two modelling paradigms \parencite{borgholt_brief_2022}. 
+Due to a desire to focus on self-supervised methods, the paper in \cref{chp:paper-review} does not put particular focus on variational methods. 
+The early version is included in \cref{app:paper-brief} for reference.
 
 \contribitem{chp:paper-review}
 This paper provides a comprehensive review of self-supervised speech representation learning. Previous work is grouped into three main categories of methods: contrastive, autoregressive, and generative, and the methods are compared in terms of their training objectives, model architectures, and performance on downstream tasks. The review also provides a discussion of the current state of the field and promising future directions of research. 
 
-An early version of this review paper \parencite{borgholt_brief_2022} included a review of generative latent variable models for speech representation learning and a comparison between the two modelling paradigms. 
-Due to the superior performance of self-supervised methods and a desire to focus on self-supervised methods, the paper in \cref{chp:paper-review} does not focus on generative latent variable models. 
-The early version is included in \cref{app:paper-brief} for reference.
-
  
 \contribitem{part:medical-applications}
-This part contains studies on machine learning methods applied for tasks in a medical setting. While uncertainty estimation is not a central theme to any of the two papers, the first paper performs a substantial evaluation of the explainability of the proposed model via an occlusion analysis on the text input. Later, in the discussion, we shall further consider uncertainty estimation in relation to these two papers.
+This part contains studies on machine learning methods applied for tasks in a medical setting. While uncertainty estimation is not a central theme to the two papers, the first paper performs a substantial evaluation of the explainability of the proposed model via an occlusion analysis on the text input. Later, in the discussion, we shall further consider uncertainty estimation in relation to these two papers.
 \todo[inline]{Revise and add more details to this section.}
 
 \contribitem{chp:paper-retrospective}
-Effective stroke treatment depends on recognition by call-takers at prehospital telehealth services. This paper aimed to develop and assess the potential of machine learning in improving prehospital stroke recognition during medical helpline calls. 
-We used calls from Copenhagen during 2015 to 2020, to develop a machine learning-based classification pipeline. First, calls were transcribed by a speech recognition model and then categorised as stroke or non-stroke using a text classification model.
+In this paper we examine the hypothesis that a machine learning framework can learn to recognize cases of stroke in calls made to a prehospital medical helpline. 
+We used calls from Copenhagen during 2015 to 2020, to develop a machine learning-based classification pipeline. First, calls were transcribed by a speech recognition model and then categorized as stroke or non-stroke using a text classification model.
 On test data from 2021, call-takers achieved an overall sensitivity of 52.7\% (95\% confidence interval 49.2-56.4\%) with a positive predictive value (PPV) of 17.1\% (15.5-18.6\%) while the machine learning framework performed significantly better (p < 0.0001) with a sensitivity of 63.0\% (62.0-64.1\%) and a PPV of 24.9\% (24.3-25.5\%).
+Effective stroke treatment depends on recognition by call-takers at prehospital telehealth services. 
 This study provides preliminary evidence that a machine learning framework for recognizing stroke in prehospital medical helpline calls could become a supportive tool for call-takers, aiding in early and accurate stroke recognition.
+% This paper aimed to develop and assess the potential of machine learning in improving prehospital stroke recognition during medical helpline calls. 
 
 \contribitem{chp:paper-automated}
-Improving the efficiency of medical coding can alleviate the administrative burden on medical staff and help reduce the rising costs for hospitals. 
 In this paper, we review the current state-of-the-art in automated medical coding of clinical notes. 
-We reproduce, analyze and compare several models on the MIMIC-III dataset showing that poor performance is often attributable to weak configuration, crudely sampled train-test splits, and insufficient evaluation. 
-We compare models on data splits created with stratified sampling, use identical experimental setups and tune hyperparameters and decision boundaries. 
-By analyzing prediction errors, we confirm that all models struggle with rare codes, while long documents only have a negligible impact. 
+We hypothesize that several previous works underperform for reasons more related to suboptimal hyperparameter tuning, incorrect evaluation, and crude data handling than to model design, and that performance can be improved by addressing these issues. With our work, we aim to increase reproducibility and comparability of future work and to provide a baseline for future comparisons. 
+We reproduce, analyze and compare several models on the MIMIC-III dataset showing that poor performance is indeed attributable to weak configuration of the training and crudely sampled train-test splits with many extremely rare classes and several without examples in the training data at all. We also find a widespread error in the calculation of the macro F1 score. 
+We propose new data splits created with stratified sampling and use identical experimental setups to compare models, tuning hyperparameters and decision boundaries. 
+By analyzing prediction errors, we confirm the observation of previous work that all models struggle with rare codes, although long documents only have a negligible impact on performance, contrary to previous claims. 
 We also present the first comprehensive results on the newly released MIMIC-IV dataset using the reproduced models. 
-This paper aims to increase reproducibility and comparability of future work in automated medical coding and to provide a baseline for future research. 

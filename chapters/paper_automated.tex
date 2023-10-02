@@ -52,15 +52,15 @@ MIMIC-IV was released on January 6th, 2023, and has not previously been used for
 Statistics for the MIMIC-III \textit{50}, \textit{full}, and MIMIC-IV datasets are listed in \cref{tab:subsets}.
 
 
-\begin{figure}[t]
+\begin{figure}
     \centering
-    \includegraphics[width=0.9\linewidth]{paper_automated/mimiciv_code_freq.png}
+    \includegraphics[width=0.9\textwidth]{paper_automated/mimiciv_code_freq.png}
     \caption[The frequency of ICD-9 and ICD-10 codes in MIMIC-IV before pre-processing.]{The frequency of ICD-9 and ICD-10 codes in MIMIC-IV before pre-processing. As discussed in \cref{sec: splits}, we removed codes with fewer than ten instances (dashed line).}
     \label{fig:mimiciv_code_dist}
 \end{figure}
 
 
-\begin{sidewaystable}[t]
+\begin{sidewaystable}
     \centering
     \caption{Comparison of the previously defined MIMIC-III splits \textit{full} and \textit{50} \parencite{mullenbachExplainablePredictionMedical2018} and our proposed MIMIC-III \textit{clean} split along with similarly defined splits for MIMIC-IV \textit{ICD-9} and \textit{ICD-10} after pre-processing.}
     \label{tab:subsets}
@@ -128,11 +128,11 @@ Finally, all models compute independent code probabilities using sigmoid activat
 
 \section{Methods}
 
-\begin{table}[t]
+\begin{table}
     \centering
     \caption{An overview of the compared models.}
     \label{tab:model_facts}
-    \begin{tabular}{lcccc}
+    \begin{tabular}{llllr}
         \toprule
         Model   & Encoder & Decoder  & Param \\
         \midrule
@@ -157,7 +157,7 @@ Similar to previous work, we evaluated models using AUC-ROC, F1 score, and preci
 Where precision@$k$ is computed based on the top-$k$ codes (i.e., $k$ is fixed), R-precision considers a number of codes equal to the true number of relevant codes. Thus, R-precision is useful when the number of relevant codes varies considerably between documents, which is the case for the MIMIC datasets. Finally, in contrast to all other metrics, MAP considers the exact rank of all relevant codes in a document.
 
 
-\begin{sidewaystable}[t]
+\begin{sidewaystable}
     \centering
     \caption[Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to improved settings]{Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to the optimal settings found in this paper (marked with *). LR is the learning rate scheduler. ``Length" is the maximum number of words a document can contain before being truncated. $\dagger$ applies to models using word-piece tokenization. These models were filtered on the number of sub-words instead of full words. ``DB tune" is whether the optimal decision boundary was found using the validation set. If a paper did not tune the decision boundary, it was set to 0.5.}
     \label{tab:hyperparameters}
@@ -236,7 +236,7 @@ We analyzed whether model performance correlates with document length on MIMIC-I
 To analyze the performance impact of rare codes, we first calculated the Pearson and Spearman correlation between model performance on each code and the corresponding code frequency in the training data. We calculated these correlations for all splits. To identify attributes of challenging codes, we analyzed model performance on the chapter level of the ICD-10 classification system. Using high-level chapters instead of codes allows us to group examples into categories, which we use as a starting point for further analysis. We limit the scope of the analysis to diagnosis codes. We focused on ICD-10 because it is the classification system currently in use at most hospitals. 
 
 
-\begin{sidewaystable}[t]
+\begin{sidewaystable}
     \centering
     \caption[Reproduced test set results compared with those from the original works]{Reproduced test set results compared with those from the original works. Our reproduced results are indicated with *. The results were reproduced on MIMIC-III v1.4 with the preprocessing pipeline and splits of \textcite{mullenbachExplainablePredictionMedical2018}. Each model was reproduced using the hyperparameters presented in the respective paper. We use both macro F1 formulas: Macro$^\dagger$ refers to the method used in the original work, while Macro refers to the corrected version used in this paper.}
     \label{tab:reproduced_results}
@@ -279,7 +279,7 @@ In \cref{tab:reproduced_results}, we report the reproduced results on MIMIC-III 
 
 \subsection{Revised comparison}
 
-\begin{sidewaystable}[t]
+\begin{sidewaystable}
     \centering
     \caption[Results on the MIMIC-III \textit{clean}, MIMIC-IV \textit{ICD-9} and MIMIC-IV  \textit{ICD-10} test sets presented as percentages.]{Results on the MIMIC-III \textit{clean}, MIMIC-IV \textit{ICD-9} and MIMIC-IV  \textit{ICD-10} test sets presented as percentages. Micro F1 scores rank the table in ascending order. Each model was trained ten times with different seeds. We performed a McNemar's test with Bonferroni correction and found that all the models are significantly different ($p < 0.001$).}
     \label{tab:fair_results}
@@ -322,7 +322,7 @@ The results of our revised comparison on MIMIC-III \textit{clean}, MIMIC-IV \tex
 The ablation study results are shown in \cref{tab:ablation_study} for MIMIC-III \textit{clean}. Truncating the documents to 2,500 words instead of 4,000 had little impact on the performance. Using the hyperparameters from the original works degraded the performance substantially for CAML, Bi-GRU, and CNN but had a smaller effect on the other models. Not tuning the decision boundary had the largest negative effect on all models except MultiResCNN. In \cref{fig:threshold_tuning}, we plot the relationship between the decision boundary and F1 scores. LAAT and MultiResCNN perform similarly when using a decision boundary of 0.5. However, when tuning the decision boundary, LAAT outperforms MultiResCNN considerably.
 Similar results were obtained on the other datasets. 
 
-\begin{sidewaystable}[t]
+\begin{sidewaystable}
     \centering
     \caption[Ablation study on MIMIC-III \textit{clean}.]{Ablation study on MIMIC-III \textit{clean}. The numbers are the micro/macro F1 scores on the test set.}
     \label{tab:ablation_study}
@@ -342,15 +342,15 @@ Similar results were obtained on the other datasets.
 \end{sidewaystable}
 
 
-\begin{figure}[t]
+\begin{figure}
     \centering
-    \begin{subfigure}[b]{0.6\textheight}
+    \begin{subfigure}[b]{0.9\textwidth}
         \centering
         \includegraphics[width=\textwidth]{paper_automated/threshold_tuning_micro_full.png}
         % \caption{}
         % \label{fig:threshold_tuning_micro}
     \end{subfigure}
-    \begin{subfigure}[b]{0.6\textheight}
+    \begin{subfigure}[b]{0.9\textwidth}
         \centering
         \includegraphics[width=\textwidth]{paper_automated/threshold_tuning_macro_full.png}
         % \caption{}
@@ -368,15 +368,15 @@ Similar results were obtained on the other datasets.
 \cref{fig:train_size} shows the relationship between the number of training examples and the micro and macro F1 scores for all models.
 In most cases, increasing the training data had a larger effect on the macro F1 score than the micro F1 score, indicating more extensive improvements in rare codes than common codes. The curve for macro F1 is less smooth because the decision boundary was tuned on the micro F1 scores.
 
-\begin{figure}[t]
+\begin{figure}
     \centering
-    \begin{subfigure}[b]{0.6\textheight}
+    \begin{subfigure}[b]{0.95\textwidth}
         \centering
         \includegraphics[width=\textwidth]{paper_automated/train_size_f1_micro.png}
         % \caption{}
         % \label{fig:train_size_micro}
     \end{subfigure}
-    \begin{subfigure}[b]{0.6\textheight}
+    \begin{subfigure}[b]{0.95\textwidth}
         \centering
         \includegraphics[width=\textwidth]{paper_automated/train_size_f1_macro.png}
         % \caption{}
@@ -396,14 +396,14 @@ In \cref{tab:correlations}, we list the Pearson and Spearman correlations. We ex
 Although document length may itself be the cause of the slightly lower performance for long documents, there may be other factors correlated with document length impacting performance, such as the number of codes per document and code frequency.
 As there are few long documents, the effect on average micro F1 for each dataset is negligible; hence, previous claims that long documents lead to poor performance in AMC could not be validated. Results on MIMIC-IV \textit{ICD-10} and MIMIC-III \textit{clean} were similar.
 
-\begin{figure}[t]
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{paper_automated/f1_micro_vs_num_words.png}
+    \includegraphics[width=0.9\textwidth]{paper_automated/f1_micro_vs_num_words.png}
     \caption[Relationship between the lengths of the clinical notes and the micro F1 score for each model on MIMIC-IV \textit{ICD-9}]{Relationship between the lengths of the clinical notes and the micro F1 score for each model on MIMIC-IV \textit{ICD-9}. The vertical line indicates the maximum length of the notes after truncation. The histogram at the top visualizes the document length distribution.}
     \label{fig:text_length}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}
     \centering
     \caption[Correlation between the F1 score and the logarithm of code frequency and document length on MIMIC-IV \textit{ICD-9}.]{Correlation between the F1 score and the logarithm of code frequency and document length on MIMIC-IV \textit{ICD-9}. As discussed in \cref{subsubsec:document-length}, we only considered document lengths between 1000 and 4000 words. All correlations are statistically significant ($p<0.001$).}
     \label{tab:correlations}
@@ -440,16 +440,16 @@ The Z68 category, part of the Z00-Z99 chapter, contains codes related to the pat
 
 The Y92 category, part of the V00-Y99 chapter, contains codes related to the physical location of occurrence of the external cause. It is a large category of 246 unique codes occurring 27,870 times in the training set. The category is challenging due to locations being very specific. For instance, there are unique codes for whether an incident occurred on a tennis court, squash court, art gallery, or museum. We hypothesize that the level of detail in the discharge summaries does not always match the fine-grained code differences.
 
-\begin{figure}[t]
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{paper_automated/code_count_vs_f1_all_datasets.png}
+    \includegraphics[width=0.9\textwidth]{paper_automated/code_count_vs_f1_all_datasets.png}
     \caption[Relationship between the code frequencies in the training set and the macro F1 score for PLM-ICD on MIMIC-IV \textit{ICD-9} and \textit{ICD-10}]{Relationship between the code frequencies in the training set and the macro F1 score for PLM-ICD on MIMIC-IV \textit{ICD-9} and \textit{ICD-10}. The shaded area indicates the standard deviation of the score computed for codes within the bin.}
     \label{fig:icd9_vs_icd10}
 \end{figure}
 
 There are ten different codes in MIMIC-IV \textit{ICD-10} relating to nicotine dependence and tobacco use. The three most common are Z87.891 (``Personal history of nicotine dependence"), F17.210 (``Nicotine dependence, cigarettes, uncomplicated"), and Z72.0 (``Tobacco use"), with 26,427, 8,486, and 1,914 training examples, respectively. Among these, Z72.0 was the third most common single code in the training set that PLM-ICD never predicted correctly. PLM-ICD achieved an F1 score of 53\% for Z87.891, 51\% for F17.210, and 0\% for Z72.0 and all other nicotine-related codes. These findings suggest that when there is a class imbalance among highly similar codes, PLM-ICD is strongly biased toward the most frequent ones.
 
- \begin{table}[t]
+ \begin{table}
     \centering
     \caption{Percentage of ICD diagnosis codes in the test set that the models never predicted correctly.}
     \label{tab:missed_classes}
@@ -470,9 +470,9 @@ There are ten different codes in MIMIC-IV \textit{ICD-10} relating to nicotine d
 \end{table}
 
 
-\begin{figure}[t]
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{paper_automated/chapters.png}
+    \includegraphics[width=0.9\textwidth]{paper_automated/chapters.png}
     \caption[Performance of PLM-ICD on ICD-10 chapters]{Performance of PLM-ICD on ICD-10 chapters. Only codes with more than a hundred occurrences in the MIIMC-IV ICD-10 training set were considered, leaving 20 chapters. We found Z00-Z99 and V00-Y99 to be the most challenging.}
     \label{fig:chapter_performance}
 \end{figure}

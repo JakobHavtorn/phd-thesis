@@ -211,27 +211,23 @@ Other approaches include anomaly detection and the recent field of out-of-distri
 % In contrast to aleatoric uncertainty, which is usually represented by a distribution over the data, epistemic uncertainty is often represented by an implicit or explicit distribution over the model parameters, such as in Bayesian neural networks \parencite{mackay_practical_1992, neal_bayesian_1995} and ensemble models \parencite{gal_dropout_2016,lakshminarayanan_simple_2017}. In most cases, such methods require multiple forward passes through the model to estimate the predictive uncertainty making them computationally expensive and impractical for real-time applications. Within the field of out-of-distribution detection, the epistemic uncertainty is generally not expressed in model parameters, but e.g. by a distribution over data representations, output probabilities with special classes for out-of-distribution data, or by distances in feature spaces. In such cases, the uncertainty can often be estimated in a single forward pass through the model.
 
 
-\section{Thesis outline and research questions}
+\section{Thesis scope and outline}
 
 \todo[inline]{Formulate research hypotheses}
 
 This introduction provided a high-level overview of the motivation behind the research project by focusing on the use-cases of stroke recognition and automated medical coding as well as speech processing and the importance of uncertainty quantification. 
 The remainder of \cref{part:background} consists of two chapters. 
-\Cref{chp:technical-background} provides relevant technical background to the papers of the thesis, including uncertainty, out-of-distribution detection, and variational autoencoders while \cref{chp:main-contributions} outlines the main contributions of the thesis via the published papers in relation to the research hypotheses.
+\Cref{chp:main-contributions} outlines the research questions of the thesis via the published papers and presents their main contributions. 
+\Cref{chp:technical-background} provides relevant technical background to the papers of the thesis, including uncertainty, out-of-distribution detection, and variational autoencoders. 
 
 \Cref{part:unsupervised-uncertainty-estimation,part:self-supervised-speech-representation-learning,part:medical-applications} contain a number of chapters that each correspond to a primary paper. 
-\Cref{part:unsupervised-uncertainty-estimation} contains papers on variational autoencoders and their applications to out-of-distribution detection and speech modelling \parencite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. Here we examine whether it is possible to devise a method that utilizes a hierarhy of latent variables in
-
-
+\Cref{part:unsupervised-uncertainty-estimation} contains papers on variational autoencoders and their applications to out-of-distribution detection and speech modelling \parencite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. 
 \Cref{part:self-supervised-speech-representation-learning} contains a review paper on self-supervised speech representation learning \parencite{mohamed_selfsupervised_2022}. \Cref{part:medical-applications} contains papers on applications of machine learning within the medical domain, including recognition of stroke cases in calls to medical helplines \parencite{wenstrup_retrospective_2023} and medical coding of clinical notes \parencite{edin_automated_2023}. 
 
 Finally, \cref{part:discussion-and-conclusion} concludes the thesis by summarizing the main contributions and discussing the presented work and future directions for research.
 
 
-
-
-
-\section{Thesis scope and outline}
+% \section{Thesis scope and outline}
 %
 % OUTLINE: 
 % - Tie together the different topics of the thesis and point briefly to the relevant papers.

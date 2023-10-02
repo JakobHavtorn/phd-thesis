@@ -241,7 +241,7 @@ This is achieved by introducing a second GRU that runs backwards in time with tr
 By inferring $\zb_t$ conditioned on the full sequence $\xb_{1:T}$, the SRNN performs smoothing. This has been noted to better approximate the true posterior of $\zb_t$ which can be shown to depend on the full observed sequence \parencite{bayer_mind_2021}. Comparatively, the VRNN performs filtering.
 
 
-\begin{figure*}[t]
+\begin{figure*}
     \centering
     % \h3ill
     \resizebox{!}{0.155\paperheight}{
@@ -464,7 +464,7 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
 
 \subsection{Likelihood results}
 %
-\begin{table}[t]
+\begin{table}
     \caption[Model likelihoods and phoneme error rate for TIMIT.]{We report model likelihoods $\mathcal{L}$ for TIMIT represented as a 16bit $\mu$-law encoded PCM for different stochastic latent variable models and deterministic autoregressive baselines (left) and phoneme error rate (PER) of different representations for phoneme recognition on TIMIT (right).}
     \begin{subtable}[t]{.45\textwidth}
     \centering
