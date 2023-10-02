@@ -25,6 +25,8 @@
 
 .DS_Store
 
+*thesis*
+
 bibliography/references_automated_selected.bib
 bibliography/references_automated.bib
 chapters/paper_review/refs.bib

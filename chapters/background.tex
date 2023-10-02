@@ -513,7 +513,9 @@ and \emph{top-down} \parencite{sonderby_ladder_2016}
     % q_\phib(\zb|\xb)=q_\phib(\zb_{L}|\xb)q_\phib(\zb_{L-1}|\zb_L)\cdots q_\phib(\zb_2|\zb_1),
     q_\phib(\zb|\xb) = q_\phib(\zb_L|\xb)\textstyle\prod_{i=L-1}^{1} q_\phib(\zb_{i}|\zb_{i+1}) \ .
 \end{equation}
+A variant of the variational autoencoder that employs a bidirectional inference network has also been proposed \parencite{maaloe_biva_2019}.
 Regardless of the choice of inference model, the resulting hierarchical VAE is trained using the ELBO \cref{eq:variational-autoencoder-elbo} and the reparameterization trick.
+Recent architectural advances have alleviated the posterior collapse problem and made it possible to train VAEs with many latent variables.\parencite{maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}. 
 
 % Until recently, hierarchical VAEs gave inferior likelihoods compared to state-of-the-art autoregressive \parencite{ho_flow_2019} and flow-based models \parencite{salimans_pixelcnn_2017}.
 % This was changed by \textcite{maaloe_biva_2019}, \textcite{vahdat_nvae_2020}, and \textcite{child_very_2021}, which introduced complementary methods to extend the number of latent variables to a very deep hierarchy resulting in state-of-the-art likelihood performance.
@@ -572,7 +574,7 @@ This result indicates that the usual interpretation of $\zb$ as a representation
 
 \paragraph{Applications of VAEs}
 Despite the challenges facing the training of VAEs, they have been successfully applied to a number of tasks including image generation \parencite{kingma_autoencoding_2014,rezende_stochastic_2014}, image inpainting \parencite{pathak_context_2016}, image super-resolution \parencite{sonderby_amortised_2017,chira_image_2022}, and speech synthesis \parencite{hsu_unsupervised_2017,hsu_hierarchical_2019}. 
-VAEs have also proven themselves useful for semi-supervised learning \parencite{kingma_semi-supervised_2014,kingma_improved_2016,maaloe_biva_2019}. Recent architectural advances have made it possible to train VAEs with many latent variables \parencite{sonderby_ladder_2016,vahdat_nvae_2020,child_very_2021} and have alleviated the posterior collapse problem \parencite{maaloe_biva_2019}.
+VAEs have also proven themselves useful for semi-supervised learning \parencite{kingma_semi-supervised_2014,kingma_improved_2016,maaloe_biva_2019}.
 
 
 \paragraph{Self-supervised learning}
