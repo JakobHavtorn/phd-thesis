@@ -2,3 +2,30 @@
 
 \chapter[abstract]{Abstract}
 
+Machine learning is increasingly being used in healthcare where its flexibility allows assisting in a wide range of tasks including diagnostics, electronic health record analysis, medical coding, and documentation. Machine learning has the potential to aid in rapid and accurate diagnosis and treatment of patients, and to assist healthcare professionals in repetitive and administrative workloads, allowing them to focus on more important tasks. 
+
+The development of machine learning systems to provide support in medical encounters such as in the primary care clinic or with emergency services, is challenging due to the high stakes of the resulting decisions the complexity of the data, which is often unstructured text and audio. 
+While machine learning systems based on neural networks have been shown to often perform very well, their application in healthcare can be hindered by their lack of interpretability and of their inability to express uncertainty about their predictions, especially for rare cases and in dynamic environments.
+
+This thesis investigates machine learning for medical conversations with a focus on uncertainty estimation and speech processing. 
+The first part studies unsupervised methods for out-of-distribution detection using variational autoencoders and makes the following contributions. 
+%
+\begin{enumerate}[label=(\roman*)] 
+    \item Empirical and theoretical evidence that low-level features dominate the likelihood estimate of hierarchical variational autoencoders and inhibit out-of-distribution detection.
+    \item A novel likelihood-ratio score for unsupervised out-of-distribution detection with hierarchical variational autoencoders that requires data to be in-distribution across all feature-levels. 
+    \item A model-agnostic statistical test that uses Fisher's method to combine Rao's score test and the recently introduced typicality test and can be used with likelihoods from any differentiable generative model. 
+\end{enumerate}
+% hypothesize that a well-formed hierarchy of latent variables provides a tool that can be used to select between which features to emphasize for out-of-distribution detection and hence a way to improve the performance of variational autoencoders on this task. 
+%
+The second part of the thesis studies self-supervised methods for speech and contributes with
+\begin{enumerate}[resume, label=(\roman*)] 
+    \item A comprehensive review of self-supervised speech representation learning and group methods into three main categories: contrastive, autoregressive, and generative, and compare the methods in terms of training objectives, model architectures, and performance on downstream tasks.
+\end{enumerate}
+%
+The final part focuses on medical applications of machine learning. The contributions are the following.
+%
+\begin{enumerate}[resume, label=(\roman*)] 
+    \item A comparison of state-of-the-art models for automated medical coding on MIMIC-III and IV that identifies suboptimal training, evaluation and non-stratified data splits as causes for poor performance and provides a revised comparison using new data splits and identical experimental setups. 
+    \item A retrospective study showing that a machine learning framework can significantly improve stroke recognition in prehospital medical helpline calls. 
+\end{enumerate}
+%

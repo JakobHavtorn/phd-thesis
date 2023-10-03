@@ -32,7 +32,7 @@
 \lesstodo[inline]{OOD data: Generalization or detection (https://arxiv.org/pdf/2110.11334.pdf)?}
 
 
-\section{\Cref{chp:paper-retrospective} revisited: Uncertainty}
+\section{\Cref{chp:paper-retrospective} revisited: Calibration}
 The work in \textcite{wenstrup_retrospective_2023} focuses on the predictive performance of the ensemble model and an analysis of feature importance, but does not explicitly consider uncertainty estimation. 
 As we discussed in \cref{subsec:model-calibration}, such a model can be calibrated to predict probabilities that are aligned with the empirical probability of the model being correct on some validation set.
 
@@ -42,10 +42,10 @@ It is interesting to note that the ensemble model is better calibrated than the 
 
 To calibrate the ensemble model, we can use methods such as Platt-scaling \parencite{platt_probabilistic_1999} or isotonic regression \parencite{zadrozny_transforming_2002}. 
 In both cases, we fit a simple regression model (logistic or isotonic) to the predicted probabilities and the target labels on some validation set. 
-In \cref{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic} we have done so for the ensemble model using our validation set for fitting and visualizing the results on the test set. On the left, we plot the resulting calibration curves and on the right we show the logistic and isotonic fits. We see that both methods result in quite good calibrations\footnote{Brier scores: Uncalibrated = $0.003500$, logistic = $0.001807$, isotonic = $0.001774$. Brier skill score compared to uncalibrated (relative improvement): Logistic = $0.4830$, isotonic = $0.4924$} and that the predicted probabilities are shifted towards smaller values. 
+In \cref{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic} we have done so for the ensemble model using our validation set for fitting and visualizing the results on the test set. On the left, we plot the resulting calibration curves and on the right we show the logistic and isotonic fits. We see that both methods result in quite good calibrations\footnote{Test set Brier scores: Uncalibrated = $0.003500$, logistic = $0.001807$, isotonic = $0.001774$. Brier skill score compared to uncalibrated (relative improvement): Logistic = $0.4830$, isotonic = $0.4924$.} and that the predicted probabilities are shifted towards smaller values. 
 
-However, while correct calibration provides some interpretability to the predictions, the resulting probabilities are still functions of the model's performance. For example, with the logistic calibration, we can note that the predicted probabilities have been shifted so far towards smaller values that the best the model can do, is a predicted probability of about 50\%. This means strokes can be predicted at best with 50\% probability of being correct. 
-If this model were to be deployed in a randomized controlled trial, the calibrated probabilities might be useful to incorporate in the design of the user interface such that a user can discern between confident and uncertain model predictions. Nonetheless, it is easy to imagine how this generally low confidence might lead the user to ignore the model. 
+While correct calibration provides some interpretability to the predictions, the actual values of the probabilities are still tied of the model's performance. For example, with the logistic calibration, we can note that the predicted probabilities have been shifted so far towards smaller values that the highest possible predicted probability is about 50\%. This means strokes can be predicted at best with a 50\% chance of being correct. 
+If this model were to be deployed in a randomized controlled trial, the calibrated probabilities might be incorporated in the design of the user interface such that a user can discern between confident and uncertain model predictions. However, it is easy to imagine how this generally low confidence might lead the user to ignore the model. This highlights a problem with uncertainties
 
 % Brier scores:  {'uncalibrated': 0.0034955788687128925, 'logistic': 0.0018072483306197486, 'isotonic': 0.0017744177396100578, 'average': 0.0021955477869598783}
 % BSS uncalibrated reference:  {'logistic': 0.48299025755205005, 'isotonic': 0.4923822902432705}

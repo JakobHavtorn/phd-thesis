@@ -38,6 +38,7 @@ misspelt
 nats
 OOD
 Plimpton
+Rao
 reparameterization
 reparameterize
 reparameterizing
