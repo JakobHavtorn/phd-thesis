@@ -2,30 +2,43 @@
 
 \chapter[abstract]{Abstract}
 
-Machine learning is increasingly being used in healthcare where its flexibility allows assisting in a wide range of tasks including diagnostics, electronic health record analysis, medical coding, and documentation. Machine learning has the potential to aid in rapid and accurate diagnosis and treatment of patients, and to assist healthcare professionals in repetitive and administrative workloads, allowing them to focus on more important tasks. 
+Natural language plays a central role for patient journeys in healthcare systems worldwide. 
+While strides have been made in the advancement of medicine and medical devices, patient interviews and medical communication in general has seen little development. 
+Often, a single healthcare professional is responsible for understanding the patient's needs and taking the appropriate action, be they a call-taker at a medical helpline, a first-responder, a general practitioner, or a medical coder. 
+Faced with aging populations, ever expanding treatment options, many administrative tasks, and strict documentation requirements, healthcare professionals are acting under growing pressure in an increasingly complex environment which challenges the quality of patient care and increases the risk of medical error. 
 
-The development of machine learning systems to provide support in medical encounters such as in the primary care clinic or with emergency services, is challenging due to the high stakes of the resulting decisions the complexity of the data, which is often unstructured text and audio. 
-While machine learning systems based on neural networks have been shown to often perform very well, their application in healthcare can be hindered by their lack of interpretability and of their inability to express uncertainty about their predictions, especially for rare cases and in dynamic environments.
+Machine learning has the potential to aid healthcare professionals in several aspects of medical encounters, such as in the primary care clinic or with emergency services. 
+Previous machine learning applications in healthcare have often neglected Natural language and focused on tasks with more structured data sources such as predicting medical imaging results and analyzing electronic health records. 
+However, using machine learning systems to interpret Natural language has the potential to reduce the time spent by healthcare professionals on administrative and documentation tasks as well as to help ensure that no important information is overlooked or forgotten. 
 
-This thesis investigates machine learning for medical conversations with a focus on uncertainty estimation and speech processing. 
-The first part studies unsupervised methods for out-of-distribution detection using variational autoencoders and makes the following contributions. 
+% Machine learning is increasingly being proposed for use in healthcare where its flexibility allows assisting in a wide range of tasks including medical imaging, electronic health record analysis, medical coding, and documentation. Here, it has the potential to aid in rapid and accurate diagnosis and treatment of patients, and to assist healthcare professionals in repetitive and administrative workloads, allowing them to focus on providing . 
+
+% Machine learning has the potential to aid in rapid and accurate diagnosis and treatment of patients, and to assist healthcare professionals in repetitive and administrative workloads, allowing them to focus on more important tasks. 
+
+The development of machine learning systems to provide support in medical encounters is challenging due to the high stakes of the resulting decisions and the complexity of unstructured language data such as speech and text. 
+While machine learning systems based on neural networks have shown impressive performance in other domains, their application in healthcare can be hindered by a lack of interpretability and the inability to quantify predictive uncertainty, especially in changing environments and for rare cases, also known as out-of-distribution data.
+
+This thesis investigates machine learning for medical conversations with a focus on uncertainty estimation and natural language processing. 
+The first part studies unsupervised methods for out-of-distribution detection and speech modelling using variational autoencoders and makes the following contributions. 
 %
 \begin{enumerate}[label=(\roman*)] 
-    \item Empirical and theoretical evidence that low-level features dominate the likelihood estimate of hierarchical variational autoencoders and inhibit out-of-distribution detection.
-    \item A novel likelihood-ratio score for unsupervised out-of-distribution detection with hierarchical variational autoencoders that requires data to be in-distribution across all feature-levels. 
+    \item Empirical and theoretical evidence that low-level features dominate the likelihood estimate of hierarchical variational autoencoders and inhibit detection of out-of-distribution data and a novel likelihood-ratio score that requires data to be in-distribution across all feature-levels.
+    % \item A novel likelihood-ratio score for unsupervised out-of-distribution detection with hierarchical variational autoencoders that requires data to be in-distribution across all feature-levels. 
     \item A model-agnostic statistical test that uses Fisher's method to combine Rao's score test and the recently introduced typicality test and can be used with likelihoods from any differentiable generative model. 
+    \item Hierarchical variational autoencoders yield improved likelihoods on speech data compared to shallow variants and learn latent spaces that capture relevant information, such as phonetic content.
 \end{enumerate}
 % hypothesize that a well-formed hierarchy of latent variables provides a tool that can be used to select between which features to emphasize for out-of-distribution detection and hence a way to improve the performance of variational autoencoders on this task. 
 %
-The second part of the thesis studies self-supervised methods for speech and contributes with
+The second part of the thesis studies self-supervised methods for speech representation and understanding and contributes with:
+%
 \begin{enumerate}[resume, label=(\roman*)] 
-    \item A comprehensive review of self-supervised speech representation learning and group methods into three main categories: contrastive, autoregressive, and generative, and compare the methods in terms of training objectives, model architectures, and performance on downstream tasks.
+    \item A comprehensive review of self-supervised speech representation learning that groups methods into contrastive, autoregressive, and generative, and provides a comparison in terms of training objectives, model architectures, and performance on downstream tasks.
 \end{enumerate}
 %
 The final part focuses on medical applications of machine learning. The contributions are the following.
 %
 \begin{enumerate}[resume, label=(\roman*)] 
     \item A comparison of state-of-the-art models for automated medical coding on MIMIC-III and IV that identifies suboptimal training, evaluation and non-stratified data splits as causes for poor performance and provides a revised comparison using new data splits and identical experimental setups. 
-    \item A retrospective study showing that a machine learning framework can significantly improve stroke recognition in prehospital medical helpline calls. 
+    \item A retrospective study showing that an audio-based machine learning framework can significantly improve stroke recognition in calls made to the prehospital medical helpline, 1813, that covers Copenhagen. 
 \end{enumerate}
 %

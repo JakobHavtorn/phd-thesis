@@ -9,8 +9,10 @@
 % - Why should they care about this topic? 
 % - What is the historical context of decision-support, what are the practical implications of it, and what happens when it fails.
 
+% \todo[inline]{Lead-in with conversations and the patient interview and how it affects the patient journey. How healthcare has seen rapid advances in medicine and medical devices for diagnostics and treatment but the patient interview and triaging has seen little development.}
+
 In an era where technology increasingly intertwines with healthcare, artificial intelligence is on the verge of becoming part of standard medical practice. 
-Growing administrative burdens, rapid scientific progress in medicine, and aging populations have created a need to rethink how medical professionals are best enabled to successfully do their job. 
+Growing administrative burdens, aging populations, and rapid scientific progress in medicine and medical devices have created a need to rethink how medical professionals are best enabled to successfully do their job. 
 The application of artificial intelligence in medical decision-making and particularly for diagnosing and recommending treatments is likely to hold significant potential to reduce the effect of these issues and improve patient outcomes. 
 However, as such decisions impact critical aspects of human health and well-being, this prospect also raises concerns related to the reliability of artificial intelligence systems \parencite{chen_ethical_2021, shailaja_machine_2018, ahmad_interpretable_2018}.
 
@@ -31,13 +33,13 @@ These computing tools brought with them novel challenges. The Babylonian mathema
 
 While efforts to ease human decision-making have been ongoing for thousands of years, it was not until 1642 that the first mechanical calculator was successfully designed by Blaise Pascal. Refined by Gottfried Leibniz during the latter half of the 17th century, the mechanical calculator marked the beginning of a new era where rudimentary calculations could be automated and performed with greater speed and accuracy than humans. 
 In the following centuries, the development of computing machines continued, and in the 1820s, Charles Babbage proposed the first programmable mechanical computer, the Difference Engine. Although never completed, it laid the foundation for his later design of the Analytical Engine in 1837 which is considered to be the first general-purpose computer design. 
-Working with Babbage, Ada Lovelace is widely regarded as the first to have recognized that programmable computers could have applications beyond pure arithmetic. However, it was not until the advent of electronics that the first successful general-purpose computers were built, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}).
+Working with Babbage, Ada Lovelace is widely regarded as the first to have recognized that programmable computers could have applications beyond pure arithmetic. However, only with the advent of electronics were the first successful general-purpose computers built, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}).
 % While the potential of a general-purpose programmable computer with applications beyond pure arithmetic was recognized by Ada Lovelace,  
 % it was not until the 1940s and 50s that % / 
 % it took one-hundred years before / 
 % the first programmable, electronic, general-purpose digital computers were developed, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}) \parencite{georges_universal_2001}. 
-As manufacturing processes were developed and scaled, electronic computers were adopted widely across society for various applications in science and industry, including healthcare. 
-The societal changes brought about by the widespread adoption of computer technology through the latter half of the 20th century were so profound that some scholars refer to the era as the information age \parencite{georges_universal_2001, harari_sapiens_2011}.
+As manufacturing processes were developed and scaled, electronic computers were adopted widely across society for various applications in science and industry, including healthcare \parencite{georges_universal_2001, harari_sapiens_2011}.
+% The societal changes brought about by the widespread adoption of computer technology through the latter half of the 20th century were so profound that some scholars refer to the era as the information age \parencite{georges_universal_2001, harari_sapiens_2011}.
 
 \begin{figure}[t]
     \centering
@@ -47,7 +49,7 @@ The societal changes brought about by the widespread adoption of computer techno
     \label{fig:eniac_programmers}
 \end{figure}
 
-With the advent of electronic computers, the internet, and the widespread adoption of digital technologies continuing into the 21st century, the amount of data available to decision-makers has grown exponentially. 
+With the digital revolution continuing into the 21st century and the worldwide spread of the internet, the amount of data available to decision-makers has grown exponentially. 
 This has led to a surge of interest in the scientific field of machine learning, a subfield of artificial intelligence that focuses on developing algorithms that can learn from data to recognize patterns and make predictions to guide decision-making. 
 Enabled by a massive increase in the performance and availability of parallel computing resources, such methods have set new standards for the abilities of computer systems in various domains, such as speech recognition, computer vision, and natural language processing \parencite{lecun_deep_2015}. 
 In recent years, machine learning has made its way into the healthcare sector, where it has shown promising results in tasks such as medical imaging \parencite{lundervold_overview_2019}, drug discovery \parencite{chen_rise_2018}, and clinical decision support \parencite{cite15, cite14}. 
@@ -56,9 +58,15 @@ However, these technologies come with the same risks as previous generations did
 Limitations of the technology itself, human error, and the complexity of the real world are all factors that can lead to failures. A pertinent example is the use of machine learning in autonomous driving systems: 
 In 2018, the first incident of a self-driving car killing a pedestrian took place in Tempe, Arizona. 
 The car, an SUV operated by Uber, was driving in autonomous mode when it struck a pedestrian crossing the street with her bicycle. 
-According to the investigation by the National Transportation Safety Board, the car's sensors detected the pedestrian $5.6$ seconds before the crash, but it did not manage to correctly predict her path or reduce the SUV's speed (\cref{fig:uber_nhsa_accident}). 
+According to the investigation by the National Transportation Safety Board, the car's sensors detected the pedestrian more than five seconds before the crash, but the system did not manage to correctly predict her path or reduce the SUV's speed (\cref{fig:uber_nhsa_accident}). 
 Specifically, during those seconds, the system incorrectly classified the pedestrian more than ten times, first as a vehicle, then as an unknown object and ultimately as a bicyclist, each time changing, or resetting, the predicted path. 
 About one second before the crash, the system determined that a collision was imminent, but the situation exceeded the constraints within which the autonomous driving system was allowed to operate, and the car's safety driver failed to intervene \parencite{nationaltransportationsafetyboardnhsa_collision_2019}. 
+%
+And Uber is not the only actor facing the challenges of applying machine learning in real-world scenarios. A recent report by the Washington Post found that Tesla's Autopilot system has been activated during at least 736 crashes in the last four years with 16 fatalities \parencite{siddiqui_17_2023}. 
+% And though recent statistics published by Waymo, 
+% %the self-driving car company owned by Google's parent company Alphabet, 
+% revealed far fewer crashes, with only 2 of 20 incidents over 1 million miles meeting reporting criteria, it is interesting to note that the cars are all operated in the sunny states of California and Arizona, where driving conditions vary relatively little \parencite{hawkins_waymo_2023}. 
+While driver-assistance systems undoubtedly help reduce accidents in many cases, and has great future potential, the issues of current systems highlight the need for machine learning systems that are robust in rare, adverse or difficult situations. 
 
 \begin{figure}[t]
     \centering
@@ -68,18 +76,12 @@ About one second before the crash, the system determined that a collision was im
     \label{fig:uber_nhsa_accident}
 \end{figure}
 
-And Uber is not the only actor facing the challenges of applying machine learning in real-world scenarios. A recent report by the Washington Post found that Tesla's Autopilot system has been involved in at least 736 crashes in the last four years with 16 fatalities \parencite{siddiqui_17_2023}. 
-% And though recent statistics published by Waymo, 
-% %the self-driving car company owned by Google's parent company Alphabet, 
-% revealed far fewer crashes, with only 2 of 20 incidents over 1 million miles meeting reporting criteria, it is interesting to note that the cars are all operated in the sunny states of California and Arizona, where driving conditions vary relatively little \parencite{hawkins_waymo_2023}. 
-While driver-assistance systems undoubtedly help reduce accidents in many cases, and has great future potential, the issues of current systems highlight the need for machine learning systems that are robust in rare, adverse or difficult situations. 
-
 Recently, European policymakers proposed a set of requirements to ensure that machine learning applications are safe, reliable, and trustworthy \parencite{europeancommission_briefing_2021}. 
 This AI Act groups applications into three categories based on the potential risk they pose to society: limited, high, and unacceptable. Limited risk applications, such as in computer games, must meet transparency requirements, and technologies such as public facial recognition are banned due to unacceptable risk. 
-High risk applications include autonomous vehicles and systems within healthcare. These must meet a set of strict requirements focusing on anti-discrimination and robustness.
+High risk applications include autonomous vehicles and systems within healthcare. To avoid critical errors, these must meet a set of strict requirements focusing on anti-discrimination and robustness.
 
 One of the key ways to improve the safety, reliability and trustworthiness of machine learning systems is to equip them with the ability accurately estimate the uncertainty of their predictions. 
-Almost any model will inevitably make mistakes, but if it can accurately estimate the uncertainty of its predictions, it can communicate to other systems or humans when it is not to be trusted, and so, reduce the risk that wrong predictions lead to catastrophic failures.
+While any model will inevitably make a wrong prediction, by accurately estimating the uncertainty it can communicate to other systems or humans when it is not to be trusted, and so, reduce the risk that wrong predictions lead to catastrophic failures. 
 Fittingly, a recent study by the European Parliamentary Research Services concluded: 
 
 \begin{center}
@@ -87,8 +89,6 @@ Fittingly, a recent study by the European Parliamentary Research Services conclu
 \textit{"Future AI solutions for healthcare should be implemented by integrating uncertainty estimation, a relatively new field of research that aims to provide clinicians with clinically useful indications on the degree of confidence in AI predictions"} \parencite{europeanparliament_artificial_2022}. 
 
 \end{center}
-
-% \todo[inline]{Add something here about probability theory, Bayesian modelling etc. as a warm-up for potential solutions.}
 
 \vspace{0.5em}
 \begin{center}
@@ -103,7 +103,7 @@ The research project was partially funded by a grant from the national Danish In
 In the rest of this chapter, we will provide a high-level introduction to these topics and discuss the motivation behind the research project.
 
 
-\todo[inline]{Can we find a better example than the Rhind Papyrus, or an additional one? It could be more on-point with decision-making and more well-known. Ideally, weave in an example of a failure of such technology.}
+% \todo[inline]{Can we find a better example than the Rhind Papyrus, or an additional one? It could be more on-point with decision-making and more well-known. Ideally, weave in an example of a failure of such technology.}
 
 \section{Motivation and Corti's use-cases}
 %
@@ -155,15 +155,19 @@ As with the stroke recognition system, we would like the model to express high d
 
 \section{Machine learning reliability} \label{sec:machine-learning-reliability}
 %
-Several factors contribute to the reliability of a machine learning model. 
+Several factors define the reliability of a machine learning model. 
 Besides model performance and accuracy, important factors include the interpretability of how the model functions, the explainability of its predictions, fairness in its treatment of different groups, and robustness to noise, outliers and adversarial attacks. 
-% In medical applications, it has been argued that another factor
-Since many modern machine learning models are deep neural networks with millions or billions of parameters, their size and complexity make them inherently difficult to interpret, and their predictions hard to explain. Due to high cost and practical infeasibility, the vast amounts of data needed to train such models are often not manually curated for quality, and so, may contain biases and errors which models are well-equipped to learn to mirror \parencite{burkart_survey_2021}. 
-Finally, a number of factors, including the ability of deep neural networks to overfit, or even memorize, the training data \parencite{arpit_closer_2017, burg_memorization_2021}, can lead to models that are sensitive adverse noise conditions and outliers. 
+Since many modern machine learning models are deep neural networks with millions or billions of parameters, their size and complexity make them inherently difficult to interpret, and their predictions hard to explain. 
+Due to high cost and practical infeasibility, the vast amounts of data needed to train such models are often not manually curated for quality, and so, may contain biases and errors which models are well-equipped to learn to mirror, risking fairness \parencite{burkart_survey_2021}. 
+Finally, a number of factors, including the ability of deep neural networks to overfit, or even memorize, their training data \parencite{arpit_closer_2017, burg_memorization_2021}, can lead to models that are sensitive to adverse noise conditions and outliers. 
 
-The ability of a model to accurately estimate the uncertainty of its predictions plays an important role in its reliability. However, the tendency of deep neural networks to overfit or memorize the training data \parencite{arpit_closer_2017, burg_memorization_2021} and the use of training objectives that are proxies for the evaluation metrics of interest lead to models that often are miscalibrated; that is, the predicted probability of a class does not reflect the true probability of the class. This means, for instance, that if for a certain input the model assigns 70\% probability to a class, it would not generally be right 70\% of the time - if we could repeat the prediction multiple times under similar circumstances \parencite{guo_calibration_2017, kull_temperature_2019}. Usually, the predicted probabilities are too extreme which leads to overconfident predictions. This means a model will often assign a high probability to the predicted class, even when it is wrong. 
+The ability of a model to accurately estimate the uncertainty of its predictions plays an important role in its reliability. 
+While an accurate uncertainty estimate provides a certain degree of interpretability, it especially improves robustness by indicating that uncertain predictions are not to be trusted. 
+However, overfitting, memorization and the use of training objectives that are proxies for the evaluation metrics of interest often lead to models that are miscalibrated; that is, the predicted probability of a class does not reflect the true probability of the model being correct \parencite{guo_calibration_2017, kull_temperature_2019}. 
+% This means, for instance, that if for a certain input the model assigns 70\% probability to a class, it would not generally be right 70\% of the time - if we could repeat the prediction multiple times under similar circumstances \parencite{guo_calibration_2017, kull_temperature_2019}.
+Usually, the predicted probabilities are too extreme which leads to overconfident predictions. This means a model will often assign a high probability to the predicted class, even when it is wrong. 
 
-In practice, miscalibrated models are not reliable, especially in high risk applications. Although no model is perfect, the inability of a human, or another model, to assess the certainty with which a prediction was made, makes it impossible to know how to weigh it in a decision-making process. 
+Miscalibrated models are unreliable, especially in high risk applications. Although no model is perfect, the inability of a human, or another model, to assess the certainty with which a prediction was made, makes it impossible to know how to weigh it in a decision-making process. 
 % A connection can be made back to the incident with the Uber self-driving car. 
 The multitude of rapid misclassifications made by the Uber self-driving car in Tempe is likely an indication that the model responsible for object-classification was overconfident in its predictions and unable to represent or communicate uncertainty to other systems in the car, or the safety driver. Instead, the model's predictions were taken at face value and subsystems in the car acted on them without appropriate consideration to their reliability.
 
@@ -175,10 +179,11 @@ More recently, \textcite{guo_calibration_2017} proposed a single-parameter varia
 These methods are generally simple and effective, but not without limitations. 
 To perform the calibration, most of the methods require a held-out validation set on which the model was not trained, Platt scaling and isotonic regression are not naively applicable to multi-class classification problems, and how to calibrate models for structured prediction tasks, such as speech recognition and machine translation, remains an open problem \parencite{astudillo_uncertainty_2010, astudillo_integration_2013, jayashankar_detecting_2020}.
 
-It is also important to realize that correct calibration of a machine learning model does not guarantee that the probability of a prediction is accurate. 
-Specifically, even well-calibrated model can be overconfident for data that were not presented to it during training. This includes rare events, outliers, and adverse examples which are sometimes collectively referred to as out-of-distribution examples. 
-To give an example, a model trained to classify images of cats and dogs and provide calibrated class probabilities will still fail if presented with an image of a horse. In this case, it has no option but to distribute 100\% total probability across the cat and dog categories, even though that is clearly wrong. 
-Worse yet, to indicate the uncertainty, we might expect the model to assign 50\% probability to each of the cat and dog categories, but that behavior is not guaranteed. Indeed, since no horses were in the training data, the model will not have learned specialized features for horses, nor learned to associate relevant known features with horses. So, if some features of a particular horse resemble those learned for a dog more than for a cat, the model might assign arbitrarily high probability to the dog class and therefore risks being confidently wrong \parencite{zhou_survey_2022}. 
+More importantly, correct calibration of a machine learning model does not guarantee that the predicted probability is accurate. 
+Specifically, even a well-calibrated model can be overconfident for data that were not presented to it during training such as rare events, outliers, and adverse examples, sometimes collectively referred to as out-of-distribution examples. 
+For instance, take a perfectly calibrated model trained to classify images of cats and dogs. If presented with an image of a horse, it has no option but to distribute 100\% total probability across the cat and dog categories, even though that is clearly wrong. 
+Worse yet, to indicate the uncertainty, we might expect the model to assign 50\% probability to each of the cat and dog categories, but that behavior is not guaranteed. 
+Specifically, since no horses were in the training data, the model will not have learned specialized features for horses, nor learned to associate relevant known features with horses. So, if a particular horse has features that resemble those learned for a dog more than for a cat, the model might assign arbitrarily high probability to the dog class. Therefore, even perfectly calibrated models risks being confidently wrong \parencite{zhou_survey_2022}. 
 
 
 \subsection{Understanding uncertainty} \label{subsec:understanding-uncertainty}
@@ -188,22 +193,22 @@ Worse yet, to indicate the uncertainty, we might expect the model to assign 50\%
 % - 
 % 
 As hinted at in the previous section, there are different sources of uncertainty in machine learning models. 
-At a fundamental level, we can distinguish between uncertainty that is present in the knowledge we have, and uncertainty that originates from the knowledge that we do not have.
+At a fundamental level, we can decompose the \textit{predictive uncertainty} into uncertainty that is present in the knowledge we have, and uncertainty that originates from the knowledge that we do not have.
 These sources are sometimes called \emph{known unknowns} and \emph{unknown unknowns}, or referred to in terms of \textit{aleatoric uncertainty} and \textit{epistemic uncertainty} \parencite{kendall_what_2017}. 
 Aleatoric comes from the Latin word 'aleatorius' for 'dice player' or 'gambler' and refers to uncertainty present in the data itself due to randomness in the process that generated it. This kind of uncertainty is commonly seen as irreducible but, since it is represented in the collected data, it can usually be modelled directly. 
 Epistemic comes from the Greek word 'epistḗmē' which means 'knowledge' and refers to uncertainty due to things one could in principle know, but does not in practice. Such lack of knowledge could for instance be due to a lack of data, or an improper model specification. 
 Aleatoric uncertainty is sometimes referred to as \textit{stochastic uncertainty} and epistemic uncertainty as \textit{systematic uncertainty} \parencite{kendall_what_2017}. 
-Although the distinction between aleatoric and epistemic uncertainty is important, it is not always useful. For instance, a model may be uncertain about a particular prediction due to any of these two kinds of uncertainty. For that reason, the quantity of interest is usually the combined aleatoric and epistemic uncertainties, often referred to as \textit{predictive uncertainty}. 
+% Although the distinction between aleatoric and epistemic uncertainty is important, it is not always useful. For instance, a model may be uncertain about a particular prediction due to any of these two kinds of uncertainty. For that reason, the quantity of interest is usually the combined aleatoric and epistemic uncertainties, often referred to as \textit{predictive uncertainty}. 
 
 An example of aleatoric uncertainty is the uncertainty in the transcription of a word due to a noisy environment or overlapping, slurred or mumbling speech. 
-Unknown words are arguably sources of epistemic uncertainty although a good speech recognition model may generalize well if the word's spelling and pronunciation follow the same patterns as the words in the training data. Another example of epistemic uncertainty is the occurrence of truly out-of-distribution examples, such as the horse in the image classifier example from earlier: inputs unlike anything the model has seen during training, especially if they require outputs unavailable to the model. 
-In high-dimensional data with a practically unlimited diversity in out-of-distribution examples, it is impossible to collect enough data to eliminate all potential sources of epistemic uncertainty. Let us include horses in the training data. The model would likely learn to recognize them, but it would still be unable to recognize giraffes, or zebras, or unicorns. 
+Unknown words are arguably sources of epistemic uncertainty although a good speech recognition model may generalize well if the word's spelling and pronunciation follow the same patterns as the words in the training data. Another example of epistemic uncertainty is the occurrence of truly out-of-distribution examples, such as the horse in the image classifier example from earlier: inputs unlike anything the model has seen during training. %, especially if they require outputs unavailable to the model. 
+In high-dimensional data with a practically unlimited diversity in out-of-distribution examples, it is impossible to collect enough data to eliminate all potential sources of epistemic uncertainty: By including horses in the training data, the model would likely learn to recognize them, but would still be unable to recognize giraffes, or zebras, or unicorns. 
 Ultimately, we must accept that any practical machine learning model will have some sources of epistemic uncertainty. 
 
 Since aleatoric uncertainty is present in the data, it can usually be modelled directly. For instance, in the case of speech recognition, we can model the uncertainty in the transcription of a word by a distribution over the words in the vocabulary. But how do we model epistemic uncertainty? 
 Since sources of epistemic uncertainty are by definition those not represented in the data, it is not generally possible to model them directly. This makes epistemic uncertainty more difficult to quantify than aleatoric uncertainty. 
 Methods for estimating epistemic uncertainty include Bayesian neural networks \parencite{mackay_practical_1992, neal_bayesian_1995} which represent it by an explicit distribution over learned model parameters. Ensemble methods \parencite{gal_dropout_2016,lakshminarayanan_simple_2017} take a similar approach but use an implicit distribution. 
-Other approaches include anomaly detection and the recent field of out-of-distribution detection which, for example, represent epistemic uncertainty by special output classes for out-of-distribution data, distributions over data representations, or distances between them (see \cref{sec:out-of-distribution-detection}). 
+Other approaches include anomaly detection and the recent field of out-of-distribution detection which, for example, represent epistemic uncertainty by special output classes for out-of-distribution data, distributions over data representations, or distances between them (see \cref{sec:out-of-distribution-detection}). In this thesis, we will focus on the latter approach. 
 
 % In practice, we are interested in the predictive uncertainty, so we need to include both aleatoric and epistemic parts in the uncertainty estimate. 
 % Since sources of epistemic uncertainty are by definition those not represented in the data, it is not generally possible to model them directly, as it is for aleatoric uncertainty. This makes epistemic uncertainty more difficult to model and quantify than aleatoric uncertainty. 

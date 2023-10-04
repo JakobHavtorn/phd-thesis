@@ -44,6 +44,7 @@ reparameterize
 reparameterizing
 Rhind
 softmax
+subfigure
 Trygfonden
 Uncalibrated
 uncalibrated

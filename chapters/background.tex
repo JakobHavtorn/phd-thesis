@@ -80,7 +80,7 @@ For these reasons, the differential entropy may not be a suitable measure of inf
 Instead, \textcite{jaynes_information_1957,jaynes_prior_1968} argued that the information entropy of a continuous distribution should be defined as the limiting density of increasingly dense discrete distributions, $H_{N\rightarrow\infty}(X)$. This argument leads to,
 %
 \begin{equation} \label{eq:corrected-differential-entropy-jaynes}
-    H_{N\rightarrow\infty}(X) \equiv \lim_{N\rightarrow\infty} [H_{N}(X) - \log N] = - \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace ,
+    H_{N\rightarrow\infty}(X) \equiv \lim_{N\rightarrow\infty} [H_{N}(X) - \log N] = - \int_{\mathcal{X}} p(x) \log \left(\frac{p(x)}{q(x)}\right) \, dx \enspace ,
 \end{equation}
 %
 where $H_N(X)$ is the limiting density for discrete points, $q(x)$ is a uniform density over the quantization of the continuous space, and we have subtracted a $\log N$ term that would go to infinity in the limit of infinite points.
@@ -93,14 +93,14 @@ By doing this, the information entropy becomes positive, dimensionally correct, 
     \end{align*}
     Plugging this into the differential entropy \cref{eq:corrected-differential-entropy-jaynes} we arrive at the original expression but now with $y$ as the independent variable,
     \begin{equation*}
-        H_{N\rightarrow\infty}(y(x)) =  = - \int_\mathcal{Y} \widetilde{w}(y)\,\frac{dy}{dx} \log \frac{\widetilde{w}(y)\frac{dy}{dx}}{\widetilde{q}(y)\frac{dy}{dx}} \, dx = - \int_\mathcal{Y} w(y) \log \frac{w(y)}{q(y)} \, dy \enspace .
+        H_{N\rightarrow\infty}(y(x)) =  = - \int_{\mathcal{Y}} \widetilde{w}(y)\,\frac{dy}{dx} \log \frac{\widetilde{w}(y)\frac{dy}{dx}}{\widetilde{q}(y)\frac{dy}{dx}} \, dx = - \int_{\mathcal{Y}} w(y) \log \frac{w(y)}{q(y)} \, dy \enspace .
     \end{equation*}
 }.
 
 The form on the right-hand side of \cref{eq:corrected-differential-entropy-jaynes} can be recognized as the negative Kullback-Leibler divergence of $p(x)$ to $q(x)$ \parencite{kullback_information_1959},
 %
 \begin{equation} \label{eq:kullback-leibler-divergence}
-    D_{KL}(p(x)\parallel q(x)) = \int_\mathcal{X} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
+    D_{KL}(p(x)\parallel q(x)) = \int_{\mathcal{X}} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
 \end{equation}
 %
 The Kullback-Leibler divergence $D_{KL}(p(x)\parallel q(x))$, also known as the \emph{information gain}, is often interpreted as the amount of additional information required to represent events from a distribution with density $p(x)$ using a code optimized for a distribution with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $q$ to represent events from distribution $p$, i.e. the \emph{relative entropy} of $p$ with respect to $q$.
