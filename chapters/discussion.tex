@@ -36,13 +36,14 @@
 The work in \textcite{wenstrup_retrospective_2023} focuses on the predictive performance of the ensemble model and an analysis of feature importance, but does not explicitly consider uncertainty estimation. 
 As we discussed in \cref{subsec:model-calibration}, such a model can be calibrated to predict probabilities that are aligned with the empirical probability of the model being correct on some validation set.
 
-In \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}, we plot the calibration curve for the uncalibrated stroke recognition ensemble and the individual models along with a histogram of its predicted probabilities. 
-The calibration curve is computed by sorting the predicted probabilities on test set into a number of bins spanning the range from zero to one. For each bin, we compute the fraction of examples for which the model predicted correctly and then plot these pairs of mean predicted probabilities and correctness fractions. A perfectly calibrated model would have the same fraction of correct predictions in any given bin, as that bin's mean value. \Cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model} clearly shows the miscalibration issue that we previously discussed. 
+We compute the calibration curve for the stroke recognition ensemble by sorting the predicted probabilities on test set into a number of bins spanning the range from zero to one. For each bin, we compute the fraction of examples for which the model predicted correctly and then plot these pairs of mean predicted probabilities and correctness fractions. A perfectly calibrated model would have the same fraction of correct predictions in any given bin, as that bin's mean value. 
+In \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}, we plot the calibration curve for the uncalibrated stroke recognition ensemble and the individual models along with a histogram of its predicted probabilities. The miscalibration issue that we previously discussed is clearly visible as a strong overconfidence. 
+
 It is interesting to note that the ensemble model is better calibrated than the individual models that form it. Since an ensemble output probability is computed as the harmonic mean of the five individual model probabilities, it is easy to see that the ensembles output probability can never exceed the maximum probability predicted among the individual models. This property tends to make ensemble probabilities less extreme and, since the individual models are overconfident, this results in better calibration (see also the histogram in \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}). 
 
 To calibrate the ensemble model, we can use methods such as Platt-scaling \parencite{platt_probabilistic_1999} or isotonic regression \parencite{zadrozny_transforming_2002}. 
 In both cases, we fit a simple regression model (logistic or isotonic) to the predicted probabilities and the target labels on some validation set. 
-In \cref{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic} we have done so for the ensemble model using our validation set for fitting and visualizing the results on the test set. On the left, we plot the resulting calibration curves and on the right we show the logistic and isotonic fits. We see that both methods result in quite good calibrations\footnote{Test set Brier scores: Uncalibrated = $0.003500$, logistic = $0.001807$, isotonic = $0.001774$. Brier skill score compared to uncalibrated (relative improvement): Logistic = $0.4830$, isotonic = $0.4924$.} and that the predicted probabilities are shifted towards smaller values. 
+In \cref{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic} we have done so for the ensemble model using our validation set for fitting and visualizing the results on the test set. On the left, we plot the resulting calibration curves and on the right we show the logistic and isotonic fits. We see that both methods result in quite good calibrations\footnote{Test set Brier scores: Uncalibrated = $0.003500$, logistic = $0.001807$, isotonic = $0.001774$. Relative improvement in Brier score compared to uncalibrated (Brier skill score): Logistic = $0.4830$, isotonic = $0.4924$.} and that the predicted probabilities are shifted towards smaller values. 
 
 While correct calibration provides some interpretability to the predictions, the actual values of the probabilities are still tied of the model's performance. For example, with the logistic calibration, we can note that the predicted probabilities have been shifted so far towards smaller values that the highest possible predicted probability is about 50\%. This means strokes can be predicted at best with a 50\% chance of being correct. 
 If this model were to be deployed in a randomized controlled trial, the calibrated probabilities might be incorporated in the design of the user interface such that a user can discern between confident and uncertain model predictions. However, it is easy to imagine how this generally low confidence might lead the user to ignore the model. This highlights a problem with uncertainties
@@ -67,8 +68,7 @@ If this model were to be deployed in a randomized controlled trial, the calibrat
     \end{subfigure}
     \caption[Calibration curve for the uncalibrated stroke recognition model and empirical distribution of predicted probabilities.]{%
         Calibration curve for the uncalibrated stroke recognition ensemble model (left) and the histogram of predicted probabilities (right). 
-        We use the ensemble that achieved the median F1-score which is the one also reported in \cref{tab_retrospective:table3-occlusion-analysis, fig_retrospective:figure1-roc-curve}.
-    }
+        We use the ensemble that achieved the median F1-score which is the one also reported in \cref{tab_retrospective:table3-occlusion-analysis} and \cref{fig_retrospective:figure1-roc-curve}.}
     \label{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}
 \end{figure}
 
@@ -88,8 +88,7 @@ If this model were to be deployed in a randomized controlled trial, the calibrat
     \end{subfigure}
     \caption[Calibration fits and curves for the stroke recognition model using Platt-scaling and isotonic regression for calibration.]{%
         Calibration curves using sigmoid and isotonic calibration fits for the stroke recognition ensemble model (left) and the calibration fits (right). 
-        We use the ensemble that achieved the median F1-score which is the one also reported in \cref{tab_retrospective:table3-occlusion-analysis, fig_retrospective:figure1-roc-curve}.
-    }
+        We use the ensemble that achieved the median F1-score which is the one also reported in \cref{tab_retrospective:table3-occlusion-analysis} and \cref{fig_retrospective:figure1-roc-curve}.}
     \label{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic}
 \end{figure}
 
