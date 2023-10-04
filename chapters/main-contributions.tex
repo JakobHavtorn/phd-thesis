@@ -3,7 +3,8 @@
 % ~2 pages
 
 \chapter[research questions and main contributions]{Research questions and main contributions}\label{chp:main-contributions}
-\newcommand{\contribitem}[1]{{\vspace{1em}\noindent\scshape\bfseries{\color{dtured}\cref{#1}}\\\ucnameref{#1}\\}}
+
+\newcommand{\contribitem}[1]{{\vspace{1em}\noindent\scshape\bfseries\Large{\color{dtured}\cref{#1}}\\\ucnameref{#1}}\\}
 
 The following chapters of the thesis are self-contained studies and therefore detail their own research questions and contributions, but do so without consideration to the other chapters. 
 For that reason, we here lay out the research questions and main contributions of each chapter in relation to the overall research project of the thesis. 
@@ -73,8 +74,10 @@ This study provides preliminary evidence that a machine learning framework for r
 
 \contribitem{chp:paper-automated}
 In this paper, we review the current state-of-the-art in automated medical coding of clinical notes. 
-We hypothesize that several previous works underperform for reasons more related to suboptimal hyperparameter tuning, incorrect evaluation, and crude data handling than to model design, and that performance can be improved by addressing these issues. With our work, we aim to increase reproducibility and comparability of future work and to provide a baseline for future comparisons. 
-We reproduce, analyze and compare several models on the MIMIC-III dataset showing that poor performance is indeed attributable to weak configuration of the training and crudely sampled train-test splits with many extremely rare classes and several without examples in the training data at all. We also find a widespread error in the calculation of the macro F1 score. 
-We propose new data splits created with stratified sampling and use identical experimental setups to compare models, tuning hyperparameters and decision boundaries. 
+We hypothesize that several previous works underperform for reasons more related to suboptimal hyperparameter tuning, incorrect evaluation, and crude data handling than to model design, and that performance can be improved by addressing these issues. 
+With our work, we aim to increase reproducibility and comparability of future work and to provide a baseline for future comparisons. 
+We reproduce, analyze and compare several models on the MIMIC-III dataset showing that poor performance is indeed attributable to weak configuration of the training and crudely sampled train-test splits with many extremely rare classes and several without examples in the training data at all. 
+We also find a widespread error in the calculation of the macro F1 score. 
+To compare models, we propose new data splits created with stratified sampling, use identical experimental setups and tune hyperparameters and decision boundaries. 
 By analyzing prediction errors, we confirm the observation of previous work that all models struggle with rare codes, although long documents only have a negligible impact on performance, contrary to previous claims. 
 We also present the first comprehensive results on the newly released MIMIC-IV dataset using the reproduced models. 

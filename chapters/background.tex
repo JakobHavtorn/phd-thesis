@@ -5,7 +5,7 @@
 \chapter[technical background]{Technical background}\label{chp:technical-background}
 
 While the papers in this thesis were written to be self-contained, page limits and the need to maintain a specific focus forced us to limit the scope of the technical background that each paper provides. In this chapter, we present a more in-depth overview of the technical background relevant to the papers in this thesis. 
-We start by quantifying the concept of uncertainty relating it to information and probability. We then introduce the task of out-of-distribution detection and review the existing litterature on the topic. 
+We start by quantifying the concept of uncertainty relating it to information and probability. We then introduce the task of out-of-distribution detection and review the existing literature on the topic. 
 Then, we describe variational autoencoders, how they can be used to learn representations of speech, and some of their challenges. Finally, we introduce the concept of self-supervised learning and highlight important differences to variational autoencoders. 
 
 
@@ -137,7 +137,7 @@ Since such OOD data is unknown to the model, it is, by definition, a source of e
 % In the literature, the task is also referred to as open set recognition \parencite{bendale_open_2016, cardoso_weightless_2017, panaredabusto_open_2017}, outlier detection \parencite{xu_deep_2014, mor_confidence_2018}, or selective prediction \parencite{geifman_selective_2017} . 
 OOD detection bears many similarities with anomaly detection, novelty detection, open set recognition, and outlier detection \parencite{yang_generalized_2022}. 
 Some of these differences are subtle, and the terminology is not always used consistently in the literature. To provide some clarity, we will briefly outline the taxonomy of \textcite{yang_generalized_2022}: 
-Outlier detection most clearly differs from the other tasks by directly processesing all observations and aiming to select outliers from a single contaminated dataset. 
+Outlier detection most clearly differs from the other tasks by directly processing all observations and aiming to select outliers from a single contaminated dataset. 
 The remaining tasks differ in whether they detect both covariate and semantic shift and require the simultaneous classification of in-distribution classes. %, and whether the in-distribution data contains more than one class. 
 Anomaly detection deals with multiclass data and detects both covariate and semantic shift without requiring simultaneous classification of in-distribution classes whereas novelty detection, open set recognition and OOD detection are usually concerned with semantic shifts. 
 Although a vague difference, novelty detection usually defined in terms of a class of normal data, while OOD detection centers around the distribution of the training data. Different from novelty detection, OOD detection methods sometimes draw on examples of OOD data or require the simultaneous classification of in-distribution classes, although this is not always the case. 
@@ -154,7 +154,7 @@ Supervised OOD detection tries to assess whether the model's prediction $\hat{y}
 
 Central to any OOD detection method is the ability to assign a score $s(\xb) \in \mathbb{R}$ to a given input $\xb$ that indicates the degree to which the input is likely to be OOD. After defining a score, we typically use a validation set to tune a threshold $\tau$ such that $\xb$ is considered OOD if $s(\xb) > \tau$. The threshold is typically chosen such that performance on the validation set is above some level, for instance by imposing constraints on the recall and precision. Many works also evaluate the performance of OOD detection methods using the area under the receiver operating characteristic (AUROC) curve which does not require a threshold to be chosen.
 
-The many different ways of defining a score $s(\xb)$ can be used to further categorize OOD detection methods.
+There are several ways to define a score $s(\xb)$, and they be used to further categorize OOD detection methods. 
 Unsupervised methods often derive the score 
 from the \emph{likelihood} assigned to the input \parencite{bishop_novelty_1994,choi_waic_2019,kirichenko_why_2020,ren_likelihood_2019,serra_input_2020,xiao_likelihood_2020,morningstar_density_2021,nalisnick_detecting_2019,bergamin_modelagnostic_2022,maaloe_biva_2019,havtorn_hierarchical_2021}, 
 from a \emph{reconstruction} of the input \parencite{sakurada_anomaly_2014,xia_learning_2015,lyudchik_outlier_2016,zhou_anomaly_2017,chen_outlier_2017,schlegl_unsupervised_2017,zong_deep_2018,li_madgan_2019,graham_denoising_2023,liu_unsupervised_2023a}, or 
@@ -184,7 +184,7 @@ In the following sections, we provide a more in-depth overview of the different 
 %
 % - ViM: Out-Of-Distribution with Virtual-logit Matchinghttps://arxiv.org/pdf/2203.10807.pdf in cludes a short overview of many modern methods
 %
-In the supervised setting the supervision can come from different sources depending on how much we know, or assume to know, about the OOD data. In the least informed setting, the supervision is from the target variable $y$ only. In the most informed setting we also assume access to representative OOD data. 
+In the supervised setting the supervision can come from different sources depending on how much we know, or assume to know, about the OOD data. Taking supervision from the target variable $y$ requires few assumptions while to representative OOD data. 
 
 % Actual OOD data
 \paragraph{Methods using real OOD data}
@@ -200,7 +200,7 @@ As we discussed earlier, for many modern applications of machine learning, input
 A number of methods do not require access to actual OOD data but synthesize it instead. 
 Several methods do so by adding noise to in-distribution data \parencite{liang_enhancing_2018, lee_simple_2018, ren_likelihood_2019}. 
 For instance, \textcite{ren_likelihood_2019} propose a number of baselines including training a binary classifier to distinguish between original and perturbed in-distribution data. They also propose adding an OOD class to softmax classifiers and training it to predict perturbed in-distribution data, or alternatively, training the predicted class distribution to output uniform distribution for perturbed in-distribution inputs. 
-While these methods are appealing, their weaknesses have been pointed out by later work which generally improve on their perforamnce. An example is ODIN \parencite{liang_enhancing_2018}, in which the authors propose to calibrate $p(y|\xb)$ with temperature scaling \parencite{guo_calibration_2017} and add gradient-based, input-dependent perturbations to the inputs and use the calibrated maximum class probability as the OOD score. 
+While these methods are appealing, their weaknesses have been pointed out by later work which generally improve on their performance. An example is ODIN \parencite{liang_enhancing_2018}, in which the authors propose to calibrate $p(y|\xb)$ with temperature scaling \parencite{guo_calibration_2017} and add gradient-based, input-dependent perturbations to the inputs and use the calibrated maximum class probability as the OOD score. 
 \textcite{vyas_outofdistribution_2018} train an ensemble of classifiers on different subsets of the training data, with the left out data taken as OOD, and propose novel loss over $p(y|\xb)$ that seeks to maintain a predefined margin between its average entropy for the OOD and in-distribution examples. 
 Another approach generates OOD inputs using a generative adversarial network \parencite{lee_training_2018}. 
 Similar to actual OOD data, the usefulness of synthetic OOD data is also fundamentally limited by the intractability of sampling the complete space of OOD data.
@@ -327,10 +327,10 @@ However, these methods are not well suited for high-dimensional data such as ima
 \textcite{bishop_novelty_1994} first proposed to use the likelihood assigned to data by a generative model as a measure for detecting anomalous data. Simply put, since the likelihood measures ``how probable the data is'', OOD data is expected to give lower likelihoods than in-distribution data. Although, this method originally gave encouraging results, the advent of deep generative models and their application to high-dimensional data has lead many to observe likelihoods for OOD data that are higher than for in-distribution data \parencite{choi_waic_2019,nalisnick_detecting_2019,kirichenko_why_2020}. Such results have sparked interest in trying to explain this phenomenon and many works have proposed new scores for OOD detection derived from the likelihood. 
 
 In \textcite{ren_likelihood_2019}, the authors propose to use the likelihood ratio between a model trained on in-distribution data and a background model trained on perturbed in-distribution data as the OOD score. 
-\textcite{serra_input_2020} argue that the failure of DGMs is due to the high-influence that the input complexity has on the likelihood. Therefore, they propose to use a general lossless image compression algorithm as a background model. 
+\textcite{serra_input_2020} argue that the failure of deep generative models is due to the high-influence that the input complexity has on the likelihood. Therefore, they propose to use a general lossless image compression algorithm as a background model. 
 \textcite{choi_waic_2019} propose to use the Watanabe information criterion (WAIC) computed from the likelihood \parencite{watanabe_algebraic_2009, watanabe_asymptotic_2010}. 
-For variational autoencoders, other work proposes to refit the encoder on a test data example, hypothesizing that the likelihood of OOD data will improve more than for in-distribution data, and use this ``likelihood regret" as the OOD score \parencite{xiao_likelihood_2020}. 
-\textcite{maaloe_biva_2019} provide initial results that a loosened variational bound on the likelihood, using only encoded representations from the top-most latent variables in a hierarchical variationa autoencoder, can improve OOD detection performance. In \textcite{havtorn_hierarchical_2021}, we show that variational autoencoders are surprisingly good at reconstructing OOD data and propose an improved score based on the likelihood ratio of such loosened bounds \textcite{maaloe_biva_2019}.
+For variational autoencoders, other work proposes to refit the encoder on a test data example, hypothesizing that the likelihood of OOD data will improve more than for in-distribution data, and use this ``likelihood regret'' as the OOD score \parencite{xiao_likelihood_2020}. 
+\textcite{maaloe_biva_2019} provide initial results that a loosened variational bound on the likelihood, using only encoded representations from the top-most latent variables in a hierarchical variational autoencoder, can improve OOD detection performance. In \textcite{havtorn_hierarchical_2021}, we show that variational autoencoders are surprisingly good at reconstructing OOD data and propose an improved score based on the likelihood ratio of such loosened bounds.
 
 A different approach is to use the typicality set hypothesis \parencite{nalisnick_detecting_2019}. The typicality set is the subset of the model full support in data space, where the model samples from, that does not overlap with regions of maximal likelihood. \textcite{nalisnick_detecting_2019} propose to use the typicality set as a test statistic for OOD detection while \textcite{morningstar_density_2021} propose to use the related idea of density of states of the model. 
 In \textcite{bergamin_modelagnostic_2022} we use Fisher's method \parencite{fisher_statistical_1925} to combine Rao's score test statistic \parencite{rao_large_1948} with the typicality set test statistic hence including information from both the gradient and the likelihood.
@@ -417,7 +417,7 @@ In these cases, approximate methods such as variational inference \parencite{jor
 
 
 \subsection{Variational autoencoders} \label{sec:variational-autoencoders}
-To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to parameterize the generative model $p_\thetab(\xb,\zb)$ with a neural network with parameters $\thetab$. Specifically, they use a neural network to parameterize the conditional distribution $p_\thetab(\xb|\zb)$ and a simple distribution for the prior $p(\zb)$. 
+To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to parameterize the generative model $p_\thetab(\xb,\zb)$ as a neural network with parameters $\thetab$. Specifically, they use a neural network to parameterize the conditional distribution $p_\thetab(\xb|\zb)$ and choose some simple distribution for the prior $p(\zb)$. 
 Since this makes the marginal and posterior distributions intractable, both training and inference require approximate methods. 
 While MCMC methods are computationally expensive for large neural networks, variational inference provides a more scalable alternative by estimating the posterior distribution $p(\zb|\xb)$ with a variational approximation. 
 
@@ -460,12 +460,12 @@ This Monte Carlo estimator can be written as,
     = \frac{1}{K} \sum_{k=1}^K \log p_\thetab(\xb|\zb_k) - D_\text{KL}\left( q_\phib(\zb|\xb) \,||\, p(\zb) \right) \enspace ,
 \end{equation}
 %
-where $\zb_k \sim q_\phib(\zb|\xb)$ are samples from the approximate posterior. To reduce the variance of the estimate, \textcite{burda_importance_2016} propose to use importance sampling to reweight the samples.
+where $\zb_k \sim q_\phib(\zb|\xb)$ are samples from the approximate posterior. To reduce the variance of the estimate, \textcite{burda_importance_2016} propose to use importance sampling to reweigh the samples.
 
 
 \paragraph{Reparameterization} 
 Via the ELBO, we want to use maximum likelihood estimation to jointly optimize the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$ with respect to $\thetab$ and $\phib$. 
-Gradient-based optimization works well for neural networks but the large amounts of data force the use of mini-batch, or stochastic, gradient descent. 
+Gradient-based optimization works well for neural networks, but the large amounts of data force the use of mini-batch, or stochastic, gradient descent. 
 Computing the gradient of the ELBO with respect to $\thetab$ is straightforward,
 %
 \begin{equation}
@@ -515,7 +515,7 @@ and \emph{top-down} \parencite{sonderby_ladder_2016}
 \end{equation}
 A variant of the variational autoencoder that employs a bidirectional inference network has also been proposed \parencite{maaloe_biva_2019}.
 Regardless of the choice of inference model, the resulting hierarchical VAE is trained using the ELBO \cref{eq:variational-autoencoder-elbo} and the reparameterization trick.
-Recent architectural advances have alleviated the posterior collapse problem and made it possible to train VAEs with many latent variables.\parencite{maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}. 
+Recent architectural advances have alleviated the posterior collapse problem and made it possible to train VAEs with many latent variables \parencite{maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}. 
 
 % Until recently, hierarchical VAEs gave inferior likelihoods compared to state-of-the-art autoregressive \parencite{ho_flow_2019} and flow-based models \parencite{salimans_pixelcnn_2017}.
 % This was changed by \textcite{maaloe_biva_2019}, \textcite{vahdat_nvae_2020}, and \textcite{child_very_2021}, which introduced complementary methods to extend the number of latent variables to a very deep hierarchy resulting in state-of-the-art likelihood performance.
@@ -529,7 +529,7 @@ The marginal likelihood under this expectation is lower bounded by the same expe
 %
 \begin{align} \label{eq:variational-autoencoder-elbo-expected}
     \mathbb{E}_{\hat{p}(\xb)}\left[ \log p(\xb) \right] 
-    &\geq \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log \frac{p_{}(\xb|\zb)p(\zb)}{q_{}(\zb|\xb)} \right] \enspace .
+    &\geq \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log \frac{p_{}(\xb|\zb)p(\zb)}{q_{}(\zb|\xb)} \right] \enspace ,
 \end{align}
 %
 where we have defined $q(\xb) = \hat{p}(\xb)$ and $q_{}(\xb,\zb) = q_{}(\zb|\xb)\hat{p}(\xb)$ and dropped the parameter subscripts for ease of notation. 

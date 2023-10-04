@@ -1,2 +1,15 @@
 {"rule":"ANY_BODY","sentence":"^\\QAs a final twist on this story, note that the SI system does actually have a unit for a number of some thing of interest: the mole.\\E$"}
 {"rule":"LIGATURES","sentence":"^\\QHC has received funding from the Velux Foundation, Tværsfonden, Helsefonden, Hartmann Fonden, Lundbeck Foundation, and Novo Nordisk Foundation; royalties from Gyldendal; honoraria from Bayer and Bristol Meyers Squibb, and is chair of Action Plan for stroke in Europe Implementation, Co-chair of the Scientific Stroke Panel EAN and Senior Guest Editor of AHA Stroke.\\E$"}
+{"rule":"IN_PRINCIPAL","sentence":"^\\QSimilarly, to represent a virtual OOD class, \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q generates an additional logit by first computing the residual of the input's latent space representation against a principal feature space and then converting it to a valid logit by matching its mean over training samples to the average maximum logits.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qappendices.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qdiscussion and conclusions.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qmedical applications.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qself-supervised speech representation learning.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qunsupervised uncertainty estimation.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qbackground.\\E$"}
+{"rule":"TO_TOO","sentence":"^\\QWe point out that contrary to much recent literature on OOD detection, our approach is fully unsupervised and does not make assumptions about the nature of OOD data.\\E$"}
+{"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QThis has not been achieved with autoregressive or flow-based models.\\E$"}
+{"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QIn addition to that, it also allows us to correct for the multiple comparisons problem when identifying outliers in a dataset by controlling the number of Type I errors through the false discovery rate (FDR).\\E$"}
+{"rule":"WHETHER","sentence":"^\\QIn other words, we wonder whether or not \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q are likely to come from the same distribution that generated our curated dataset.\\E$"}
+{"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QWe also noticed that both the model design choice and the optimization choices have an influence on the score we are computing.\\E$"}
+{"rule":"EN_A_VS_AN","sentence":"^\\QBoth examples assume that the in-distribution data follows a \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q distribution, and that the correct model has been learned by fitting \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q via maximum-likelihood.\\E$"}

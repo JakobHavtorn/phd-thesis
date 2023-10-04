@@ -1,39 +1,49 @@
 %!TEX root = ../thesis.tex
 
+% Math symbols
+% \usepackage{amsmath}
+% \usepackage{amssymb}
+
 % Text fonts (http://www.macfreek.nl/memory/Fonts_in_LaTeX)
 % Install fonts from /usr/local/texlive/<version>/texmf-dist/fonts/opentype/public
-\usepackage[utf8]{inputenc}
+% \usepackage[utf8]{inputenc}
 \usepackage{fontspec}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
+% \usepackage[T1]{fontenc}
+% \usepackage{lmodern}
 \usepackage{slantsc}
 % \RequirePackage{fix-cm}
 \usepackage{bold-extra}
-\usepackage{upgreek}
-
-% \DeclareFontShape{T1}{texgyrepagella}{b}{sc}{<->ssub*cmr/bx/sc}{}
-% \DeclareFontShape{T1}{texgyrepagella}{bx}{sc}{<->ssub*cmr/bx/sc}{}
+\usepackage{csquotes}       % language sensitive quotation facilities
 
 
-% % Euler math fonts
-% \usepackage[OT1,euler-digits,euler-hat-accent]{eulervm}
-% \usepackage[bb=stixtwo]{mathalpha}
+% Method that works with TeXLive 2023
+% \usepackage[math-style=upright]{unicode-math}
+% \setmainfont{texgyrepagella-regular.otf}[Scale=1.0, Ligatures={Common,Rare,TeX}]  % Or Palatino Linotype, etc.
+% \setmathfont{texgyrepagella-math.otf}[Scale=MatchLowercase]
+% \setmathfont{euler.otf}[range={up/{Latin,latin,Greek,Greek}, bfup/{Latin,latin,Greek,Greek}, cal, bfcal, frak, bffrak}, Scale=MatchLowercase, script-features={}, sscript-features={}]
+
+
+% Method that works with TeXLive 2023 and is simpler and has fewer missing characters
+\usepackage{newpxtext, eulerpx}
+
+
+% Method that should be best practice for TeXLive
+% These packages were recommended but seem to cause trouble with the euler-math and unicode-math packages.
+% \usepackage{newpxtext,newpxmath}
+% \setmainfont{texgyrepagella-regular.otf}[Scale=1.0, Ligatures={Common,Rare,TeX}]  % Or Palatino Linotype, etc.
+% \usepackage{euler-math}
+
+
+% Method that works with TeXLive 2022 (but is missing some special characters e.g. ê, ç)
+% \usepackage{amssymb}
+% \usepackage{upgreek}
+% \usepackage{mathpazo}
+% \usepackage[OT1,euler-digits]{eulervm}
 % \renewcommand{\mathbf}{\mathbold}  % euler requires \mathbold for bold math
 
-% \usepackage{newtxmath}
 
 
 
-% Serif font
-% \usepackage{newpxtext}
-% \setmainfont{TeX Gyre Pagella}
-% \setmainfont{texgyrepagella}
-
-
-
-\usepackage{mathpazo} % add possibly `sc` and `osf` options
-\usepackage[OT1,euler-digits]{eulervm}
-\renewcommand{\mathbf}{\mathbold}  % euler requires \mathbold for bold math
 
 % % Remove: "Font shape `T1/eulervm/m/n' undefined (Font) using `T1/cmr/m/n' instead."
 % \usepackage{substitutefont}

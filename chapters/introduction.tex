@@ -20,14 +20,14 @@ The evolution of technology to support and automate decision-making can be trace
 The Egyptian Rhind Mathematical Papyrus, dated to around 1550 BCE, describes various mathematical techniques for doing calculations involving multiplication, division, and fractions, and how to use them for practical purposes like measuring land, constructing buildings, and sharing resources \parencite{georges_universal_2001}. 
 Around the same time, the Babylonians had developed a sophisticated system of mathematics that included algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \parencite{fowler_square_1998}. 
 
-These computing tools brought with them novel challenges. The Babylonian mathematics, for instance, did not formalize the difference between rational and irrational numbers often leading to approximation errors such as the common practice of approximating $\pi$ with 3 \parencite{georges_universal_2001}. Apart from such inherent limitations of the tools, inadequate human proficiency in their use was also a source of error. The Plimpton 322 clay tablet, for instance, contains several errors, presumably made by a novice in Babylonian mathematics (\cref{fig:plimpton_332}) \parencite{neugebauer_mathematical_1945,britton_plimpton_2011}. 
+These computing tools brought with them novel challenges. The Babylonian mathematics, for instance, did not formalize the difference between rational and irrational numbers often leading to approximation errors such as the common practice of approximating $\pi$ with 3 \parencite{georges_universal_2001}. Apart from such inherent limitations of the tools, inadequate human proficiency in their use was also a source of error. For example, the Plimpton 322 clay tablet (\cref{fig:plimpton_332}) contains several errors, presumably made by a novice in Babylonian mathematics \parencite{neugebauer_mathematical_1945,britton_plimpton_2011}. 
 % Easy to overlook, the challenges we face in adopting new technologies today are not new but have been faced by humans for thousands of years. Today, as in ancient times, it was important to understand the limitations of technology and the need for human expertise in its use.
 
-\begin{figure}[t]
+\begin{figure}
     \centering
     % \includegraphics[width=0.90\textwidth]{plimpton_322.png}
     \includegraphics[height=0.4\textheight]{plimpton_322.png}
-    \caption[Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets.]{Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets, presumably struggling to grapple with Babylonian mathematics. \parencite[photo credit][]{neugebauer_mathematical_1945}}
+    \caption[Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets.]{ Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets, presumably struggling to grapple with Babylonian mathematics. \parencite[photo credit][]{neugebauer_mathematical_1945}}
     \label{fig:plimpton_332}
 \end{figure}
 
@@ -41,11 +41,11 @@ Working with Babbage, Ada Lovelace is widely regarded as the first to have recog
 As manufacturing processes were developed and scaled, electronic computers were adopted widely across society for various applications in science and industry, including healthcare \parencite{georges_universal_2001, harari_sapiens_2011}.
 % The societal changes brought about by the widespread adoption of computer technology through the latter half of the 20th century were so profound that some scholars refer to the era as the information age \parencite{georges_universal_2001, harari_sapiens_2011}.
 
-\begin{figure}[t]
+\begin{figure}
     \centering
     % \includegraphics[width=0.95\textwidth]{eniac_programmers.jpeg}
     \includegraphics[height=0.4\textheight]{eniac_programmers.jpeg}
-    \caption[Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC.]{Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC. \parencite[photo credit][]{usarmyresearchlaboratoryarltechnicallibrary_female_1940}}
+    \caption[Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC.]{ Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC. \parencite[photo credit][]{usarmyresearchlaboratoryarltechnicallibrary_female_1940}}
     \label{fig:eniac_programmers}
 \end{figure}
 
@@ -54,13 +54,21 @@ This has led to a surge of interest in the scientific field of machine learning,
 Enabled by a massive increase in the performance and availability of parallel computing resources, such methods have set new standards for the abilities of computer systems in various domains, such as speech recognition, computer vision, and natural language processing \parencite{lecun_deep_2015}. 
 In recent years, machine learning has made its way into the healthcare sector, where it has shown promising results in tasks such as medical imaging \parencite{lundervold_overview_2019}, drug discovery \parencite{chen_rise_2018}, and clinical decision support \parencite{cite15, cite14}. 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.90\textwidth]{uber_nhsa_accident.png}
+    \caption[A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018.]{ A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018. The car's sensors detected the pedestrian $5.6$ seconds before the crash, but the self-driving system failed to recognize its own uncertainty in multiple object misclassifications and so did not correctly predict her path or reduce the SUV's speed \parencite[photo credit][]{nationaltransportationsafetyboardnhsa_collision_2019}.}
+    % \caption{Aerial view of crash location showing path of pedestrian as she attempted to cross N. Mill Avenue and movement and speed of SUV at three points before impact. Pedestrian's path shows her position from initial detection ($5.6$ seconds before impact) until impact; SUV's position is shown at corresponding times beginning $4.2$ seconds before impact \parencite{nationaltransportationsafetyboardnhsa_collision_2019}.}
+    \label{fig:uber_nhsa_accident}
+\end{figure}
+
 However, these technologies come with the same risks as previous generations did, and in some cases, may amplify them. 
 Limitations of the technology itself, human error, and the complexity of the real world are all factors that can lead to failures. A pertinent example is the use of machine learning in autonomous driving systems: 
 In 2018, the first incident of a self-driving car killing a pedestrian took place in Tempe, Arizona. 
 The car, an SUV operated by Uber, was driving in autonomous mode when it struck a pedestrian crossing the street with her bicycle. 
-According to the investigation by the National Transportation Safety Board, the car's sensors detected the pedestrian more than five seconds before the crash, but the system did not manage to correctly predict her path or reduce the SUV's speed (\cref{fig:uber_nhsa_accident}). 
+According to the investigation by the National Transportation Safety Board, the car's sensors detected the pedestrian more than five seconds before the crash, but the system did not manage to correctly predict her path or reduce the SUV's speed. 
 Specifically, during those seconds, the system incorrectly classified the pedestrian more than ten times, first as a vehicle, then as an unknown object and ultimately as a bicyclist, each time changing, or resetting, the predicted path. 
-About one second before the crash, the system determined that a collision was imminent, but the situation exceeded the constraints within which the autonomous driving system was allowed to operate, and the car's safety driver failed to intervene \parencite{nationaltransportationsafetyboardnhsa_collision_2019}. 
+About one second before the crash, the system determined that a collision was imminent, but the situation exceeded the constraints within which the autonomous driving system was allowed to operate, and the car's safety driver failed to intervene (\cref{fig:uber_nhsa_accident}) \parencite{nationaltransportationsafetyboardnhsa_collision_2019}. 
 %
 And Uber is not the only actor facing the challenges of applying machine learning in real-world scenarios. A recent report by the Washington Post found that Tesla's Autopilot system has been activated during at least 736 crashes in the last four years with 16 fatalities \parencite{siddiqui_17_2023}. 
 % And though recent statistics published by Waymo, 
@@ -68,13 +76,6 @@ And Uber is not the only actor facing the challenges of applying machine learnin
 % revealed far fewer crashes, with only 2 of 20 incidents over 1 million miles meeting reporting criteria, it is interesting to note that the cars are all operated in the sunny states of California and Arizona, where driving conditions vary relatively little \parencite{hawkins_waymo_2023}. 
 While driver-assistance systems undoubtedly help reduce accidents in many cases, and has great future potential, the issues of current systems highlight the need for machine learning systems that are robust in rare, adverse or difficult situations. 
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.90\textwidth]{uber_nhsa_accident.png}
-    \caption[A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018.]{A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018. The car's sensors detected the pedestrian $5.6$ seconds before the crash, but the self-driving system failed to recognize its own uncertainty in multiple object misclassifications and so did not correctly predict her path or reduce the SUV's speed \parencite[photo credit][]{nationaltransportationsafetyboardnhsa_collision_2019}.}
-    % \caption{Aerial view of crash location showing path of pedestrian as she attempted to cross N. Mill Avenue and movement and speed of SUV at three points before impact. Pedestrian's path shows her position from initial detection ($5.6$ seconds before impact) until impact; SUV's position is shown at corresponding times beginning $4.2$ seconds before impact \parencite{nationaltransportationsafetyboardnhsa_collision_2019}.}
-    \label{fig:uber_nhsa_accident}
-\end{figure}
 
 Recently, European policymakers proposed a set of requirements to ensure that machine learning applications are safe, reliable, and trustworthy \parencite{europeancommission_briefing_2021}. 
 This AI Act groups applications into three categories based on the potential risk they pose to society: limited, high, and unacceptable. Limited risk applications, such as in computer games, must meet transparency requirements, and technologies such as public facial recognition are banned due to unacceptable risk. 
@@ -141,15 +142,15 @@ When a patient is admitted to a hospital, the medical staff will write a clinica
 These notes are then used for billing and reimbursement purposes, as well as for research and quality assurance. 
 The clinical notes are written, usually by a doctor, in natural language adhering to a certain structure. Later, a medical coder will assign a set of codes to the note based on its content. 
 The process of medical coding is time-consuming and error-prone due to the vast number and high complexity of medical diagnoses and procedures. For instance, the widely used International Classification of Diseases (ICD) standard consist of 55,000 medical codes in version 10 and 85,000 in version 11 \parencite{worldhealthorganisationwho_international_2023}. Additionally, a single medical note will usually contain several diagnoses and procedures which must all be inferred from the clinical note \parencite{johnsonMIMICIIIFreelyAccessible2016,johnsonMIMICIVFreelyAccessible2023}. 
-Furthermore, any single code can have several exclusion or inclusion criteria defined by official guidelines that determine when other codes must be coded along with it, and when they must not \parencite{centersformedicaremedicaidservicesus_icd10cm_2023}. 
+Furthermore, any single code can have several criteria defined by official guidelines that determine under which conditions the code is mutually exclusive with other codes, and when other codes must be coded along with it \parencite{centersformedicaremedicaidservicesus_icd10cm_2023}. 
 % Official guidelines describe how to code specific diagnoses and procedures and combinations thereof . 
 % For instance, a code may have several exclusion or inclusion criteria which define which other codes must be coded along with it, or when they must not. 
 
 \paragraph{Augmentation} A reasonable machine learning pipeline to assist in medical coding might consist of a natural language processing model that extracts relevant information from the clinical note and outputs a number of probability distributions that each estimate the probability that the note should be assigned one of the medical codes. 
 However, training and using such as system comes with several challenges. 
-For instance, the prevalence of different medical codes in the training data is highly imbalanced; it is common to have several orders of magnitude difference between the frequency of the most frequent code and the least frequent code. Since each clinical note is associated with multiple codes that have complex co-occurence patterns, it is often impossible to exactly correct for this class imbalance by stratified sampling, which is an otherwise common approach to deal with class imbalance in machine learning. 
+For instance, the prevalence of different medical codes in the training data is highly imbalanced; it is common to have several orders of magnitude difference between the frequency of the most frequent code and the least frequent code. Since each clinical note is associated with multiple codes that have complex co-occurrence patterns, it is often impossible to exactly correct for this class imbalance by stratified sampling, which is an otherwise common approach to deal with class imbalance in machine learning. 
 % This also gives rise to 
-Furthermore, some codes are highly similar, for instance the ICD-10 codes Z87.891 ``Personal history of nicotine dependence'' and F17.210 ``Nicotine dependence, cigarettes, uncomplicated", but in practice, only one of them should be assigned to a given note. 
+Furthermore, some codes are highly similar, for instance the ICD-10 codes Z87.891 ``Personal history of nicotine dependence'' and F17.210 ``Nicotine dependence, cigarettes, uncomplicated'', but in practice, only one of them should be assigned to a given note. 
 As with the stroke recognition system, we would like the model to express high degree of uncertainty when it makes a mistake. For example, if the model is uncertain about two similar codes, it might be appropriate to ask a human expert to review the note and make the final decision. Additionally, the lack of training data for the rarest codes makes them difficult to learn to robustly predict, and so, we would often want the model to be uncertain for rare codes. 
 
 

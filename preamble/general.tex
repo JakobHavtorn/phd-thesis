@@ -66,6 +66,20 @@
 \checkandfixthelayout                 % Check if errors in paper format!
 \sideparmargin{outer}                 % Put sidemargins in outer position
 
+
+% Allow ignoring certain warnings
+\usepackage[save]{silence}
+% \WarningFilter{glossaries}{Overriding \printglossary}
+% \WarningFilter{glossaries}{Overriding `theglossary'}
+
+% Originates from todonotes due to narrow margin.
+\ErrorFilter{latex}{The length marginparwidth is less than 2cm}
+
+% Originates from tikz plots with some commands do not expect a ; to end the line. 
+% Tikz sets the local font to 'nullfont' and hence a warning is raised when LaTeX tries to typeset the ; in nullfont.
+\ErrorFilter{latex}{Missing character: There is no ;}  
+
+
 % Large environments
 \usepackage{microtype}
 \usepackage{mathtools}
@@ -79,13 +93,14 @@
 
 % Graphics and colors
 \usepackage{graphicx}                 % Including graphics and using colours
+\graphicspath{{graphics/}}
 \usepackage{xcolor}                   % Defined more color names
 \usepackage{eso-pic}                  % Watermark and other bag
 \usepackage{preamble/dtucolors}
-\graphicspath{{graphics/}}
 \usepackage{caption}
 \usepackage[labelformat=simple]{subcaption}
 \usepackage[figuresleft]{rotating}
+
 % Enable replacing all sidewaystable environments with regular table environments
 \ifthenelse{\equal{\usesidewaystables}{true}}{}{
   \renewenvironment{sidewaystable}{%
@@ -119,12 +134,10 @@
 \definecolor{paper_co}{RGB}{34,139,34}
 
 
-
 % Language
 % \usepackage{polyglossia}    % multilingual typesetting and appropriate hyphenation
 % \setdefaultlanguage{english}
 \usepackage[english]{babel}
-\usepackage{csquotes}       % language sensitive quotation facilities
 
 % Bibliography (references)
 % https://tex.stackexchange.com/questions/89842/how-to-print-only-year-no-day-month-with-biblatex            
@@ -361,7 +374,7 @@
 \newcommand{\moretodo}[2][]{\todo[color=red!40,#1]{#2}}
 
 
-% Chapterstyle
+% Chapterstyle, chapter font and fontsize
 \makeatletter
 \makechapterstyle{mychapterstyle}{
     % \chapnamefont
@@ -377,9 +390,8 @@
 
     \def\format{\normalfont}  % \def\format{\normalfont\sffamily}
     \renewcommand*{\chapnamefont}{\format\fontshape{sc}\selectfont}  % font for chapter text
-    % \renewcommand*{\chapnumfont}{\format\fontsize{30}{30}\fontshape{sc}\selectfont}  % font for chapter number
-    \renewcommand*{\chapnumfont}{\format\fontsize{13}{13}\fontfamily{eulervm}\selectfont}  % font for chapter number
-    \renewcommand*{\chaptitlefont}{\format\fontsize{13}{13}\fontshape{sc}\selectfont}  % font for chapter title
+    \renewcommand*{\chapnumfont}{\format\fontsize{15}{15}\fontfamily{eulervm}\selectfont}  % font for chapter number
+    \renewcommand*{\chaptitlefont}{\format\fontsize{15}{15}\fontshape{sc}\selectfont}  % font for chapter title
 
     \renewcommand*{\printchaptername}{\chapnamefont\MakeUppercase{\@chapapp}}  % Uppercase all characters in name
     \patchcommand{\printchaptername}{\begingroup\color{dtured}}{\endgroup}
@@ -400,7 +412,16 @@
 \chapterstyle{mychapterstyle}
 
 
-% Part style
+% Section style, section font and fontsize
+% \*section, \*paragraph font styles
+\setsecheadstyle              {\Large\scshape\raggedright} %{\LARGE\sffamily\raggedright}
+\setsubsecheadstyle           {\Large\scshape\raggedright} %{\Large\sffamily\raggedright}
+\setsubsubsecheadstyle        {\large\scshape\raggedright} %{\large\sffamily\raggedright}
+% \setparaheadstyle             {\normalsize\sffamily\itseries\raggedright}
+% \setsubparaheadstyle          {\normalsize\sffamily\raggedright}
+
+
+% Part style, part font and fontsize
 % \renewcommand*{\thepart}{\arabic{part}}  % redefine the format of the part counter
 \renewcommand*{\parttitlefont}{\normalfont\LARGE\scshape}  % font for part title
 \renewcommand*{\partnamefont}{\normalfont\large\scshape} % font for part name
@@ -444,13 +465,6 @@
 
 \makeevenfoot{plain}{}{}{}            % No page number on plain even pages (chapter begin)
 \makeoddfoot{plain}{}{}{}             % No page number on plain odd pages (chapter begin)
-
-% \*section, \*paragraph font styles
-\setsecheadstyle              {\Large\scshape\raggedright} %{\LARGE\sffamily\raggedright}
-\setsubsecheadstyle           {\large\scshape\raggedright} %{\Large\sffamily\raggedright}
-\setsubsubsecheadstyle        {\normalsize\scshape\raggedright} %{\large\sffamily\raggedright}
-% \setparaheadstyle             {\normalsize\sffamily\itseries\raggedright}
-% \setsubparaheadstyle          {\normalsize\sffamily\raggedright}
 
 
 % Hypersetup
@@ -538,31 +552,3 @@
     \patchcmd{\@memensuresigpages}{\repeat}{\repeat\frieze{0}{0}}{}{}
 }{}
 \makeatother
-
-
-% %% Sharelatex fix for microtype warnings
-% \makeatletter
-% \def\MT@is@composite#1#2\relax{%
-%   \ifx\\#2\\\else
-%     \expandafter\def\expandafter\MT@char\expandafter{\csname\expandafter
-%                     \string\csname\MT@encoding\endcsname
-%                     \MT@detokenize@n{#1}-\MT@detokenize@n{#2}\endcsname}%
-%     % 3 lines added:
-%     \ifx\UnicodeEncodingName\@undefined\else
-%       \expandafter\expandafter\expandafter\MT@is@uni@comp\MT@char\iffontchar\else\fi\relax
-%     \fi
-%     \expandafter\expandafter\expandafter\MT@is@letter\MT@char\relax\relax
-%     \ifnum\MT@char@ < \z@
-%       \ifMT@xunicode
-%         \edef\MT@char{\MT@exp@two@c\MT@strip@prefix\meaning\MT@char>\relax}%
-%           \expandafter\MT@exp@two@c\expandafter\MT@is@charx\expandafter
-%             \MT@char\MT@charxstring\relax\relax\relax\relax\relax
-%       \fi
-%     \fi
-%   \fi
-% }
-% % new:
-% \def\MT@is@uni@comp#1\iffontchar#2\else#3\fi\relax{%
-%   \ifx\\#2\\\else\edef\MT@char{\iffontchar#2\fi}\fi
-% }
-% \makeatother\makeatother
