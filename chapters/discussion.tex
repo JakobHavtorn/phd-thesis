@@ -86,24 +86,12 @@ If this model were to be deployed in a randomized controlled trial, the calibrat
         % \caption{}
         % \label{fig_discussion:histogram_ensemble_and_single_model}
     \end{subfigure}
-    \caption[Calibration fits and curves for the stroke recognition model using Platt-scaling and isotonic regression for calibration.]{%
-        Calibration curves using sigmoid and isotonic calibration fits for the stroke recognition ensemble model (left) and the calibration fits (right). 
-        We use the ensemble that achieved the median F1-score which is the one also reported in \cref{tab_retrospective:table3-occlusion-analysis} and \cref{fig_retrospective:figure1-roc-curve}.}
+    \caption[Calibration fits and curves for the stroke recognition model using Platt-scaling and isotonic regression for calibration.]{ Calibration curves using sigmoid and isotonic calibration fits for the stroke recognition ensemble model (left) and the calibration fits (right). We use the ensemble that achieved the median F1-score which is the one also reported in \cref{tab_retrospective:table3-occlusion-analysis} and \cref{fig_retrospective:figure1-roc-curve}.}
     \label{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic}
 \end{figure}
 
 
-% \subsectionP{Ensembling technique}
-% To form an ensemble from several models, we need a method to form a single prediction from the outputs of the individual models.
-% To allow us to evaluate an impact score for each word feature in our ablation study, we wanted our ensemble to provide not only predictions but also associated probability scores on a continuous scale. A majority voting scheme would only provide as many different scores as models, in our case five, which is arguably too coarse a resolution. 
-
-
-
-
-
-
-\lesstodo[inline]{Discuss the calibration of the stroke model and report calibration curve.}
-\lesstodo[inline]{Report the results of calibrating the stroke model using e.g. Platt scaling or Isotonic scaling.} % https://scikit-learn.org/stable/modules/calibration.html
-
+% \lesstodo[inline]{Discuss the calibration of the stroke model and report calibration curve.}
+% \lesstodo[inline]{Report the results of calibrating the stroke model using e.g. Platt scaling or Isotonic scaling.} % https://scikit-learn.org/stable/modules/calibration.html
 
 % \lesstodo[inline]{Maybe mention MultiQT paper \parencite{havtorn_multiqt_2020}.}

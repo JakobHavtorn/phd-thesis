@@ -162,12 +162,16 @@
   location = {{Toulon, France}}
 }
 
-@misc{alemi_fixing_2018,
+@inproceedings{alemi_fixing_2018,
   title = {Fixing a {{Broken ELBO}}},
+  booktitle = {Proceedings of the {{International Conference}} on {{Machine Learning}} ({{ICML}})},
   author = {Alemi, Alexander A. and Poole, Ben and Fischer, Ian and Dillon, Joshua V. and Saurous, Rif A. and Murphy, Kevin},
   date = {2018-02-13},
   eprint = {1711.00464},
   eprinttype = {arxiv},
+  pages = {159--168},
+  publisher = {{PMLR}},
+  location = {{Stockholm, Sweden}},
   urldate = {2019-12-23},
   abstract = {Recent work in unsupervised representation learning has focused on learning deep directed latentvariable models. Fitting these models by maximizing the marginal likelihood or evidence is typically intractable, thus a common approximation is to maximize the evidence lower bound (ELBO) instead. However, maximum likelihood training (whether exact or approximate) does not necessarily result in a good latent representation, as we demonstrate both theoretically and empirically. In particular, we derive variational lower and upper bounds on the mutual information between the input and the latent variable, and use these bounds to derive a rate-distortion curve that characterizes the tradeoff between compression and reconstruction accuracy. Using this framework, we demonstrate that there is a family of models with identical ELBO, but different quantitative and qualitative characteristics. Our framework also suggests a simple new method to ensure that latent variable models with powerful stochastic decoders do not ignore their latent code.},
   langid = {english}

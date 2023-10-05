@@ -106,7 +106,7 @@ In the rest of this chapter, we will provide a high-level introduction to these 
 
 % \todo[inline]{Can we find a better example than the Rhind Papyrus, or an additional one? It could be more on-point with decision-making and more well-known. Ideally, weave in an example of a failure of such technology.}
 
-\section{Motivation and Corti's use-cases}
+\section{Uncertainty by example: Corti use-cases}
 %
 % OUTLINE: Motivate the research project. 
 % - What is the context of the research and why is it important? 
@@ -121,11 +121,11 @@ Calls are transcribed in real-time using automatic speech recognition built for 
 
 \subsection{Stroke recognition in emergency calls} \label{subsec:motivation-stroke-recognition}
 %
-\paragraph{Motivation} In 2021, Corti entered a research collaboration with the Capital Region of Denmark and the Copenhagen Emergency Services to develop a system for recognizing stroke cases in calls to the 1-1-2 emergency line and the 1813 medical helpline. 
+\paragraph{Case background} In 2021, Corti entered a research collaboration with the Capital Region of Denmark and the Copenhagen Emergency Services to develop a system for recognizing stroke cases in calls to the 1-1-2 emergency line and the 1813 medical helpline. 
 Stroke is one of the biggest causes of disability and death worldwide \parencite{cite1,cite2,cite3} and effective treatment is highly time-sensitive \parencite{cite4,cite5}. The most common gateway to specialized treatment and hospital admittance is through prehospital telehealth services like emergency medical call centers, nurse advice call lines, and out-of-hours health services \parencite{cite6,cite7}, however, studies have found that approximately half of all patients with stroke do not receive the correct triage for their condition from call-takers \parencite{cite10,cite11,cite12}. 
 This is likely due to the complexity of stroke cases which exhibit a wide range of symptoms that can be difficult to recognize over the phone. Additionally, stroke cases are relatively rare, occurring in only $0.25\%$ of all calls made to the Copenhagen 1-1-2 emergency line in 2021. This makes it difficult for call-takers to gain practical experience with stroke cases which compounds to the difficulty of recognizing them. Although several efforts have been made to improve recognition rates, there is still a need for better tools to support call-takers in recognizing stroke cases \parencite{cite13,cite14,cite15}.
 
-\paragraph{Augmentation} A reasonable machine learning pipeline to assist in recognizing stroke cases on calls to emergency services might consist of an automatic speech recognition model that transcribes the conversation and a binary classifier that estimates the probability that the transcript describes a case of stroke. 
+\paragraph{Uncertainty in stroke recognition} A reasonable machine learning pipeline to assist in recognizing stroke cases on calls to emergency services might consist of an automatic speech recognition model that transcribes the conversation and a binary classifier that estimates the probability that the transcript describes a case of stroke. 
 Such a system might be trained on a dataset calls with verified stroke and non-stroke cases and evaluated against a held-out test set of calls where the call-taker has indicated whether they suspect a stroke. Due to the low prevalence of stroke cases, the dataset would likely be imbalanced, and the number of stroke cases limited. 
 % The performance of such a system would depend on the quality of the automatic speech recognition model, the quality of the classifier, and the quality of the data used to train them. 
 In such a system, many factors can lead to classification errors, and when that happens, we would like the model to express high degree of uncertainty. 
@@ -137,7 +137,7 @@ What is clear, however, is that the ability of such a system to accurately estim
 
 \subsection{Medical coding of clinical notes} \label{subsec:motivation-medical-coding}
 %
-\paragraph{Motivation} During the course of this project, Corti's portfolio has expanded to include a software system for medical coding of clinical notes. 
+\paragraph{Case background} During the course of this project, Corti's portfolio has expanded to include a software system for medical coding of clinical notes. 
 When a patient is admitted to a hospital, the medical staff will write a clinical note describing the patient's diagnosis and the procedures they underwent, including drug prescriptions. 
 These notes are then used for billing and reimbursement purposes, as well as for research and quality assurance. 
 The clinical notes are written, usually by a doctor, in natural language adhering to a certain structure. Later, a medical coder will assign a set of codes to the note based on its content. 
@@ -146,7 +146,7 @@ Furthermore, any single code can have several criteria defined by official guide
 % Official guidelines describe how to code specific diagnoses and procedures and combinations thereof . 
 % For instance, a code may have several exclusion or inclusion criteria which define which other codes must be coded along with it, or when they must not. 
 
-\paragraph{Augmentation} A reasonable machine learning pipeline to assist in medical coding might consist of a natural language processing model that extracts relevant information from the clinical note and outputs a number of probability distributions that each estimate the probability that the note should be assigned one of the medical codes. 
+\paragraph{Uncertainty in automated medical coding} A reasonable machine learning pipeline to assist in medical coding might consist of a natural language processing model that extracts relevant information from the clinical note and outputs a number of probability distributions that each estimate the probability that the note should be assigned one of the medical codes. 
 However, training and using such as system comes with several challenges. 
 For instance, the prevalence of different medical codes in the training data is highly imbalanced; it is common to have several orders of magnitude difference between the frequency of the most frequent code and the least frequent code. Since each clinical note is associated with multiple codes that have complex co-occurrence patterns, it is often impossible to exactly correct for this class imbalance by stratified sampling, which is an otherwise common approach to deal with class imbalance in machine learning. 
 % This also gives rise to 
@@ -221,7 +221,7 @@ Other approaches include anomaly detection and the recent field of out-of-distri
 
 This introduction provided a high-level overview of the motivation behind the research project by focusing on the use-cases of stroke recognition and automated medical coding as well as speech processing and the importance of uncertainty quantification. 
 The remainder of \cref{part:background} consists of two chapters. 
-\Cref{chp:main-contributions} presents the research questions of the thesis and the main contributions made in the included papers. 
+\Cref{chp:main-contributions} presents the research hypotheses and contributions of the thesis via the included papers. 
 \Cref{chp:technical-background} provides relevant technical background to the included papers, including uncertainty, out-of-distribution detection, and variational autoencoders. 
 
 \Cref{part:unsupervised-uncertainty-estimation,part:self-supervised-speech-representation-learning,part:medical-applications} contain a number of chapters that each correspond to a primary paper. 
