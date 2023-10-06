@@ -24,14 +24,14 @@ In \cref{subsec:zero}, the SSL representation is further used in scenarios where
 
 \begin{sidewaystable}
 \centering
-\caption[Performance of models within unsupervised ASR.]{
+\caption[Performance of self"=supervised models for unsupervised ASR.]{
 	Unsupervised ASR.
 	TIMIT numbers are phoneme error rates (PER), while the numbers for
 	LibriSpeech are word error rates (WER).
 	SWC $=$ spoken word classifier, ST $=$ speech translation.
 	All speech and text are in English if not specified. 
 	\textcolor{black}{The references in the table are sorted according to the date of publication.}}
-	\label{fig:unsupervisedASR}
+	\label{tab:unsupervisedASR}
 	\resizebox*{\textwidth}{!}{%
 	{\renewcommand*\arraystretch{1.4}}
 	\begin{tabular}{cllllll}
@@ -88,7 +88,7 @@ set of sentences $\mathcal{Y}=\{Y_1, Y_2, ..., Y_M\}$,\footnote{Note that
 the speech and text are not paired, that is, $Y_i$ is not the transcription of
 $S_i$.} a mapping function~$F$, which can take an utterance~$S$ as input and
 generate its transcription, is learned from data. 
-\Cref{fig:unsupervisedASR} summarizes recent work on unsupervised ASR,
+\Cref{tab:unsupervisedASR} summarizes recent work on unsupervised ASR,
 including the speech representation used, the algorithm used to learn the
 mapping without supervision, and the results. Below, we will discuss these
 methods in more detail.
@@ -148,7 +148,7 @@ Another series of work is to transform a word into a word embedding.
 speech embedding space~\parencite{chung_speech2vec_2018} to the word embedding space
 and achieve promising performance on spoken word classification, speech
 translation, and spoken word retrieval.
-\Cref{fig:unsupervisedASR} summarizes the various ways to segment speech and represent speech and text in each reference.  
+\Cref{tab:unsupervisedASR} summarizes the various ways to segment speech and represent speech and text in each reference.  
 
 %Hung-yi Lee: I comment this paragraph first.
 \begin{comment}
@@ -189,7 +189,7 @@ segmentation implicitly.
 %However, \parencite{chung_unsupervised_2018, chung_unsupervised_2019a} need oracle boundaries, therefore not completely unsupervised as the framework proposed in this paper.
 
 % more improvement: iterative training, development 
-As shown in \cref{fig:unsupervisedASR}, most studies use
+As shown in \cref{tab:unsupervisedASR}, most studies use
 \textit{self-training} to refine the models.
 % to achieve better performance.  % AMH: redundant
 In self-training, the generator serves as the first-version phoneme recognition model.
