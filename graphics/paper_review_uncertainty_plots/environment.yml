@@ -12,7 +12,7 @@ dependencies:
   - python=3.11
   - scikit-learn
   - scipy
-variables:
-  VAR1: valueA
-  VAR2: valueB
+  - torch
+  - torchaudio
+  
 

@@ -1,0 +1,15 @@
+name: thesis
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ipython
+  - jupyter
+  - matplotlib
+  - numpy
+  - pandas
+  - ruff
+  - python=3.11
+  - scikit-learn
+  - scipy
+
