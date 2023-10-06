@@ -1,4 +1,37 @@
 %!TEX root = ../thesis.tex
+% LTeX: enabled=false
 
 \chapter[resumé (danish)]{Resumé (Danish)}
 
+Naturligt sprog spiller en central rolle for patientinteraktioner i sundhedssystemer verden over. 
+På trods af betydelige fremskridt inden for medicin og medicinsk teknologi er patientinterviews og generel medicinsk kommunikation forblevet stort set uændret. Typisk har en enkelt sundhedsperson, hvad enten det er en opkaldstager på en akuttelefon, en paramediciner, en praktiserende læge eller en medicinsk koder, til opgave at forstå patientbehov og agere passende. Med aldrende befolkninger, stadigt flere behandlingsmuligheder, administrative byrder og strenge dokumentationskrav står sundhedspersonale over for et stigende pres i et stadigt mere komplekst miljø. Disse udfordringer udgør risici for personalefastholdelse, plejekvalitet og potentialet for medicinske fejl.
+
+Maskinlæring udgør en mulighed for at støtte sundhedspersonale i forskellige medicinske rammer, herunder primære klinikker og akuttjenester. Tidligere maskinlæringsapplikationer i sundhedsvæsenet har ofte forsømt naturligt sprog og fokuseret på opgaver, der involverer strukturerede data som at forudsige medicinske billeddannelsesresultater og analysere elektroniske sundhedsjournaler. Brugen af maskinlæringssystemer til at fortolke naturligt sprog kan dog lette de administrative- og dokumentationsbyrder for sundhedspersonale og hjælpe med at sikre, at kritisk information ikke overses eller glemmes.
+
+Udvikling af maskinlæringssystemer til medicinske samtaler er udfordrende på grund af den høje indvirkning som sundhedsbeslutninger har på patienters liv og kompleksiteten af ustrukturerede sprogdata, herunder tale og tekst. Mens maskinlæringssystemer baseret på neurale netværk har vist imponerende resultater på andre domæner, kan deres anvendelse i sundhedsvæsenet blive hindret af deres svært fortolkelige prædiktioner og deres dårlige evne til at kvantificere prædiktiv usikkerhed, som forstærkes i dynamiske miljøer og for sjældne tilfælde, almindeligvist omtalt som ude-af-fordeling data.
+
+Denne afhhandling udforsker maskinlæringsteknikker til medicinske samtaler med primært fokus på usikkerhedsvurdering og naturlig sprogbehandling. Den første del undersøger usuperviserede metoder til at detektere ude-af-fordeling data og modellering af tale ved hjælp af variationelle autoindkodere, og giver følgende bidrag:
+%
+\begin{enumerate}[label=(\roman*)] 
+    \item Empirisk og teoretisk evidens der viser, at simple dataegenskaber dominerer 
+    estimatet af likelihoodfunktionen for hierarkiske variationelle autoindkodere, hvilket hindrer detektion af data, der er ude-af-fordeling, og en ny likelihood-ratio score, der kræver at data er indenfor fordeling på tværs af alle dataegenskaber, simple såvel som komplekse.
+    \item En model-agnostisk statistisk test der bruger Fishers metode til at kombinere Rao's score test og den nyligt introducerede typikalitets test og er anvendelig med likelihoods fra enhver differentiabel generativ model.
+    \item Demonstrerede forbedringer i likelihood på taledata ved brug af hierarkiske variationelle autoindkodere sammenlignet med ikke-hierarkiske varianter samt latente rum, der repræsenterer information relevant for tale, såsom fonetisk indhold.
+\end{enumerate}
+%
+Anden del af denne afhandling udforsker selv-superviserede metoder til talerepræsentation og -forståelse og bidrager med:
+%
+\begin{enumerate}[label=(\roman*)] 
+    \item En omfattende litteraturgennemgang af selv-superviseret repræsentationslæring for tale der kategoriserer metoder i kontrastive, autoregressive og generative tilgange, giver en sammenligning af træningsobjektiver, modelarkitekturer og præstationer på downstream opgaver, og diskuterer lovende retninger for fremtidig forksning.
+\end{enumerate}
+%
+Den sidste del fokuserer på medicinske anvendelser af maskinlæring og giver følgende bidrag:
+%
+\begin{enumerate}[label=(\roman*)] 
+    \item En analyse af state-of-the-art modeller for automatiseret medicinsk kodning på MIMIC-III og IV datasættene. Denne analyse identificerer suboptimal træningspraksis, evalueringsmetoder og ikke-stratificerede dataopdelinger som faktorer, der bidrager til dårlig præstation. Den præsenterer efterfølgende en revideret sammenligning ved hjælp af forbedrede dataopdelinger og identiske eksperimentelle opsætninger der kaster lys over metodernes sande komparative ydeevne.
+    \item Et retrospektivt studie der demonstrerer at et lyd-basereet maskinlærings system betydeligt kan forbedre genkendelsen af stroke i opkald til den præhospitale akuttelefon 1813, der dækker Københavnsområdet.
+\end{enumerate}
+%
+Denne afhandling fremmer forskning i maskinlæring indenfor sundhedsvæsenet ved at adressere udfordringer inden for naturlig sprogbehandling, usikkerhedsvurdering og medicinske anvendelser, hvilket i sidste ende kan bidrage til forbedret patientbehandling og klinisk beslutningstagning.
+
+% LTeX: enabled=true
