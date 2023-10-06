@@ -16,7 +16,7 @@ Both text and speech can be represented as sequences. From this viewpoint, it
 is natural to apply learning approaches developed for text directly to
 speech. 
 In NLP, morpheme-like tokens are widely used as sequence units in
-pre-training. The standard BERT takes 512 morpheme-like tokens as
+pre"=training. The standard BERT takes 512 morpheme-like tokens as
 input, usually covering a paragraph including several sentences. 
 However, speech signals consist of sound pressure measurements with thousands
 of samples per second, resulting in sequences much longer than those for text. Even
@@ -36,14 +36,14 @@ However, this idea does not apply to speech modeling because speech
 signals are continuous; 
 in this sense there is no such thing as a speech vocabulary. 
 \item \textit{Speech processing tasks are diverse.}
-Building generalizable self-supervised representation models for diverse speech
-processing tasks is challenging.
+Building generalizable self"=supervised representation models for diverse speech
+processing tasks is challenging. 
 Speech contains rich, hierarchical information, and different speech tasks
 may require mutually orthogonal information.
 For example, speech recognition requires a model that extracts content information
 but ignores speaker information; in contrast, speaker recognition 
 requires a model that extracts speaker information but removes content information.
-Therefore, it is challenging to define a self-supervised model whose
+Therefore, it is challenging to define a self"=supervised model whose
 representations are suitable for both speech recognition and speaker
 recognition. Analogous considerations apply within CV and NLP.
 \end{itemize}
@@ -60,24 +60,24 @@ with each model colored according to our categorization.
 \label{sec:notation}
 
 To efficiently describe the different approaches, we use a simple
-notation. Models are assumed to consist of functions $f(\cdot)$ and $g(\cdot)$, where $f(\cdot)$  denotes the representation model to be used after pre-training and $g(\cdot)$ is an auxiliary module needed only to support the pretext task. For instance, in a classic autoencoder, $f(\cdot)$ would denote the encoder and $g(\cdot)$ the decoder. For more complex models, these functions might consist of several components indicated by sub-indices $f_1(\cdot) \dots f_N(\cdot)$. As we will see, many self-supervised models use masking, which replaces some parts of the input or a hidden representation  by zeros or a learned vector. We use $m(\cdot)$ to denote a function that applies such masking to its input. Similar to $g(\cdot)$, this function is only used during pre-training. 
+notation. Models are assumed to consist of functions $f(\cdot)$ and $g(\cdot)$, where $f(\cdot)$  denotes the representation model to be used after pre"=training and $g(\cdot)$ is an auxiliary module needed only to support the pretext task. For instance, in a classic autoencoder, $f(\cdot)$ would denote the encoder and $g(\cdot)$ the decoder. For more complex models, these functions might consist of several components indicated by sub-indices $f_1(\cdot) \dots f_N(\cdot)$. As we will see, many self"=supervised models use masking, which replaces some parts of the input or a hidden representation  by zeros or a learned vector. We use $m(\cdot)$ to denote a function that applies such masking to its input. Similar to $g(\cdot)$, this function is only used during pre"=training. 
 
 Given an acoustic input $X =\{x_1,x_2, ..., x_T\}$, $f(\cdot)$ outputs a representation $H =\{h_1,h_2,...,h_T\}$. The input~$X$ may be either the raw waveform samples or a sequence of spectral feature vectors. Both are viable options in practice. For simplicity, we do not distinguish between the two in our notation.  
 
-While $f(\cdot)$ always takes an acoustic input, the input to $g(\cdot)$ can be either the acoustic signal or another learned representation. Most importantly, $g(\cdot)$ produces an output that is used for the pretext task but is not  used by $f(\cdot)$ to produce the representation $H$. Hence, $g(\cdot)$ can be discarded after pre-training. Finally, $f(\cdot)$ commonly downsamples the temporal dimension, but again, this is not crucial to understand the models, so consider only a single temporal scale $t\in\{1,\dots, T\}$ for notational convenience.
+While $f(\cdot)$ always takes an acoustic input, the input to $g(\cdot)$ can be either the acoustic signal or another learned representation. Most importantly, $g(\cdot)$ produces an output that is used for the pretext task but is not  used by $f(\cdot)$ to produce the representation $H$. Hence, $g(\cdot)$ can be discarded after pre"=training. Finally, $f(\cdot)$ commonly downsamples the temporal dimension, but again, this is not crucial to understand the models, so consider only a single temporal scale $t\in\{1,\dots, T\}$ for notational convenience.
 
 We use $Q = \{q_1,q_2, ..., q_T\}$ to denote representations that are quantized via codebook learning. Alternatively, discrete representations may take the form of one-hot vectors, or the equivalent integer IDs, which we denote by $C = \{c_1,c_2, ..., c_T\}$. We use a circumflex to denote that, for instance, $\hat{x}_t$ is an approximation of $x_t$. Finally, we often use a subscript when defining a loss, $\mathcal{L}_i$, to imply that the total loss is computed as a sum over $i$, unless otherwise stated.
 
 For some models, we will refer to $H$ as a \emph{contextualized} representation which means that each $h_t$ is a function of some, linguistically speaking, long sub-sequence of $X$ spanning at least several phonemes. Usually, $h_t$ depends on the entire input $X$ or all previous timesteps $X_{[1,t]}$. In contrast, a \emph{localized} representation is one that only depends on a short part of the input $X_{[t - u,t + u]}$, where $u \geq 0$. The distinction between contextualized and localized may become fuzzy if $u$ is large, however, this is rarely the case.
 
-\edit{After pre-training,} the representation model $f(\cdot)$ can be fine-tuned for a downstream task directly or used to extract features which are fed to another model, as visualized in \cref{fig:SSL_framework}. It is not uncommon to use the output representation~$H$, but often representations from hidden layers of $f(\cdot)$ are better suited \parencite{pasad_layerwise_2021}.
+\edit{After pre"=training,} the representation model $f(\cdot)$ can be fine-tuned for a downstream task directly or used to extract features which are fed to another model, as visualized in \cref{fig:SSL_framework}. It is not uncommon to use the output representation~$H$, but often representations from hidden layers of $f(\cdot)$ are better suited \parencite{pasad_layerwise_2021}.
 
 
 \begin{figure*}
     \centering
     \includegraphics[width=\textwidth]{paper_review/model_timeline.pdf}
    % \includegraphics[width=0.98\textwidth]{paper_review/model_timeline_wo_dccae.pdf}
-	 \caption[Selection of self-supervised models for speech.]{A selection of models listed according to first publication date
+	 \caption[Selection of self"=supervised models for speech.]{A selection of models listed according to first publication date
 	 on arXiv or conference submission date when this clearly precedes the
 	 former. The models are categorized as generative, contrastive, or predictive.
 	 In addition, some models are characterized as embedding models or
@@ -120,7 +120,7 @@ category~\parencite{oord_neural_2018};
 it extends the original VAE~\parencite{kingma_autoencoding_2014} with a novel
 parameterization of the posterior distribution for discrete latent
 representations. 
-\edit{The VQ-VAE has been instrumental in generative speech modelling and recent work on generative spoken language modeling has successfully combined the idea of a discrete latent space with self-supervised learning \parencite{polyak_speech_2021, kharitonov_textfree_2021, nguyen_generative_2022}.}
+\edit{The VQ-VAE has been instrumental in generative speech modelling and recent work on generative spoken language modeling has successfully combined the idea of a discrete latent space with self"=supervised learning \parencite{polyak_speech_2021, kharitonov_textfree_2021, nguyen_generative_2022}.}
 
 
 
@@ -210,7 +210,7 @@ $h_{t}$ and $h^\prime_{t}$.
 
 \paragraph{Masked reconstruction}
 
-Masked reconstruction is largely inspired by the masked language model (MLM) task from BERT~\parencite{devlin_bert_2018}. During BERT pre-training, some tokens in the input sentences are masked by randomly replacing them by a learned masking token or another input token. The model learns to reconstruct the masked tokens from the non-masked tokens. Recent work has explored similar pretext tasks \edit{for speech representation learning}. Similar to the DeCoAR model described above, this allows a model to learn contextualized representations that encode information from the entire input. While we here focus on the models that reconstruct the masked input, it is important to note that masking has also been used extensively for contrastive (\cref{contrastive_approaches}) and predictive (\cref{predictive_approaches}) models. 
+Masked reconstruction is largely inspired by the masked language model (MLM) task from BERT~\parencite{devlin_bert_2018}. During BERT pre"=training, some tokens in the input sentences are masked by randomly replacing them by a learned masking token or another input token. The model learns to reconstruct the masked tokens from the non-masked tokens. Recent work has explored similar pretext tasks \edit{for speech representation learning}. Similar to the DeCoAR model described above, this allows a model to learn contextualized representations that encode information from the entire input. While we here focus on the models that reconstruct the masked input, it is important to note that masking has also been used extensively for contrastive (\cref{contrastive_approaches}) and predictive (\cref{predictive_approaches}) models. 
 
 From a high-level perspective, the training phase of models using masked
 reconstruction can be formulated as
@@ -220,21 +220,21 @@ reconstruction can be formulated as
     \mathcal{L}_t &= \lVert \hat{x}_{t} - x_{t} \rVert_1 .
 \end{align}
 \edit{The exact masking policy defined by $m(\cdot)$ differs from model to model and will be discussed further below.}
-The function $f(\cdot)$ is typically a Transformer encoder~\parencite{liu_mockingjay_2020,jiang_improving_2019,liu_masked_2020}, but recurrent neural networks have also been used~\parencite{wang_unsupervised_2020}. \edit{In general, the Transformer encoder architecture has been adopted widely by self-supervised models for speech within all three surveyed categories.} \edit{The function $g(\cdot)$ is usually a linear projection or a multilayer perceptron (MLP)}. Finally, the loss $\mathcal{L}_t$ is commonly computed only for masked timesteps in order to discourage the model from learning an identity mapping.
+The function $f(\cdot)$ is typically a Transformer encoder~\parencite{liu_mockingjay_2020,jiang_improving_2019,liu_masked_2020}, but recurrent neural networks have also been used~\parencite{wang_unsupervised_2020}. \edit{In general, the Transformer encoder architecture has been adopted widely by self"=supervised models for speech within all three surveyed categories.} \edit{The function $g(\cdot)$ is usually a linear projection or a multilayer perceptron (MLP)}. Finally, the loss $\mathcal{L}_t$ is commonly computed only for masked timesteps in order to discourage the model from learning an identity mapping.
 
-The masking policies used in NLP can be adapted to speech by considering a speech \edit{segment} equivalent to a token in a sentence; indeed, the masking strategy of BERT has also been used for speech pre-training~\parencite{liu_mockingjay_2020}.
+The masking policies used in NLP can be adapted to speech by considering a speech \edit{segment} equivalent to a token in a sentence; indeed, the masking strategy of BERT has also been used for speech pre"=training~\parencite{liu_mockingjay_2020}.
 In the standard BERT masking policy, each token is masked independently at random. However, for speech, masking a single \edit{sample or spectrogram frame results in a largely} trivial reconstruction task \edit{since, as discussed in \cref{par:apc}, the smoothness of audio signals may encourage the model to learn to simply interpolate neighboring frames.} Therefore it is common to mask chunks of consecutive frames~\parencite{liu_mockingjay_2020,jiang_further_2021}. 
 
 We can bring the pretext task closer to the NLP equivalent by using a masking policy where the masked regions of the input correspond to linguistic units. Instead of just masking a fixed number of consecutive frames, pMPC~\parencite{yue_phonetically_2021} selects masked speech frames according to the phonetic segmentation in an utterance. \edit{However, in order to obtain this segmentation, some labeled data is of course needed.}
 
 Whereas most studies use masking along the temporal dimension of the input, speech can also be masked along the frequency dimension when spectral input features are used~\parencite{wang_unsupervised_2020,liu_tera_2021}. Frequency masking has been shown to improve representations used for speaker classification~\parencite{liu_tera_2021}. 
 
-Some studies explore alternatives to masking the input directly. In non-autoregressive predictive coding (NPC)~\parencite{liu_nonautoregressive_2020}, time masking is introduced through masked convolution blocks. Taking inspiration from XLNet~\parencite{yang_xlnet_2019}, it has also been suggested that the input be reconstructed from a shuffled version~\parencite{song_speechxlnet_2020} to address the discrepancy between pre-training and fine-tuning of masking-based approaches.
+Some studies explore alternatives to masking the input directly. In non"autoregressive predictive coding (NPC)~\parencite{liu_nonautoregressive_2020}, time masking is introduced through masked convolution blocks. Taking inspiration from XLNet~\parencite{yang_xlnet_2019}, it has also been suggested that the input be reconstructed from a shuffled version~\parencite{song_speechxlnet_2020} to address the discrepancy between pre"=training and fine-tuning of masking-based approaches.
 
 Regularization methods can further improve on masked reconstruction approaches. \edit{DeCoAR 2.0~\parencite{ling_decoar_2020} uses vector quantization}, which is shown to improve the learned representations. Furthermore, two dropout regularization methods---attention dropout and layer dropout---are introduced with the TERA model~\parencite{liu_tera_2021, luo_dropout_2021}. \edit{Both methods are variations on the original dropout method \parencite{srivastava_dropout_2014}.}
 
 \paragraph{More generative approaches}
-Other than the autoregressive and masked reconstruction tasks discussed above, various studies have explored the reconstruction of other targets derived from the input. PASE and PASE+~\parencite{pascual_learning_2019,ravanelli_multitask_2020} use multiple targets, including the waveform, log power spectrum, \edit{mel cepstral coefficients (MFCCs)}, and prosody features. Models that learn acoustic embeddings of small speech segments have targeted future and past spectrogram segments~\parencite{chung_speech2vec_2018, tagliasacchi_selfsupervised_2019, tagliasacchi_pretraining_2020}, phase information~\parencite{quitry_learning_2019}, and the temporal gap between two segments~\parencite{tagliasacchi_selfsupervised_2019, tagliasacchi_pretraining_2020}.
+Other than the autoregressive and masked reconstruction tasks discussed above, various studies have explored the reconstruction of other targets derived from the input. PASE and PASE+~\parencite{pascual_learning_2019,ravanelli_multitask_2020} use multiple targets, including the waveform, log power spectrum, \edit{Mel cepstral coefficients (MFCCs)}, and prosody features. Models that learn acoustic embeddings of small speech segments have targeted future and past spectrogram segments~\parencite{chung_speech2vec_2018, tagliasacchi_selfsupervised_2019, tagliasacchi_pretraining_2020}, phase information~\parencite{quitry_learning_2019}, and the temporal gap between two segments~\parencite{tagliasacchi_selfsupervised_2019, tagliasacchi_pretraining_2020}.
 
 
 \subsubsection{Challenges} 
@@ -291,7 +291,7 @@ The wav2vec model \parencite{schneider_wav2vec_2019} extends the CPC approach \e
     q_t &= g(z_t) \enspace . \label{w2v2 qtz}
 \end{align}
 \noindent
-The quantization module $g(\cdot)$ uses a Gumbel softmax~\parencite{jang_categorical_2016} with a straight-through estimator. Since the quality of the learned representations is contingent on the quality of the quantization, wav2vec 2.0 combines two techniques to learn high-quality codebooks. First, wav2vec 2.0 concatenates quantized representations from multiple codebooks at each timestep, so-called Product Quantization (PQ)~\parencite{jegou_product_2011}. Also, the \edit{primary} training loss \edit{described below} is augmented with an auxiliary term designed to encourage equal use of all codebook entries. 
+The quantization module $g(\cdot)$ uses a Gumbel softmax~\parencite{jang_categorical_2016} with a straight-through estimator. Since the quality of the learned representations is contingent on the quality of the quantization, wav2vec 2.0 combines two techniques to learn high-quality codebooks. First, wav2vec 2.0 concatenates quantized representations from multiple codebooks at each timestep, so-called Product Quantization (PQ) \parencite{jegou_product_2011}. Also, the \edit{primary} training loss \edit{described below} is augmented with an auxiliary term designed to encourage equal use of all codebook entries. 
 
 In wav2vec 2.0, anchors are taken to be $h_t$ at masked timesteps only, the positive sample is chosen as the quantized vector, $q_t$, at the same timestep, and negatives are sampled from other masked timesteps. The loss is
 %
@@ -330,7 +330,7 @@ Similar to BERT, the model can then be trained with a categorical cross-entropy 
     \mathcal{L} &= \sum_{t\in \mathcal{M}} - \log p(c_t \mid X) \enspace ,
 \end{align}
 \noindent where $\mathcal{M}$ is the set of all masked timesteps. During training, only the BERT model's parameters are updated, while the vq-wav2vec model parameters are frozen.} 
-Discrete BERT was the first model to demonstrate the effectiveness of self-supervised speech representation learning by achieving a WER of 25\% on the standard test-other subset using a 10-minute fine-tuning set, \edit{setting the direction for many approaches to follow}.
+Discrete BERT was the first model to demonstrate the effectiveness of self"=supervised speech representation learning by achieving a WER of 25\% on the standard test-other subset using a 10-minute fine-tuning set, \edit{setting the direction for many approaches to follow}.
 
 \paragraph{HuBERT} Rather than relying on an advanced representation learning model for discretizing continuous inputs, as Discrete BERT, the Hidden Unit BERT (HuBERT) approach \parencite{hsu_hubert_2021} \edit{uses quantized MFCC features as targets learned with classic $k$-means. Thus, to compute the targets, the $k$-means model $g_1(\cdot)$ assigns a cluster center to each timestep.  
 Different from Discrete BERT, HuBERT takes the raw waveform as input, rather than discrete units. This helps to prevent loss of any relevant information due to input quantization.
@@ -352,10 +352,10 @@ The categorical cross-entropy loss is} computed on both masked, $\mathcal{L}_m$,
 \noindent Again, $\mathcal{M}$ is the set of all masked timesteps, $\beta$ is a scalar hyperparameter and $\mathcal{L}_u$ is computed as $\mathcal{L}_m$ but summing over $t\notin \mathcal{M}$.
 
 Intuitively, the HuBERT model is forced to learn both \edit{an acoustic and a language model. 
-First, the model needs to learn a meaningful continuous latent representation for unmasked timesteps which are mapped to discrete units, similar to a classical frame-based acoustic modeling problem. Second, similar to other masked pre-training approaches, the model needs to capture long-range temporal dependencies to make correct predictions for masked timesteps}.
+First, the model needs to learn a meaningful continuous latent representation for unmasked timesteps which are mapped to discrete units, similar to a classical frame-based acoustic modeling problem. Second, similar to other masked pre"=training approaches, the model needs to capture long-range temporal dependencies to make correct predictions for masked timesteps}.
 
-One crucial insight motivating this work is the importance of consistency of the targets which enables the model to focus on modeling the sequential structure of the input. \edit{Importantly though, for HuBERT, pre-training is a two-step procedure. The first iteration is described above.
-Once completed, a second iteration of pre-training follows. Here, representations from a hidden layer of the model from the first iteration are clustered with $k$-means to obtain new targets $c_t$.}
+One crucial insight motivating this work is the importance of consistency of the targets which enables the model to focus on modeling the sequential structure of the input. \edit{Importantly though, for HuBERT, pre"=training is a two-step procedure. The first iteration is described above.
+Once completed, a second iteration of pre"=training follows. Here, representations from a hidden layer of the model from the first iteration are clustered with $k$-means to obtain new targets $c_t$.}
 
 \edit{For HuBERT, only two iterations are needed to match or outperform the previous state-of-the-art results for low-resource speech recognition. And combining the HuBERT approach with the wav2vec 2.0 approach, the w2v-BERT model has managed to improve results even further~\parencite{chung_w2vbert_2021}.}
 
@@ -367,13 +367,13 @@ Once completed, a second iteration of pre-training follows. Here, representation
 \edit{First, it extends the Transformer self-attention mechanism with a so-called \emph{gated relative position bias}. The bias is added prior to the softmax normalization of the attention weights. For the attention weight at $i,j$, the bias is computed based on the input to the Transformer layer at the current time step $i$ and also incorporates a relative positional embedding for $i-j$. The authors find that this extension improves performance on phoneme and speech recognition tasks.}
 
 \edit{Second, it uses an utterance mixing strategy where signals from different speakers are combined to augment the training data.} \edit{Specifically, random subsequences from other examples in the same batch are scaled and added to each input example.
-Only the targets corresponding to the original example are predicted during pre-training. Thus, the model learns to filter out the added overlapping speech.}
+Only the targets corresponding to the original example are predicted during pre"=training. Thus, the model learns to filter out the added overlapping speech.}
 
 Most SSL methods are trained on data \edit{where each example only contains speech from a single person}; therefore, they can perform subpar on multispeaker tasks like speaker separation and diarization. 
 
 The WavLM model achieved substantial improvements on the speech separation, speaker verification and speaker diarization tasks in the SUPERB benchmark, while also performing well on many other tasks compared to HuBERT and wav2vec 2.0.
 
-\paragraph{data2vec} \edit{Motivated by the success of using an exponential moving average (EMA) teacher for self-supervised visual representations~\parencite{grill_bootstrap_2020, caron_emerging_2021}, the data2vec model~\parencite{baevski_data2vec_2022} computes targets $Y$ using an EMA of its own parameters. The targets are constructed by averaging hidden representations of the top $k$ layers of the EMA teacher network applied to unmasked inputs. Here, we denote this jointly as $\bar{f}_2(\cdot)$.
+\paragraph{data2vec} \edit{Motivated by the success of using an exponential moving average (EMA) teacher for self"=supervised visual representations~\parencite{grill_bootstrap_2020, caron_emerging_2021}, the data2vec model~\parencite{baevski_data2vec_2022} computes targets $Y$ using an EMA of its own parameters. The targets are constructed by averaging hidden representations of the top $k$ layers of the EMA teacher network applied to unmasked inputs. Here, we denote this jointly as $\bar{f}_2(\cdot)$.
 
 The data2vec model was proposed for different data modalities, but for audio it uses an architecture similar to wav2vec 2.0 and HuBERT with a convolutional module $f_1(\cdot)$, a Transformer $f_2(\cdot)$ and masking applied to the Transformer input.
 \begin{align}
@@ -403,7 +403,7 @@ The data2vec model uses a regression loss between target and prediction. Specifi
 \edit{The data2vec approach was shown to work well for representation learning with either speech, images or text data.} It is the first approach to achieve competitive results when trained on \edit{any} one of the three modalities. 
 
 \subsubsection{Challenges}
-The iterative nature of pre-training for the HuBERT and wavLM could present a practical inconvenience when working with large volumes of data. Another challenge for these models centers around the quality of the initial vocabulary generated from MFCC features. 
+The iterative nature of pre"=training for the HuBERT and wavLM could present a practical inconvenience when working with large volumes of data. Another challenge for these models centers around the quality of the initial vocabulary generated from MFCC features. 
 The data2vec approach improves over other predictive models \edit{by allowing the targets to improve continuously via the EMA teacher network}; however, \edit{student-teacher approaches inflate the existing computational challenges of very large models and may necessitate the use of methods that decrease instantaneous memory utilization such as mixed precision training, model parallelism and model sharding \parencite{paszke_automatic_2017}.}
 
 \subsection{Learning from multi-modal data}
@@ -416,7 +416,7 @@ One of the motivations for learning from multiple modalities is that it can redu
 We define two broad classes of approaches in this area. Specifically, depending on what type of multi-modal data is involved we refer to ``intrinsic" or ``extrinsic" modalities.
 
 \edit{\textit{Intrinsic modalities} are} 
-modalities produced directly by the speech source.  Examples of intrinsic modalities (besides the speech audio) include images or video of the speaker's face~\parencite{lee_avicar_2004,chung_lip_2016}, lip-movement~\parencite{shi_learning_2022}, articulatory flesh point measurements~\parencite{westbury_xray_1990,wrench_new_2001}, or simultaneous \edit{magnetic resonance imaging (MRI)} scans~\parencite{narayanan_multimodal_2011}.  Typically, learning from multiple intrinsic modalities is done so as to improve robustness to noise, since acoustic noise is likely to be uncorrelated with the other \edit{modality(ies)}.  This type of representation learning is often referred to as ``multi-view learning" because the multiple intrinsic modalities can be seen as multiple views of the same content. Some typical approaches in this category include
+modalities produced directly by the speech source.  Examples of intrinsic modalities (besides the speech audio) include images or video of the speaker's face~\parencite{lee_avicar_2004,chung_lip_2016}, lip-movement~\parencite{shi_learning_2022}, articulatory flesh point measurements~\parencite{westbury_xray_1990,wrench_new_2001}, or simultaneous \edit{magnetic resonance imaging (MRI)} scans \parencite{narayanan_multimodal_2011}.  Typically, learning from multiple intrinsic modalities is done so as to improve robustness to noise, since acoustic noise is likely to be uncorrelated with the other \edit{modality(ies)}.  This type of representation learning is often referred to as ``multi-view learning" because the multiple intrinsic modalities can be seen as multiple views of the same content. Some typical approaches in this category include
 \begin{itemize}
     \item Multi-view autoencoders and variations~\parencite{ngiam_multimodal_2011,badino_integrating_2016},
     \item Multi-modal deep Boltzmann machines~\parencite{srivastava_multimodal_2012},
@@ -434,7 +434,7 @@ Other choices include training with a masked margin softmax loss~\parencite{ilha
 Analyses of such models have found that, despite the very high-level learning objective of matching speech with a corresponding image (or other contextual modality), such models often learn multiple levels of linguistic representations from the shallowest to the deepest model layers~\parencite{harwath_learning_2019,chrupala_representations_2017,scharenborg_linguistic_2018}.  They are also able to learn word-like units~\parencite{harwath_jointly_2018,peng_word_2022,wang_dnnhmmdnn_2020} and can be used for cross-lingual retrieval, by considering the visual signal as an ``interlingua"~\parencite{harwath_vision_2018,havard_models_2019,kamper_visually_2018}. 
 In some settings, even in the presence of some amount of textual supervision (i.e., the speech is transcribed), visual grounding still helps learn a better representation for retrieval~\parencite{pasad_contributions_2019}. 
 
-There has also been growing interest in learning joint speech and text representations using paired and unpaired data. The SLAM approach~\parencite{bapna_slam_2021} is an example where speech and text are first represented using two separate pre-trained encoders followed by a multi-modal encoder to build the joint representations. The entire model is trained using a multi-task loss including two supervised and two self-supervised tasks. 
+There has also been growing interest in learning joint speech and text representations using paired and unpaired data. The SLAM approach~\parencite{bapna_slam_2021} is an example where speech and text are first represented using two separate pre-trained encoders followed by a multi-modal encoder to build the joint representations. The entire model is trained using a multi-task loss including two supervised and two self"=supervised tasks. 
 
 \subsubsection{Challenges}
 One of the challenges of using multi-modal approaches is that the multi-modal data they rely on is often in shorter supply than single-modality data. In addition, multi-modal data is typically drawn from specific domains, for example domains involving descriptions of visual scenes. It is not clear how well the learned speech representations apply to other speech domains that are not necessarily describing or situated in a visual scene, and this question requires further study.
@@ -445,4 +445,4 @@ Most of the representation learning techniques discussed in the preceding sectio
 
 Several lines of work have begun to address the problem of learning representations of spans of speech, especially word segments, typically referred to as \textit{acoustic word embeddings}.  Early work on unsupervised acoustic word embeddings defined them as vectors of distances from the target segment to a number of pre-defined ``template" segments~\parencite{levin_fixeddimensional_2013}. Later work used variants of neural autoencoders~\parencite{chung_audio_2016,holzenberger_learning_2018,kamper_truly_2019,peng_correspondence_2020}. These are often evaluated on word discrimination, that is the task of determining whether two word segments correspond to the same word or not~\parencite{carlin_rapid_2011}. This task can be thought of as a proxy for query-by-example search, since the basic operation in search is to determine whether a segment in the search database matches a query segment, and has been used for evaluation of both frame-level (e.g.,~\parencite{kamper_unsupervised_2015}) and word-level~\parencite{levin_fixeddimensional_2013,kamper_deep_2016} representations.
 
-Since most work on acoustic word embeddings preceded the very recent wave of new self-supervised frame-level representations, one question is whether word (or more generally segment) embeddings could be derived more simply by pooling self-supervised frame-level representations, as has been done for text span embeddings by pooling over word embeddings~\parencite{toshniwal_crosstask_2020,wang_phrasebert_2021}. Some initial results suggest that at least very simple pooling approaches like downsampling and mean or max pooling are not successful~\parencite{vanstaden_comparison_2021,peng_correspondence_2020}, but more work is needed to reach conclusive results.
+Since most work on acoustic word embeddings preceded the very recent wave of new self"=supervised frame-level representations, one question is whether word (or more generally segment) embeddings could be derived more simply by pooling self"=supervised frame-level representations, as has been done for text span embeddings by pooling over word embeddings~\parencite{toshniwal_crosstask_2020,wang_phrasebert_2021}. Some initial results suggest that at least very simple pooling approaches like downsampling and mean or max pooling are not successful~\parencite{vanstaden_comparison_2021,peng_correspondence_2020}, but more work is needed to reach conclusive results.

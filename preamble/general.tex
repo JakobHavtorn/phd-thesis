@@ -135,9 +135,12 @@
 
 
 % Language
-% \usepackage{polyglossia}    % multilingual typesetting and appropriate hyphenation
-% \setdefaultlanguage{english}
-\usepackage[english]{babel}
+\usepackage[english,ngerman]{babel}  % Multilingual typesetting
+% - Use the " shorthand (e.g. non"=autogressive) to allow splitting an already hyphenated
+%   compound word as any other word, except at the compounding "= hyphen.
+\useshorthands{"}
+\addto\extrasenglish{\languageshorthands{ngerman}}
+
 
 % Bibliography (references)
 % https://tex.stackexchange.com/questions/89842/how-to-print-only-year-no-day-month-with-biblatex            

@@ -18,7 +18,7 @@ This makes it hard to develop explicit likelihood models for speech.
 
 In this paper, we develop a likelihood benchmark for recent temporal LVMs and compare to deterministic counterparts including WaveNet. We introduce a hierarchical LVM without autoregressive decoder and finally evaluate the learned representations for phoneme recognition. We find that 
 (i) LVMs achieve likelihoods superior to WaveNet at low temporal resolution, 
-(ii) LVMs with autoregressive decoders achieve better likelihoods than a non-autoregressive LVM, 
+(ii) LVMs with autoregressive decoders achieve better likelihoods than a non"=autoregressive LVM, 
 (iii) LVM likelihoods improve when using hierarchies of latent variables as also seen for images and, 
 (iv) LVM representations are as good or better than Mel spectrograms for phoneme recognition.
 
@@ -148,7 +148,7 @@ We provide additional graphical illustrations including inference models in \cre
 \paragraph{Scope and related work} 
 At a high level, this benchmark brings order to LVM model comparisons for speech and also provides useful reference implementations of the models\footnote{\texttt{ \href{https://github.com/JakobHavtorn/benchmarking-lvms}{github.com/JakobHavtorn/benchmarking-lvms}}}. 
 An extended version of this paper is available at \href{https://arxiv.org/abs/2202.12707}{arXiv:2202.12707}.
-LVMs based on the VAE are of interest due to their ability to learn an approximate posterior distribution over latent variables. This makes them useful beyond generation for e.g. semi-supervised learning \parencite{kingma_semi-supervised_2014} and anomaly detection \parencite{havtorn_hierarchical_2021}. 
+LVMs based on the VAE are of interest due to their ability to learn an approximate posterior distribution over latent variables. This makes them useful beyond generation for e.g. semi"=supervised learning \parencite{kingma_semi"=supervised_2014} and anomaly detection \parencite{havtorn_hierarchical_2021}. 
 In this paper, we focus on the VRNN \parencite{chung_recurrent_2015}, SRNN \parencite{fraccaro_sequential_2016} and STCN \parencite{aksan_stcn_2019} since they are similar to the original VAE framework. 
 We exclude some related work from the benchmark. Specifically, the FH-VAE \parencite{hsu_unsupervised_2017} adds a global latent variable but we exclude it due to it's segmentation of the training data. We also exclude Z-forcing \parencite{goyal_zforcing_2017} which resembles the SRNN, but deviates from maximum likelihood training by using an auxiliary loss. We exclude the VQ-VAE \parencite{oord_neural_2018} which is a hybrid LVM and autoregressive model, since it uses a quantized latent space. Finally, we exclude the Stochastic WaveNet \parencite{lai_stochastic_2018} which is similar, but inferior, to the STCN \parencite{aksan_stcn_2019}.
 

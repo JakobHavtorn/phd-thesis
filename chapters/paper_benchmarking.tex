@@ -18,7 +18,7 @@ To advance the state of LVMs for speech, this paper (i) develops a benchmark for
 \begin{itemize}[leftmargin=8mm]
     \setlength\itemsep{-0em}
     \item [(I)] State-of-the-art LVMs achieve likelihoods that are inferior to WaveNet at high temporal resolution but are superior at lower resolutions. Interestingly, we find that a standard LSTM \parencite{hochreiter_long_1997} almost matches the likelihood of WaveNet.
-    \item [(II)] LVMs with powerful autoregressive decoders achieve better likelihoods than the non-autoregressive LVM.
+    \item [(II)] LVMs with powerful autoregressive decoders achieve better likelihoods than the non"=autoregressive LVM.
     \item[(III)] The expressiveness of LVMs for speech increases with a deeper hierarchy of stochastic latent variables, similar to conclusions within image modeling. % \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
     \item[(IV)] LVMs learn rich representations that are as good or better than Mel spectrograms for phoneme recognition also when using only 10 minutes of labeled data.
 \end{itemize}
@@ -158,7 +158,7 @@ Before presenting the results, we provide a brief survey of existing LVMs for sp
 
 % \linepenalty=1000
 % \subsection{Related work}
-LVMs formulated as VAEs continue to be of interest since they are able to learn an approximation to the posterior distribution of assumed latent variables. The posterior is usually of a reduced dimensionality compared to the input and lies close to a known prior distribution. Approximate posteriors have various applications e.g. semi-supervised learning \parencite{kingma_semi-supervised_2014} and anomaly detection \parencite{havtorn_hierarchical_2021}.
+LVMs formulated as VAEs continue to be of interest since they are able to learn an approximation to the posterior distribution of assumed latent variables. The posterior is usually of a reduced dimensionality compared to the input and lies close to a known prior distribution. Approximate posteriors have various applications e.g. semi"=supervised learning \parencite{kingma_semi"=supervised_2014} and anomaly detection \parencite{havtorn_hierarchical_2021}.
 
 In recent years, several complementary methods have been proposed to improve the expressiveness of VAEs. These include building more expressive priors via methods such as normalizing flows \parencite{rezende_variational_2015} and building a deeper hierarchy of stochastic latent variables such as the Ladder VAE \parencite{sonderby_ladder_2016}. In this research, we focus on the latter due to the recent breakthroughs in image modeling using VAEs without costly autoregressive dependencies on the observed variable \parencite{maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}.
 
@@ -664,7 +664,7 @@ We see that both latent spaces yield significantly better KNN accuracies than th
 In this paper, we developed a benchmark for speech modeling with stochastic latent variable models (LVMs). 
 We compared LVMs and deterministic autoregressive models on equal footing and found that LVMs achieve inferior likelihood compared to deterministic WaveNet and LSTM baselines. Surprisingly, the LSTM almost matched the popular WaveNet model. 
 We saw that hierarchical LVMs, such as STCN and CW-VAE, outperformed non-hierarchical versions of themselves in ablation experiments as well as non-hierarchical LVMs such as VRNN and SRNN. This matches recent observations in the image domain. 
-We noted that the STCN with an autoregressive decoder outperforms the non-autoregressive CW-VAE, which we adapted to speech. 
+We noted that the STCN with an autoregressive decoder outperforms the non"=autoregressive CW-VAE, which we adapted to speech. 
 Finally, we found that LVMs can learn latent representations that are useful for phoneme recognition and better than Mel spectrograms, which are tailored for the task, when identical models are trained on top of the representations.
 While the best performing models are not yet scalable to the highest temporal resolution, these results indicate that they might improve upon deterministic models in the future. 
 

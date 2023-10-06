@@ -5,44 +5,44 @@
 \ifthenelse{\equal{\skipappendices}{true}}{}{
 
 \section*{Abstract}
-Unsupervised representation learning for speech processing has matured greatly in the last few years. Work in computer vision and natural language processing has paved the way, but speech data offers unique challenges. As a result, methods from other domains rarely translate directly. We review the development of unsupervised representation learning for speech over the last decade. We identify two primary model categories: self-supervised methods and probabilistic latent variable models. We describe the models and develop a comprehensive taxonomy. Finally, we discuss and compare models from the two categories.
+Unsupervised representation learning for speech processing has matured greatly in the last few years. Work in computer vision and natural language processing has paved the way, but speech data offers unique challenges. As a result, methods from other domains rarely translate directly. We review the development of unsupervised representation learning for speech over the last decade. We identify two primary model categories: self"=supervised methods and probabilistic latent variable models. We describe the models and develop a comprehensive taxonomy. Finally, we discuss and compare models from the two categories.
 
 
 \section{Introduction}
 Representation learning has shaped modern computer vision \parencite{simonyan_very_2014} and natural language processing \parencite{devlin_bert_2018}, and more recently speech processing has been subject to the same development \parencite{baevski_wav2vec_2020}. Representation learning has been defined as \emph{``learning representations of the data that make it easier to extract useful information when building classifiers or other predictors"} \parencite{bengio_representation_2013}.  
-Unsupervised representation learning is concerned with learning useful representations without the use of human annotations. Usually, a model is first pre-trained on a task where plenty of data is available. The model is then fine-tuned, or used to extract input representations for a smaller model, targeting a task with limited training data. In computer vision, both supervised \parencite{simonyan_very_2014, szegedy_going_2015, he_deep_2015} and unsupervised \parencite{pathak_context_2016, doersch_unsupervised_2015} representation learning have gained attention with supervised representation learning driven by the availability of large annotated datasets \parencite{deng_imagenet_2009}. For text and speech, pre-training is usually unsupervised as labeled data is difficult to obtain. Although work on text has paved the way, and the two fields share many characteristics, learning representations from speech is a problem faced with a unique set of challenges.
+Unsupervised representation learning is concerned with learning useful representations without the use of human annotations. Usually, a model is first pre-trained on a task where plenty of data is available. The model is then fine-tuned, or used to extract input representations for a smaller model, targeting a task with limited training data. In computer vision, both supervised \parencite{simonyan_very_2014, szegedy_going_2015, he_deep_2015} and unsupervised \parencite{pathak_context_2016, doersch_unsupervised_2015} representation learning have gained attention with supervised representation learning driven by the availability of large annotated datasets \parencite{deng_imagenet_2009}. For text and speech, pre"=training is usually unsupervised as labeled data is difficult to obtain. Although work on text has paved the way, and the two fields share many characteristics, learning representations from speech is a problem faced with a unique set of challenges.
 
 In this paper, we survey work on unsupervised representation learning for speech processing from within the last decade.
-From a methodological perspective, we identify two primary model categories, namely models based on self-supervised learning and probabilistic latent variable models. 
+From a methodological perspective, we identify two primary model categories, namely models based on self"=supervised learning and probabilistic latent variable models. 
 We provide a methodological review of the design choices related to each of the model categories and develop a model taxonomy that highlights the different directions of work. Finally, we compare and discuss models from the two categories and their respective evaluation procedures.
 
-\begin{figure}[!t]
+\begin{figure}
     \begin{flushleft}
-        \textsc{\small \hspace{0.16\textwidth} self-supervised \hspace{0.22\textwidth} latent variable}
+        \textsc{\small \hspace{0.16\textwidth} self"=supervised \hspace{0.22\textwidth} latent variable}
     \end{flushleft}
     \centering
     \includegraphics[width=0.90\textwidth]{paper_brief/SSL_LVM.pdf}
-    \caption[ schematic overview of the self-supervised and probabilistic latent variable models covered in this survey.]{A schematic overview of the two groups of models covered in this survey. \textit{Left}: A model trained with self-supervised learning. We take these models to consist of two functions $f(\cdot)$ and $g(\cdot)$ (\cref{ssec:notation}). After pre-training, $f(\cdot)$ is fine-tuned or used for extracting features $\mathbf{c}$. $g(\cdot)$ is an auxiliary function used to accommodate the self-supervised pre-training task. \textit{Right}: A probabilistic latent variable model. In contrast to the self-supervised model, the functions $f(\cdot)$ and $g(\cdot)$ learn the parameters of distributions $q$ and $p$. The latent variable $\mathbf{z}$ is commonly used for representation learning.}
+    \caption[ schematic overview of the self"=supervised and probabilistic latent variable models covered in this survey.]{A schematic overview of the two groups of models covered in this survey. \textit{Left}: A model trained with self"=supervised learning. We take these models to consist of two functions $f(\cdot)$ and $g(\cdot)$ (\cref{ssec:notation}). After pre"=training, $f(\cdot)$ is fine-tuned or used for extracting features $\mathbf{c}$. $g(\cdot)$ is an auxiliary function used to accommodate the self"=supervised pre"=training task. \textit{Right}: A probabilistic latent variable model. In contrast to the self"=supervised model, the functions $f(\cdot)$ and $g(\cdot)$ learn the parameters of distributions $q$ and $p$. The latent variable $\mathbf{z}$ is commonly used for representation learning.}
     \label{fig:ssl_lvm}
 \end{figure}
 
 \section{Unsupervised representation learning}\label{ssec:notation}
 
-In the following, we group previous work into \textit{self-supervised models} and \textit{probabilistic latent variable models}, and take a \emph{model} to comprise a neural architecture and a corresponding learning algorithm. A schematic overview is found in \cref{fig:ssl_lvm}. These categories are neither exhaustive nor mutually exclusive, but allow us to focus on the characteristics that have shaped different branches of research. 
+In the following, we group previous work into \textit{self"=supervised models} and \textit{probabilistic latent variable models}, and take a \emph{model} to comprise a neural architecture and a corresponding learning algorithm. A schematic overview is found in \cref{fig:ssl_lvm}. These categories are neither exhaustive nor mutually exclusive, but allow us to focus on the characteristics that have shaped different branches of research. 
 
 With emphasis on recent successes in the field, we cover literature from the last 10 years. While a complete description of all relevant models is not within the scope of this work, we sketch important technicalities when they are particularly descriptive of certain models. We first define our high-level notation and conventions to ease discussion.
 
 \paragraph{Notation}
 We use the subscript $i{:}j$ with $i{\leq}j$ to denote a vector sequence $\textbf{a}_{i:j}$ containing elements $\textbf{a}_{i}$ through $\textbf{a}_{j}$. We denote model input as $\mathbf{x}_{1:T}$ which, in practice, might be either a spectrogram or the raw speech signal, but we do not distinguish between the two in notation as it is not essential to understand the models. Also, models commonly downsample the temporal dimension, but again, this is not crucial to understand the models, so we maintain a notation based on a single temporal dimension $t\in\{1,\dots, T\}$.
 
-When discussing self-supervised models, we use $\mathbf{c}_{1:T}$ to denote a contextualized representation. For stochastic latent variable models, we use $\mathbf{z}_{1:T}$ as is customary to the field. 
+When discussing self"=supervised models, we use $\mathbf{c}_{1:T}$ to denote a contextualized representation. For stochastic latent variable models, we use $\mathbf{z}_{1:T}$ as is customary to the field. 
 While some models are frozen and produce representations used as input for downstream tasks (\textbf{\textsc{frz}}, \cref{tab:model-taxonomy}), others are designed to be fine-tuned (\textbf{\textsc{ftn}}, \cref{tab:model-taxonomy}). In either case, we use $f(\cdot)$ to denote the model that is used for the downstream task. We use $g(\cdot)$ to denote any auxiliary model components (e.g., for a reconstruction task we might have $g: \mathbf{c}_t \mapsto \hat{\mathbf{x}}_t$). When a model can be naturally subdivided into multiple components, we simply use $f_*(\cdot)$ where $*$ may be any convenient descriptor. Finally, we often use a subscript when defining a loss, $\mathcal{L}_i$, to imply that the total loss is computed as a sum over $i$.
 
 
-\subsection{Self-supervised models}
+\subsection{Self"=supervised models}
 \label{sec:ssmodels}
 
-Self-supervised learning is a subset of unsupervised learning \parencite{tsai_selfsupervised_2021}. Where other unsupervised methods can be seen as a means to an end in itself (e.g., clustering or data generation), self-supervised learning takes the form of a pretext task that only adds value when associated with a downstream task. This makes self-supervised learning tie naturally with semi-supervised learning, but it may also be part of a fully unsupervised setup \parencite{baevski_unsupervised_2021}. Self-supervised learning is often characterized by automatically deriving the target from the input or other unlabeled examples \parencite{ouali_overview_2020}.
+Self"=supervised learning is a subset of unsupervised learning \parencite{tsai_selfsupervised_2021}. Where other unsupervised methods can be seen as a means to an end in itself (e.g., clustering or data generation), self"=supervised learning takes the form of a pretext task that only adds value when associated with a downstream task. This makes self"=supervised learning tie naturally with semi"=supervised learning, but it may also be part of a fully unsupervised setup \parencite{baevski_unsupervised_2021}. Self"=supervised learning is often characterized by automatically deriving the target from the input or other unlabeled examples \parencite{ouali_overview_2020}.
 
 \paragraph{Predictive models}
 Similar to classic autoregressive language models \parencite{mikolov_recurrent_2010}, contextualized speech representations can be learned by predicting future values of a simple representation \parencite{oord_representation_2018, chung_unsupervised_2019, schneider_wav2vec_2019, chung_generative_2020, jiang_further_2021} (\textbf{\textsc{prd}}, \cref{tab:model-taxonomy}). Modeling spectrograms directly, autoregressive predictive coding (APC, \citealp{chung_unsupervised_2019}) is perhaps the simplest example in this category. The forward pass and loss are computed as
@@ -116,11 +116,11 @@ In general, masking is less data efficient than prediction, as only the masked p
     \mathcal{L}_t &= \lVert (\mathbf{\hat{x}}_{t} - \mathbf{x}_{t}) \circ (\mathbf{1} - \mathbf{m}_t) \rVert_1 \enspace .
 \end{align}
 
-\noindent Non-autoregressive predictive coding (NPC, \citealp{liu_nonautoregressive_2020}) tries to resolve this by using a convolutional neural network where the kernel is masked instead of the input.
+\noindent Non"=autoregressive predictive coding (NPC, \citealp{liu_nonautoregressive_2020}) tries to resolve this by using a convolutional neural network where the kernel is masked instead of the input.
 This allows for complete data utilization, but limits the amount of context encoded in the learned representation.
 \cref{fig:ssl_grid} summarizes the models discussed so far.
 
-\begin{figure}[!t]
+\begin{figure}
     \centering
     \setlength\tabcolsep{1.5pt}
     \begin{tabular}{>{\centering\arraybackslash} m{4mm}  >{\centering\arraybackslash} m{0.40\textwidth}|>{\centering\arraybackslash} m{0.40\textwidth}}
@@ -129,18 +129,17 @@ This allows for complete data utilization, but limits the amount of context enco
         \midrule
         \rotatebox{90}{{\small \textsc{contrastive}}} & \includegraphics[width=0.40\textwidth]{paper_brief/CON_PRD.pdf} & \includegraphics[width=0.40\textwidth]{paper_brief/CON_MSK.pdf}
     \end{tabular}
-    \caption{Schematic of self-supervised methods. Each subfigure illustrates the loss computation for a single time-step. The temporal subscript has been left out for simplicity.}
+    \caption{Schematic of self"=supervised methods. Each subfigure illustrates the loss computation for a single time-step. The temporal subscript has been left out for simplicity.}
     \label{fig:ssl_grid}
 \end{figure}
 
 
-
-\begin{sidewaystable*}[t]
-    \caption[Classification of selected self-supervised and probabilistic latent variable models.]{Selected models classified according to the binary attributes identified throughout the text. The models are sorted according to first publication date on arXiv which might differ from the citation year. \textbf{\textsc{msk}}: masking, \textbf{\textsc{prd}}: prediction, \textbf{\textsc{con}}: contrastive, \textbf{\textsc{rec}}: reconstruction, \textbf{\textsc{qtz}}: quantization, \textbf{\textsc{gen}}: generative, \textbf{\textsc{frz}}: frozen, \textbf{\textsc{ftn}}: fine-tuned, \textbf{\textsc{loc}}: local, \textbf{\textsc{glo}}: global.}
+\begin{sidewaystable*}
+    \caption[Classification of selected self"=supervised and probabilistic latent variable models.]{ Selected models classified according to the binary attributes identified throughout the text. The models are sorted according to first publication date on arXiv which might differ from the citation year. \textbf{\textsc{msk}}: masking, \textbf{\textsc{prd}}: prediction, \textbf{\textsc{con}}: contrastive, \textbf{\textsc{rec}}: reconstruction, \textbf{\textsc{qtz}}: quantization, \textbf{\textsc{gen}}: generative, \textbf{\textsc{frz}}: frozen, \textbf{\textsc{ftn}}: fine-tuned, \textbf{\textsc{loc}}: local, \textbf{\textsc{glo}}: global.}
     \label{tab:model-taxonomy}
     \begin{center}
         \renewcommand{\arraystretch}{1.1}
-        \resizebox{0.925\textwidth}{!}{%
+        \resizebox{1\textwidth}{!}{%
         \begin{tabular}{ l l | c c c c c c | c c c | c c } 
             \toprule
             
@@ -163,37 +162,37 @@ This allows for complete data utilization, but limits the amount of context enco
             \textbf{\textsc{ftn}} \\
             
             \midrule
-            \multicolumn{12}{c}{\textsc{Self-supervised models}} \\
+            \multicolumn{12}{c}{\textsc{Self"=supervised models}} \\
             \midrule
             %                                                           MSK      PRD      CON      REC      QTZ      GEN      LOC      GLB     VAR      FRZ      FTN
-            \textbf{Audio Word2vec} \footnotesize\parencite{chung_audio_2016}      & 2016 Mar. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark \\
-            \textbf{Speech2Vec} \footnotesize\parencite{chung_speech2vec_2018}     & 2018 Mar. & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark \\
-            \textbf{Unspeech} \footnotesize\parencite{milde_unspeech_2018}         & 2018 Apr. & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark \\
+            \textbf{Audio Word2vec} \footnotesize{\parencite{chung_audio_2016}}      & 2016 Mar. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark \\
+            \textbf{Speech2Vec} \footnotesize{\parencite{chung_speech2vec_2018}}     & 2018 Mar. & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark \\
+            \textbf{Unspeech} \footnotesize{\parencite{milde_unspeech_2018}}         & 2018 Apr. & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark \\
             
-            \textbf{CPC} (van den Oord et al. 2018)         & 2018 Jul. & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
+            \textbf{CPC} \footnotesize{\parencite{oord_representation_2018}}         & 2018 Jul. & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
             
-            \textbf{APC} \footnotesize\parencite{chung_unsupervised_2019}          & 2019 Oct. & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\ % 5/4
-            \textbf{wav2vec} \footnotesize\parencite{schneider_wav2vec_2019}       & 2019 Apr. & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\ % 11/4
-            \textbf{Mockingjay}  \footnotesize\parencite{liu_mockingjay_2020}      & 2019 Oct. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \cmark \\ % 25/10-19
-            \textbf{wav2vec 2.0} \footnotesize\parencite{baevski_wav2vec_2020}     & 2020 Jun. & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark \\ % 20/6
-            \textbf{NPC} \footnotesize\parencite{liu_nonautoregressive_2020}                     & 2020 Nov. & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\ % 1/11
-            \textbf{DeCoAR 2.0} \footnotesize\parencite{ling_decoar_2020}          & 2020 Dec. & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\ % 11/12
-            \textbf{SCPC} \footnotesize\parencite{bhati_segmental_2021}            & 2021 Jun. & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark \\ % 3/6
-            \textbf{HuBERT} \footnotesize\parencite{hsu_hubert_2021}               & 2021 Jun. & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark \\ % 14/6
+            \textbf{APC} \footnotesize{\parencite{chung_unsupervised_2019}}          & 2019 Oct. & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\ % 5/4
+            \textbf{wav2vec} \footnotesize{\parencite{schneider_wav2vec_2019}}       & 2019 Apr. & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\ % 11/4
+            \textbf{Mockingjay}  \footnotesize{\parencite{liu_mockingjay_2020}}      & 2019 Oct. & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \cmark \\ % 25/10-19
+            \textbf{wav2vec 2.0} \footnotesize{\parencite{baevski_wav2vec_2020}}     & 2020 Jun. & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark \\ % 20/6
+            \textbf{NPC} \footnotesize{\parencite{liu_nonautoregressive_2020}}       & 2020 Nov. & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\ % 1/11
+            \textbf{DeCoAR 2.0} \footnotesize{\parencite{ling_decoar_2020}}          & 2020 Dec. & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark \\ % 11/12
+            \textbf{SCPC} \footnotesize{\parencite{bhati_segmental_2021}}            & 2021 Jun. & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark \\ % 3/6
+            \textbf{HuBERT} \footnotesize{\parencite{hsu_hubert_2021}}               & 2021 Jun. & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark \\ % 14/6
             \midrule
             \multicolumn{12}{c}{\textsc{Probabilistic latent variable models}} \\
             \midrule
             %                                                           MSK      PRD      CON      REC      QTZ      GEN      LOC      GLO     VAR      FRZ      FTN
-            \textbf{VRNN} \footnotesize\parencite{chung_recurrent_2015}          & 2015 Jun. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
-            \textbf{SRNN} \footnotesize\parencite{fraccaro_sequential_2016}      & 2016 May  & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
-            \textbf{HMM-VAE} \footnotesize\parencite{ebbers_hidden_2017}         & 2017 Mar. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
-            \textbf{ConvVAE} \footnotesize\parencite{hsu_learning_2017}          & 2017 Apr. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark \\
-            \textbf{FHVAE} \footnotesize\parencite{hsu_unsupervised_2017}        & 2017 Sep. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark & \cmark & \xmark \\
-            \textbf{VQ-VAE} (van den Oord et al. 2018)                      & 2017 Nov. & \xmark & \xmark & \xmark & \cmark & \cmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
-            \textbf{BHMM-VAE} \footnotesize\parencite{glarner_full_2018}         & 2018 Mar. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
-            \textbf{STCN} \footnotesize\parencite{aksan_stcn_2019}               & 2019 Feb. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
-            \textbf{FDMM} \footnotesize\parencite{khurana_factorial_2019}        & 2019 Oct. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark & \cmark & \xmark \\
-            \textbf{ConvDMM} \footnotesize\parencite{khurana_convolutional_2020} & 2020 Jun. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
+            \textbf{VRNN} \footnotesize{\parencite{chung_recurrent_2015}}          & 2015 Jun. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
+            \textbf{SRNN} \footnotesize{\parencite{fraccaro_sequential_2016}}      & 2016 May  & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
+            \textbf{HMM-VAE} \footnotesize{\parencite{ebbers_hidden_2017}}         & 2017 Mar. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
+            \textbf{ConvVAE} \footnotesize{\parencite{hsu_learning_2017}}          & 2017 Apr. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark & \cmark & \xmark \\
+            \textbf{FHVAE} \footnotesize{\parencite{hsu_unsupervised_2017}}        & 2017 Sep. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark & \cmark & \xmark \\
+            \textbf{VQ-VAE} \footnotesize{\parencite{oord_neural_2018}}            & 2017 Nov. & \xmark & \xmark & \xmark & \cmark & \cmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
+            \textbf{BHMM-VAE} \footnotesize{\parencite{glarner_full_2018}}         & 2018 Mar. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
+            \textbf{STCN} \footnotesize{\parencite{aksan_stcn_2019}}               & 2019 Feb. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
+            \textbf{FDMM} \footnotesize{\parencite{khurana_factorial_2019}}        & 2019 Oct. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark & \cmark & \xmark \\
+            \textbf{ConvDMM} \footnotesize{\parencite{khurana_convolutional_2020}} & 2020 Jun. & \xmark & \xmark & \xmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark \\
             \bottomrule
         \end{tabular}
         }
@@ -231,7 +230,7 @@ Codebook learning is facilitated by a two-term auxiliary loss similar to classic
 \begin{align}
     \mathcal{L} = \underset{\text{vq}}{\underbrace{\norm{\text{sg}\left[\mathbf{v}\right] - \mathbf{e}}_2^2}} + \underset{\text{commitment}}{\underbrace{\beta\norm{\mathbf{v} - \text{sg}\left[\mathbf{e}\right]}_2^2}} \enspace , \label{eq_brief: vector quantization losses}
 \end{align}
-where $\text{sg}[\mathbf{x}] = \mathbf{x}$ is the stop-gradient operator with the property $\frac{d}{dx_i}\text{sg}[\mathbf{x}] \equiv 0$ for all $i$ and $\beta$ is a hyperparameter. Although vector quantization was introduced by the VQ-VAE which is, in some ways, a latent variable model, it has been applied to self-supervised methods \parencite{vanniekerk_vectorquantized_2020, baevski_vqwav2vec_2020}.
+where $\text{sg}[\mathbf{x}] = \mathbf{x}$ is the stop-gradient operator with the property $\frac{d}{dx_i}\text{sg}[\mathbf{x}] \equiv 0$ for all $i$ and $\beta$ is a hyperparameter. Although vector quantization was introduced by the VQ-VAE which is, in some ways, a latent variable model, it has been applied to self"=supervised methods \parencite{vanniekerk_vectorquantized_2020, baevski_vqwav2vec_2020}.
 
 \textit{Motivation:} Similar to how quantization approaches differ between works, so do the motivations provided for employing them. The vq-wav2vec \parencite{baevski_vqwav2vec_2020, baevski_effectiveness_2020} learn quantized representations in order to apply natural language processing models, like BERT \parencite{devlin_bert_2018}, afterwards. Other works use quantization for speech segmentation \parencite{kamper_unsupervised_2021, chorowski_unsupervised_2019} or as a bottleneck in order to ``\textit{limit model capacity}" \parencite{chung_vectorquantized_2020, ling_decoar_2020}.
 Finally, \textcite{chung_vectorquantized_2020} explore quantization between different layers in the APC model, but find that continuous representations consistently perform better than their quantized counterparts on a downstream phoneme classification task
@@ -243,17 +242,17 @@ Given our previous discussion of how it might not be beneficial to model localiz
 The models covered so far learn representations that maintain a temporal resolution proportional to the input resolution. We say that they learn local representations (\textbf{\textsc{loc}}, \cref{tab:model-taxonomy}). Now, we cover models that learn global representations (\textbf{\textsc{glb}}, \cref{tab:model-taxonomy}).
  
 Early work on global speech representation learning takes inspiration from the autoencoder framework \parencite{kramer_nonlinear_1991}. \textcite{chung_audio_2016} propose a simple sequence-to-sequence autoencoder for learning acoustic word embeddings:
-\begin{align}
+\begin{align}\label{eq_brief:dec-aw2v}
     \mathbf{c} &= f(\mathbf{x}_{1:T}) \\
-    \hat{\mathbf{x}}_{1:T} &= g(\mathbf{c}) \enspace , \label{eq_brief:dec-aw2v}
+    \hat{\mathbf{x}}_{1:T} &= g(\mathbf{c}) \enspace ,
 \end{align}
 
-\noindent where $f(\cdot)$ and $g(\cdot)$ are a recurrent neural networks, such that $\mathbf{c}$ is taken to be the hidden state at the last time-step $T$ of $f(\cdot)$ and used as initial hidden state of $g(\cdot)$. 
+\noindent where $f(\cdot)$ and $g(\cdot)$ are recurrent neural networks, such that $\mathbf{c}$ is taken to be the hidden state at the last time-step $T$ of $f(\cdot)$ and used as initial hidden state of $g(\cdot)$. 
 The authors also propose a denoising autoencoder with masked inputs $f(\mathbf{x}_{1:T} \circ \mathbf{m}_{1:T})$. Similar RNN-based autoencoders have also been explored \parencite{kamper_truly_2019, holzenberger_learning_2018}.
 
 Prior to this work, \textcite{kamper_unsupervised_2015, renshaw_comparison_2015} introduced the \textit{correspondence autoencoder}. This method uses dynamic time warping to align input-target segment pairs extracted with unsupervised term discovery. In more recent work, the need for alignment has been alleviated by adopting the sequence-to-sequence framework \parencite{kamper_truly_2019, jacobs_acoustic_2021}.
 
-Inspired by the work on semantic word embeddings for text \parencite{mikolov_distributed_2013}, the sequence-to-sequence framework has also been used to implement speech-based versions of the skipgram and continuous bag-of-words models \parencite{chung_learning_2017, chung_speech2vec_2018}. Given a segment corresponding to a single word $\mathbf{x}_{(n)} = \mathbf{x}_{t_{n}:t_{n+1}}$, the skipgram model is trained to predict neighboring words $\mathbf{x}_{(n + k)}$ where $k\ne0$. That is, instead of a single decoder, as in \cref{eq_brief:dec-aw2v}, the skipgram model employs multiple decoders
+Inspired by the work on semantic word embeddings for text \parencite{mikolov_distributed_2013}, the sequence-to-sequence framework has also been used to implement speech-based versions of the skip-gram and continuous bag-of-words models \parencite{chung_learning_2017, chung_speech2vec_2018}. Given a segment corresponding to a single word $\mathbf{x}_{(n)} = \mathbf{x}_{t_{n}:t_{n+1}}$, the skip-gram model is trained to predict neighboring words $\mathbf{x}_{(n + k)}$ where $k\ne0$. That is, instead of a single decoder, as in \cref{eq_brief:dec-aw2v}, the skip-gram model employs multiple decoders
 %
 \begin{align}
     \hat{\mathbf{x}}_{(n + k)} = g_k(\mathbf{c})\enspace.
@@ -271,14 +270,14 @@ Contrastive learning has also been explored for global speech representation lea
 \paragraph{Other work}
 Some models learn local representations with a variable temporal resolution that is not proportional to the input resolution (\textbf{\textsc{var}}, \cref{tab:model-taxonomy}). In practice, this is often achieved implicitly, by learning segment boundaries or by taking repeated quantized values to belong to the same segment \parencite{kamper_unsupervised_2021, chorowski_unsupervised_2019, michel_blind_2017, kreuk_selfsupervised_2020, wang_gate_2017, dieleman_variablerate_2021}. An exception is the recently proposed \emph{segmental contrastive predictive coding} (SCPC, \citealp{bhati_segmental_2021, bhati_unsupervised_2022}). With this approach, the model explicitly learns segment boundaries, which are used to downsample the representations during training. The same segmentation strategy has subsequently been applied in other models \parencite{cuervo_contrastive_2022}.
 
-Most of the work presented so far fits neatly into the taxonomy presented in \cref{tab:model-taxonomy}. One exception is the problem-agnostic speech encoder (PASE, \citealp{pascual_learning_2019, ravanelli_multitask_2020}) that combines multiple pre-training tasks. Furthermore, many of the presented models have been successfully applied to other use cases. For instance, wav2vec 2.0 and related models have been applied to learn cross-lingual and multi-lingual representations \parencite{riviere_unsupervised_2020, conneau_unsupervised_2020, khurana_magic_2021} and proven well-suited for concurrently learning with labeled data \parencite{talnikar_joint_2021, wang_unispeech_2021}. %We will discuss the downstream application of self-supervised representations further in \cref{sec:eval}.
+Most of the work presented so far fits neatly into the taxonomy presented in \cref{tab:model-taxonomy}. One exception is the problem-agnostic speech encoder (PASE, \citealp{pascual_learning_2019, ravanelli_multitask_2020}) that combines multiple pre"=training tasks. Furthermore, many of the presented models have been successfully applied to other use cases. For instance, wav2vec 2.0 and related models have been applied to learn crosslingual and multilingual representations \parencite{riviere_unsupervised_2020, conneau_unsupervised_2020, khurana_magic_2021} and proven well-suited for concurrently learning with labeled data \parencite{talnikar_joint_2021, wang_unispeech_2021}. %We will discuss the downstream application of self"=supervised representations further in \cref{sec:eval}.
 
 
 \subsection{Probabilistic latent variable models}
 \label{sec:plvms}
 Another prominent class of models are probabilistic latent variable models (LVMs). 
 Before surveying their application to speech, we briefly review LVMs and their usual specification when applied for representation learning in general. We disregard any specific temporal notation without loss of generality. 
-We then introduce the variational autoencoder framework (VAE, \citealp{kingma_autoencoding_2014}). We focus on different dependency structures between data and learned representations, in contrast to the more practical view on self-supervised models taken above.
+We then introduce the variational autoencoder framework (VAE, \citealp{kingma_autoencoding_2014}). We focus on different dependency structures between data and learned representations, in contrast to the more practical view on self"=supervised models taken above.
 
 \paragraph{LVMs and inference}
 Fundamental to LVMs is the assumption that the data is produced by a generative process that involves unobserved stochastic latent variables $\textbf{z}$. 
@@ -299,7 +298,7 @@ To counter this and make gradient-based maximum likelihood training feasible, th
 \begin{equation}
     \log p(\mathbf{x}) \geq \int q(\mathbf{z}|\mathbf{x}) \log \frac{p(\mathbf{x}| \mathbf{z})p(\mathbf{z})}{q(\mathbf{z}|\mathbf{x})} \,\text{d}\mathbf{z} \equiv \mathcal{L}_{\text{ELBO}} \enspace . \label{eq_brief: lvm likelihood bound (elbo)}
 \end{equation}
-The bound can be efficiently evaluated and optimized with Monte Carlo (MC) estimation by sampling from $q(\mathbf{z}|\mathbf{x})$. Low-variance gradient estimates are usually obtained via reparameterization of $q(\mathbf{z}|\mathbf{x})$ \parencite{kingma_autoencoding_2014} although alternatives exist (e.g., inverse CDF sampling) \parencite{mohamed_monte_2019}. 
+The bound can be efficiently evaluated and optimized with Monte Carlo (MC) estimation by sampling from $q(\mathbf{z}|\mathbf{x})$. Low-variance gradient estimates are usually obtained via reparameterization of $q(\mathbf{z}|\mathbf{x})$ \parencite{kingma_autoencoding_2014}, although alternatives exist (e.g., inverse CDF sampling) \parencite{mohamed_monte_2019}. 
 The ELBO can also be written as
 \begin{equation}
     \mathcal{L}_{\text{ELBO}} = \mathbb{E}_{q(\mathbf{z}|\mathbf{x})}\left[ \log p(\mathbf{x}|\mathbf{z}) \right] - D_\text{KL}\left( q(\mathbf{z}|\mathbf{x}) || p(\mathbf{z}) \right) \enspace  \label{eq_brief: lvm likelihood bound recon/kl form (elbo)},
@@ -310,44 +309,44 @@ In brief, LVMs of the VAE-type consist of a approximate posterior, $q(\mathbf{z}
 With reference to probabilistic coding theory, the approximate posterior is often referred to as the encoder and the observation model as the decoder \parencite{kingma_autoencoding_2014, rezende_stochastic_2014}. From a theoretical perspective, the encoder exists solely as the result of choosing to use variational inference to train the decoder rather than e.g. MCMC. As such, it is also referred to as the inference model. However, from a representation learning perspective, the encoder is essential as it can be used to efficiently obtain the representation $\mathbf{z}$ commonly used for downstream tasks. 
 It is still possible to evaluate and sample the true posterior distribution $p(\mathbf{z}|\mathbf{x})$ by applying MCMC methods such as Hamiltonian Monte Carlo on the decoder, but for computational reasons this is rarely done in practice. 
 
-\begin{table}[t!]
-\caption[A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable.]{A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable. The observation, prior and inference models may all belong to one or more of the categories listed under them as detailed in \cref{sec:plvms}. The types listed here serve as primitives from which more complex structures can be constructed including models with hierarchies of multiple latent variables.}
-\label{tab:lvm-model-primitives}
-\begin{center}
-    % \renewcommand{\arraystretch}{1.1}
-    % \resizebox{0.8\columnwidth}{!}{%
-    \begin{tabular}{ l l l } 
-        \toprule
-        \multicolumn{2}{l}{\textbf{\textsc{Type}}} & \textbf{\textsc{Form}} \\
-        \midrule
-        \multicolumn{3}{c}{\textsc{Observation model}} \\
-        \midrule
-        \textbf{\textsc{arx}} & Autoregressive on $\mathbf{x}_t$      & $p(\mathbf{x}_t|\mathbf{x}_{1:t-1})$ \\
-        \textbf{\textsc{loc}} & Local latent variable                 & $p(\mathbf{x}_{t}|\mathbf{z}_{1:t})$ \\
-        \textbf{\textsc{glb}} & Global latent variable                & $p(\mathbf{x}_{t}|\mathbf{z})$ \\
-        \midrule
-        \multicolumn{3}{c}{\textsc{Prior}} \\
-        \midrule
-        \textbf{\textsc{arx}} & Autoregressive on $\mathbf{x}_t$      & $p(\mathbf{z}_t|\mathbf{x}_{1:t-1})$ \\
-        \textbf{\textsc{arz}} & Autoregressive on $\mathbf{z}_t$      & $p(\mathbf{z}_t|\mathbf{z}_{1:t-1})$ \\
-        \textbf{\textsc{ind}} & Locally independent $\mathbf{z}_t$                 & $p(\mathbf{z}_t)$ \\
-        \textbf{\textsc{glb}} & Global latent variable                & $p(\mathbf{z})$ \\
-        \midrule
-        \multicolumn{3}{c}{\textsc{Inference model}} \\
-        \midrule
-        \textbf{\textsc{arz}} & Autoregressive on $\mathbf{z}_t$      & $q(\mathbf{z}_t|\mathbf{z}_{1:t-1})$ \\
-        \textbf{\textsc{flt}} & Filtering                             & $q(\mathbf{z}_t|\mathbf{x}_{1:t})$ \\
-        \textbf{\textsc{lsm}} & Local smoothing                       & $q(\mathbf{z}_t|\mathbf{x}_{t-r:t+r})$ \\
-        \textbf{\textsc{gsm}} & Global smoothing                      & $q(\mathbf{z}_t|\mathbf{x}_{1:T})$ \\
-        \textbf{\textsc{glb}} & Global latent variable                & $q(\mathbf{z}|\mathbf{x}_{1:T})$ \\
-        \bottomrule
-    \end{tabular}
-    % }
+\begin{table}
+    \caption[A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable.]{A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable. The observation, prior and inference models may all belong to one or more of the categories listed under them as detailed in \cref{sec:plvms}. The types listed here serve as primitives from which more complex structures can be constructed including models with hierarchies of multiple latent variables.}
+    \label{tab:lvm-model-primitives}
+    \begin{center}
+        % \renewcommand{\arraystretch}{1.1}
+        % \resizebox{0.8\columnwidth}{!}{%
+        \begin{tabular}{ l l l } 
+            \toprule
+            \multicolumn{2}{l}{\textbf{\textsc{Type}}} & \textbf{\textsc{Form}} \\
+            \midrule
+            \multicolumn{3}{c}{\textsc{Observation model}} \\
+            \midrule
+            \textbf{\textsc{arx}} & Autoregressive on $\mathbf{x}_t$      & $p(\mathbf{x}_t|\mathbf{x}_{1:t-1})$ \\
+            \textbf{\textsc{loc}} & Local latent variable                 & $p(\mathbf{x}_{t}|\mathbf{z}_{1:t})$ \\
+            \textbf{\textsc{glb}} & Global latent variable                & $p(\mathbf{x}_{t}|\mathbf{z})$ \\
+            \midrule
+            \multicolumn{3}{c}{\textsc{Prior}} \\
+            \midrule
+            \textbf{\textsc{arx}} & Autoregressive on $\mathbf{x}_t$      & $p(\mathbf{z}_t|\mathbf{x}_{1:t-1})$ \\
+            \textbf{\textsc{arz}} & Autoregressive on $\mathbf{z}_t$      & $p(\mathbf{z}_t|\mathbf{z}_{1:t-1})$ \\
+            \textbf{\textsc{ind}} & Locally independent $\mathbf{z}_t$                 & $p(\mathbf{z}_t)$ \\
+            \textbf{\textsc{glb}} & Global latent variable                & $p(\mathbf{z})$ \\
+            \midrule
+            \multicolumn{3}{c}{\textsc{Inference model}} \\
+            \midrule
+            \textbf{\textsc{arz}} & Autoregressive on $\mathbf{z}_t$      & $q(\mathbf{z}_t|\mathbf{z}_{1:t-1})$ \\
+            \textbf{\textsc{flt}} & Filtering                             & $q(\mathbf{z}_t|\mathbf{x}_{1:t})$ \\
+            \textbf{\textsc{lsm}} & Local smoothing                       & $q(\mathbf{z}_t|\mathbf{x}_{t-r:t+r})$ \\
+            \textbf{\textsc{gsm}} & Global smoothing                      & $q(\mathbf{z}_t|\mathbf{x}_{1:T})$ \\
+            \textbf{\textsc{glb}} & Global latent variable                & $q(\mathbf{z}|\mathbf{x}_{1:T})$ \\
+            \bottomrule
+        \end{tabular}
+        % }
     \end{center}
 \end{table}
 
-\begin{sidewaystable*}[t]
-    \caption[Classification of selected latent variable models.]{Selected latent variable models classified according the attributes defined throughout \cref{sec:plvms}. See \cref{tab:lvm-model-primitives} for the probability distributions that correspond to each of the attribute short-hands. \textbf{\textsc{hie}} indicates a hierarchical representation.}
+\begin{sidewaystable*}
+    \caption[Classification of selected latent variable models.]{ Selected latent variable models classified according the attributes defined throughout \cref{sec:plvms}. See \cref{tab:lvm-model-primitives} for the probability distributions that correspond to each of the attribute short-hands. \textbf{\textsc{hie}} indicates a hierarchical representation.}
     \label{tab:lvm-taxonomy}
     \begin{center}
         \renewcommand{\arraystretch}{1.1}
@@ -376,16 +375,16 @@ It is still possible to evaluate and sample the true posterior distribution $p(\
             \midrule
             %                                                              OBSERVATION       |              PRIOR                |                  INFERENCE       
             %                                                         ARX      LOC      GLB      ARX      ARZ     IND      GLB      ARZ      FLT      LSM      GSM      GLB
-            \textbf{VRNN} \footnotesize\parencite{chung_recurrent_2015}          & 2015 Jun. & \cmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark \\
-            \textbf{SRNN} \footnotesize\parencite{fraccaro_sequential_2016}      & 2016 May  & \cmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark \\
-            \textbf{HMM-VAE} \footnotesize\parencite{ebbers_hidden_2017}         & 2017 Mar. & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark \\
-            \textbf{ConvVAE} \footnotesize\parencite{hsu_learning_2017}          & 2017 Apr. & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \cmark & \xmark \\
-            \textbf{FHVAE} \footnotesize\parencite{hsu_unsupervised_2017}        & 2017 Sep. & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \cmark & \cmark \\
-            \textbf{VQ-VAE} (van den Oord et al. 2018)            & 2017 Nov. & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\
-            \textbf{BHMM-VAE} \footnotesize\parencite{glarner_full_2018}         & 2018 Mar. & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark \\
-            \textbf{STCN} \footnotesize\parencite{aksan_stcn_2019}               & 2019 Feb. & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark \\
-            \textbf{FDMM} \footnotesize\parencite{khurana_factorial_2019}        & 2019 Oct. & \xmark & \cmark & \cmark & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark & \xmark & \cmark & \cmark \\
-            \textbf{ConvDMM} \footnotesize\parencite{khurana_convolutional_2020} & 2020 Jun. & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark \\
+            \textbf{VRNN} \footnotesize{\parencite{chung_recurrent_2015}}          & 2015 Jun. & \cmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark \\
+            \textbf{SRNN} \footnotesize{\parencite{fraccaro_sequential_2016}}      & 2016 May  & \cmark & \cmark & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark \\
+            \textbf{HMM-VAE} \footnotesize{\parencite{ebbers_hidden_2017}}         & 2017 Mar. & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark \\
+            \textbf{ConvVAE} \footnotesize{\parencite{hsu_learning_2017}}          & 2017 Apr. & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \cmark & \xmark \\
+            \textbf{FHVAE} \footnotesize{\parencite{hsu_unsupervised_2017}}        & 2017 Sep. & \xmark & \cmark & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \cmark & \cmark \\
+            \textbf{VQ-VAE} \footnotesize{\parencite{oord_neural_2018}}            & 2017 Nov. & \cmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark \\
+            \textbf{BHMM-VAE} \footnotesize{\parencite{glarner_full_2018}}         & 2018 Mar. & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark \\
+            \textbf{STCN} \footnotesize{\parencite{aksan_stcn_2019}}               & 2019 Feb. & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark & \xmark & \cmark & \xmark & \xmark & \xmark & \cmark \\
+            \textbf{FDMM} \footnotesize{\parencite{khurana_factorial_2019}}        & 2019 Oct. & \xmark & \cmark & \cmark & \xmark & \cmark & \xmark & \cmark & \cmark & \cmark & \xmark & \xmark & \cmark & \cmark \\
+            \textbf{ConvDMM} \footnotesize{\parencite{khurana_convolutional_2020}} & 2020 Jun. & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \xmark & \cmark & \xmark & \cmark & \xmark & \xmark & \xmark \\
             \bottomrule
         \end{tabular}
         }
@@ -405,7 +404,7 @@ Some works alleviate this problem with tricks like KL-annealing and free bits \p
 The VQ-VAE uses a quantized latent space that is not susceptible to posterior collapse \textit{per se} \parencite{oord_neural_2018}. How to equip LVMs with powerful decoders while avoiding posterior collapse is an open problem.
 
 Some LVMs do not use autoregressive observation models \parencite{ebbers_hidden_2017, glarner_full_2018, hsu_unsupervised_2017, hsu_learning_2017, khurana_factorial_2019, khurana_convolutional_2020}. These more closely follow the assumption of \emph{local independence} which states that observed variables are conditionally independent given the local (\textbf{\textsc{loc}}, \cref{tab:lvm-model-primitives}) and/or global (\textbf{\textsc{glb}}, \cref{tab:lvm-model-primitives}) latent variables \parencite{bartholomew_latent_2011}. 
-However, this forces the latent variable to encode details about the observed variable to achieve a good reconstruction. This is opposite to contrastive self-supervised learning which allows models to discard details in $\mathbf{x}_{1:T}$ that do not inform the training objective \parencite{baevski_wav2vec_2020}.
+However, this forces the latent variable to encode details about the observed variable to achieve a good reconstruction. This is opposite to contrastive self"=supervised learning which allows models to discard details in $\mathbf{x}_{1:T}$ that do not inform the training objective \parencite{baevski_wav2vec_2020}.
 
 
 
@@ -421,7 +420,7 @@ Global latent variables (\textbf{\textsc{glb}}, \cref{tab:lvm-model-primitives})
 LVMs based on the VAE perform so-called amortized variational inference. Here, a single inference network is used to infer the latent variables of any $\mathbf{x}$. 
 For this reason, all inference models covered here are conditioned on the observed sequence in some way. Generally, the inference model can be seen as solving either a filtering or smoothing problem.
 In filtering (\textbf{\textsc{flt}}, \cref{tab:lvm-model-primitives}), the latent variables are assumed to depend only on past and current values of the observed variable, $q(\mathbf{z}_t|\mathbf{x}_{1:t})$ \parencite{chung_recurrent_2015, khurana_convolutional_2020}. In global smoothing (\textbf{\textsc{gsm}}, \cref{tab:lvm-model-primitives}), this causal dependency is replaced with a dependency on all observed values, $q(\mathbf{z}_t|\mathbf{x}_{1:T})$ \parencite{fraccaro_sequential_2016, hsu_learning_2017}. 
-Smoothing can also be done locally (\textbf{\textsc{lsm}}, \cref{tab:lvm-model-primitives}), where the latent variables then depend on $\mathbf{x}_{t-r:t+r}$ for some integer $r>0$ \parencite{oord_neural_2018}. Compared to self-supervised models that often use transformer encoders it can be hypothesized that global smoothing offers a stronger case than local smoothing and filtering for representation learning.
+Smoothing can also be done locally (\textbf{\textsc{lsm}}, \cref{tab:lvm-model-primitives}), where the latent variables then depend on $\mathbf{x}_{t-r:t+r}$ for some integer $r>0$ \parencite{oord_neural_2018}. Compared to self"=supervised models that often use transformer encoders it can be hypothesized that global smoothing offers a stronger case than local smoothing and filtering for representation learning.
 
 The inference model may also be used to infer a global latent variable (\textbf{\textsc{glb}}, \cref{tab:lvm-model-primitives}) that might encode global information about $\mathbf{x}$. 
 While it must be included in the prior model it might not be in the observation model, if the model also has a local latent variable. 
@@ -442,10 +441,10 @@ Non-neural LVMs for speech representation learning have also been explored
 \label{sec:mtax}
 
 \paragraph{From global to local} 
-In \cref{tab:model-taxonomy}, we see that work on global representations within self-supervised learning precedes work on local representations. However, we find that the core ideas underlying the recent successes in learning local representation models have also been used for global representation learning; masking \parencite{chung_audio_2016}, context prediction \parencite{chung_speech2vec_2018}, and contrastive training \parencite{milde_unspeech_2018} have been applied in both settings. Furthermore, where work on global representation learning has taken inspiration from Word2vec \parencite{mikolov_distributed_2013}, the techniques used for learning local representations are inspired by contextualized word embeddings \parencite{devlin_bert_2018}. Thus, the gap between these two model classes is largely a product of the developments in related fields and the general increase in computational resources.
+In \cref{tab:model-taxonomy}, we see that work on global representations within self"=supervised learning precedes work on local representations. However, we find that the core ideas underlying the recent successes in learning local representation models have also been used for global representation learning; masking \parencite{chung_audio_2016}, context prediction \parencite{chung_speech2vec_2018}, and contrastive training \parencite{milde_unspeech_2018} have been applied in both settings. Furthermore, where work on global representation learning has taken inspiration from Word2vec \parencite{mikolov_distributed_2013}, the techniques used for learning local representations are inspired by contextualized word embeddings \parencite{devlin_bert_2018}. Thus, the gap between these two model classes is largely a product of the developments in related fields and the general increase in computational resources.
 
 \paragraph{Representations beyond inference} 
-Predictive tasks are commonly used for self-supervised models, but they are not directly compatible with LVM training. 
+Predictive tasks are commonly used for self"=supervised models, but they are not directly compatible with LVM training. 
 However, an LVM prior with an autoregressive parameterization, $p(\mathbf{z}_t|\mathbf{z}_{1:t-1})$ or $p(\mathbf{z}_t|\mathbf{x}_{1:t-1})$, can be seen as predictive in the sense that it tries to match the approximate posterior.
 Hence, the prior might be considered for feature extraction.
 \textcite{jones_is_2020} examine the importance of the prior in the VQ-VAE and show that the ability of this model to estimate densities $p(\mathbf{x}_{1:T})$ lies solely in its prior. Other work has also explored representations beyond the latent variable such as hidden units of the observation model \parencite{khurana_convolutional_2020, chorowski_unsupervised_2019}.
@@ -453,11 +452,11 @@ Hence, the prior might be considered for feature extraction.
 \paragraph{Masking and missing data}
 Masking may also improve representations learned with VAEs. 
 Masking in VAEs has already been explored in the literature in the context of missing data imputation. Here, $\mathbf{x}$ is only partially observed, and often represented as a segmentation into observed and missing parts and a mask $\mathbf{m}$ indicating where the data is missing. The model is then trained to infer the latent variable from the observed data. Reconstruction also deals only with the observed data. Previous work has largely focused on the ability of these models to yield high-quality imputations within the tabular and image data domains, without probing for the effects on the learned latent representation \parencite{mattei_miwae_2019, ipsen_not-miwae_2021}. 
-The idea of using VAEs to impute missing data was already examined in the seminal paper by \textcite{rezende_stochastic_2014}. Here the model was trained with fully observed data and used to impute data in an iterative sampling approach post hoc leaving the learned representations unchanged.
+The idea of using VAEs to impute missing data was already examined in the seminal paper by \textcite{rezende_stochastic_2014}. Here the model was trained with fully observed data and used to impute data in an iterative sampling approach post hoc, leaving the learned representations unchanged.
 
 \paragraph{Evaluating representations} 
 Although this review has a primarily methodological focus, we should briefly touch upon evaluation procedures.
-Training metrics for self-supervised tasks and the likelihood of LVMs offer little guidance as to the quality of the learned representations \parencite{huszar_is_2017}. Thus, a common approach is to evaluate the representations in terms of their usefulness for downstream tasks. Such tasks may be chosen to target specific attributes of the representation (e.g. semantic or speaker information).
+Training metrics for self"=supervised tasks and the likelihood of LVMs offer little guidance as to the quality of the learned representations \parencite{huszar_is_2017}. Thus, a common approach is to evaluate the representations in terms of their usefulness for downstream tasks. Such tasks may be chosen to target specific attributes of the representation (e.g. semantic or speaker information).
 
 The SUPERB benchmark \parencite{yang_superb_2021} gathers multiple tasks grouped into categories such as \emph{recognition}, \emph{detection}, \emph{semantics}, \emph{speaker}, \emph{paralinguistics} and \emph{generation}. 
 The recently proposed SLUE benchmark focuses on spoken language understanding \parencite{shon_slue_2021}.
@@ -468,10 +467,10 @@ For local representations, phoneme classification is very common \parencite{lee_
 However, automatic speech recognition has become the \textit{de facto} standard benchmark task \parencite{ling_decoar_2020, chung_generative_2020, hsu_hubert_2021}.
 
 \paragraph{Moving forward} 
-Most of the seminal work has focused on improving speech recognition \parencite{schneider_wav2vec_2019, baevski_wav2vec_2020}. This focus has gained traction over the last couple of years, as computational resources have become more accessible and end-to-end models \parencite{graves_connectionist_2006, chan_listen_2016} have been established as the dominant approach to speech recognition \parencite{gulati_conformer_2020}. It is important to stress that self-supervised models, such as wav2vec 2.0 \parencite{baevski_wav2vec_2020}, represent a breakthrough, and recent successful approaches build upon this method. That is, deep self-attention models combined with masking \parencite{hsu_hubert_2021, wang_unispeech_2021, chen_wavlm_2021}. This development mirrors years of rapid progress in masked language modeling within natural language processing \parencite{devlin_bert_2018,clark_electra_2020} and we expect this to continue for unsupervised neural speech representation learning.
+Most of the seminal work has focused on improving speech recognition \parencite{schneider_wav2vec_2019, baevski_wav2vec_2020}. This focus has gained traction over the last couple of years, as computational resources have become more accessible and end-to-end models \parencite{graves_connectionist_2006, chan_listen_2016} have been established as the dominant approach to speech recognition \parencite{gulati_conformer_2020}. It is important to stress that self"=supervised models, such as wav2vec 2.0 \parencite{baevski_wav2vec_2020}, represent a breakthrough, and recent successful approaches build upon this method. That is, deep self-attention models combined with masking \parencite{hsu_hubert_2021, wang_unispeech_2021, chen_wavlm_2021}. This development mirrors years of rapid progress in masked language modeling within natural language processing \parencite{devlin_bert_2018,clark_electra_2020}, and we expect this to continue for unsupervised neural speech representation learning.
 
 \section{Conclusion}
 \label{sec:conc}
-We reviewed unsupervised representation learning for speech, focusing on two primary categories: self-supervised methods and probabilistic latent variable models. Inspired by the development of self-supervised learning and the dependency structures of latent variable models, we derived a comprehensive model taxonomy. Finally, we compare and discuss models from the two categories and their respective evaluation procedures.
+We reviewed unsupervised representation learning for speech, focusing on two primary categories: self"=supervised methods and probabilistic latent variable models. Inspired by the development of self"=supervised learning and the dependency structures of latent variable models, we derived a comprehensive model taxonomy. Finally, we compare and discuss models from the two categories and their respective evaluation procedures.
 
 }

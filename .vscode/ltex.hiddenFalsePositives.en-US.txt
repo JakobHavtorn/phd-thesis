@@ -4,7 +4,7 @@
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qappendices.\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qdiscussion and conclusions.\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qmedical applications.\\E$"}
-{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qself-supervised speech representation learning.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qself"=supervised speech representation learning.\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qunsupervised uncertainty estimation.\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qbackground.\\E$"}
 {"rule":"TO_TOO","sentence":"^\\QWe point out that contrary to much recent literature on OOD detection, our approach is fully unsupervised and does not make assumptions about the nature of OOD data.\\E$"}
@@ -13,3 +13,6 @@
 {"rule":"WHETHER","sentence":"^\\QIn other words, we wonder whether or not \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q are likely to come from the same distribution that generated our curated dataset.\\E$"}
 {"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QWe also noticed that both the model design choice and the optimization choices have an influence on the score we are computing.\\E$"}
 {"rule":"EN_A_VS_AN","sentence":"^\\QBoth examples assume that the in-distribution data follows a \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q distribution, and that the correct model has been learned by fitting \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q via maximum-likelihood.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qself"=supervised latent variable [ schematic overview of the self"=supervised and probabilistic latent variable models covered in this survey.]\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qpredictive masking-based 90 reconstruct 90 contrastive Schematic of self"=supervised methods.\\E$"}
+{"rule":"DIVERSITY_OF","sentence":"^\\QTo ensure utilization of codebook vectors, a diversity loss is added to the task specific loss (\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q) \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, where \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is the entropy and \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is the untempered version of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q without Gumbel noise.\\E$"}

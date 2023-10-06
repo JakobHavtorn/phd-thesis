@@ -89,7 +89,7 @@ Statistics for the MIMIC-III \textit{50}, \textit{full}, and MIMIC-IV datasets a
 Most recent state-of-the-art AMC models use an encoder-decoder architecture. The encoder takes a sequence of tokens $T \in \mathbb{Z}^{n}$ as input and outputs a sequence of hidden representations $H \in \mathbb{R}^{d_h \times n}$, where $n$ is the number of tokens in a sequence, and $d_h$ is the hidden dimension. The decoder takes $H$ as input and outputs the code probability distributions. For the task of ranking, codes are sorted by decreasing probability. For classification, code probabilities larger than a set decision boundary are predicted. 
 
 \paragraph{Encoders:}
-The encoder usually consists of pre-trained non-contextualized word embeddings (e.g., Word2Vec) and a neural network for encoding context. More recently, pre-trained masked language models (e.g., BERT) have gained popularity~\parencite{tengReviewDeepNeural2022}. The MIMIC-III training set or PubMed articles are commonly used for pre-training.
+The encoder usually consists of pre-trained non-contextualized word embeddings (e.g., Word2Vec) and a neural network for encoding context. More recently, pre-trained masked language models (e.g., BERT) have gained popularity~\parencite{tengReviewDeepNeural2022}. The MIMIC-III training set or PubMed articles are commonly used for pre"=training.
 
 \paragraph{Decoders:}
 The most common decoder architectures can be grouped into three primary types. 
@@ -496,7 +496,7 @@ We found that document length and model performance only exhibited a weak correl
 
 \subsection{Future work}
 We recommend future work within AMC use our revised comparison method, including stratified sampled splits of MIMIC datasets, corrected evaluation metrics, hyperparameter search, and decision boundary tuning to avoid reporting suboptimal or biased results. 
-Furthermore, for AMC to become a viable solution for ICD-10, future research should focus on improving performance on rare codes while, in the shorter term, developing methods to detect codes that are too challenging for automated coding and, therefore, should be coded manually. Finally, while PLM-ICD outperforms the other models in this paper, the improvements are limited compared to the effect of pre-training in other domains \parencite{mohamed_selfsupervised_2022, linPretrainedTransformersText2021,baevski_wav2vec_2020,devlin_bert_2018,dosovitskiy_image_2021}.
+Furthermore, for AMC to become a viable solution for ICD-10, future research should focus on improving performance on rare codes while, in the shorter term, developing methods to detect codes that are too challenging for automated coding and, therefore, should be coded manually. Finally, while PLM-ICD outperforms the other models in this paper, the improvements are limited compared to the effect of pre"=training in other domains \parencite{mohamed_selfsupervised_2022, linPretrainedTransformersText2021,baevski_wav2vec_2020,devlin_bert_2018,dosovitskiy_image_2021}.
 Notably, there have been several unsuccessful attempts at using pre-trained transformers for medical coding \parencite{jiDoesMagicBERT2021,gaoLimitationsTransformersClinical2021,michalopoulosICDBigBirdContextualEmbedding2022,pascualBERTbasedAutomaticICD2021,zhangBERTXMLLargeScale2020}. In future work, we want to investigate why pre-trained transformers underperform in medical coding.
 
 

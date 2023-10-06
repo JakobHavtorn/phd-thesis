@@ -405,7 +405,7 @@ The maximum sequence length of the pre-trained model was 512 input tokens.
 To accommodate longer input sequences, which was necessary for our dataset, we concatenated several copies of the original positional embedding matrix. 
 The results of the final model are presented in \cref{tab_retrospective:tableA8}. 
 
-We see that the fine-tuned BERT model performs slightly worse across F1-score, sensitivity, PPV and FOR (p < 0.0001), but better in terms of FPR (p < 0.0001), compared the MLP model presented in the main manuscript. As described in the discussion section, we hypothesize that the number of stroke positives was too small for these advanced models to learn more complex patterns than the MLP ensemble. In addition, the BERT model would likely benefit from pre-training on text data from the target domain, or a domain close to it, rather than various online fora.
+We see that the fine-tuned BERT model performs slightly worse across F1-score, sensitivity, PPV and FOR (p < 0.0001), but better in terms of FPR (p < 0.0001), compared the MLP model presented in the main manuscript. As described in the discussion section, we hypothesize that the number of stroke positives was too small for these advanced models to learn more complex patterns than the MLP ensemble. In addition, the BERT model would likely benefit from pre"=training on text data from the target domain, or a domain close to it, rather than various online fora.
 
 \begin{table}[h]
     \centering

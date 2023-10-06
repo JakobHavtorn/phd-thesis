@@ -409,7 +409,7 @@ Results on additional commonly used datasets are found in \cref{sec_hierarchical
         BIVA (ours) refers to our implementation of the hierarchical BIVA model.
     }
     \centering
-    \resizebox*{!}{0.82\textheight}{%
+    \resizebox*{!}{0.83\textheight}{%
     \begin{tabular}{lrrr}
         \toprule
          Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
@@ -531,6 +531,16 @@ Since a high degree of overlap also seems present in \textcite{maaloe_biva_2019}
 
 \subsection{Likelihood-ratio-based OOD detection}
 
+We now move to the likelihood ratio-based score.
+We find that $LLR^{>k}$ separates the OOD MNIST data from in-distribution FashionMNIST to a higher degree than the likelihood estimates as can be seen by the empirical densities of the score in \cref{fig_hierarchical:FMNIST-llr}.
+We note that the likelihood ratio between the ELBO and the $\mathcal{L}^{>k}$ bound provides the highest degree of separation of MNIST and FashionMNIST as measured by the AUROC$\uparrow$ for $k=1$ smaller than $L$.
+This is not surprising since the value of $k$ that provides the maximal separation to the reference in-distribution dataset need not be the one for which $\mathcal{LLR}^{>k}$ is overall maximal for the OOD dataset.
+We also visualize the ROC curves resulting from using the $LLR^{>k}$ score for OOD detection on both FashionMNIST/MNIST and CIFAR10/SVHN and compare it to the ROC curves resulting from the different $\mathcal{L}^{>k}$ bounds in \cref{fig_hierarchical:FMNIST-roc-llr and CIFAR10-roc-llr}, respectively.
+On both datasets we see significantly better discriminatory performance when using the $LLR^{>k}$ score.
+
+\cref{tab_hierarchical:rocauc-ood} shows that BIVA improves upon the HVAE model for OOD detection on CIFAR while \cref{tab_hierarchical:bits-per-dim-ood} shows that the BIVA model also improves upon the HVAE in terms of likelihood.
+We hypothesize that models larger than our implementation of BIVA, with better likelihood scores may perform even better \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
+
 \begin{figure}
     \centering
     \begin{subfigure}[l]{0.495\columnwidth}
@@ -554,16 +564,6 @@ Since a high degree of overlap also seems present in \textcite{maaloe_biva_2019}
     }
     \label{fig_hierarchical:FMNIST-roc-llr and CIFAR10-roc-llr}
 \end{figure}
-
-We now move to the likelihood ratio-based score.
-We find that $LLR^{>k}$ separates the OOD MNIST data from in-distribution FashionMNIST to a higher degree than the likelihood estimates as can be seen by the empirical densities of the score in \cref{fig_hierarchical:FMNIST-llr}.
-We note that the likelihood ratio between the ELBO and the $\mathcal{L}^{>k}$ bound provides the highest degree of separation of MNIST and FashionMNIST as measured by the AUROC$\uparrow$ for $k=1$ smaller than $L$.
-This is not surprising since the value of $k$ that provides the maximal separation to the reference in-distribution dataset need not be the one for which $\mathcal{LLR}^{>k}$ is overall maximal for the OOD dataset.
-We also visualize the ROC curves resulting from using the $LLR^{>k}$ score for OOD detection on both FashionMNIST/MNIST and CIFAR10/SVHN and compare it to the ROC curves resulting from the different $\mathcal{L}^{>k}$ bounds in \cref{fig_hierarchical:FMNIST-roc-llr and CIFAR10-roc-llr}, respectively.
-On both datasets we see significantly better discriminatory performance when using the $LLR^{>k}$ score.
-
-\cref{tab_hierarchical:rocauc-ood} shows that BIVA improves upon the HVAE model for OOD detection on CIFAR while \cref{tab_hierarchical:bits-per-dim-ood} shows that the BIVA model also improves upon the HVAE in terms of likelihood.
-We hypothesize that models larger than our implementation of BIVA, with better likelihood scores may perform even better \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
 
 
 \subsection{Comparison to baselines}
@@ -592,7 +592,7 @@ Hence, there can be an asymmetry where the likelihoods of simple OOD data can be
 Loosely put, the minimal number of bits required to losslessly compress data sampled from some distribution is the entropy of the generating process \parencite{shannon_mathematical_1948, mackay_information_2003}.
 \textcite{townsend_practical_2019} recently showed that VAEs can be used for lossless compression at rates superior to more generic algorithms.
 
-We also note that since the hierarchical VAE is a probabilistic graphical latent variable model, it lends itself very naturally to manipulation at the feature level \parencite{kingma_semi-supervised_2014, maaloe_auxiliary_2016, maaloe_semi-supervised_2017}.
+We also note that since the hierarchical VAE is a probabilistic graphical latent variable model, it lends itself very naturally to manipulation at the feature level \parencite{kingma_semi"=supervised_2014, maaloe_auxiliary_2016, maaloe_semi"=supervised_2017}.
 This property sets it apart from other generative models that do not explicitly define such a hierarchy of features.
 This in turn enables reliable OOD detection with our methodology while making no explicit assumptions about the nature of OOD data and only using a single model. This has not been achieved with autoregressive or flow-based models.
 

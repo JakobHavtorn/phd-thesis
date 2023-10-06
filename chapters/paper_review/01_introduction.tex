@@ -6,7 +6,7 @@
 \begin{figure}
     \centering
     \includegraphics[width=0.80\textwidth]{paper_review/SSL_framework.png}
-	 \caption{Framework for using self-supervised representation learning in
+	 \caption{Framework for using self"=supervised representation learning in
 	 downstream applications.}
     \label{fig:SSL_framework}
 \end{figure}
@@ -45,19 +45,19 @@ naturally occurring patterns in training samples for which there are no pre-assi
 labels or scores~\parencite{jordan_machine_2015}. 
 The term ``unsupervised'' is used to distinguish this family of methods from
 ``supervised'' approaches, which assign a label to each training sample, and
-``semi-supervised'' approaches, which utilize a small number of training samples
+``semi"=supervised'' approaches, which utilize a small number of training samples
 with labels to guide learning using a larger volume of unlabeled samples.
 Examples of unsupervised learning techniques include $k$-means clustering~\parencite{gray_vector_1984}, mixture models~\parencite{jordan_hierarchical_1994}, autoencoders~\parencite{hinton_autoencoders_1994},
 and non-negative matrix factorization~\parencite{lee_learning_1999}. 
-\textit{Self-supervised learning} (SSL) is a fast-growing subcategory of
+\textit{Self"=supervised learning} (SSL) is a fast-growing subcategory of
 unsupervised learning approaches, which are techniques that utilize
 information extracted from the input data itself as the label to learn
 representations useful for 
 downstream tasks. {\color{black} For example, unsupervised $k$-means clustering doesn't adhere to this definition of self-supervision since it iteratively minimizes the within-cluster variance during learning.}
 In this review, we
-focus on self-supervised learning approaches.
+focus on self"=supervised learning approaches.
 
-\Cref{fig:SSL_framework} outlines self-supervised representation learning in
+\Cref{fig:SSL_framework} outlines self"=supervised representation learning in
 relation to downstream applications. 
 There are two stages in this framework.
 In the first stage, we use SSL to pre-train a \textit{representation model},
@@ -85,7 +85,7 @@ utterance.
 Due to the popularity of SSL, reviews have been published about the
 technology in general~\parencite{bommasani_opportunities_2021,ericsson_selfsupervised_2022,liu_selfsupervised_2021} as well as its application to natural language processing (NLP)~\parencite{rogers_primer_2020,liu_pretrain_2021,xia_which_2020,qiu_pretrained_2020} and computer vision (CV)~\parencite{jing_selfsupervised_2021}. Recently, a brief overview with a general focus on speech representation learning was published \parencite{borgholt_brief_2022}. 
 However, none of these overviews focus exclusively on SSL for speech processing. Since the speech signal differs greatly from image and text inputs, many  theories  and technologies have been developed to address the unique challenges of speech. 
-One review addresses speech representation learning based on deep learning models~\parencite{latif_deep_2021}, but does not address recent developments in self-supervised learning. This motivates this overview of speech SSL.
+One review addresses speech representation learning based on deep learning models~\parencite{latif_deep_2021}, but does not address recent developments in self"=supervised learning. This motivates this overview of speech SSL.
 
 
 The structure of this paper is arranged as follows. \Cref{sec:thirdwave}

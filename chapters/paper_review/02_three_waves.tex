@@ -5,7 +5,7 @@
 \label{sec:thirdwave}
 
 In this section we present the historical background of the current surge in
-self-supervised representation learning methods in the context of two previous
+self"=supervised representation learning methods in the context of two previous
 waves of research work in the 1990s and 2000s. The discussed approaches go
 beyond speech to describe the overall landscape of machine learning development during the
 past few decades.
@@ -84,7 +84,7 @@ A more recent trend is learning networks that map the input to desired
 representations by solving a \textit{pretext} task. Such studies have several
 characteristics:
 (1)~All layers are trained end-to-end to optimize a single pretext task instead
-of relying on layer-wise pre-training
+of relying on layer-wise pre"=training
 (2)~Past stacked networks typically had only a few layers, but 
 very deep networks with more than ten layers are now common.
 (3)~It is common to evaluate a representation model on a wide range of tasks.
@@ -130,8 +130,8 @@ in \cref{sec:approach}.
 
 \subsection{Other related work}
 A closely related area of research that is not covered in this review is
-semi-supervised pre-training methods such as pseudo-labeling (that is,
-self-training). Pseudo-labeling (PL) relies on a supervised teacher model to
+semi"=supervised pre"=training methods such as pseudo"=labeling (that is,
+self-training). Pseudo"=labeling (PL) relies on a supervised teacher model to
 label a large volume of speech-only data, which is then used to augment the
 initial labeled data to train a student model~\parencite{kemp_unsupervised_1999, lamel_lightly_2002,
 ma_unsupervised_2006, parthasarathi_lessons_2019}. PL has been successful and widely adopted in the
@@ -143,19 +143,19 @@ complexities in vastly larger speech-only data~\parencite{park_improved_2020,
 xu_iterative_2020, xiao_scaling_2021}. 
 Both SSL and PL leverage unlabeled speech-only data.
 One distinguishing factor in PL is the utilization of supervised data for a
-specific task during model pre-training, which limits the model's focus to
+specific task during model pre"=training, which limits the model's focus to
 a single (or at best a few) downstream tasks. 
 SSL, in turn, is an attempt to learn task-agnostic representations to benefit
 a wide range of tasks. 
 
 Transfer learning (TL) is another closely related area of research for
-pre-training speech models. TL transfers knowledge captured by models
+pre"=training speech models. TL transfers knowledge captured by models
 trained on one task to different but related tasks~\parencite{caruana_multitask_1997}. 
 The past few decades have seen active research on TL and its
 extension to multitask learning for more general representations. 
 Multilingual and cross-lingual supervised models have proven superior in
 low-resource speech recognition tasks~\parencite{cui_multilingual_2015}.
-SSL can be regarded as a type of TL because knowledge learned from pre-training
+SSL can be regarded as a type of TL because knowledge learned from pre"=training
 is used for different downstream tasks.
 This survey paper focuses on SSL, and not all TL technologies for speech. 
 One survey indeed addresses TL for speech processing~\parencite{bell_adaptation_2021}

@@ -1,10 +1,10 @@
 %!TEX root = ../thesis.tex
 
-\section{Analysis of self-supervised representations}
+\section{Analysis of self"=supervised representations}
 \label{analysis}
 
 % {\color{blue} Katrin}\\
-The previous sections have shown how self-supervised learning can result in
+The previous sections have shown how self"=supervised learning can result in
 powerful representations that provide a robust starting point for several
 downstream tasks. It is natural to ask if we can gain an even deeper
 understanding of the nature of these representations, in order to further
@@ -16,7 +16,7 @@ ingredients for training powerful representations: input data, network
 architecture, training criterion, or all three? Can we predict their
 performance on downstream tasks from their training behavior? This section
 tries to answer these questions by summarizing several studies that analyze
-self-supervised representations.
+self"=supervised representations.
 
 \subsection{Information content}
 
@@ -59,12 +59,12 @@ autoencoder-style behavior and focusing the information encoded in the
 last layers on orthographic-phonetic and word information. 
 
 The peaking of class-relevant information in intermediate layers seems to be
-common across different self-supervised learners and different modalities. In
+common across different self"=supervised learners and different modalities. In
 an analysis of text-based Transformers trained with a masked language model
 criterion~\parencite{voita_bottomup_2019} observed a similar compression plus reconstruction
 pattern. Interestingly, similar network behavior was also recently described
-for self-supervised learners in computer vision: using a contrastive
-self-supervised learner (SimCLR) that optimizes for augmentation invariance,
+for self"=supervised learners in computer vision: using a contrastive
+self"=supervised learner (SimCLR) that optimizes for augmentation invariance,
 \parencite{grigg_selfsupervised_2021} show that it is the intermediate representations that most
 closely approximate information learned in a supervised way, i.e., they
 provide more class information than the representations from final layers. This
@@ -72,13 +72,13 @@ is similar to the findings described above for wav2vec~2.0 without fine-tuning,
 where intermediate layers provide more information about phone and word
 classes.
 
-Self-supervised representations may encode other information besides phonetic
+Self"=supervised representations may encode other information besides phonetic
 classes or words, for example, channel, language, speaker, and sentiment
 information. 
 \edit{It is shown that the per-utterance mean of CPC features captures speaker information to a large extent\parencite{vanniekerk_analyzing_2021}.}
 Location of information pertaining to speakers vs.\ language classes was
 analyzed in \parencite{ling_bertphone_2020} for a 12-layer BERTphone model. This model
-combines a self-supervised masked reconstruction loss with a phone-based CTC
+combines a self"=supervised masked reconstruction loss with a phone-based CTC
 loss to produce representations	for speaker recognition and language
 identification. By	analyzing the weights	of a linear combination	of layer
 representations for these two downstream tasks, it was	shown that language
@@ -92,15 +92,15 @@ SUPERB benchmark tasks in the WavLM model. For a smaller model (95M parameters)
 it was again confirmed that lower layers encode speaker-related information
 necessary for speaker diarization and verification whereas higher layers encode
 phonetic and semantic information. Another study~\parencite{wang_selfsupervised_2021} used
-explicit self-supervised loss at the intermediate layers rather than just the
+explicit self"=supervised loss at the intermediate layers rather than just the
 output layer of a HuBERT model in order to enforce better learning of phonetic
 information. The resulting model was indeed better at downstream tasks
 requiring information about phonetic content, such as phone recognition, ASR,
 and keyword spotting, but worse at speaker-related tasks like speaker
 diarization and verification. 
 
-%Hung-yi Lee: My group also has a paper analyzing the attention of self-supervised speech model (https://arxiv.org/abs/2006.03265). I will include some findings in this subsection later.
-Most self-supervised learning approaches rely on a Transformer architecture for
+%Hung-yi Lee: My group also has a paper analyzing the attention of self"=supervised speech model (https://arxiv.org/abs/2006.03265). I will include some findings in this subsection later.
+Most self"=supervised learning approaches rely on a Transformer architecture for
 the representation model. In \parencite{yang_understanding_2020} the attention patterns in
 generatively trained Transformer representation models were analyzed.
 Self-attention heads were grouped into three categories: diagonal, vertical,
@@ -140,7 +140,7 @@ its superior ability to model temporal dynamics.
 \subsection{Effects of data and model size}
 \label{subsec:modelsize}
 
-How does the performance of self-supervised models change in relation to the
+How does the performance of self"=supervised models change in relation to the
 amount of training data, and in relation to the size (number of parameters) of
 the model?
 Several studies have demonstrated better downstream performance when using
@@ -165,7 +165,7 @@ explicit investigations of domain shift robustness (see
 \edit{The relation between model sizes and downstream performances have also been investigated \parencite{pu_scaling_2021,versteegh_zero_2015}.}
 Using the Mockingjay 
 model~\parencite{liu_mockingjay_2020}, the authors in \parencite{pu_scaling_2021} attempt to establish a relationship between
-model size and self-supervised \ensuremath{L_1} loss and demonstrate that it approximately
+model size and self"=supervised \ensuremath{L_1} loss and demonstrate that it approximately
 follows a power law. Model size and accuracy on downstream phone
 classification and speaker recognition tasks are positively correlated but do not
 exactly follow a power law; rather, the accuracy saturates as models increase in
@@ -195,12 +195,12 @@ Similar problems were also investigated using HuBERT and wav2vec~2.0 models in
 \parencite{chang_exploration_2021}.
 In \parencite{hsu_robust_2021} domain effects were studied in greater detail using 
 datasets from six different domains. In particular, the authors focused on the
-usefulness of adding out-of-domain data to pre-training. The general
-conclusions are that pre-training on more and diverse domains is preferable:
+usefulness of adding out-of-domain data to pre"=training. The general
+conclusions are that pre"=training on more and diverse domains is preferable:
 models pre-trained on more domains performed better than those pre-trained on
 fewer when tested on held-out domains, regardless of which additional
 labeled data was used for fine-tuning. Adding in-domain unlabeled data---if
-available---to pre-training improves performance robustly; however, even
+available---to pre"=training improves performance robustly; however, even
 out-of-domain unlabeled data is helpful and closes  66--73\% of the performance
 gap between the ideal setting of in-domain labeled data and a competitive
 supervised out-of-domain model. 
@@ -210,14 +210,14 @@ phone discrimination tasks was compared across several languages. It
 was found that representations pre-trained only on English successfully
 enabled phone discrimination in 10 other languages, rivaling
 supervised methods in accuracy in low-data regimes (1h of labeled data
-per language). Thus, self-supervised pre-training enables the model to
+per language). Thus, self"=supervised pre"=training enables the model to
 learn contextualized speech features that generalize across different
 languages. In \parencite{conneau_unsupervised_2020}, a wav2vec~2.0 model was trained on data
 from multiple different languages and different corpora (Babel, Common Voice,
 and multilingual LS)
 jointly, followed by fine-tuning for each individual language. The largest
 model covers 53 languages in total
-and consists of 56,000 hours of speech. Compared to monolingual pre-training,
+and consists of 56,000 hours of speech. Compared to monolingual pre"=training,
 even smaller models trained on only ten languages improve performance
 substantially on a downstream character-based ASR task. Low-resource languages
 with little labeled data improve the most under this training regime.
@@ -231,7 +231,7 @@ analysis of language clusters in the shared discrete latent representation
 space revealed that similar languages do indeed show a higher degree of sharing
 of discrete tokens. 
 Finally, one might ask whether the interpretation of representations extracted
-from different layers of a self-supervised models also generalizes to the
+from different layers of a self"=supervised models also generalizes to the
 multilingual setting. Experiments in \parencite{baevski_unsupervised_2021} on phone
 recognition in eight languages based on the different layers of the
 multilingual wav2vec~2.0 XLSR-53 model indicate that this is indeed the case:

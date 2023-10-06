@@ -20,7 +20,7 @@ In \cref{subsec:zero}, the SSL representation is further used in scenarios where
 
 \subsection{Unpaired text and audio} \label{secsec:unpaired}
 % What are we going to do % how to match
-%In the self-supervised learning framework, speech representations can be learned and used in the downstream tasks, but some labeled data for finetuning is needed.
+%In the self"=supervised learning framework, speech representations can be learned and used in the downstream tasks, but some labeled data for finetuning is needed.
 
 \begin{sidewaystable}
 \centering
@@ -135,8 +135,7 @@ For the text side, word sequences can be transformed into phoneme sequences if a
 On the other hand, we must first convert the speech signal into something close to phonemes. 
 To achieve that, most studies on unsupervised ASR use a phoneme
 segmentation module before the generator to segment utterances into
-phoneme-level
-segments~\parencite{liu_completely_2018,chen_completely_2019,yeh_unsupervised_2019}. 
+phoneme-level segments \parencite{liu_completely_2018,chen_completely_2019,yeh_unsupervised_2019}. 
 A representation vector or a token then represents each phoneme-level segment. 
 It is easier for the generator to map each segment-level representation 
 or token to the correct phoneme when the representation or token is highly correlated to the phonemes.
@@ -172,7 +171,7 @@ unsupervised.
 %Compared to~\parencite{yeh_unsupervised_2019}, the discriminator in~\parencite{chen_completely_2019} considers all possible information from the text dataset, not limited to the n-gram local statistics.
 %Besides, \parencite{chen_completely_2019} works well with a reasonable batch size, which makes it feasible when the computational resource is limited.
 Wav2vec-U~\parencite{baevski_unsupervised_2021} selects the input feature from
-different layers of wave2vec 2.0~\parencite{baevski_wav2vec_2020}, a self-supervised
+different layers of wave2vec 2.0~\parencite{baevski_wav2vec_2020}, a self"=supervised
 model.
 The selecting criterion is the PER by training a linear model in a supervised manner. 
 %Should we mention this?
@@ -236,8 +235,8 @@ determine the hyperparameters without a labeled development set.
 
 \paragraph{ASR-TTS}
 %{\color{black} Shinji}\\
-%{\color{black} Hung-yi: In the last meeting, we discussed the connection between this section and self-supervised learning. In addition to looking for papers using self-supervision to improve the ASR-TTS framework here, I think there may be another direction. Can we regard this ASR-TTS framework as a kind of self-supervised learning? ASR-TTS is similar to an autoencoder, and the output of ASR is "latent representation". In other words, this section describes a special self-supervised learning method, whose representation is expressed as "text."}\\
-%{\color{black} Hung-yi: However, the above idea sounds tricky. In addition, the ``ASR-TTS'' autoencoder is learned by semi-supervised, not self-supervised.}
+%{\color{black} Hung-yi: In the last meeting, we discussed the connection between this section and self"=supervised learning. In addition to looking for papers using self-supervision to improve the ASR-TTS framework here, I think there may be another direction. Can we regard this ASR-TTS framework as a kind of self"=supervised learning? ASR-TTS is similar to an autoencoder, and the output of ASR is "latent representation". In other words, this section describes a special self"=supervised learning method, whose representation is expressed as "text."}\\
+%{\color{black} Hung-yi: However, the above idea sounds tricky. In addition, the ``ASR-TTS'' autoencoder is learned by semi"=supervised, not self"=supervised.}
 % AMH: to make the paper more consistent, I recommend changing all $f^{\mathrm{asr}}$ to $f_{\mathrm{asr}}$
 Here we describe an alternative approach by which to train an ASR and \edit{text-to-speech (TTS)} system
 based on unpaired text and audio. The ASR-TTS framework, which \edit{combines the ASR} and
@@ -246,10 +245,10 @@ can be regarded as an autoencoder, where the encoder~$f$
 corresponds to the ASR module and the decoder~$g$ corresponds to the TTS module.
 In this framework, we consider the intermediate ASR output as a latent
 representation; the framework as a whole can be regarded as a variant of
-self-supervised learning.\footnote{However, to make this complicated
+self"=supervised learning.\footnote{However, to make this complicated
 system work, we often require that data is paired. Therefore, in practice,
 ASR-TTS and other methods described in this section are categorized as
-semi-supervised learning.}
+semi"=supervised learning.}
 
 The ASR-TTS framework can jointly optimize both ASR and TTS \edit{without using paired data}~\parencite{tjandra_listening_2017,hori_cycleconsistency_2019,wang_improving_2020}.
 A speech chain~\parencite{tjandra_listening_2017,tjandra_machine_2018} is one 
@@ -298,7 +297,7 @@ This technique is a sub-problem of the TTS-ASR approach formulated in
 parameters. 
 For example, a huge amount of text resources can be obtained from the web
 and document archives without corresponding audio data.
-%Self-supervised learning in this paper mostly focuses on representation learning perspectives of such unpaired data.
+%Self"=supervised learning in this paper mostly focuses on representation learning perspectives of such unpaired data.
 The typical use case scenario of such a text resource for ASR is through \edit{the
 language model}. 
 We combine the ASR and language model via a noisy channel 
@@ -334,7 +333,7 @@ unseen word or context phrases to end-to-end ASR.
 \label{zero_speech}
 Zero-resource speech technologies, which seek to discover linguistic concepts
 from audio only (no text nor lexicon), are one of the most active applications
-of unsupervised/self-supervised speech processing.
+of unsupervised/self"=supervised speech processing.
 Zero-resource speech technologies were initially studied for acoustic and
 linguistic unit discovery from speech data without linguistic resources,
 e.g., transcriptions and other annotations~\parencite{jansen_summary_2013}.
@@ -397,7 +396,7 @@ techniques have shifted from purely generative
 models~\parencite{ondel_variational_2016,heck_feature_2017}, deep 
 autoencoders~\parencite{tjandra_vqvae_2019,chorowski_unsupervised_2019}, and incorporation of
 neural-network-based TTS/VC techniques~\parencite{vanniekerk_vectorquantized_2020} to
-self-supervised learning~\parencite{maekaku_speech_2021}.
+self"=supervised learning~\parencite{maekaku_speech_2021}.
 The latest challenge included the visual modality, continuing the
 expansion to include more aspects of human interaction.
 
@@ -405,7 +404,7 @@ expansion to include more aspects of human interaction.
 % {\color{black} Abdo}\\
 
 Textless NLP is a new research direction that leverages the progress mentioned
-above in self-supervised speech representation learning to model language
+above in self"=supervised speech representation learning to model language
 directly from audio, bypassing the need for text or 
 labels~\parencite{nguyen_generative_2022,polyak_speech_2021,kharitonov_textfree_2021,kreuk_textless_2022}. 
 Not only does this open the gate for language and dialect modeling without

@@ -1,6 +1,6 @@
 %!TEX root = ../thesis.tex
 
-\section{Benchmarks for self-supervised learning}
+\section{Benchmarks for self"=supervised learning}
 \label{section:benchmark}
 
 The previous sections presented various methodologies by which to learn speech
@@ -9,8 +9,8 @@ available to learn and evaluate these representations. We also summarize
 several studies and their results to demonstrate the usefulness of the learned
 representations for various downstream tasks. 
 
-\subsection{Datasets only for pre-training} 
-\Cref{table:datasets} summarizes datasets used for pre-training SSL techniques
+\subsection{Datasets only for pre"=training} 
+\Cref{table:datasets} summarizes datasets used for pre"=training SSL techniques
 in the literature. These datasets are usually large but with limited or no
 labels. Libri-light (LL)~\parencite{kahn_libri-light_2020}, one of these datasets, is
 derived from audiobooks that are part of the
@@ -18,7 +18,7 @@ LibriVox\footnote{https://librivox.org/ \label{librivox}} project. LL contains
 60k hours of spoken English audio tagged with SNR, speaker ID, and genre
 descriptions. The speech examples in Audioset~\parencite{gemmeke_audio_2017}, which
 consists of over 2M 10-second YouTube video clips human-annotated with 632
-audio events, have also been used for pre-training. Audioset has 2.5k hours
+audio events, have also been used for pre"=training. Audioset has 2.5k hours
 of audio of varying quality, different languages, and sometimes multiple sound
 sources. AVSpeech~\parencite{ephrat_looking_2018} is another large-scale audio-visual
 dataset used in SSL research, comprising 4.7k hours of clips from a wide
@@ -28,23 +28,23 @@ speaker without interfering background signals. The 3100-hour audio part of
 AVSpeech has been used to learn audio-only 
 representations~\parencite{kawakami_learning_2020}. The Fisher corpus~\parencite{cieri_fisher_2004} collects
 over 2k hours of conversational telephone speech, 1k hours of which is utilized
-for pre-training~\parencite{jiang_further_2021}. Industrial researchers have also
+for pre"=training~\parencite{jiang_further_2021}. Industrial researchers have also
 begun to build large-scale datasets for learning speech representations.
 For instance, 10k hours of real-world far-field English voice commands for
-self-supervised pre-training have been collected at 
+self"=supervised pre"=training have been collected at 
 Amazon~\parencite{sadhu_wav2vecc_2021}. 
 
 In addition to these English and multilingual efforts, researchers have also
-collected corpora for pre-training Chinese speech representations. Didi Dictation
+collected corpora for pre"=training Chinese speech representations. Didi Dictation
 and Didi Callcenter~\parencite{jiang_improving_2019, jiang_further_2021} are two
 internal datasets containing respectively 10k hours of read speech collected
 from mobile dictation application and 10k hours of spontaneous phone calls
 between users and customer service staff.
 
-\subsection{Datasets for both pre-training and evaluation}\label{sec:datasets}
+\subsection{Datasets for both pre"=training and evaluation}\label{sec:datasets}
 Several datasets that provide both speech and associated transcripts and
 speaker labels have also been used to develop SSL techniques by enabling
-in-domain pre-training and evaluation. Such datasets are also listed in
+in-domain pre"=training and evaluation. Such datasets are also listed in
 \cref{table:datasets}. One of the most commonly used datasets in this category
 is LibriSpeech (LS)~\parencite{panayotov_librispeech_2015}, a labeled corpus
 containing 960 hours of
@@ -55,10 +55,10 @@ project.\textsuperscript{\ref{librivox}} The corpus consists of subsets
 \textit{test-other} used for training, development, and testing, respectively.
 Subsets tagged with \textit{other} are more challenging utterances from
 speakers that yield higher WER as measured with previously built models. LS is
-used for unsupervised representation pre-training by ignoring its labels, and
+used for unsupervised representation pre"=training by ignoring its labels, and
 can also be utilized to evaluate the performance of representation on ASR, phoneme recognition (PR),
 phoneme classification (PC), and speaker identification (SID) tasks. Wall Street Journal (WSJ)~\parencite{paul_design_1992} is another
-widely adopted, labeled corpus for pre-training. Its labels can evaluate
+widely adopted, labeled corpus for pre"=training. Its labels can evaluate
 performance for ASR, PR, PC, and SID. The original WSJ corpus contains 400 hours
 of English read speech data, and today its \textit{si284} (81 hours),
 \textit{dev93}, \textit{eval92} subsets are the most-used partitions for
@@ -66,14 +66,14 @@ unsupervised training, development, and test, respectively.  The \textit{si84}
 (15 hours) partition is also used for training.
 
 The speech community also utilizes multilingual corpora. These are often
-large-scale, which facilitates pre-training, but are also partially labeled for ASR
+large-scale, which facilitates pre"=training, but are also partially labeled for ASR
 evaluation (PC and PR can be enabled via phone-level forced alignment). These
 corpora include Common Voice (CV)~\parencite{ardila_common_2020}, Multilingual
 LibriSpeech (MLS)~\parencite{pratap_mls_2020}, VoxPopuli 
 (VP)~\parencite{wang_voxpopuli_2021}, and BABEL (BBL)~\parencite{gales_speech_2014}. CV is
 an open-source, multi-language, growing dataset of voices containing 11k hours
 of audio from 76 languages as of the date this review was written (Common Voice
-corpus~7.0). Researchers usually use part of this for pre-training (e.g., 7k
+corpus~7.0). Researchers usually use part of this for pre"=training (e.g., 7k
 hours/60 languages in \parencite{babu_xlsr_2021} and 430 hours/29 languages in
 \parencite{kawakami_learning_2020}) or evaluation. 
 MLS derives content from read audiobooks of LibriVox and contains data in eight
@@ -81,7 +81,7 @@ European languages for a total of 50k hours of audio. VP comprises a total of 40
 hours of parliamentary speech from the European parliament in 23 European
 languages.
 The entire dataset~\parencite{babu_xlsr_2021} or a 24k-hour 
-portion~\parencite{chen_unispeechsat_2021, chen_wavlm_2021} thereof has been used for pre-training. BBL
+portion~\parencite{chen_unispeechsat_2021, chen_wavlm_2021} thereof has been used for pre"=training. BBL
 consists of 1k hours of conversational telephone speech in 17 African and Asian
 languages.
 
@@ -91,7 +91,7 @@ Switchboard (SWB)~\parencite{godfrey_switchboard_1992},
 TIMIT~\parencite{garofolo_timit_1993}, and VoxLingua107 \parencite{valk_voxlingua107_2021}, are
 labeled and conventionally used for evaluation, while their audio streams are
 also aggregated to build diversified and large-scale corpora for unsupervised
-pre-training~\parencite{kawakami_learning_2020, song_speechxlnet_2020, babu_xlsr_2021}.
+pre"=training~\parencite{kawakami_learning_2020, song_speechxlnet_2020, babu_xlsr_2021}.
 GigaSpeech is a multi-domain English ASR corpus with 33k hours of audio
 collected from audiobooks, podcasts, and YouTube. A subset of 10k audio is
 transcribed. TED2 comes with 118 hours of English speech extracted from
@@ -104,17 +104,17 @@ phone-level transcriptions for acoustic-phonetic studies. It contains recordings
 in American English. Compared to the previous corpora labeled for ASR
 evaluation, VoxLingua107 consists of 6.6k hours of audio in 107 languages and
 is annotated for language identification. Beyond the original purpose of
-evaluation, these corpora are also used in pre-training to improve the
+evaluation, these corpora are also used in pre"=training to improve the
 generalizability of learned representations.
 
-For the purpose of pre-training and evaluating Mandarin speech representations,
+For the purpose of pre"=training and evaluating Mandarin speech representations,
 the authors of \parencite{jiang_improving_2019, jiang_further_2021} also compiled Open Mandarin, 
 an open-source Mandarin dataset of 1.5k hours of speech from
 the Linguistic Data Consortium (LDC) and
 OpenSLR.\footnote{\url{https://openslr.org}} Open Mandarin consists of the HKUST
 Mandarin Telephone Speech Corpus (HKUST, 200 hours of spontaneous 
 speech, of which
-168 hours of audio is used for pre-training; the development and test sets are
+168 hours of audio is used for pre"=training; the development and test sets are
 excluded.)~\parencite{liu_hkust_2006}, AISHELL-1~\parencite{bu_aishell1_2017} (178 hours of
 read speech),
 aidatatang 200zh (200 hours, read speech)~\parencite{beijingdatatangtechnologycoltd_aidatatang_}, MAGICDATA
@@ -127,7 +127,7 @@ Both HKUST and AISHELL-1 are labeled and are suitable for ASR evaluation.
 \subsection{Datasets for evaluation}
 
 Besides the aforementioned datasets, conventional speech processing benchmarks
-are also used to evaluate self-supervised representations. Studies leverage Hub5,
+are also used to evaluate self"=supervised representations. Studies leverage Hub5,
 DIRHA, and CHiME-5 to measure the efficacy of representations in ASR.
 The Hub5 evaluation (LDC2002T43 and LDC2002S09, also referred to as the NIST 2000
 Hub5 English evaluation set) contains 40 transcribed English telephone
@@ -180,7 +180,7 @@ generalizability of SSL representations across languages. We denote the
 collection as OpenSLR-multi below.
 
 Last, \parencite{tagliasacchi_pretraining_2020} puts together five datasets 
-(MUSAN~\parencite{snyder_musan_2015}, Bird Audio Detection~\parencite{stowell_automatic_2019},
+(MUSAN~\parencite{snyder_musan_2015}, Bird Audio Detection \parencite{stowell_automatic_2019},
 Speech Commands~\parencite{warden_speech_2018}, Spoken Language 
 Identification~\parencite{oponowicz_spoken_2018}, and TUT Urban Acoustic Scenes 2018~\parencite{mesaros_detection_2018}) plus
 an SID task built with the LS \textit{train-clean-100} subset to evaluate the
@@ -194,8 +194,8 @@ audio processing, we here provide only a list of these datasets for reference.
 \begin{table*}[t]
   \centering
   \scriptsize %footnotesize %small, scriptsize, tiny
-  \caption[Summary of datasets used for pre-training or evaluation of SSL techniques in the literature.]%
-  {Summary of datasets used for pre-training (denoted as PT) or
+  \caption[Summary of datasets used for pre"=training or evaluation of SSL techniques in the literature.]%
+  {Summary of datasets used for pre"=training (denoted as PT) or
   evaluation (denoted as EV) of SSL techniques in the literature. The languages and
   sizes of the datasets are provided in columns 3 and 4. Column 5 lists the tasks each
   dataset is used to evaluate. Abbrevations are listed in \cref{footnote:table:datasets-abbrevations}.}
@@ -297,7 +297,7 @@ utterances was uttered by the same speaker.}
   \renewcommand*\arraystretch{1.4}
   \begin{tabular}{p{0.14\textwidth}p{0.12\textwidth}p{0.06\textwidth}p{0.15\textwidth}p{0.10\textwidth}p{0.05\textwidth}p{0.15\textwidth}}
     \toprule
-    \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{Pre-training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
+    \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{pre"=training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
      &  &  & Fine-tuning & Test & & \\
     \midrule
     % CPC
@@ -355,11 +355,11 @@ utterances was uttered by the same speaker.}
 
 \addtocounter{footnote}{1}
 \footnotetext{\label{footnote:table:method_data_setting}
-  The \textbf{Pre-training corpus}, \textbf{Fine-tuning}, and
+  The \textbf{pre"=training corpus}, \textbf{Fine-tuning}, and
   \textbf{Test} columns list the datasets used in each work, and the \textbf{Task}
   column lists the tasks performed in the corresponding papers. 
   The \textbf{Transfer} column indicates whether the SSL technique is evaluated by its capability for
-  transfer learning, i.e., different datasets are utilized for pre-training and
+  transfer learning, i.e., different datasets are utilized for pre"=training and
   fine-tuning. The \textbf{Fine-tuning labels used} column summarizes the
   amount of labeled examples used in downstream fine-tuning.
 }
@@ -379,7 +379,7 @@ utterances was uttered by the same speaker.}
   \renewcommand*\arraystretch{1.4}
   \begin{tabular}{p{0.14\textwidth}p{0.12\textwidth}p{0.06\textwidth}p{0.15\textwidth}p{0.10\textwidth}p{0.05\textwidth}p{0.15\textwidth}}
     \toprule
-    \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{Pre-training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
+    \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{pre"=training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
      &  &  & Fine-tuning & Test & & \\
     \midrule
     % BMR
@@ -460,7 +460,7 @@ A collection of AudioSet, AVSpeech,
 CV-dataset, LS, WSJ, TIMIT, Speech Accent Archive 
 (SSA)~\parencite{weinberger_speech_2011}, TED3, and SWB. SSA is a growing annotated corpus of
 English speech with various accents. Among the papers studied in this review, SSA
-is used in \parencite{kawakami_learning_2020} only for pre-training, and only 1 hour
+is used in \parencite{kawakami_learning_2020} only for pre"=training, and only 1 hour
 of audio is utilized. Thus, we exclude it from our discussion in
 \cref{section:benchmark}.}
 \addtocounter{footnote}{1}
@@ -485,14 +485,14 @@ and test subsets at a ratio of 9:1.}
 \subsection{Experiment settings for evaluating SSL techniques}
 A common way to benchmark SSL techniques and show their efficacy is to
 fine-tune a pre-trained SSL model for a supervised downstream task.
-Depending on the corpora used in pre-training and fine-tuning, techniques can
+Depending on the corpora used in pre"=training and fine-tuning, techniques can
 be benchmarked in terms of their capability to transfer knowledge across datasets
-(i.e., using pre-training corpora that differ from the fine-tuning ones), their
+(i.e., using pre"=training corpora that differ from the fine-tuning ones), their
 benefit when training with limited labeled examples (i.e., sampling a subset of
 labeled examples for fine-tuning), or their improvement over a fully supervised
 baseline (i.e., using the entire training split of downstream datasets for
 fine-tuning). \cref{table:method_data_setting,table:method_data_setting_2} summarize experiment settings used in the
-SSL literature, including the pre-training corpora, downstream tasks and datasets,
+SSL literature, including the pre"=training corpora, downstream tasks and datasets,
 and the amount of fine-tuning labels used, which indicates the targeted
 benchmarking scenario as discussed above. Note that there are a variety of ways
 to fine-tune pre-trained networks (e.g., fine-tune the entire network,
@@ -502,9 +502,9 @@ descriptions of these choices; readers can consult the
 original publications for details.
 
 As observed in \cref{table:method_data_setting,table:method_data_setting_2}, LS and WSJ are the most commonly used
-pre-training corpora. At the same time, we observe a
-growing industry investment in pre-training with larger datasets, e.g.,
-CPC-8k (8k hours) for Bidir-CPC~\parencite{kawakami_learning_2020}, LL (60k hours) for
+pre"=training corpora. At the same time, we observe a
+growing industry investment in pre"=training with larger datasets, e.g.,
+CPC-8k (8k hours) for Bidir-CPC \parencite{kawakami_learning_2020}, LL (60k hours) for
 CPC modified~\parencite{riviere_unsupervised_2020}, 
 wav2vec 2.0~\parencite{baevski_wav2vec_2020}, and HuBERT~\parencite{hsu_hubert_2021}, Alexa internal
 datasets (10k hours) for wav2vec-c~\parencite{sadhu_wav2vecc_2021}, Didi internal
@@ -516,7 +516,7 @@ for XLS-R~\parencite{babu_xlsr_2021}. We expect this trend to continue with the 
 in available computing power. Most studies focuses on learning representations
 for English, whereas Chinese~\parencite{jiang_improving_2019, jiang_further_2021} and
 multilinguality~\parencite{kawakami_learning_2020, babu_xlsr_2021} are also gaining
-attention. Compared to pre-training, datasets used for fine-tuning are more
+attention. Compared to pre"=training, datasets used for fine-tuning are more
 diverse and cover downstream tasks as varied as ASR, PR, PC, SID, AED,
 Sentiment, ST, and LID. For benchmarking training scenarios covering full
 supervision as well as limited resources, the amount of labeled examples used for
@@ -527,7 +527,7 @@ methodologies~\parencite{chen_unispeechsat_2021, chen_wavlm_2021}. The goal of s
 to provide a holistic evaluation of the performance of learned representations; 
 we discuss these in detail in \cref{sec:benchmark}. With the increasing
 popularity of SSL research, we expect future experiment settings to proliferate
-and cover more languages, downstream tasks, and pre-training/fine-tuning
+and cover more languages, downstream tasks, and pre"=training/fine-tuning
 datasets.
 
 \begin{figure*}
@@ -546,10 +546,10 @@ samples 10\% of the training examples from the entire 960-hour corpus. For simpl
 several SSL techniques are appended with suffixes \textit{B}, \textit{L},
 \textit{XL}, or \textit{XXL} indicating the \textit{Base}, \textit{Large},
 \textit{X-Large}, or \textit{XX-Large} variants specified in the original
-publication. We also compare with baselines including the log mel filterbank (fBANK) and semi-supervised, self-training
+publication. We also compare with baselines including the log mel filterbank (fBANK) and semi"=supervised, self-training
 approaches (iterative pseudo labeling (IPL)~\parencite{xu_iterative_2020}, 
 slimIPL~\parencite{likhomanenko_slimipl_2021}, noisy student~\parencite{park_improved_2020}). These approaches are visualized in black. Also, note that the current state of the art---conformer XXL + noisy student~\parencite{zhang_pushing_2020}---is a combination of self-training and SSL techniques. Given the
-diversity of the listed methods in experiment settings (e.g., pre-training corpora
+diversity of the listed methods in experiment settings (e.g., pre"=training corpora
 and objectives, whether a language model is used in decoding, whether model
 parameters are frozen in fine-tuning), readers should be careful that the superiority
 of methods cannot be decided only based on lower WER numbers.}
@@ -572,7 +572,7 @@ Respectively, 960, 100, 10, 1 hour(s), and 10 minutes of labeled LS training dat
 were used for fine-tuning, as indicated in different panels of
 \cref{fig:asr_result_no_limit} (see
 the caption of \cref{fig:asr_result_no_limit} for more details).
-Semi-supervised methods such as self-training, where a model is first trained
+Semi"=supervised methods such as self-training, where a model is first trained
 on labeled data to annotate unlabeled speech, and then subsequently trained on
 combined golden and self-annotated label-speech pairs, are gaining popularity
 in the speech community and have yielded competitive results. For comparison, we also
@@ -588,7 +588,7 @@ achieved. The largest ones, such as wav2vec 2.0-L and HuBERT-L/XL, yield competi
 when the entire 960-hour of labeled data is used in
 training/fine-tuning. The benefit of SSL, especially models with more parameters
 like wav2vec 2.0 and HuBERT, becomes more evident when the labeling resources
-become scarce. Compared to popular semi-supervised methods such as IPL,
+become scarce. Compared to popular semi"=supervised methods such as IPL,
 slimIPL, and noisy student using 100 hours of labels, wav2vec~2.0 and HuBERT
 achieve lower or competitive WERs with 1 hour or even 10 minutes of labeled
 examples. The results are highly favorable for low-resource use cases, for instance when
@@ -597,7 +597,7 @@ audio are available, since collecting labels for new conditions is often prohibi
 slow or costly.
 
 In addition to the ASR task, where the current state of the art is achieved by a method
-combining SSL pre-training and self-training 
+combining SSL pre"=training and self-training 
 techniques~\parencite{zhang_pushing_2020}, SSL models are competitive in other tasks, including IC,
 SID, ASV, and QbE. We summarize the performance of these models and previous
 non-SSL methods in \cref{table:sota_performance}. The results suggest that the
@@ -609,7 +609,7 @@ achieve state-of-the-art results on an increasing number of tasks.
 \begin{table}[t]
   \centering
   \footnotesize
-  \caption{Tasks where the state of the art is models with SSL pre-training.}
+  \caption{Tasks where the state of the art is models with SSL pre"=training.}
   \label{table:sota_performance}
   \renewcommand*\arraystretch{1.2}
   \begin{tabular}{llllll}  
@@ -626,7 +626,7 @@ achieve state-of-the-art results on an increasing number of tasks.
 \end{table}
 
 Despite the obvious trend of increasing performance as more parameters and SSL
-pre-training data are being used, numbers in \cref{fig:asr_result_no_limit} 
+pre"=training data are being used, numbers in \cref{fig:asr_result_no_limit} 
 and \cref{table:sota_performance} are less comparable than might be expected.
 The task performance is obtained from the original papers and is often
 achieved with different downstream fine-tuning recipes, including various
