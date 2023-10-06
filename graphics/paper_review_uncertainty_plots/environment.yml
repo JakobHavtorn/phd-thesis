@@ -2,17 +2,23 @@ name: thesis
 channels:
   - conda-forge
   - defaults
+  - pytorch
 dependencies:
+  - datasets
+  - evaluate
+  - gpustat
   - ipython
   - jupyter
+  - librosa
   - matplotlib
+  - numba
   - numpy
   - pandas
-  - ruff
   - python=3.11
+  - pytorch
+  - ruff
   - scikit-learn
   - scipy
-  - torch
+  - soundfile
   - torchaudio
-  
-
+  - transformers
