@@ -158,7 +158,7 @@ Before presenting the results, we provide a brief survey of existing LVMs for sp
 
 % \linepenalty=1000
 % \subsection{Related work}
-LVMs formulated as VAEs continue to be of interest since they are able to learn an approximation to the posterior distribution of assumed latent variables. The posterior is usually of a reduced dimensionality compared to the input and lies close to a known prior distribution. Approximate posteriors have various applications e.g. semi"=supervised learning \parencite{kingma_semi"=supervised_2014} and anomaly detection \parencite{havtorn_hierarchical_2021}.
+LVMs formulated as VAEs continue to be of interest since they are able to learn an approximation to the posterior distribution of assumed latent variables. The posterior is usually of a reduced dimensionality compared to the input and lies close to a known prior distribution. Approximate posteriors have various applications e.g. semi"=supervised learning \parencite{kingma_semi-supervised_2014} and anomaly detection \parencite{havtorn_hierarchical_2021}.
 
 In recent years, several complementary methods have been proposed to improve the expressiveness of VAEs. These include building more expressive priors via methods such as normalizing flows \parencite{rezende_variational_2015} and building a deeper hierarchy of stochastic latent variables such as the Ladder VAE \parencite{sonderby_ladder_2016}. In this research, we focus on the latter due to the recent breakthroughs in image modeling using VAEs without costly autoregressive dependencies on the observed variable \parencite{maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}.
 
@@ -466,9 +466,10 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
 %
 \begin{table}
     \caption[Model likelihoods and phoneme error rate for TIMIT.]{We report model likelihoods $\mathcal{L}$ for TIMIT represented as a 16bit $\mu$-law encoded PCM for different stochastic latent variable models and deterministic autoregressive baselines (left) and phoneme error rate (PER) of different representations for phoneme recognition on TIMIT (right).}
-    \begin{subtable}[t]{.45\textwidth}
+    \hfill
+    \begin{subtable}[t]{.49\textwidth}
     \centering
-    \begin{adjustbox}{center, totalheight=0.35\paperheight}
+    \begin{adjustbox}{center, totalheight=0.4\paperheight}
     \begin{tabular}[t]{lll|r}
         \toprule
         $s$ & \bfseries Model         & \bfseries Configuration           & \bfseries $\mathcal{L}$ [bpf] \\
@@ -511,9 +512,9 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
     \label{tab: likelihoods timit}
     \end{subtable}%
     \hfill
-    \begin{subtable}[t]{.45\textwidth}
+    \begin{subtable}[t]{.49\textwidth}
     \centering
-    \begin{adjustbox}{center, totalheight=0.35\paperheight}
+    \begin{adjustbox}{center, totalheight=0.4\paperheight}
     \begin{tabular}[t]{cll|c}
         \toprule
         \multicolumn{3}{c}{\bfseries ASR configuration} & \multicolumn{1}{c}{\textbf{Result}} \\
@@ -553,7 +554,8 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
     % \caption{}
     % \vspace{-1mm}
     \label{tab: phoneme recognition (PER)}
-    \end{subtable}%
+\end{subtable}%
+\hfill
 \end{table}
 %
 \begin{table*}[t]
@@ -603,8 +605,8 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
 %
 
 \paragraph{TIMIT}
-For temporal resolutions of $s=1$, the deterministic autoregressive models yield the best likelihoods with WaveNet achieving $\SI{10.88}{bpf}$ on TIMIT as seen in \cref{tab: likelihoods timit}. 
-Somewhat surprisingly, the LSTM baseline almost matches WaveNet with a likelihood of $\SI{11.11}{bpf}$ at $s=1$. However, due to being autoregressive in training, the LSTM trains considerably slower than the parallel convolutional WaveNet; something not conveyed by \cref{tab: likelihoods timit}. 
+For temporal resolutions of $s=1$, the deterministic autoregressive models yield the best likelihoods with WaveNet achieving $\SI{10.88}{bpf}$ on TIMIT as seen in \cref{tab: likelihoods timit} (left). 
+Somewhat surprisingly, the LSTM baseline almost matches WaveNet with a likelihood of $\SI{11.11}{bpf}$ at $s=1$. However, due to being autoregressive in training, the LSTM trains considerably slower than the parallel convolutional WaveNet; something not conveyed by \cref{tab: likelihoods timit} (left). 
 Notably, the VRNN and SRNN models achieve likelihoods close to that of WaveNet and the LSTM at around $\SI{11.09}{bpf}$. The STCN exhibited instability when trained at $s=1$ and tended to diverge.
 
 At $s=64$, Wavenet and the LSTM yield significantly worse likelihoods than all LVMs separated by $\sim\SI{1}{bit}$.
@@ -622,7 +624,7 @@ A connection can be made between the model likelihoods and the compression rates
 Lossy compression algorithms, such as MP3, exploit the dynamic range of human hearing to achieve 70-95\% reduction in bit rate \parencite{brandenburg_mpeg-2_1998} while lossless compression algorithms, such as FLAC, achieve 50-70\% reduction \parencite{coalson_free_2019} independent of audio content. 
 % On LibriSpeech, FLAC achieves an overall compression to about 58\% of the original bit rate.
 Although both the autoregressive models and the LVMs are lossy, their objective minimizes the amount of incurred loss. 
-The best likelihoods reported in tables~\cref{tab: likelihoods timit} and \cref{tab: likelihoods librispeech} correspond to about a 30\% reduction in bit rate which indicates that there are significant gains in likelihood to be made in speech modeling.
+The best likelihoods reported in \cref{tab: likelihoods timit} (left) and \cref{tab: likelihoods librispeech} correspond to about a 30\% reduction in bit rate which indicates that there are significant gains in likelihood to be made in speech modeling.
 
 \section{Phoneme recognition}\label{sec: phoneme recognition}
 Although the likelihood is a practical metric for model comparison and selection, a high likelihood does not guarantee that a model has learned useful representations \parencite{huszar_is_2017}. 
@@ -638,8 +640,8 @@ For WaveNet and the LSTM, we use the hidden state as the representation. For all
 We compare the learned representations to a log Mel spectrogram with 80 filterbanks, hop length 64 and window size 128. 
 We also compared to using raw PCM in vectors of 64 elements standardized to $[-1,1]$ but found that the ASR did not reliably converge at all which highlights the importance of input representation. 
 The ASR model is a three-layered bidirectional LSTM with 256 hidden units. It is trained with the connectionist temporal classification (CTC) loss \parencite{graves_connectionist_2006} which lets it jointly learn to align and classify without using label alignments. 
-We pre-train all unsupervised models at $s=64$ on the full TIMIT training dataset excluding the validation data (3.7h) as in \cref{tab: likelihoods timit}. 
-We then train the ASR model on all 3.7h as well as 1h and 10m subsets. We report results on the test set in terms of phoneme error rates (PER) in \cref{tab: phoneme recognition (PER)}. 
+We pre-train all unsupervised models at $s=64$ on the full TIMIT training dataset excluding the validation data (3.7h) as in \cref{tab: likelihoods timit} (left). 
+We then train the ASR model on all 3.7h as well as 1h and 10m subsets. We report results on the test set in terms of phoneme error rates (PER) in \cref{tab: phoneme recognition (PER)} (right).
 
 As expected, Mel spectrogram performs well achieving 24.1\% PER using 3.7 hours of labeled data. However, the ASR trained on STCN representations outperforms the Mel spectrogram with a PER of 21.9\%. 
 This indicates that unsupervised STCN representations are phonetically rich and potentially better suited for speech modeling than the engineered Mel spectrogram. 
@@ -672,6 +674,6 @@ While the best performing models are not yet scalable to the highest temporal re
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section*{Acknowledgements}
-This research was partially funded by the Innovation Fund Denmark via the Industrial PhD Programme (grant no.\@ 0153-00167B). JF and SH were funded in part by the Novo Nordisk Foundation (grant no.\@ NNF20OC0062606) via the Center for Basic Machine Learning Research in Life Science (MLLS, \hyperlink{https://www.mlls.dk}{https://www.mlls.dk}). JF was further funded by the Novo Nordisk Foundation (grant no.\@ NNF20OC0065611) and the Independent Research Fund Denmark (grant no.\@ 9131-00082B). SH was further funded by VILLUM FONDEN (15334) and the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement no. 757360).
+This research was partially funded by the Innovation Fund Denmark via the Industrial PhD Programme (grant no.\@ 0153-00167B). JF and SH were funded in part by the Novo Nordisk Foundation (grant no.\@ NNF20OC0062606) via the Center for Basic Machine Learning Research in Life Science (MLLS, \hyperlink{https://www.mlls.dk}{https://www.mlls.dk}). JF was further funded by the Novo Nordisk Foundation (grant no.\@ NNF20OC0065611) and the Independent Research Fund Denmark (grant no.\@ 9131-00082B). SH was further funded by VILLUM FONDEN (15334) and the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no. 757360).
 
 }

@@ -592,7 +592,7 @@ Hence, there can be an asymmetry where the likelihoods of simple OOD data can be
 Loosely put, the minimal number of bits required to losslessly compress data sampled from some distribution is the entropy of the generating process \parencite{shannon_mathematical_1948, mackay_information_2003}.
 \textcite{townsend_practical_2019} recently showed that VAEs can be used for lossless compression at rates superior to more generic algorithms.
 
-We also note that since the hierarchical VAE is a probabilistic graphical latent variable model, it lends itself very naturally to manipulation at the feature level \parencite{kingma_semi"=supervised_2014, maaloe_auxiliary_2016, maaloe_semi"=supervised_2017}.
+We also note that since the hierarchical VAE is a probabilistic graphical latent variable model, it lends itself very naturally to manipulation at the feature level \parencite{kingma_semi-supervised_2014, maaloe_auxiliary_2016, maaloe_semi-supervised_2017}.
 This property sets it apart from other generative models that do not explicitly define such a hierarchy of features.
 This in turn enables reliable OOD detection with our methodology while making no explicit assumptions about the nature of OOD data and only using a single model. This has not been achieved with autoregressive or flow-based models.
 

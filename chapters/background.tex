@@ -13,9 +13,10 @@ Then, we describe variational autoencoders, how they can be used to learn repres
 
 In society, the concept of uncertainty goes by many names, and its meaning can vary depending on the specific context. However, across most quantitative scientific fields, a consensus definition appears to align with the following \parencite{hubbard_how_2014}:
 %
-\begin{center}
-    \textit{Uncertainty is the lack of certainty; a state of limited knowledge where it is impossible to exactly describe the existing state, a future outcome, or more than one possible outcome.}
-\end{center}
+\begin{quote}
+    \centering\itshape
+    Uncertainty is the lack of certainty; a state of limited knowledge where it is impossible to exactly describe the existing state, a future outcome, or more than one possible outcome.
+\end{quote}
 %
 Although such a purely lexical definition of uncertainty might prompt a philosophical inquiry, it highlights an important connection between uncertainty, information and probability. When information is limited, we can describe the state of the world only with uncertainty; we are simply not certain. In that sense, uncertainty is a word we use to refer to missing information, whether we know what is missing or not. 
 A natural way to describe an uncertain world state is to use probabilities. To our luck, information theory provides exactly that; a mathematically rigorous method for quantifying information through the language of probability theory. In the following, we shall see that, in this context, uncertainty can be understood as the information entropy of a random variable \parencite{mackay_information_2003}. 
@@ -574,7 +575,7 @@ This result indicates that the usual interpretation of $\zb$ as a representation
 
 \paragraph{Applications of VAEs}
 Despite the challenges facing the training of VAEs, they have been successfully applied to a number of tasks including image generation \parencite{kingma_autoencoding_2014,rezende_stochastic_2014}, image inpainting \parencite{pathak_context_2016}, image super-resolution \parencite{sonderby_amortised_2017,chira_image_2022}, and speech synthesis \parencite{hsu_unsupervised_2017,hsu_hierarchical_2019}. 
-VAEs have also proven themselves useful for semi"=supervised learning \parencite{kingma_semi"=supervised_2014,kingma_improved_2016,maaloe_biva_2019}.
+VAEs have also proven themselves useful for semi"=supervised learning \parencite{kingma_semi-supervised_2014,kingma_improved_2016,maaloe_biva_2019}.
 
 
 \paragraph{Self"=supervised learning}
