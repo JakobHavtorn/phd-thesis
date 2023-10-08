@@ -17,6 +17,7 @@ rich
 ruff
 scikit-learn
 scipy
+seaborn
 soundfile
 torch
 torchaudio
