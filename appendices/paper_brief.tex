@@ -10,7 +10,7 @@ Unsupervised representation learning for speech processing has matured greatly i
 
 \section{Introduction}
 Representation learning has shaped modern computer vision \parencite{simonyan_very_2014} and natural language processing \parencite{devlin_bert_2018}, and more recently speech processing has been subject to the same development \parencite{baevski_wav2vec_2020}. Representation learning has been defined as \emph{``learning representations of the data that make it easier to extract useful information when building classifiers or other predictors"} \parencite{bengio_representation_2013}.  
-Unsupervised representation learning is concerned with learning useful representations without the use of human annotations. Usually, a model is first pre-trained on a task where plenty of data is available. The model is then fine-tuned, or used to extract input representations for a smaller model, targeting a task with limited training data. In computer vision, both supervised \parencite{simonyan_very_2014, szegedy_going_2015, he_deep_2015} and unsupervised \parencite{pathak_context_2016, doersch_unsupervised_2015} representation learning have gained attention with supervised representation learning driven by the availability of large annotated datasets \parencite{deng_imagenet_2009}. For text and speech, pre"=training is usually unsupervised as labeled data is difficult to obtain. Although work on text has paved the way, and the two fields share many characteristics, learning representations from speech is a problem faced with a unique set of challenges.
+Unsupervised representation learning is concerned with learning useful representations without the use of human annotations. Usually, a model is first pre"=trained on a task where plenty of data is available. The model is then fine"=tuned, or used to extract input representations for a smaller model, targeting a task with limited training data. In computer vision, both supervised \parencite{simonyan_very_2014, szegedy_going_2015, he_deep_2015} and unsupervised \parencite{pathak_context_2016, doersch_unsupervised_2015} representation learning have gained attention with supervised representation learning driven by the availability of large annotated datasets \parencite{deng_imagenet_2009}. For text and speech, pre"=training is usually unsupervised as labeled data is difficult to obtain. Although work on text has paved the way, and the two fields share many characteristics, learning representations from speech is a problem faced with a unique set of challenges.
 
 In this paper, we survey work on unsupervised representation learning for speech processing from within the last decade.
 From a methodological perspective, we identify two primary model categories, namely models based on self"=supervised learning and probabilistic latent variable models. 
@@ -22,7 +22,7 @@ We provide a methodological review of the design choices related to each of the 
     \end{flushleft}
     \centering
     \includegraphics[width=0.90\textwidth]{paper_brief/SSL_LVM.pdf}
-    \caption[ schematic overview of the self"=supervised and probabilistic latent variable models covered in this survey.]{A schematic overview of the two groups of models covered in this survey. \textit{Left}: A model trained with self"=supervised learning. We take these models to consist of two functions $f(\cdot)$ and $g(\cdot)$ (\cref{ssec:notation}). After pre"=training, $f(\cdot)$ is fine-tuned or used for extracting features $\mathbf{c}$. $g(\cdot)$ is an auxiliary function used to accommodate the self"=supervised pre"=training task. \textit{Right}: A probabilistic latent variable model. In contrast to the self"=supervised model, the functions $f(\cdot)$ and $g(\cdot)$ learn the parameters of distributions $q$ and $p$. The latent variable $\mathbf{z}$ is commonly used for representation learning.}
+    \caption[ Schematic overview of the self"=supervised and probabilistic latent variable models covered in this survey.]{A schematic overview of the two groups of models covered in this survey. \textit{Left}: A model trained with self"=supervised learning. We take these models to consist of two functions $f(\cdot)$ and $g(\cdot)$ (\cref{ssec:notation}). After pre"=training, $f(\cdot)$ is fine"=tuned or used for extracting features $\mathbf{c}$. $g(\cdot)$ is an auxiliary function used to accommodate the self"=supervised pre"=training task. \textit{Right}: A probabilistic latent variable model. In contrast to the self"=supervised model, the functions $f(\cdot)$ and $g(\cdot)$ learn the parameters of distributions $q$ and $p$. The latent variable $\mathbf{z}$ is commonly used for representation learning.}
     \label{fig:ssl_lvm}
 \end{figure}
 
@@ -36,7 +36,7 @@ With emphasis on recent successes in the field, we cover literature from the las
 We use the subscript $i{:}j$ with $i{\leq}j$ to denote a vector sequence $\textbf{a}_{i:j}$ containing elements $\textbf{a}_{i}$ through $\textbf{a}_{j}$. We denote model input as $\mathbf{x}_{1:T}$ which, in practice, might be either a spectrogram or the raw speech signal, but we do not distinguish between the two in notation as it is not essential to understand the models. Also, models commonly downsample the temporal dimension, but again, this is not crucial to understand the models, so we maintain a notation based on a single temporal dimension $t\in\{1,\dots, T\}$.
 
 When discussing self"=supervised models, we use $\mathbf{c}_{1:T}$ to denote a contextualized representation. For stochastic latent variable models, we use $\mathbf{z}_{1:T}$ as is customary to the field. 
-While some models are frozen and produce representations used as input for downstream tasks (\textbf{\textsc{frz}}, \cref{tab:model-taxonomy}), others are designed to be fine-tuned (\textbf{\textsc{ftn}}, \cref{tab:model-taxonomy}). In either case, we use $f(\cdot)$ to denote the model that is used for the downstream task. We use $g(\cdot)$ to denote any auxiliary model components (e.g., for a reconstruction task we might have $g: \mathbf{c}_t \mapsto \hat{\mathbf{x}}_t$). When a model can be naturally subdivided into multiple components, we simply use $f_*(\cdot)$ where $*$ may be any convenient descriptor. Finally, we often use a subscript when defining a loss, $\mathcal{L}_i$, to imply that the total loss is computed as a sum over $i$.
+While some models are frozen and produce representations used as input for downstream tasks (\textbf{\textsc{frz}}, \cref{tab:model-taxonomy}), others are designed to be fine"=tuned (\textbf{\textsc{ftn}}, \cref{tab:model-taxonomy}). In either case, we use $f(\cdot)$ to denote the model that is used for the downstream task. We use $g(\cdot)$ to denote any auxiliary model components (e.g., for a reconstruction task we might have $g: \mathbf{c}_t \mapsto \hat{\mathbf{x}}_t$). When a model can be naturally subdivided into multiple components, we simply use $f_*(\cdot)$ where $*$ may be any convenient descriptor. Finally, we often use a subscript when defining a loss, $\mathcal{L}_i$, to imply that the total loss is computed as a sum over $i$.
 
 
 \subsection{Self"=supervised models}
@@ -94,7 +94,7 @@ A model closely related to the original CPC model is wav2vec \parencite{schneide
 where the $\circ$ operator denotes the Hadamard product, $f(\cdot)$ is typically a transformer encoder or a bidirectional recurrent neural network, $g(\cdot)$ is a step-wise transformation, and $\mathbf{m}_{1:T}$ is a mask such that $m_{t,i} \in \{0,1\}$. Alternatively, $\mathbf{m}_{1:T}$ is used to select which $\mathbf{x}_t$ are replaced by a learned masking vector. The entries of $\mathbf{m}_{1:T}$ are determined by some stochastic policy. One frequent inspiration is SpecAugment \parencite{park_specaugment_2019}, which was originally proposed for supervised speech recognition and applies frequency and time masking to spectrogram representations.
 While temporal masking is most common, frequency masking has also been adopted for representation learning  \parencite{wang_unsupervised_2020}. A simple, yet popular, masking strategy is to draw a proportion of input indices $t_i\sim\{1,\dots,T-M\}$ without replacement, and then mask $\{t_i, \dots, t_i+M\}$ \parencite{baevski_wav2vec_2020, hsu_hubert_2021, ling_decoar_2020}.
 
-Combining masking with a contrastive loss, wav2vec 2.0 was the first work to show that a competitive speech recognition model can be learned by fine-tuning a pre-trained model with as little as 10 minutes of labeled data. For this model
+Combining masking with a contrastive loss, wav2vec 2.0 was the first work to show that a competitive speech recognition model can be learned by fine"=tuning a pre"=trained model with as little as 10 minutes of labeled data. For this model
 %
 \begin{align}
     \mathbf{v}_{t} &= f_v(\mathbf{x}_{t-r:t+r}) \\
@@ -134,19 +134,20 @@ This allows for complete data utilization, but limits the amount of context enco
 \end{figure}
 
 
-\begin{sidewaystable*}
-    \caption[Classification of selected self"=supervised and probabilistic latent variable models.]{ Selected models classified according to the binary attributes identified throughout the text. The models are sorted according to first publication date on arXiv which might differ from the citation year. \textbf{\textsc{msk}}: masking, \textbf{\textsc{prd}}: prediction, \textbf{\textsc{con}}: contrastive, \textbf{\textsc{rec}}: reconstruction, \textbf{\textsc{qtz}}: quantization, \textbf{\textsc{gen}}: generative, \textbf{\textsc{frz}}: frozen, \textbf{\textsc{ftn}}: fine-tuned, \textbf{\textsc{loc}}: local, \textbf{\textsc{glo}}: global.}
+\begin{table}
+    \caption[Classification of selected self"=supervised and probabilistic latent variable models.]{ Selected models classified according to the binary attributes identified throughout the text. The models are sorted according to first publication date on arXiv which might differ from the citation year. \textbf{\textsc{msk}}: masking, \textbf{\textsc{prd}}: prediction, \textbf{\textsc{con}}: contrastive, \textbf{\textsc{rec}}: reconstruction, \textbf{\textsc{qtz}}: quantization, \textbf{\textsc{gen}}: generative, \textbf{\textsc{frz}}: frozen, \textbf{\textsc{ftn}}: fine"=tuned, \textbf{\textsc{loc}}: local, \textbf{\textsc{glo}}: global.}
     \label{tab:model-taxonomy}
     \begin{center}
+        \setlength{\tabcolsep}{3pt}
         \renewcommand{\arraystretch}{1.1}
         \resizebox{1\textwidth}{!}{%
         \begin{tabular}{ l l | c c c c c c | c c c | c c } 
             \toprule
             
             \multicolumn{2}{c}{} & 
-            \multicolumn{6}{c}{\footnotesize\textsc{Model and task design}} & 
-            \multicolumn{3}{c}{\footnotesize\textsc{Resolution}} &
-            \multicolumn{2}{c}{\footnotesize\makebox[0pt][c]{\textsc{Usage}}} \\
+            \multicolumn{6}{c}{\textsc{Model and task design}} & 
+            \multicolumn{3}{c}{\textsc{Resolution}} &
+            \multicolumn{2}{c}{\makebox[0pt][c]{\textsc{Usage}}} \\
             \textbf{\textsc{model}} &
             \textbf{\textsc{pub. date}} &
             \textbf{\textsc{msk}} & 
@@ -197,7 +198,7 @@ This allows for complete data utilization, but limits the amount of context enco
         \end{tabular}
         }
     \end{center}
-\end{sidewaystable*}
+\end{table}
     
 
 \paragraph{Quantization} 
@@ -211,7 +212,7 @@ Say we want to quantize a vector $\mathbf{v}$ such that it takes one of $K$ poss
 for $i=1,\dots,K$. Here $\tau$ is a temperature parameter and $\mathbf{n}\in\mathbb R^K$ is a random vector with $n_i = -\log(-\log(u_i))$ for $u_i \sim \mathcal{U}(0, 1)$.
 As  $\tau \rightarrow 0$, $\mathbf{p}$ approaches a one-hot vector. The Gumbel noise $\mathbf{n}$ is a practical way to sample from the untempered categorical distribution (i.e., $\tau = 1$).
 $\mathbf{p}$ is mapped to a one-hot vector using a function $\varphi(\cdot)$, such that $\varphi(\mathbf{p})_i = 1$ if $i = \argmax_j p_j$ and $0$ otherwise. 
-As this function is non-differentiable, we must rely on the straight-through gradient estimator \parencite{bengio_estimating_2013} which assumes that the Jacobian ${\partial \, \varphi}/{\partial \, \mathbf{p}}$ equals the identity matrix. 
+As this function is non-differentiable, we must rely on the straight-through gradient estimator \parencite{bengio_estimating_2013} which assumes that the Jacobian ${\partial \varphi}/{\partial \mathbf{p}}$ equals the identity matrix. 
 The one-hot vector can then be used for a codebook lookup to obtain the final quantized vector (e.g., $\mathbf{q}_t$ in \cref{eq_brief: w2v2 qtz}).
 
 The wav2vec 2.0 quantization module (\cref{eq_brief: w2v2 qtz}) uses the Gumbel softmax. To ensure utilization of codebook vectors, a diversity loss is added to the task specific loss (\cref{eq_brief: w2v2 loss})
@@ -345,18 +346,19 @@ It is still possible to evaluate and sample the true posterior distribution $p(\
     \end{center}
 \end{table}
 
-\begin{sidewaystable*}
+\begin{table*}
     \caption[Classification of selected latent variable models.]{ Selected latent variable models classified according the attributes defined throughout \cref{sec:plvms}. See \cref{tab:lvm-model-primitives} for the probability distributions that correspond to each of the attribute short-hands. \textbf{\textsc{hie}} indicates a hierarchical representation.}
     \label{tab:lvm-taxonomy}
     \begin{center}
+        \setlength{\tabcolsep}{3pt}
         \renewcommand{\arraystretch}{1.1}
-        \resizebox{0.99\textwidth}{!}{% <------ Don't forget this %
+        \resizebox{1\textwidth}{!}{%
         \begin{tabular}{ l l | c c c | c c c c | c c c c c | c } 
             \toprule
             \multicolumn{2}{c}{} & 
-            \multicolumn{3}{c}{\footnotesize\textsc{Observation}} & 
-            \multicolumn{4}{c}{\footnotesize\textsc{Prior}} & 
-            \multicolumn{5}{c}{\footnotesize\textsc{Inference}} \\
+            \multicolumn{3}{c}{\textsc{Observation}} & 
+            \multicolumn{4}{c}{\textsc{Prior}} & 
+            \multicolumn{5}{c}{\textsc{Inference}} \\
             \textbf{\textsc{model}} & 
             \textbf{\textsc{pub. date}} &
             \textbf{\textsc{arx}} & 
@@ -389,7 +391,7 @@ It is still possible to evaluate and sample the true posterior distribution $p(\
         \end{tabular}
         }
     \end{center}
-\end{sidewaystable*}
+\end{table*}
 
 We next review VAEs applied to speech. We consider the choices of observation, prior and inference models.
 We provide a model taxonomy for selected LVMs in \cref{tab:lvm-taxonomy}.

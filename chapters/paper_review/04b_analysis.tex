@@ -37,8 +37,8 @@ downstream tasks, in particular determining whether two acoustic segments
 correspond to the same word, and a standard benchmark of 11 word
 similarity tasks~\parencite{faruqi_community_2014}. These are mostly used to gauge the
 amount of lexical information present in the embeddings.  Using this
-battery of tests the authors compared pre-trained models of varying
-sizes as well as models fine-tuned for ASR. They found that pre-trained
+battery of tests the authors compared pre"=trained models of varying
+sizes as well as models fine"=tuned for ASR. They found that pre"=trained
 models show an autoencoder-style behavior, with early layers showing
 strong similarity with input features, intermediate layers diverging
 more, and final layers reverting back to higher similarity with input
@@ -52,7 +52,7 @@ strategy. Indeed, the authors of \parencite{baevski_unsupervised_2021} show that
 phone classifier trained on each of the 24 frozen layers of a wav2vec~2.0 model
 showed the lowest phone error rates
 for layers 10--21 and higher error rates for the other layers. 
-\parencite{pasad_layerwise_2021} further show that fine-tuning the pre-trained model with a
+\parencite{pasad_layerwise_2021} further show that fine"=tuning the pre"=trained model with a
 character-level CTC training criterion changes the behavior of the
 last layers (especially the final two layers), breaking the
 autoencoder-style behavior and focusing the information encoded in the
@@ -68,7 +68,7 @@ self"=supervised learner (SimCLR) that optimizes for augmentation invariance,
 \parencite{grigg_selfsupervised_2021} show that it is the intermediate representations that most
 closely approximate information learned in a supervised way, i.e., they
 provide more class information than the representations from final layers. This
-is similar to the findings described above for wav2vec~2.0 without fine-tuning,
+is similar to the findings described above for wav2vec~2.0 without fine"=tuning,
 where intermediate layers provide more information about phone and word
 classes.
 
@@ -179,11 +179,11 @@ It is well known that traditional speech features like MFCCs lack
 robustness against environmental effects such as additive noise,
 reverberation, accents, etc., that cause differences in the distributions of
 speech features.
-Do pre-trained representations offer greater robustness against distributional
+Do pre"=trained representations offer greater robustness against distributional
 shifts? 
-One study~\parencite{kawakami_learning_2020} compared pre-trained
+One study~\parencite{kawakami_learning_2020} compared pre"=trained
 representations from a CPC model against MFCCs and 
-found pre-trained representations to be more robust to mismatches between
+found pre"=trained representations to be more robust to mismatches between
 training and test data. The 
 training data consisted of clean, read speech (LS)
 whereas test data consisted of the Switchboard corpus and TED talks. The
@@ -197,9 +197,9 @@ In \parencite{hsu_robust_2021} domain effects were studied in greater detail usi
 datasets from six different domains. In particular, the authors focused on the
 usefulness of adding out-of-domain data to pre"=training. The general
 conclusions are that pre"=training on more and diverse domains is preferable:
-models pre-trained on more domains performed better than those pre-trained on
+models pre"=trained on more domains performed better than those pre"=trained on
 fewer when tested on held-out domains, regardless of which additional
-labeled data was used for fine-tuning. Adding in-domain unlabeled data---if
+labeled data was used for fine"=tuning. Adding in-domain unlabeled data---if
 available---to pre"=training improves performance robustly; however, even
 out-of-domain unlabeled data is helpful and closes  66--73\% of the performance
 gap between the ideal setting of in-domain labeled data and a competitive
@@ -207,7 +207,7 @@ supervised out-of-domain model.
  
 In \parencite{riviere_unsupervised_2020} the effectiveness of CPC-trained representations for
 phone discrimination tasks was compared across several languages. It
-was found that representations pre-trained only on English successfully
+was found that representations pre"=trained only on English successfully
 enabled phone discrimination in 10 other languages, rivaling
 supervised methods in accuracy in low-data regimes (1h of labeled data
 per language). Thus, self"=supervised pre"=training enables the model to
@@ -215,7 +215,7 @@ learn contextualized speech features that generalize across different
 languages. In \parencite{conneau_unsupervised_2020}, a wav2vec~2.0 model was trained on data
 from multiple different languages and different corpora (Babel, Common Voice,
 and multilingual LS)
-jointly, followed by fine-tuning for each individual language. The largest
+jointly, followed by fine"=tuning for each individual language. The largest
 model covers 53 languages in total
 and consists of 56,000 hours of speech. Compared to monolingual pre"=training,
 even smaller models trained on only ten languages improve performance
@@ -223,7 +223,7 @@ substantially on a downstream character-based ASR task. Low-resource languages
 with little labeled data improve the most under this training regime.
 Multilingual representations also resulted in competitive performance (lower
 character error rate than monolingual representations) for languages not
-present in the training dataset, again showing that unsupervised pre-trained
+present in the training dataset, again showing that unsupervised pre"=trained
 representations can learn generic features of the speech signal that generalize
 across different languages. The study also found that sharing data from closely
 related languages is more beneficial than combining distant languages. An

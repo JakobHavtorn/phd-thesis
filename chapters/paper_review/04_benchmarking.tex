@@ -285,8 +285,8 @@ utterances was uttered by the same speaker.}
   \caption[Summary of common experiment settings for various SSL
   evaluations (Part 1).]{A summary of common experiment settings for various SSL
   evaluations (Part 1). 
-  Networks are usually pre-trained with SSL
-  techniques, augmented with prediction heads, and fine-tuned (or trained) with
+  Networks are usually pre"=trained with SSL
+  techniques, augmented with prediction heads, and fine"=tuned (or trained) with
   labeled data in downstream tasks for benchmarking. 
   We follow the abbreviations introduced in \cref{table:datasets}.
   Column descriptions are in \cref{footnote:table:method_data_setting}.
@@ -297,8 +297,8 @@ utterances was uttered by the same speaker.}
   \renewcommand*\arraystretch{1.4}
   \begin{tabular}{p{0.14\textwidth}p{0.12\textwidth}p{0.06\textwidth}p{0.15\textwidth}p{0.10\textwidth}p{0.05\textwidth}p{0.15\textwidth}}
     \toprule
-    \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{pre"=training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
-     &  &  & Fine-tuning & Test & & \\
+    \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{pre"=training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine"=tuning labels used} \\ \cline{4-5}
+     &  &  & Fine"=tuning & Test & & \\
     \midrule
     % CPC
     \multirow{2}{*}[0mm]{CPC \parencite{oord_representation_2018}} & \multirow{2}{*}[0mm]{LS 100 hrs} & PC & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & LS 100 hrs\textsuperscript{\ref{footnote:CPC-split}} & - & 80\textsuperscript{\ref{footnote:low-resource}} hrs \\ \cline{3-7}
@@ -355,13 +355,13 @@ utterances was uttered by the same speaker.}
 
 \addtocounter{footnote}{1}
 \footnotetext{\label{footnote:table:method_data_setting}
-  The \textbf{pre"=training corpus}, \textbf{Fine-tuning}, and
+  The \textbf{pre"=training corpus}, \textbf{Fine"=tuning}, and
   \textbf{Test} columns list the datasets used in each work, and the \textbf{Task}
   column lists the tasks performed in the corresponding papers. 
   The \textbf{Transfer} column indicates whether the SSL technique is evaluated by its capability for
   transfer learning, i.e., different datasets are utilized for pre"=training and
-  fine-tuning. The \textbf{Fine-tuning labels used} column summarizes the
-  amount of labeled examples used in downstream fine-tuning.
+  fine"=tuning. The \textbf{Fine"=tuning labels used} column summarizes the
+  amount of labeled examples used in downstream fine"=tuning.
 }
 
 
@@ -379,8 +379,8 @@ utterances was uttered by the same speaker.}
   \renewcommand*\arraystretch{1.4}
   \begin{tabular}{p{0.14\textwidth}p{0.12\textwidth}p{0.06\textwidth}p{0.15\textwidth}p{0.10\textwidth}p{0.05\textwidth}p{0.15\textwidth}}
     \toprule
-    \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{pre"=training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine-tuning labels used} \\ \cline{4-5}
-     &  &  & Fine-tuning & Test & & \\
+    \multirow{2}{*}{Work} & \multirow{2}{*}{\makecell[l]{pre"=training\\ corpus}} & \multirow{2}{*}{Task} & \multicolumn{2}{c}{Dataset} & \multirow{2}{*}{Transfer} & \multirow{2}{*}{Fine"=tuning labels used} \\ \cline{4-5}
+     &  &  & Fine"=tuning & Test & & \\
     \midrule
     % BMR
     \multirow{2}{*}[0mm]{BMR \parencite{wang_unsupervised_2020}} & \multirow{2}{*}[0mm]{\makecell[l]{WSJ si284,\\LS 960 hrs}} & ASR & WSJ si284 & WSJ eval92 & - & 81 hrs \\ \cline{3-7}
@@ -484,20 +484,20 @@ and test subsets at a ratio of 9:1.}
 
 \subsection{Experiment settings for evaluating SSL techniques}
 A common way to benchmark SSL techniques and show their efficacy is to
-fine-tune a pre-trained SSL model for a supervised downstream task.
-Depending on the corpora used in pre"=training and fine-tuning, techniques can
+fine-tune a pre"=trained SSL model for a supervised downstream task.
+Depending on the corpora used in pre"=training and fine"=tuning, techniques can
 be benchmarked in terms of their capability to transfer knowledge across datasets
-(i.e., using pre"=training corpora that differ from the fine-tuning ones), their
+(i.e., using pre"=training corpora that differ from the fine"=tuning ones), their
 benefit when training with limited labeled examples (i.e., sampling a subset of
-labeled examples for fine-tuning), or their improvement over a fully supervised
+labeled examples for fine"=tuning), or their improvement over a fully supervised
 baseline (i.e., using the entire training split of downstream datasets for
-fine-tuning). \cref{table:method_data_setting,table:method_data_setting_2} summarize experiment settings used in the
+fine"=tuning). \cref{table:method_data_setting,table:method_data_setting_2} summarize experiment settings used in the
 SSL literature, including the pre"=training corpora, downstream tasks and datasets,
-and the amount of fine-tuning labels used, which indicates the targeted
+and the amount of fine"=tuning labels used, which indicates the targeted
 benchmarking scenario as discussed above. Note that there are a variety of ways
-to fine-tune pre-trained networks (e.g., fine-tune the entire network,
-freeze certain layers during fine-tuning, and add various architectures of
-prediction layers to pre-trained networks). We here omit
+to fine-tune pre"=trained networks (e.g., fine-tune the entire network,
+freeze certain layers during fine"=tuning, and add various architectures of
+prediction layers to pre"=trained networks). We here omit
 descriptions of these choices; readers can consult the
 original publications for details.
 
@@ -516,18 +516,18 @@ for XLS-R~\parencite{babu_xlsr_2021}. We expect this trend to continue with the 
 in available computing power. Most studies focuses on learning representations
 for English, whereas Chinese~\parencite{jiang_improving_2019, jiang_further_2021} and
 multilinguality~\parencite{kawakami_learning_2020, babu_xlsr_2021} are also gaining
-attention. Compared to pre"=training, datasets used for fine-tuning are more
+attention. Compared to pre"=training, datasets used for fine"=tuning are more
 diverse and cover downstream tasks as varied as ASR, PR, PC, SID, AED,
 Sentiment, ST, and LID. For benchmarking training scenarios covering full
 supervision as well as limited resources, the amount of labeled examples used for
-fine-tuning also varies from several minutes up to 1k hours. Recent
+fine"=tuning also varies from several minutes up to 1k hours. Recent
 benchmarks such as SUPERB~\parencite{yang_superb_2021} that consolidate multiple 
 downstream tasks have gained attention for evaluating SSL
 methodologies~\parencite{chen_unispeechsat_2021, chen_wavlm_2021}. The goal of such benchmarks is
 to provide a holistic evaluation of the performance of learned representations; 
 we discuss these in detail in \cref{sec:benchmark}. With the increasing
 popularity of SSL research, we expect future experiment settings to proliferate
-and cover more languages, downstream tasks, and pre"=training/fine-tuning
+and cover more languages, downstream tasks, and pre"=training/fine"=tuning
 datasets.
 
 \begin{figure*}
@@ -537,7 +537,7 @@ datasets.
 LS \textit{test-clean}.]{SSL performance on ASR WER (vertical axis) evaluated with
 LS \textit{test-clean} split. Techniques are sorted based on the number of
 model parameters along the horizontal axis. Markers in blue correspond to models initialized with various SSL
-techniques and then fine-tuned using 960, 100, 10, 1 hour(s), and 10 minutes
+techniques and then fine"=tuned using 960, 100, 10, 1 hour(s), and 10 minutes
 respectively. The 960-hour training set is the aggregation of
 \textit{train-clean-100}, \textit{train-clean-360}, and
 \textit{train-other-500} splits. The 100-, 10-, 1-hour, and 10-minute sets
@@ -551,7 +551,7 @@ approaches (iterative pseudo labeling (IPL)~\parencite{xu_iterative_2020},
 slimIPL~\parencite{likhomanenko_slimipl_2021}, noisy student~\parencite{park_improved_2020}). These approaches are visualized in black. Also, note that the current state of the art---conformer XXL + noisy student~\parencite{zhang_pushing_2020}---is a combination of self-training and SSL techniques. Given the
 diversity of the listed methods in experiment settings (e.g., pre"=training corpora
 and objectives, whether a language model is used in decoding, whether model
-parameters are frozen in fine-tuning), readers should be careful that the superiority
+parameters are frozen in fine"=tuning), readers should be careful that the superiority
 of methods cannot be decided only based on lower WER numbers.}
 \label{fig:asr_result_no_limit}
 \end{figure*}
@@ -566,10 +566,10 @@ general, we focus first on ASR on the LS dataset to understand the
 efficacy of SSL. We examine SSL techniques which report ASR results on the LS
 \textit{test-clean} split, and summarize the published WER in
 \cref{fig:asr_result_no_limit}. The ASR models were obtained first by using
-unlabeled speech to pre-train a model with each SSL technique. The model was
-then fine-tuned on labeled data by utilizing a supervised training objective.
+unlabeled speech to pre"=train a model with each SSL technique. The model was
+then fine"=tuned on labeled data by utilizing a supervised training objective.
 Respectively, 960, 100, 10, 1 hour(s), and 10 minutes of labeled LS training data
-were used for fine-tuning, as indicated in different panels of
+were used for fine"=tuning, as indicated in different panels of
 \cref{fig:asr_result_no_limit} (see
 the caption of \cref{fig:asr_result_no_limit} for more details).
 Semi"=supervised methods such as self-training, where a model is first trained
@@ -586,7 +586,7 @@ As observed in the figure, most SSL techniques outperform fBANK
 features, and with the growing investment in model size, better performance is
 achieved. The largest ones, such as wav2vec 2.0-L and HuBERT-L/XL, yield competitive results 
 when the entire 960-hour of labeled data is used in
-training/fine-tuning. The benefit of SSL, especially models with more parameters
+training/fine"=tuning. The benefit of SSL, especially models with more parameters
 like wav2vec 2.0 and HuBERT, becomes more evident when the labeling resources
 become scarce. Compared to popular semi"=supervised methods such as IPL,
 slimIPL, and noisy student using 100 hours of labels, wav2vec~2.0 and HuBERT
@@ -603,7 +603,7 @@ SID, ASV, and QbE. We summarize the performance of these models and previous
 non-SSL methods in \cref{table:sota_performance}. The results suggest that the
 benefit of SSL is generalizable among tasks that require encoding 
 information such as content, speaker, and semantics. As SSL research
-gains more attention, we expect that SSL pre-trained models will 
+gains more attention, we expect that SSL pre"=trained models will 
 achieve state-of-the-art results on an increasing number of tasks.
 
 \begin{table}[t]
@@ -629,9 +629,9 @@ Despite the obvious trend of increasing performance as more parameters and SSL
 pre"=training data are being used, numbers in \cref{fig:asr_result_no_limit} 
 and \cref{table:sota_performance} are less comparable than might be expected.
 The task performance is obtained from the original papers and is often
-achieved with different downstream fine-tuning recipes, including various
+achieved with different downstream fine"=tuning recipes, including various
 language models (used in the ASR system), prediction heads (networks added to
-SSL for downstream inference), or choices between fine-tuning the whole
+SSL for downstream inference), or choices between fine"=tuning the whole
 networks or freezing the SSL encoders. For example, in the ASR task, HuBERT-L
 and wav2vec~2.0-L leverage Transformer as their language model, while a 4-gram
 language model trained on LS is used in DeCoAR~2.0. The lack of common and

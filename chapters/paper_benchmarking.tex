@@ -640,7 +640,7 @@ For WaveNet and the LSTM, we use the hidden state as the representation. For all
 We compare the learned representations to a log Mel spectrogram with 80 filterbanks, hop length 64 and window size 128. 
 We also compared to using raw PCM in vectors of 64 elements standardized to $[-1,1]$ but found that the ASR did not reliably converge at all which highlights the importance of input representation. 
 The ASR model is a three-layered bidirectional LSTM with 256 hidden units. It is trained with the connectionist temporal classification (CTC) loss \parencite{graves_connectionist_2006} which lets it jointly learn to align and classify without using label alignments. 
-We pre-train all unsupervised models at $s=64$ on the full TIMIT training dataset excluding the validation data (3.7h) as in \cref{tab: likelihoods timit} (left). 
+We pre"=train all unsupervised models at $s=64$ on the full TIMIT training dataset excluding the validation data (3.7h) as in \cref{tab: likelihoods timit} (left). 
 We then train the ASR model on all 3.7h as well as 1h and 10m subsets. We report results on the test set in terms of phoneme error rates (PER) in \cref{tab: phoneme recognition (PER)} (right).
 
 As expected, Mel spectrogram performs well achieving 24.1\% PER using 3.7 hours of labeled data. However, the ASR trained on STCN representations outperforms the Mel spectrogram with a PER of 21.9\%. 

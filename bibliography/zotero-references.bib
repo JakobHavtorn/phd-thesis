@@ -4313,6 +4313,21 @@
   abstract = {For our submission to the ZeroSpeech 2019 challenge, we apply discrete latent-variable neural networks to unlabelled speech and use the discovered units for speech synthesis. Unsupervised discrete subword modelling could be useful for studies of phonetic category learning in infants or in low-resource speech technology requiring symbolic input. We use an autoencoder (AE) architecture with intermediate discretisation. We decouple acoustic unit discovery from speaker modelling by conditioning the AE's decoder on the training speaker identity. At test time, unit discovery is performed on speech from an unseen speaker, followed by unit decoding conditioned on a known target speaker to obtain reconstructed filterbanks. This output is fed to a neural vocoder to synthesise speech in the target speaker's voice. For discretisation, categorical variational autoencoders (CatVAEs), vector-quantised VAEs (VQ-VAEs) and straight-through estimation are compared at different compression levels on two languages. Our final model uses convolutional encoding, VQ-VAE discretisation, deconvolutional decoding and an FFTNet vocoder. We show that decoupled speaker conditioning intrinsically improves discrete acoustic representations, yielding competitive synthesis quality compared to the challenge baseline.}
 }
 
+@article{embi_evaluating_2012,
+  title = {Evaluating Alert Fatigue over Time to {{EHR-based}} Clinical Trial Alerts: Findings from a Randomized Controlled Study},
+  shorttitle = {Evaluating Alert Fatigue over Time to {{EHR-based}} Clinical Trial Alerts},
+  author = {Embi, Peter J and Leonard, Anthony C},
+  date = {2012-06-01},
+  journaltitle = {Journal of the American Medical Informatics Association},
+  shortjournal = {Journal of the American Medical Informatics Association},
+  volume = {19},
+  number = {e1},
+  pages = {e145-e148},
+  issn = {1067-5027},
+  urldate = {2023-10-10},
+  abstract = {Objective Inadequate participant recruitment is a major problem facing clinical research. Recent studies have demonstrated that electronic health record (EHR)-based, point-of-care, clinical trial alerts (CTA) can improve participant recruitment to certain clinical research studies. Despite their promise, much remains to be learned about the use of CTAs. Our objective was to study whether repeated exposure to such alerts leads to declining user responsiveness and to characterize its extent if present to better inform future CTA deployments.Methods During a 36-week study period, we systematically documented the response patterns of 178 physician users randomized to receive CTAs for an ongoing clinical trial. Data were collected on: (1) response rates to the CTA; and (2) referral rates per physician, per time unit. Variables of interest were offset by the log of the total number of alerts received by that physician during that time period, in a Poisson regression.Results Response rates demonstrated a significant downward trend across time, with response rates decreasing by 2.7\% for each advancing time period, significantly different from zero (flat) (p\&lt;0.0001). Even after 36 weeks, response rates remained in the 30\%–40\% range. Subgroup analyses revealed differences between community-based versus university-based physicians (p=0.0489).Discussion CTA responsiveness declined gradually over prolonged exposure, although it remained reasonably high even after 36 weeks of exposure. There were also notable differences between community-based versus university-based users.Conclusions These findings add to the limited literature on this form of EHR-based alert fatigue and should help inform future tailoring, deployment, and further study of CTAs.}
+}
+
 @inproceedings{engel_ddsp_2020,
   title = {{{DDSP}}: {{Differentiable}} Digital Signal Processing},
   booktitle = {Proceedings of the 8th {{International Conference}} on {{Learning Representations}} ({{ICLR}})},
@@ -5702,6 +5717,22 @@
   eprinttype = {arxiv},
   urldate = {2020-05-22},
   abstract = {Sequential Monte Carlo (SMC), or particle filtering, is a popular class of methods for sampling from an intractable target distribution using a sequence of simpler intermediate distributions. Like other importance sampling-based methods, performance is critically dependent on the proposal distribution: a bad proposal can lead to arbitrarily inaccurate estimates of the target distribution. This paper presents a new method for automatically adapting the proposal using an approximation of the Kullback-Leibler divergence between the true posterior and the proposal distribution. The method is very flexible, applicable to any parameterized proposal distribution and it supports online and batch variants. We use the new framework to adapt powerful proposal distributions with rich parameterizations based upon neural networks leading to Neural Adaptive Sequential Monte Carlo (NASMC). Experiments indicate that NASMC significantly improves inference in a non-linear state space model outperforming adaptive proposal methods including the Extended Kalman and Unscented Particle Filters. Experiments also indicate that improved inference translates into improved parameter learning when NASMC is used as a subroutine of Particle Marginal Metropolis Hastings. Finally we show that NASMC is able to train a latent variable recurrent neural network (LV-RNN) achieving results that compete with the state-of-the-art for polymorphic music modelling. NASMC can be seen as bridging the gap between adaptive SMC methods and the recent work in scalable, black-box variational inference.},
+  langid = {english}
+}
+
+@article{guidi_clinician_2015,
+  title = {Clinician {{Perception}} of the {{Effectiveness}} of an {{Automated Early Warning}} and {{Response System}} for {{Sepsis}} in an {{Academic Medical Center}}},
+  author = {Guidi, Jessica L. and Clark, Katherine and Upton, Mark T. and Faust, Hilary and Umscheid, Craig A. and Lane-Fall, Meghan B. and Mikkelsen, Mark E. and Schweickert, William D. and Vanzandbergen, Christine A. and Betesh, Joel and Tait, Gordon and Hanish, Asaf and Smith, Kirsten and Feeley, Denise and Fuchs, Barry D.},
+  date = {2015-10},
+  journaltitle = {Annals of the American Thoracic Society},
+  shortjournal = {Ann Am Thorac Soc},
+  volume = {12},
+  number = {10},
+  eprint = {26288388},
+  eprinttype = {pmid},
+  pages = {1514--1519},
+  issn = {2325-6621},
+  abstract = {RATIONALE: We implemented an electronic early warning and response system (EWRS) to improve detection of and response to severe sepsis. Sustainability of such a system requires stakeholder acceptance. We hypothesized that clinicians receiving such alerts perceive them to be useful and effective. OBJECTIVES: To survey clinicians after EWRS notification about perceptions of the system. METHODS: For a 6-week study period 1 month after EWRS implementation in a large tertiary referral medical center, bedside clinicians, including providers (physicians, advanced practice providers) and registered nurses (RNs), were surveyed confidentially within 2 hours of an alert. MEASUREMENTS AND MAIN RESULTS: For the 247 alerts that triggered, 127 providers (51\%) and 105 RNs (43\%) completed the survey. Clinicians perceived most patients as stable before and after the alert. Approximately half (39\% providers, 48\% RNs) felt the alert provided new information, and about half (44\% providers, 56\% RNs) reported changes in management as a result of the alert, including closer monitoring and additional interventions. Over half (54\% providers, 65\% RNs) felt the alert was appropriately timed. Approximately one-third found the alert helpful (33\% providers, 40\% RNs) and fewer felt it improved patient care (24\% providers, 35\% RNs). CONCLUSIONS: A minority of responders perceived the EWRS to be useful, likely related to the perception that most patients identified were stable. However, management was altered half the time after an alert. These results suggest further improvements to the system are needed to enhance clinician perception of the system's utility.},
   langid = {english}
 }
 
@@ -9875,6 +9906,17 @@
   publisher = {{PMLR}}
 }
 
+@inproceedings{liu_learning_2023,
+  title = {Learning Customized Visual Models with Retrieval-Augmented Knowledge},
+  booktitle = {{{IEEE}}/{{CVF}} Conference on Computer Vision and Pattern Recognition ({{CVPR}})},
+  author = {Liu, Haotian and Son, Kilho and Yang, Jianwei and Liu, Ce and Gao, Jianfeng and Lee, Yong Jae and Li, Chunyuan},
+  date = {2023},
+  pages = {15148--15158},
+  publisher = {{IEEE}},
+  location = {{Vancouver, BC, Canada}},
+  annotation = {12 citations (Semantic Scholar/DOI) [2023-10-10] 3 citations (Crossref) [2023-10-10]}
+}
+
 @online{liu_masked_2020,
   title = {Masked {{Pre-Trained Encoder Base}} on {{Joint Ctc-Transformer}}},
   author = {Liu, Lu and Huang, Yiheng},
@@ -11958,15 +12000,14 @@
   langid = {english}
 }
 
-@article{oron2017centered,
+@article{oron_centered_2017,
   title = {Centered Isotonic Regression: Point and Interval Estimation for Dose–Response Studies},
   author = {Oron, Assaf P and Flournoy, Nancy},
   date = {2017},
   journaltitle = {Statistics in Biopharmaceutical Research},
   volume = {9},
   number = {3},
-  pages = {258--267},
-  publisher = {{Taylor \& Francis}}
+  pages = {258--267}
 }
 
 @article{oshaughnessy_linear_1988,
@@ -15461,6 +15502,21 @@
   date = {2022-08-31}
 }
 
+@inproceedings{tonekaboni_what_2019,
+  title = {What {{Clinicians Want}}: {{Contextualizing Explainable Machine Learning}} for {{Clinical End Use}}},
+  shorttitle = {What {{Clinicians Want}}},
+  booktitle = {Proceedings of the 4th {{Machine Learning}} for {{Healthcare Conference}}},
+  author = {Tonekaboni, Sana and Joshi, Shalmali and McCradden, Melissa D. and Goldenberg, Anna},
+  date = {2019-10-28},
+  pages = {359--380},
+  publisher = {{PMLR}},
+  issn = {2640-3498},
+  urldate = {2023-10-10},
+  abstract = {Translating machine learning (ML) models effectively to clinical practice requires establishing clinicians’ trust. Explainability, or the ability of an ML model to justify its outcomes and assist clinicians in rationalizing the model prediction, has been generally understood to be critical to establishing trust. However, the eld suffers from the lack of concrete definitions for usable explanations in different settings. To identify specific aspects of explainability that may catalyze building trust in ML models, we surveyed clinicians from two distinct acute care specialties (Intenstive Care Unit and Emergency Department). We use their feedback to characterize when explainability helps to improve clinicians’ trust in ML models. We further identify the classes of explanations that clinicians identified as most relevant and crucial for effective translation to clinical practice. Finally, we discern concrete metrics for rigorous evaluation of clinical explainability methods. By integrating perceptions of explainability between clinicians and ML researchers we hope to facilitate the endorsement and broader adoption and sustained use of ML systems in healthcare.},
+  eventtitle = {Machine {{Learning}} for {{Healthcare Conference}}},
+  langid = {english}
+}
+
 @incollection{toolenaar_features_2004,
   title = {Features for {{Audio Classification}}},
   booktitle = {Algorithms in {{Ambient Intelligence}}},
@@ -15682,6 +15738,17 @@
   booktitle = {Proceedings of the {{International Conference}} on {{Machine Learning}} ({{ICML}})},
   author = {Ulyanov, Dmitry and Lebedev, Vadim and Vedaldi, Andrea and Lempitsky, Victor},
   date = {2016}
+}
+
+@article{umscheid_development_2015,
+  title = {Development, Implementation, and Impact of an Automated Early Warning and Response System for Sepsis},
+  author = {Umscheid, Craig A and Betesh, Joel and VanZandbergen, Christine and Hanish, Asaf and Tait, Gordon and Mikkelsen, Mark E and French, Benjamin and Fuchs, Barry D},
+  date = {2015},
+  journaltitle = {Journal of hospital medicine},
+  volume = {10},
+  number = {1},
+  pages = {26--31},
+  publisher = {{Wiley Online Library}}
 }
 
 @inproceedings{uria_rnade_2013,
@@ -16570,6 +16637,23 @@
   urldate = {2018-06-07},
   abstract = {We describe a new class of learning models called memory networks. Memory networks reason with inference components combined with a long-term memory component; they learn how to use these jointly. The long-term memory can be read and written to, with the goal of using it for prediction. We investigate these models in the context of question answering (QA) where the long-term memory effectively acts as a (dynamic) knowledge base, and the output is a textual response. We evaluate them on a large-scale QA task, and a smaller, but more complex, toy task generated from a simulated world. In the latter, we show the reasoning power of such models by chaining multiple supporting sentences to answer questions that require understanding the intension of verbs.},
   isbn = {978-1-4244-6917-8}
+}
+
+@article{wickstrom_relax_2023,
+  title = {{{RELAX}}: {{Representation Learning Explainability}}},
+  shorttitle = {{{RELAX}}},
+  author = {Wickstrøm, Kristoffer K. and Trosten, Daniel J. and Løkse, Sigurd and Boubekki, Ahcène and Mikalsen, Karl Øyvind and Kampffmeyer, Michael C. and Jenssen, Robert},
+  date = {2023-06},
+  journaltitle = {International Journal of Computer Vision},
+  shortjournal = {Int J Comput Vis},
+  volume = {131},
+  number = {6},
+  pages = {1584--1610},
+  issn = {0920-5691, 1573-1405},
+  urldate = {2023-10-10},
+  abstract = {Despite the significant improvements that self-supervised representation learning has led to when learning from unlabeled data, no methods have been developed that explain what influences the learned representation. We address this need through our proposed approach, RELAX, which is the first approach for attribution-based explanations of representations. Our approach can also model the uncertainty in its explanations, which is essential to produce trustworthy explanations. RELAX explains representations by measuring similarities in the representation space between an input and masked out versions of itself, providing intuitive explanations that significantly outperform the gradient-based baselines. We provide theoretical interpretations of RELAX and conduct a novel analysis of feature extractors trained using supervised and unsupervised learning, providing insights into different learning strategies. Moreover, we conduct a user study to assess how well the proposed approach aligns with human intuition and show that the proposed method outperforms the baselines in both the quantitative and human evaluation studies. Finally, we illustrate the usability of RELAX in several use cases and highlight that incorporating uncertainty can be essential for providing faithful explanations, taking a crucial step towards explaining representations.},
+  langid = {english},
+  annotation = {1 citations (Crossref) [2023-10-10]}
 }
 
 @misc{wiegreffe_attention_2019,

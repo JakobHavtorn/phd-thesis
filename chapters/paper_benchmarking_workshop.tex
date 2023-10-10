@@ -162,7 +162,7 @@ The input is a variable-length sequence $\vx = \vx_{1:T} = \left(\vx_1, \vx_2, \
 The models first encode $\vx_{1:T}$ to a temporal posterior distribution $q(\vz|\vx)$ and sample a latent representation $\vz_{1:T}$ where $\vz_t\in\mathbb{R}^{D_z}$. This is then used to reconstruct the input while the posterior distribution is regularized to be close to a prior distribution $p(\vz_t|\cdot)$ where the dot indicates that it may depend on latent and observed variables at previous time steps, $\vz_{<t}$ and $\vx_{<t}$ where $\vz_{<t} := \left( \vz_1, \vz_2, \dots, \vz_{t-1} \right)$. 
 The models are trained to maximize a lower bound $\mathcal{L}(\thetab,\phib;\vx)$ on the marginal likelihood $\log p_\thetab(\vx)$,
 \begin{equation}
-    \log p_\thetab(\vx) = \log \int p_\thetab(\vx,\vz) \, \mathrm{d}\vz  \geq \int q_\phib(\vz|\vx) \log \frac{p_\thetab(\vx|\vz)p(\vz)}{q_\phib(\vz|\vx)}  \, \mathrm{d}\vz \triangleq \mathcal{L}(\thetab,\phib;\vx)  \enspace , \label{eq: elbo}
+    \log p_\thetab(\vx) = \log \int p_\thetab(\vx,\vz) \, \mathrm{d}\vz  \geq \int q_\phib(\vz|\vx) \log \frac{p_\thetab(\vx|\vz)p(\vz)}{q_\phib(\vz|\vx)}  \, \mathrm{d}\vz \equiv \mathcal{L}(\thetab,\phib;\vx)  \enspace , \label{eq: elbo}
 \end{equation}
 where $\thetab$ are parameters of the generative model and $q_\phib(\vz|\vx)$ is the variational approximation to the true posterior.
 Graphical illustrations of the models can be seen in \cref{fig: autoregressive vrnn srnn cwvae 1L graphs} and appendix~\cref{app: additional graphical models}.

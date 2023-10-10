@@ -22,7 +22,7 @@ The first paper proposes a new method for out-of-distribution detection using hi
 The third paper proposes a new hierarchical variational autoencoder for speech and benchmarks it against other variational and autoregressive models.
 
 \contribitem{chp:paper-hierarchical}
-In this work we hypothesize that the likelihood estimate of variational autoencoders is a poor score for out-of-distribution due to on overemphasis on low-level features that generalize between distributions. 
+In this work we hypothesize that the likelihood estimate of variational autoencoders is a poor score for out-of-distribution due to an overemphasis on low-level features that generalize between distributions. 
 We further hypothesize that a well-formed hierarchy of latent variables provides a tool that can be used to select between which features to emphasize for out-of-distribution detection and hence a way to improve the performance of variational autoencoders on this task. 
 We proceed to provide empirical and theoretical evidence that low-level features indeed do dominate the likelihood and propose a new method for out-of-distribution detection using hierarchical variational autoencoders. 
 The proposed method computes a likelihood-ratio score for out-of-distribution detection that requires data to be in-distribution across all feature-levels. 
@@ -68,7 +68,7 @@ In this paper, we review the current state-of-the-art in automated medical codin
 We hypothesize that several previous works underperform for reasons more related to suboptimal hyperparameter tuning, incorrect evaluation, and crude data handling than to model design, and that performance can be improved by addressing these issues. 
 With our work, we aim to increase reproducibility and comparability of future work and to provide a baseline for future comparisons. 
 We reproduce, analyze and compare several models on the MIMIC-III dataset showing that poor performance is indeed attributable to weak configuration of the training and crudely sampled train-test splits with many extremely rare classes and several without examples in the training data at all. 
-We also find a widespread error in the calculation of the macro F1 score. 
+We also find a widespread error in the calculation of the macro F1-score. 
 To compare models, we propose new data splits created with stratified sampling, use identical experimental setups and tune hyperparameters and decision boundaries. 
 By analyzing prediction errors, we confirm the observation of previous work that all models struggle with rare codes, although long documents only have a negligible impact on performance, contrary to previous claims. 
 We also present the first comprehensive results on the newly released MIMIC-IV dataset using the reproduced models. 
