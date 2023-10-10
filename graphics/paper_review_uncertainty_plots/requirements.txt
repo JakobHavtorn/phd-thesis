@@ -13,9 +13,11 @@ numba
 numpy
 optimum
 pandas
+rich
 ruff
 scikit-learn
 scipy
+seaborn
 soundfile
 torch
 torchaudio
