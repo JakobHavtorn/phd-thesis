@@ -5,7 +5,7 @@
 \section{Data flow digram}
 In \cref{fig_retrospective:data_flowchart} we present an overview of the data flow from the initial data sources to the final stroke dataset.
 
-\begin{sidewaysfigure}[h]
+\begin{sidewaysfigure}
     \centering
     \includegraphics[width=0.8\textwidth]{paper_retrospective/data_flowchart.pdf}
     \caption[Overview of data flow from the initial data sources to the final stroke dataset.]{Overview of data flow from the initial data sources to the final stroke dataset.}
@@ -23,7 +23,7 @@ We used stochastic gradient descent on mini-batches of data to train the stroke 
 
 The selection of hyperparameters followed a simple two-stage process using validation data (table A1). First, a manual search was conducted by running different model configurations with varying numbers of epochs, updates per epoch, batch sizes, vectoriser types, and hyperparameters. Subsequently, a structured grid search was performed to further tune a subset of these hyperparameters.
 
-\begin{table}[t]
+\begin{table}
     \centering
     \caption{Overview of hyperparameters for training text classification models.}
     \label{tab_retrospective:tableA1-hyperparameters}
@@ -152,7 +152,7 @@ When 1-1-2 data were not used for training (\cref{tab_retrospective:tableA2}), t
 Compared to the test set (\cref{tab_retrospective:table2-main-results}), model performance on the 2021 calls without diagnostic category was significantly worse in all demographic subgroups (\cref{tab_retrospective:tableA3}) in terms of all metrics (p < 0.0001), except for positive predictive value (PPV) for male (where p = 0.0056 [significant]) and for the false positive rate (FPR) on females and individuals aged 65+ years (where p = 0.213 and p = 0.362, respectively [insignificant]).
 
 % \todo[inline]{Insert table A2 here}
-\begin{table}[h]
+\begin{table}
     \centering
     \caption{Model performance for sex and age subgroups [mean (95\% CI)] on the MH-1813 test data when 1-1-2 training data is not used for training.}
     \label{tab_retrospective:tableA2}
@@ -183,7 +183,7 @@ Compared to the test set (\cref{tab_retrospective:table2-main-results}), model p
 
 
 % \todo[inline]{Insert table A3 here}
-\begin{table}[h]
+\begin{table}
     \centering
     \caption{Model performance for sex and age subgroups [mean (95\% CI)] on the 2021 data without diagnostic category.}
     \label{tab_retrospective:tableA3}
@@ -221,7 +221,7 @@ Specifically, we encode patient sex as two binary numbers which we concatenate t
 
 We trained the model similarly to how we performed our ablation experiments. That is, we used the hyperparameters that gave the best performance on the validation set to train 11 differently seeded versions of the model and then report mean metrics and associated CIs on the MH-1813 test data. The results are as shown in \cref{tab_retrospective:tableA4} below.
 
-\begin{table}[h]
+\begin{table}
     \centering
     \caption[Overall performance on MH-1813 test data for the model that also takes patient age and sex as direct inputs.]{Overall performance on MH-1813 test data for the model that also takes patient age and sex as direct inputs. We also list the original performance of call-takers and the model (w/o sex and age) from the main manuscript for ease of comparison [mean (95\% CI)].}
     \label{tab_retrospective:tableA4}
@@ -261,7 +261,7 @@ We see that the performance of the ensemble model trained only with 1-1-2 data c
 
 In summary, training on only 1-1-2 data was only somewhat worse than training on only MH-1813 data, and still outperformed call-takers to some degree. This indicates that the domain shift between different call lines, even with different acuity levels, is small enough that naive domain transfer of models works fairly well.
 
-\begin{table}[h]
+\begin{table}
     \centering
     \caption{Overall performance on MH-1813 test data for the original model, the model without 1-1-2 training data, and the model without 1813 training data along with call-taker performance [mean (95\% CI)].}
     \label{tab_retrospective:tableA5}
@@ -301,7 +301,7 @@ In \cref{tab_retrospective:tableA6,tab_retrospective:tableA7} we provide detaile
 
 
 % % \todo[inline]{Insert table A4 here}
-\begin{table}[h]
+\begin{table}
     \centering
     \caption{Mean impact for words with the largest positive rank score in calls predicted as stroke.}
     \label{tab_retrospective:tableA6}
@@ -348,7 +348,7 @@ In \cref{tab_retrospective:tableA6,tab_retrospective:tableA7} we provide detaile
 \end{table}
 
 % \todo[inline]{Insert table A5 here}
-\begin{table}[h]
+\begin{table}
     \centering
     \caption{Mean impact for words with the largest negative rank score in calls predicted as non-stroke.}
     \label{tab_retrospective:tableA7}
@@ -407,7 +407,7 @@ The results of the final model are presented in \cref{tab_retrospective:tableA8}
 
 We see that the fine"=tuned BERT model performs slightly worse across F1-score, sensitivity, PPV and FOR (p < 0.0001), but better in terms of FPR (p < 0.0001), compared the MLP model presented in the main manuscript. As described in the discussion section, we hypothesize that the number of stroke positives was too small for these advanced models to learn more complex patterns than the MLP ensemble. In addition, the BERT model would likely benefit from pre"=training on text data from the target domain, or a domain close to it, rather than various online fora.
 
-\begin{table}[h]
+\begin{table}
     \centering
     \caption[Overall performance on MH-1813 test data for a fine"=tuned BERT model.]{Overall performance on MH-1813 test data for a fine"=tuned BERT model. We also list the original performance of call-takers and the ensemble model from the main manuscript for ease of comparison [mean (95\% CI)].}
     \label{tab_retrospective:tableA8}
@@ -468,7 +468,7 @@ We also report the results of the model itself (C). This method corresponds to c
 As expected (\cref{tab_retrospective:tableA9}), method 2.C (raw model predictions during calls) yielded slightly worse results than 1.C (raw model predictions after calls). Compared with method C, method A (call takers mirror model positives) led to increased sensitivity and decreased PPV, whereas method B (call takers mirror model negatives) led to decreased sensitivity and increased PPV, as expected. The numerical changes compared with method C are quite large because, in our simulation, the call taker is assumed to strictly follow methods A or B without divergence.
 
 % \todo[inline]{Insert table A6 here}
-\begin{sidewaystable}[h]
+\begin{sidewaystable}
     \centering
     \caption{Overall performance of model, call takers and simulated combinations of model and call takers on MH-1813 test data.}
     \label{tab_retrospective:tableA9}
