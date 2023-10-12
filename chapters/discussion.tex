@@ -122,7 +122,7 @@ We see that both methods result in quite good calibrations\footnote{Brier scores
 \begin{figure}
     \begin{subfigure}[c]{0.48\columnwidth}
         \centering
-        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/calibration_curves_ensemble.pdf}
+        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/calibration_curves_ensemble_with_cis.pdf}
         % \caption{}
         % \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
     \end{subfigure}    
@@ -146,7 +146,7 @@ If the stroke recognition ensemble were to be deployed in a randomized controlle
 \begin{figure}
     \begin{subfigure}[c]{0.48\columnwidth}
         \centering
-        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/f1_score_vs_predicted_probability_ensemble_calltaker}
+        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/f1_score_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
         % \caption{}
         % \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
     \end{subfigure}    
@@ -169,10 +169,10 @@ Nevertheless, while correct calibration provides some explanation to the predict
 
 \todo[inline]{Finish this sentence and analysis.}
 
-Making matters worse, the most certain model predictions are the ones that agree the most with call-taker judgment (see \cref{fig_discussion:retrospective-paper-fractional-agreement-vs-probability}). Hence, keeping the most certain predictions also means reducing the potential for changing call-taker.. Not really if when the model disagrees at low prob it is always right while when it disagrees at high prob it is always wrong (although unlikely and contrary to calibration - but that was done for the total set of predictions, not subgroups)
+% Making matters worse, the most certain model predictions are the ones that agree the most with call-taker judgment (see \cref{fig_discussion:retrospective-paper-fractional-agreement-vs-probability}). Hence, keeping the most certain predictions also means reducing the potential for changing call-taker.. Not really if when the model disagrees at low prob it is always right while when it disagrees at high prob it is always wrong (although unlikely and contrary to calibration - but that was done for the total set of predictions, not subgroups)
 
 
-This highlights a problem where combining predictions with well-calibrated uncertainties may not be sufficient to ensure sustained use in practice.
+% This highlights a problem where combining predictions with well-calibrated uncertainties may not be sufficient to ensure sustained use in practice.
 
 
 

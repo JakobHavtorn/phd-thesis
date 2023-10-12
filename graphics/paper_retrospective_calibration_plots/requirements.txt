@@ -1,0 +1,12 @@
+black
+ipython
+jupyter
+matplotlib
+numpy
+pandas
+python=3.11
+ruff
+scikit-learn
+scipy
+seaborn
+tqdm
