@@ -84,10 +84,9 @@ For \texttt{wav2vec2-large} the phonetic content is highest in layers 11 and 18-
 Our work on stroke recognition in \cref{chp:paper-retrospective} focuses on the predictive performance of the ensemble model and an analysis of feature importance, but does not explicitly consider uncertainty estimation. 
 As we discussed in \cref{subsec:model-calibration}, such a model can be calibrated to predict probabilities that are aligned with the empirical probability of the model being correct on some validation set. Here we present and discuss model calibration for the ensemble model. 
 
-We compute the calibration curve by sorting the probabilities predicted on the test set into a number of bins spanning the range from zero to one. For each bin $b$, we compute the mean predicted probability $\bar{p}$ and the fraction of examples for which the model predicted correctly $r_{b}$. The calibration curve is the drawn from the $\{(\bar{p}_{b}, r_{b})\}_b$ pairs. A perfectly calibrated model would have the same fraction of correct predictions in any given bin, as that bin's mean value, $\bar{p}_{b} = r_{b}\,\forall\,b$. 
+We compute the calibration curve by sorting the probabilities predicted on the test set into a number of bins spanning the range from zero to one. For each bin $b$, we compute the mean predicted probability $\bar{p}$ and the fraction of examples for which the model predicted correctly $r_{b}$. The calibration curve is the drawn from the $\{(\bar{p}_{b}, r_{b})\}_b$ pairs. For any given bin, a perfectly calibrated model would have the same fraction of correct predictions as that bin's mean value, $\bar{p}_{b} = r_{b}\,\forall\,b$. 
 
-The calibration curve for the uncalibrated stroke recognition ensemble and its constituent models is plotted in \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model} along with a histogram of its predicted probabilities. The miscalibration issue that we previously discussed is clearly visible as a strong overconfidence. 
-Additionally, the ensemble model is appreciably better calibrated than its constituent models. Since the ensemble output probability is computed as the harmonic mean of the five constituent model probabilities, the ensemble's output probability can never exceed the maximum probability predicted between the constituent models. This property tends to make ensemble probabilities less extreme and, since the constituent models are overconfident, this results in better calibration (see also the histogram in \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}). 
+The calibration curve for the uncalibrated stroke recognition ensemble and its constituent models is plotted in \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model} along with a histogram of its predicted probabilities. The miscalibration issue that we previously discussed is clearly visible as a strong overconfidence for both ensemble and constituents, although the ensemble is much better calibrated than its constituents. Since the ensemble's output probability is computed as the harmonic mean of the five constituent model probabilities, it can never exceed the maximum probability predicted between the constituent models. This property tends to make ensemble probabilities less extreme and, since the constituent models are overconfident, this results in better calibration (see also the histogram in \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}). 
 
 \begin{figure}
     \begin{subfigure}[c]{0.48\columnwidth}
@@ -105,15 +104,16 @@ Additionally, the ensemble model is appreciably better calibrated than its const
     \end{subfigure}
     \caption[Calibration curve for the uncalibrated stroke recognition ensemble and empirical distribution of predicted probabilities.]{%
         Calibration curve for the uncalibrated stroke recognition ensemble (left) and the histogram of predicted probabilities (right) for the test set. 
-        We use the ensemble that achieved the median F1-score reported in \cref{tab_retrospective:table3-occlusion-analysis} and \cref{fig_retrospective:figure1-roc-curve}.}
+        We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
     \label{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}
 \end{figure}
 
 To calibrate the ensemble model, we can use methods such as Platt-scaling \parencite{platt_probabilistic_1999} or isotonic regression \parencite{zadrozny_transforming_2002}. 
-We fit a simple regression model (logistic or isotonic) to the predicted probabilities and the target labels on the validation set and use it to adjust the probabilities predicted on the test set. We show the resulting calibration curves on the left in \cref{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic} and the logistic and isotonic fits on the right. 
+In either case, we fit a simple regression model (logistic or isotonic) to the predicted probabilities and the target labels on the validation set and use it to adjust the probabilities predicted on the test set. We show the resulting calibration curves on the left in \cref{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic} and the logistic and isotonic fits on the right with 95\% bootstrap confidence intervals on the bin centers ($x$ error) and fraction of positives ($y$ error). 
 % In \cref{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic} we have done so for the ensemble model and visualize the results on the test set. 
 % On the left, we plot the resulting calibration curves and on the right we show the logistic and isotonic fits. 
-We see that both methods result in quite good calibrations\footnote{Brier scores on test set: Uncalibrated = $0.003500$, logistic = $0.001807$, isotonic = $0.001774$. Relative improvement in Brier score compared to uncalibrated (Brier skill score): Logistic = $0.4830$, isotonic = $0.4924$.} and that the predicted probabilities are shifted towards smaller values. Since there are few stroke cases overall, few examples receive a high predicted probability (see histogram in \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}). This leads to a lack of data for the calibration fits at high predicted probabilities which can be seen to especially affect the nonparametric isotonic regression.
+We see that both methods result in quite good calibrations\footnote{Brier scores on test set: Uncalibrated = $0.003500$, logistic = $0.001807$, isotonic = $0.001774$. Relative improvement in Brier score compared to uncalibrated (Brier skill score): Logistic = $0.4830$, isotonic = $0.4924$.} and that the predicted probabilities are shifted towards smaller values. 
+Since stroke cases have low prevalence, high probability is predicted only for a few examples (see histogram in \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}). This leads to a lack of data for the calibration fits at high predicted probabilities which can be seen to result in poor generalization to the test set, especially for the nonparametric isotonic regression.
 
 % Brier scores:  {'uncalibrated': 0.0034955788687128925, 'logistic': 0.0018072483306197486, 'isotonic': 0.0017744177396100578, 'average': 0.0021955477869598783}
 % BSS uncalibrated reference:  {'logistic': 0.48299025755205005, 'isotonic': 0.4923822902432705}
@@ -133,41 +133,53 @@ We see that both methods result in quite good calibrations\footnote{Brier scores
         % \caption{}
         % \label{fig_discussion:histogram_ensemble_and_single_model}
     \end{subfigure}    
-    \caption[Calibration fits and curves for the stroke recognition ensemble using Platt-scaling and isotonic regression for calibration.]{ Calibration curves using sigmoid and isotonic calibration fits for the stroke recognition ensemble model (left) and the calibration fits (right) for the test set. We use the ensemble that achieved the median F1-score reported in \cref{tab_retrospective:table3-occlusion-analysis} and \cref{fig_retrospective:figure1-roc-curve}.}
+    \caption[Calibration fits and curves for the stroke recognition ensemble using Platt-scaling and isotonic regression for calibration.]{ Calibration curves using sigmoid and isotonic calibration fits for the stroke recognition ensemble model (left) and the calibration fits (right) for the test set. We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
     \label{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic}
 \end{figure}    
 
-Clinicians in intensive care units and emergency departments have been found to strongly agree that a singular focus on overall accuracy cannot ensure sustained use of and trust in a model \cite{tonekaboni_what_2019}. Clinicians expect an alert to present a prediction that aligns with patient status. Despite expert-agreed thresholds for when alerts should be triggered, however, many alerts may not be aligned since the unbalanced and ambiguous nature of many predictive problems in healthcare can lead to low predictive precision \parencite{umscheid_development_2015, cite14, cite15, wenstrup_retrospective_2023}. This can lead to alarm fatigue \parencite{embi_evaluating_2012} and can undermine the use and endorsement by clinicians of such systems \parencite{guidi_clinician_2015}. 
-The expected precision of the stroke recognition ensemble of $24.9\%$ (95\% confidence interval $24.3-25.5\%)$ means it might be wrong three out of four times it predicts a positive. This unfortunately makes alarm fatigue likely among its potential users which might diminish it's real-world impact.
+Clinicians in intensive care units and emergency departments have been found to strongly agree that a singular focus on overall accuracy cannot alone ensure sustained trust in a model \cite{tonekaboni_what_2019}. Clinicians expect an alert to present a prediction that aligns with patient status. Despite expert-agreed thresholds for when alerts should be triggered, however, many alerts may not be aligned since the unbalanced and ambiguous nature of many predictive problems in healthcare can lead to relatively low predictive precision \parencite{umscheid_development_2015, cite14, cite15, wenstrup_retrospective_2023}. This is likely to lead to alarm fatigue \parencite{embi_evaluating_2012} and can undermine the sustained use and endorsement by clinicians of such systems \parencite{guidi_clinician_2015}. 
+The expected precision of the stroke recognition ensemble presented in \cref{chp:paper-retrospective} is $24.9\%$ (95\% confidence interval $24.3-25.5\%)$. This bluntly means it might be wrong three out of four times it predicts a positive. This unfortunately risks alarm fatigue among its potential users which might diminish it's real-world impact.
 
-If the stroke recognition ensemble were to be deployed in a randomized controlled trial, such issues might be alleviated by incorporating the calibrated probabilities in the alerts presented to users. With calibrated probabilities, user would be able to discern between certain and uncertain model predictions or might be presented only with predictions that exceed a specific confidence level. Similar approaches have been suggested by clinicians and interviews indicate that predictive uncertainty is perceived as a sort of explanation that complements the prediction \cite{tonekaboni_what_2019}.
-
+% If the stroke recognition ensemble were to be deployed in a randomized controlled trial, s
+Such issues might be alleviated by incorporating the calibrated probabilities in the alerts presented to users. Presented with calibrated probabilities, users would be able to discern between certain and uncertain predictions. Furthermore, calibrated probabilities might be used to present users only with predictions that exceed a specific confidence level. Similar approaches have been suggested by clinicians and interviews indicate that predictive uncertainty is perceived as a sort of explanation that complements the prediction \cite{tonekaboni_what_2019}. In \cref{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability} we show the F1-score of the ensemble model and the call-takers computed on subsets of the data created by binning the predicted probilities of the isotonically calibrated ensemble. We note that as might be expected, both call-taker and ensemble model performance increase with increased model certainty. This indicates that selecting, based on certainty, which predictions to present to users might indeed help improve trust in the system in practice. 
 
 \begin{figure}
+    % \begin{subfigure}[c]{0.48\columnwidth}
+    %     \centering
+    %     \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/precision_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
+    %     % \caption{}
+    %     % \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
+    % \end{subfigure}    
+    % % \hfill
+    % \begin{subfigure}[c]{0.48\columnwidth}
+    %     \centering
+    %     \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/recall_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
+    %     % \caption{}
+    %     % \label{fig_discussion:histogram_ensemble_and_single_model}
+    % \end{subfigure}
     \begin{subfigure}[c]{0.48\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/f1_score_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
         % \caption{}
         % \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
     \end{subfigure}    
-    % \hfill
     \begin{subfigure}[c]{0.48\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/predicted_probability_histogram.pdf}
         % \caption{}
         % \label{fig_discussion:histogram_ensemble_and_single_model}
     \end{subfigure}    
-    \caption[Comparison of F1-score of stroke recognition ensemble and call-takers as function of predicted probability.]{ Comparison of the F1-score of the stroke recognition ensemble and call-takers. The F1-score is computed on subsets of the test dataset made by binning on the calibrated probabilities of the ensemble. We see that the relative performance improvement of the ensemble over call-takers is higher towards more certain predictions. We use the ensemble that achieved the median F1-score reported in \cref{tab_retrospective:table3-occlusion-analysis} and \cref{fig_retrospective:figure1-roc-curve}.}
-    \label{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic}
-\end{figure}    
+    \caption[Comparison of F1-score of stroke recognition ensemble and call-takers as function of predicted probability.]{ Comparison of the F1-score of the stroke recognition ensemble and call-takers. The F1-score is computed on subsets of the test dataset made by binning on the predicted probabilities of the calibrated ensemble. We see that the relative performance improvement of the ensemble over call-takers is higher towards more certain predictions. We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
+    \label{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability}
+\end{figure}
 
-Inspecting the 
+% Inspecting the 
 
-\todo[inline]{Finish this sentence and analysis.}
+% \todo[inline]{Finish this sentence and analysis.}
 
-Nevertheless, while correct calibration provides some explanation to the predictions, the actual value of the calibrated probabilities is still tied of the model's performance. By inspecting \cref{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic}, we can see that the logistic calibration shifts the predicted probabilities so far towards zero that the highest possible predicted probability is about 50\%. This means strokes can be predicted at best with a 50\% chance of being correct which limits the potential reduction in alarm fatigue. 
+% Nevertheless, while correct calibration provides some explanation to the predictions, the actual value of the calibrated probabilities is still tied of the model's performance. By inspecting \cref{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability}, we can see that the logistic calibration shifts the predicted probabilities so far towards zero that the highest possible predicted probability is about 50\%. This means strokes can be predicted at best with a 50\% chance of being correct which limits the potential reduction in alarm fatigue. 
 
-\todo[inline]{Finish this sentence and analysis.}
+% \todo[inline]{Finish this sentence and analysis.}
 
 % Making matters worse, the most certain model predictions are the ones that agree the most with call-taker judgment (see \cref{fig_discussion:retrospective-paper-fractional-agreement-vs-probability}). Hence, keeping the most certain predictions also means reducing the potential for changing call-taker.. Not really if when the model disagrees at low prob it is always right while when it disagrees at high prob it is always wrong (although unlikely and contrary to calibration - but that was done for the total set of predictions, not subgroups)
 
