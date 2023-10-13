@@ -159,7 +159,7 @@ Where precision@$k$ is computed based on the top-$k$ codes (i.e., $k$ is fixed),
 
 \begin{sidewaystable}
     \centering
-    \caption[Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to improved settings]{Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to the optimal settings found in this paper (marked with *). LR is the learning rate scheduler. ``Length" is the maximum number of words a document can contain before being truncated. $\dagger$ applies to models using word-piece tokenization. These models were filtered on the number of sub-words instead of full words. ``DB tune" is whether the optimal decision boundary was found using the validation set. If a paper did not tune the decision boundary, it was set to 0.5.}
+    \caption[Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to improved settings.]{Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to the optimal settings found in this paper (marked with *). LR is the learning rate scheduler. ``Length" is the maximum number of words a document can contain before being truncated. $\dagger$ applies to models using word-piece tokenization. These models were filtered on the number of sub-words instead of full words. ``DB tune" is whether the optimal decision boundary was found using the validation set. If a paper did not tune the decision boundary, it was set to 0.5.}
     \label{tab:hyperparameters}
     \resizebox*{\textwidth}{!}{%
     \begin{tabular}{lccccccccc}
@@ -238,7 +238,7 @@ To analyze the performance impact of rare codes, we first calculated the Pearson
 
 \begin{sidewaystable}
     \centering
-    \caption[Reproduced test set results compared with those from the original works]{Reproduced test set results compared with those from the original works. Our reproduced results are indicated with *. The results were reproduced on MIMIC-III v1.4 with the preprocessing pipeline and splits of \textcite{mullenbachExplainablePredictionMedical2018}. Each model was reproduced using the hyperparameters presented in the respective paper. We use both macro F1 formulas: Macro$^\dagger$ refers to the method used in the original work, while Macro refers to the corrected version used in this paper.}
+    \caption[Reproduced test set results compared with those from the original works.]{Reproduced test set results compared with those from the original works. Our reproduced results are indicated with *. The results were reproduced on MIMIC-III v1.4 with the preprocessing pipeline and splits of \textcite{mullenbachExplainablePredictionMedical2018}. Each model was reproduced using the hyperparameters presented in the respective paper. We use both macro F1 formulas: Macro$^\dagger$ refers to the method used in the original work, while Macro refers to the corrected version used in this paper.}
     \label{tab:reproduced_results}
     \resizebox*{\textwidth}{!}{%
     \begin{tabular}{l  cc  ccc  cc  cc  ccc  c}
@@ -356,7 +356,7 @@ Similar results were obtained on the other datasets.
         % \caption{}
         % \label{fig:threshold_tuning_macro}
     \end{subfigure}%
-    \caption[The relationship between chosen threshold and F1-score of every reproduced model in \cref{tab:reproduced_results}]{The relationship between chosen threshold and F1-score of every reproduced model in \cref{tab:reproduced_results}. The left figure shows the micro F1-score, and the right shows the macro F1-score. The models were evaluated on MIMIC-III \textit{clean}.}
+    \caption[Relationship between chosen threshold and F1-score of every reproduced model.]{The relationship between chosen threshold and F1-score of every reproduced model in \cref{tab:reproduced_results}. The left figure shows the micro F1-score, and the right shows the macro F1-score. The models were evaluated on MIMIC-III \textit{clean}.}
     \label{fig:threshold_tuning}
 \end{figure}
 
@@ -382,7 +382,7 @@ In most cases, increasing the training data had a larger effect on the macro F1-
         % \caption{}
         % \label{fig:train_size_macro}
     \end{subfigure}
-    \caption[The relationship between the number of training examples and F1-score on MIMIC-IV \textit{ICD-9}]{The relationship between the number of training examples and F1-score on MIMIC-IV \textit{ICD-9}. The left figure shows the F1 Micro score on the y-axis, while the right figure shows the F1 Macro score.}
+    \caption[The relationship between the number of training examples and F1-score on MIMIC-IV \textit{ICD-9}.]{The relationship between the number of training examples and F1-score on MIMIC-IV \textit{ICD-9}. The left figure shows the F1 Micro score on the y-axis, while the right figure shows the F1 Macro score.}
     \label{fig:train_size}
 \end{figure}
 
@@ -399,7 +399,7 @@ As there are few long documents, the effect on average micro F1 for each dataset
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{paper_automated/f1_micro_vs_num_words.png}
-    \caption[Relationship between the lengths of the clinical notes and the micro F1-score for each model on MIMIC-IV \textit{ICD-9}]{Relationship between the lengths of the clinical notes and the micro F1-score for each model on MIMIC-IV \textit{ICD-9}. The vertical line indicates the maximum length of the notes after truncation. The histogram at the top visualizes the document length distribution.}
+    \caption[Relationship between the lengths of the clinical notes and the micro F1-score for each model on MIMIC-IV \textit{ICD-9}.]{Relationship between the lengths of the clinical notes and the micro F1-score for each model on MIMIC-IV \textit{ICD-9}. The vertical line indicates the maximum length of the notes after truncation. The histogram at the top visualizes the document length distribution.}
     \label{fig:text_length}
 \end{figure}
 
@@ -443,7 +443,7 @@ The Y92 category, part of the V00-Y99 chapter, contains codes related to the phy
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{paper_automated/code_count_vs_f1_all_datasets.png}
-    \caption[Relationship between the code frequencies in the training set and the macro F1-score for PLM-ICD on MIMIC-IV \textit{ICD-9} and \textit{ICD-10}]{Relationship between the code frequencies in the training set and the macro F1-score for PLM-ICD on MIMIC-IV \textit{ICD-9} and \textit{ICD-10}. The shaded area indicates the standard deviation of the score computed for codes within the bin.}
+    \caption[Relationship between code frequencies and macro F1-score for PLM-ICD on MIMIC-IV \textit{ICD-9} and \textit{ICD-10}.]{Relationship between the code frequencies in the training set and the macro F1-score for PLM-ICD on MIMIC-IV \textit{ICD-9} and \textit{ICD-10}. The shaded area indicates the standard deviation of the score computed for codes within the bin.}
     \label{fig:icd9_vs_icd10}
 \end{figure}
 
@@ -473,7 +473,7 @@ There are ten different codes in MIMIC-IV \textit{ICD-10} relating to nicotine d
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{paper_automated/chapters.png}
-    \caption[Performance of PLM-ICD on ICD-10 chapters]{Performance of PLM-ICD on ICD-10 chapters. Only codes with more than a hundred occurrences in the MIIMC-IV ICD-10 training set were considered, leaving 20 chapters. We found Z00-Z99 and V00-Y99 to be the most challenging.}
+    \caption[Performance of PLM-ICD on ICD-10 chapters.]{Performance of PLM-ICD on ICD-10 chapters. Only codes with more than a hundred occurrences in the MIIMC-IV ICD-10 training set were considered, leaving 20 chapters. We found Z00-Z99 and V00-Y99 to be the most challenging.}
     \label{fig:chapter_performance}
 \end{figure}
 

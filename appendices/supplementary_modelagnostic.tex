@@ -39,7 +39,7 @@ Another possibility is to just use the identity matrix as FIM instead of of appr
 
 \begin{table*}[tb]
     \centering
-    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing two different estimates of the Fisher information matrix]{AUROC$\uparrow$ for single-sample OOD detection. Comparison between two different estimates of the Fisher information matrix. For ($\ddagger$) we used the Adam parameter choice, i.e.\@ $\varepsilon = 10^{-8}$ and $\xi = 1$. For ($\mathsection$), instead, we used  $\varepsilon = 10^{-8}$ and $\xi = 0.75$, as suggested by \textcite{martens_new_2020}. As a result, we have that using Adam parameters choice is slightly better for our task.}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing two different estimates of the Fisher information matrix.]{AUROC$\uparrow$ for single-sample OOD detection. Comparison between two different estimates of the Fisher information matrix. For ($\ddagger$) we used the Adam parameter choice, i.e.\@ $\varepsilon = 10^{-8}$ and $\xi = 1$. For ($\mathsection$), instead, we used  $\varepsilon = 10^{-8}$ and $\xi = 0.75$, as suggested by \textcite{martens_new_2020}. As a result, we have that using Adam parameters choice is slightly better for our task.}
     \resizebox*{\textwidth}{!}{
     \small
     \begin{tabular}{ccccc}
@@ -207,7 +207,7 @@ To test if the typicality test and the score statistic are uncorrelated, we plot
 \begin{figure}[tb]
     \centering
     \includegraphics[scale=0.5]{graphics/paper_modelagnostic/correlation_correct_font.pdf}
-    \caption[Correlation of typicality test and score statistic computed on the validation set using a PixelCNN++ trained on FashionMNIST]{Correlation of typicality test and score statistic computed on the validation set using a PixelCNN++ trained on FashionMNIST. The correlation coefficient is $-0.014$. This can also be seen by looking at the regression line, which is almost straight. }
+    \caption[Correlation of typicality test and score statistic computed on the validation set using a PixelCNN++ trained on FashionMNIST.]{Correlation of typicality test and score statistic computed on the validation set using a PixelCNN++ trained on FashionMNIST. The correlation coefficient is $-0.014$. This can also be seen by looking at the regression line, which is almost straight. }
     \label{fig_modelagnostic:corralation}
 \end{figure}
 
@@ -287,7 +287,7 @@ So, why did we decide to use the score statistic instead of the MMD with Fisher 
 
 \begin{table*}[tb]
     %\renewcommand{\thetable}{4}
-    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing all single statistics with models trained on FashionMNIST (tested on MNIST) and CIFAR10 (tested on SVHN)]{AUROC$\uparrow$ for single-sample OOD detection. In this table we consider all the different single statistics we mentioned in the paper with models trained on FashionMNIST and CIFAR10. One can notice that MMD diagonal is pretty close to the score statistic and the MMD identity is close to the gradient norm, as expected (see Section 4.1 in the paper). Complementary results for models trained on MNIST and SVHN are in \cref{tab_modelagnostic:mmd_pair2}.}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing all single statistics with models trained on FashionMNIST (tested on MNIST) and CIFAR10 (tested on SVHN).]{AUROC$\uparrow$ for single-sample OOD detection. In this table we consider all the different single statistics we mentioned in the paper with models trained on FashionMNIST and CIFAR10. One can notice that MMD diagonal is pretty close to the score statistic and the MMD identity is close to the gradient norm, as expected (see Section 4.1 in the paper). Complementary results for models trained on MNIST and SVHN are in \cref{tab_modelagnostic:mmd_pair2}.}
     \resizebox{\textwidth}{!}{
         \scriptsize
         \begin{tabular}{ccccccc}
@@ -416,7 +416,7 @@ We also evaluated our methods in the two dataset pairs, MNIST against FashionMNI
 
 
 \begin{table*}[tb]
-    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing all single statistics with models trained on MNIST (tested on FashionMNIST) SVHN (tested on CIFAR10)]{AUROC$\uparrow$ for single-sample OOD detection. In this table we consider all the different single statistics we mentioned in the paper with models trained on MNIST and SVHN. In this case, it is important to notice that the gradient norm and the MMD identity sometimes fail to a different extent. Complementary results for models trained on MNIST and SVHN are in \cref{tab_modelagnostic:mmd}}
+    \caption[AUROC$\uparrow$ for single-sample OOD detection comparing all single statistics with models trained on MNIST (tested on FashionMNIST) SVHN (tested on CIFAR10).]{AUROC$\uparrow$ for single-sample OOD detection. In this table we consider all the different single statistics we mentioned in the paper with models trained on MNIST and SVHN. In this case, it is important to notice that the gradient norm and the MMD identity sometimes fail to a different extent. Complementary results for models trained on MNIST and SVHN are in \cref{tab_modelagnostic:mmd}}
     \resizebox{\textwidth}{!}{
         \scriptsize
         \begin{tabular}{ccccccc}
@@ -683,7 +683,7 @@ In this setting, since DoSE is using statistics that are HVAE and Glow specific,
 
 \begin{table}[tb]%[15]
     \vspace{-1.3em}
-    \caption[Comparison between our method and DoSE using the original statistics]{Comparison between our method and DoSE using the original statistics. In these experiments we considered only Glow trained with Adam.}
+    \caption[Comparison between our method and DoSE using the original statistics.]{Comparison between our method and DoSE using the original statistics. In these experiments we considered only Glow trained with Adam.}
         \centering
         \scriptsize
         \begin{tabular}{ccc}
