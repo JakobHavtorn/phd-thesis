@@ -10,48 +10,59 @@
 %   - Inferiority of probabilistic methods compared to self"=supervised learning. 
 % - 
 
+The last three years have seen the continuation of the rapid progress of machine learning that started about a decade ago with the 2012 ImageNet competition and the work of \textcite{krizhevsky_imagenet_2012}. The field of out-of-distribution detection saw a surge of interest following the papers by \textcite{choi_waic_2019,nalisnick_detecting_2019,hendrycks_deep_2019} and self"=supervised learning for speech has seen rapid advances with works such as CPC \parencite{oord_representation_2018}, wav2vec 2.0 \parencite{baevski_wav2vec_2020} and data2vec \parencite{baevski_data2vec_2022}. 
 
-The last three years have seen the continuation of the rapid progress of machine learning that started about a decade ago with the 2012 ImageNet competation and the work of \textcite{krizhevsky_imagenet_2012}. The field of out-of-distribution detection saw a surge of interest following the papers by \textcite{choi_waic_2019,nalisnick_detecting_2019,hendrycks_deep_2019} and self"=supervised learning for speech has seen rapid advances with works such as CPC \parencite{oord_representation_2018}, wav2vec 2.0 \parencite{baevski_wav2vec_2020} and data2vec \parencite{baevski_data2vec_2022}. 
-
-Having focused in the previous chapters on VAEs for out-of-distribution detection and self"=supervised methods for representation learning, this chapter will add perspective on how VAEs might be enabled to learn representations more competetive with self"=supervised approaches, and how self"=supervised approaches might be used for out-of-distribution detection. 
+Having focused in the previous chapters on VAEs for out-of-distribution detection and self"=supervised methods for representation learning, this chapter will add perspective on how VAEs might be enabled to learn representations more competitive with self"=supervised approaches, and how self"=supervised approaches might be used for out-of-distribution detection. 
 Finally, we will discuss the use of calibration techniques for the stroke recognition model of \cref{chp:paper-retrospective}.
 
 % Following the papers by \textcite{choi_waic_2019,nalisnick_detecting_2019,hendrycks_deep_2019}, the field of out-of-distribution detection saw a surge of new approaches using both generative models, supervised classifiers and self"=supervised representations. 
 % Similarly, though the wave of works in self"=supervised learning might be traced back to \texttt{word2vec} of \textcite{mikolov_efficient_2013}, the impact of later works such as BERT \parencite{devlin_bert_2018} and GPT \parencite{radford_improving_2018} was immense and helped give rise to many approaches for self"=supervised learning for speech, including CPC \parecite{oord_representation_2018}, wav2vec 2.0 \parencite{baevski_wav2vec_2020} and data2vec \parencite{baevski_data2vec_2022}.
-% 
 
 
 \section{Speech representations and uncertainty}
 %
 In this thesis we have studied two different approaches to learning speech representations: VAEs in \cref{chp:paper-hierarchical,chp:paper-modelagnostic,chp:paper-benchmarking} and self"=supervised methods in \cref{chp:paper-review}. 
-We found that the probabilistic formulation of VAEs provide benefits for their application to uncertainty quantification but that they are generally inferior to self"=supervised methods when it comes to performance on downstream tasks, such as phoneme recognition (see e.g. \cref{tab: phoneme recognition (PER), tab:unsupervisedASR}). 
-Considering VAEs and self"=supervised methods, it seems we have not yet been able to build a model that has a principled probabilistic representation of uncertainty without sacrificing some of the ability to learn rich representations that are useful for downstream applications. 
+We found that the probabilistic formulation of VAEs provide benefits for their application to uncertainty quantification but that they are generally inferior to self"=supervised methods when it comes to performance on downstream tasks, such as phoneme recognition (see e.g. \cref{tab: phoneme recognition (PER),tab:unsupervisedASR}). 
+Considering VAEs and self"=supervised methods, it seems we have not yet been able to build a model that has a principled probabilistic representation of uncertainty without compromising its ability to learn rich representations that are useful for downstream applications. 
 
-% VAEs are good at uncertainty quantification (let's at least say that they are).
-% SSL methods are very good at representation learning as reflected by their dominance on downstream task performance in for text and speech. 
+\subsection{Representation learning with variational autoencoders}
 
+Different from self"=supervised methods, VAEs learn the distribution over the training data and are forced to encode all aspects important to it. 
+As we saw in \cref{chp:paper-hierarchical}, this will generally include low-level features that are important for accurate input reconstruction, but usually of lesser interest for downstream tasks.
 
+\paragraph{Masking} 
+Reconstruction in VAEs is done from latent variables inferred from the full, unmasked input, and always targets the input. This allows the encoder and decoder models to perform well for reconstruction, even with no, or limited, use of contextual dependencies. 
+However, as discussed in \cref{chp:paper-review}, masking is one of the driving techniques behind the success of self"=supervised methods \parencite{devlin_bert_2018,baevski_wav2vec_2020}. By removing tokens from the input or an early feature extraction layer and tasking a model with inferring their representations, models are forced to learn how neighboring tokens relate to those masked. Depending on the size of the mask, these dependencies can be more or less semantic in nature. For instance, the wav2vec 2.0 model is well-known to learn representations that have high similarity to word identity and meaning \parencite{pasad_layerwise_2021}. Such 
 
-\subsection{Improved representation learning with variational autoencoders}
-
-\paragraph{Semi-supervised learning} One way to improve the representations learned in VAEs is via semi-supervised learning. 
-Here a small number of labels are used to inform which patterns that are learned from a large, mostly unlabelled, data set. 
-This is usually done by defining a new stochastic variable as the target and deriving a semi-supervised version of the ELBO that accomadates using the labels when they are available, or marginalizing the target variable when they are not. The VAE is then trained on the labelled and unlabelled data simultanously. 
-
-VAEs are strong models for semi-supervised learning as proven in several works \parencite{kingma_semi-supervised_2014,kingma_improved_2016,maaloe_biva_2019}. 
-However, self"=supervised methods methods have established themselves as superior for most tasks in this setting \cite{jiang_speech_2021, liu_learning_2023}. 
-Furthermore, by training on labelled and unlabelled data simultaneously, the semi-supervised formulation for VAEs is more constraining than it is for self-supervised methods that divide the training into pre"=training and finetuning. The expensive pre"=training yields a single foundation model that can be fine"=tuned at relatively low cost for a large number of downstream tasks, whereas VAEs must learn all relevant downstream tasks while also learning from the unlabelled data. This is more expensive, but also requires retraining on the unlabelled data, when new supervised data becomes available. 
-
-\paragraph{Masking} As discussed in \cref{chp:paper-review}, one of the driving techniques behind the success of self"=supervised methods is masking \parencite{devlin_bert_2018,baevski_wav2vec_2020}. By removing tokens from the input or an early feature extraction layer and tasking a model with inferring their representations, the model is forced to learn how neighbouring tokens relate to those masked. Depending on the size of the mask, these dependencies can be more or less semantic in nature. 
-
-Different from self"=supervised methods, since VAEs learn the distribution over the training data, they are forced to encode all aspects important to it. 
-As we also saw in \cref{chp:paper-hierarchical}, this will generally include low-level features that are important for accurate input reconstruction, but usually of lesser interest for downstream tasks. Furthermore, VAE reconstruction is performed based on latent variables which are inferred from the full, unmasked input. 
-
-Masking has only been sparsely examined for VAEs. One of the areas where it has seen the most attention is missing data imputation. In this setting, the input is partially observed, and often represented as a segmentation into observed and missing parts via a mask that indicates where the data is missing. The model is then trained to infer the latent variable from the observed data and reconstruction also deals only with the observed data. 
-By comparison to self"=supervised approaches that use masking for representation learning, the missing data setting of VAEs focuses on reconstructing the observed data rather than the missing, which might lead to less useful representations. 
+Since the ELBO does not allow for masking as part of the training, it has been only sparsely examined for VAEs. Specifically, masking has seen the most attention for VAEs within missing data imputation. In this setting, the input is partially observed, and often represented as a segmentation into observed and missing parts via a mask that indicates where the data is missing. The model is then trained to infer the latent variable from the observed data and reconstruction also deals only with the observed data. 
+By comparison to self"=supervised approaches that use masking for representation learning, the missing data setting of VAEs focuses on reconstructing the observed data rather than the missing, which might not lead to the same benefits in representation learning. 
 The idea of using VAEs to impute missing data was already examined in the seminal paper by \textcite{rezende_stochastic_2014}. Here the model was trained with fully observed data and used to impute data in an iterative sampling approach post hoc, leaving the learned representations unchanged.
 Previous work that trains on partially observed data has largely focused on the ability of these models to yield high-quality imputations within the tabular and image data domains and have not probed for the effects on the learned latent representation \parencite{mattei_miwae_2019, ipsen_not-miwae_2021}. 
 
+\paragraph{Designing the latent space} 
+Architectural improvements and hierarchies of latent variables may be a way to learn more semantic features in VAEs. This approach has seen some success in the image domain with models like BIVA \parencite{maaloe_biva_2019}, NVAE \parencite{vahdat_nvae_2020}, and VD-VAE \parencite{child_very_2021}, with up to 78 stochastic layers, achieving tight likelihoods and high-quality samples, although limited effort has put towards using such models for downstream tasks. 
+For speech, a hierarchical model operating on multiple temporal scales, such as the Clockwork VAE \parencite{saxena_clockwork_2021} adapted for speech in \cref{chp:paper-benchmarking}, might help better capture dependencies at longer ranges and encode more semantic features. 
+For instance, phonetic content for pronunciation might be learned at lower layers, speaker identity at the upper layers, and semantic features, such as word-meaning, in between. 
+Although some work has successfully separated speaker identity from content by modifying the latent variables and their dependencies \parencite{hsu_unsupervised_2017}, models that can learn a deep hierarchy of features for speech remains an open challenge. The work presented in \cref{chp:paper-benchmarking} represents an effort to make progress towards such a model. 
+
+\paragraph*{Tighter bounds}
+
+
+% Although the path-wise derivative has lower variance than most alternatives, such as score function estimators, a number of works have attempted to reduce its variance.
+% \textcite{roeder_sticking_2017} note that the path-wise derivative can be factored into a path-wise estimator and a score function estimator and propose to ignore the score function factor to reduce gradient variance. 
+% \textcite{rainforth_tighter_2019} show that this problem is even larger for the importance weighted ELBO \parencite{burda_importance_2016} and leads to diminishing returns when increasing the number of samples. 
+% Rather than removing the score function factor in the estimate, \textcite{tucker_doubly_2019} propose to reparameterize it and derive low variance gradient estimators, also for importance weighted ELBO.
+
+
+
+\paragraph{Semi-supervised learning} 
+Another way to improve the representations learned in VAEs is via semi-supervised learning. 
+Here, a few labels are used to inform which patterns that are learned from a large, mostly unlabeled, data set. 
+This is usually done by defining a new stochastic variable as the target and deriving a semi-supervised version of the ELBO that accommodates using the labels when they are available, or marginalizing the target variable when they are not. The VAE is then trained on the labelled and unlabeled data simultaneously. 
+
+VAEs are strong models for semi-supervised learning as proven in several works \parencite{kingma_semi-supervised_2014,kingma_improved_2016,maaloe_biva_2019}. 
+However, self"=supervised methods have established themselves as superior for most tasks in this setting \cite{baevski_wav2vec_2020,jiang_speech_2021, liu_learning_2023}. 
+Furthermore, by training on labelled and unlabeled data simultaneously, the semi-supervised formulation for VAEs is less flexible than it is for self"=supervised methods that divide the training into two separate phases; the expensive pre"=training phase yields a single foundation model that can be fine"=tuned at relatively low cost for many downstream tasks, but VAEs must learn labeled downstream tasks while simultaneously training on the unlabeled data. This is more expensive, but also requires retraining with the unlabeled data, when new supervised data becomes available or a new task is added.
 
 
 \subsection{Uncertainty estimation with self-supervised methods}
@@ -96,22 +107,21 @@ Uncertainty of representations versus uncertainty of downstream task outputs.
 \section{\Cref{chp:paper-retrospective} revisited: Calibration}
 
 \begin{figure}
-    \begin{subfigure}[c]{0.48\columnwidth}
+    \centering
+    \begin{subfigure}[c]{0.49\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/calibration_curve_ensemble_and_all_models_uncalibrated.pdf}
         % \caption{}
         % \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
     \end{subfigure}
-    % \hfill
-    \begin{subfigure}[c]{0.48\columnwidth}
+    \hfill
+    \begin{subfigure}[c]{0.49\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/histogram_ensemble_and_single_model.pdf}
         % \caption{}
         % \label{fig_discussion:histogram_ensemble_and_single_model}
     \end{subfigure}
-    \caption[Calibration curve for the uncalibrated stroke recognition ensemble and empirical distribution of predicted probabilities.]{%
-        Calibration curve for the uncalibrated stroke recognition ensemble (left) and the histogram of predicted probabilities (right) for the test set. 
-        We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
+    \caption[Calibration curve for the uncalibrated stroke recognition ensemble and empirical distribution of predicted probabilities.]{ Calibration curve for the uncalibrated stroke recognition ensemble (left) and the histogram of predicted probabilities (right) for the test set. We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
     \label{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}
 \end{figure}
 
@@ -124,30 +134,18 @@ The calibration curve for the uncalibrated stroke recognition ensemble and its c
 
 \begin{figure}
     \centering
-    \begin{subfigure}[c]{0.48\columnwidth}
+    \begin{subfigure}[c]{0.49\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/calibration_curves_ensemble_with_cis.pdf}
-    \end{subfigure}    
-    \begin{subfigure}[c]{0.48\columnwidth}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.49\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/calibration_fits_ensemble.pdf}
     \end{subfigure}    
     \caption[Calibration fits and curves for the stroke recognition ensemble using Platt-scaling and isotonic regression for calibration.]{ Calibration curves using sigmoid and isotonic calibration fits for the stroke recognition ensemble model (left) and the calibration fits (right) for the test set. We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
     \label{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic}
 \end{figure}
-\begin{figure}
-    \begin{subfigure}[c]{0.48\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/calibration_curves_ensemble_with_cis.pdf}
-    \end{subfigure}    
-    \begin{subfigure}[c]{0.48\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/calibration_fits_ensemble.pdf}
-    \end{subfigure}    
-    \caption[Calibration fits and curves for the stroke recognition ensemble using Platt-scaling and isotonic regression for calibration.]{ Calibration curves using sigmoid and isotonic calibration fits for the stroke recognition ensemble model (left) and the calibration fits (right) for the test set. We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
-    \label{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic}
-\end{figure}    
-
 
 To calibrate the ensemble model, we can use methods such as Platt-scaling \parencite{platt_probabilistic_1999} or isotonic regression \parencite{zadrozny_transforming_2002}. 
 In either case, we fit a simple regression model (logistic or isotonic) to the predicted probabilities and the target labels on the validation set and use it to adjust the probabilities predicted on the test set. We show the resulting calibration curves on the left in \cref{fig_discussion:retrospective-paper-calibration-curve-sigmoid-isotonic} and the logistic and isotonic fits on the right with 95\% bootstrap confidence intervals on the bin centers ($x$ error) and fraction of positives ($y$ error). 
@@ -161,36 +159,38 @@ Since stroke cases have low prevalence, high probability is predicted only for a
 % BSS mean reference:  {'logistic': 0.17685766561145932, 'isotonic': 0.1918109229282361}
 
 \begin{figure}
-    % \begin{subfigure}[c]{0.48\columnwidth}
+    \centering
+    \begin{subfigure}[c]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/f1_score_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{0.49\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/predicted_probability_histogram.pdf}
+    \end{subfigure}    
+    \caption[Comparison of F1-score of stroke recognition ensemble and call-takers as function of predicted probability.]{ Comparison of the F1-score of the stroke recognition ensemble and call-takers. The F1-score is computed on subsets of the test dataset made by binning on the predicted probabilities of the calibrated ensemble. We see that the relative performance improvement of the ensemble over call-takers is higher towards more certain predictions. We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
+    \label{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability}
+    % \begin{subfigure}[c]{0.49\columnwidth}
     %     \centering
     %     \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/precision_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
     %     % \caption{}
     %     % \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
     % \end{subfigure}    
     % % \hfill
-    % \begin{subfigure}[c]{0.48\columnwidth}
+    % \begin{subfigure}[c]{0.49\columnwidth}
     %     \centering
     %     \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/recall_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
     %     % \caption{}
     %     % \label{fig_discussion:histogram_ensemble_and_single_model}
     % \end{subfigure}
-    \begin{subfigure}[c]{0.48\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/f1_score_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
-    \end{subfigure}    
-    \begin{subfigure}[c]{0.48\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/predicted_probability_histogram.pdf}
-    \end{subfigure}    
-    \caption[Comparison of F1-score of stroke recognition ensemble and call-takers as function of predicted probability.]{ Comparison of the F1-score of the stroke recognition ensemble and call-takers. The F1-score is computed on subsets of the test dataset made by binning on the predicted probabilities of the calibrated ensemble. We see that the relative performance improvement of the ensemble over call-takers is higher towards more certain predictions. We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
-    \label{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability}
 \end{figure}
 
 Clinicians in intensive care units and emergency departments have been found to strongly agree that a singular focus on overall accuracy cannot alone ensure sustained trust in a model \cite{tonekaboni_what_2019}. Clinicians expect an alert to present a prediction that aligns with patient status. Despite expert-agreed thresholds for when alerts should be triggered, however, many alerts may not be aligned since the unbalanced and ambiguous nature of many predictive problems in healthcare can lead to relatively low predictive precision \parencite{umscheid_development_2015, cite14, cite15, wenstrup_retrospective_2023}. This is likely to lead to alarm fatigue \parencite{embi_evaluating_2012} and can undermine the sustained use and endorsement by clinicians of such systems \parencite{guidi_clinician_2015}. 
-The expected precision of the stroke recognition ensemble presented in \cref{chp:paper-retrospective} is $24.9\%$ (95\% confidence interval $24.3-25.5\%)$. This bluntly means it might be wrong three out of four times it predicts a positive. This unfortunately risks alarm fatigue among its potential users which might diminish it's real-world impact.
+The expected precision of the stroke recognition ensemble presented in \cref{chp:paper-retrospective} is $24.9\%$ (95\% confidence interval $24.3-25.5\%$). This bluntly means it might be wrong three out of four times it predicts a positive. This unfortunately risks alarm fatigue among its potential users which might diminish it's real-world impact.
 
 % If the stroke recognition ensemble were to be deployed in a randomized controlled trial, s
-Such issues might be alleviated by incorporating the calibrated probabilities in the alerts presented to users. Presented with calibrated probabilities, users would be able to discern between certain and uncertain predictions. Furthermore, calibrated probabilities might be used to present users only with predictions that exceed a specific confidence level. Similar approaches have been suggested by clinicians and interviews indicate that predictive uncertainty is perceived as a sort of explanation that complements the prediction \cite{tonekaboni_what_2019}. In \cref{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability} we show the F1-score of the ensemble model and the call-takers computed on subsets of the data created by binning the predicted probilities of the isotonically calibrated ensemble. We note that as might be expected, both call-taker and ensemble model performance increase with increased model certainty. This indicates that selecting, based on certainty, which predictions to present to users might indeed help improve trust in the system in practice. 
+Alarm fatigue might be alleviated by incorporating the calibrated probabilities in the alerts presented to users. Presented with calibrated probabilities, users would be able to discern between certain and uncertain predictions. Furthermore, calibrated probabilities might be used to present users only with predictions that exceed a specific confidence level. Similar approaches have been suggested by clinicians and interviews indicate that predictive uncertainty is perceived as a sort of explanation that complements the prediction \cite{tonekaboni_what_2019}. In \cref{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability} we show the F1-score of the ensemble model and the call-takers computed on subsets of the data created by binning the calibrated probabilities. We note that, as might be expected, both call-taker and ensemble model performance increase with increased model certainty. This indicates that selecting, based on certainty, which predictions to present to users might indeed help build trust in the system in practice. 
 
 
 % \lesstodo[inline]{Maybe mention MultiQT paper \parencite{havtorn_multiqt_2020}.}
