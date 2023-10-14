@@ -77,13 +77,13 @@ For some models, we will refer to $H$ as a \emph{contextualized} representation 
     \centering
     \includegraphics[width=\textwidth]{paper_review/model_timeline.pdf}
    % \includegraphics[width=0.98\textwidth]{paper_review/model_timeline_wo_dccae.pdf}
-	 \caption[Selection of self"=supervised models for speech.]{A selection of models listed according to first publication date
+	 \caption[Selection of self"=supervised models for speech.]{ A selection of models listed according to first publication date
 	 on arXiv or conference submission date when this clearly precedes the
 	 former. The models are categorized as generative, contrastive, or predictive.
 	 In addition, some models are characterized as embedding models or
 	 multi-modal models, although most learn frame-level
 	 representations from speech only. Some models use a mixture of generative
-	 and contrastive tasks. For instance, PASE and PASE+ use a multi-task setup,
+	 and contrastive tasks. For instance, PASE and PASE+ use a multitask setup,
 	 but find that generative tasks are the most important for downstream
 	 task performance~\parencite{pascual_learning_2019}.}
     \label{fig:timeline}
@@ -109,7 +109,7 @@ As described above, AEs consist of an encoder and decoder; the pretext task
 is to reconstruct the given input. The most common type of AE places an
 information bottleneck on the latent representation by simply having fewer
 hidden units available than input features. This forces the model to discard
-low-level details and disccourages the learning of trivial solutions. Other models add
+low-level details and discourages the learning of trivial solutions. Other models add
 regularization to the latent space to further improve the quality of the
 learned representations.
 For instance, denoising autoencoders (DAEs) learn latent representations by
@@ -124,7 +124,7 @@ representations.
 
 
 
-Specifically, in the VQ-VAE, the continuous representation vector $h_t$ at the output of the encoder is quantized by mapping it to a codebook vector, which is then used as the input to the decoder. This operation is non-differentiable and the \edit{gradients of the loss with respect to the encoder parameters} must be obtained by approximation. In the VQ-VAE this is done using the straight-through estimator~\parencite{bengio_estimating_2013}, i.e., the gradients \edit{with respect to the} encoder output are taken to be equal to those \edit{with respect to the} decoder input \ci{(i.e., the quatization step is ignored)}. Given a learned codebook $A\in\mathbb{R}^{K \times D}$, where $K$ is the codebook size and $D$ is the dimensionality of each codebook vector $a_k$, the quantized representation $q_t$ of $h_t$ is obtained as
+Specifically, in the VQ-VAE, the continuous representation vector $h_t$ at the output of the encoder is quantized by mapping it to a codebook vector, which is then used as the input to the decoder. This operation is non-differentiable and the \edit{gradients of the loss with respect to the encoder parameters} must be obtained by approximation. In the VQ-VAE this is done using the straight-through estimator~\parencite{bengio_estimating_2013}, i.e., the gradients \edit{with respect to the} encoder output are taken to be equal to those \edit{with respect to the} decoder input \ci{(i.e., the quantization step is ignored)}. Given a learned codebook $A\in\mathbb{R}^{K \times D}$, where $K$ is the codebook size and $D$ is the dimensionality of each codebook vector $a_k$, the quantized representation $q_t$ of $h_t$ is obtained as
 \begin{align}
     q_t = a_k, \text{ where } k=\arg\min_j \norm{h_t - a_j}_2 \enspace .
 \end{align}
@@ -301,7 +301,7 @@ In wav2vec 2.0, anchors are taken to be $h_t$ at masked timesteps only, the posi
 %
 \noindent where $S_{\text{c}}(\cdot)$ is the cosine similarity and $\mathcal{I}$ contains the target index $t$ and negative indices sampled from other masked timesteps.
 
-The wav2vec 2.0 approach was the first to reach single-digit \edit{word error rate (WER) on LibriSpeech using only the low-resource Libri-light subsets for fine"=tuning a pre"=trained model (see \cref{sec:datasets}). It has subsequently} inspired many follow-up studies. The wav2vec-C~\parencite{sadhu_wav2vecc_2021} approach extends wav2vec 2.0 with a consistency term in the loss that aims to reconstruct the input features from the learned quantized representations, similar to VQ-VAE~\parencite{razavi_generating_2019}.
+The wav2vec 2.0 approach was the first to reach single-digit \edit{word error rate (WER) on LibriSpeech using only the low-resource LibriLight subsets for fine"=tuning a pre"=trained model (see \cref{sec:datasets}). It has subsequently} inspired many follow-up studies. The wav2vec-C~\parencite{sadhu_wav2vecc_2021} approach extends wav2vec 2.0 with a consistency term in the loss that aims to reconstruct the input features from the learned quantized representations, similar to VQ-VAE~\parencite{razavi_generating_2019}.
 
 \subsubsection{Challenges}
 Although representations learned using contrastive approaches have proved effective across a wide range of downstream applications, they face many challenges when applied to speech data. 
@@ -364,7 +364,7 @@ Once completed, a second iteration of pre"=training follows. Here, representatio
 
 \edit{WavLM emphasizes spoken content modeling and speaker identity preservation~\parencite{chen_wavlm_2021}. It is largely identical to HuBERT, but introduces two useful extensions.}
 
-\edit{First, it extends the Transformer self-attention mechanism with a so-called \emph{gated relative position bias}. The bias is added prior to the softmax normalization of the attention weights. For the attention weight at $i,j$, the bias is computed based on the input to the Transformer layer at the current time step $i$ and also incorporates a relative positional embedding for $i-j$. The authors find that this extension improves performance on phoneme and speech recognition tasks.}
+\edit{First, it extends the Transformer self-attention mechanism with a so-called \emph{gated relative position bias}. The bias is added prior to the softmax normalization of the attention weights. For the attention weight at $i,j$, the bias is computed based on the input to the Transformer layer at the current timestep $i$ and also incorporates a relative positional embedding for $i-j$. The authors find that this extension improves performance on phoneme and speech recognition tasks.}
 
 \edit{Second, it uses an utterance mixing strategy where signals from different speakers are combined to augment the training data.} \edit{Specifically, random subsequences from other examples in the same batch are scaled and added to each input example.
 Only the targets corresponding to the original example are predicted during pre"=training. Thus, the model learns to filter out the added overlapping speech.}
@@ -408,7 +408,7 @@ The data2vec approach improves over other predictive models \edit{by allowing th
 
 \subsection{Learning from multi-modal data}
 \subsubsection{Motivation}
-Multiple modalities are useful in many settings, where each modality provides information that is complementary to other modalities.  Multi-modal work includes supervised settings, such as audio-visual ASR~\parencite{petajan_automatic_1984,potamianos_recent_2003} and person identification~\parencite{aleksic_audiovisual_2006} which have been studied for decades.  In this section, we focus only on unsupervised representation learning from multi-modal data.
+Multiple modalities are useful in many settings, where each modality provides information that is complementary to other modalities.  Multi-modal work includes supervised settings, such as audiovisual ASR~\parencite{petajan_automatic_1984,potamianos_recent_2003} and person identification~\parencite{aleksic_audiovisual_2006} which have been studied for decades.  In this section, we focus only on unsupervised representation learning from multi-modal data.
 
 One of the motivations for learning from multiple modalities is that it can reduce the effect of noise, since noise in different modalities is likely to be largely independent or uncorrelated.  In addition, learning from speech data with accompanying signals such as images or video can help learn representations that encode more semantic information. Such ``grounding" signals can contain supplementary information that can be used by models to infer the content of the speech. Human language learning provides a proof of concept for this, as it is believed that infants benefit from the visual modality when learning language~\parencite{legerstee_infants_1990}. Early computational models of multi-modal language learning were motivated by (and tried to emulate) human learning of language in the context of the visual surroundings~\parencite{roy_learning_1999}.
 
@@ -422,7 +422,7 @@ modalities produced directly by the speech source.  Examples of intrinsic modali
     \item Multi-modal deep Boltzmann machines~\parencite{srivastava_multimodal_2012},
     \item Canonical correlation analysis (CCA)~\parencite{hotelling_relations_1936} and its nonlinear extensions~\parencite{andrew_deep_2013,wang_deep_2015,wang_deep_2016,michaeli_nonparametric_2016,melzer_nonlinear_2001,lai_kernel_2000,lai_neural_1999,bach_probabilistic_2005,wang_unsupervised_2015},
     \item Multi-view contrastive losses~\parencite{hermann_multilingual_2013,huang_learning_2013},
-    \item More recently, audio-visual extensions of masked prediction methods~\parencite{shi_learning_2022,shi_robust_2022}, specifically Audio-Visual HuBERT (AV-HuBERT)~\parencite{shi_learning_2022}.
+    \item More recently, audiovisual extensions of masked prediction methods~\parencite{shi_learning_2022,shi_robust_2022}, specifically Audiovisual HuBERT (AV-HuBERT)~\parencite{shi_learning_2022}.
 \end{itemize}
 
 \textit{Extrinsic modalities} are modalities that are not produced by the same source but still provide context for each other. A typical example is an image and its spoken caption: The image tells us what the speech is likely describing, so a representation model that takes both modalities into account will hopefully encode more of the meaning of the speech than a single-modality model. 
@@ -434,7 +434,7 @@ Other choices include training with a masked margin softmax loss~\parencite{ilha
 Analyses of such models have found that, despite the very high-level learning objective of matching speech with a corresponding image (or other contextual modality), such models often learn multiple levels of linguistic representations from the shallowest to the deepest model layers~\parencite{harwath_learning_2019,chrupala_representations_2017,scharenborg_linguistic_2018}.  They are also able to learn word-like units~\parencite{harwath_jointly_2018,peng_word_2022,wang_dnnhmmdnn_2020} and can be used for cross-lingual retrieval, by considering the visual signal as an ``interlingua"~\parencite{harwath_vision_2018,havard_models_2019,kamper_visually_2018}. 
 In some settings, even in the presence of some amount of textual supervision (i.e., the speech is transcribed), visual grounding still helps learn a better representation for retrieval~\parencite{pasad_contributions_2019}. 
 
-There has also been growing interest in learning joint speech and text representations using paired and unpaired data. The SLAM approach~\parencite{bapna_slam_2021} is an example where speech and text are first represented using two separate pre"=trained encoders followed by a multi-modal encoder to build the joint representations. The entire model is trained using a multi-task loss including two supervised and two self"=supervised tasks. 
+There has also been growing interest in learning joint speech and text representations using paired and unpaired data. The SLAM approach~\parencite{bapna_slam_2021} is an example where speech and text are first represented using two separate pre"=trained encoders followed by a multi-modal encoder to build the joint representations. The entire model is trained using a multitask loss including two supervised and two self"=supervised tasks. 
 
 \subsubsection{Challenges}
 One of the challenges of using multi-modal approaches is that the multi-modal data they rely on is often in shorter supply than single-modality data. In addition, multi-modal data is typically drawn from specific domains, for example domains involving descriptions of visual scenes. It is not clear how well the learned speech representations apply to other speech domains that are not necessarily describing or situated in a visual scene, and this question requires further study.

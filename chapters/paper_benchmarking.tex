@@ -22,8 +22,7 @@ To advance the state of LVMs for speech, this paper (i) develops a benchmark for
     \item[(III)] The expressiveness of LVMs for speech increases with a deeper hierarchy of stochastic latent variables, similar to conclusions within image modeling. % \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
     \item[(IV)] LVMs learn rich representations that are as good or better than Mel spectrograms for phoneme recognition also when using only 10 minutes of labeled data.
 \end{itemize}
-At a high level, this benchmark brings order to LVM model comparisons for speech and also provides useful reference implementations of the models
-\footnote{\href{https://github.com/JakobHavtorn/benchmarking-lvms}{\url{github.com/JakobHavtorn/benchmarking-lvms}}}.
+At a high level, this benchmark brings order to LVM model comparisons for speech and also provides useful reference implementations of the models\footnote{\href{https://github.com/JakobHavtorn/benchmarking-lvms}{\url{github.com/JakobHavtorn/benchmarking-lvms}}}.
 % \footnote{\fontsize{8.5}{0}\selectfont\texttt{ \url{github.com/anonymous/available-later}}}.
 Before presenting the results, we provide a brief survey of existing LVMs for speech in a coherent notation. 
 
@@ -143,7 +142,7 @@ Before presenting the results, we provide a brief survey of existing LVMs for sp
         }
         \end{multicols}
     \caption[Generative models for an LSTM, the VRNN, SRNN, STCN, and CW-VAE models.]{
-        Generative models for a single time step of a deterministic autoregressive LSTM, the VRNN and SRNN as well as the STCN and CW-VAE both with a single layer of latent variables. 
+        Generative models for a single timestep of a deterministic autoregressive LSTM, the VRNN and SRNN as well as the STCN and CW-VAE both with a single layer of latent variables. 
         Red arrows indicate purely deterministic paths from the output $\xb_t$ to previous input $\xb_{<t}$ without passing a stochastic node. 
         The models differ in their use of latent variables and dependencies especially autoregressive dependencies and skip connections. 
         % In an LSTM, information flows deterministically from previous observed variables to the next. 
@@ -178,7 +177,7 @@ We let $\xb_{1:T}$ refer to the observed variable or a downsampled version of it
 % In general, $\xb_{1:T}$ may refer to the original observed variable or a deterministically downsampled representation of the observed variable. We will sometimes use $\xb$ to refer to the full sequence $\xb_{1:T}$ when it is not ambiguous.
 
 First, $\xb_{1:T}$ is encoded to a temporal stochastic latent representation $\zb_{1:T} = \left( \zb_1, \zb_2, \dots, \zb_{T} \right)$ with $\zb_t\in \mathbb{R}^{D_z}$. This representation is then used to reconstruct the original input $\xb_{1:T}$.
-The latent variable is assumed to follow some prior distribution $p(\zb_t|\cdot)$ where the dot indicates that it may depend on latent and observed variables at previous time steps, $\zb_{<t}$ and $\xb_{<t}$ where $\zb_{<t} := \left( \zb_1, \zb_2, \dots, \zb_{t-1} \right)$. 
+The latent variable is assumed to follow some prior distribution $p(\zb_t|\cdot)$ where the dot indicates that it may depend on latent and observed variables at previous timesteps, $\zb_{<t}$ and $\xb_{<t}$ where $\zb_{<t} := \left( \zb_1, \zb_2, \dots, \zb_{t-1} \right)$. 
 
 The models are trained to maximize a likelihood objective. The exact marginal likelihood $\log p_\thetab(\xb)$, where $\thetab$ are parameters of the generative model, is intractable to optimize due to the integration over the latent space. Instead, we introduce the variational approximation $q_\phib(\zb|\xb)$ to the true posterior. Via Jensen's inequality this yields the well-known evidence lower bound (ELBO) on the exact likelihood $\mathcal{L}(\thetab,\phib;\xb)$
 which can be jointly optimized with respect to  $\{\thetab, \phib\}$ using stochastic gradient descent methods. We omit the $\thetab$ and $\phib$ subscripts for the remainder of the paper.
@@ -346,7 +345,7 @@ By inferring $\zb_t$ conditioned on the full sequence $\xb_{1:T}$, the SRNN perf
     }
 \caption[Generative and inference models for a two-layered CW-VAE.]{
 Inference (left) and generative (right) models for the CW-VAE with a hierarchy of $L=2$ latent variables, $s_1=1$ and $s_2=2$. 
-The models are unrolled over four consecutive time steps but note that the graph continues towards $t=0$ and $t=T$. 
+The models are unrolled over four consecutive timesteps but note that the graph continues towards $t=0$ and $t=T$. 
 Blue arrows indicate parameter sharing between inference and generative models. 
 We omit the deterministic variable of \cref{fig: autoregressive vrnn srnn cwvae 1L graphs} for clarity.
 }
@@ -402,7 +401,7 @@ The inference model is conditioned on a window of the observed variable $\xb_{t:
     q\pa{\zb_{1:T} | \xb_{1:T}} = \prod_{t=1}^T \prod\limits_{l\in\mathcal{J}_t} q\pa{\zb_t^{(l)} | \zb_{t-1}^{(l)}, \zb_t^{(l+1)}, \xb_{t:t+s_l}} \enspace . \nonumber
     \label{eq: cwvae inference}
 \end{equation}
-The dependency on $\xb_{t:t+s_l}$ is encoded via a convolutional ladder network similar to the STCN with $\db_t^{(l)} = e(\xb_{t:t+s_l})$. We define $\xb_{\scriptscriptstyle\mathcal{S}_t^l}:=\xb_{t:t+s_l}$ for compactness. The latent state transitions are densely connected and the decoder is also a convolutional network. 
+The dependency on $\xb_{t:t+s_l}$ is encoded via a convolutional ladder network similar to the STCN with $\db_t^{(l)} = e(\xb_{t:t+s_l})$. We define $\xb_{\scriptscriptstyle\mathcal{S}_t^l}:=\xb_{t:t+s_l}$ for compactness. The latent state transitions are densely connected, and the decoder is also a convolutional network. 
 % \begin{align}
 %     q\left(\zb_t^{(l)}|\xb_{\scriptscriptstyle\mathcal{S}_t^l},\zb_{t-1}^{(l)},\zb_t^{(l+1)}\right) &= \mathcal{N}\pa{\alphab_{q}^{l}\pa{\zb_{t-1}^{(l)},\zb_{t}^{(l+1)},\db_t^{(l)}}} \nonumber \\ % \label{eq: cwvae parameterization inference} \\
 %     p\left(\zb_t^{(l)}|\zb_{t-1}^{(l)},\zb_{t}^{(l+1)}\right) &= \mathcal{N}\pa{\alphab_{p}^{l}\pa{\zb_{t-1}^{(l)},\zb_t^{(l+1)}}} \nonumber \\% \label{eq: cwvae parameterization prior} \\
@@ -445,7 +444,7 @@ We report likelihoods in units of bits per frame (bpf) as this yields a more int
 %
 \paragraph{Models}
 Architecture and training details are sketched below, while the full details are in appendices~\cref{app: model architectures} and \cref{app: training details} along with additional results for some alternative model configurations in appendix~\cref{app: additional likelihood results appendix}.
-We select model configurations that can be trained on GPUs with a maximum of 12GB of RAM and train all models until convergence on the validation set.
+We select model configurations that can be trained on GPUs with a maximum of \SI{12}{GB} of RAM and train all models until convergence on the validation set.
 We use a DMoL with 10 components for the output distribution of all models and model all datasets at their full bit depth of $\SI{16}{bits}$. We train and evaluate models on stacked waveforms similar to previous work \parencite{chung_recurrent_2015, fraccaro_sequential_2016, aksan_stcn_2019} with stack sizes of $s=1$, $s=64$ and $s=256$. Hence, every model input $\xb_t$ is composed of $\tilde{x}_{t:t+s}$ where $\tilde{x}$ are waveform frames. We provide additional results with a Gaussian output distribution in appendix~\cref{app: additional likelihood results appendix}. 
 
 We configure WaveNet as in the original paper using ten layers per block and five blocks. We use $D_c=96$ channels. 
@@ -465,7 +464,7 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
 \subsection{Likelihood results}
 %
 \begin{table}
-    \caption[Model likelihoods and phoneme error rate for TIMIT.]{We report model likelihoods $\mathcal{L}$ for TIMIT represented as a 16bit $\mu$-law encoded PCM for different stochastic latent variable models and deterministic autoregressive baselines (left) and phoneme error rate (PER) of different representations for phoneme recognition on TIMIT (right).}
+    \caption[Model likelihoods and phoneme error rate for TIMIT.]{ We report model likelihoods $\mathcal{L}$ for TIMIT represented as a 16bit $\mu$-law encoded PCM for different stochastic latent variable models and deterministic autoregressive baselines (left) and phoneme error rate (PER) of different representations for phoneme recognition on TIMIT (right).}
     \hfill
     \begin{subtable}[t]{.49\textwidth}
     \centering
@@ -522,31 +521,31 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
         Data   &  Model           & Input         &  PER [\%]  \\
                 \midrule
         % 3.7h   &  Waveform        & stacked       &   84,1   \\  %           0,8405363165254586
-        3.7h   &  Spectrogram     & Mel           &   24.1   \\  % 2wjqhwf7  0.24149049930081432
-        3.7h   &  WaveNet         & $\hb^{(15)}$  &   27.7   \\  % 36ccyxf4  0.27743686764826847
-        3.7h   &  LSTM            & $\hb$         &   23.0   \\  % 3bh4vgrx  0.2301719174138357
-        3.7h   &  VRNN            & $\zb$         &   23.2   \\  % 3stwdgas  0.23229415151764415
-        3.7h   &  SRNN            & $\zb$         &   26.0   \\  % 2bkvv5i0  0.2596528748868964
-        3.7h   &  CW-VAE          & $\zb^{(1)}$   &   36.4   \\  % 3m4f3f7z
-        3.7h   &  STCN            & $\zb^{(2)}$   &   \textbf{21.9}   \\  % rkukk5bn  0.2189849469441474
+        \SI{3.7}{h}   &  Spectrogram     & Mel           &   24.1   \\  % 2wjqhwf7  0.24149049930081432
+        \SI{3.7}{h}   &  WaveNet         & $\hb^{(15)}$  &   27.7   \\  % 36ccyxf4  0.27743686764826847
+        \SI{3.7}{h}   &  LSTM            & $\hb$         &   23.0   \\  % 3bh4vgrx  0.2301719174138357
+        \SI{3.7}{h}   &  VRNN            & $\zb$         &   23.2   \\  % 3stwdgas  0.23229415151764415
+        \SI{3.7}{h}   &  SRNN            & $\zb$         &   26.0   \\  % 2bkvv5i0  0.2596528748868964
+        \SI{3.7}{h}   &  CW-VAE          & $\zb^{(1)}$   &   36.4   \\  % 3m4f3f7z
+        \SI{3.7}{h}   &  STCN            & $\zb^{(2)}$   &   \textbf{21.9}   \\  % rkukk5bn  0.2189849469441474
         \midrule
         % 1h     &  Waveform        & stacked       &   59.3   \\  %           0.5926626634860575
-        1.0h   &  Spectrogram     & Mel           &   30.8   \\  % 3kmfpljj  0.3083655507115242
-        1.0h   &  WaveNet         & $\hb^{(15)}$  &   34.7   \\  % 36ccyxf4  0.34743769021962656
-        1.0h   &  LSTM            & $\hb$         &   30.1   \\  % 3bh4vgrx  0.30137369416796905
-        1.0h   &  VRNN            & $\zb$         &   30.4   \\  % 3stwdgas  0.31284033889939955
-        1.0h   &  SRNN            & $\zb$         &   31.7   \\  % 2bkvv5i0  0.3167064242823065
-        1.0h   &  CW-VAE          & $\zb^{(1)}$   &   40.0   \\  % 3m4f3f7z
-        1.0h   &  STCN            & $\zb^{(2)}$   &   \textbf{26.7}   \\  % rkukk5bn  0.2671547256724521
+        \SI{1.0}{h}   &  Spectrogram     & Mel           &   30.8   \\  % 3kmfpljj  0.3083655507115242
+        \SI{1.0}{h}   &  WaveNet         & $\hb^{(15)}$  &   34.7   \\  % 36ccyxf4  0.34743769021962656
+        \SI{1.0}{h}   &  LSTM            & $\hb$         &   30.1   \\  % 3bh4vgrx  0.30137369416796905
+        \SI{1.0}{h}   &  VRNN            & $\zb$         &   30.4   \\  % 3stwdgas  0.31284033889939955
+        \SI{1.0}{h}   &  SRNN            & $\zb$         &   31.7   \\  % 2bkvv5i0  0.3167064242823065
+        \SI{1.0}{h}   &  CW-VAE          & $\zb^{(1)}$   &   40.0   \\  % 3m4f3f7z
+        \SI{1.0}{h}   &  STCN            & $\zb^{(2)}$   &   \textbf{26.7}   \\  % rkukk5bn  0.2671547256724521
         \midrule
-        10m    &  Waveform        & stacked       &   85.6   \\  %           0.8564448465904417
-        10m    &  Spectrogram     & Mel           &   47.1   \\  % 1sep2uq8  0.4706753310849716
-        10m    &  WaveNet         & $\hb^{(15)}$  &   52.8   \\  % 36ccyxf4  0.5276137204902526
-        10m    &  LSTM            & $\hb$         &   46.1   \\  % 3bh4vgrx  0.46073866907954264
-        10m    &  VRNN            & $\zb$         &   44.6   \\  % 3stwdgas  0.4601299662745743
-        10m    &  SRNN            & $\zb$         &   47.3   \\  % 2bkvv5i0  0.47317594801349017
-        10m    &  CW-VAE          & $\zb^{(1)}$   &   54.9   \\  % 3m4f3f7z
-        10m    &  STCN            & $\zb^{(2)}$   &   \textbf{42.7}   \\  % rkukk5bn  0,4270625976803488
+        \SI{10}{m}    &  Waveform        & stacked       &   85.6   \\  %           0.8564448465904417
+        \SI{10}{m}    &  Spectrogram     & Mel           &   47.1   \\  % 1sep2uq8  0.4706753310849716
+        \SI{10}{m}    &  WaveNet         & $\hb^{(15)}$  &   52.8   \\  % 36ccyxf4  0.5276137204902526
+        \SI{10}{m}    &  LSTM            & $\hb$         &   46.1   \\  % 3bh4vgrx  0.46073866907954264
+        \SI{10}{m}    &  VRNN            & $\zb$         &   44.6   \\  % 3stwdgas  0.4601299662745743
+        \SI{10}{m}    &  SRNN            & $\zb$         &   47.3   \\  % 2bkvv5i0  0.47317594801349017
+        \SI{10}{m}    &  CW-VAE          & $\zb^{(1)}$   &   54.9   \\  % 3m4f3f7z
+        \SI{10}{m}    &  STCN            & $\zb^{(2)}$   &   \textbf{42.7}   \\  % rkukk5bn  0,4270625976803488
 \bottomrule
     \end{tabular}
     \end{adjustbox}
@@ -577,10 +576,10 @@ We also report the likelihood achieved by the lossless compression algorithm, FL
         1 & DMoL                & Optimal        & \multicolumn{1}{c}{15.66} & \multicolumn{1}{c}{15.70} & \multicolumn{1}{c}{15.62} & \multicolumn{1}{c}{15.71}\\   % $\vmu=[-0.551, 0.551], \zb=[0.11, 0.11]$
         % - & FLAC                & Linear PCM     & \multicolumn{1}{c}{\bfseries 9.390} & \multicolumn{1}{c}{\bfseries 9.292} & \multicolumn{1}{c}{\bfseries 9.700} & \multicolumn{1}{c}{\bfseries 9.272} \\
         \midrule
-        1 & Wavenet             & $D_c=96$       & \bfseries 10.96/10.89 & \bfseries 10.85/10.76 & \bfseries 11.12/11.01 & \bfseries 11.05/10.85 \\
+        1 & WaveNet             & $D_c=96$       & \bfseries 10.96/10.89 & \bfseries 10.85/10.76 & \bfseries 11.12/11.01 & \bfseries 11.05/10.85 \\
         1 & LSTM                & $D_d=256$      & 11.21/11.17 & 11.10/11.06 & 11.35/11.29 & 11.28/11.23 \\  % 15ua3hau/(lmssrk5k,248n2ylu)
         \midrule
-        64 & Wavenet            & $D_c=96$       & 13.61/13.24 & 13.58/13.21 & 13.61/13.22 & 13.60/13.21 \\  % 2ghkybtd/3iieasdt
+        64 & WaveNet            & $D_c=96$       & 13.61/13.24 & 13.58/13.21 & 13.61/13.22 & 13.60/13.21 \\  % 2ghkybtd/3iieasdt
         64 & LSTM               & $D_d=256$      & 13.56/13.25 & 13.52/13.24 & 13.55/13.23 & 13.56/13.25 \\  % 10fpovu3/2bu1izin
         64 & CW-VAE             & $D_z=96,L=1$   & $\leq$12.32/12.24 & 12.32/12.23 & 12.43/12.33 & 12.43/12.33 \\
         64 & CW-VAE             & $D_z=96,L=2$   & $\leq$12.30/12.22 & 12.30/12.21 & 12.40/12.31 & 12.39/12.32 \\
@@ -609,12 +608,12 @@ For temporal resolutions of $s=1$, the deterministic autoregressive models yield
 Somewhat surprisingly, the LSTM baseline almost matches WaveNet with a likelihood of $\SI{11.11}{bpf}$ at $s=1$. However, due to being autoregressive in training, the LSTM trains considerably slower than the parallel convolutional WaveNet; something not conveyed by \cref{tab: likelihoods timit} (left). 
 Notably, the VRNN and SRNN models achieve likelihoods close to that of WaveNet and the LSTM at around $\SI{11.09}{bpf}$. The STCN exhibited instability when trained at $s=1$ and tended to diverge.
 
-At $s=64$, Wavenet and the LSTM yield significantly worse likelihoods than all LVMs separated by $\sim\SI{1}{bit}$.
+At $s=64$, WaveNet and the LSTM yield significantly worse likelihoods than all LVMs separated by $\sim\SI{1}{bit}$.
 The CW-VAE outperforms the VRNN and SRNN when configured with a hierarchy of latent variables. 
 With a single layer of latent variables, the CW-VAE is inferior to both SRNN and VRNN but notably still better than the LSTM. 
 These observations carry to $s=256$, where a multilayered CW-VAE outperforms the LSTM, VRNN and SRNN. 
 The STCN yields the best results at both $s=64$ and $s=256$. 
-For strides $s>1$, previous work has attributed the inferior performance of autoregressive models without latent variables, such as WaveNet and the LSTM, to the ability of LVMs to model intra-step correlations \parencite{lai_re-examination_2019}. 
+For strides $s>1$, previous work has attributed the inferior performance of autoregressive models without latent variables, such as WaveNet and the LSTM, to the ability of LVMs to model intrastep correlations \parencite{lai_re-examination_2019}. 
 
 Decreasing the resolution $s$ improves the likelihood for all LVMs. However, the best performing models, STCN and CW-VAE are not yet scalable to this regime for reasons related to numerical instability and computational infeasibility. This seems to indicate that LVMs may be able to outperform autoregressive models at $s=1$ in the future.
 \paragraph{LibriSpeech}
@@ -629,7 +628,7 @@ The best likelihoods reported in \cref{tab: likelihoods timit} (left) and \cref{
 \section{Phoneme recognition}\label{sec: phoneme recognition}
 Although the likelihood is a practical metric for model comparison and selection, a high likelihood does not guarantee that a model has learned useful representations \parencite{huszar_is_2017}. 
 For speech data, we would expect models to learn features related to phonetics which would make them useful for tasks such as automatic speech recognition (ASR). 
-The Mel spectrogram is a well-established representation of audio designed for speech recognition and is predefined rather than learned. % \parencite{??}. Basic Correlates of the Auditory Stimulus, https://psycnet.apa.org/record/1951-07758-017, modern mel scale https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=1170013&casa_token=UIyQaj3tBRAAAAAA:GtttZedngBkaxVumjnXctc5zS50fptexPMiWhr-7gDrmIVq3JqJPnGCWYedoymb0X5JTGElmHf8&tag=1,
+The Mel spectrogram is a well-established representation of audio designed for speech recognition and is predefined rather than learned. % \parencite{??}. Basic Correlates of the Auditory Stimulus, https://psycnet.apa.org/record/1951-07758-017, modern Mel scale https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=1170013&casa_token=UIyQaj3tBRAAAAAA:GtttZedngBkaxVumjnXctc5zS50fptexPMiWhr-7gDrmIVq3JqJPnGCWYedoymb0X5JTGElmHf8&tag=1,
 To assess the usefulness of the representations learned by the benchmarked models, we compare them to the highly useful Mel spectrogram on the task of phoneme recognition. 
 Phonemes are fundamental units of speech that relate to how parts of words are pronounced (see also appendix~\cref{app: timit phoneme distributions}).
 % rather than characters or words themselves (see also appendix~\cref{apsp: timit phoneme distributions}).
@@ -637,11 +636,11 @@ Phonemes are fundamental units of speech that relate to how parts of words are p
 \paragraph{Quantitative}
 We train an ASR model to recognize phonemes and compare its performance when using input representations obtained from different unsupervised models. 
 For WaveNet and the LSTM, we use the hidden state as the representation. For all LVMs, we use the latent variable. For the hierarchical LVMs and WaveNet, we run the experiment using each possible representation and report only the best one here. 
-We compare the learned representations to a log Mel spectrogram with 80 filterbanks, hop length 64 and window size 128. 
+We compare the learned representations to a log Mel spectrogram with 80 filter banks, hop length 64 and window size 128. 
 We also compared to using raw PCM in vectors of 64 elements standardized to $[-1,1]$ but found that the ASR did not reliably converge at all which highlights the importance of input representation. 
 The ASR model is a three-layered bidirectional LSTM with 256 hidden units. It is trained with the connectionist temporal classification (CTC) loss \parencite{graves_connectionist_2006} which lets it jointly learn to align and classify without using label alignments. 
 We pre"=train all unsupervised models at $s=64$ on the full TIMIT training dataset excluding the validation data (3.7h) as in \cref{tab: likelihoods timit} (left). 
-We then train the ASR model on all 3.7h as well as 1h and 10m subsets. We report results on the test set in terms of phoneme error rates (PER) in \cref{tab: phoneme recognition (PER)} (right).
+We then train the ASR model on all \SI{3.7}{h} as well as \SI{1}{h} and \SI{10}{m} subsets. We report results on the test set in terms of phoneme error rates (PER) in \cref{tab: phoneme recognition (PER)} (right).
 
 As expected, Mel spectrogram performs well achieving 24.1\% PER using 3.7 hours of labeled data. However, the ASR trained on STCN representations outperforms the Mel spectrogram with a PER of 21.9\%. 
 This indicates that unsupervised STCN representations are phonetically rich and potentially better suited for speech modeling than the engineered Mel spectrogram. 
@@ -653,8 +652,8 @@ When the amount of labeled data is reduced, LVM representations suffer slightly 
 % [13] https://www.cs.toronto.edu/~graves/asru_2013.pdf
 
 \paragraph{Qualitative}
-We qualitatively asses the learned latent representations for the CW-VAE. 
-We infer the latent variables of all utterances by a single speaker from the TIMIT test set. We sample the latent sequence $100$ times to estimate the mean representation per time step. We then compute the average latent representation over the duration of each phoneme using aligned phoneme labels. This approximately marginalizes variation during the phoneme. We use linear discriminant analysis (LDA) \parencite{fisher_use_1936} to obtain a low-dimensional linear subspace of the latent space. 
+We qualitatively assess the learned latent representations for the CW-VAE. 
+We infer the latent variables of all utterances by a single speaker from the TIMIT test set. We sample the latent sequence $100$ times to estimate the mean representation per timestep. We then compute the average latent representation over the duration of each phoneme using aligned phoneme labels. This approximately marginalizes variation during the phoneme. We use linear discriminant analysis (LDA) \parencite{fisher_use_1936} to obtain a low-dimensional linear subspace of the latent space. 
 We visualize the resulting representations colored according to test set phoneme classes in \cref{fig: latent space phoneme and knn}. We note that many phonemes are separable in the linear subspace and that related phonemes such as ``s" and ``sh" are close.
 
 We also show the average accuracy of a leave-one-out $k$-nearest-neighbor (KNN) classifier on the single left-out latent representation reduced with a 5-dimensional LDA as a function of the number of neighbors. 

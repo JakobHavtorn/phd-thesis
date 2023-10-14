@@ -28,7 +28,7 @@ We randomly sample 5\% of the training set to use as a validation set.
 TIMIT includes temporally aligned annotations of phonemes and words as well as speaker metadata such as gender, height, age, race, education level and dialect region \parencite{garofolo_timit_1993}.
 
 \paragraph{LibriSpeech and LibriLight}
-The LibriSpeech dataset \parencite{panayotov_librispeech_2015} consists of readings of public domain audio books amounting to approximately $\SI{1000}{h}$ of audio. The data is derived from the LibriVox project.
+The LibriSpeech dataset \parencite{panayotov_librispeech_2015} consists of readings of public domain audiobooks amounting to approximately $\SI{1000}{h}$ of audio. The data is derived from the LibriVox project.
 LibriLight \parencite{kahn_libri-light_2020} is a subset of LibriSpeech created as an automatic speech transcription (ASR) benchmark with limited or no supervision.
 We specifically train on the $\SI{100}{h}$ \textrm{train-clean-100} subset of LibriSpeech and the $\SI{10}{h}$ subset of LibriLight. 
 In all cases we evaluate on all the test splits \textrm{dev-clean}, \textrm{dev-other}, \textrm{test-clean}, \textrm{test-other}.
@@ -54,7 +54,7 @@ We implement the VRNN as described in the original work \parencite{fraccaro_sequ
 \paragraph{CW-VAE} We implement the CW-VAE based on the original work \parencite{saxena_clockwork_2021} but with some modifications also briefly described in the paper. We replace the encoder/decoder model architectures of the original work with architectures designed for waveform modeling. Specifically, the encoder and decoder are based on the Conv-TasNet \parencite{luo_conv-tasnet_2019} and uses similar residual block structure. However, contrary to the Conv-TasNet, we require downsampling factors larger than two. In order to achieve this we use strides of two in the separable convolution of each block. With e.g. six blocks we hence get an overall stride of $2^6=64$. We can then add additional blocks with unit stride.
 We also need to modify the residual connections that skip strided convolutions. Specifically, we replace the residual with a single convolution with stride equal to the stride used in the separable convolution. This convolution uses no nonlinearity and hence simply learns a local linear downsampling.
 
-\paragraph{STCN} We implement the STCN as described in the original work \parencite{aksan_stcn_2019} and verify that we can reproduce the original Gaussian likelihood TIMIT results. We replace the Gaussian output distribution with the DMoL. We use the best-performing version of the STCN reported in the original paper, namedly the ``STCN-dense" variant which conditions the observed variable on all five latent variables in the hierarchy. For the ablation experiment, we remove the bottom four latent variables. That is, we completely remove the corresponding four small densely connected networks that parameterize the prior and posterior distributions based on deterministic representations of the WaveNet encoder. We keep the top most prior and posterior networks and use them to parameterize a latent variable of $256$. This maintains the widest bottleneck of the model as well as almost all of the model's capacity.
+\paragraph{STCN} We implement the STCN as described in the original work \parencite{aksan_stcn_2019} and verify that we can reproduce the original Gaussian likelihood TIMIT results. We replace the Gaussian output distribution with the DMoL. We use the best-performing version of the STCN reported in the original paper, namely the ``STCN-dense" variant which conditions the observed variable on all five latent variables in the hierarchy. For the ablation experiment, we remove the bottom four latent variables. That is, we completely remove the corresponding four small densely connected networks that parameterize the prior and posterior distributions based on deterministic representations of the WaveNet encoder. We keep the top most prior and posterior networks and use them to parameterize a latent variable of $256$. This maintains the widest bottleneck of the model as well as almost all of the model's capacity.
 
 \paragraph{ASR model}
 The ASR model used for the phoneme recognition experiments is a three-layered bidirectional LSTM. We apply temporal dropout between the LSTM layers and also after the final layer. Temporal dropout works similar to regular dropout but samples the entries of the hidden state to mask only once and apply it to all timesteps, i.e. masking $\vh_{t}$ at vector index $i$ for all $t$ (and $i$). 
@@ -103,7 +103,7 @@ For the LVMs, the term $\log_2 p(\vx_t^{i})$ is lower bounded by the ELBO in \eq
 
 \paragraph{TIMIT, linear, Gaussian} We also provide some results on TIMIT with the audio instead represented as linear PCM (linearly encoded) and using Gaussian output distributions as has been done previously in the literature \parencite{chung_recurrent_2015, fraccaro_sequential_2016, lai_stochastic_2018, aksan_stcn_2019}. We use $s=200$ for comparability to the previous work. We provide the results in \cref{tab: timit likelihoods gaussian appendix} and include likelihoods reported in the literature for reference. For our models, we use the same architectures as before but replace the discretized mixture of logistics with either a Gaussian distribution or a mixture of Gaussian distributions. 
 
-We constrain the standard deviation of the Gaussians used with our models to be at least $\sigma_\text{min} = 0.01$ in order to avoid it going to zero, the likelihood going to infinity and optimization becoming unstable. The minimum Gaussian standard deviation of \textcite{aksan_stcn_2019} is $\sigma_\text{min} = 0.001$.
+We constrain the standard deviation of the Gaussian used with our models to be at least $\sigma_\text{min} = 0.01$ in order to avoid it going to zero, the likelihood going to infinity and optimization becoming unstable. The minimum Gaussian standard deviation of \textcite{aksan_stcn_2019} is $\sigma_\text{min} = 0.001$.
 
 From \cref{tab: timit likelihoods gaussian appendix} we note that the performance of the CW-VAE with Gaussian output distribution when modeling linear PCM (i.e. not $\mu$-law encoded) does not compare as favorably to the other baselines as it did with the discretized mixture of logistics distribution. We hypothesize that this has to do with using a Gaussian output distribution in latent variable models which, as has been reported elsewhere \parencite{mattei_leveraging_2018}, leads to a likelihood function that is unbounded above and can grow arbitrarily high. We discuss this phenomenon in further detail in section~\cref{app: gaussian likelihood unboundedness discussion}. 
 
@@ -129,10 +129,10 @@ We specifically hypothesize that models that are autoregressive in the observed 
         1 & DMoL                & Optimal        & \multicolumn{1}{c}{15.66} & \multicolumn{1}{c}{15.70} & \multicolumn{1}{c}{15.62} & \multicolumn{1}{c}{15.71}\\   % $\vmu=[-0.551, 0.551], \vz=[0.11, 0.11]$
         - & FLAC                & Linear PCM     & \multicolumn{1}{c}{\bf 9.390} & \multicolumn{1}{c}{\bf 9.292} & \multicolumn{1}{c}{\bf 9.700} & \multicolumn{1}{c}{\bf 9.272} \\
         \midrule
-        1 & Wavenet             & $D_c=96$       & \bf 10.96/10.89 & \bf 10.85/10.76 & \bf 11.12/11.01 & \bf 11.05/10.85 \\
+        1 & WaveNet             & $D_c=96$       & \bf 10.96/10.89 & \bf 10.85/10.76 & \bf 11.12/11.01 & \bf 11.05/10.85 \\
         1 & LSTM                & $D_d=256$      & 11.21/11.17 & 11.10/11.06 & 11.35/11.29 & 11.28/11.23 \\  % 15ua3hau/(lmssrk5k,248n2ylu)
         \midrule
-        64 & Wavenet            & $D_c=96$       & 13.61/13.24 & 13.58/13.21 & 13.61/13.22 & 13.60/13.21 \\  % 2ghkybtd/3iieasdt
+        64 & WaveNet            & $D_c=96$       & 13.61/13.24 & 13.58/13.21 & 13.61/13.22 & 13.60/13.21 \\  % 2ghkybtd/3iieasdt
         64 & LSTM               & $D_d=256$      & 13.56/13.25 & 13.52/13.24 & 13.55/13.23 & 13.56/13.25 \\  % 10fpovu3/2bu1izin
         64 & CW-VAE             & $D_z=96,L=1$   & $\leq$12.32/12.24 & 12.32/12.23 & 12.43/12.33 & 12.43/12.33 \\
         64 & CW-VAE             & $D_z=96,L=2$   & $\leq$12.30/12.22 & 12.30/12.21 & 12.40/12.31 & 12.39/12.32 \\
@@ -157,7 +157,7 @@ We specifically hypothesize that models that are autoregressive in the observed 
         1         & DMoL                & Optimal               & 10.70 \\   % $mean[0.00], scale=[0.005]$
         %-         & FLAC                & Linear PCM            & 8.582 \\
         \midrule
-        $1$       & Wavenet             & $D_C=96$              & \textbf{7.246} \\
+        $1$       & WaveNet             & $D_C=96$              & \textbf{7.246} \\
         $1$       & LSTM                & $D_d=256, L=1$        & 7.295 \\
         $1$       & VRNN                & $D_z=256$             & $\leq$7.316 \\
         $1$       & SRNN                & $D_z=256$             & $\leq$7.501 \\
@@ -195,12 +195,12 @@ We specifically hypothesize that models that are autoregressive in the observed 
         \toprule
         $s$    & \bf Model           & \bf Configuration           & \bf $\mathcal{L}$ [bpf] \\
         \midrule
-        $1$       & Wavenet             & $D_C=16$              & 11.27 \\
-        $1$       & Wavenet             & $D_C=24$              & 11.14 \\
-        $1$       & Wavenet             & $D_C=32$              & 11.03 \\
-        $1$       & Wavenet             & $D_C=96$              & 10.88 \\
-        $1$       & Wavenet             & $D_C=128$             & 10.98 \\
-        $1$       & Wavenet             & $D_C=160$             & 10.91 \\
+        $1$       & WaveNet             & $D_C=16$              & 11.27 \\
+        $1$       & WaveNet             & $D_C=24$              & 11.14 \\
+        $1$       & WaveNet             & $D_C=32$              & 11.03 \\
+        $1$       & WaveNet             & $D_C=96$              & 10.88 \\
+        $1$       & WaveNet             & $D_C=128$             & 10.98 \\
+        $1$       & WaveNet             & $D_C=160$             & 10.91 \\
         $1$       & LSTM                & $D_d=128, L=1$        & 11.40 \\
         $1$       & LSTM                & $D_d=256, L=1$        & 11.11 \\
         $1$       & VRNN                & $D_z=256$             & $\leq$11.09 \\
@@ -335,14 +335,14 @@ While this is well-suited for autoregressive modeling, for which the distributio
 In fact, if multiple neighboring outputs defined by the subsequence $\vx_{t_1:t_2}$ have multimodal $p(\vx_t|\cdot)$, we risk sampling a subsequence where each neighboring value expresses different potential realities, independently. 
 
 Interestingly, most work on latent variable models with non"=autoregressive output distributions seem to ignore this fact and simply employ the mixture distribution with 10 mixture components \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
-However, given the empirically good results of latent variable models for image generation, this seems to have posed only a minor problem in practice. We speculate that this is due to the high degree of similarity between neighbouring pixels in images. I.e. if the neighboring pixels are nuances of red, then, in all likelihood, so is the central pixel.
+However, given the empirically good results of latent variable models for image generation, this seems to have posed only a minor problem in practice. We speculate that this is due to the high degree of similarity between neighboring pixels in images. I.e. if the neighboring pixels are nuances of red, then, in all likelihood, so is the central pixel.
 
-In the audio domain, however, neighbouring waveform frames can take wildly different values, especially at low sample rates. Furthermore, waveforms exhibit a natural symmetry between positive and negative amplitudes.
+In the audio domain, however, neighboring waveform frames can take wildly different values, especially at low sample rates. Furthermore, waveforms exhibit a natural symmetry between positive and negative amplitudes.
 Hence, it seems plausible that multimodality may pose a larger problem in non"=autoregressive speech generation by causing locally incoherent samples than it seems to do in image modelling.
 
 
 \section{Additional graphical models}\label{app: additional graphical models}
-In \cref{fig: cwvae cell state graph} we show the graphical model of the recurrent cell of the CW-VAE for a single time step. As noted in \parencite{saxena_clockwork_2021}, this cell is very similar to the one of the Recurrent State Space Model (RSSM) \parencite{hafner_learning_2019}.
+In \cref{fig: cwvae cell state graph} we show the graphical model of the recurrent cell of the CW-VAE for a single timestep. As noted in \parencite{saxena_clockwork_2021}, this cell is very similar to the one of the Recurrent State Space Model (RSSM) \parencite{hafner_learning_2019}.
 
 In \cref{fig: cwvae three-layered graphical models (inference and generative)} we show the unrolled graphical models of a three-layered CW-VAE with $k_1=1$ and $c=2$ yielding $k_2=2$ and $k_3=4$. 
 We show both the generative and inference models and highlight in blue the parameter sharing between the two models due to top-down inference.
@@ -971,10 +971,10 @@ Likewise, in \cref{fig: srnn graphical models (inference and generative)} we ill
 
 
 \section{Additional latent evaluation}\label{app: additional latent space clustering}
-Here we present additional qualitative assesessment of the learned latent representations selectively for the CW-VAE. 
+Here we present additional qualitative assessment of the learned latent representations selectively for the CW-VAE. 
 
 In \cref{fig: latent space phoneme and knn} we present evaluation in terms of phoneme clustering. 
-Specifically, we infer the latent variables of all utterances by a single speaker from the TIMIT test set. We sample the latent sequence $100$ times to estimate the mean representation per time step. We then compute the average latent representation over the duration of each phoneme using aligned phoneme labels. This approximately marginalizes out variation during the phoneme. We use linear discriminant analysis (LDA) \parencite{fisher_use_1936} to obtain a low-dimensional linear subspace of the latent space. 
+Specifically, we infer the latent variables of all utterances by a single speaker from the TIMIT test set. We sample the latent sequence $100$ times to estimate the mean representation per timestep. We then compute the average latent representation over the duration of each phoneme using aligned phoneme labels. This approximately marginalizes out variation during the phoneme. We use linear discriminant analysis (LDA) \parencite{fisher_use_1936} to obtain a low-dimensional linear subspace of the latent space. 
 We visualize the resulting representations colored according to test set phoneme classes in \cref{fig: latent space phoneme and knn}. 
 In the left plot, many phonemes are separable in the linear subspace and that related phonemes such as ``s" and ``sh" are close. 
 In the right plot, we show the average accuracy of a leave-one-out $k$-nearest-neighbor (KNN) classifier on the single left-out latent representation reduced with a 5-dimensional LDA as a function of the number of neighbors. 
@@ -1038,7 +1038,7 @@ All results presented here are obtained with a 2-layered CW-VAE trained on $\mu$
          \caption{}
          \label{fig: mel features gender}
      \end{subfigure}
-    \caption{Clustering of speaker gender in an one-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space and of a time-averaged mel spectrogram. The total overlap is slightly smaller in the subspace of the CW-VAE latent space and the separation between the distribution peaks is larger.}
+    \caption{Clustering of speaker gender in a one-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space and of a time-averaged Mel spectrogram. The total overlap is slightly smaller in the subspace of the CW-VAE latent space and the separation between the distribution peaks is larger.}
     \label{fig: latent space visualization gender}
 \end{figure}
 
@@ -1059,7 +1059,7 @@ All results presented here are obtained with a 2-layered CW-VAE trained on $\mu$
          \caption{}
          \label{fig: cwvae latent z0 age}
      \end{subfigure}
-    \caption{(a) Clustering of speaker height for male speakers and (b) speaker age for female speakers in an two-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space.}
+    \caption{(a) Clustering of speaker height for male speakers and (b) speaker age for female speakers in a two-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space.}
     \label{fig: cwvae latent height}
 \end{figure}
 
@@ -1067,7 +1067,7 @@ All results presented here are obtained with a 2-layered CW-VAE trained on $\mu$
 
 
 \section{Distribution of phoneme duration in TIMIT}\label{app: timit phoneme distributions}
-In \cref{fig: timit validation set phoneme duration} we plot a boxplots of the duration of each phoneme in the TIMIT dataset. We do this globally as well as for a single speaker to show that phoneme duration can vary between individual speakers. 
+In \cref{fig: timit validation set phoneme duration} we plot a box plots of the duration of each phoneme in the TIMIT dataset. We do this globally as well as for a single speaker to show that phoneme duration can vary between individual speakers. 
 
 A description of the phonemes used for the TIMIT dataset can be found at \url{https://catalog.ldc.upenn.edu/docs/LDC93S1/PHONCODE.TXT}.
 
@@ -1086,7 +1086,7 @@ A description of the phonemes used for the TIMIT dataset can be found at \url{ht
         \caption{}
         \label{fig: timit validation set phoneme duration global}
     \end{subfigure}
-    \caption{Boxplots of the duration of the pronunciation of phonemes in TIMIT for a specific speaker DRW0 in (\subref{fig: timit validation set phoneme duration DRW0}) and globally in (\subref{fig: timit validation set phoneme duration global}). Not all phonemes are pronounced by speaker DRW0 over the course of their 10 test set sentences and hence they are missing from the x-axis compared to the global durations.}
+    \caption{Box plots of the duration of the pronunciation of phonemes in TIMIT for a specific speaker DRW0 in (\subref{fig: timit validation set phoneme duration DRW0}) and globally in (\subref{fig: timit validation set phoneme duration global}). Not all phonemes are pronounced by speaker DRW0 over the course of their 10 test set sentences and hence they are missing from the x-axis compared to the global durations.}
     \label{fig: timit validation set phoneme duration}
 \end{figure}
 

@@ -9,7 +9,7 @@
 
 For SmallNORB and Omniglot we resize the original grayscale images to $28\times28$ with ordinary bi-linear interpolation.
 For each of these datasets, we also create a version where the grayscale is inverted. We do this because, the overall white nature of the images tends to make detecting them as OOD from FashionMNIST artificially easy.
-The inversion is done via the simple transformation $\xb_\text{inverted} = 255 - \xb_\text{original}$ since images are encoded as 8 bit unsigned integers.
+The inversion is done via the simple transformation $\xb_\text{inverted} = 255 - \xb_\text{original}$ since images are encoded as 8-bit unsigned integers.
 
 % Similar to \textcite{serra_input_2020} and \textcite{xiao_likelihood_2020}, we also create a uniform noise dataset ``UniformNoise'' and benchmark our model against this. We dynamically sample each pixel value uniformly as an integer between 0 and 255.
 
@@ -58,7 +58,7 @@ where \textsc{conv} refers to a same-padded convolution and \textsc{act} to the 
 In both cases, the first deterministic block uses a kernel size of 5 and the latter two a kernel of size 3. We use the ReLU activation function \parencite{fukushima_neocognitron_1980, nair_rectified_2010}.
 
 Since the benefits and drawbacks of using batch normalization \parencite{ioffe_batch_2015} in hierarchical VAEs is still the matter of some debate \parencite{sonderby_ladder_2016, vahdat_nvae_2020, child_very_2021} we choose to use weight normalization \parencite{salimans_weight_2016} as in other work \parencite{maaloe_biva_2019} and initialize the model using the originally proposed data-dependent initialization.
-To have the stochastic layers initialize to standard Gaussian distributions (zero mean, unit variance), with this initialization, we select the activation function for the variance as a Softplus,
+To have the stochastic layers initialize to standard Gaussian distributions (zero mean, unit variance), with this initialization, we select the activation function for the variance as a softplus,
 \begin{equation*}
     \textsc{softplus}(\xb) = \frac{1}{\beta}\log\left(1 + \exp(\beta\xb)\right) \ ,
 \end{equation*}
@@ -77,7 +77,7 @@ Training of a BIVA model took approximately a week on a single NVIDIA GTX 1080 T
 
 
 \begin{table}[t]
-    \caption[Selection of most important hyperparameters.]{Selection of most important hyperparameters and their setting. Convolutional kernels are square and latent dimensions are given without spatial dimensions which are given in the text. See \cref{sec_hierarchical:model-details} for more details.}
+    \caption[Selection of most important hyperparameters.]{ Selection of most important hyperparameters and their setting. Convolutional kernels are square and latent dimensions are given without spatial dimensions which are given in the text. See \cref{sec_hierarchical:model-details} for more details.}
     \centering
     % \resizebox{\columnwidth}{!}{%
     \begin{tabular}{ll}
@@ -98,10 +98,10 @@ Training of a BIVA model took approximately a week on a single NVIDIA GTX 1080 T
         & \parencite{salimans_weight_2016} \\
         \midrule
         \multicolumn{2}{l}{\textbf{HVAE}} \\
-        Latent dimensionality & 128-64-32 (natural) / 8-16-8 (grey) \\
+        Latent dimensionality & 128-64-32 (natural) / 8-16-8 (gray) \\
         Convolution kernel & 5-3-3 \\
         Stride & 2-2-1 \\
-        Warmup anneal period & 200 epochs \\
+        Warm up anneal period & 200 epochs \\
         \midrule
         \multicolumn{2}{l}{\textbf{BIVA}} \\
         \multirow{2}{*}{Latent dimensionality} & 10-8-6 (spatial) \\

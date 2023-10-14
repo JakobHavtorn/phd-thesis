@@ -22,7 +22,7 @@ We provide a methodological review of the design choices related to each of the 
     \end{flushleft}
     \centering
     \includegraphics[width=0.90\textwidth]{paper_brief/SSL_LVM.pdf}
-    \caption[ Schematic overview of the self"=supervised and probabilistic latent variable models covered in this survey.]{A schematic overview of the two groups of models covered in this survey. \textit{Left}: A model trained with self"=supervised learning. We take these models to consist of two functions $f(\cdot)$ and $g(\cdot)$ (\cref{ssec:notation}). After pre"=training, $f(\cdot)$ is fine"=tuned or used for extracting features $\mathbf{c}$. $g(\cdot)$ is an auxiliary function used to accommodate the self"=supervised pre"=training task. \textit{Right}: A probabilistic latent variable model. In contrast to the self"=supervised model, the functions $f(\cdot)$ and $g(\cdot)$ learn the parameters of distributions $q$ and $p$. The latent variable $\mathbf{z}$ is commonly used for representation learning.}
+    \caption[Schematic overview of the self"=supervised and probabilistic latent variable models covered in this survey.]{ A schematic overview of the two groups of models covered in this survey. \textit{Left}: A model trained with self"=supervised learning. We take these models to consist of two functions $f(\cdot)$ and $g(\cdot)$ (\cref{ssec:notation}). After pre"=training, $f(\cdot)$ is fine"=tuned or used for extracting features $\mathbf{c}$. $g(\cdot)$ is an auxiliary function used to accommodate the self"=supervised pre"=training task. \textit{Right}: A probabilistic latent variable model. In contrast to the self"=supervised model, the functions $f(\cdot)$ and $g(\cdot)$ learn the parameters of distributions $q$ and $p$. The latent variable $\mathbf{z}$ is commonly used for representation learning.}
     \label{fig:ssl_lvm}
 \end{figure}
 
@@ -306,12 +306,12 @@ The ELBO can also be written as
 \end{equation}
 where $\mathbb{E}\left[ \log p(\mathbf{x}|\mathbf{z}) \right]$ can be seen as a reconstruction loss and $D_\text{KL}\left( q(\mathbf{z}|\mathbf{x})||p(\mathbf{z}) \right)$ is the Kullback-Leibler (KL) divergence between the variational posterior distribution and the prior.
 
-In brief, LVMs of the VAE-type consist of a approximate posterior, $q(\mathbf{z}|\mathbf{x})$, an observation model, $p(\mathbf{x}|\mathbf{z})$, and a prior, $p(\mathbf{z})$. 
+In brief, LVMs of the VAE-type consist of an approximate posterior, $q(\mathbf{z}|\mathbf{x})$, an observation model, $p(\mathbf{x}|\mathbf{z})$, and a prior, $p(\mathbf{z})$. 
 With reference to probabilistic coding theory, the approximate posterior is often referred to as the encoder and the observation model as the decoder \parencite{kingma_autoencoding_2014, rezende_stochastic_2014}. From a theoretical perspective, the encoder exists solely as the result of choosing to use variational inference to train the decoder rather than e.g. MCMC. As such, it is also referred to as the inference model. However, from a representation learning perspective, the encoder is essential as it can be used to efficiently obtain the representation $\mathbf{z}$ commonly used for downstream tasks. 
 It is still possible to evaluate and sample the true posterior distribution $p(\mathbf{z}|\mathbf{x})$ by applying MCMC methods such as Hamiltonian Monte Carlo on the decoder, but for computational reasons this is rarely done in practice. 
 
 \begin{table}
-    \caption[A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable.]{A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable. The observation, prior and inference models may all belong to one or more of the categories listed under them as detailed in \cref{sec:plvms}. The types listed here serve as primitives from which more complex structures can be constructed including models with hierarchies of multiple latent variables.}
+    \caption[A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable.]{ A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable. The observation, prior and inference models may all belong to one or more of the categories listed under them as detailed in \cref{sec:plvms}. The types listed here serve as primitives from which more complex structures can be constructed including models with hierarchies of multiple latent variables.}
     \label{tab:lvm-model-primitives}
     \begin{center}
         % \renewcommand{\arraystretch}{1.1}

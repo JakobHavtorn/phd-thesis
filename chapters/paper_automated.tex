@@ -11,7 +11,7 @@
 
 \section*{Abstract}
 Medical coding is the task of assigning medical codes to clinical free-text documentation.
-Healthcare professionals manually assign such codes to track patient diagnoses and treatments. Automated medical coding can considerably alleviate this administrative burden. In this paper, we reproduce, compare, and analyze state-of-the-art automated medical coding machine learning models. We show that several models underperform due to weak configurations, poorly sampled train-test splits, and insufficient evaluation. In previous work, the macro F1-score has been calculated sub-optimally, and our correction doubles it. We contribute a revised model comparison using stratified sampling and identical experimental setups, including hyperparameters and decision boundary tuning. We analyze prediction errors to validate and falsify assumptions of previous works. The analysis confirms that all models struggle with rare codes, while long documents only have a negligible impact. Finally, we present the first comprehensive results on the newly released MIMIC-IV dataset using the reproduced models. We release our code, model parameters, and new MIMIC-III and MIMIC-IV training and evaluation pipelines to accommodate fair future comparisons.\footnote{\label{footnote:source_code}\url{https://github.com/JoakimEdin/medical-coding-reproducibility}}
+Healthcare professionals manually assign such codes to track patient diagnoses and treatments. Automated medical coding can considerably alleviate this administrative burden. In this paper, we reproduce, compare, and analyze state-of-the-art automated medical coding machine learning models. We show that several models underperform due to weak configurations, poorly sampled train-test splits, and insufficient evaluation. In previous work, the macro F1-score has been calculated suboptimally, and our correction doubles it. We contribute a revised model comparison using stratified sampling and identical experimental setups, including hyperparameters and decision boundary tuning. We analyze prediction errors to validate and falsify assumptions of previous works. The analysis confirms that all models struggle with rare codes, while long documents only have a negligible impact. Finally, we present the first comprehensive results on the newly released MIMIC-IV dataset using the reproduced models. We release our code, model parameters, and new MIMIC-III and MIMIC-IV training and evaluation pipelines to accommodate fair future comparisons.\footnote{\label{footnote:source_code}\url{https://github.com/JoakimEdin/medical-coding-reproducibility}}
 
 
 \section{Introduction}
@@ -55,7 +55,7 @@ Statistics for the MIMIC-III \textit{50}, \textit{full}, and MIMIC-IV datasets a
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{paper_automated/mimiciv_code_freq.png}
-    \caption[The frequency of ICD-9 and ICD-10 codes in MIMIC-IV before pre-processing.]{The frequency of ICD-9 and ICD-10 codes in MIMIC-IV before pre-processing. As discussed in \cref{sec: splits}, we removed codes with fewer than ten instances (dashed line).}
+    \caption[The frequency of ICD-9 and ICD-10 codes in MIMIC-IV before pre-processing.]{ The frequency of ICD-9 and ICD-10 codes in MIMIC-IV before pre-processing. As discussed in \cref{sec: splits}, we removed codes with fewer than ten instances (dashed line).}
     \label{fig:mimiciv_code_dist}
 \end{figure}
 
@@ -111,14 +111,14 @@ where $P \in \mathbb{R}^{d_p \times d_h}$ is a learnable matrix, $Z \in \mathbb{
 \subsection{Training and evaluation methods}\label{sec: training and evaluation methods}
 
 \textcite{mullenbachExplainablePredictionMedical2018} released code for pre-processing the discharge summaries, generating the train-test split, and evaluating model performance on MIMIC-III which many subsequent papers have used \parencite{vuLabelAttentionModel2020, huangPLMICDAutomaticICD2022, liICDCodingClinical2020, baoMedicalCodePrediction2021, yuanCodeSynonymsMatter2022, kimReadAttendCode2021}.
-Pre-processing consisted of lowercasing all text and removing words that only contain out-of-alphabet characters. Predicting procedures and diagnosis codes were treated as a single task.
+Pre-processing consisted of lower-casing all text and removing words that only contain out-of-alphabet characters. Predicting procedures and diagnosis codes were treated as a single task.
 The dataset was split into training, validation, and test sets using random sampling, ensuring that no patient occurred in both the training and test set. The (non-stratified) random sampling lead to 54\% of the ICD codes in MIMIC-III \textit{full} not being sampled in the test set. This complicates the interpretation of results since these codes only contribute true negatives or false positives. 
 Models are evaluated using the micro and macro average of the area under the curve of the receiver operating characteristics (AUC-ROC), F1-score, and precision@k. 
 
 While most papers use the pre-processing, train-test split, and evaluation metrics described above, they differ in several aspects of training. This may lead to performance differences unrelated to modeling choices which are undesirable when seeking to compare models. 
 For instance, due to varying memory constraints of different models, documents are usually truncated to some maximum length. In the literature, this maximum varies from 2,500 to 4,000 words \parencite{mullenbachExplainablePredictionMedical2018, vuLabelAttentionModel2020, huangPLMICDAutomaticICD2022}.
 Furthermore, not all papers tune the prediction decision boundary but simply set it to 0.5,
- hyperparameter search ranges and sampling methods  vary between works, and learning rate schedulers are only used in LAAT and PLM-ICD\parencite{mullenbachExplainablePredictionMedical2018, liICDCodingClinical2020}. In LAAT, the learning rate was decreased by 90\% when the F1-score had not increased for five epochs. PLM-ICD used a schedule with linear warmup followed by linear decay. 
+ hyperparameter search ranges and sampling methods  vary between works, and learning rate schedulers are only used in LAAT and PLM-ICD\parencite{mullenbachExplainablePredictionMedical2018, liICDCodingClinical2020}. In LAAT, the learning rate was decreased by 90\% when the F1-score had not increased for five epochs. PLM-ICD used a schedule with linear warm up followed by linear decay. 
 
 All models except for PLM-ICD use Word2Vec embeddings pre"=trained on the MIMIC-III training set. PLM-ICD uses a BERT encoder pre"=trained on PubMed to encode the text in chunks of 128 tokens, and these contextualized embeddings are fed to a \lalaat~ layer. 
 
@@ -159,7 +159,7 @@ Where precision@$k$ is computed based on the top-$k$ codes (i.e., $k$ is fixed),
 
 \begin{sidewaystable}
     \centering
-    \caption[Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to improved settings.]{Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to the optimal settings found in this paper (marked with *). LR is the learning rate scheduler. ``Length" is the maximum number of words a document can contain before being truncated. $\dagger$ applies to models using word-piece tokenization. These models were filtered on the number of sub-words instead of full words. ``DB tune" is whether the optimal decision boundary was found using the validation set. If a paper did not tune the decision boundary, it was set to 0.5.}
+    \caption[Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to improved settings.]{ Hyperparameters, maximum document lengths, and decision boundary tuning strategies used in the original works compared to the optimal settings found in this paper (marked with *). LR is the learning rate scheduler. ``Length" is the maximum number of words a document can contain before being truncated. $\dagger$ applies to models using word-piece tokenization. These models were filtered on the number of sub-words instead of full words. ``DB tune" is whether the optimal decision boundary was found using the validation set. If a paper did not tune the decision boundary, it was set to 0.5.}
     \label{tab:hyperparameters}
     \resizebox*{\textwidth}{!}{%
     \begin{tabular}{lccccccccc}
@@ -191,7 +191,7 @@ Where precision@$k$ is computed based on the top-$k$ codes (i.e., $k$ is fixed),
 \end{sidewaystable}
 
 
-Previous works calculated the macro F1-score as the harmonic mean of the macro precision and macro recall \parencite{mullenbachExplainablePredictionMedical2018, liICDCodingClinical2020, vuLabelAttentionModel2020, huangPLMICDAutomaticICD2022}. \textcite{opitzMacroF1Macro2021} analyze macro F1 formulas common in multi-class and multi-label classification. They demonstrate that the above formulation is sub-optimal, as it rewards heavily biased classifiers in unbalanced datasets. Therefore, as recommended by the authors, we calculated the macro F1-score as the arithmetic mean of the F1-score for each class.
+Previous works calculated the macro F1-score as the harmonic mean of the macro precision and macro recall \parencite{mullenbachExplainablePredictionMedical2018, liICDCodingClinical2020, vuLabelAttentionModel2020, huangPLMICDAutomaticICD2022}. \textcite{opitzMacroF1Macro2021} analyze macro F1 formulas common in multi-class and multi-label classification. They demonstrate that the above formulation is suboptimal, as it rewards heavily biased classifiers in unbalanced datasets. Therefore, as recommended by the authors, we calculated the macro F1-score as the arithmetic mean of the F1-score for each class.
 As seen in \cref{tab:subsets}, 54\% of codes in MIMIC-III \textit{full} are missing in the test set. Previous works set the F1-score of all the missing codes in the test set to 0, resulting in a misleadingly low macro F1-score. Because 54\% of the codes are missing, the maximum possible macro F1-score is 46\%. 
 We ignored all codes not in the test set for our reproduction, essentially trading bias for variance. 
 For our revised comparison, we resolved the issue by instead sampling new splits that reduce missing codes to a negligible fraction (see \cref{sec: splits}) and ignoring the few that were still missing.
@@ -216,8 +216,8 @@ We ran reproducibility experiments with all models to evaluate whether the resul
 
 \subsection{Revised comparison}
 To address the issues associated with comparing results reported by previous works described in \cref{sec: training and evaluation methods,sec:metrics}, we perform a revised model comparison. We run experiments on the new MIMIC-III \textit{clean}, MIMIC-IV \textit{ICD-9}, and \textit{ICD-10}.
-All models were trained for 20 epochs using a learning rate schedule with linear warmup for the first 2K updates followed by linear decay \parencite{huangPLMICDAutomaticICD2022}. We found this schedule to speed up the training convergence of all the models.
-Whereas original works use Adam or AdamW, we used AdamW for all experiments as it corrects the weight decay implementation of Adam \parencite{kingmaAdamMethodStochastic2017, loshchilovDecoupledWeightDecay2022}. For each model, we tuned the decision boundary to maximize the micro F1-score on the validation set. We used randomized sampling to find optimal settings for dropout, weight decay, learning rate, and batch size. The hyperparameter search was performed on MIMIC-III \textit{clean}, and the MIMIC-IV splits. We found that the best setting for each model generalized across datasets. Using this setting, we ran each model ten times with different seeds on each dataset. All documents were truncated to a maximum of 4000 words. The hyperparameters, maximum document lengths, and decision boundary tuning strategy are summarised in \cref{tab:hyperparameters}. 
+All models were trained for 20 epochs using a learning rate schedule with linear warm up for the first 2K updates followed by linear decay \parencite{huangPLMICDAutomaticICD2022}. We found this schedule to speed up the training convergence of all the models.
+Whereas original works use Adam or AdamW, we used AdamW for all experiments as it corrects the weight decay implementation of Adam \parencite{kingmaAdamMethodStochastic2017, loshchilovDecoupledWeightDecay2022}. For each model, we tuned the decision boundary to maximize the micro F1-score on the validation set. We used randomized sampling to find optimal settings for dropout, weight decay, learning rate, and batch size. The hyperparameter search was performed on MIMIC-III \textit{clean}, and the MIMIC-IV splits. We found that the best setting for each model generalized across datasets. Using this setting, we ran each model ten times with different seeds on each dataset. All documents were truncated to a maximum of 4000 words. The hyperparameters, maximum document lengths, and decision boundary tuning strategy are summarized in \cref{tab:hyperparameters}. 
 
 We performed an ablation study to analyze which changes had the largest impact on performance. 
 Specifically, we evaluated the effect of truncation, hyperparameter search, and decision boundary tuning. We modified one of these at a time: We ran one experiment where documents were truncated to a maximum length of 2,500 words, a second experiment where the models were trained with the hyperparameters, number of epochs, and learning rate schedule used in the original works, and a third experiment where the decision boundary was set to 0.5 instead of tuned.
@@ -238,7 +238,7 @@ To analyze the performance impact of rare codes, we first calculated the Pearson
 
 \begin{sidewaystable}
     \centering
-    \caption[Reproduced test set results compared with those from the original works.]{Reproduced test set results compared with those from the original works. Our reproduced results are indicated with *. The results were reproduced on MIMIC-III v1.4 with the preprocessing pipeline and splits of \textcite{mullenbachExplainablePredictionMedical2018}. Each model was reproduced using the hyperparameters presented in the respective paper. We use both macro F1 formulas: Macro$^\dagger$ refers to the method used in the original work, while Macro refers to the corrected version used in this paper.}
+    \caption[Reproduced test set results compared with those from the original works.]{ Reproduced test set results compared with those from the original works. Our reproduced results are indicated with *. The results were reproduced on MIMIC-III v1.4 with the preprocessing pipeline and splits of \textcite{mullenbachExplainablePredictionMedical2018}. Each model was reproduced using the hyperparameters presented in the respective paper. We use both macro F1 formulas: Macro$^\dagger$ refers to the method used in the original work, while Macro refers to the corrected version used in this paper.}
     \label{tab:reproduced_results}
     \resizebox*{\textwidth}{!}{%
     \begin{tabular}{l  cc  ccc  cc  cc  ccc  c}
@@ -281,7 +281,7 @@ In \cref{tab:reproduced_results}, we report the reproduced results on MIMIC-III 
 
 \begin{sidewaystable}
     \centering
-    \caption[Results on the MIMIC-III \textit{clean}, MIMIC-IV \textit{ICD-9} and MIMIC-IV  \textit{ICD-10} test sets presented as percentages.]{Results on the MIMIC-III \textit{clean}, MIMIC-IV \textit{ICD-9} and MIMIC-IV  \textit{ICD-10} test sets presented as percentages. Micro F1-scores rank the table in ascending order. Each model was trained ten times with different seeds. We performed a McNemar's test with Bonferroni correction and found that all the models are significantly different ($p < 0.001$).}
+    \caption[Results on the MIMIC-III \textit{clean}, MIMIC-IV \textit{ICD-9} and MIMIC-IV  \textit{ICD-10} test sets presented as percentages.]{ Results on the MIMIC-III \textit{clean}, MIMIC-IV \textit{ICD-9} and MIMIC-IV  \textit{ICD-10} test sets presented as percentages. Micro F1-scores rank the table in ascending order. Each model was trained ten times with different seeds. We performed a McNemar's test with Bonferroni correction and found that all the models are significantly different ($p < 0.001$).}
     \label{tab:fair_results}
     \resizebox*{\textwidth}{!}{%
     \begin{tabular}{llccccccccc}
@@ -324,7 +324,7 @@ Similar results were obtained on the other datasets.
 
 \begin{sidewaystable}
     \centering
-    \caption[Ablation study on MIMIC-III \textit{clean}.]{Ablation study on MIMIC-III \textit{clean}. The numbers are the micro/macro F1-scores on the test set.}
+    \caption[Ablation study on MIMIC-III \textit{clean}.]{ Ablation study on MIMIC-III \textit{clean}. The numbers are the micro/macro F1-scores on the test set.}
     \label{tab:ablation_study}
     \resizebox*{\textwidth}{!}{%
     \begin{tabular}{lcccccc}
@@ -356,7 +356,7 @@ Similar results were obtained on the other datasets.
         % \caption{}
         % \label{fig:threshold_tuning_macro}
     \end{subfigure}%
-    \caption[Relationship between chosen threshold and F1-score of every reproduced model.]{The relationship between chosen threshold and F1-score of every reproduced model in \cref{tab:reproduced_results}. The left figure shows the micro F1-score, and the right shows the macro F1-score. The models were evaluated on MIMIC-III \textit{clean}.}
+    \caption[Relationship between chosen threshold and F1-score of every reproduced model.]{ The relationship between chosen threshold and F1-score of every reproduced model in \cref{tab:reproduced_results}. The left figure shows the micro F1-score, and the right shows the macro F1-score. The models were evaluated on MIMIC-III \textit{clean}.}
     \label{fig:threshold_tuning}
 \end{figure}
 
@@ -382,7 +382,7 @@ In most cases, increasing the training data had a larger effect on the macro F1-
         % \caption{}
         % \label{fig:train_size_macro}
     \end{subfigure}
-    \caption[The relationship between the number of training examples and F1-score on MIMIC-IV \textit{ICD-9}.]{The relationship between the number of training examples and F1-score on MIMIC-IV \textit{ICD-9}. The left figure shows the F1 Micro score on the y-axis, while the right figure shows the F1 Macro score.}
+    \caption[The relationship between the number of training examples and F1-score on MIMIC-IV \textit{ICD-9}.]{  The relationship between the number of training examples and F1-score on MIMIC-IV \textit{ICD-9}. The left figure shows the F1 Micro score on the y-axis, while the right figure shows the F1 Macro score.}
     \label{fig:train_size}
 \end{figure}
 
@@ -405,7 +405,7 @@ As there are few long documents, the effect on average micro F1 for each dataset
 
 \begin{table}
     \centering
-    \caption[Correlation between the F1-score and the logarithm of code frequency and document length on MIMIC-IV \textit{ICD-9}.]{Correlation between the F1-score and the logarithm of code frequency and document length on MIMIC-IV \textit{ICD-9}. As discussed in \cref{subsubsec:document-length}, we only considered document lengths between 1000 and 4000 words. All correlations are statistically significant ($p<0.001$).}
+    \caption[Correlation between the F1-score and the logarithm of code frequency and document length on MIMIC-IV \textit{ICD-9}.]{ Correlation between the F1-score and the logarithm of code frequency and document length on MIMIC-IV \textit{ICD-9}. As discussed in \cref{subsubsec:document-length}, we only considered document lengths between 1000 and 4000 words. All correlations are statistically significant ($p<0.001$).}
     \label{tab:correlations}
     \begin{tabular}{lcccc}
         \toprule
@@ -488,7 +488,7 @@ We showed that models previously reported as low-performing underperformed partl
 
 Even though MultiResCNN contains more parameters than CAML, \textcite{liICDCodingClinical2020} concluded that MultiResCNN was faster to train because it converged in fewer epochs. However, this was only true when using the original setup where CAML converged after 84 epochs. We found that when using a learning rate schedule and appropriate hyperparameters, it was possible to train all the models in 20 epochs without sacrificing performance. Therefore, with our setup, CAML was faster to train than MultiResCNN.
 
-We demonstrated that the macro F1-score had been underestimated in prior works due to the poorly sampled MIMIC-III \textit{full} split and the practice of setting the F1-score of all codes absent in the test set to 0. Since 54\% of the codes in MIMIC-III \textit{full} are missing in the test set, the maximum possible macro F1-score is 46\%. The previously highest reported macro F1-score on MIMIC-III \textit{full} is 12.7\% for PLM-ICD~\parencite{kimReadAttendCode2021}. Using our corrected macro F1-score on the same split, PLM-ICD achieved a macro F1-score of 22.8\%. This large difference from previous state-of-the-art seems to indicate that all previous work on AMC used the sub-optimally calculated macro F1-score, including works not reproduced in this paper. Many studies use the macro F1-score to evaluate the ability of their models to predict rare codes \parencite{kimReadAttendCode2021, yuanCodeSynonymsMatter2022}. If it has indeed been incorrectly calculated in these studies, some conclusions drawn in previous work regarding rare code prediction may have been misguided.
+We demonstrated that the macro F1-score had been underestimated in prior works due to the poorly sampled MIMIC-III \textit{full} split and the practice of setting the F1-score of all codes absent in the test set to 0. Since 54\% of the codes in MIMIC-III \textit{full} are missing in the test set, the maximum possible macro F1-score is 46\%. The previously highest reported macro F1-score on MIMIC-III \textit{full} is 12.7\% for PLM-ICD~\parencite{kimReadAttendCode2021}. Using our corrected macro F1-score on the same split, PLM-ICD achieved a macro F1-score of 22.8\%. This large difference from previous state-of-the-art seems to indicate that all previous work on AMC used the suboptimally calculated macro F1-score, including works not reproduced in this paper. Many studies use the macro F1-score to evaluate the ability of their models to predict rare codes \parencite{kimReadAttendCode2021, yuanCodeSynonymsMatter2022}. If it has indeed been incorrectly calculated in these studies, some conclusions drawn in previous work regarding rare code prediction may have been misguided.
 
 Multiple studies mention lack of training data, rare codes, and long documents as the main challenges of AMC \parencite{dongExplainableAutomatedCoding2021,feuchtDescriptionbasedLabelAttention2021,huangPLMICDAutomaticICD2022,jiDoesMagicBERT2021,liICDCodingClinical2020,liuEffectiveConvolutionalAttention2021,moonsComparisonDeepLearning2020,pascualBERTbasedAutomaticICD2021,tengReviewDeepNeural2022,tengExplainablePredictionMedical2020, vuLabelAttentionModel2020, venkateshAutomatingOverburdenedClinical2023}. In the error analysis, we aimed to validate or falsify these assumptions. We found that rare codes were challenging for all models and observed that more than half of all ICD-10 codes were never predicted correctly. Furthermore, in \cref{fig:train_size}, we showed that when adding more training data, most models see a greater performance improvement on rare codes than on common codes. 
 These findings suggest that medical coding is fundamentally challenged by a lack of training data that, in turn, gives rise to many rare codes.
@@ -514,7 +514,7 @@ We introduced a new \textit{clean} split for MIMIC-III that contains all classes
 We reported the first results of current state-of-the-art models on the newly released MIMIC-IV dataset \parencite{johnsonMIMICIVFreelyAccessible2023, goldbergerPhysioBankPhysioToolkitPhysioNet2000} and provided splits for the \textit{ICD-9} and \textit{ICD-10} coded subsets using the same method as for MIMIC-III \textit{clean}.
 Through error analysis, we provided empirical evidence for multiple model weaknesses. Specifically, models underperform severely on rare codes 
 and, in contrast to previous claims, long documents only have a negligible negative performance impact. 
-We release our source code, model parameters, and the new MIMIC-III \textit{clean} and MIMIC-IV \textit{ICD-9} and \textit{ICD-10} splits.$^\text{1}$
+We release our source code, model parameters, and the new MIMIC-III \textit{clean} and MIMIC-IV \textit{ICD-9} and \textit{ICD-10} splits.$^(\ref{footnote:source_code})$
 
 \section*{Acknowledgments}
 This research was partially funded by the Innovation Fund Denmark via the Industrial Ph.D. Program (grant no. 2050-00040B, 0153-00167B, 2051-00015B) and Academy of Finland (grant no. 322653).

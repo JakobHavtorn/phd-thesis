@@ -12,7 +12,7 @@ representations for various downstream tasks.
 \subsection{Datasets only for pre"=training} 
 \Cref{table:datasets} summarizes datasets used for pre"=training SSL techniques
 in the literature. These datasets are usually large but with limited or no
-labels. Libri-light (LL)~\parencite{kahn_libri-light_2020}, one of these datasets, is
+labels. LibriLight (LL)~\parencite{kahn_libri-light_2020}, one of these datasets, is
 derived from audiobooks that are part of the
 LibriVox\footnote{https://librivox.org/ \label{librivox}} project. LL contains
 60k hours of spoken English audio tagged with SNR, speaker ID, and genre
@@ -20,7 +20,7 @@ descriptions. The speech examples in Audioset~\parencite{gemmeke_audio_2017}, wh
 consists of over 2M 10-second YouTube video clips human-annotated with 632
 audio events, have also been used for pre"=training. Audioset has 2.5k hours
 of audio of varying quality, different languages, and sometimes multiple sound
-sources. AVSpeech~\parencite{ephrat_looking_2018} is another large-scale audio-visual
+sources. AVSpeech~\parencite{ephrat_looking_2018} is another large-scale audiovisual
 dataset used in SSL research, comprising 4.7k hours of clips from a wide
 variety of languages. 
 Each clip contains a visible face and audible sound originating from a single
@@ -36,7 +36,7 @@ Amazon~\parencite{sadhu_wav2vecc_2021}.
 
 In addition to these English and multilingual efforts, researchers have also
 collected corpora for pre"=training Chinese speech representations. Didi Dictation
-and Didi Callcenter~\parencite{jiang_improving_2019, jiang_further_2021} are two
+and Didi Call Center~\parencite{jiang_improving_2019, jiang_further_2021} are two
 internal datasets containing respectively 10k hours of read speech collected
 from mobile dictation application and 10k hours of spontaneous phone calls
 between users and customer service staff.
@@ -78,7 +78,7 @@ hours/60 languages in \parencite{babu_xlsr_2021} and 430 hours/29 languages in
 \parencite{kawakami_learning_2020}) or evaluation. 
 MLS derives content from read audiobooks of LibriVox and contains data in eight
 European languages for a total of 50k hours of audio. VP comprises a total of 400k
-hours of parliamentary speech from the European parliament in 23 European
+hours of parliamentary speech from the European Parliament in 23 European
 languages.
 The entire dataset~\parencite{babu_xlsr_2021} or a 24k-hour 
 portion~\parencite{chen_unispeechsat_2021, chen_wavlm_2021} thereof has been used for pre"=training. BBL
@@ -148,7 +148,7 @@ INTERFACE~\parencite{hozjan_interface_2002} and MOSEI (CMU Multimodal Opinion
 Sentiment and Emotion Intensity)~\parencite{zadeh_multimodal_2018} datasets. INTERFACE
 is an emotional speech database for Slovenian, English, Spanish, and French,
 and contains six emotions: anger, sadness, joy, fear, disgust, and
-surprise, plus neutral. MOSEI is comprised of sentence-level sentiment
+surprise, plus neutral. MOSEI is composed of sentence-level sentiment
 annotations of 65 hours of YouTube videos
 using emotion categories similar to INTERFACE, but replacing joy with
 happiness.
@@ -157,7 +157,7 @@ In addition, datasets employed to demonstrate the benefit of SSL
 representations on various tasks include VCTK \parencite{veaux_cstr_2016} and VoxCeleb1 \parencite{nagrani_voxceleb_2017} for SID/ASV (automatic speaker verification) tasks, FSC (Fluent Speech Commands) \parencite{lugosch_speech_2019} for IC (intent classification), QUESST
 (QUESST 2014) \parencite{anguera_quesst2014_2015} for QbE (query by example), LS En-Fr \parencite{kocabiyikoglu_augmenting_2018} and CoVoST-2 \parencite{wang_covost_2020} for ST (speech translation), and ALFFA and OpenSLR-multi for multilingual ASR. The VCTK corpus includes speech
 data with 109 English speakers of various accents, each reading out about 400
-sentences sampled from newspapers. VoxCeleb1 is an audio-visual dataset
+sentences sampled from newspapers. VoxCeleb1 is an audiovisual dataset
 comprised of short YouTube clips containing human speech. It consists of 1251
 unique speakers and 352 hours of audio. FSC contains utterances of spoken
 English commands that one might use for a smart home or virtual assistant, and
@@ -513,9 +513,9 @@ combination of Gigaspeech, VP-24k, and LL (94k hours in total) for
 UniSpeech-SAT~\parencite{chen_unispeechsat_2021} and WavLM~\parencite{chen_wavlm_2021}, and
 the combination of VP-400K, MLS, CV-dataset, VL and BBL (436k hours in total)
 for XLS-R~\parencite{babu_xlsr_2021}. We expect this trend to continue with the growth
-in available computing power. Most studies focuses on learning representations
+in available computing power. Most studies focus on learning representations
 for English, whereas Chinese~\parencite{jiang_improving_2019, jiang_further_2021} and
-multilinguality~\parencite{kawakami_learning_2020, babu_xlsr_2021} are also gaining
+multilingualism~\parencite{kawakami_learning_2020, babu_xlsr_2021} are also gaining
 attention. Compared to pre"=training, datasets used for fine"=tuning are more
 diverse and cover downstream tasks as varied as ASR, PR, PC, SID, AED,
 Sentiment, ST, and LID. For benchmarking training scenarios covering full
@@ -546,7 +546,7 @@ samples 10\% of the training examples from the entire 960-hour corpus. For simpl
 several SSL techniques are appended with suffixes \textit{B}, \textit{L},
 \textit{XL}, or \textit{XXL} indicating the \textit{Base}, \textit{Large},
 \textit{X-Large}, or \textit{XX-Large} variants specified in the original
-publication. We also compare with baselines including the log mel filterbank (fBANK) and semi"=supervised, self-training
+publication. We also compare with baselines including the log Mel filter bank (fBANK) and semi"=supervised, self-training
 approaches (iterative pseudo labeling (IPL)~\parencite{xu_iterative_2020}, 
 slimIPL~\parencite{likhomanenko_slimipl_2021}, noisy student~\parencite{park_improved_2020}). These approaches are visualized in black. Also, note that the current state of the art---conformer XXL + noisy student~\parencite{zhang_pushing_2020}---is a combination of self-training and SSL techniques. Given the
 diversity of the listed methods in experiment settings (e.g., pre"=training corpora
@@ -581,7 +581,7 @@ show performance from such methods (iterative pseudo labeling
 student~\parencite{park_improved_2020}), as well as the current state of the art---conformer XXL + noisy
 student~\parencite{zhang_pushing_2020}---which augments SSL with various advanced
 techniques including self-training. Furthermore, we illustrate in the figure
-the performance of a baseline system \parencite{yang_superb_2021} based on log mel filterbank (fBANK), which is one of the most commonly used features designed by domain experts.
+the performance of a baseline system \parencite{yang_superb_2021} based on log Mel filter bank (fBANK), which is one of the most commonly used features designed by domain experts.
 As observed in the figure, most SSL techniques outperform fBANK
 features, and with the growing investment in model size, better performance is
 achieved. The largest ones, such as wav2vec 2.0-L and HuBERT-L/XL, yield competitive results 
@@ -617,8 +617,8 @@ achieve state-of-the-art results on an increasing number of tasks.
     Tasks & Dataset & non-SSL & SSL \\
     \midrule
     ASR (WER $\downarrow$) & LS test-clean/other & 2.1/4.0 \parencite{xu_iterative_2020} & 1.4/2.6 \parencite{zhang_pushing_2020} \\ \hline
-    IC (Acc $\uparrow$) & FSC & 98.8 \parencite{lugosch_speech_2019} & 99.3\parencite{chen_unispeechsat_2021} \\ \hline
-    SID (Acc $\uparrow$) & VoxCeleb1 & 94.8 \parencite{hajibabaei_unified_2018} & 95.5 \parencite{chen_wavlm_2021} \\ \hline
+    IC (Acc. $\uparrow$) & FSC & 98.8 \parencite{lugosch_speech_2019} & 99.3\parencite{chen_unispeechsat_2021} \\ \hline
+    SID (Acc. $\uparrow$) & VoxCeleb1 & 94.8 \parencite{hajibabaei_unified_2018} & 95.5 \parencite{chen_wavlm_2021} \\ \hline
     ASV (EER $\downarrow$) & VoxCeleb1 & 3.1 \parencite{hajavi_siamese_2021} & 2.4 \parencite{wang_finetuned_2021} \\ \hline
     QbE (MTWV $\uparrow$) & QUESST (EN) & 10.6 \parencite{rodriguez-fuentes_gttsehu_2014} & 11.2\parencite{chen_unispeechsat_2021} \\
     \bottomrule

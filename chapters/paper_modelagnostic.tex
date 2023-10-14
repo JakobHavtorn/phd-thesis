@@ -166,7 +166,7 @@ Computationally speaking, considering the score statistic instead of the MMD Fis
 
 \subsection{Why does it make sense to combine the score statistic and the typicality test?}
 
-Let us discuss our choice of combining the score statistic and the typicality test. We will try to look in which situations one of the test fails and the other works and vice versa. Both examples assume that the in-distribution data follows a $\mathcal{N}(0,I_D)$ distribution, and that the correct model has been learned by fitting $(\mathcal{N}(\theta,I_D))_{\theta \in \mathbb{R}^D}$ via maximum-likelihood. Even in this simple setting with no model misspecification, we will see that the two statistics that we consider may have very different strengths.
+Let us discuss our choice of combining the score statistic and the typicality test. We will try to look in which situations one of the test fails and the other works and vice versa. Both examples assume that the in-distribution data follows an $\mathcal{N}(0,I_D)$ distribution, and that the correct model has been learned by fitting $(\mathcal{N}(\theta,I_D))_{\theta \in \mathbb{R}^D}$ via maximum-likelihood. Even in this simple setting with no model misspecification, we will see that the two statistics that we consider may have very different strengths.
 
 In this simple Gaussian case, the score statistic can be computed exactly and will be $||\tilde{x}_1 + \ldots + \tilde{x}_n ||_2^2 $. On the other hand, the typicality statistic will be $| (||\tilde{x}_1||_2^2 + \ldots + ||\tilde{x}_n||_2^2)/(2\cdot n) -  D/ 2| $. One interesting regime is the very high-dimensional one ($D \to \infty$). Indeed, by the law of large numbers, these random statistics become deterministic quantities.
 
@@ -375,7 +375,7 @@ As can be seen in \cref{fig_modelagnostic:type1}, we have that the Type I ratio 
 \begin{figure}[tb]
     \centering
     \includegraphics[scale=0.6]{graphics/paper_modelagnostic/fashion_hvae_type1_correct_font.pdf}
-    \caption[Type I and Type II errors versus the significance level $\alpha$ on the combination values.]{Type I (probability of an inlier to be classified as outlier) and Type II (probability of an outlier to be considered as inlier) errors versus the significance level $\alpha$ on the combination values. By using Benjamini-Hochberg correction, we get that the Type I error stays below identity line.}
+    \caption[Type I and Type II errors versus the significance level $\alpha$ on the combination values.]{ Type I (probability of an inlier to be classified as outlier) and Type II (probability of an outlier to be considered as inlier) errors versus the significance level $\alpha$ on the combination values. By using Benjamini-Hochberg correction, we get that the Type I error stays below identity line.}
     \label{fig_modelagnostic:type1}
 \end{figure}
 

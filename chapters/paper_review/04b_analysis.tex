@@ -27,8 +27,8 @@ purpose. The first of these is canonical correlation analysis (CCA),
 which computes similarity scores between two continuous vectors
 based on the maximum correlation of their linear projections.  These
 can be used to judge the similarity of embeddings at different layers
-with each other, with standard acoustic representations such as mel
-filterbank features, or word embeddings derived from text. The second
+with each other, with standard acoustic representations such as Mel
+filter bank features, or word embeddings derived from text. The second
 method clusters continuous representation vectors and computes the
 discrete mutual information between cluster IDs and phone or word
 labels. The third method involves probing tasks: representation
@@ -39,13 +39,13 @@ similarity tasks~\parencite{faruqi_community_2014}. These are mostly used to gau
 amount of lexical information present in the embeddings.  Using this
 battery of tests the authors compared pre"=trained models of varying
 sizes as well as models fine"=tuned for ASR. They found that pre"=trained
-models show an autoencoder-style behavior, with early layers showing
+models show an autoencoder-like behavior, with early layers showing
 strong similarity with input features, intermediate layers diverging
-more, and final layers reverting back to higher similarity with input
+more, and final layers reverting to higher similarity with input
 features and early layers. Generally, the earlier layers in wav2vec~2.0 
 models encode acoustic information. The next set of layers encodes
 phonetic class information, followed by word meaning information,
-before reverting back to encoding phonetic/acoustic information. Thus,
+before reverting to encoding phonetic/acoustic information. Thus,
 extracting representations from the last layers for tasks that require
 phonetic or word-related information may not be the best
 strategy. Indeed, the authors of \parencite{baevski_unsupervised_2021} show that a
@@ -55,7 +55,7 @@ for layers 10--21 and higher error rates for the other layers.
 \parencite{pasad_layerwise_2021} further show that fine"=tuning the pre"=trained model with a
 character-level CTC training criterion changes the behavior of the
 last layers (especially the final two layers), breaking the
-autoencoder-style behavior and focusing the information encoded in the
+autoencoder-like behavior and focusing the information encoded in the
 last layers on orthographic-phonetic and word information. 
 
 The peaking of class-relevant information in intermediate layers seems to be
@@ -123,9 +123,9 @@ directionality of contextual information) also showed that it is the training
 criterion that most influences the information encoded in the representations,
 not the architecture of the learner or the directionality of the input. 
 
-A similar insight was obtained in \parencite{zhou_comparison_2020}, which compared vq-vae and
+A similar insight was obtained in \parencite{zhou_comparison_2020}, which compared VQ-VAE and
 vq-wav2vec with respect to their ability to discover phonetic units.
-The vq-vae model extracts continuous features from the audio signal; a
+The VQ-VAE model extracts continuous features from the audio signal; a
 quantizer then  maps them into a discrete space, and a decoder is trained to
 reconstruct the original audio conditioned on the latent discrete
 representation and the past acoustic observations. By contrast, vq-wav2vec
@@ -134,7 +134,7 @@ embeddings of past discrete representations, in a CPC-style way. The models
 were evaluated according to their ability to discover phonetic units (as
 measured by phone recognition error rate on TIMIT, and the ZeroSpeech ABX task
 (see \cref{sec:zero} for more details)), and it was found that the predictive vq-wav2vec
-model fared better than the autoencoder-like vq-vae model, most likely due to
+model fared better than the autoencoder-like VQ-VAE model, most likely due to
 its superior ability to model temporal dynamics.
 
 \subsection{Effects of data and model size}
@@ -188,8 +188,8 @@ training and test data. The
 training data consisted of clean, read speech (LS)
 whereas test data consisted of the Switchboard corpus and TED talks. The
 distributional shifts here may stem from both the acoustics (microphone, room
-reverberation) as well as
-lexical effects related to topic and style, as well as differences in speaker
+reverberation),
+lexical effects related to topic and style, and differences in speaker
 characteristics such as accent. 
 Similar problems were also investigated using HuBERT and wav2vec~2.0 models in
 \parencite{chang_exploration_2021}.

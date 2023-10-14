@@ -20,7 +20,7 @@ In \cref{subsec:zero}, the SSL representation is further used in scenarios where
 
 \subsection{Unpaired text and audio} \label{secsec:unpaired}
 % What are we going to do % how to match
-%In the self"=supervised learning framework, speech representations can be learned and used in the downstream tasks, but some labeled data for finetuning is needed.
+%In the self"=supervised learning framework, speech representations can be learned and used in the downstream tasks, but some labeled data for fine-tuning is needed.
 
 \begin{sidewaystable}
 \centering
@@ -40,7 +40,7 @@ In \cref{subsec:zero}, the SSL representation is further used in scenarios where
 	\midrule
 	\parencite{liu_completely_2018}& Audio word2vec~\parencite{wang_segmental_2018} & Oracle & Phoneme & \edit{Adversarial Training~\parencite{gulrajani_improved_2017}} & - & TIMIT (PER): 63.6\%  \\ %Submitted on 1 Apr 2018
 	\midrule
-	\parencite{chung_unsupervised_2018} & Speech2vec~\parencite{chung_speech2vec_2018} & BES-GMM~\parencite{kamper_segmental_2017} &  Word2Vec & \edit{Adversarial Training~\parencite{conneau_word_2018}} & Self-training & SWC (Acc): 10.9\%  \\ %Submitted on 18 May 2018
+	\parencite{chung_unsupervised_2018} & Speech2vec~\parencite{chung_speech2vec_2018} & BES-GMM~\parencite{kamper_segmental_2017} &  Word2Vec & \edit{Adversarial Training~\parencite{conneau_word_2018}} & Self-training & SWC (Acc.): 10.9\%  \\ %Submitted on 18 May 2018
 	%https://arxiv.org/pdf/1805.07467.pdf %The text embeddings were obtained by training Word2Vec on the transcriptions using the fastText implementation without subword information [3].
 	\midrule
 	
@@ -56,7 +56,7 @@ In \cref{subsec:zero}, the SSL representation is further used in scenarios where
 	\parencite{baevski_unsupervised_2021} & Wav2vec 2.0~\parencite{baevski_wav2vec_2020} & $k$-means & Phoneme &\edit{Adversarial Training~\parencite{gulrajani_improved_2017}} & Self-training & \tabincell{l}{TIMIT (PER):  18.6\%, \\ LibriSpeech (WER): 5.9\%}   \\
 	\midrule
 	
-	\textcolor{black}{\parencite{klejch_deciphering_2022}} & \textcolor{black}{\tabincell{l}{Universal Phone \\ Recogniser}} & - & \textcolor{black}{Grapheme} & \textcolor{black}{Decipherment~\parencite{ravi_deciphering_2011}} & \textcolor{black}{Self-training} & \textcolor{black}{\tabincell{l}{GlobalPhone: 32.5\% to just 1.9\% \\ worse than supervised models} }  \\ %ubmitted on 12 Nov 2021 %m 32.5% to just 1.9% absolute worse than the equivalent fully supervised models trained on the same data
+	\textcolor{black}{\parencite{klejch_deciphering_2022}} & \textcolor{black}{\tabincell{l}{Universal Phone \\ Recognizer}} & - & \textcolor{black}{Grapheme} & \textcolor{black}{Deciphering~\parencite{ravi_deciphering_2011}} & \textcolor{black}{Self-training} & \textcolor{black}{\tabincell{l}{GlobalPhone: 32.5\% to just 1.9\% \\ worse than supervised models} }  \\ %ubmitted on 12 Nov 2021 %m 32.5% to just 1.9% absolute worse than the equivalent fully supervised models trained on the same data
 	\midrule
 	\textcolor{black}{\parencite{liu_endtoend_2023}} & \textcolor{black}{Wav2vec 2.0~\parencite{baevski_wav2vec_2020} }& - & \textcolor{black}{Phoneme} & \textcolor{black}{Adversarial Training~\parencite{gulrajani_improved_2017}} & \textcolor{black}{Self-training} & \textcolor{black}{LibriSpeech (WER): 6.3\%}   \\
 	\midrule
@@ -107,7 +107,7 @@ After the training, the generator serves as the speech recognition model.
 There is a large amount of work using gradient penalty in the objective of training discriminators~\parencite{liu_completely_2018,chen_completely_2019,baevski_unsupervised_2021,liu_endtoend_2023}, which is inspired by Improved Wasserstein Generative Adversarial Network (WGAN)~\parencite{gulrajani_improved_2017}.
 }
 \textcolor{black}{
-Other ways to map speech and text include via segmental empirical output distribution matching (segmental empirical-ODM)~\parencite{yeh_unsupervised_2019} and decipherment algorithm~\parencite{klejch_deciphering_2022}.}
+Other ways to map speech and text include segmental empirical output distribution matching (segmental empirical-ODM)~\parencite{yeh_unsupervised_2019} and the deciphering algorithm~\parencite{klejch_deciphering_2022}.}
 
 % Difficulty of unsupervised ASR (v.s. unsupervised MT)
 Success in unsupervised neural machine translation
@@ -150,48 +150,9 @@ and achieve promising performance on spoken word classification, speech
 translation, and spoken word retrieval.
 \Cref{tab:unsupervisedASR} summarizes the various ways to segment speech and represent speech and text in each reference.  
 
-%Hung-yi Lee: I comment this paragraph first.
-\begin{comment}
-%Hung-yi Lee: This paragraph is not finished yet.
-\TNS{if we are limited on space,we can consider removing some of the detail of the various algorithms}
-\TNS{split into 2 sentences, also have a connection to the previous para}
-\parencite{liu_completely_2018} is the first work to successfully achieve unsupervised
-phoneme recognition by first clustering phoneme-level
-embeddings~\parencite{chung_audio_2016,wang_segmental_2018} into a set of
-tokens and then using GAN to learn the mapping relationship between tokens and
-phonemes. 
-However, in \parencite{liu_completely_2018}, oracle phoneme segmentation is still
-required to get reasonable performance. 
-\parencite{chen_completely_2019,yeh_unsupervised_2019} uses gate activation signals
-(GAS)~\parencite{wang_gate_2017} to get the phoneme-level segmentation, which is
-unsupervised. 
-%However, the loss term in~\parencite{yeh_unsupervised_2019} includes an empirical average over all segments inside a logarithmic function, which can be biased if we sample this empirical average by a mini-batch average. \parencite{liu2017unsupervised} therefore use an extremely large batch size during training to reduce the biasing problem.
-%These problems are handled by another work~\parencite{chen_completely_2019}.
-%\parencite{chen_completely_2019} removes the quantization step.
-%Compared to~\parencite{yeh_unsupervised_2019}, the discriminator in~\parencite{chen_completely_2019} considers all possible information from the text dataset, not limited to the n-gram local statistics.
-%Besides, \parencite{chen_completely_2019} works well with a reasonable batch size, which makes it feasible when the computational resource is limited.
-Wav2vec-U~\parencite{baevski_unsupervised_2021} selects the input feature from
-different layers of wave2vec 2.0~\parencite{baevski_wav2vec_2020}, a self"=supervised
-model.
-The selecting criterion is the PER by training a linear model in a supervised manner. 
-%Should we mention this?
-Wav2vec-U uses $k$-means to cluster the selected features, and the boundaries
-are drawn whenever the clustered index changes.
-%Wave2vec-U tends to generate more segments compared to the oracle phoneme-level segments. For example, their segmentation gives 0.93 precision, the ratio of the oracle phoneme-level boundaries being hit, and 0.38 recall, the ratio of the generated boundaries hit the oracle phoneme-level boundaries.
-While Wav2vec-U merges the neighboring segments containing the same predicted
-labels in each step of GAN training, this design can be viewed as refining the
-segmentation implicitly.  
-%Should we mention this?
-%At generator output, the wav2vec-U will combine the neighboring predicted posterior containing the same predicted label into a predicted posterior.
-\end{comment}
 
-%In \parencite{chung_unsupervised_2018, chung_unsupervised_2019a}, the word boundaries are also generated automatically with speech only. 
-%However, \parencite{chung_unsupervised_2018, chung_unsupervised_2019a} need oracle boundaries, therefore not completely unsupervised as the framework proposed in this paper.
-
-% more improvement: iterative training, development 
 As shown in \cref{tab:unsupervisedASR}, most studies use
 \textit{self-training} to refine the models.
-% to achieve better performance.  % AMH: redundant
 In self-training, the generator serves as the first-version phoneme recognition model.
 Inputting unpaired speech to the generator generates the corresponding
 ``pseudo transcription''. 
@@ -201,10 +162,7 @@ Although the pseudo transcriptions have more errors than oracle
 transcriptions, experiments show that training models on pseudo
 transcriptions still significantly boosts performance compared to the
 first-version model.
-%With the new model, we can further obtain new transcriptions.
-%The iteration will continue until the performance converges. 
 
-%Using performance to end this section.
 Wav2vec-U~\parencite{baevski_unsupervised_2021} achieved state-of-the-art results at the time, which suggests that representation learning is
 essential for the success of unsupervised ASR.
 It achieved an 11.3\% phoneme error rate on the TIMIT benchmark. 
@@ -217,27 +175,9 @@ domain-mismatch scenarios in which the domains of unpaired
 speech and text were different~\parencite{lin_analyzing_2022}.
 Experimental results showed that domain mismatch leads to inferior performance, but a representation model pre"=trained on the targeted speech domain extracts better representations and reduces this drop in performance.
 
-%Hung-yi: The technique below is very important. But I think it is fine to ignore this part in a reviewe paper due to space limitation. 
-\begin{comment}
-In unsupervised learning, how to determine the hyperparameters is an issue. 
-In a typical supervised framework, hyperparameter tuning is done by a
-development set, which includes labeled data.
-In an unsupervised setting, the existence of this kind of development is tricky. %Is tricky a correct term?
-The existence of such kind of development set means the presence of the labeled
-data.
-Therefore, wav2vec-U~\parencite{baevski_unsupervised_2021} develops a new approach to
-determine the hyperparameters without a labeled development set. 
-%should I provide more details? 
-\end{comment}
-
-%Hung-yi: A series of work (most from MS) focuses on meager resources but not wholly unsupervised. Perhaps we have to mention the papers.
 
 
 \paragraph{ASR-TTS}
-%{\color{black} Shinji}\\
-%{\color{black} Hung-yi: In the last meeting, we discussed the connection between this section and self"=supervised learning. In addition to looking for papers using self-supervision to improve the ASR-TTS framework here, I think there may be another direction. Can we regard this ASR-TTS framework as a kind of self"=supervised learning? ASR-TTS is similar to an autoencoder, and the output of ASR is "latent representation". In other words, this section describes a special self"=supervised learning method, whose representation is expressed as "text."}\\
-%{\color{black} Hung-yi: However, the above idea sounds tricky. In addition, the ``ASR-TTS'' autoencoder is learned by semi"=supervised, not self"=supervised.}
-% AMH: to make the paper more consistent, I recommend changing all $f^{\mathrm{asr}}$ to $f_{\mathrm{asr}}$
 Here we describe an alternative approach by which to train an ASR and \edit{text-to-speech (TTS)} system
 based on unpaired text and audio. The ASR-TTS framework, which \edit{combines the ASR} and
 TTS systems in a cascaded manner,
@@ -259,20 +199,12 @@ $f_{\mathrm{asr}}(X)$ with acoustic input $X$ and pre"=trained TTS model $g_{\ma
 By following the TTS system with an ASR system, we generate new 
 acoustic feature sequence~$\hat{X}$, which must be close to the original input~$X$.
 Thus, we design a loss function $\mathcal{L}_{\mathrm{asr} \rightarrow \mathrm{tts}}(X, \hat{X})$, where $\hat{X}$ is generated by
-%and~$\hat{X}$:
-%\begin{equation}
-%    \mathcal{L}_{\mathrm{asr} \rightarrow \mathrm{tts}} (X, \hat{X}),
-%\end{equation}    
-%where
 \begin{equation}
     \hat{X} = g_{\mathrm{tts}}(f_{\mathrm{asr}}(X)) \enspace .
     \label{eq:asr-tts}
 \end{equation}
 Thus, we train the ASR model (or both ASR and TTS models) using only
 the acoustic input by minimizing $\mathcal{L}_{\mathrm{asr} \rightarrow \mathrm{tts}}$.  
-%\begin{equation}
-%\hat{\theta}_{\mathrm{asr}} = \arg \min _{\theta_{\mathrm{asr}}} \mathcal{L}(Y, \hat{Y}; \theta_{\mathrm{asr}}, \theta_{\mathrm{tts}}).
-%\end{equation}
 Note that this approach does not require the supervised text data~$Y$}.
 As an analogy to the generative approach in \cref{sec:generative}, the
 intermediate ASR output~$\hat{Y}$ can be regarded as the latent representation~$Z$.
@@ -297,7 +229,6 @@ This technique is a sub-problem of the TTS-ASR approach formulated in
 parameters. 
 For example, a huge amount of text resources can be obtained from the web
 and document archives without corresponding audio data.
-%Self"=supervised learning in this paper mostly focuses on representation learning perspectives of such unpaired data.
 The typical use case scenario of such a text resource for ASR is through \edit{the
 language model}. 
 We combine the ASR and language model via a noisy channel 
@@ -309,8 +240,6 @@ learning~\parencite{oord_wavenet_2016,shen_natural_2018} has inspired another in
 straightforward research direction: \edit{artificially creating paired text and audio
 data $\{\hat{X}, Y\}$ with only text data~$Y$ by generating the corresponding
 audio data~$\hat{X}$ with TTS.} %\begin{equation}
-%    \{\hat{X}, Y\} \text{ where } \hat{X} = g_{\mathrm{tts}} (Y).
-%\end{equation}
 The most straightforward approach is to simply use multi-speaker TTS to
 generate the waveform with various acoustic 
 variations~\parencite{li_training_2018,ueno_multispeaker_2019,rosenberg_speech_2019,laptev_you_2020,huang_using_2020}.
@@ -322,11 +251,7 @@ This approach is similar to the back-translation technique developed in \edit{ne
 One benefit of the above data generation approaches is that it can be used to feed
 unseen word or context phrases to end-to-end ASR.
 
-% {\color{black} Shinji: puts some notions to encourage the community to contributions to work on this direction and has more connections to the current SSL.}
-
 \subsection{No text or lexicon} \label{subsec:zero}
-
-% \kl{moved the acoustic word embedding subsection from here to the rep learning methods section.}\\
 
 \paragraph{Zero-resource speech technologies and challenges}
 % {\color{black} Shinji}\\
@@ -419,7 +344,7 @@ follows the language model to produce speech waveforms given the generated
 discrete speech units. The generated spoken continuations compete with
 supervised generations and synthesis using a character language model in
 subjective human evaluations. The model completes incomplete words
-(pow[..] $\rightarrow$ POWER) and continues using words in the same general mood (dark $\rightarrow$
+(pow[...] $\rightarrow$ POWER) and continues using words in the same general mood (dark $\rightarrow$
 BLACKNESS)\footnote{https://speechbot.github.io/gslm/} and has been extended to
 model and generate
 dialogues~\parencite{nguyen_generative_2022}.\footnote{https://speechbot.github.io/dgslm/}

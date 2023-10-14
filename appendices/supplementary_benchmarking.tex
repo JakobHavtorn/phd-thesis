@@ -27,7 +27,7 @@ We randomly sample 5\% of the training set to use as a validation set.
 TIMIT includes temporally aligned annotations of phonemes and words as well as speaker metadata such as gender, height, age, race, education level and dialect region \parencite{garofolo_timit_1993}.
 
 \paragraph{LibriSpeech and LibriLight}
-The LibriSpeech dataset \parencite{panayotov_librispeech_2015} consists of readings of public domain audio books amounting to approximately $\SI{1000}{h}$ of audio. The data is derived from the LibriVox project.
+The LibriSpeech dataset \parencite{panayotov_librispeech_2015} consists of readings of public domain audiobooks amounting to approximately $\SI{1000}{h}$ of audio. The data is derived from the LibriVox project.
 LibriLight \parencite{kahn_libri-light_2020} is a subset of LibriSpeech created as an automatic speech transcription (ASR) benchmark with limited or no supervision.
 We specifically train on the $\SI{100}{h}$ \textrm{train-clean-100} subset of LibriSpeech and the $\SI{10}{h}$ subset of LibriLight. 
 In all cases we evaluate on all the test splits \textrm{dev-clean}, \textrm{dev-other}, \textrm{test-clean}, \textrm{test-other}.
@@ -119,7 +119,7 @@ We specifically hypothesize that models that are autoregressive in the observed 
         1         & DMoL                & Optimal               & 10.70 \\   % $mean[0.00], scale=[0.005]$
         -         & FLAC                & Linear PCM            & 8.582 \\
         \midrule
-        $1$       & Wavenet             & $D_C=96$              & \textbf{7.246} \\
+        $1$       & WaveNet             & $D_C=96$              & \textbf{7.246} \\
         $1$       & LSTM                & $D_d=256, L=1$        & 7.295 \\
         $1$       & VRNN                & $D_z=256$             & $\leq$7.316 \\
         $1$       & SRNN                & $D_z=256$             & $\leq$7.501 \\
@@ -159,12 +159,12 @@ We specifically hypothesize that models that are autoregressive in the observed 
         \toprule
         $s$    & \bfseries Model           & \bfseries Configuration           & \bfseries $\mathcal{L}$ [bpf] \\
         \midrule
-        $1$       & Wavenet             & $D_C=16$              & 11.27 \\
-        $1$       & Wavenet             & $D_C=24$              & 11.14 \\
-        $1$       & Wavenet             & $D_C=32$              & 11.03 \\
-        $1$       & Wavenet             & $D_C=96$              & 10.88 \\
-        $1$       & Wavenet             & $D_C=128$             & 10.98 \\
-        $1$       & Wavenet             & $D_C=160$             & 10.91 \\
+        $1$       & WaveNet             & $D_C=16$              & 11.27 \\
+        $1$       & WaveNet             & $D_C=24$              & 11.14 \\
+        $1$       & WaveNet             & $D_C=32$              & 11.03 \\
+        $1$       & WaveNet             & $D_C=96$              & 10.88 \\
+        $1$       & WaveNet             & $D_C=128$             & 10.98 \\
+        $1$       & WaveNet             & $D_C=160$             & 10.91 \\
         $1$       & LSTM                & $D_d=128, L=1$        & 11.40 \\
         $1$       & LSTM                & $D_d=256, L=1$        & 11.11 \\
         $1$       & VRNN                & $D_z=256$             & $\leq$11.09 \\
@@ -308,7 +308,7 @@ Hence, it seems plausible that multimodality may pose a larger problem in non"=a
 
 
 \section{Additional graphical models}\label{app: additional graphical models}
-In \cref{fig: cwvae cell state graph} we show the graphical model of the recurrent cell of the CW-VAE for a single time step. As noted in \parencite{saxena_clockwork_2021}, this cell is very similar to the one of the Recurrent State Space Model (RSSM) \parencite{hafner_learning_2019}.
+In \cref{fig: cwvae cell state graph} we show the graphical model of the recurrent cell of the CW-VAE for a single timestep. As noted in \parencite{saxena_clockwork_2021}, this cell is very similar to the one of the Recurrent State Space Model (RSSM) \parencite{hafner_learning_2019}.
 In \cref{fig: cwvae three-layered graphical models (inference and generative)} we show the unrolled graphical models of a three-layered CW-VAE with $k_1=1$ and $c=2$ yielding $k_2=2$ and $k_3=4$. 
 We show both the generative and inference models and highlight in blue the parameter sharing between the two models due to top-down inference.
 In \cref{fig: stcn graphical models (inference and generative)} we show the graphical models of the STCN \parencite{aksan_stcn_2019} at a single timestep. The model has three layers and shares the parameters of the WaveNet encoder between the inference and generative models.
@@ -970,7 +970,7 @@ All results presented here are obtained with a 2-layered CW-VAE trained on $\mu$
          \caption{}
          \label{fig: mel features gender}
      \end{subfigure}
-    \caption[Clustering of speaker gender in 1D linear subspace of a CW-VAE latent space and a time-averaged mel spectrogram.]{Clustering of speaker gender in an one-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space and of a time-averaged mel spectrogram. The total overlap is slightly smaller in the subspace of the CW-VAE latent space and the separation between the distribution peaks is larger.}
+    \caption[Clustering of speaker gender in 1D linear subspace of a CW-VAE latent space and a time-averaged Mel spectrogram.]{ Clustering of speaker gender in a one-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space and of a time-averaged Mel spectrogram. The total overlap is slightly smaller in the subspace of the CW-VAE latent space and the separation between the distribution peaks is larger.}
     \label{fig: latent space visualization gender}
 \end{figure}
 
@@ -991,7 +991,7 @@ All results presented here are obtained with a 2-layered CW-VAE trained on $\mu$
          \caption{}
          \label{fig: cwvae latent z0 age}
      \end{subfigure}
-    \caption[Clustering of speaker gender in 2D linear subspace of a CW-VAE latent space.]{\subref{fig: cwvae latent z1 height} Clustering of speaker height for male speakers and \subref{fig: cwvae latent z0 age} speaker age for female speakers in an two-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space.}
+    \caption[Clustering of speaker gender in 2D linear subspace of a CW-VAE latent space.]{\subref{fig: cwvae latent z1 height} Clustering of speaker height for male speakers and \subref{fig: cwvae latent z0 age} speaker age for female speakers in a two-dimensional linear subspace defined by a linear discriminant analysis of the CW-VAE latent space.}
     \label{fig: cwvae latent height}
 \end{figure}
 
@@ -999,7 +999,7 @@ All results presented here are obtained with a 2-layered CW-VAE trained on $\mu$
 
 
 \section{Distribution of phoneme duration in TIMIT}\label{app: timit phoneme distributions}
-In \cref{fig: timit validation set phoneme duration} we plot a boxplots of the duration of each phoneme in the TIMIT dataset. We do this globally as well as for a single speaker to show that phoneme duration can vary between individual speakers. 
+In \cref{fig: timit validation set phoneme duration} we plot a box plots of the duration of each phoneme in the TIMIT dataset. We do this globally as well as for a single speaker to show that phoneme duration can vary between individual speakers. 
 
 A description of the phonemes used for the TIMIT dataset can be found at \url{https://catalog.ldc.upenn.edu/docs/LDC93S1/PHONCODE.TXT}.
 
@@ -1018,14 +1018,14 @@ A description of the phonemes used for the TIMIT dataset can be found at \url{ht
         \caption{}
         \label{fig: timit validation set phoneme duration global}
     \end{subfigure}
-    \caption[Boxplots of duration of phoneme pronunciation in TIMIT.]{Boxplots of the duration of the pronunciation of phonemes in TIMIT for a specific speaker DRW0 in (\subref{fig: timit validation set phoneme duration DRW0}) and globally in (\subref{fig: timit validation set phoneme duration global}). Not all phonemes are pronounced by speaker DRW0 over the course of their 10 test set sentences and hence they are missing from the x-axis compared to the global durations.}
+    \caption[Box plots of duration of phoneme pronunciation in TIMIT.]{ Box plots of the duration of the pronunciation of phonemes in TIMIT for a specific speaker DRW0 in (\subref{fig: timit validation set phoneme duration DRW0}) and globally in (\subref{fig: timit validation set phoneme duration global}). Not all phonemes are pronounced by speaker DRW0 over the course of their 10 test set sentences and hence they are missing from the x-axis compared to the global durations.}
     \label{fig: timit validation set phoneme duration}
 \end{figure}
 
 \section{Model samples and reconstructions}\label{app: model samples and reconstructions}
 We provide samples and reconstructions for some of the models considered here at the following URL: \url{https://doi.org/10.5281/zenodo.5911899}.
 The samples are generated from the prior of Clockwork VAE, SRNN and VRNN and from a WaveNet by conditioning on pure zeros. All models are configured as those reported in \cref{tab: likelihoods timit}.
-Importantly, the samples are unconditional. Hence they are \emph{not} reconstructions inferred from a given input nor are they conditioned on any auxiliary data like text.
+Importantly, the samples are unconditional. Hence, they are \emph{not} reconstructions inferred from a given input nor are they conditioned on any auxiliary data like text.
 
 Although sample quality is a somewhat subjective matter, we find the quality of the unconditional Clockwork VAE to be better than those of our VRNN and SRNN. WaveNet is known to produce samples with intelligible speech when conditioned on e.g. text, but unconditional samples from WaveNet lack semantic content such as words as do VRNN, SRNN and Clockwork VAE.
 
