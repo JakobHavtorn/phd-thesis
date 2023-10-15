@@ -23,10 +23,6 @@ In this thesis we studied two different approaches to speech representation lear
 As we saw, the probabilistic formulation of VAEs provides benefits for their application to uncertainty quantification, although competitive methods that use self"=supervised foundation models have also been proposed \textcite{xiao_we_2021,hendrycks_using_2019,bergman_classificationbased_2020}. Self"=supervised methods are generally superior when it comes to performance on downstream tasks. While this of course depends on the task and the amount and type of unlabeled and labeled data, self"=supervised methods for speech are commonly evaluated on downstream tasks that are harder and more complex than those used for VAEs. For instance, between \cref{tab: phoneme recognition (PER),tab:unsupervisedASR} self"=supervised methods can be seen to outperform VAEs for phoneme recognition while self"=supervised methods are also reported for word-level speech recognition. 
 In the following, we will discuss potential directions of future research that might help shed light on why VAEs representations underperform on downstream tasks and how they might be improved.
 
-% Considering VAEs and self"=supervised methods, it seems we have not yet been able to build a model that has a principled probabilistic representation of uncertainty without compromising its ability to learn representations that are useful for downstream applications. 
-
-% Different from self"=supervised methods, VAEs learn the distribution over the training data and are forced to encode all aspects important to it. 
-% As we saw in \cref{chp:paper-hierarchical}, this will generally include low-level features that are important for accurate input reconstruction, but usually of lesser interest for downstream tasks.
 
 \paragraph{Designing the latent space} 
 Architectural improvements and hierarchies of latent variables are two related, and interesting, approaches to learning more semantic features in VAEs. 
@@ -56,14 +52,6 @@ Despite much of this progress being prior to the latest, very large hierarchical
 This seems to indicate that there might be untapped potential in consolidating the work on low-variance gradient estimators and advanced architectures and inference networks.
 
 
-% Although the path-wise derivative has lower variance than most alternatives, such as score function estimators, a number of works have attempted to reduce its variance.
-% \textcite{roeder_sticking_2017} note that the path-wise derivative can be factored into a path-wise estimator and a score function estimator and propose to ignore the score function factor to reduce gradient variance. 
-% \textcite{rainforth_tighter_2019} show that this problem is even larger for the importance weighted ELBO \parencite{burda_importance_2016} and leads to diminishing returns when increasing the number of samples. 
-% Rather than removing the score function factor in the estimate, \textcite{tucker_doubly_2019} propose to reparameterize it and derive low variance gradient estimators, also for importance weighted ELBO.
-
-
-
-
 \paragraph{Masking} 
 As discussed in \cref{chp:paper-review}, masking is one of the driving techniques behind the success of self"=supervised methods for speech \parencite{devlin_bert_2018,baevski_wav2vec_2020}. By removing tokens from the input or an early feature extraction layer and tasking a model with inferring their representations, models are forced to learn how neighboring tokens relate to those masked. Depending on the size of the mask, these dependencies can be more or less semantic in nature. For instance, the wav2vec 2.0 model is well-known to learn representations that have high similarity with word identity and meaning \parencite{pasad_layerwise_2021}. 
 In comparison, reconstruction in VAEs is done from latent variables that are inferred from the full, unmasked input. Since all information is generally available, this might allow the encoder and decoder models to perform well for reconstruction, even with no, or limited, use of contextual dependencies. Furthermore, VAE reconstruction almost always targets the direct input in order to learn the distribution over the training data and to enable generating new samples. However, compared to many self"=supervised methods that target intermediate, learned representations, this forces VAEs to encode all aspects of the input that are important to its distribution. As we saw in \cref{chp:paper-hierarchical}, this will generally include low-level features that are necessary for accurate input reconstruction. Such features require large latent space representations and model capacity \parencite{vahdat_nvae_2020,child_very_2021}, but are usually of lesser interest for downstream tasks \parencite{baevski_wav2vec_2020}.
@@ -74,6 +62,20 @@ The idea of using VAEs to impute missing data was already examined in the semina
 Previous work that trains on partially observed data has largely focused on the ability of these models to yield high-quality imputations within the tabular and image data domains and have not probed for the effects on the learned latent representation \parencite{mattei_miwae_2019, ipsen_not-miwae_2021}. 
 
 Including masked objectives into the principled probabilistic framework of VAEs might require creative thinking, but it seems likely that relaxing the requirement of exact input reconstruction and enforcing the need of encoding (and decoding) contextual information could lead the way for future types of VAEs to learn representations that are competitive with self"=supervised methods.
+
+
+\paragraph{Giving up?}
+\lesstodo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
+\lesstodo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \parencite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
+
+
+
+
+\lesstodo[inline]{Out-of-distribution detection on speech?}
+
+
+
+
 
 
 % \subsection{Uncertainty estimation with self-supervised methods}
@@ -87,22 +89,6 @@ Including masked objectives into the principled probabilistic framework of VAEs 
 % % \textcite{wickstrom_relax_2023} propose a method for quantifying uncertainty based on 
 
 
-
-
-
-
-
-% \section{\Cref{chp:paper-hierarchical} revisited: \dots}
-
-% \lesstodo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \parencite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
-% \lesstodo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
-% \lesstodo[inline]{Discuss some recent work e.g. \cref{morningstar_density_2021}}
-
-
-% \section{\Cref{chp:paper-benchmarking} revisited: Bested?}
-
-% \lesstodo[inline]{Discuss whether variational autoencoders are viable for learning good representations for speech for downstream tasks when alternatives such as SSL method exist.}
-% \lesstodo[inline]{Out-of-distribution detection on speech?}
 
 
 % \section{\Cref{chp:paper-review} revisited: \dots} \label{sec:discussion-paper-review}
