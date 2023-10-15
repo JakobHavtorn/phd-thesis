@@ -127,8 +127,8 @@ The Kullback-Leibler divergence plays a central role in the training of variatio
 %   - Supervised: Whether p(y|x) should be trusted for a given x. 
 %   - Unsupervised: Whether x should be trusted and used at all. 
 %
-In this section we will introduce out-of-distribution (OOD) detection and relate it to the concept of uncertainty. 
-To supplement the short related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic}, we will then provide a concise review of the literature on out-of-distribution detection. 
+In this section we introduce out-of-distribution (OOD) detection and connect it to the concept of uncertainty. 
+Since the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic} are relatively short, we also provide a concise review of the literature on out-of-distribution detection. 
 
 \subsection{An overview of the task}
 %
@@ -194,8 +194,8 @@ In the supervised setting the supervision can come from different sources depend
 Methods that use representative OOD data have achieved high performance since they can directly learn to distinguish between in-distribution and OOD data. 
 \textcite{hendrycks_deep_2019} augment the original training objective with a task-dependent outlier exposure loss that aims to make the output logits discriminative of outlier data. 
 In a similar vein, \textcite{dhamija_reducing_2018} propose losses designed to maximize the entropy of $p(y|\xb)$ and decrease feature magnitudes for OOD data sampled from other datasets. 
-\textcite{ruff_deep_2020} use semi"=supervised learning and learn representations of in-distribution data that concentrate close to a centroid in latent space while labelled outliers are pushed away from the centroid. 
-Other methods including MCD \parencite{yu_unsupervised_2019}, NGC \parencite{wu_ngc_2021}, and UDG \parencite{yang_semantically_2021} use external, unlabeled, noisy data to improve OOD detection performance without requiring cleanly labelled OOD examples. 
+\textcite{ruff_deep_2020} use semi"=supervised learning and learn representations of in-distribution data that concentrate close to a centroid in latent space while labeled outliers are pushed away from the centroid. 
+Other methods including MCD \parencite{yu_unsupervised_2019}, NGC \parencite{wu_ngc_2021}, and UDG \parencite{yang_semantically_2021} use external, unlabeled, noisy data to improve OOD detection performance without requiring cleanly labeled OOD examples. 
 As we discussed earlier, for many modern applications of machine learning, input data is often high dimensional and complex which makes it difficult to obtain enough representative OOD data to ensure robust OOD detection capabilities. 
 
 % Synthetic OOD data
@@ -383,12 +383,12 @@ Diffusion models have also been used for OOD detection via a reconstruction-base
 \textcite{xiao_we_2021} instead propose to use an existing, strong foundation model, pre"=trained with a self"=supervised objective, to extract features from the input, and then fit a Gaussian Mixture Model to the features using the minimal Mahalanobis distance to the mixture components as the OOD score.
 
 Several other works also use self"=supervised representations of the in-domain data for OOD detection \parencite{hendrycks_using_2019,bergman_classificationbased_2020}. 
-\textcite{tack_csi_2020} propose to use a contrastive objective to learn representations of the in-domain data contrasted with data augmented in-samples and use a softmax classifier trained on the representations to compute the OOD score. \textcite{sehwag_ssd_2021} present a similar approach but use the feature space Mahalanobis distance similar to \textcite{denouden_improving_2018}. 
+\textcite{tack_csi_2020} propose to use a contrastive objective to learn representations of the in-domain data contrasted with data augmented in-samples and use a softmax classifier trained on the representations to compute the OOD score. \textcite{sehwag_ssd_2021} present a similar approach but use the feature space Mahalanobis distance, similar to \textcite{denouden_improving_2018}. 
 \textcite{ahmadian_likelihoodfree_2021} propose to use the latent representation of an invertible generative model to compute the OOD score.
 
 
 \section{Variational autoencoders}
-
+%
 % \paragraph{Deep generative models} 
 VAEs belong to the class of deep generative models which are models that learn a probabilistic representation of the input data and can be used to generate new samples from the same distribution. 
 There exist at least six main classes of deep generative models: variational autoencoders \parencite{kingma_autoencoding_2014,rezende_stochastic_2014,ranganath_hierarchical_2016,vahdat_nvae_2020,child_very_2021}, normalizing flow models \parencite{dinh_nice_2015,rezende_variational_2015,dinh_density_2017,kingma_glow_2018,grathwohl_ffjord_2018}, diffusion models \parencite{sohl-dickstein_deep_2015,song_generative_2019, ho_denoising_2020, vahdat_scorebased_2021}, energy-based models \parencite{lecun_tutorial_2006,hinton_fast_2006,salakhutdinov_efficient_2010,du_implicit_2019}, autoregressive models \parencite{oord_conditional_2016,oord_wavenet_2016,radford_improving_2018}, and generative adversarial networks \parencite{goodfellow_generative_2014,arjovsky_wasserstein_2017,brock_large_2019,karras_stylebased_2019}. 
@@ -420,8 +420,8 @@ In these cases, approximate methods such as variational inference \parencite{jor
 
 
 \subsection{Variational autoencoders} \label{sec:variational-autoencoders}
-To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to parameterize the generative model $p_\thetab(\xb,\zb)$ as a neural network with parameters $\thetab$. Specifically, they use a neural network to parameterize the conditional distribution $p_\thetab(\xb|\zb)$ and choose some simple distribution for the prior $p(\zb)$. 
-Since this makes the marginal and posterior distributions intractable, both training and inference require approximate methods. 
+To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to parameterize the generative model $p_\thetab(\xb,\zb)$ using a neural network with parameters $\thetab$. Specifically, they let $p(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ and use a neural network for the generative model $p_\thetab(\xb|\zb)$ and any distribution that can be efficiently sampled and evaluated for the prior $p(\zb)$. 
+This choice makes both the marginal and posterior distributions intractable and so, training and inference require approximate methods. 
 While MCMC methods are computationally expensive for large neural networks, variational inference provides a more scalable alternative by estimating the posterior distribution $p(\zb|\xb)$ with a variational approximation. 
 
 
@@ -463,7 +463,8 @@ This Monte Carlo estimator can be written as,
     = \frac{1}{K} \sum_{k=1}^K \log p_\thetab(\xb|\zb_k) - D_\text{KL}\left( q_\phib(\zb|\xb) \,||\, p(\zb) \right) \enspace ,
 \end{equation}
 %
-where $\zb_k \sim q_\phib(\zb|\xb)$ are samples from the approximate posterior. To reduce the variance of the estimate, \textcite{burda_importance_2016} propose to use importance sampling to reweigh the samples.
+where $\zb_k \sim q_\phib(\zb|\xb)$ are samples from the approximate posterior. 
+To reduce the variance of the estimate, \textcite{burda_importance_2016} propose to use importance sampling to reweigh the samples.
 
 
 \paragraph{Reparameterization} 
@@ -489,10 +490,10 @@ However, by reparameterizing the latent variable $\zb$ as a deterministic functi
 The most important instantiation of this reparameterization is the diagonal Gaussian case, where $\zb = \mu_\phib(\xb) + \sigma_\phib(\xb) \odot \epsilonb$ with $\epsilonb\sim\mathcal{N}(0,\mathbf{I})$. 
 By assuming the covariance matrix is diagonal, this is a mean-field approximation which imposes independence between the latent variables in $\zb$. 
 
-Although the path-wise derivative has lower variance than most alternatives, such as score function estimators, a number of works have attempted to reduce its variance.
-\textcite{roeder_sticking_2017} note that the path-wise derivative can be factored into a path-wise estimator and a score function estimator and propose to ignore the score function factor to reduce gradient variance. 
-\textcite{rainforth_tighter_2019} show that this problem is even larger for the importance weighted ELBO \parencite{burda_importance_2016} and leads to diminishing returns when increasing the number of samples. 
-Rather than removing the score function factor in the estimate, \textcite{tucker_doubly_2019} propose to reparameterize it and derive low variance gradient estimators, also for importance weighted ELBO.
+Although the variance of the path-wise derivative is lower than most alternatives, such as score function estimators, it is not negligible, and a number of works have attempted to reduce it.
+\textcite{roeder_sticking_2017} note that a score function estimator can be factored out of the path-wise derivative and propose to ignore it to reduce gradient variance. 
+\textcite{rainforth_tighter_2019} show that this problem is exacerbated for the importance weighted ELBO \parencite{burda_importance_2016} and that increasing the number of samples in the importance weighted bound also increases gradient variance for the inference network, hurting its ability to learn useful representations. 
+After showing that removing the score function factor introduces bias, \textcite{tucker_doubly_2019} propose to reparameterize it too, giving rise to an unbiased, low variance gradient estimator that improves with more samples. Later work has generalized this estimator to hierarchical models \parencite{bauer_generalized_2021}. 
 
 \paragraph{Hierarchical models}\label{sec:hierarchical-vae-background}
 The usual mean-field assumption imposed by letting $\zb \sim\mathcal{N}(\mub,\mathbf{I}\sigmab^2)$ can often be more restrictive for model expressiveness than we would like. 
