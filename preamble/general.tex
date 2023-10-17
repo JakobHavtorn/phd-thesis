@@ -161,6 +161,32 @@
 ]{biblatex}
 \renewcommand*{\bibfont}{\normalfont\footnotesize}  % make bibliography font smaller
 
+% Remove certain fields from bibliography
+\DeclareSourcemap{
+  \maps[datatype=bibtex, overwrite]{
+    \map{  % Everywhere: Remove editors, [cs, eess] brackets, pubstate, DOI
+      \step[fieldset=editor, null]  % Remove editors everywhere.
+      \step[fieldset=eprintclass, null]  % Remove [cs, eess] brackets on preprints.
+      \step[fieldset=pubstate, null]  % Remove pubstate field on preprints
+      \step[fieldset=doi, null]  % Remove pubstate field on preprints
+      \step[fieldset=pmid, null]  % Remove pubstate field on preprints
+    }
+    \map{  % Remove URL on all types except online and document (which includes preprint and websites).
+      \pernottype{online}
+      \pernottype{document}
+      \step[fieldset=url, null]
+    }
+    \map{  % Remove URL on entries that are preprints in effect (i.e. have an eprint field).
+      \step[fieldsource=eprint, final]  % Applies to all entries with eprint field (terminates for those without it).
+      \step[fieldset=url, null]  % Remove URL
+    }
+    \map{  % Remove conference title on conference papers
+      \pertype{inproceedings}
+      \step[fieldset=eventtitle, null]  % Remove conference title from conference papers (proceedings name is there)
+    }
+  }
+}
+
 \DefineBibliographyStrings{english}{%
   backrefpage = {cited on page},  % originally "cited on page"
   backrefpages = {cited on pages},  % originally "cited on pages"

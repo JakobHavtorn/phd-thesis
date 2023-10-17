@@ -127,6 +127,7 @@ Nordisk
 notMNIST
 Novo
 NuSA
+NVAE
 Omniglot
 OOD
 OOD-specific
@@ -149,6 +150,7 @@ ReLU
 Reparameterization
 reparameterization
 reparameterize
+reparameterized
 reparameterizing
 Rhind
 RMSProp

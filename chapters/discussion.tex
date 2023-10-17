@@ -54,10 +54,12 @@ This seems to indicate that there might be untapped potential in consolidating t
 
 \paragraph{Masking} 
 As discussed in \cref{chp:paper-review}, masking is one of the driving techniques behind the success of self"=supervised methods for speech \parencite{devlin_bert_2018,baevski_wav2vec_2020}. By removing tokens from the input or an early feature extraction layer and tasking a model with inferring their representations, models are forced to learn how neighboring tokens relate to those masked. Depending on the size of the mask, these dependencies can be more or less semantic in nature. For instance, the wav2vec 2.0 model is well-known to learn representations that have high similarity with word identity and meaning \parencite{pasad_layerwise_2021}. 
+
 In comparison, reconstruction in VAEs is done from latent variables that are inferred from the full, unmasked input. Since all information is generally available, this might allow the encoder and decoder models to perform well for reconstruction, even with no, or limited, use of contextual dependencies. Furthermore, VAE reconstruction almost always targets the direct input in order to learn the distribution over the training data and to enable generating new samples. However, compared to many self"=supervised methods that target intermediate, learned representations, this forces VAEs to encode all aspects of the input that are important to its distribution. As we saw in \cref{chp:paper-hierarchical}, this will generally include low-level features that are necessary for accurate input reconstruction. Such features require large latent space representations and model capacity \parencite{vahdat_nvae_2020,child_very_2021}, but are usually of lesser interest for downstream tasks \parencite{baevski_wav2vec_2020}.
 
 Since the ELBO does not immediately allow for masking as part of the training, it has been only sparsely examined for VAEs. Specifically, masking has seen the most attention for VAEs within missing data imputation. In this setting, the input is partially observed, and often represented as a segmentation into observed and missing parts via a mask that indicates where the data is missing. The model is then trained to infer the latent variable from the observed data and reconstruction also deals only with the observed data. 
 By comparison to self"=supervised approaches that use masking for representation learning, the missing data setting of VAEs focuses on reconstructing the observed data rather than the missing, which might not lead to the same benefits in representation learning. 
+
 The idea of using VAEs to impute missing data was already examined in the seminal paper by \textcite{rezende_stochastic_2014}. Here the model was trained with fully observed data and used to impute data in an iterative sampling approach post hoc, leaving the learned representations unchanged.
 Previous work that trains on partially observed data has largely focused on the ability of these models to yield high-quality imputations within the tabular and image data domains and have not probed for the effects on the learned latent representation \parencite{mattei_miwae_2019, ipsen_not-miwae_2021}. 
 
@@ -65,6 +67,12 @@ Including masked objectives into the principled probabilistic framework of VAEs 
 
 
 \paragraph{Giving up?}
+
+
+
+\parencite{tomczak_trouble_2022}
+\parencite{huszar_is_2017}
+
 \lesstodo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
 \lesstodo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \parencite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
 
