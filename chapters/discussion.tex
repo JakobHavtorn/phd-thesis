@@ -66,20 +66,52 @@ Previous work that trains on partially observed data has largely focused on the 
 Including masked objectives into the principled probabilistic framework of VAEs might require creative thinking, but it seems likely that relaxing the requirement of exact input reconstruction and enforcing the need of encoding (and decoding) contextual information could lead the way for future types of VAEs to learn representations that are competitive with self"=supervised methods.
 
 
-\paragraph{Giving up?}
+\paragraph{Stop representing?}
 
+Two key observations relating to the training of VAEs might lead to the more pessimistic view that VAEs are fundamentally unsuited for representation learning. 
+First, variational autoencoders are trained to maximize the ELBO which is a marginal likelihood objective that is conditionally independent of the latent variables $\zb$. Second, as we saw in \cref{eq:variational-autoencoder-elbo-factorized-expected}, the ELBO contains a hidden 
+
+
+
++ maximum likelihood does not guarantee good representations of unseen data. On the contrary; the two are actually only correlated by inductive biases present in the model type that we care about. 
++ VAEs do maximum likelihood.
+    + but this is true for any model trained with maximum likelihood
+    + in fact masked pre-trained used for many self-supervised methods can be seen as maximum likelihood training.
+
++ mutual information minimization of VAEs leads to difficulty of training and posterior collapse.
+    + only when properly constraining the inference and generative models do VAEs function.
+    + if the combined inference and generative models easily minimize the mutual information, while producing good reconstructions and making the marginal posterior match the prior, then the model will learn to disregard z, whatever is encoded in it. 
+    + this is especially prone to happen for strong generative models with those that are autoregressive on the observed variable as the core example. Since $p(\xb_t)$ in many cases can be modelled very well by a generative model of the form $p(\xb_t | \xb_{1:t-1})$, the potential improvement from using $p(\xb_t | \xb_{1:t-1}, \zb_{1:t})$, or even $p(\xb_t | \xb_{1:t-1}, \zb_{1:T})$, might be small compared to the magnitude of the mutual information term 
+    \cref{eq:variational-autoencoder-elbo-factorized-expected}
+
+\begin{equation} \label{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)}
+    \mathbb{E}_{q_{}(\xb,\zb)} \left[ \mathcal{L}_{\thetab,\phib}(\xb) \right] = 
+    \underset{\text{average reconstruction}}{\underbrace{
+        \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log p_{}(\xb | \zb) \right]
+    }}
+    - 
+    \underset{\text{marginal KL to prior}}{\underbrace{
+    \vphantom{\mathbb{E}_{q_{}(\xb,\zb)}\left[ \log p_{}(\xb | \zb) \right]}{
+        D_{\mathrm{KL}}\left[ q_{}(\zb) \parallel p(\zb) \right]
+    }
+    }} 
+    -
+    \underset{\text{mutual information}}{\underbrace{
+    I_{q_{}(\xb,\zb)}\left[\xb ; \zb \right]
+    }} \enspace . \nonumber
+\end{equation}
 
 
 \parencite{tomczak_trouble_2022}
 \parencite{huszar_is_2017}
 
-\lesstodo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
-\lesstodo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \parencite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
+\todo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
+\todo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \parencite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
+
+\todo[inline]{Masked pre-training actually corresponds to marginal maximum likelihood optimization such as done by VAES \parencite{moreno-munoz_masked_2023}. Since maximum likelihood in no way guarantees good representations, how do self"=supervised methods achieve  this, if they also do maximum likelihood?}
 
 
-
-
-\lesstodo[inline]{Out-of-distribution detection on speech?}
+\todo[inline]{Out-of-distribution detection on speech?}
 
 
 

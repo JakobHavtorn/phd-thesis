@@ -496,10 +496,10 @@ Although the variance of the path-wise derivative is lower than most alternative
 After showing that removing the score function factor introduces bias, \textcite{tucker_doubly_2019} propose to reparameterize it too, giving rise to an unbiased, low variance gradient estimator that improves with more samples. Later work has generalized this estimator to hierarchical models \parencite{bauer_generalized_2021}. 
 
 \paragraph{Hierarchical models}\label{sec:hierarchical-vae-background}
-The usual mean-field assumption imposed by letting $\zb \sim\mathcal{N}(\mub,\mathbf{I}\sigmab^2)$ can often be more restrictive for model expressiveness than we would like. 
+The mean-field assumption imposed by letting $\zb \sim\mathcal{N}(\mub,\mathbf{I}\sigmab^2)$ can often be more restrictive for model expressiveness than we would like. 
 While learning a full covariance is a simple solution, it is not always sufficiently computationally efficient and, in any case, enables learning only linear covariance between elements of $\zb$. 
-Along with the usual motivations of hierarchical models such as efficient representation, feature disentanglement, and data efficiency, this has led to research into using a hierarchy of several conditionally dependent latent variables. 
-This idea is commonly formalized by introducing a set of $L$ latent variables  $\zb=\zb_1, \dots, \zb_L$ and letting the generative model be defined as,
+The drawbacks of mean-field approximation and linear covariance has lead to research into learning hierarchies of several non-linearly dependent latent variables; an idea well in line with the usual motivations behind deep neural networks such as efficient, compositional representation \cite{lecun_deep_2015}. 
+Such hierarchical models are usually formalized by introducing a set of $L$ latent variables  $\zb=\zb_1, \dots, \zb_L$ and letting the generative model be defined as,
 %
 \begin{equation}
     p_\thetab(\xb|\zb)=p(\xb|\zb_1) p_\thetab(\zb_1|\zb_2) \cdots p_\thetab(\zb_{L-1}|\zb_L) p(\zb_L) \enspace .
