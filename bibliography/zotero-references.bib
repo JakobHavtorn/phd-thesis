@@ -3670,6 +3670,14 @@
   pubstate = {preprint}
 }
 
+@misc{cuneiformdigitallibraryinitiativecdli_mct_2005,
+  title = {{{MCT}} 038, {{Plimpton}} 322 Artifact Entry},
+  author = {{Cuneiform Digital Library Initiative (CDLI)}},
+  date = {2005-02-01},
+  url = {https://cdli.ucla.edu/P254790},
+  abstract = {Mathematical tablet excavated in Larsa (mod. Tell as-Senkereh), dated to the Old Babylonian (ca. 1900-1600 BC) period and now kept in Rare Book and Manuscript Library, Columbia University, New York, New York, USA}
+}
+
 @article{dahl_context-dependent_2012,
   title = {Context-Dependent Pre-Trained Deep Neural Networks for Large-Vocabulary Speech Recognition},
   author = {Dahl, George E. and Yu, Dong and Deng, Li and Acero, Alex},
@@ -4687,6 +4695,23 @@
   volume = {39},
   number = {3},
   pages = {42--62}
+}
+
+@article{errattahi_automatic_2018,
+  title = {Automatic {{Speech Recognition Errors Detection}} and {{Correction}}: {{A Review}}},
+  shorttitle = {Automatic {{Speech Recognition Errors Detection}} and {{Correction}}},
+  author = {Errattahi, Rahhal and El Hannani, Asmaa and Ouahmane, Hassan},
+  date = {2018-01-01},
+  journaltitle = {Procedia Computer Science},
+  shortjournal = {Procedia Computer Science},
+  series = {1st {{International Conference}} on {{Natural Language}} and {{Speech Processing}}},
+  volume = {128},
+  pages = {32--37},
+  issn = {1877-0509},
+  doi = {10.1016/j.procs.2018.03.005},
+  url = {https://www.sciencedirect.com/science/article/pii/S1877050918302187},
+  urldate = {2023-10-19},
+  abstract = {Even though Automatic Speech Recognition (ASR) has matured to the point of commercial applications, high error rate in some speech recognition domains remain as one of the main impediment factors to the wide adoption of speech technology, and especially for continuous large vocabulary speech recognition applications. The persistent presence of ASR errors have intensified the need to find alternative techniques to automatically detect and correct such errors. The correction of the transcription errors is very crucial not only to improve the speech recognition accuracy, but also to avoid the propagation of the errors to the subsequent language processing modules such as machine translation. In this paper, basic principles of ASR evaluation are first summarized, and then the state of the current ASR errors detection and correction research is reviewed. We focus on emerging techniques using word error rate metric.}
 }
 
 @article{eslami_neural_2018,
@@ -8376,6 +8401,19 @@
   pubstate = {preprint}
 }
 
+@online{kang_deep_2023,
+  title = {Deep {{Neural Networks Tend To Extrapolate Predictably}}},
+  author = {Kang, Katie and Setlur, Amrith and Tomlin, Claire and Levine, Sergey},
+  date = {2023-10-01},
+  eprint = {2310.00873},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  url = {http://arxiv.org/abs/2310.00873},
+  urldate = {2023-10-18},
+  abstract = {Conventional wisdom suggests that neural network predictions tend to be unpredictable and overconfident when faced with out-of-distribution (OOD) inputs. Our work reassesses this assumption for neural networks with high-dimensional inputs. Rather than extrapolating in arbitrary ways, we observe that neural network predictions often tend towards a constant value as input data becomes increasingly OOD. Moreover, we find that this value often closely approximates the optimal constant solution (OCS), i.e., the prediction that minimizes the average loss over the training data without observing the input. We present results showing this phenomenon across 8 datasets with different distributional shifts (including CIFAR10-C and ImageNet-R, S), different loss functions (cross entropy, MSE, and Gaussian NLL), and different architectures (CNNs and transformers). Furthermore, we present an explanation for this behavior, which we first validate empirically and then study theoretically in a simplified setting involving deep homogeneous networks with ReLU activations. Finally, we show how one can leverage our insights in practice to enable risk-sensitive decision-making in the presence of OOD inputs.},
+  pubstate = {preprint}
+}
+
 @misc{kannan_largescale_2019,
   title = {Large-{{Scale Multilingual Speech Recognition}} with a {{Streaming End-to-End Model}}},
   author = {Kannan, Anjuli and Datta, Arindrima and Sainath, Tara N. and Weinstein, Eugene and Ramabhadran, Bhuvana and Wu, Yonghui and Bapna, Ankur and Chen, Zhifeng and Lee, Seungji},
@@ -9348,7 +9386,7 @@
   langid = {english}
 }
 
-@online{kuzmin_pruning_2023,
+@online{kuzmin_pruning_2023a,
   title = {Pruning vs {{Quantization}}: {{Which}} Is {{Better}}?},
   shorttitle = {Pruning vs {{Quantization}}},
   author = {Kuzmin, Andrey and Nagel, Markus and family=Baalen, given=Mart, prefix=van, useprefix=true and Behboodi, Arash and Blankevoort, Tijmen},
@@ -9356,11 +9394,11 @@
   eprint = {2307.02973},
   eprinttype = {arxiv},
   eprintclass = {cs},
-  doi = {10.48550/arXiv.2307.02973},
   url = {http://arxiv.org/abs/2307.02973},
   urldate = {2023-10-18},
   abstract = {Neural network pruning and quantization techniques are almost as old as neural networks themselves. However, to date only ad-hoc comparisons between the two have been published. In this paper, we set out to answer the question on which is better: neural network quantization or pruning? By answering this question, we hope to inform design decisions made on neural network hardware going forward. We provide an extensive comparison between the two techniques for compressing deep neural networks. First, we give an analytical comparison of expected quantization and pruning error for general data distributions. Then, we provide lower bounds for the per-layer pruning and quantization error in trained networks, and compare these to empirical error after optimization. Finally, we provide an extensive experimental comparison for training 8 large-scale models on 3 tasks. Our results show that in most cases quantization outperforms pruning. Only in some scenarios with very high compression ratio, pruning might be beneficial from an accuracy standpoint.},
-  pubstate = {preprint}
+  pubstate = {preprint},
+  keywords = {Pruning,Quantisation}
 }
 
 @article{lai_kernel_2000,
@@ -11582,6 +11620,19 @@
   langid = {english}
 }
 
+@online{meripo_asr_2022,
+  title = {{{ASR Error Detection}} via {{Audio-Transcript}} Entailment},
+  author = {Meripo, Nimshi Venkat and Konam, Sandeep},
+  date = {2022-07-21},
+  eprint = {2207.10849},
+  eprinttype = {arxiv},
+  eprintclass = {cs, eess, stat},
+  url = {http://arxiv.org/abs/2207.10849},
+  urldate = {2023-10-18},
+  abstract = {Despite improved performances of the latest Automatic Speech Recognition (ASR) systems, transcription errors are still unavoidable. These errors can have a considerable impact in critical domains such as healthcare, when used to help with clinical documentation. Therefore, detecting ASR errors is a critical first step in preventing further error propagation to downstream applications. To this end, we propose a novel end-to-end approach for ASR error detection using audio-transcript entailment. To the best of our knowledge, we are the first to frame this problem as an end-to-end entailment task between the audio segment and its corresponding transcript segment. Our intuition is that there should be a bidirectional entailment between audio and transcript when there is no recognition error and vice versa. The proposed model utilizes an acoustic encoder and a linguistic encoder to model the speech and transcript respectively. The encoded representations of both modalities are fused to predict the entailment. Since doctor-patient conversations are used in our experiments, a particular emphasis is placed on medical terms. Our proposed model achieves classification error rates (CER) of 26.2\% on all transcription errors and 23\% on medical errors specifically, leading to improvements upon a strong baseline by 12\% and 15.4\%, respectively.},
+  pubstate = {preprint}
+}
+
 @article{merkx_language_2019,
   title = {Language Learning Using Speech to Image Retrieval},
   author = {Merkx, Danny and Frank, Stefan L and Ernestus, Mirjam},
@@ -12619,6 +12670,13 @@
   url = {https://proceedings.neurips.cc/paper/2014/file/2b38c2df6a49b97f706ec9148ce48d86-Paper.pdf}
 }
 
+@book{nissen_archaic_1993,
+  title = {Archaic Bookkeeping: Early Writing and Techniques of Economic Administration in the Ancient {{Near East}}},
+  author = {Nissen, Hans J and Damerow, Peter and Englund, Robert K},
+  date = {1993},
+  publisher = {{University of Chicago Press}}
+}
+
 @inproceedings{nix_estimating_1994,
   title = {Estimating the Mean and Variance of the Target Probability Distribution},
   booktitle = {Proceedings of 1994 {{IEEE}} International Conference on Neural Networks ({{ICNN}}'94)},
@@ -12662,6 +12720,13 @@
   publisher = {{Springer}},
   isbn = {0-387-30303-0},
   keywords = {★}
+}
+
+@article{noh_simple_,
+  title = {Simple and {{Effective Out-of-Distribution Detection}} via {{Cosine-based Softmax Loss}}},
+  author = {Noh, SoonCheol and Jeong, DongEon and Lee, Jee-Hyong},
+  abstract = {Deep learning models need to detect out-of-distribution (OOD) data in the inference stage because they are trained to estimate the train distribution and infer the data sampled from the distribution. Many methods have been proposed, but they have some limitations, such as requiring additional data, input processing, or high computational cost. Moreover, most methods have hyperparameters to be set by users, which have a significant impact on the detection rate. We propose a simple and effective OOD detection method by combining the feature norm and the Mahalanobis distance obtained from classification models trained with the cosinebased softmax loss. Our method is practical because it does not use additional data for training, is about three times faster when inferencing than the methods using the input processing, and is easy to apply because it does not have any hyperparameters for OOD detection. We confirm that our method is superior to or at least comparable to stateof-the-art OOD detection methods through the experiments.},
+  langid = {english}
 }
 
 @article{norouzi_exemplar_nodate,
@@ -13748,7 +13813,7 @@
   abstract = {State-of-the-art computer vision systems are trained to predict a fixed set of predetermined object categories. This restricted form of supervision limits their generality and usability since additional labeled data is needed to specify any other visual concept. Learning directly from raw text about images is a promising alternative which leverages a much broader source of supervision. We demonstrate that the simple pre-training task of predicting which caption goes with which image is an efficient and scalable way to learn SOTA image representations from scratch on a dataset of 400 million (image, text) pairs collected from the internet. After pre-training, natural language is used to reference learned visual concepts (or describe new ones) enabling zero-shot transfer of the model to downstream tasks. We study the performance of this approach by benchmarking on over 30 different existing computer vision datasets, spanning tasks such as OCR, action recognition in videos, geo-localization, and many types of fine-grained object classification. The model transfers non-trivially to most tasks and is often competitive with a fully supervised baseline without the need for any dataset specific training. For instance, we match the accuracy of the original ResNet-50 on ImageNet zero-shot without needing to use any of the 1.28 million training examples it was trained on. We release our code and pre-trained model weights at https://github.com/OpenAI/CLIP.}
 }
 
-@inproceedings{radford_robust_2023a,
+@inproceedings{radford_robust_2023,
   title = {Robust Speech Recognition via Large-Scale Weak Supervision},
   booktitle = {Proceedings of the International Conference on Machine Learning},
   author = {Radford, Alec and Kim, Jong Wook and Xu, Tao and Brockman, Greg and Mcleavey, Christine and Sutskever, Ilya},
@@ -15616,6 +15681,19 @@
   issue = {Icdar}
 }
 
+@online{simonnet_asr_2017,
+  title = {{{ASR}} Error Management for Improving Spoken Language Understanding},
+  author = {Simonnet, Edwin and Ghannay, Sahar and Camelin, Nathalie and Estève, Yannick and De Mori, Renato},
+  date = {2017-05-26},
+  eprint = {1705.09515},
+  eprinttype = {arxiv},
+  eprintclass = {cs},
+  url = {http://arxiv.org/abs/1705.09515},
+  urldate = {2023-10-18},
+  abstract = {This paper addresses the problem of automatic speech recognition (ASR) error detection and their use for improving spoken language understanding (SLU) systems. In this study, the SLU task consists in automatically extracting, from ASR transcriptions , semantic concepts and concept/values pairs in a e.g touristic information system. An approach is proposed for enriching the set of semantic labels with error specific labels and by using a recently proposed neural approach based on word embeddings to compute well calibrated ASR confidence measures. Experimental results are reported showing that it is possible to decrease significantly the Concept/Value Error Rate with a state of the art system, outperforming previously published results performance on the same experimental data. It also shown that combining an SLU approach based on conditional random fields with a neural encoder/decoder attention based architecture , it is possible to effectively identifying confidence islands and uncertain semantic output segments useful for deciding appropriate error handling actions by the dialogue manager strategy .},
+  pubstate = {preprint}
+}
+
 @article{simonyan_two-stream_2014,
   title = {Two-{{Stream Convolutional Networks}} for {{Action Recognition}} in {{Videos}}},
   author = {Simonyan, Karen and Zisserman, Andrew},
@@ -16933,6 +17011,19 @@
   publisher = {{Wiley Online Library}}
 }
 
+@online{uppal_implicit_2023,
+  title = {Implicit {{Variational Inference}} for {{High-Dimensional Posteriors}}},
+  author = {Uppal, Anshuk and Stensbo-Smidt, Kristoffer and Boomsma, Wouter K. and Frellsen, Jes},
+  date = {2023-10-10},
+  eprint = {2310.06643},
+  eprinttype = {arxiv},
+  eprintclass = {cs, stat},
+  url = {http://arxiv.org/abs/2310.06643},
+  urldate = {2023-10-18},
+  abstract = {In variational inference, the benefits of Bayesian models rely on accurately capturing the true posterior distribution. We propose using neural samplers that specify implicit distributions, which are well-suited for approximating complex multimodal and correlated posteriors in high-dimensional spaces. Our approach advances inference using implicit distributions by introducing novel bounds that come about by locally linearising the neural sampler. This is distinct from existing methods that rely on additional discriminator networks and unstable adversarial objectives. Furthermore, we present a new sampler architecture that, for the first time, enables implicit distributions over millions of latent variables, addressing computational concerns by using differentiable numerical approximations. Our empirical analysis indicates our method is capable of recovering correlations across layers in large Bayesian neural networks, a property that is crucial for a network's performance but notoriously challenging to achieve. To the best of our knowledge, no other method has been shown to accomplish this task for such large models. Through experiments in downstream tasks, we demonstrate that our expressive posteriors outperform state-of-the-art uncertainty quantification methods, validating the effectiveness of our training algorithm and the quality of the learned implicit approximation.},
+  pubstate = {preprint}
+}
+
 @inproceedings{uria_rnade_2013,
   title = {{{RNADE}}: {{The}} Real-Valued Neural Autoregressive Density-Estimator},
   booktitle = {Proceedings of the 27th {{Conference}} on {{Neural Information Processing Systems}} ({{NeurIPS}})},
@@ -17172,6 +17263,14 @@
   booktitle = {{{IEEE Annual Conference}} of the {{International Speech Communication Association}} ({{Interspeech}})},
   author = {Versteegh, Maarten and Thiolliere, Roland and Schatz, Thomas and Cao, Xuan Nga and Anguera, Xavier and Jansen, Aren and Dupoux, Emmanuel},
   date = {2015}
+}
+
+@book{villani2009optimal,
+  title = {Optimal Transport: Old and New},
+  author = {Villani, Cédric and others},
+  date = {2009},
+  volume = {338},
+  publisher = {{Springer}}
 }
 
 @inproceedings{vincent_extracting_2008,
@@ -19137,12 +19236,15 @@
   pages = {665--674}
 }
 
-@online{zhou_comparison_2020,
+@inproceedings{zhou_comparison_2021,
   title = {A Comparison of Discrete Latent Variable Models for Speech Representation Learning},
+  booktitle = {Proceedings of the {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}} ({{ICASSP}})},
   author = {Zhou, Henry and Baevski, Alexei and Auli, Michael},
-  date = {2020},
-  url = {https://arxiv.org/abs/2010.14230},
-  pubstate = {preprint}
+  date = {2021},
+  eprint = {2010.14230},
+  eprinttype = {arxiv},
+  pages = {3050--3054},
+  url = {https://arxiv.org/abs/2010.14230}
 }
 
 @inproceedings{zhou_computation_1988,

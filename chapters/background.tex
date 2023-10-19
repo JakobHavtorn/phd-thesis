@@ -151,7 +151,7 @@ Although we share the sentiment of \textcite{yang_generalized_2022}, who propose
 Recently, several approaches for deep neural networks have been developed that address the rejection of samples $\xb\notin\mathcal{D}_{\text{in}}$. 
 One way to categorize the different approaches is based on whether the underlying model is a classifier that estimates a conditional probability distribution $p(y|\xb)$ over some target variable $y$, or a model that learns a probability density $p(\xb)$ over the input itself. We might refer to the former as \emph{supervised} OOD detection, and the latter as \emph{unsupervised} OOD detection \parencite{graham_denoising_2023,liu_unsupervised_2023a}. It is important to note that this distinction relates only to the availability of some target value, $y$ - not whether OOD data is available for supervision\footnote{
     In our overview, we distinguish between supervised and unsupervised out-of-distribution by letting methods be classified as supervised that use any kind of target value $y$, whether it relates to an original (in-distribution) task, available OOD data, or both. This is the same distinction made by \textcite{graham_denoising_2023} and \textcite{liu_unsupervised_2023a}. 
-    It is important to note, however, that in other works, the distinction is made based on whether the model is trained on OOD data or not \parencite{hendrycks_baseline_2017,liu_energy-based_2020}. This difference in nomenclature is currently unresolved in the literature. 
+    It is important to note, however, that in other works, the distinction is made based on whether the model is trained on OOD data or not \parencite{hendrycks_baseline_2017,liu_energybased_2020}. This difference in nomenclature is currently unresolved in the literature. 
 }. 
 Supervised OOD detection tries to assess whether the model's prediction $\hat{y}$ via $p(y|\xb)$ should be trusted for a given input $\xb$, whereas unsupervised OOD detection judges whether the input $\xb$ should be trusted and used at all. 
 
@@ -164,7 +164,7 @@ from a \emph{reconstruction} of the input \parencite{sakurada_anomaly_2014,xia_l
 from a hidden \emph{representation} of the input \parencite{denouden_improving_2018,hendrycks_using_2019,ahmadian_likelihoodfree_2021,bergman_classificationbased_2020,tack_csi_2020,sehwag_ssd_2021,xiao_we_2021}.  % https://arxiv.org/pdf/2302.10326.pdf
 Supervised methods often derive the score 
 from the \emph{probabilities} given by the predictive distribution $p(y|\xb)$ \parencite{hendrycks_baseline_2017,hendrycks_scaling_2022}, 
-from the \emph{logits} of $p(y|\xb)$ \parencite{hendrycks_scaling_2022,liu_energy-based_2020}, or 
+from the \emph{logits} of $p(y|\xb)$ \parencite{hendrycks_scaling_2022,liu_energybased_2020}, or 
 use a latent \emph{representation} of the input \parencite{lee_simple_2018,li_anomaly_2019,ndiour_outofdistribution_2020,cook_outlier_2020,zaeemzadeh_outofdistribution_2021}, similar to unsupervised methods. 
 In the following sections, we provide a more in-depth overview of the different approaches to OOD detection following the above categorization into supervised and unsupervised methods. For the supervised methods we further distinguish between whether methods use real OOD data, synthetic OOD data, or no OOD data at all. 
 
@@ -225,8 +225,8 @@ The authors note that most current methods make a closed world assumption and im
 Without data from the out-domain, it is not possible to directly learn either $p(y, \mathcal{D}_{\text{in}}|\xb)$ or $p(\mathcal{D}_{\text{in}}|\xb)$. Instead, the authors use this observation to impose the inductive bias of predicting logits as a fraction between two carefully designed network branches, imitating the form of \cref{eq: joint class-domain and domain probability}. 
 
 % No OOD data, logits
-Although some works use the maximum softmax probability as a score for OOD detection \parencite{hendrycks_deep_2019,ren_likelihood_2019}, several works have noted that it is not generally reliable \parencite{hendrycks_scaling_2022,liu_energy-based_2020}. 
-\textcite{liu_energy-based_2020} make an interesting argument as to why based on the energy $E(\xb; f)$ of a softmax classifier $f(\xb)$ \parencite{lecun_tutorial_2006},
+Although some works use the maximum softmax probability as a score for OOD detection \parencite{hendrycks_deep_2019,ren_likelihood_2019}, several works have noted that it is not generally reliable \parencite{hendrycks_scaling_2022,liu_energybased_2020}. 
+\textcite{liu_energybased_2020} make an interesting argument as to why based on the energy $E(\xb; f)$ of a softmax classifier $f(\xb)$ \parencite{lecun_tutorial_2006},
 %
 \begin{equation} \label{eq:softmax-classifier-energy}
     E(\xb; f) = - \log \sum_{i=1}^K \exp \left( f_i(\xb) \right) \enspace .

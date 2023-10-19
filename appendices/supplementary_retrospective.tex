@@ -110,21 +110,21 @@ where $I_{\cdot}(\cdot)$ is the indicator function that returns 1 if the subscri
 
 We used standard methods for significance testing and computing the confidence intervals. We used approximate methods owing to data size and to maintain computational feasibility \parencite{dwass_modified_1957,eden_validity_1933}
 
-We performed \emph{paired approximate permutation} tests by pairing each observation from the first sample to a random observation from the other sample (without replacement), while keeping each observation within its original sample. This allowed us to test the significance of the observed pairings on the chosen statistics, i.e. whether a significant difference was observed in the test statistics depending on whether the call taker or model made the prediction. We used this approach to test whether
+We performed \emph{paired approximate permutation} tests by pairing each observation from the first sample to a random observation from the other sample (without replacement), while keeping each observation within its original sample. This allowed us to test the significance of the observed pairings on the chosen statistics, i.e. whether a significant difference was observed in the test statistics depending on whether the call-taker or model made the prediction. We used this approach to test whether
 %
 \begin{itemize}
-    \item the model performed better than the call takers on the 2021 test set,
+    \item the model performed better than the call-takers on the 2021 test set,
     \item including 112 training data improved the model's performance on the 2021 test set.
 \end{itemize}
 %
-We performed \emph{independent approximate permutation} tests by randomly assigning observations to either of the two samples (without replacement) while maintaining any differences in sample size. This approach allowed us to test the significance of the observed sample assignments, i.e. whether there was a significant difference in test statistics depending on whether the predictions were assigned to the model or call taker. We used this approach to test whether.
+We performed \emph{independent approximate permutation} tests by randomly assigning observations to either of the two samples (without replacement) while maintaining any differences in sample size. This approach allowed us to test the significance of the observed sample assignments, i.e. whether there was a significant difference in test statistics depending on whether the predictions were assigned to the model or call-taker. We used this approach to test whether.
 %
 \begin{itemize}
     \item the model performed better on the 2021 test set with diagnostic categories than on the test set without diagnostic categories,
     \item the model performed better on men than women on the 2021 test set,
     \item the model performed better on the 65+ group than on the 18-64 group on the 2021 test set,
-    \item the call taker performed better on men than women on the 2021 test set,
-    \item the call taker performed better on the 65+ group than on the 18-64 group on the 2021 test set.
+    \item the call-taker performed better on men than women on the 2021 test set,
+    \item the call-taker performed better on the 65+ group than on the 18-64 group on the 2021 test set.
 \end{itemize}
 %
 The p-values were not exact because we used approximate permutation tests. However, owing to the large dataset size and substantial number of observations, the estimated p-values had tight confidence intervals. We reported the upper bound of the 99\% confidence interval on the p-value computed as the usual binomial distribution confidence interval.
@@ -135,7 +135,7 @@ The p-values were not exact because we used approximate permutation tests. Howev
 %
 where $N$ is the number of resamplings.
 
-We computed \emph{bootstrapped confidence intervals} for the statistics by resampling (with replacement) the predictions made by model or call taker on a relevant subgroup and recomputing the relevant statistics for each bootstrap sample. This process established a bootstrap distribution of the statistic that was then used to estimate the standard error and compute the confidence intervals. We computed confidence intervals using the bootstrap distribution percentiles. This method yielded reliable results because our dataset was large, and the bootstrap distribution was symmetrical and centred on the observed statistic. No observed bootstrap distributions differed significantly from normal distributions (according to Anderson-Darling and Shapiro-Wilk tests). Therefore, confidence intervals computed alternatively as studentised bootstrap intervals (t-intervals) did not differ substantially from percentile confidence intervals. This further validated our tests.
+We computed \emph{bootstrapped confidence intervals} for the statistics by resampling (with replacement) the predictions made by model or call-taker on a relevant subgroup and recomputing the relevant statistics for each bootstrap sample. This process established a bootstrap distribution of the statistic that was then used to estimate the standard error and compute the confidence intervals. We computed confidence intervals using the bootstrap distribution percentiles. This method yielded reliable results because our dataset was large, and the bootstrap distribution was symmetrical and centred on the observed statistic. No observed bootstrap distributions differed significantly from normal distributions (according to Anderson-Darling and Shapiro-Wilk tests). Therefore, confidence intervals computed alternatively as studentised bootstrap intervals (t-intervals) did not differ substantially from percentile confidence intervals. This further validated our tests.
 
 We used $N=15,000$ resamplings for permutation tests and $N=8,192$ for confidence intervals.
 
@@ -437,45 +437,45 @@ We see that the fine"=tuned BERT model performs slightly worse across F1-score, 
 The machine learning frameworks can be deployed in different forms in clinical practice. To assess the potential outcomes of deploying this framework in a future prospective study, we performed an experiment using the 2021 test data to simulate different scenarios. Each scenario included two main variables.
 %
 \begin{enumerate}[label=\Roman*.]
-    \item When is the model prediction presented to the call taker?
-    \item How does prediction influence the diagnostic code the call taker assigns to the call?
+    \item When is the model prediction presented to the call-taker?
+    \item How does prediction influence the diagnostic code the call-taker assigns to the call?
 \end{enumerate}
 %
 There are two primary options as to when the model prediction is presented (I):
 %
 \begin{enumerate}
-    \item Notify the call taker of potential false positive or negative stroke cases after the call ends.
-    \item Notify the call taker of potential false positive or negative stroke cases during the call.
+    \item Notify the call-taker of potential false positive or negative stroke cases after the call ends.
+    \item Notify the call-taker of potential false positive or negative stroke cases during the call.
 \end{enumerate}
 %
 Option 1 is identical to the method used in the main study. In option 2, predictions are made during the call based only on partial transcriptions. We implemented option 2 in such a manner that the model predicted every time 50 new words were transcribed and added to the transcript. A stroke positive was triggered only when three consecutive positive predictions were made (i.e. without intermediate negative stroke predictions). In other words, the sigmoid activation of the model had to remain above 0.5 for three consecutive predictions, for example, after 150, 200, and 250 words were transcribed.
 
-As we can only assume how call takers are influenced by model predictions (II), precisely evaluating the hypothetical performance of call takers when supported by a machine learning framework is impossible. Furthermore, option 2 may influence the conversation, further complicating matters. Therefore, we report the results combining the call taker and the model under the following two assumptions:
+As we can only assume how call-takers are influenced by model predictions (II), precisely evaluating the hypothetical performance of call-takers when supported by a machine learning framework is impossible. Furthermore, option 2 may influence the conversation, further complicating matters. Therefore, we report the results combining the call-taker and the model under the following two assumptions:
 %
 \begin{enumerate}[label=\Alph*.]
-    \item Call-takers change any stroke prediction from negative to positive if the model predicts a positive (call takers mirror model positives).
-    \item Call-takers change any stroke prediction from positive to negative if the model predicts a negative (call takers mirror model negatives).
+    \item Call-takers change any stroke prediction from negative to positive if the model predicts a positive (call-takers mirror model positives).
+    \item Call-takers change any stroke prediction from positive to negative if the model predicts a negative (call-takers mirror model negatives).
 \end{enumerate}
 %
 By definition, method A tended to increase sensitivity and decrease PPV, whereas method B tended to decrease sensitivity and increase PPV.
 
-We also report the results of the model itself (C). This method corresponds to call takers mirroring the model predictions exactly. This is not feasible in practice, although technically possible, because the conversation and instructions given to patients may conflict with the actions taken by the call taker after hanging up. Method 1.C is identical to the method employed in the main text, and we have copied the same results here for easier comparison.
+We also report the results of the model itself (C). This method corresponds to call-takers mirroring the model predictions exactly. This is not feasible in practice, although technically possible, because the conversation and instructions given to patients may conflict with the actions taken by the call-taker after hanging up. Method 1.C is identical to the method employed in the main text, and we have copied the same results here for easier comparison.
 
 
 \subsection{Results}
 
-As expected (\cref{tab_retrospective:tableA9}), method 2.C (raw model predictions during calls) yielded slightly worse results than 1.C (raw model predictions after calls). Compared with method C, method A (call takers mirror model positives) led to increased sensitivity and decreased PPV, whereas method B (call takers mirror model negatives) led to decreased sensitivity and increased PPV, as expected. The numerical changes compared with method C are quite large because, in our simulation, the call taker is assumed to strictly follow methods A or B without divergence.
+As expected (\cref{tab_retrospective:tableA9}), method 2.C (raw model predictions during calls) yielded slightly worse results than 1.C (raw model predictions after calls). Compared with method C, method A (call-takers mirror model positives) led to increased sensitivity and decreased PPV, whereas method B (call-takers mirror model negatives) led to decreased sensitivity and increased PPV, as expected. The numerical changes compared with method C are quite large because, in our simulation, the call-taker is assumed to strictly follow methods A or B without divergence.
 
 % \todo[inline]{Insert table A6 here}
 \begin{sidewaystable}
     \centering
-    \caption{Overall performance of model, call takers and simulated combinations of model and call takers on MH-1813 test data.}
+    \caption{Overall performance of model, call-takers and simulated combinations of model and call-takers on MH-1813 test data.}
     \label{tab_retrospective:tableA9}
     \resizebox*{0.98\textwidth}{!}{%
     \begin{tabular}{c|c|cc|cc|cc}
         \toprule
 
-        Predictor & Call taker & \multicolumn{2}{c|}{Model} & \multicolumn{4}{c}{Call taker supported by the model (simulated)} \\
+        Predictor & Call-taker & \multicolumn{2}{c|}{Model} & \multicolumn{4}{c}{Call-taker supported by the model (simulated)} \\
         \midrule
         When & - & After call & During call & After call & During call & After call & During call \\
         \midrule
@@ -497,7 +497,7 @@ As expected (\cref{tab_retrospective:tableA9}), method 2.C (raw model prediction
     }
 \end{sidewaystable}
 
-Method 1.A (call takers mirror model positives after a call) yields a better F1-score, sensitivity, PPV, and FOR than call takers alone, although at the cost of a slightly higher FPR. This stands in contrast to methods 1.B, 2.A, and 2.B where either the sensitivity or the PPV is worse for the combined system than for call takers alone. Regardless, the F1-score (harmonic mean of sensitivity and PPV) is higher for all methods of combining call takers and model (1.A through 2.C).
+Method 1.A (call-takers mirror model positives after a call) yields a better F1-score, sensitivity, PPV, and FOR than call-takers alone, although at the cost of a slightly higher FPR. This stands in contrast to methods 1.B, 2.A, and 2.B where either the sensitivity or the PPV is worse for the combined system than for call-takers alone. Regardless, the F1-score (harmonic mean of sensitivity and PPV) is higher for all methods of combining call-takers and model (1.A through 2.C).
 
 These findings highlight that the implementation strategy selected for practice can substantially affect performance. Therefore, it may be possible to implement the system in a way that improves stroke recognition in practice.
 

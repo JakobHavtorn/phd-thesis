@@ -11,13 +11,13 @@
 
 % \todo[inline]{Lead-in with conversations and the patient interview and how it affects the patient journey. How healthcare has seen rapid advances in medicine and medical devices for diagnostics and treatment but the patient interview and triaging has seen little development.}
 
-In an era where technology increasingly intertwines with healthcare, artificial intelligence is on the verge of becoming part of standard medical practice. 
+In an era where technology increasingly intertwines with healthcare, artificial intelligence is on the verge of becoming part of standard medical practice \parencite{shailaja_machine_2018}. 
 Growing administrative burdens, aging populations, and rapid scientific progress in medicine and medical devices have created a need to rethink how medical professionals are best enabled to successfully do their job. 
 The application of artificial intelligence in medical decision-making and particularly for diagnosing and recommending treatments is likely to hold significant potential to reduce the effect of these issues and improve patient outcomes. 
-However, as such decisions impact critical aspects of human health and well-being, this prospect also raises concerns related to the reliability of systems that use artificial intelligence \parencite{chen_ethical_2021, shailaja_machine_2018, ahmad_interpretable_2018}.
+However, as such decisions impact critical aspects of human health and well-being, this prospect also raises concerns related to the reliability of systems that use artificial intelligence \parencite{chen_ethical_2021, ahmad_interpretable_2018}.
 
-The evolution of technology to support decision-making can be traced back to very beginning of recorded history. After the agricultural revolution, several ancient civilizations developed mathematical techniques and algorithms to help them manage the newfound complexity of pre-modern society. 
-Fittingly, the earliest human whose name is known to recorded history was a Sumerian accountant called Kushim. Their signature has been identified on at least 18 clay tablets that deal with transactions and inventory of barley and other ingredients for beer production \parencite{nissen_archaic_1993}. 
+The use of technology to support decision-making can be traced back to very beginning of recorded history. After the agricultural revolution, several ancient civilizations developed mathematical techniques and algorithms to help them manage the newfound complexity of society. 
+Fittingly, the earliest human whose name is still known today was a Sumerian accountant called Kushim. Their signature has been identified on at least 18 clay tablets dated to 3400-3000 BCE that deal with transactions and inventory of barley and other ingredients for beer production \parencite{nissen_archaic_1993}. 
 Another example is the Egyptian Rhind Mathematical Papyrus dated to around 1550 BCE which describes various mathematical techniques for doing calculations involving multiplication, division, and fractions, and how to use them for practical purposes like measuring land, constructing buildings, and sharing resources \parencite{georges_universal_2001}. 
 Around the same time, the Babylonians had developed a sophisticated system of mathematics that included algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \parencite{fowler_square_1998}. 
 
@@ -29,14 +29,14 @@ Around the same time, the Babylonians had developed a sophisticated system of ma
 % \end{figure}
 
 Besides enabling the advancement of early society, these technologies also brought with them novel challenges. 
-In a likely attempt to reduce the effort needed to do Sumerian mathematics, Kushim produced a clay tablet with a multiplication table including fractional representations of common numbers. Assumedly unbeknownst to Kushim, this tablet would also come to contain one of the world's first recorded examples of a mathematical error; the statement: $5 \times \frac{1}{2} = 5$ \parencite{nissen_archaic_1993}. 
+In a likely attempt to ease the strenuous work of doing Sumerian mathematics, Kushim produced a clay tablet with a multiplication table that included fractional representations of common numbers. Assumedly unbeknownst to Kushim, this tablet would also come to contain one of the world's first recorded examples of a mathematical error; the statement: $5 \times \frac{1}{2} = 5$ \parencite{nissen_archaic_1993}. 
 Later, in its list of Pythagorean triplets, the Plimpton 322 clay tablet (\cref{fig:plimpton_332}) also has several errors, presumably made by a novice in Babylonian mathematics \parencite{neugebauer_mathematical_1945,britton_plimpton_2011}. 
 % Apart from such inherent limitations of the tools, inadequate human proficiency in their use was also a source of error. 
-Besides these human errors, inherent limitations of the tools also posed problems. 
-Babylonian mathematicians did not formalize the difference between rational and irrational numbers which lead to approximation errors. For instance, the common practice of approximating $\pi$ with 3 \parencite{georges_universal_2001}. 
+Besides these human errors, limitations inherent to the tools themselves also posed problems. 
+Babylonian mathematicians for instance did not formalize the difference between rational and irrational numbers, which lead to approximation errors. For instance, the common practice of approximating $\pi$ with 3 \parencite{georges_universal_2001}. 
 % Easy to overlook, the challenges we face in adopting new technologies today are not new but have been faced by humans for thousands of years. Today, as in ancient times, it was important to understand the limitations of technology and the need for human expertise in its use.
 
-\begin{figure}
+\begin{figure}[t]
     \centering
     % \includegraphics[width=0.90\textwidth]{plimpton_322.png}
     \includegraphics[height=0.4\textheight]{plimpton_322.png}
@@ -54,7 +54,7 @@ Working with Babbage, Ada Lovelace is widely regarded as the first to have recog
 As manufacturing processes were developed and scaled, electronic computers were adopted widely across society for various applications in science and industry, including healthcare \parencite{georges_universal_2001, harari_sapiens_2011}.
 % The societal changes brought about by the widespread adoption of computer technology through the latter half of the 20th century were so profound that some scholars refer to the era as the information age \parencite{georges_universal_2001, harari_sapiens_2011}.
 
-\begin{figure}
+\begin{figure}[t]
     \centering
     % \includegraphics[width=0.95\textwidth]{eniac_programmers.jpeg}
     \includegraphics[height=0.4\textheight]{eniac_programmers.jpeg}
@@ -62,21 +62,42 @@ As manufacturing processes were developed and scaled, electronic computers were 
     \label{fig:eniac_programmers}
 \end{figure}
 
-With the digital revolution continuing into the 21st century and the worldwide spread of the internet, the amount of data available to decision-makers has grown exponentially. 
-This has led to a surge of interest in the scientific field of machine learning, a subfield of artificial intelligence that focuses on developing computer algorithms that can learn from data to recognize patterns and make predictions that guide decision-making. 
-Enabled by a massive increase in the performance and availability of parallel computing resources, such methods have set new standards for the abilities of computer systems in various domains, such as speech recognition, computer vision, and natural language processing \parencite{lecun_deep_2015}. 
-In recent years, machine learning has made its way into the healthcare sector, where it has shown promising results in tasks such as medical imaging \parencite{lundervold_overview_2019}, drug discovery \parencite{chen_rise_2018}, and clinical decision support \parencite{cite15, cite14}. 
+With the digital revolution continuing into the 21st century and the worldwide spread of the internet, the amount of data and its availability have grown exponentially. 
+This has led to a surge of interest in the scientific field of machine learning, a subfield of artificial intelligence. Machine learning is the study of computer algorithms that can learn functions from data and make predictions to guide decision-making. 
+Enabled by a massive increase in the performance and availability of parallel computing resources, such methods have set new standards for the abilities of computer systems at various tasks usually reserved for humans, such as vision, speech recognition, and natural language understanding \parencite{lecun_deep_2015}. 
+In recent years, machine learning has also made its way into the healthcare sector, where it has shown promising results on tasks within medical imaging \parencite{lundervold_overview_2019}, drug discovery \parencite{chen_rise_2018}, and clinical decision support \parencite{cite15, cite14}. 
 
-\begin{figure}
+\begin{figure}[t]
     \centering
     \includegraphics[width=0.90\textwidth]{uber_nhsa_accident.png}
-    \caption[A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018.]{ A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018. The car's sensors detected the pedestrian $5.6$ seconds before the crash, but the self-driving system failed to recognize its own uncertainty in multiple object misclassifications and so did not correctly predict her path or reduce the SUV's speed \parencite[photo credit][]{nationaltransportationsafetyboardnhsa_collision_2019}.}
+    \caption[A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018.]{ A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018. The car's sensors detected the pedestrian $5.6$ seconds before the crash, but the self-driving system failed to recognize its own uncertainty in multiple object misclassifications and so did not correctly predict her path or reduce the SUV's speed \parencite[photo credit]{nationaltransportationsafetyboardnhsa_collision_2019}.}
     % \caption{Aerial view of crash location showing path of pedestrian as she attempted to cross N. Mill Avenue and movement and speed of SUV at three points before impact. Pedestrian's path shows her position from initial detection ($5.6$ seconds before impact) until impact; SUV's position is shown at corresponding times beginning $4.2$ seconds before impact \parencite{nationaltransportationsafetyboardnhsa_collision_2019}.}
     \label{fig:uber_nhsa_accident}
 \end{figure}
 
-However, these technologies come with the same risks as previous generations did, and in some cases, may amplify them. 
-Limitations of the technology itself, human error, and the complexity of the real world are all factors that can lead to failures. A pertinent example is the use of machine learning in autonomous driving systems: 
+% While machine learning has immense potential for positive impact, as any of it also comes with risks of error, much the same as its predecessors. 
+
+% While applications in healthcare are `nascent' and generally move forward slowly, machine learning has been fast adopted for self-driving vehicles. 
+
+% As with other technologies that came before it, limitations of the machine learning itself, human error, and the complexity of the real world are all factors that can lead to failures. 
+% However, compared to earlier, the sheer number of potential applications of machine learning, and the weight of some of them, serve to amplify both potential benefits and risks.
+
+% As for all technologies that came before it, limitations of machine learning algorithms, the complexity of the real world, and human error can all lead to failures. 
+% As for all technologies that came before it, machine learning systems can result in error, whether due to the complexity of the real world, human error, or limitations inherent itself.
+
+% However, the vast array of applications and their large potential impact amplifies these effects, compared to earlier technologies. 
+
+% Similar to technologies that came before it, machine learning brings risks alongside its benefits. 
+% % The complexity of the real world, limitations inherent to machine learning itself, and human mistakes can all lead to errors, while the nature of some applications serves to amplify their consequences, compared to some earlier technologies. 
+% % Real-world complexity, limitations of machine learning itself, and human error can all lead to system errors whose consequences might be amplified compared to earlier technologies due to the nature of some applications, such as in healthcare or autonomous driving.
+% % Real-world complexity, machine learning limitations, and human errors can magnify risks in fields like healthcare and autonomous driving
+% Risks, as well as benefits, might be amplified in machine learning compared to earlier technologies due to the nature of some of the tasks that machine learning enables augmenting.
+% While applications in healthcare are nascent and generally move forward in small steps, autonomous driving has fast adopted machine learning and presents a pertinent example: 
+
+Machine learning, like previous technologies, carries both benefits and risks. 
+However, some of these risks may be heightened in machine learning due to the unique tasks it enables in domains such as healthcare and autonomous driving. 
+While applications in healthcare are nascent and generally move forward in small steps, autonomous driving has fast adopted machine learning and presents a pertinent example: 
+% A pertinent example is autonomous driving systems which were fast equipped with machine learning technology: 
 In 2018, the first incident of a self-driving car killing a pedestrian took place in Tempe, Arizona. 
 The car, an SUV operated by Uber, was driving in autonomous mode when it struck a pedestrian crossing the street with her bicycle. 
 According to the investigation by the National Transportation Safety Board, the car's sensors detected the pedestrian more than five seconds before the crash, but the system did not manage to correctly predict her path or reduce the SUV's speed. 
@@ -87,15 +108,21 @@ And Uber is not the only actor facing the challenges of applying machine learnin
 % And though recent statistics published by Waymo, 
 % %the self-driving car company owned by Google's parent company Alphabet, 
 % revealed far fewer crashes, with only 2 of 20 incidents over 1 million miles meeting reporting criteria, it is interesting to note that the cars are all operated in the sunny states of California and Arizona, where driving conditions vary relatively little \parencite{hawkins_waymo_2023}. 
-While driver-assistance systems undoubtedly help reduce accidents in many cases, and has great future potential, the issues of current systems highlight the need for machine learning systems that are robust in rare, adverse or difficult situations. 
+While driver-assistance systems undoubtedly help reduce accidents in many cases, and has great future potential, the issues of current systems highlight the need for machine learning systems that are robust in rare, adverse, and difficult situations. 
 
+Recently, European policymakers proposed legislation to enforce that machine learning applications live up to such standards \parencite{europeancommission_briefing_2021}. 
+This so-called AI Act considers three categories of applications based on the potential risk they pose to society: limited, high, and unacceptable. 
+Limited risk applications such as in computer games must meet transparency criteria, while autonomous vehicles and systems within healthcare fall in the category of high risk applications. To avoid critical errors, these must meet a set of strict requirements focusing on anti-discrimination and robustness.
+Facial recognition is an example of an application deemed to pose unacceptable risk to society.
+% Limited risk applications, such as in computer games, must meet transparency requirements, and technologies such as public facial recognition are banned due to unacceptable risk. 
 
-Recently, European policymakers proposed a set of requirements to ensure that machine learning applications are safe, reliable, and trustworthy \parencite{europeancommission_briefing_2021}. 
-This AI Act groups applications into three categories based on the potential risk they pose to society: limited, high, and unacceptable. Limited risk applications, such as in computer games, must meet transparency requirements, and technologies such as public facial recognition are banned due to unacceptable risk. 
-High risk applications include autonomous vehicles and systems within healthcare. To avoid critical errors, these must meet a set of strict requirements focusing on anti-discrimination and robustness.
+% Miscalibrated models are unreliable, especially in high risk applications, and although no model is perfect, the inability of a human, or a model, to assess the certainty with which a prediction was made, makes it impossible to know how to weigh it in a decision-making process. 
+% A connection can be made back to the incident with the Uber self-driving car. 
 
-One of the key ways to improve the safety, reliability and trustworthiness of machine learning systems is to equip them with the ability accurately estimate the uncertainty of their predictions. 
-While any model will inevitably make a wrong prediction, by accurately estimating the uncertainty it can communicate to other systems or humans when it is not to be trusted, and so, reduce the risk that wrong predictions lead to catastrophic failures. 
+One of the key advances needed to ensure that high-risk applications of machine learning comply with such requirements is accurate uncertainty estimation of their predictions. 
+The multitude of rapid misclassifications made by the Uber self-driving car in Tempe is a likely indication that the model responsible for object-classification was overconfident in its predictions and unable to represent or communicate uncertainty to other systems in the car, or the safety driver. 
+As a consequence, the model's many incoherent predictions were taken at face value and subsystems in the car acted on them without appropriate consideration to their reliability.
+While any model will inevitably make a wrong prediction, accurately estimating the associated uncertainty and communicating it to other systems or humans is necessary to reduce the risk that wrong predictions lead to catastrophic failures. 
 Fittingly, a recent study by the European Parliamentary Research Services \parencite{europeanparliament_artificial_2022} concluded: 
 %
 \begin{quote}
@@ -113,10 +140,8 @@ Fittingly, a recent study by the European Parliamentary Research Services \paren
 % \noindent The research presented in this thesis will focus on the use of machine learning in relation to uncertainty estimation, speech processing, and medical conversations. 
 \noindent The research presented in this thesis deals with the use of machine learning for medical conversations with a focus on uncertainty estimation and speech processing. 
 The research project was partially funded by a grant from the national Danish Innovation Fund (grant no.\@ 0153-00167B) and defined and carried out in collaboration with the Danish company Corti, which develops computer software for medical decision support. 
-In the rest of this chapter, we will provide a high-level introduction to these topics and discuss the motivation behind the research project.
+In the rest of this chapter, we will provide a high-level introduction to these topics and to Corti and discuss the motivation behind the research project.
 
-
-% \todo[inline]{Can we find a better example than the Rhind Papyrus, or an additional one? It could be more on-point with decision-making and more well-known. Ideally, weave in an example of a failure of such technology.}
 
 \section{Uncertainty by example: Corti use-cases}
 %
@@ -143,7 +168,7 @@ Such a system might be trained on a dataset calls with verified stroke and non-s
 In such a system, many factors can lead to classification errors, and when that happens, we would like the model to express high degree of uncertainty. 
 For instance, the automatic speech recognition model might make an error in the transcription of particular word or phrase due to a noisy environment, overlapping, slurred or mumbling speech, or words not in the model's training data. 
 The classifier might misclassify a conversation due to medically ambiguous symptoms, a general lack of information given in the conversation, or transcription errors made by the speech recognizer. 
-How to best make such models accurately represent and estimate the uncertainty of given predictions, and how to use it to improve the value of such a system, especially in cooperation with the call taker, is an open question.
+How to best make such models accurately represent and estimate the uncertainty of given predictions, and how to use it to improve the value of such a system, especially in cooperation with the call-taker, is an open question.
 What is clear, however, is that the ability of such a system to accurately estimate the uncertainty of given predictions is crucial for its safe and reliable deployment in the real world. Overconfident predictions could lead to unnecessary delays in treatment, misdiagnoses, increased costs for the healthcare system, and potentially fatal consequences for patients.
 
 
@@ -180,9 +205,9 @@ However, overfitting, memorization and the use of training objectives that are p
 % This means, for instance, that if for a certain input the model assigns 70\% probability to a class, it would not generally be right 70\% of the time - if we could repeat the prediction multiple times under similar circumstances \parencite{guo_calibration_2017, kull_temperature_2019}.
 Usually, the predicted probabilities are too extreme which leads to overconfident predictions. This means a model will often assign a high probability to the predicted class, even when it is wrong. 
 
-Miscalibrated models are unreliable, especially in high risk applications, and although no model is perfect, the inability of a human, or a model, to assess the certainty with which a prediction was made, makes it impossible to know how to weigh it in a decision-making process. 
-% A connection can be made back to the incident with the Uber self-driving car. 
-The multitude of rapid misclassifications made by the Uber self-driving car in Tempe is likely an indication that the model responsible for object-classification was overconfident in its predictions and unable to represent or communicate uncertainty to other systems in the car, or the safety driver. Instead, the model's predictions were taken at face value and subsystems in the car acted on them without appropriate consideration to their reliability.
+% Miscalibrated models are unreliable, especially in high risk applications, and although no model is perfect, the inability of a human, or a model, to assess the certainty with which a prediction was made, makes it impossible to know how to weigh it in a decision-making process. 
+% % A connection can be made back to the incident with the Uber self-driving car. 
+% The multitude of rapid misclassifications made by the Uber self-driving car in Tempe is likely an indication that the model responsible for object-classification was overconfident in its predictions and unable to represent or communicate uncertainty to other systems in the car, or the safety driver. Instead, the model's predictions were taken at face value and subsystems in the car acted on them without appropriate consideration to their reliability.
 
 
 \subsection{Model calibration} \label{subsec:model-calibration}
@@ -222,11 +247,6 @@ Since aleatoric uncertainty is present in the data, it can usually be modelled d
 Since sources of epistemic uncertainty are by definition those not represented in the data, it is not generally possible to model them directly. This makes epistemic uncertainty more difficult to quantify than aleatoric uncertainty. 
 Methods for estimating epistemic uncertainty include Bayesian neural networks \parencite{mackay_practical_1992, neal_bayesian_1995} which represent it by an explicit distribution over learned model parameters. Ensemble methods \parencite{gal_dropout_2016,lakshminarayanan_simple_2017} take a similar approach but use an implicit distribution. 
 Other approaches include anomaly detection and the recent field of out-of-distribution detection which, for example, represent epistemic uncertainty by special output classes for out-of-distribution data, distributions over data representations, or distances between them (see \cref{sec:out-of-distribution-detection}). In this thesis, we will focus on the latter approach. 
-
-% In practice, we are interested in the predictive uncertainty, so we need to include both aleatoric and epistemic parts in the uncertainty estimate. 
-% Since sources of epistemic uncertainty are by definition those not represented in the data, it is not generally possible to model them directly, as it is for aleatoric uncertainty. This makes epistemic uncertainty more difficult to model and quantify than aleatoric uncertainty. 
-% % Methods for estimating epistemic uncertainty include Bayesian neural networks \parencite{mackay_practical_1992, neal_bayesian_1995}, ensembling \parencite{gal_dropout_2016,lakshminarayanan_simple_2017} and a suite of recent research into out-of-distribution detection (see \cref{sec:out-of-distribution-detection}). 
-% In contrast to aleatoric uncertainty, which is usually represented by a distribution over the data, epistemic uncertainty is often represented by an implicit or explicit distribution over the model parameters, such as in Bayesian neural networks \parencite{mackay_practical_1992, neal_bayesian_1995} and ensemble models \parencite{gal_dropout_2016,lakshminarayanan_simple_2017}. In most cases, such methods require multiple forward passes through the model to estimate the predictive uncertainty making them computationally expensive and impractical for real-time applications. Within the field of out-of-distribution detection, the epistemic uncertainty is generally not expressed in model parameters, but e.g. by a distribution over data representations, output probabilities with special classes for out-of-distribution data, or by distances in feature spaces. In such cases, the uncertainty can often be estimated in a single forward pass through the model.
 
 
 \section{Thesis scope and outline}
