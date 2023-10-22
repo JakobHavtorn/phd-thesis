@@ -101,10 +101,10 @@ By doing this, the information entropy becomes positive, dimensionally correct, 
 The form on the right-hand side of \cref{eq:corrected-differential-entropy-jaynes} can be recognized as the negative Kullback-Leibler divergence of $p(x)$ to $q(x)$ \parencite{kullback_information_1959},
 %
 \begin{equation} \label{eq:kullback-leibler-divergence}
-    D_{KL}(p(x)\parallel q(x)) = \int_{\mathcal{X}} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
+    D_{\mathrm{KL}}(p(x)\parallel q(x)) = \int_{\mathcal{X}} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
 \end{equation}
 %
-The Kullback-Leibler divergence $D_{KL}(p(x)\parallel q(x))$, also known as the \emph{information gain}, is often interpreted as the amount of additional information required to represent events from a distribution with density $p(x)$ using a code optimized for a distribution with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $q$ to represent events from distribution $p$, i.e. the \emph{relative entropy} of $p$ with respect to $q$.
+The Kullback-Leibler divergence $D_{\mathrm{KL}}(p(x)\parallel q(x))$, also known as the \emph{information gain}, is often interpreted as the amount of additional information required to represent events from a distribution with density $p(x)$ using a code optimized for a distribution with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $q$ to represent events from distribution $p$, i.e. the \emph{relative entropy} of $p$ with respect to $q$.
 
 Returning to Jaynes' argument and \cref{eq:corrected-differential-entropy-jaynes}, we can interpret this to say that the information entropy of a continuous random variable $X$ should be defined as the expected difference in information entropy between its density and a uniform density. 
 Identifying the Kullback-Leibler divergence as a measure of this relative information entropy provides a natural point of convergence for this section since it is equivalently defined for both discrete and continuous random variables, contrary to the differential entropy. 
@@ -390,12 +390,12 @@ Several other works also use self"=supervised representations of the in-domain d
 \section{Variational autoencoders}
 %
 % \paragraph{Deep generative models} 
-VAEs belong to the class of deep generative models which are models that learn a probabilistic representation of the input data and can be used to generate new samples from the same distribution. 
+Variational autoencoders (VAEs) belong to the class of deep generative models. These are models that learn a probabilistic representation of the input data and can be used to generate new samples from the same distribution. 
 There exist at least six main classes of deep generative models: variational autoencoders \parencite{kingma_autoencoding_2014,rezende_stochastic_2014,ranganath_hierarchical_2016,vahdat_nvae_2020,child_very_2021}, normalizing flow models \parencite{dinh_nice_2015,rezende_variational_2015,dinh_density_2017,kingma_glow_2018,grathwohl_ffjord_2018}, diffusion models \parencite{sohl-dickstein_deep_2015,song_generative_2019, ho_denoising_2020, vahdat_scorebased_2021}, energy-based models \parencite{lecun_tutorial_2006,hinton_fast_2006,salakhutdinov_efficient_2010,du_implicit_2019}, autoregressive models \parencite{oord_conditional_2016,oord_wavenet_2016,radford_improving_2018}, and generative adversarial networks \parencite{goodfellow_generative_2014,arjovsky_wasserstein_2017,brock_large_2019,karras_stylebased_2019}. 
 % Besides data generation, common properties of deep generative models include the ability to compute an exact or approximate likelihood of input $p(\xb)$, reconstruct an input $\xb$ from its latent representation $\zb$, and represent an input $\xb$ in a latent space. These properties enable various methods for their use in OOD detection. 
 
 % A variational autoencoder (VAE) \parencite{kingma_autoencoding_2014,rezende_stochastic_2014} is a type of deep generative model and an instance of a latent variable model. 
-In the following, we will introduce VAEs starting from the definition of the group of latent variable models to which they belong. We then derive the marginal likelihood objective used to train VAEs, discuss its different components, and highlight some central challenges facing VAEs.
+In the following, we will introduce VAEs starting from the definition of latent variable models. We then derive the marginal likelihood objective used to train VAEs, discuss its different components, and highlight some central challenges facing VAEs.
 
 
 \subsection{Latent variable models}
@@ -415,18 +415,18 @@ The ability to infer the latent variables $\zb$ from a given data point $\xb$ is
 %
 In many latent variable models, the joint distribution is factorized as $p(\xb,\zb) = p(\xb|\zb)p(\zb)$ including Gaussian mixture models \parencite{dempster_maximum_1977}, hidden Markov models \parencite{rabiner_tutorial_1989}, and probabilistic principal component analysis \parencite{tipping_probabilistic_1999}. 
 
-The marginal distribution $p(\xb)$ involves an integral over all possible values of the latent variable $\zb$ that is often analytically intractable. This is the case when the latent variable space is high-dimensional or the conditional distribution $p(\xb|\zb)$ is complex, as with non-conjugate models or neural networks. 
+The marginal distribution $p(\xb)$ involves an integral over all possible values of the latent variable $\zb$ and is often analytically intractable. This is the case when the latent variable space is high-dimensional or the conditional distribution $p(\xb|\zb)$ is complex, as with non-conjugate models or neural networks. 
 In these cases, approximate methods such as variational inference \parencite{jordan_introduction_1999} and Markov Chain Monte Carlo (MCMC) \parencite{mohamed_monte_2019} are used to approximately compute the marginal and posterior distributions. 
 
 
-\subsection{Variational autoencoders} \label{sec:variational-autoencoders}
-To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to parameterize the generative model $p_\thetab(\xb,\zb)$ using a neural network with parameters $\thetab$. Specifically, they let $p(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ and use a neural network for the generative model $p_\thetab(\xb|\zb)$ and any distribution that can be efficiently sampled and evaluated for the prior $p(\zb)$. 
+\subsection{Variational inference} \label{sec:variational-autoencoders}
+To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to factor the joint distribution and parameterize it using a neural network with parameters $\thetab$. Specifically, they let $p_\thetab(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ where $p(\zb)$ is the prior. 
 This choice makes both the marginal and posterior distributions intractable and so, training and inference require approximate methods. 
 While MCMC methods are computationally expensive for large neural networks, variational inference provides a more scalable alternative by estimating the posterior distribution $p(\zb|\xb)$ with a variational approximation. 
 
 
 \paragraph{Evidence lower bound}
-VAEs amortize the cost of variational inference by parameterizing $q_\phib(\zb|\xb)$ as a single neural network which makes it possible to efficiently compute approximate posterior distributions for any input $\xb$. The approximate posterior can also be used to compute the so-called evidence lower bound (ELBO) on the marginal distribution $p(\xb)$, 
+VAEs amortize the cost of variational inference by parameterizing $q_\phib(\zb|\xb)$ as a single neural network. This makes it possible to efficiently compute approximate posterior distributions for any input $\xb$. The approximate posterior can also be used to compute a lower bound on the marginal distribution $p(\xb)$, the so-called evidence lower bound (ELBO), 
 %
  \begin{align} \label{eq:variational-autoencoder-elbo}
     \log p(\xb)
@@ -436,8 +436,7 @@ VAEs amortize the cost of variational inference by parameterizing $q_\phib(\zb|\
     &\geq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right] \equiv \mathcal{L}_{\thetab,\phib}(\xb) \enspace .
 \end{align}
 %
-Although analytically evaluating the expectation is intractable, it can be approximated by sampling from the variational approximation $q_\phib(\zb|\xb)$. 
-Since both the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$ are parameterized by neural networks that can be efficiently evaluated, and the prior $p(\zb)$ is simple, this makes it possible to compute the ELBO for any input $\xb$.
+Although analytically evaluating the ELBO is intractable, it can be approximated by sampling and used to train VAEs. We will return to this after examining the ELBO a bit.
 
 Since the joint factorizes in VAEs, we can also write the ELBO in \cref{eq:variational-autoencoder-elbo} as,
 %
@@ -449,26 +448,40 @@ Since the joint factorizes in VAEs, we can also write the ELBO in \cref{eq:varia
 \end{align}
 %
 This reveals a commonly used interpretation of the ELBO: 
-The expected log-likelihood of the data under the generative model $p_\thetab(\xb|\zb)$ acts as a reconstruction loss encouraging the model to make $q_\phib(\zb|\xb)$ as peaky as possible to make reconstruction easy. 
-The negative KL-divergence between $q_\phib(\zb|\xb)$ and the prior $p(\zb)$ acts as a regularizer that forces the approximate posterior to be within the support of the prior (reverse KL-divergence). 
-A well-fitted VAE will have a large expected log-likelihood of the data under the generative model enabled by an informative latent variable. However, an optimal KL-divergence of zero entails that $q_\phib(\zb|\xb) = p(\zb)$ which means that $\zb$ is independent of $\xb$. This local optimum is referred to as posterior collapse and is particularly prone to happen for strong generative models, e.g. with autoregressive dependencies $p(\xb_{t}|\xb_{1:t},\zb)$. Some works have proposed to mitigate posterior collapse by tempering the KL-divergence term \parencite{alemi_fixing_2018,higgins_vvae_2017} or by adding additional terms to the ELBO \parencite{zhao_infovae_2018}. 
+The expected log-likelihood of the data under the generative model $p_\thetab(\xb|\zb)$ acts as a reconstruction loss that encourages the model to make $q_\phib(\zb|\xb)$ as peaky as possible to make reconstruction easy. 
+The negative KL-divergence between the posterior $q_\phib(\zb|\xb)$ and the prior $p(\zb)$ acts as a regularizer that forces the approximate posterior to be within the support of the prior (reverse KL-divergence). This helps prevent overfitting but importantly also makes ancestral sampling from the prior produce high quality data samples. 
 
+By maximizing $\mathcal{L}_{\thetab,\phib}(\xb)$, we must minimize the KL-divergence. However, an optimal KL-divergence of zero requires $q_\phib(\zb|\xb) = p(\zb)$ which would mean that $\zb$ has become independent of $\xb$. 
+This state is a poor local optimum and is usually referred to as posterior collapse. It is particularly prone to happen for strong generative models for instance with autoregressive dependencies $p(\xb_{t}|\xb_{1:t},\zb)$. Some works have proposed to mitigate posterior collapse by tempering the KL-divergence term \parencite{alemi_fixing_2018,higgins_vvae_2017} or by adding additional terms to the ELBO \parencite{zhao_infovae_2018}. 
+A well-fitted VAE will therefore have maximized the expected log-likelihood of the data under the generative model $p_\thetab(\xb|\zb)$ by learning an informative latent variable and thus have a nonzero KL-divergence $D_\text{KL}\left( q_\phib(\zb|\xb) \,||\, p(\zb) \right)$. 
+
+
+\subsection{Maximum likelihood estimation}
+To train a VAE by maximum likelihood, we must approximate the expectation in the ELBO \cref{eq:variational-autoencoder-elbo} and compute its gradients w.r.t. $\phib$ and $\thetab$. 
 
 \paragraph{Sampling}
-For some choices of prior and approximate posterior, the KL-divergence term can be computed analytically, but we generally must estimate the reconstruction loss by sampling from the approximate posterior. 
+Since we have freedom to select the approximate posterior, we can choose it such that it is easy to sample. 
+We can then form a Monte Carlo estimate of the ELBO as
+% 
+\begin{equation} \label{eq:variational-autoencoder-elbo-sampling-expanded}
+    \mathcal{L}_{\thetab,\phib}(\xb)
+    = \frac{1}{K} \sum_{k=1}^K \log p_\thetab(\xb|\zb_k) + p(\zb_k) - \log q_\phib(\zb_k|\xb) \enspace , 
+\end{equation}
+%
+where $\zb_k \sim q_\phib(\zb|\xb)$ are samples from the approximate posterior. 
+For some choices of prior and approximate posterior, such as Gaussians, the KL-divergence term of the ELBO can be computed analytically. 
 This Monte Carlo estimator can be written as,
 %
-\begin{equation} \label{eq:variational-autoencoder-elbo-sampling}
+\begin{equation} \label{eq:variational-autoencoder-elbo-sampling-KL}
     \mathcal{L}_{\thetab,\phib}(\xb)
     = \frac{1}{K} \sum_{k=1}^K \log p_\thetab(\xb|\zb_k) - D_\text{KL}\left( q_\phib(\zb|\xb) \,||\, p(\zb) \right) \enspace ,
 \end{equation}
 %
-where $\zb_k \sim q_\phib(\zb|\xb)$ are samples from the approximate posterior. 
 To reduce the variance of the estimate, \textcite{burda_importance_2016} propose to use importance sampling to reweigh the samples.
 
 
 \paragraph{Reparameterization} 
-Via the ELBO, we want to use maximum likelihood estimation to jointly optimize the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$ with respect to $\thetab$ and $\phib$. 
+We want to use maximum likelihood estimation to jointly optimize the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$ with respect to $\thetab$ and $\phib$. 
 Gradient-based optimization works well for neural networks, but the large amounts of data force the use of mini-batch, or stochastic, gradient descent. 
 Computing the gradient of the ELBO with respect to $\thetab$ is straightforward,
 %
@@ -487,16 +500,17 @@ However, by reparameterizing the latent variable $\zb$ as a deterministic functi
     = \mathbb{E}_{p(\epsilonb)} \left[ \nabla_\phib \log \frac{p_\thetab\left(\xb|g_\phib(\xb,\epsilonb)\right)p\left(g_\phib(\xb,\epsilonb)\right)}{q_\phib\left(g_\phib(\xb,\epsilonb)|\xb\right)} \right] \enspace . \\
 \end{equation}
 %
-The most important instantiation of this reparameterization is the diagonal Gaussian case, where $\zb = \mu_\phib(\xb) + \sigma_\phib(\xb) \odot \epsilonb$ with $\epsilonb\sim\mathcal{N}(0,\mathbf{I})$. 
-By assuming the covariance matrix is diagonal, this is a mean-field approximation which imposes independence between the latent variables in $\zb$. 
+The most important instantiation of this reparameterization is the diagonal Gaussian case, where $g_\phib(\xb,\epsilonb) = \mu_\phib(\xb) + \sigma_\phib(\xb) \odot \epsilonb$ with $\epsilonb\sim\mathcal{N}(0,\mathbf{I})$. 
+By assuming the covariance matrix is diagonal, this is a mean-field approximation which imposes independence between the dimensions of $\zb$. 
 
 Although the variance of the path-wise derivative is lower than most alternatives, such as score function estimators, it is not negligible, and a number of works have attempted to reduce it.
 \textcite{roeder_sticking_2017} note that a score function estimator can be factored out of the path-wise derivative and propose to ignore it to reduce gradient variance. 
 \textcite{rainforth_tighter_2019} show that this problem is exacerbated for the importance weighted ELBO \parencite{burda_importance_2016} and that increasing the number of samples in the importance weighted bound also increases gradient variance for the inference network, hurting its ability to learn useful representations. 
 After showing that removing the score function factor introduces bias, \textcite{tucker_doubly_2019} propose to reparameterize it too, giving rise to an unbiased, low variance gradient estimator that improves with more samples. Later work has generalized this estimator to hierarchical models \parencite{bauer_generalized_2021}. 
 
-\paragraph{Hierarchical models}\label{sec:hierarchical-vae-background}
-The mean-field assumption imposed by letting $\zb \sim\mathcal{N}(\mub,\mathbf{I}\sigmab^2)$ can often be more restrictive for model expressiveness than we would like. 
+
+\subsection{Hierarchical models}\label{sec:hierarchical-vae-background}
+The mean-field assumption imposed by $\zb \sim\mathcal{N}(\mub,\mathbf{I}\sigmab^2)$ can often be more restrictive for model expressiveness than we would like. 
 While learning a full covariance is a simple solution, it is not always sufficiently computationally efficient and, in any case, enables learning only linear covariance between elements of $\zb$. 
 The drawbacks of mean-field approximation and linear covariance has lead to research into learning hierarchies of several non-linearly dependent latent variables; an idea well in line with the usual motivations behind deep neural networks such as efficient, compositional representation \cite{lecun_deep_2015}. 
 Such hierarchical models are usually formalized by introducing a set of $L$ latent variables  $\zb=\zb_1, \dots, \zb_L$ and letting the generative model be defined as,
@@ -526,52 +540,53 @@ Recent architectural advances have alleviated the posterior collapse problem and
 
 
 
-\paragraph{Mutual information interpretation}
-Training by stochastic gradient descent training involves sampling mini-batches of data points $\xb$ from the empirical training data distribution $\hat{p}(\xb)$ and evaluating the gradient of the ELBO with respect to the parameters $\thetab$ and $\phib$ for each mini-batch. 
-To gain some additional insight into the objective that we are optimizing, we will exploit this expectation over the data distribution $\hat{p}(\xb)$ to form a factorization similar to \cref{eq:variational-autoencoder-elbo-factorized} but with the aggregated posterior $q_\phib(\zb) = \int q_\phib(\zb|\xb)\hat{p}(\xb)\,\mathrm{d}\xb$ in the KL-divergence \parencite{tomczak_trouble_2022}. 
-The marginal likelihood under this expectation is lower bounded by the same expectation over the ELBO,
+\subsection{Mutual information interpretation} \label{subsec: mutual-information-interpretation-of-elbo}
+Training VAEs by stochastic gradient descent involves first sampling a mini-batch of data points $\xb$ from the empirical distribution of training data $\hat{p}(\xb)$ and then evaluating the gradient of the ELBO with respect to the parameters $\thetab$ and $\phib$. 
+To gain some additional insight into the objective that we are optimizing, we will use this expectation over the data distribution $\hat{p}(\xb)$ to form a factorization similar to \cref{eq:variational-autoencoder-elbo-factorized} but with the aggregated posterior $q_\phib(\zb) = \int q_\phib(\zb|\xb)\hat{p}(\xb)\,\mathrm{d}\xb$ in the KL-divergence \parencite{tomczak_trouble_2022}. 
+Under the expectation over the data distribution, the marginal likelihood is lower bounded by that expectation over the ELBO,
 %
 \begin{align} \label{eq:variational-autoencoder-elbo-expected}
     \mathbb{E}_{\hat{p}(\xb)}\left[ \log p(\xb) \right] 
-    &\geq \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log \frac{p_{}(\xb|\zb)p(\zb)}{q_{}(\zb|\xb)} \right] \enspace ,
+    &\geq \mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log \frac{p_{\thetab}(\xb|\zb)p(\zb)}{q_{\phib}(\zb|\xb)} \right] \enspace ,
 \end{align}
 %
-where we have defined $q(\xb) = \hat{p}(\xb)$ and $q_{}(\xb,\zb) = q_{}(\zb|\xb)\hat{p}(\xb)$ and dropped the parameter subscripts for ease of notation. 
-This allows us to focus on the KL-divergence in \cref{eq:variational-autoencoder-elbo-factorized} which we can rewrite as follows,
+% where we have defined $q(\xb) = \hat{p}(\xb)$ and $q_{\phib}(\xb,\zb) = q_{\phib}(\zb|\xb)\hat{p}(\xb)$ and dropped the parameter subscripts for ease of notation. 
+where we have defined $q_{\phib}(\xb,\zb) = q_{\phib}(\zb|\xb)\hat{p}(\xb)$ for ease of notation. This is simply \cref{eq:variational-autoencoder-elbo} under the extra expectation. 
+We leave the reconstruction loss in \cref{eq:variational-autoencoder-elbo-factorized} is as and focus on the KL-divergence to the prior. We rewrite it as follows,
 %
 \begin{align} \label{eq:variational-autoencoder-kl-factor-expected}
-    \mathbb{E}_{\hat{p}(\xb)} \left[ D_\text{KL}\left( q_{}(\zb|\xb) \,||\, p(\zb) \right) \right]
-    &= \mathbb{E}_{q_{}(\zb,\xb)} \left[ \log \frac{q_{}(\zb|\xb)}{p(\zb)}\right] \nonumber \\
-    % &= - \mathbb{E}_{q_{}(\zb)}\left[ \log p(\zb) \right] + \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log q_{}(\zb | \xb) \right] \nonumber \\
-    &= \mathbb{E}_{q_{}(\zb)}\left[ \log \frac{1}{p(\zb)} \right] + \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log \frac{q_{}(\xb,\zb)}{q(\xb)} \right] \nonumber \\
-    % &= - \mathbb{E}_{q_{}(\zb)}\left[ \log p(\zb) \right] + \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log \frac{q_{}(\xb,\zb)}{q(\xb)} \right] \nonumber \\ 
-    % &\qquad + \mathbb{E}_{q_{}(\zb)}\left[ \log q_{}(\zb) \right] - \mathbb{E}_{q_{}(\zb)}\left[ \log q_{}(\zb) \right] \nonumber \\
-    &= \mathbb{E}_{q_{}(\zb)}\left[ \log \frac{q_{}(\zb)}{p(\zb)} \right] - \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log \frac{q_{}(\xb,\zb)}{q(\xb)q_{}(\zb)} \right] \nonumber \\
-    &= D_\mathrm{KL}\left( q_{}(\zb) \parallel p(\zb) \right) - I_{q_{}(\xb,\zb)}[\xb;\zb] \enspace .
+    \mathbb{E}_{\hat{p}(\xb)} \left[ D_\text{KL}\left( q_{\phib}(\zb|\xb) \,||\, p(\zb) \right) \right]
+    &= \mathbb{E}_{q_{\phib}(\zb,\xb)} \left[ \log \frac{q_{\phib}(\zb|\xb)}{p(\zb)}\right] \nonumber \\
+    % &= - \mathbb{E}_{q_{\phib}(\zb)}\left[ \log p(\zb) \right] + \mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log q_{\phib}(\zb | \xb) \right] \nonumber \\
+    &= \mathbb{E}_{q_{\phib}(\zb)}\left[ \log \frac{1}{p(\zb)} \right] + \mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log \frac{q_{\phib}(\xb,\zb)}{q(\xb)} \right] \nonumber \\
+    % &= - \mathbb{E}_{q_{\phib}(\zb)}\left[ \log p(\zb) \right] + \mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log \frac{q_{\phib}(\xb,\zb)}{q(\xb)} \right] \nonumber \\ 
+    % &\qquad + \mathbb{E}_{q_{\phib}(\zb)}\left[ \log q_{\phib}(\zb) \right] - \mathbb{E}_{q_{\phib}(\zb)}\left[ \log q_{\phib}(\zb) \right] \nonumber \\
+    &= \mathbb{E}_{q_{\phib}(\zb)}\left[ \log \frac{q_{\phib}(\zb)}{p(\zb)} \right] + \mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log \frac{q_{\phib}(\xb,\zb)}{q(\xb)q_{\phib}(\zb)} \right] \nonumber \\
+    &= D_\mathrm{KL}\left( q_{\phib}(\zb) \parallel p(\zb) \right) + I_{q_{\phib}(\xb,\zb)}[\xb;\zb] \enspace .
 \end{align}
 %
 Inserting this back into the ELBO in \cref{eq:variational-autoencoder-elbo-factorized}, we get,
 %
 \begin{equation} \label{eq:variational-autoencoder-elbo-factorized-expected}
-    \mathbb{E}_{q_{}(\xb,\zb)} \left[ \mathcal{L}_{\thetab,\phib}(\xb) \right] = 
+    \mathbb{E}_{\hat{p}(\xb)} \left[ \mathcal{L}_{\thetab,\phib}(\xb) \right] = 
     \underset{\text{average reconstruction}}{\underbrace{
-        \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log p_{}(\xb | \zb) \right]
+        \mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log p_{\thetab}(\xb | \zb) \right]
     }}
     - 
     \underset{\text{marginal KL to prior}}{\underbrace{
-    \vphantom{\mathbb{E}_{q_{}(\xb,\zb)}\left[ \log p_{}(\xb | \zb) \right]}{
-        D_{\mathrm{KL}}\left[ q_{}(\zb) \parallel p(\zb) \right]
+    \vphantom{\mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log p_{\thetab}(\xb | \zb) \right]}{
+        D_{\mathrm{KL}}\left[ q_{\phib}(\zb) \parallel p(\zb) \right]
     }
     }} 
     -
     \underset{\text{mutual information}}{\underbrace{
-    I_{q_{}(\xb,\zb)}\left[\xb ; \zb \right]
+    I_{q_{\phib}(\xb,\zb)}\left[\xb ; \zb \right]
     }} \enspace . \nonumber
 \end{equation}
 %
 In this form, the KL-divergence term of \cref{eq:variational-autoencoder-elbo-factorized} has been factored into the marginal KL-divergence of the aggregated posterior to the prior and the mutual information between the data and the latent variables. 
-The marginal KL-divergence is minimized by making the aggregated posterior $q_{}(\zb)$ match the prior $p(\zb)$. Contrary to the KL-divergence term of \cref{eq:variational-autoencoder-elbo-factorized}, driving the marginal KL-divergence to zero does not enforce independence between $\xb$ and $\zb$. 
-However, this alternative form reveals that the ELBO is maximized by minimizing the mutual information between $\xb$ and $\zb$, $I_{q_{}(\xb,\zb)}\left[\xb ; \zb \right]$. 
+The marginal KL-divergence is minimized by making the aggregated posterior $q_{\phib}(\zb)$ match the prior $p(\zb)$. Contrary to the KL-divergence term of \cref{eq:variational-autoencoder-elbo-factorized}, driving the marginal KL-divergence to zero does not enforce independence between $\xb$ and $\zb$. 
+However, this alternative form reveals that the ELBO is maximized by minimizing the mutual information between $\xb$ and $\zb$, $I_{q_{\phib}(\xb,\zb)}\left[\xb ; \zb \right]$. 
 This result indicates that the usual interpretation of $\zb$ as a representation of $\xb$ is not a fundamental property arising from the ELBO and challenges the usefulness of variational autoencoders as representation learners.
 % %
 

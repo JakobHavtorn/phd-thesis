@@ -13,18 +13,111 @@
 The rapid progress of machine learning that started about a decade ago with the 2012 ImageNet competition and the work of \textcite{krizhevsky_imagenet_2012} all but slowed down during the course of this project. 
 Following the papers by \textcite{choi_waic_2019,nalisnick_detecting_2019,hendrycks_deep_2019}, the field of out-of-distribution detection saw a surge of interest that has since grown yearly, while self"=supervised learning for speech has continued to advance with works such as CPC \parencite{oord_representation_2018}, wav2vec 2.0 \parencite{baevski_wav2vec_2020} and data2vec \parencite{baevski_data2vec_2022}. 
 
-Having focused on VAEs for out-of-distribution detection in \cref{part:unsupervised-uncertainty-estimation} and on self"=supervised methods for representation learning in \cref{part:self-supervised-speech-representation-learning}, this discussion will bridge a gap between the two approaches and consider how VAEs might be enabled to learn representations more competitive with self"=supervised methods. 
+Having focused on VAEs for out-of-distribution detection in \cref{part:unsupervised-uncertainty-estimation} and on self"=supervised methods for representation learning in \cref{part:self-supervised-speech-representation-learning}, this discussion will bridge a gap between the two approaches and consider how VAEs might be enabled to learn representations more competitive with self"=supervised methods for downstream tasks. 
 Furthermore, since the work in \cref{part:medical-applications} only had limited focus on uncertainty, we will also present and discuss the use of calibration techniques for the stroke recognition model drawing connections to how such systems are perceived and used in practice. 
 
 
 \section{Representation learning with variational autoencoders}
 %
-In this thesis we studied two different approaches to speech representation learning: VAEs in \cref{chp:paper-hierarchical,chp:paper-modelagnostic,chp:paper-benchmarking} and self"=supervised methods in \cref{chp:paper-review}. 
+In this thesis we studied two different approaches to speech representation learning: VAEs in \cref{chp:paper-hierarchical,chp:paper-mo?delagnostic,chp:paper-benchmarking} and self"=supervised methods in \cref{chp:paper-review}. 
 As we saw, the probabilistic formulation of VAEs provides benefits for their application to uncertainty quantification, although competitive methods that use self"=supervised foundation models have also been proposed \textcite{xiao_we_2021,hendrycks_using_2019,bergman_classificationbased_2020}. Self"=supervised methods are generally superior when it comes to performance on downstream tasks. While this of course depends on the task and the amount and type of unlabeled and labeled data, self"=supervised methods for speech are commonly evaluated on downstream tasks that are harder and more complex than those used for VAEs. For instance, between \cref{tab: phoneme recognition (PER),tab:unsupervisedASR} self"=supervised methods can be seen to outperform VAEs for phoneme recognition while self"=supervised methods are also reported for word-level speech recognition. 
-In the following, we will discuss potential directions of future research that might help shed light on why VAEs representations underperform on downstream tasks and how they might be improved.
+In the following, we will discuss potential directions of future research that might help shed light on why representations from VAEs underperform on downstream tasks and how they might be improved.
 
 
-\paragraph{Designing the latent space} 
+\subsection{Giving up?}
+
+Two key observations might lead to the pessimistic view that VAEs are fundamentally unsuited for representation learning. 
+First, VAEs are trained to maximize the ELBO which is a marginal likelihood objective conditionally independent of the latent variables $\zb$. Second, as we saw in \cref{eq:variational-autoencoder-elbo-factorized-expected}, the ELBO contains can be written to reveal that its maximization leads to minimization of the mutual information between the observed and latent variables. In the following we will discuss each of these observations.
+
+\paragraph{Marginal likelihood maximization} For any latent variable model $p_{\thetab}(\xb,\zb)$ we can use the posterior distribution $p_{\thetab}(\zb|\xb)$ to map a given observation $\xb$ to its latent representation $\zb$. We hope this representation is useful, for instance in the sense that it can improve performance on downstream tasks compared to other methods. Essential to the usefulness is the posterior distribution $p_{\thetab}(\zb|\xb)$. 
+
+On the other hand, when we use maximum likelihood to train a latent variable model, we maximize the log-marginal likelihood $\log p(\xb)$. This can be equivalently phrased as maximizing the KL-divergence of the true data distribution $p_{\text{data}}(\xb)$ to the learned marginal, $D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb))$\footnote{%
+Maximizing the likelihood $\sum_{n=1}^N \log p_\theta(\xb)$ w.r.t. parameters $\thetab$ is asymptotically equivalent to minimizing $D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb))$. 
+%
+\begin{align}
+    \argmin_\thetab D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb)) 
+    &= \argmin_\thetab \mathbb{E}_{p_{\text{data}}(\xb)} \left[ \log \frac{p_{\text{data}}(\xb)}{p_{\theta}(\xb)} \right] \nonumber \\
+    % &= \argmin_\thetab \mathbb{E}_{p_{\text{data}}(\xb)} \left[ \log p_{\text{data}}(\xb) - \log p_{\theta}(\xb) \right] \nonumber \\
+    &= \argmax_\thetab \mathbb{E}_{p_{\text{data}}(\xb)} \left[ \log p_{\theta}(\xb) \right] \nonumber \\
+    &= \argmax_\thetab \lim_{n\rightarrow\infty} \underset{\text{log-likelihood}}{\underbrace{\sum_{n=1}^N \log p_{\theta}(\xb_n)}} \enspace . \nonumber
+\end{align}
+%
+The last equation follows from the law of large numbers.
+% \begin{align}
+%     \mathcal{L}(\thetab; p_{\mathrm{data}}(\xb))
+%     &= \lim_{N\rightarrow\infty} \frac{1}{N} \sum\limits_{n=1}^{N} \log p_{\thetab}(\xb) \\
+%     &= \mathbb{E}_{p_{\mathrm{data}}(\xb)} \left[ \log p_{\thetab}(\xb) \right] \\
+%     &= \mathbb{E}_{p_{\mathrm{data}}(\xb)} \left[ \log p_{\thetab}(\xb) - \log p_{\mathrm{data}}(\xb) + \log p_{\mathrm{data}}(\xb) \right] \\
+%     &= \mathbb{E}_{p_{\mathrm{data}}(\xb)} \left[ \log p_{\mathrm{data}}(\xb) \right] + \mathbb{E}_{p_{\mathrm{data}}(\xb)} \left[ \log\frac{ p_{\thetab}(\xb)}{p_{\mathrm{data}}(\xb) }\right] \\
+%     &= - \mathbb{H}[p_{\mathrm{data}}(\xb)] - D_\mathrm{KL}\left( p_{\mathrm{data}}(\xb)\mid\mid p(\xb) \right)
+% \end{align}
+}. 
+The first key observation then is that the marginal $p_{\thetab}(\xb)$, which we maximize, and the posterior $p_{\thetab}(\zb|\xb)$, which we want to produce useful representations, are separate properties of a latent variable model. Any combination uniquely defines a valid latent variable model. Hence, maximizing the marginal is a completely useless criteria for representation learning, regardless of the measure of usefulness \parencite{huszar_is_2017}.
+
+\paragraph{Mutual information minimization}
+As we saw in \cref{subsec: mutual-information-interpretation-of-elbo} ...
+
+
+\begin{equation} \label{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)}
+    \mathbb{E}_{q_{\phib}(\xb,\zb)} \left[ \mathcal{L}_{\thetab,\phib}(\xb) \right] = 
+    \underset{\text{average reconstruction}}{\underbrace{
+        \mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log p_{\thetab}(\xb | \zb) \right]
+    }}
+    - 
+    \underset{\text{marginal KL to prior}}{\underbrace{
+    \vphantom{\mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log p_{\thetab}(\xb | \zb) \right]}{
+        D_{\mathrm{KL}}\left[ q_{\phib}(\zb) \parallel p(\zb) \right]
+    }
+    }} 
+    -
+    \underset{\text{mutual information}}{\underbrace{
+    I_{q_{\phib}(\xb,\zb)}\left[\xb ; \zb \right]
+    }} \enspace . \nonumber
+\end{equation}
+
+
+\parencite{tomczak_trouble_2022}
+
+% The first component of the ELBO is the negative reconstruction error. In other words,  𝐳  is sampled from variational posterior for a given  𝐱  and then it is stochastically reconstructed by  𝑝𝜃(𝐱|𝐳) . That is, the conditional likelihood is used to calculate the reconstruction error. This term tries to make  𝑞𝜙  as peaky as possible. If  𝑞𝜙  is non-concentrated, is is hard to learn a stochastic mapping from multiple  𝐳 's to a single  𝐱 .
+
+% The second component of the ELBO,  𝐷KL[𝑞𝜙(𝐳)‖𝑝𝜆(𝐳)] , determines the error between the aggregated posterior and the marginal over  𝐳 (a.k.a. the \textit{prior}). Since we maximize the ELBO, and the term 𝐷KL[𝑞𝜙(𝐳)‖𝑝𝜆(𝐳)]  is with the negative sign, we want to minimize it. Thus, the ELBO tells us that the difference between  𝑞𝜙(𝐳)  and  𝑝𝜆(𝐳) should be as small as possible. This makes perfect sense because we want the aggregated posterior to assign the probability mass to the same regions as the prior.
+
+% The last component of the ELBO,  𝕀𝑞𝜙(𝐱,𝐳)[𝐱;𝐳] , is the mutual information between  𝐱  and  𝐳  for the aggregated posterior and the empirical distribution. This term appears with the negative sing, hence, the ELBO indicates that this mutual information should be minimized. This is a very puzzling result because, in other words, there should be no stochastic dependency between  𝐳  and  𝐱 . Commonly,  𝐳  is interpreted as a representation of  𝐱 , however, optimizing the ELBO leads to a completely different outcome!  𝕀𝑞𝜙(𝐱,𝐳)[𝐱;𝐳]  is a cumbersome component amd it may be an explanation why training latent variable models with variational inference is typically hard.
+
+% In the conclusion, the ELBO navigates the model to fit the aggregated posterior to the prior, and, on the other hand, to learn no stochastic dependency between  𝐱  and  𝐳  while maintaining a one-to-one mapping from  𝐳  to  𝐱 . This last contradiction may result in a difficult training of the model. As reported in the literature (e.g., (Alemi et al., 2018)), the choice of parameterizations of the distributions play the crucial role and could be the reason for complicating the training. For instance, taking a very powerful parameterization of the conditional likelihood,  𝑝𝜃(𝐱|𝐳) , e.g., a deep autoregressive model, gives a model that completely disregards  𝐳 .
+
+\paragraph{How has this ever worked}
+
+Even though these properties indicate that VAEs might not work at all for representation learning, VAEs have consistently been shown to be able to learn meaningful representations \parencite{sonderby_ladder_2016,hsu_unsupervised_2017,maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}. 
+We can understand the reason for this by noting that both of the above scenarios are only achievable if the optimization too unconstrained. 
+Specifically, the maximum likelihood estimation takes place not over all possible models, but a constrained parametric class defined by the inference network $q_\thetab(\zb|\xb) \approx p(\zb|\xb)$ and the generative model $p_\thetab(\xb|\zb)p(\zb) = p_\theta(\xb,\zb)$. This introduces a coupling between the marginal $p_{\thetab}(\xb)$ and the posterior $p_{\thetab}(\zb|\xb)$ which makes the maximum likelihood solution unlikely to correspond to completely useless representations \parencite{huszar_is_2017}. 
+
+Similarly, maximizing the ELBO in \cref{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)} by exactly minimizing the mutual information term ...
+
+The challenge is then how to impose appropriate constraints to make VAEs learn representations that are competitive with self"=supervised methods. 
+
+
+
+% + maximum likelihood does not guarantee good representations of unseen data. On the contrary; the two are actually only correlated by inductive biases present in the model type that we care about. 
+% + VAEs do maximum likelihood.
+%     + but this is true for any model trained with maximum likelihood
+%     + in fact masked pre-trained used for many self-supervised methods can be seen as maximum likelihood training.
+
+% + mutual information minimization of VAEs leads to difficulty of training and posterior collapse.
+%     + only when properly constraining the inference and generative models do VAEs function.
+%     + if the combined inference and generative models easily minimize the mutual information, while producing good reconstructions and making the marginal posterior match the prior, then the model will learn to disregard z, whatever is encoded in it. 
+%     + this is especially prone to happen for strong generative models with those that are autoregressive on the observed variable as the core example. Since $p(\xb_t)$ in many cases can be modelled very well by a generative model of the form $p(\xb_t | \xb_{1:t-1})$, the potential improvement from using $p(\xb_t | \xb_{1:t-1}, \zb_{1:t})$, or even $p(\xb_t | \xb_{1:t-1}, \zb_{1:T})$, might be small compared to the magnitude of the mutual information term 
+%     \cref{eq:variational-autoencoder-elbo-factorized-expected}
+
+
+\todo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
+\todo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \parencite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
+
+\todo[inline]{Masked pre-training actually corresponds to marginal maximum likelihood optimization such as done by VAES \parencite{moreno-munoz_masked_2023}. Since maximum likelihood in no way guarantees good representations, how do self"=supervised methods achieve  this, if they also do maximum likelihood?}
+
+
+
+\subsection{Designing the latent space} 
 Architectural improvements and hierarchies of latent variables are two related, and interesting, approaches to learning more semantic features in VAEs. 
 Some success has been demonstrated in the image domain with models like BIVA \parencite{maaloe_biva_2019}, NVAE \parencite{vahdat_nvae_2020}, and VD-VAE \parencite{child_very_2021}, with up to 78 stochastic layers, achieving tight likelihoods and high-quality samples, although limited effort has put towards using such models for downstream tasks. 
 For speech, a hierarchical model operating on multiple temporal scales, such as the Clockwork VAE \parencite{saxena_clockwork_2021} adapted for speech in \cref{chp:paper-benchmarking}, might help better capture dependencies at longer ranges and encode more semantic features. 
@@ -32,7 +125,7 @@ For instance, phonetic content for pronunciation might be learned at lower layer
 Although some work has successfully separated speaker identity from content by modifying the latent variables and their dependencies \parencite{hsu_unsupervised_2017}, models that can learn a deep hierarchy of features for speech remains an open challenge. The work presented in \cref{chp:paper-benchmarking} represents an effort to make progress towards such a model. 
 
 
-\paragraph{Adding a few labels} 
+\subsection{Adding a few labels} 
 Another way to improve the representations learned in VAEs is via semi-supervised learning. 
 Here, a few labels are used to inform which patterns that are learned from a large, mostly unlabeled, data set. 
 This is usually done by defining a new stochastic variable as the target and deriving a semi-supervised version of the ELBO that accommodates using the labels when they are available, or marginalizing the target variable when they are not. The VAE is then trained on the labeled and unlabeled data simultaneously. 
@@ -42,7 +135,7 @@ Despite being theoretically appealing, joint objectives for semi-supervised lear
 VAEs, on the other hand, must often learn the labeled downstream tasks while simultaneously training on the unlabeled data. This is computationally expensive, but also requires retraining with the unlabeled data, when new supervised data becomes available or a new task is added. 
 
 
-\paragraph*{Approximating less}
+\subsection{Approximating less}
 VAE are inherently approximate. Training is performed on a lower bound of the likelihood and inference is variational, amortized and for non-hierarchical models, mean field. As a consequence, the gradient itself is estimated inexactly, usually by only one posterior sample, leading to non-negligible variance. 
 For that reason, it seems plausible that using tighter bounds and reducing gradient variance improve representation learning in VAEs. 
 Importance weighting the ELBO \parencite{burda_importance_2016} provides a tight bound on the likelihood, reduces gradient variance, and induces a complex implicit posterior distribution. 
@@ -52,7 +145,7 @@ Despite much of this progress being prior to the latest, very large hierarchical
 This seems to indicate that there might be untapped potential in consolidating the work on low-variance gradient estimators and advanced architectures and inference networks.
 
 
-\paragraph{Masking} 
+\subsection{Masking} 
 As discussed in \cref{chp:paper-review}, masking is one of the driving techniques behind the success of self"=supervised methods for speech \parencite{devlin_bert_2018,baevski_wav2vec_2020}. By removing tokens from the input or an early feature extraction layer and tasking a model with inferring their representations, models are forced to learn how neighboring tokens relate to those masked. Depending on the size of the mask, these dependencies can be more or less semantic in nature. For instance, the wav2vec 2.0 model is well-known to learn representations that have high similarity with word identity and meaning \parencite{pasad_layerwise_2021}. 
 
 In comparison, reconstruction in VAEs is done from latent variables that are inferred from the full, unmasked input. Since all information is generally available, this might allow the encoder and decoder models to perform well for reconstruction, even with no, or limited, use of contextual dependencies. Furthermore, VAE reconstruction almost always targets the direct input in order to learn the distribution over the training data and to enable generating new samples. However, compared to many self"=supervised methods that target intermediate, learned representations, this forces VAEs to encode all aspects of the input that are important to its distribution. As we saw in \cref{chp:paper-hierarchical}, this will generally include low-level features that are necessary for accurate input reconstruction. Such features require large latent space representations and model capacity \parencite{vahdat_nvae_2020,child_very_2021}, but are usually of lesser interest for downstream tasks \parencite{baevski_wav2vec_2020}.
@@ -64,51 +157,6 @@ The idea of using VAEs to impute missing data was already examined in the semina
 Previous work that trains on partially observed data has largely focused on the ability of these models to yield high-quality imputations within the tabular and image data domains and have not probed for the effects on the learned latent representation \parencite{mattei_miwae_2019, ipsen_not-miwae_2021}. 
 
 Including masked objectives into the principled probabilistic framework of VAEs might require creative thinking, but it seems likely that relaxing the requirement of exact input reconstruction and enforcing the need of encoding (and decoding) contextual information could lead the way for future types of VAEs to learn representations that are competitive with self"=supervised methods.
-
-
-\paragraph{Stop representing?}
-
-Two key observations might lead to the more pessimistic view that VAEs are fundamentally unsuited for representation learning. 
-First, variational autoencoders are trained to maximize the ELBO which is a marginal likelihood objective conditionally independent of the latent variables $\zb$. Second, as we saw in \cref{eq:variational-autoencoder-elbo-factorized-expected}, the ELBO contains can be written to reveal that its maximization leads to minimization of the mutual information between the observed and latent variables. In the following we will discuss each of these observations in turn.
-
-
-
-+ maximum likelihood does not guarantee good representations of unseen data. On the contrary; the two are actually only correlated by inductive biases present in the model type that we care about. 
-+ VAEs do maximum likelihood.
-    + but this is true for any model trained with maximum likelihood
-    + in fact masked pre-trained used for many self-supervised methods can be seen as maximum likelihood training.
-
-+ mutual information minimization of VAEs leads to difficulty of training and posterior collapse.
-    + only when properly constraining the inference and generative models do VAEs function.
-    + if the combined inference and generative models easily minimize the mutual information, while producing good reconstructions and making the marginal posterior match the prior, then the model will learn to disregard z, whatever is encoded in it. 
-    + this is especially prone to happen for strong generative models with those that are autoregressive on the observed variable as the core example. Since $p(\xb_t)$ in many cases can be modelled very well by a generative model of the form $p(\xb_t | \xb_{1:t-1})$, the potential improvement from using $p(\xb_t | \xb_{1:t-1}, \zb_{1:t})$, or even $p(\xb_t | \xb_{1:t-1}, \zb_{1:T})$, might be small compared to the magnitude of the mutual information term 
-    \cref{eq:variational-autoencoder-elbo-factorized-expected}
-
-\begin{equation} \label{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)}
-    \mathbb{E}_{q_{}(\xb,\zb)} \left[ \mathcal{L}_{\thetab,\phib}(\xb) \right] = 
-    \underset{\text{average reconstruction}}{\underbrace{
-        \mathbb{E}_{q_{}(\xb,\zb)}\left[ \log p_{}(\xb | \zb) \right]
-    }}
-    - 
-    \underset{\text{marginal KL to prior}}{\underbrace{
-    \vphantom{\mathbb{E}_{q_{}(\xb,\zb)}\left[ \log p_{}(\xb | \zb) \right]}{
-        D_{\mathrm{KL}}\left[ q_{}(\zb) \parallel p(\zb) \right]
-    }
-    }} 
-    -
-    \underset{\text{mutual information}}{\underbrace{
-    I_{q_{}(\xb,\zb)}\left[\xb ; \zb \right]
-    }} \enspace . \nonumber
-\end{equation}
-
-
-\parencite{tomczak_trouble_2022}
-\parencite{huszar_is_2017}
-
-\todo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
-\todo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \parencite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
-
-\todo[inline]{Masked pre-training actually corresponds to marginal maximum likelihood optimization such as done by VAES \parencite{moreno-munoz_masked_2023}. Since maximum likelihood in no way guarantees good representations, how do self"=supervised methods achieve  this, if they also do maximum likelihood?}
 
 
 \todo[inline]{Out-of-distribution detection on speech?}

@@ -58,6 +58,7 @@ epistḗmē
 far-OOD
 FashionMNIST
 Fonden
+Gaussians
 generatively
 GigaSpeech
 Grunddal
