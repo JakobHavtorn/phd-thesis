@@ -166,6 +166,17 @@ At the start of this project in 2020, Corti's main product was a software system
 The system is in continued use in 2023, and provides an interface for navigating a graph-based protocol, defined by the local emergency medical services, which call-takers use to triage patients during emergency calls. 
 Calls are transcribed in real-time using automatic speech recognition built for the customer-domain and the system makes suggestions for the call-taker to use in the conversation with the caller, including notifications about forgotten protocol questions \parencite{havtorn_multiqt_2020} and potential cases of cardiac arrests \parencite{cite15, cite14}. The system logs the details about the call and the actions taken by the call-taker for later use in review, training and quality assurance. 
 
+\todo[inline]{Update here with:
+
+I would try to embed a perspective for contemplation. Instead of us always talking about what the technology needs to improve on. Perhaps, it would also be prudent to ask an open-ended philosophical question: “While our requirements to the technology are in its place, one could ask, whether human beings have the ability to quantify uncertainty. In 2023, the prevalence of human errors in driving are much higher than self-driving vehicles.” <- Quick example. I’m sure you can find something better.
+
+% - a copilot for medical interviews
+% - decision support
+% - quality assurance
+% - documentation
+% -> many applications
+}
+
 
 \subsection{Stroke recognition in emergency calls} \label{subsec:motivation-stroke-recognition}
 %
@@ -251,13 +262,13 @@ Aleatoric uncertainty is sometimes referred to as \textit{stochastic uncertainty
 
 An example of aleatoric uncertainty is the uncertainty in the transcription of a word due to a noisy environment or overlapping, slurred or mumbling speech. 
 Unknown words are arguably sources of epistemic uncertainty although a good speech recognition model may generalize well if the word's spelling and pronunciation follow the same patterns as the words in the training data. Another example of epistemic uncertainty is the occurrence of truly out-of-distribution examples, such as the horse in the image classifier example from earlier: inputs unlike anything the model has seen during training. %, especially if they require outputs unavailable to the model. 
-In high-dimensional data with a practically unlimited diversity in out-of-distribution examples, it is impossible to collect enough data to eliminate all potential sources of epistemic uncertainty: By including horses in the training data, the model would likely learn to recognize them, but would still be unable to recognize giraffes, or zebras, or unicorns. 
+In high-dimensional data with a practically unlimited diversity in out-of-distribution examples, it is impossible to collect enough data to eliminate all potential sources of epistemic uncertainty. By including horses in the training data, the model would likely learn to recognize them, but would still be unable to recognize giraffes, or zebras, or unicorns. 
 Ultimately, we must accept that any practical machine learning model will have some sources of epistemic uncertainty. 
 
-Since aleatoric uncertainty is present in the data, it can usually be modelled directly. For instance, in the case of speech recognition, we can model the uncertainty in the transcription of a word by a distribution over the words in the vocabulary. But how do we model epistemic uncertainty? 
-Since sources of epistemic uncertainty are by definition those not represented in the data, it is not generally possible to model them directly. This makes epistemic uncertainty more difficult to quantify than aleatoric uncertainty. 
-Methods for estimating epistemic uncertainty include Bayesian neural networks \parencite{mackay_practical_1992, neal_bayesian_1995} which represent it by an explicit distribution over learned model parameters. Ensemble methods \parencite{gal_dropout_2016,lakshminarayanan_simple_2017} take a similar approach but use an implicit distribution. 
-Other approaches include anomaly detection and the recent field of out-of-distribution detection which, for example, represent epistemic uncertainty by special output classes for out-of-distribution data, distributions over data representations, or distances between them (see \cref{sec:out-of-distribution-detection}). In this thesis, we will focus on the latter approach. 
+Since aleatoric uncertainty is represented by the data, it can usually be modelled directly. For instance, in the case of speech recognition, we can model the uncertainty in the transcription of a word by a distribution over the words in the vocabulary. But how do we model epistemic uncertainty? 
+Since sources of epistemic uncertainty are by definition those not represented in the data, it is generally not possible to model them directly. This makes epistemic uncertainty more difficult to quantify than aleatoric uncertainty. 
+Methods for estimating epistemic uncertainty include Bayesian probability and Bayesian neural networks \parencite{mackay_practical_1992, neal_bayesian_1995} which represent it by an explicit distribution over learned model parameters. Ensemble methods \parencite{gal_dropout_2016,lakshminarayanan_simple_2017} take a similar approach but use an implicit distribution. 
+Other approaches include anomaly detection and the recent field of out-of-distribution detection which, for example, represent epistemic uncertainty by special output classes for out-of-distribution data, distributions over data representations, or distances between them (see \cref{sec:out-of-distribution-detection}). In this thesis, we will focus on out-of-distribution detection for quantifying epistemic uncertainty. 
 
 
 \section{Thesis scope and outline}
