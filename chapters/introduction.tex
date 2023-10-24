@@ -17,20 +17,13 @@ The application of artificial intelligence in medical decision-making is likely 
 However, as such decisions impact critical aspects of human health and well-being, this prospect has also raised concerns relating to the reliability of systems that use artificial intelligence \parencite{chen_ethical_2021, ahmad_interpretable_2018}.
 
 The use of technology to support decision-making can be traced back to very beginning of recorded history. After the agricultural revolution, several ancient civilizations developed mathematical techniques and algorithms to help them manage the newfound complexity of society. 
-Fittingly, the first recorded human name in written history belonged to Kushim, a Sumerian accountant. Their signature has been identified on at least 18 clay tablets dated to 3400-3000 BCE, which document transactions and inventory related to barley and other ingredients used in beer production \parencite{nissen_archaic_1993}. 
-A later example is the Egyptian Rhind Mathematical Papyrus dated to around 1550 BCE which describes various mathematical techniques for doing calculations involving multiplication, division, and fractions, and how to use them for practical purposes like measuring land, constructing buildings, and sharing resources \parencite{georges_universal_2001}. 
-Around the same time, the Babylonians had developed a sophisticated system of mathematics that included algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \parencite{fowler_square_1998}. 
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[height=0.4\textheight]{kushim_multiplication.png}
-%     \caption[]{ }
-%     \label{fig:kushim_multiplication}
-% \end{figure}
+Fittingly, the first human name recorded in written history belonged to Kushim, a Sumerian accountant. Their signature has been identified on at least 18 clay tablets dated to 3400-3000 BCE, which document transactions and inventory related to barley and other ingredients used in beer production \parencite{nissen_archaic_1993}. 
+% A later example is the Egyptian Rhind Mathematical Papyrus dated to around 1550 BCE which describes various mathematical techniques for doing calculations involving multiplication, division, and fractions, and how to use them for practical purposes like measuring land, constructing buildings, and sharing resources \parencite{georges_universal_2001}. 
+Later, the Babylonians developed a sophisticated system of mathematics that included algorithms for solving quadratic equations, calculating areas of shapes, and numerical methods for approximating square roots \parencite{fowler_square_1998}. 
 
 Besides enabling the advancement of early society, these technologies also brought with them novel challenges. 
-In a likely attempt to ease the strenuous work of doing Sumerian mathematics, Kushim produced a clay tablet with a multiplication table that included fractional representations of common numbers. Assumedly unbeknownst to Kushim, this tablet would also come to contain one of the world's first recorded examples of a mathematical error; the statement: $5 \times \frac{1}{2} = 5$ \parencite{nissen_archaic_1993}. 
-Later, the scribe of the Plimpton 322 clay tablet (\cref{fig:plimpton_332}) made several errors when listing Pythagorean triplets, presumably struggling to grapple with Babylonian mathematics \parencite{neugebauer_mathematical_1945,britton_plimpton_2011}. 
+In a likely attempt to ease the strenuous work of doing Sumerian mathematics, Kushim produced a clay tablet with a multiplication table that included fractional representations of common numbers (\cref{fig:kushim_multiplication}). Assumedly unbeknownst to Kushim, this tablet would also come to contain one of the world's first recorded examples of a mathematical error; the statement: $5 \times \sfrac{1}{2} = 5$ \parencite{nissen_archaic_1993}. 
+Later, the scribe of the Plimpton 322 clay tablet made several errors when listing Pythagorean triplets, presumably struggling to grapple with Babylonian mathematics \parencite{neugebauer_mathematical_1945,britton_plimpton_2011,cuneiformdigitallibraryinitiativecdli_mct_2005}. 
 % Later, in its list of Pythagorean triplets, the Plimpton 322 clay tablet (\cref{fig:plimpton_332}) also has several errors, presumably made by a novice in Babylonian mathematics \parencite{neugebauer_mathematical_1945,britton_plimpton_2011}. 
 % Apart from such inherent limitations of the tools, inadequate human proficiency in their use was also a source of error. 
 Besides these human errors, limitations inherent to the tools themselves also posed problems. 
@@ -47,40 +40,49 @@ This forced significant approximation errors, for instance the common practice o
 % The Babylonians were skilled mathematicians and astronomers, and they used their numerical system to perform a wide range of calculations, including those involving geometry and timekeeping. While they couldn't precisely represent irrational numbers, they could work with these numbers to a certain level of accuracy within the constraints of their base-60 system
 
 
+% \begin{figure}[t]
+%     \centering
+%     % \includegraphics[width=0.90\textwidth]{plimpton_322.png}
+%     \includegraphics[height=0.4\textheight]{plimpton_322.png}
+%     \caption[Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets.]{ Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets, presumably struggling to grapple with Babylonian mathematics. \parencite[photo credit][]{neugebauer_mathematical_1945, cuneiformdigitallibraryinitiativecdli_mct_2005}}
+%     \label{fig:plimpton_332}
+% \end{figure}
+
 \begin{figure}[t]
     \centering
     % \includegraphics[width=0.90\textwidth]{plimpton_322.png}
-    \includegraphics[height=0.4\textheight]{plimpton_322.png}
-    \caption[Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets.]{ Technology is difficult. The scribe of the Plimpton 322 clay tablet ($\sim$1800 BCE) made several errors when listing Pythagorean triplets, presumably struggling to grapple with Babylonian mathematics. \parencite[photo credit][]{neugebauer_mathematical_1945, cuneiformdigitallibraryinitiativecdli_mct_2005}}
-    \label{fig:plimpton_332}
+    \includegraphics[height=0.55\textheight]{kushim_multiplication.png}
+    \caption[Technology is difficult. The accountant Kushim made mistakenly claimed $5 \times \sfrac{1}{2} = 5$.]{ Technology is difficult. Between 3400 and 3000 BCE, the Sumerian accountant Kushim wrote this tablet. Besides calculations of basic ingredients required for the production of cereal products, in the top left $6 \times 2$ grid it contains a multiplication table. While presumably aimed to ease the strenuous work of doing Sumerian mathematics, unfortunately, the top row states: $5 \times \sfrac{1}{2} = 5$, an unforgiving imprint the worlds first recorded mathematical error \parencite{nissen_archaic_1993, renn_learning_2019}, \parencite[photo credit][]{}.}
+    \label{fig:kushim_multiplication}
 \end{figure}
+\todo[inline]{\cref{fig:kushim_multiplication} is awaiting response from CDLI with proper reference to tablet.}
 
 While efforts to ease human decision-making have been ongoing for thousands of years, it was not until 1642 that the first mechanical calculator was successfully designed by Blaise Pascal. Refined by Gottfried Leibniz during the latter half of the 17th century, the mechanical calculator marked the beginning of a new era where rudimentary calculations could be automated and performed with greater speed and accuracy than humans. 
-In the following centuries, the development of computing machines continued, and in the 1820s, Charles Babbage proposed the first programmable mechanical computer, the Difference Engine. Although never completed, it laid the foundation for his later design of the Analytical Engine in 1837 which is considered to be the first general-purpose computer design. 
+In the 1820s, Charles Babbage proposed the first programmable mechanical computer, the Difference Engine. Although never completed, it laid the foundation for his later design of the Analytical Engine in 1837 which is considered to be the first general-purpose computer design. 
 Working with Babbage, Ada Lovelace is widely regarded as the first to have recognized that programmable computers could have applications beyond pure arithmetic. However, only with the advent of electronics were the first successful general-purpose computers built, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}).
 % While the potential of a general-purpose programmable computer with applications beyond pure arithmetic was recognized by Ada Lovelace,  
 % it was not until the 1940s and 50s that % / 
 % it took one-hundred years before / 
 % the first programmable, electronic, general-purpose digital computers were developed, starting with the ENIAC in 1945 (\cref{fig:eniac_programmers}) \parencite{georges_universal_2001}. 
-As manufacturing processes were developed and scaled, electronic computers were adopted widely across society for various applications in science and industry, including healthcare \parencite{georges_universal_2001, harari_sapiens_2011}.
+As the technology developed and manufacturing processes were refined and scaled, electronic computers were adopted widely across society for various applications in science and industry, including healthcare \parencite{georges_universal_2001, harari_sapiens_2011}.
 % The societal changes brought about by the widespread adoption of computer technology through the latter half of the 20th century were so profound that some scholars refer to the era as the information age \parencite{georges_universal_2001, harari_sapiens_2011}.
 
 \begin{figure}[t]
     \centering
     % \includegraphics[width=0.95\textwidth]{eniac_programmers.jpeg}
-    \includegraphics[height=0.4\textheight]{eniac_programmers.jpeg}
-    \caption[Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC.]{ Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC. \parencite[photo credit][]{usarmyresearchlaboratoryarltechnicallibrary_female_1940}}
+    \includegraphics[height=0.42\textheight]{eniac_programmers.jpeg}
+    \caption[Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC, the world's first general-purpose electronic computer.]{ Ruth Lichterman (left) and Marlyn Wescoff (middle) were two of the several female programmers of the ENIAC. \parencite[photo credit][]{usarmyresearchlaboratoryarltechnicallibrary_female_1940}}
     \label{fig:eniac_programmers}
 \end{figure}
 
 With the digital revolution continuing into the 21st century and the worldwide spread of the internet, the amount of data and its availability have grown exponentially. 
-This has led to a surge of interest in the scientific field of machine learning, a subfield of artificial intelligence. Machine learning is the study of computer algorithms that can learn functions from data and make predictions to guide decision-making. 
+This has led to a surge of interest in the scientific field of machine learning, a subfield of artificial intelligence that studies how computer algorithms can learn functions from data and make predictions to guide decision-making. 
 Enabled by a massive increase in the performance and availability of parallel computing resources, such methods have set new standards for the abilities of computer systems at various tasks usually reserved for humans, such as vision, speech recognition, and natural language understanding \parencite{lecun_deep_2015}. 
-In recent years, machine learning has also made its way into the healthcare sector, where it has shown promising results on tasks within medical imaging \parencite{lundervold_overview_2019}, drug discovery \parencite{chen_rise_2018}, and clinical decision support \parencite{cite15, cite14}. 
+In recent years, machine learning has also made its way into healthcare systems, where it has shown promising results on difficult tasks for instance within medical imaging \parencite{lundervold_overview_2019}, drug discovery \parencite{chen_rise_2018}, and clinical decision support \parencite{cite15, cite14}. 
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.90\textwidth]{uber_nhsa_accident.png}
+    \includegraphics[width=0.85\textwidth]{uber_nhsa_accident.png}
     \caption[A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018.]{ A pedestrian was killed by an Uber self-driving car in Tempe, Arizona in 2018. The car's sensors detected the pedestrian $5.6$ seconds before the crash, but the self-driving system failed to recognize its own uncertainty in multiple object misclassifications and so did not correctly predict her path or reduce the SUV's speed \parencite[photo credit]{nationaltransportationsafetyboardnhsa_collision_2019}.}
     % \caption{Aerial view of crash location showing path of pedestrian as she attempted to cross N. Mill Avenue and movement and speed of SUV at three points before impact. Pedestrian's path shows her position from initial detection ($5.6$ seconds before impact) until impact; SUV's position is shown at corresponding times beginning $4.2$ seconds before impact \parencite{nationaltransportationsafetyboardnhsa_collision_2019}.}
     \label{fig:uber_nhsa_accident}
@@ -121,10 +123,11 @@ And Uber is not the only actor facing the challenges of applying machine learnin
 % revealed far fewer crashes, with only 2 of 20 incidents over 1 million miles meeting reporting criteria, it is interesting to note that the cars are all operated in the sunny states of California and Arizona, where driving conditions vary relatively little \parencite{hawkins_waymo_2023}. 
 While driver-assistance systems undoubtedly help reduce accidents in many cases, and has great future potential, the issues of current systems highlight the need for machine learning systems that are robust in rare, adverse, and difficult situations. 
 
-Recently, European policymakers proposed legislation to enforce that machine learning applications live up to such standards \parencite{europeancommission_briefing_2021}. 
+Recently, European policymakers proposed legislation to enforce that machine learning applications live up to certain standards \parencite{europeancommission_briefing_2021}. 
 This so-called AI Act considers three categories of applications based on the potential risk they pose to society: limited, high, and unacceptable. 
-Limited risk applications such as in computer games must meet transparency criteria, while autonomous vehicles and systems within healthcare fall in the category of high risk applications. To avoid critical errors, these must meet a set of strict requirements focusing on anti-discrimination and robustness.
-Facial recognition is an example of an application deemed to pose unacceptable risk to society.
+Autonomous vehicles and systems within healthcare fall in the category of high risk applications. To avoid critical errors, these must meet a set of strict requirements focusing on anti-discrimination and robustness.
+% Limited risk applications such as in computer games must meet transparency criteria, while
+% Facial recognition is an example of an application deemed to pose unacceptable risk to society.
 % Limited risk applications, such as in computer games, must meet transparency requirements, and technologies such as public facial recognition are banned due to unacceptable risk. 
 
 % Miscalibrated models are unreliable, especially in high risk applications, and although no model is perfect, the inability of a human, or a model, to assess the certainty with which a prediction was made, makes it impossible to know how to weigh it in a decision-making process. 
@@ -133,23 +136,22 @@ Facial recognition is an example of an application deemed to pose unacceptable r
 One of the key advances needed to ensure that high-risk applications of machine learning comply with such requirements is accurate uncertainty estimation of their predictions. 
 The multitude of rapid misclassifications made by the Uber self-driving car in Tempe is a likely indication that the model responsible for object-classification was overconfident in its predictions and unable to represent or communicate uncertainty to other systems in the car, or the safety driver. 
 As a consequence, the model's many incoherent predictions were taken at face value and subsystems in the car acted on them without appropriate consideration to their reliability.
-While any model will inevitably make a wrong prediction, accurately estimating the associated uncertainty and communicating it to other systems or humans is necessary to reduce the risk that wrong predictions lead to catastrophic failures. 
+While any model will inevitably make wrong predictions, accurately estimating the associated uncertainty and communicating it to other systems or humans is necessary to reduce the risk that wrong predictions lead to catastrophic failures. 
 Fittingly, a recent study by the European Parliamentary Research Services \parencite{europeanparliament_artificial_2022} concluded: 
 %
 \begin{quote}
     \centering\itshape
     Future AI solutions for healthcare should be implemented by integrating uncertainty estimation, a relatively new field of research that aims to provide clinicians with clinically useful indications on the degree of confidence in AI predictions.
 \end{quote}
-%
-\vspace{0.5em}
+% \vspace{0.5em}
 \begin{center}
 \noindent\rule{0.2\textwidth}{0.5pt}
 \end{center}
 \vspace{1em}
-
+%
 % OUTLINE: Primer overview of the thesis. What are the topics and what is the context of the research.
 % \noindent The research presented in this thesis will focus on the use of machine learning in relation to uncertainty estimation, speech processing, and medical conversations. 
-\noindent The research presented in this thesis deals with the use of machine learning for medical conversations with a focus on uncertainty estimation and speech processing. 
+\noindent The research presented in this thesis deals with the use of machine learning for medical interviews with a focus on uncertainty estimation and speech processing. 
 The research project was partially funded by a grant from the national Danish Innovation Fund (grant no.\@ 0153-00167B) and defined and carried out in collaboration with the Danish company Corti, which develops computer software for medical decision support. 
 In the rest of this chapter, we will provide a high-level introduction to these topics and to Corti and discuss the motivation behind the research project.
 
@@ -167,15 +169,12 @@ The system is in continued use in 2023, and provides an interface for navigating
 Calls are transcribed in real-time using automatic speech recognition built for the customer-domain and the system makes suggestions for the call-taker to use in the conversation with the caller, including notifications about forgotten protocol questions \parencite{havtorn_multiqt_2020} and potential cases of cardiac arrests \parencite{cite15, cite14}. The system logs the details about the call and the actions taken by the call-taker for later use in review, training and quality assurance. 
 
 \todo[inline]{Update here with:
-
-I would try to embed a perspective for contemplation. Instead of us always talking about what the technology needs to improve on. Perhaps, it would also be prudent to ask an open-ended philosophical question: “While our requirements to the technology are in its place, one could ask, whether human beings have the ability to quantify uncertainty. In 2023, the prevalence of human errors in driving are much higher than self-driving vehicles.” <- Quick example. I’m sure you can find something better.
-
+I would try to embed a perspective for contemplation. Instead of us always talking about what the technology needs to improve on. Perhaps, it would also be prudent to ask an open-ended philosophical question: “While our requirements to the technology are in its place, one could ask, whether human beings have the ability to quantify uncertainty. In 2023, the prevalence of human errors in driving are much higher than self-driving vehicles.” <- Quick example. I’m sure you can find something better.}
 % - a copilot for medical interviews
 % - decision support
 % - quality assurance
 % - documentation
 % -> many applications
-}
 
 
 \subsection{Stroke recognition in emergency calls} \label{subsec:motivation-stroke-recognition}
@@ -278,9 +277,9 @@ The remainder of \cref{part:background} consists of two chapters.
 \Cref{chp:main-contributions} presents the research hypotheses and contributions of the thesis via the included papers. 
 \Cref{chp:technical-background} provides relevant technical background to the included papers, including uncertainty, out-of-distribution detection, and variational autoencoders. 
 
-\Cref{part:unsupervised-uncertainty-estimation,part:self-supervised-speech-representation-learning,part:medical-applications} contain a number of chapters that each correspond to a primary paper. 
+\Cref{part:unsupervised-uncertainty-estimation,part:unsupervised-speech-representation-learning,part:medical-applications} contain a number of chapters that each correspond to a primary paper. 
 \Cref{part:unsupervised-uncertainty-estimation} is made up of three papers on variational autoencoders and their applications to out-of-distribution detection and speech modelling \parencite{havtorn_hierarchical_2021,havtorn_benchmarking_2022,bergamin_modelagnostic_2022}. 
-\Cref{part:self-supervised-speech-representation-learning} is a single, comprehensive review paper on self"=supervised speech representation learning \parencite{mohamed_selfsupervised_2022}. 
+\Cref{part:unsupervised-speech-representation-learning} is a single, comprehensive review paper on self"=supervised speech representation learning \parencite{mohamed_selfsupervised_2022}. 
 \Cref{part:medical-applications} consists of two papers on applications of machine learning within the medical domain, specifically recognition of stroke cases in calls to medical helplines \parencite{wenstrup_retrospective_2023} and medical coding of clinical notes \parencite{edin_automated_2023}. 
 
 Finally, \cref{part:discussion-and-conclusion} concludes the thesis by discussing the presented work and presenting future directions for research.

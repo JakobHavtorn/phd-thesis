@@ -83,6 +83,7 @@
 % Large environments
 \usepackage{microtype}
 \usepackage{mathtools}
+\usepackage{xfrac}                    % Additional fraction types including \sfrac{}{}
 \usepackage{listings}                 % Source code printer for LaTeX
 \usepackage{tikz}
 \usepackage{ragged2e}
@@ -166,6 +167,7 @@
   \maps[datatype=bibtex, overwrite]{
     \map{  % Everywhere: Remove editors, [cs, eess] brackets, pubstate, DOI
       \step[fieldset=editor, null]  % Remove editors everywhere.
+      \step[fieldset=pages, null]  % Remove pages everywhere.
       \step[fieldset=eprintclass, null]  % Remove [cs, eess] brackets on preprints.
       \step[fieldset=pubstate, null]  % Remove pubstate field on preprints
       \step[fieldset=doi, null]  % Remove pubstate field on preprints

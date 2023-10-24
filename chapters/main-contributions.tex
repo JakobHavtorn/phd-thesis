@@ -10,7 +10,7 @@ The following chapters of the thesis are self-contained studies and therefore de
 Since each study was written without consideration to the other chapters of the thesis, we here detail them in relation to the overall research project. 
 This constitutes the research hypotheses and contributions of the thesis.
 
-% The chapters are structured into three parts: {\color{black}\cref{part:unsupervised-uncertainty-estimation}} is concerned with unsupervised uncertainty estimation, {\color{black}\cref{part:self-supervised-speech-representation-learning}} is concerned with self"=supervised speech representation learning, and {\color{black}\cref{part:medical-applications}} contains studies on machine learning methods applied for tasks in a medical setting.  Finally, {\color{black}\cref{part:discussion-and-conclusion}} contains a discussion and the conclusion of the thesis.
+% The chapters are structured into three parts: {\color{black}\cref{part:unsupervised-uncertainty-estimation}} is concerned with unsupervised uncertainty estimation, {\color{black}\cref{part:unsupervised-speech-representation-learning}} is concerned with self"=supervised speech representation learning, and {\color{black}\cref{part:medical-applications}} contains studies on machine learning methods applied for tasks in a medical setting.  Finally, {\color{black}\cref{part:discussion-and-conclusion}} contains a discussion and the conclusion of the thesis.
 
 
 \contribitem{part:background}
@@ -38,6 +38,8 @@ From this hypothesis, we develop a method that combines a classical parametric t
 We show that this leads to a more accurate out-of-distribution test. 
 Finally, we discuss the benefits of casting out-of-distribution detection as a statistical testing problem, for instance enabling false positive rate control. This is valuable for practical applications, especially in high-risk settings such as medical decision-making.
 
+\todo[inline]{Revise the location of the benchmarking paper and change the SSL review to the SSL+LVM brief review. Revise the text here accordingly.}
+
 \contribitem{chp:paper-benchmarking}
 In this paper, we focus on benchmarking hierarchical variational autoencoders for speech modelling. 
 We hypothesize that the improvements in likelihood scores proven by hierarchical models in other domains, most prominently images, can also carry over to speech modelling. 
@@ -47,7 +49,7 @@ We show that using a hierarchy of latent variables can improve the likelihood of
 % The model is benchmarked against other variational autoencoders and autoregressive models for speech. 
 
 
-\contribitem{part:self-supervised-speech-representation-learning}
+\contribitem{part:unsupervised-speech-representation-learning}
 This part of the thesis is concerned with self"=supervised speech representation learning and consists of a single paper that provides a substantial review of the field \parencite{mohamed_selfsupervised_2022}. 
 Self"=supervised learning is a promising approach to speech representation learning that has shown a fast, wide and successful adoption across speech modelling over the course of the last few years. 
 As measured by performance on common downstream tasks such as speech recognition and spoken language understanding, self"=supervised representations generally outperform representations learned via probabilistic generative models such as those investigated in \cref{part:unsupervised-uncertainty-estimation}. 
