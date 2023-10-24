@@ -32,7 +32,7 @@ First, VAEs are trained to maximize the ELBO which is a marginal likelihood obje
 \paragraph{Marginal likelihood maximization} For any latent variable model $p_{\thetab}(\xb,\zb)$ we can use the posterior distribution $p_{\thetab}(\zb|\xb)$ to map a given observation $\xb$ to its latent representation $\zb$. We hope this representation is useful, for instance in the sense that it can improve performance on downstream tasks compared to other methods. Essential to the usefulness is the posterior distribution $p_{\thetab}(\zb|\xb)$. 
 
 On the other hand, when we use maximum likelihood to train a latent variable model, we maximize the log-marginal likelihood $\log p(\xb)$. This can be equivalently phrased as maximizing the KL-divergence of the true data distribution $p_{\text{data}}(\xb)$ to the learned marginal, $D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb))$\footnote{%
-Maximizing the likelihood $\sum_{n=1}^N \log p_\theta(\xb)$ w.r.t. parameters $\thetab$ is asymptotically equivalent to minimizing $D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb))$. 
+Maximizing the likelihood $\sum_{n=1}^N \log p_\theta(\xb)$ w.r.t. parameters $\thetab$ is asymptotically equivalent to minimizing $D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb))$: 
 %
 \begin{align}
     \argmin_\thetab D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb)) 
@@ -42,7 +42,7 @@ Maximizing the likelihood $\sum_{n=1}^N \log p_\theta(\xb)$ w.r.t. parameters $\
     &= \argmax_\thetab \lim_{n\rightarrow\infty} \underset{\text{log-likelihood}}{\underbrace{\sum_{n=1}^N \log p_{\theta}(\xb_n)}} \enspace . \nonumber
 \end{align}
 %
-The last equation follows from the law of large numbers.
+The last equality follows from the law of large numbers.
 % \begin{align}
 %     \mathcal{L}(\thetab; p_{\mathrm{data}}(\xb))
 %     &= \lim_{N\rightarrow\infty} \frac{1}{N} \sum\limits_{n=1}^{N} \log p_{\thetab}(\xb) \\
@@ -52,13 +52,12 @@ The last equation follows from the law of large numbers.
 %     &= - \mathbb{H}[p_{\mathrm{data}}(\xb)] - D_\mathrm{KL}\left( p_{\mathrm{data}}(\xb)\mid\mid p(\xb) \right)
 % \end{align}
 }. 
-The first key observation then is that the marginal $p_{\thetab}(\xb)$, which we maximize, and the posterior $p_{\thetab}(\zb|\xb)$, which we want to produce useful representations, are separate properties of a latent variable model. Any combination uniquely defines a valid latent variable model. Hence, maximizing the marginal is a completely useless criteria for representation learning, regardless of the measure of usefulness \parencite{huszar_is_2017}.
+The first key observation then is that the marginal $p_{\thetab}(\xb)$, which we maximize, and the posterior $p_{\thetab}(\zb|\xb)$, which we want to produce useful representations, are separate properties of a latent variable model. Any combination uniquely defines a valid latent variable model. Hence, maximizing the marginal is a completely useless criteria for representation learning, regardless of the measure of usefulness \parencite{huszar_is_2017, alemi_fixing_2018}.
 
 \paragraph{Mutual information minimization}
-As we saw in \cref{subsec: mutual-information-interpretation-of-elbo} ...
-
-
-\begin{equation} \label{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)}
+As we saw in \cref{subsec: mutual-information-interpretation-of-elbo}, optimizing the ELBO involves minimizing the mutual information between the latent and observed variables. We reprint equation \cref{eq:variational-autoencoder-elbo-factorized-expected} below for reference.
+%
+\begin{equation} %\label{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)}
     \mathbb{E}_{q_{\phib}(\xb,\zb)} \left[ \mathcal{L}_{\thetab,\phib}(\xb) \right] = 
     \underset{\text{average reconstruction}}{\underbrace{
         \mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log p_{\thetab}(\xb | \zb) \right]
@@ -74,19 +73,13 @@ As we saw in \cref{subsec: mutual-information-interpretation-of-elbo} ...
     I_{q_{\phib}(\xb,\zb)}\left[\xb ; \zb \right]
     }} \enspace . \nonumber
 \end{equation}
+%
+Optimizing the ELBO can be understood as simultaneously maximizing the average reconstruction likelihood, minimizing the marginal KL-divergence to the prior, and minimizing the mutual information between the observed and latent variables. 
 
 
 \parencite{tomczak_trouble_2022}
 
-% The first component of the ELBO is the negative reconstruction error. In other words,  𝐳  is sampled from variational posterior for a given  𝐱  and then it is stochastically reconstructed by  𝑝𝜃(𝐱|𝐳) . That is, the conditional likelihood is used to calculate the reconstruction error. This term tries to make  𝑞𝜙  as peaky as possible. If  𝑞𝜙  is non-concentrated, is is hard to learn a stochastic mapping from multiple  𝐳 's to a single  𝐱 .
-
-% The second component of the ELBO,  𝐷KL[𝑞𝜙(𝐳)‖𝑝𝜆(𝐳)] , determines the error between the aggregated posterior and the marginal over  𝐳 (a.k.a. the \textit{prior}). Since we maximize the ELBO, and the term 𝐷KL[𝑞𝜙(𝐳)‖𝑝𝜆(𝐳)]  is with the negative sign, we want to minimize it. Thus, the ELBO tells us that the difference between  𝑞𝜙(𝐳)  and  𝑝𝜆(𝐳) should be as small as possible. This makes perfect sense because we want the aggregated posterior to assign the probability mass to the same regions as the prior.
-
-% The last component of the ELBO,  𝕀𝑞𝜙(𝐱,𝐳)[𝐱;𝐳] , is the mutual information between  𝐱  and  𝐳  for the aggregated posterior and the empirical distribution. This term appears with the negative sing, hence, the ELBO indicates that this mutual information should be minimized. This is a very puzzling result because, in other words, there should be no stochastic dependency between  𝐳  and  𝐱 . Commonly,  𝐳  is interpreted as a representation of  𝐱 , however, optimizing the ELBO leads to a completely different outcome!  𝕀𝑞𝜙(𝐱,𝐳)[𝐱;𝐳]  is a cumbersome component amd it may be an explanation why training latent variable models with variational inference is typically hard.
-
-% In the conclusion, the ELBO navigates the model to fit the aggregated posterior to the prior, and, on the other hand, to learn no stochastic dependency between  𝐱  and  𝐳  while maintaining a one-to-one mapping from  𝐳  to  𝐱 . This last contradiction may result in a difficult training of the model. As reported in the literature (e.g., (Alemi et al., 2018)), the choice of parameterizations of the distributions play the crucial role and could be the reason for complicating the training. For instance, taking a very powerful parameterization of the conditional likelihood,  𝑝𝜃(𝐱|𝐳) , e.g., a deep autoregressive model, gives a model that completely disregards  𝐳 .
-
-\paragraph{How has this ever worked}
+\paragraph{How did this ever work?}
 
 Even though these properties indicate that VAEs might not work at all for representation learning, VAEs have consistently been shown to be able to learn meaningful representations \parencite{sonderby_ladder_2016,hsu_unsupervised_2017,maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}. 
 We can understand the reason for this by noting that both of the above scenarios are only achievable if the optimization too unconstrained. 
@@ -142,7 +135,7 @@ Importance weighting the ELBO \parencite{burda_importance_2016} provides a tight
 Its use has become standard when reporting likelihood benchmarks but as we described in \cref{sec:variational-autoencoders}, \textcite{rainforth_tighter_2019} demonstrated that using it during training introduces high gradient variance for the inference network hurting its ability to learn useful representations. Later works largely solved this issue \parencite{roeder_sticking_2017,tucker_doubly_2019,bauer_generalized_2021} and showed that the reduced variance leads to improved likelihoods. 
 
 Despite much of this progress being prior to the latest, very large hierarchical VAEs, such as BIVA \parencite{maaloe_biva_2019}, NVAE \parencite{vahdat_nvae_2020}, and VD-VAE \parencite{child_very_2021}, these models are all trained with the single-sample ELBO using regularly reparameterized gradient estimator. Instead, these models rely on advanced inference networks \parencite{maaloe_biva_2019} and architectural improvements \parencite{vahdat_nvae_2020, child_very_2021} to overcome the challenges of training hierarchical VAEs. 
-This seems to indicate that there might be untapped potential in consolidating the work on low-variance gradient estimators and advanced architectures and inference networks.
+This seems to indicate that there might be untapped potential in consolidating the work on low-variance gradient estimators, advanced architectures and inference methods.
 
 
 \subsection{Masking} 
@@ -189,7 +182,8 @@ Including masked objectives into the principled probabilistic framework of VAEs 
 
 
 
-\section{\Cref{chp:paper-retrospective} revisited: Calibration}
+% \section{\Cref{chp:paper-retrospective} revisited: Calibration}
+\section{Uncertainty of the stroke recognition classifier}
 
 \begin{figure}
     \centering
