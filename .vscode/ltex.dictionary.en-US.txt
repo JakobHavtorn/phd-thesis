@@ -42,6 +42,7 @@ DenseNet
 dequantizing
 DGMs
 diarization
+differentiably
 DoSE
 downsample
 downsampled

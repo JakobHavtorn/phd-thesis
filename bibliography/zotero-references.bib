@@ -13329,6 +13329,17 @@
   abstract = {In this article, we describe an automatic differentiation module of PyTorch — a library designed to enable rapid research on machine learning models. It builds upon a few projects, most notably Lua Torch, Chainer, and HIPS Autograd, and provides a high performance environment with easy access to automatic differentiation of models executed on different devices (CPU and GPU). To make prototyping easier, PyTorch does not follow the symbolic approach used in many other deep learning frameworks, but focuses on differentiation of purely imperative programs, with a focus on extensibility and low overhead. Note that this preprint is a draft of certain sections from an upcoming paper covering all PyTorch features.}
 }
 
+@online{patacchiola_estimating_2021,
+  title = {Estimating the Gradient of the {{ELBO}}},
+  author = {Patacchiola, Massimiliano},
+  date = {2021-02-08},
+  url = {https://mpatacchiola.github.io/blog/2021/02/08/intro-variational-inference-2.html},
+  urldate = {2023-10-23},
+  abstract = {This is the second post of the series on variational inference. In the previous post I have introduced the variational framework, and the three main characters at play: the evidence, the Kullback-Leibler (KL) divergence, and the Evidence Lower BOund (ELBO). I have showed how the ELBO can be considered as a surrogate objective for finding the posterior distribution  p ( z | x )  when the evidence  p ( x )  is intractable. By maximizing the ELBO we can find the parameters  θ  of a variational distribution  q θ ( z )  that better fit the posterior. However, I did not mention how the ELBO itself can by maximized in practice. One approach is to estimate the gradient of the ELBO w.r.t.  θ  and then update  θ  in the direction of steepest ascent. Depending on the particular problem at hand and the choice of variational distribution, this could be challenging. In this post I will focus on this particular problem, showing how we can estimate the gradients of the ELBO by using two techniques: the score function estimator (a.k.a. REINFORCE) and the pathwise estimator (a.k.a. reparametrization trick).},
+  langid = {english},
+  organization = {{mpatacchiola’s blog}}
+}
+
 @inproceedings{pathak_context_2016,
   title = {Context {{Encoders}}: {{Feature Learning}} by {{Inpainting}}},
   shorttitle = {Context {{Encoders}}},
@@ -13576,6 +13587,13 @@
   doi = {10.1109/ICFHR.2014.55},
   abstract = {Recurrent neural networks (RNNs) with Long Short-Term memory cells currently hold the best known results in unconstrained handwriting recognition. We show that their performance can be greatly improved using dropout - a recently proposed regularization method for deep architectures. While previous works showed that dropout gave superior performance in the context of convolutional networks, it had never been applied to RNNs. In our approach, dropout is carefully used in the network so that it does not affect the recurrent connections, hence the power of RNNs in modeling sequence is preserved. Extensive experiments on a broad range of handwritten databases confirm the effectiveness of dropout on deep architectures even when the network mainly consists of recurrent and shared connections.},
   isbn = {978-1-4799-4334-0}
+}
+
+@article{phuong_mutual_2018,
+  title = {The Mutual Autoencoder: {{Controlling}} Information in Latent Code Representations},
+  author = {Phuong, Mary and Welling, Max and Kushman, Nate and Tomioka, Ryota and Nowozin, Sebastian},
+  date = {2018},
+  url = {https://openreview.net/forum?id=HkbmWqxCZ}
 }
 
 @article{pimentel_review_2014,
