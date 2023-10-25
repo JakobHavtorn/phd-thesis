@@ -1,9 +1,6 @@
 %!TEX root = ../thesis.tex
 
 
-\chapter[abstract]{Abstract}
-% Version 1: 2023-10-24
-
 % 1. The medical interview
 % Its key role in the patient journey and correct care.
 % The medical interview has developed very little despite significant advances in medicine and medical technology.
@@ -18,23 +15,31 @@
 % - Difficult to assess systematic uncertainty which is uncertainty due to things one could in principle know, but does not in practice.
 %   - which can arise e.g. because data is systematically biased, because the model neglects certain effects, or for 
 
-Natural language plays a key role in healthcare systems worldwide. 
-Nonetheless, despite significant progress in medicine and medical technology, the medical interview has remained largely unchanged through modern times. 
-In most settings, a single healthcare professional must act based solely on their understanding and individual experience. 
-However, expanding treatment options, strict documentation requirements, and aging populations, are stretching traditional approaches to their limits, risking medical error and the quality of care. 
 
-The recent advances of natural language processing have enabled the opportunity for machine learning models to play an active role in the medical interview. 
-These models hold the potential to alleviate the administrative burden, write improved documentation, and assist in real-time during dialogues. 
-Different to many other domains, however, in healthcare, even small mistakes can have large consequences. 
-Since no model is error-free, this amplifies the importance of accompanying predictions with uncertainty estimates. 
-While uncertainty present in observed data can be modelled, estimating uncertainty for out-of-distribution (OOD) data, such as previously unseen, rare illnesses, is an open problem. 
+\chapter[abstract]{Abstract}
+% Version 1: 2023-10-24
 
-This thesis addresses challenges in uncertainty estimation and representation learning for speech and explores medical applications of machine learning. It makes the following contributions:
-% This thesis explores machine learning techniques for medical interviews with a primary focus on uncertainty estimation and natural language processing and makes the following contributions:
+% Natural language plays a key role in healthcare systems worldwide. 
+% Nonetheless, despite significant progress in medicine and medical technology, the medical interview has remained largely unchanged through modern times. 
+% In most settings, a single healthcare professional must act based solely on their understanding and individual experience. 
+% However, expanding treatment options, strict documentation requirements, and aging populations, are stretching traditional approaches to their limits, risking medical error and the quality of care. 
+
+% Recent advances in natural language processing enable machine learning models to actively engage in medical interviews, alleviating administrative burdens, enhancing documentation, and even providing real-time assistance in dialogue.
+% However, healthcare stands apart from other domains due to the high risk of even minor errors. Since no model is error-free, this underscores the necessity of pairing predictions with robust uncertainty estimates, especially in scenarios involving out-of-distribution (OOD) data, such as previously unseen rare illnesses. 
+
+Natural language plays a key role in healthcare systems worldwide, yet the medical interview process has seen little evolution compared to advancements in medical technology.
+Traditionally, healthcare professionals rely solely on their individual understanding and experience, which can lead to challenges amid expanding treatment options, rigorous documentation demands, and aging populations, potentially jeopardizing medical accuracy and quality of care.
+
+Recent advances in natural language processing enable machine learning models to actively engage in medical interviews, alleviating administrative burdens, enhancing documentation, and even providing real-time assistance in dialogue.
+However, healthcare stands apart from other domains due to the high risk of even minor errors. Since no model is error-free, this underscores the necessity of pairing predictions with robust uncertainty estimates, especially in scenarios involving out-of-distribution (OOD) data, such as previously unseen rare illnesses. 
+
+% This thesis addresses challenges in uncertainty estimation and representation learning for speech and explores medical applications of machine learning. 
+This thesis set out from the main hypothesis that unsupervised representation learning is useful for uncertainty estimation on OOD data and can enable strong performance on medical tasks. 
+It makes the following contributions:
 %
 \begin{enumerate}[topsep=3pt, partopsep=0pt, itemsep=3pt, parsep=0pt, leftmargin=2em, label=(\alph*)] %, label=(\roman*)]
     % \item Evidence that the OOD detection capability of variational autoencoders is impeded by low-level features whose influence can be reduced by a likelihood-ratio-based score.
-    \item A likelihood-ratio score for OOD detection with variational autoencoders that alleviates the impeding effect of low-level features.
+    \item A likelihood-ratio score for OOD detection with variational autoencoders that alleviates the proved impeding effect of low-level features.
     \item A statistical test for OOD detection combining the score and typicality tests and is applicable with likelihoods from any differentiable generative model.
     \item A benchmark of probabilistic speech representation learners and a novel method to learn hierarchical representations.
     \item An overview of unsupervised representation learning for neural speech processing and a corresponding model taxonomy.
@@ -42,8 +47,9 @@ This thesis addresses challenges in uncertainty estimation and representation le
     \item A retrospective study of audio-based stroke recognition in prehospital medical helpline calls with significant improvements over call-taker performance.
 \end{enumerate}
 %
-In summary, this thesis addresses challenges in uncertainty estimation and representation learning for speech and explores medical applications of machine learning to ultimately contribute to improved patient care and clinical decision-making.
-% In summary, the thesis builds the researcher's knowledge to the bits and pieces of an operational system aware of uncertainty in a medical interview. 
+In summary, this thesis addresses challenges in uncertainty estimation and representation learning for speech while exploring medical applications of machine learning.
+Its contributions within uncertainty estimation and representation learning are all necessary parts of an operational decision support system, aware of uncertainty, for the medical interview, contributing to improved patient care and clinical decision-making.
+% It contributes novel methods for out-of-distribution detection, probabilistic speech representation learning, and improved standards for automated medical coding, as well as clinical evidence of the potential of audio-based stroke recognition in prehospital medical helpline calls. 
 
 
 
