@@ -3670,12 +3670,26 @@
   pubstate = {preprint}
 }
 
-@misc{cuneiformdigitallibraryinitiativecdli_mct_2005,
-  title = {{{MCT}} 038, {{Plimpton}} 322 Artifact Entry},
+@artwork{cuneiformdigitallibraryinitiativecdli_mct_2005,
+  title = {MCT 038, Plimpton 322 artifact entry},
   author = {{Cuneiform Digital Library Initiative (CDLI)}},
   date = {2005-02-01},
   url = {https://cdli.ucla.edu/P254790},
-  abstract = {Mathematical tablet excavated in Larsa (mod. Tell as-Senkereh), dated to the Old Babylonian (ca. 1900-1600 BC) period and now kept in Rare Book and Manuscript Library, Columbia University, New York, New York, USA}
+  urldate = {2023-10-25},
+  abstract = {Mathematical tablet excavated in Larsa (mod. Tell as-Senkereh), dated to the Old Babylonian (ca. 1900-1600 BC) period and now kept in Rare Book and Manuscript Library, Columbia University, New York, New York, USA},
+  langid = {Cuneiform},
+  annotation = {Museum No.: CULC 460}
+}
+
+@artwork{cuneiformdigitallibraryinitiativecdli_msvo_2018,
+  title = {MSVO 3, 02 (P005313)},
+  author = {{Cuneiform Digital Library Initiative (CDLI)}},
+  date = {2018-02-12},
+  url = {https://cdli.ucla.edu/P005313},
+  urldate = {2023-10-25},
+  abstract = {Administrative tablet excavated in Uruk (mod. Warka), dated to the Uruk III (ca. 3200-3000 BC) period and now kept in Land Berlin, Berlin, Germany},
+  langid = {Cuneiform},
+  annotation = {Museum No.: Berlin 005}
 }
 
 @article{dahl_context-dependent_2012,
@@ -8473,6 +8487,20 @@
   isbn = {978-3-319-10589-5}
 }
 
+@online{karras_elucidating_2022,
+  title = {Elucidating the {{Design Space}} of {{Diffusion-Based Generative Models}}},
+  author = {Karras, Tero and Aittala, Miika and Aila, Timo and Laine, Samuli},
+  date = {2022-10-11},
+  eprint = {2206.00364},
+  eprinttype = {arxiv},
+  eprintclass = {cs, stat},
+  doi = {10.48550/arXiv.2206.00364},
+  url = {http://arxiv.org/abs/2206.00364},
+  urldate = {2023-10-25},
+  abstract = {We argue that the theory and practice of diffusion-based generative models are currently unnecessarily convoluted and seek to remedy the situation by presenting a design space that clearly separates the concrete design choices. This lets us identify several changes to both the sampling and training processes, as well as preconditioning of the score networks. Together, our improvements yield new state-of-the-art FID of 1.79 for CIFAR-10 in a class-conditional setting and 1.97 in an unconditional setting, with much faster sampling (35 network evaluations per image) than prior designs. To further demonstrate their modular nature, we show that our design changes dramatically improve both the efficiency and quality obtainable with pre-trained score networks from previous work, including improving the FID of a previously trained ImageNet-64 model from 2.07 to near-SOTA 1.55, and after re-training with our proposed improvements to a new SOTA of 1.36.},
+  pubstate = {preprint}
+}
+
 @misc{karras_progressive_2018,
   title = {Progressive {{Growing}} of {{GANs}} for {{Improved Quality}}, {{Stability}}, and {{Variation}}},
   author = {Karras, Tero and Aila, Timo and Laine, Samuli and Lehtinen, Jaakko},
@@ -10950,6 +10978,22 @@
   author = {Loshchilov, Ilya and Hutter, Frank},
   date = {2022-02},
   abstract = {L\$\_2\$ regularization and weight decay regularization are equivalent for standard stochastic gradient descent (when rescaled by the learning rate), but as we demonstrate this is \textbackslash emph\{not\} the case for adaptive gradient algorithms, such as Adam. While common implementations of these algorithms employ L\$\_2\$ regularization (often calling it “weight decay” in what may be misleading due to the inequivalence we expose), we propose a simple modification to recover the original formulation of weight decay regularization by \textbackslash emph\{decoupling\} the weight decay from the optimization steps taken w.r.t. the loss function. We provide empirical evidence that our proposed modification (i) decouples the optimal choice of weight decay factor from the setting of the learning rate for both standard SGD and Adam and (ii) substantially improves Adam's generalization performance, allowing it to compete with SGD with momentum on image classification datasets (on which it was previously typically outperformed by the latter). Our proposed decoupled weight decay has already been adopted by many researchers, and the community has implemented it in TensorFlow and PyTorch; the complete source code for our experiments is available at \textbackslash url\{https://github.com/loshchil/AdamW-and-SGDW\}},
+  langid = {english}
+}
+
+@inproceedings{lowe_amortized_2022,
+  title = {Amortized {{Causal Discovery}}: {{Learning}} to {{Infer Causal Graphs}} from {{Time-Series Data}}},
+  shorttitle = {Amortized {{Causal Discovery}}},
+  booktitle = {Proceedings of the {{First Conference}} on {{Causal Learning}} and {{Reasoning}}},
+  author = {Löwe, Sindy and Madras, David and Zemel, Richard and Welling, Max},
+  date = {2022-06-28},
+  pages = {509--525},
+  publisher = {{PMLR}},
+  issn = {2640-3498},
+  url = {https://proceedings.mlr.press/v177/lowe22a.html},
+  urldate = {2023-10-26},
+  abstract = {On time-series data, most causal discovery methods fit a new model whenever they encounter samples from a new underlying causal graph. However, these samples often share relevant information which is lost when following this approach. Specifically, different samples may share the dynamics which describe the effects of their causal relations. We propose Amortized Causal Discovery, a novel framework that leverages such shared dynamics to learn to infer causal relations from time-series data. This enables us to train a single, amortized model that infers causal relations across samples with different underlying causal graphs, and thus leverages the shared dynamics information. We demonstrate experimentally that this approach, implemented as a variational model, leads to significant improvements in causal discovery performance, and show how it can be extended to perform well under added noise and hidden confounding.},
+  eventtitle = {Conference on {{Causal Learning}} and {{Reasoning}}},
   langid = {english}
 }
 
