@@ -426,32 +426,48 @@ The ability to infer the latent variables $\zb$ from a given data point $\xb$ is
 %
 In many latent variable models, the joint distribution is factorized as $p(\xb,\zb) = p(\xb|\zb)p(\zb)$ including Gaussian mixture models \parencite{dempster_maximum_1977}, hidden Markov models \parencite{rabiner_tutorial_1989}, and probabilistic principal component analysis \parencite{tipping_probabilistic_1999}. 
 
-The marginal distribution $p(\xb)$ involves an integral over all possible values of the latent variable $\zb$ and is often analytically intractable. This is the case when the latent variable space is high-dimensional or the conditional distribution $p(\xb|\zb)$ is complex, as with non-conjugate models or neural networks. 
-In these cases, approximate methods such as variational inference \parencite{jordan_introduction_1999} and Markov Chain Monte Carlo (MCMC) \parencite{mohamed_monte_2019} are used to approximately compute the marginal and posterior distributions. 
+% In these cases, approximate methods such as variational inference \parencite{jordan_introduction_1999} and Markov Chain Monte Carlo (MCMC) \parencite{mohamed_monte_2019} are used to approximately compute the marginal and posterior distributions. 
 
 
 \subsection{Variational inference} \label{sec:variational-autoencoders}
-To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to factor the joint distribution and parameterize it using a neural network with parameters $\thetab$. Specifically, they let $p_\thetab(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ where $p(\zb)$ is the prior. 
-This choice makes both the marginal and posterior distributions intractable and so, training and inference require approximate methods. 
-While MCMC methods are computationally expensive for large neural networks, variational inference provides a more scalable alternative by estimating the posterior distribution $p(\zb|\xb)$ with a variational approximation. 
+To be able to model high-dimensional data, we want to use neural networks to represent the generative process. 
+This leads to deep latent variable models which were pioneered by \textcite{kingma_autoencoding_2014,rezende_stochastic_2014}. The authors propose to factor the joint distribution and parameterize it using a neural network with parameters $\thetab$ and let $p_\thetab(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ where $p(\zb)$ is the prior. 
+
+This choice makes both the marginal and posterior distributions intractable since they involve an integral over all possible values of the latent variable $\zb$. 
+This precludes training with commonly used methods such as expectation maximization and exact maximum likelihood estimation and while MCMC methods are usually too computationally expensive for large neural networks, variational inference provides a scalable alternative \parencite{jordan_introduction_1999}. 
+
+% To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to factor the joint distribution and parameterize it using a neural network with parameters $\thetab$. Specifically, they let $p_\thetab(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ where $p(\zb)$ is the prior. 
+% This choice makes both the marginal and posterior distributions intractable and so, training and inference require approximate methods. 
+% While MCMC methods are computationally expensive for large neural networks, variational inference provides a more scalable alternative by estimating the posterior distribution $p(\zb|\xb)$ with a variational approximation $q_{\xb}(z)$
 
 
 \paragraph{Evidence lower bound}
-VAEs amortize the cost of variational inference by parameterizing $q_\phib(\zb|\xb)$ as a single neural network. This makes it possible to efficiently compute approximate posterior distributions for any input $\xb$. The approximate posterior can also be used to compute a lower bound on the marginal distribution $p_\thetab(\xb)$ via Jensen's inequality, the so-called evidence lower bound (ELBO), 
+By estimating the posterior distribution $p(\zb|\xb)$ with a variational approximation $q(\zb)$ we can derive a lower bound on the otherwise intractable marginal log-likelihood $\log p_\theta(\xb)$.
 %
  \begin{align} \label{eq:variational-autoencoder-elbo}
     \log p_\thetab(\xb)
     &= \log \int p_\thetab(\xb,\zb),\textrm{d}\zb \nonumber \\
-    &= \log \int q_\phib(\zb|\xb) \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)}\,\textrm{d}\zb \nonumber \\
-    &\geq \int q_\phib(\zb|\xb) \log \left( \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right) \,\textrm{d}\zb \nonumber \\
-    &\geq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right] \equiv \mathcal{L}_{}(\xb;\thetab,\phib) \enspace .
+    &= \log \int q(\zb) \frac{p_\thetab(\xb,\zb)}{q(\zb)}\,\textrm{d}\zb \nonumber \\
+    &\geq \int q(\zb) \log \left( \frac{p_\thetab(\xb,\zb)}{q(\zb)} \right) \,\textrm{d}\zb \nonumber \\
+    &\geq \mathbb{E}_{q(\zb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q(\zb)} \right] \equiv \mathcal{L}_{}(\xb;q) \enspace .
     % &= \log \int p_\thetab(\xb|\zb)p(\zb),\textrm{d}\zb \nonumber \\
-    % &= \log \int q_\phib(\zb|\xb) \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)}\,\textrm{d}\zb \nonumber \\
-    % &\geq \int q_\phib(\zb|\xb) \log \left( \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right) \,\textrm{d}\zb \nonumber \\
-    % &\geq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right] \equiv \mathcal{L}_{}(\xb;\thetab,\phib) \enspace .
+    % &= \log \int q(\zb) \frac{p_\thetab(\xb|\zb)p(\zb)}{q(\zb)}\,\textrm{d}\zb \nonumber \\
+    % &\geq \int q(\zb) \log \left( \frac{p_\thetab(\xb|\zb)p(\zb)}{q(\zb)} \right) \,\textrm{d}\zb \nonumber \\
+    % &\geq \mathbb{E}_{q(\zb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q(\zb)} \right] \equiv \mathcal{L}_{}(\xb;\thetab,\phib) \enspace .
 \end{align}
 %
-Although analytically evaluating the ELBO is intractable, it can be approximated by sampling and used to train VAEs. We will return to this after examining the ELBO in detail.
+Since we can evaluate the generative model $p_\thetab(\xb,\zb)$ and are free to define $q(\zb)$ as we please, this bound is tractable. 
+However, finding an approximate posterior distribution $q(\zb)$ that is ...
+
+\moretodo[inline]{Glue this together..}
+
+Instead, VAEs amortize the cost of variational inference by parameterizing $q_\phib(\zb|\xb)$ as a single neural network. This makes it possible to efficiently compute approximate posterior distributions for any input $\xb$. The approximate posterior can also be used to compute a lower bound on the marginal distribution $p_\thetab(\xb)$ via Jensen's inequality, the so-called evidence lower bound (ELBO), 
+%
+\begin{equation}
+    \log p_\thetab(\xb) \geq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right] \equiv \mathcal{L}_{}(\xb;\thetab,\phib) \enspace .
+\end{equation}
+%
+Although analytically evaluating the ELBO is still intractable, it can be approximated by sampling and used to train VAEs. We will return to this after examining the ELBO in more detail.
 
 
 \paragraph{KL-divergence to prior}
@@ -482,31 +498,30 @@ A well-fitted VAE will therefore have maximized the expected log-likelihood of t
 
 \paragraph{Inference gap} 
 The ELBO is a lower bound on the marginal likelihood, so it is interesting to examine when the bound holds exactly. 
-Without using Jensen's inequality, in the below, we will rewrite the log-marginal likelihood with the goal of arriving at the ELBO of \cref{eq:variational-autoencoder-elbo} plus a factor to fill the inference gap. 
-% Since the ELBO is computed as an expectation under the variational approximation to the posterior, $q_\phib(\xb|\zb)$, we will seek to rewrite the log-marginal likelihood into such an expectation, .
+As is standard for variational Bayesian methods, we can take the objective of the VAE to be minimization of the KL-divergence of the approximate posterior to the true posterior, $D_\mathrm{KL}\left( p_\thetab(\zb|\xb) \parallel q_\phib(\zb|\xb) \right)$ and rewrite it as follows.
 %
 \begin{align}
-    \log p_\thetab(\xb) 
-    &= \int q_\phib(\zb|\xb) \log p_\thetab(\xb) \, \textrm{d}\zb \nonumber \\
-    &= \int q_\phib(\zb|\xb) \log \left(\frac{p_\thetab(\xb,\zb)}{p_\thetab(\zb|\xb)}\right) \, \textrm{d}\zb \nonumber \\
-    &= \int q_\phib(\zb|\xb) \log \left(\frac{p_\thetab(\xb,\zb) q_\phib(\zb|\xb)}{p_\thetab(\zb|\xb) q_\phib(\zb|\xb)}\right) \, \textrm{d}\zb \nonumber \\
-    &= \int q_\phib(\zb|\xb) \log \left(\frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)}\right) \, \textrm{d}\zb + \int q_\phib(\zb|\xb) \log \left(\frac{q_\phib(\zb|\xb)}{p_\thetab(\zb|\xb)}\right) \, \textrm{d}\zb \nonumber \\
-    &=
+    D_\text{KL}\left( p_\theta(\zb|\xb) \parallel q_\phib(\zb|\xb) \right)
+    &= \mathbb{E}_{q_\phib(\zb|\xb)}\left[ \log \frac{p_\theta(\zb|\xb)}{q_\phib(\zb|\xb)} \right] \nonumber \\
+    &= \mathbb{E}_{q_\phib(\zb|\xb)}\left[ \log \frac{p_\theta(\zb,\xb)}{q_\phib(\zb|\xb)p_\theta(\xb)} \right] \nonumber \\
+    &= 
     \underset{\text{ELBO}}{\underbrace{
-        \mathcal{L}_{}(\xb;\thetab,\phib)
-    }} 
-    + 
-    \underset{\text{KL-divergence to true posterior}}{\underbrace{
-        \vphantom{\mathcal{L}_{}(\xb;\thetab,\phib)}{D_\mathrm{KL}\left( p_\thetab(\zb|\xb) \parallel q_\phib(\zb|\xb) \right)}
+        \mathbb{E}_{q_\phib(\zb|\xb)}\left[ \log \frac{p_\theta(\zb,\xb)}{q_\phib(\zb|\xb)} \right]
+    }}
+    - 
+    \underset{\text{Marginal likelihood}}{\underbrace{
+        \vphantom{\mathbb{E}_{q_\phib(\zb|\xb)}\left[ \log \frac{p_\theta(\zb,\xb)}{q_\phib(\zb|\xb)} \right]}{\log p_\theta(\xb)}
     }} \enspace .
 \end{align}
 %
-We can see that the inference gap of the ELBO is exactly equal to the KL-divergence of the approximate posterior to the true posterior. 
-This also means that the approximate posterior $q_\phib(\zb|\xb)$ that maximizes the ELBO also best approximates the true posterior, as measured by $D_\mathrm{KL}\left( p(\zb|\xb) \parallel q(\zb|\xb) \right)$. 
+We can see that the inference gap of the ELBO is exactly equal to the KL-divergence of the approximate posterior to the true posterior $D_\text{KL}\left( p_\theta(\zb|\xb) \parallel q_\phib(\zb|\xb) \right)$. 
+This also means that the approximate posterior $q_\phib(\zb|\xb)$ that maximizes the ELBO also best approximates the true posterior, as measured by KL-divergence. 
 
-We can subdivide the inference gap \cite{cremer_inference_2018}: 
-By amortizing the variational inference we introduce a gap compared to the alternative of fitting a posterior per data point, $q^{*}_{\xb}(\zb)$. This amortization gap can be reduced by using large capacity amortized posteriors. 
+We can analyze the inference gap further \cite{cremer_inference_2018}. 
+By amortizing the variational inference we introduce a gap compared to the alternative of fitting a posterior per data point, $q^{*}_{\xb}(\zb)$. This is referred to as the amortization gap and can be reduced by using large capacity amortized posteriors. 
 In case the true posterior does not belong to the model class of the variational family of posteriors that we fit, the inference gap cannot be reduced to zero and the remaining gap is referred to as the approximation gap. 
+If the inference gap is closed, the maximum of the ELBO corresponds to the maximum of the maringa
+Finally, the generative model 
 
 \moretodo[inline]{Finish this with the parsimony gap}
 
@@ -514,15 +529,18 @@ A final error is introduced  the maximally attainable likelihood over all the gr
 
 It is important to also note that in fitting a VAE, the approximation gap is not the only source of error. 
 
+\moretodo[inline]{Maybe add a small graphic illustrating the gaps.}
+
 
 \subsection{Maximum likelihood estimation}
 %
-We want to use maximum likelihood estimation to jointly optimize the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$ with respect to $\thetab$ and $\phib$. 
+VAEs are usually mixed-effect models. Although VAEs use variational Bayes to infer a posterior distribution over latent variables, their parameters are estimated using maximum likelihood. 
+That is, we want to jointly optimize the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$ with respect to $\thetab$ and $\phib$ to find point estimates. 
 Gradient-based optimization works well for neural networks, but the large amounts of data force the use of mini-batch, or stochastic, gradient descent. 
-To do this we therefore must approximate the expectation in the ELBO \cref{eq:variational-autoencoder-elbo} and compute its gradients w.r.t. $\phib$ and $\thetab$. 
+Hence, we must approximate the expectation in the ELBO \cref{eq:variational-autoencoder-elbo} and compute its gradients w.r.t. $\phib$ and $\thetab$. 
 
 \paragraph{Sampling}
-Since we have freedom to select the approximate posterior, we can choose it such that it is easy to sample and then use that property to form a Monte Carlo estimate of the ELBO as
+Since we have freedom to select the approximate posterior, we can choose it such that it is easy to sample and then use that property to form a Monte Carlo estimate of the ELBO,
 % 
 \begin{equation} \label{eq:variational-autoencoder-elbo-sampling-expanded}
     \mathcal{L}_{}(\xb;\thetab,\phib)
@@ -538,7 +556,8 @@ This Monte Carlo estimator can be written as,
     \approx \frac{1}{K} \sum_{k=1}^K \log p_\thetab(\xb|\zb_k) - D_\text{KL}\left( q_\phib(\zb|\xb) \,||\, p(\zb) \right) \enspace .
 \end{equation}
 %
-To reduce the variance of the estimate, \textcite{burda_importance_2016} propose to use importance sampling to reweigh the samples.
+To reduce the variance of the estimate, \textcite{burda_importance_2016} propose to use importance sampling to reweigh the samples. 
+Compared to the estimator in \cref{eq:variational-autoencoder-elbo-sampling-expanded,eq:variational-autoencoder-elbo-sampling-KL} which 
 
 \moretodo[inline]{Derive and introduce the IWAE bound.}
 
@@ -555,7 +574,7 @@ Computing the gradient of the ELBO with respect to $\thetab$ is straightforward,
 \end{equation}
 %
 However, the gradient with respect to the $\phib$ is more challenging. Since $\phib$ occurs in the expectation itself, we may not move the gradient inside the expectation. 
-However, by reparameterizing the latent variable $\zb$ as a deterministic function of the input $\xb$ and a random variable $\epsilonb\sim p(\epsilonb)$, $\zb = g_\phib(\xb,\epsilonb)$, we can write the gradient as a path-wise derivative,
+However, by reparameterizing the latent variable $\zb$ as a deterministic function of the input $\xb$ and a random variable $\epsilonb\sim p(\epsilonb)$, $\zb = g_\phib(\xb,\epsilonb)$, we can write the gradient as a path-wise derivative \parencite{kingma_autoencoding_2014,rezende_stochastic_2014,mohamed_monte_2019},
 %
 \begin{equation}
     % \nabla_\phib \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right] 
@@ -593,7 +612,7 @@ The inference model can then be defined in two ways respectively referred to as 
 and \emph{top-down} \parencite{sonderby_ladder_2016}
 \begin{equation}
     % q_\phib(\zb|\xb)=q_\phib(\zb_{L}|\xb)q_\phib(\zb_{L-1}|\zb_L)\cdots q_\phib(\zb_2|\zb_1),
-    q_\phib(\zb|\xb) = q_\phib(\zb_L|\xb)\prod_{i=L-1}^{1} q_\phib(\zb_{i}|\zb_{i+1}) \ .
+    q_\phib(\zb|\xb) = q_\phib(\zb_L|\xb)\prod_{i=1}^{L-1} q_\phib(\zb_{i}|\zb_{i+1}) \ .
 \end{equation}
 A variant of the variational autoencoder that employs a bidirectional inference network has also been proposed \parencite{maaloe_biva_2019}.
 Regardless of the choice of inference model, the resulting hierarchical VAE is trained using the ELBO \cref{eq:variational-autoencoder-elbo} and the reparameterization trick.
