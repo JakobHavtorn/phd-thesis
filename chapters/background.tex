@@ -406,7 +406,7 @@ There exist at least six main classes of deep generative models: variational aut
 \moretodo[inline]{Briefly hold the readers hand and tell them why VAEs are relevant to the overarching project.}
 
 % A variational autoencoder (VAE) \parencite{kingma_autoencoding_2014,rezende_stochastic_2014} is a type of deep generative model and an instance of a latent variable model. 
-In the following, we will introduce VAEs starting from the definition of latent variable models. We then derive the marginal likelihood objective used to train VAEs, discuss its different components, and highlight some central challenges of applying VAEs.
+In the following, we will introduce VAEs starting from the definition of latent variable models. We then derive the marginal likelihood objective bound used to train them, discuss its different components and the approximation error, and highlight some central challenges of applying VAEs.
 
 
 \subsection{Latent variable models}
@@ -456,18 +456,19 @@ By estimating the posterior distribution $p(\zb|\xb)$ with a variational approxi
     % &\geq \mathbb{E}_{q(\zb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q(\zb)} \right] \equiv \mathcal{L}_{}(\xb;\thetab,\phib) \enspace .
 \end{align}
 %
-Since we can evaluate the generative model $p_\thetab(\xb,\zb)$ and are free to define $q(\zb)$ as we please, this bound is tractable. 
-However, finding an approximate posterior distribution $q(\zb)$ that is ...
+Since we can evaluate the generative model $p_\thetab(\xb,\zb)$ and are free to define $q(\zb)$ as we please, this bound can be made tractable. 
 
-\moretodo[inline]{Glue this together..}
-
-Instead, VAEs amortize the cost of variational inference by parameterizing $q_\phib(\zb|\xb)$ as a single neural network. This makes it possible to efficiently compute approximate posterior distributions for any input $\xb$. The approximate posterior can also be used to compute a lower bound on the marginal distribution $p_\thetab(\xb)$ via Jensen's inequality, the so-called evidence lower bound (ELBO), 
+The usual approach in variational inference is to fit an approximate posterior $q(\zb)$ per data point. However, for large datasets, as is common in natural language processing, this can be too computationally expensive. 
+% \moretodo[inline]{Glue this together..}
+Instead, VAEs amortize the cost of variational inference by parameterizing the approximate posterior with a neural network that transforms any data point $\xb$ into the parameters of the corresponding conditional distribution, $q_\phib(\zb|\xb)$. This makes it possible to efficiently infer the approximate posterior distribution for any input $\xb$. 
+With amortized variational inference, the ELBO can simply be written as,
+% The approximate posterior can also be used to compute a lower bound on the marginal distribution $p_\thetab(\xb)$ via Jensen's inequality, the so-called evidence lower bound (ELBO), 
 %
 \begin{equation}
     \log p_\thetab(\xb) \geq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right] \equiv \mathcal{L}_{}(\xb;\thetab,\phib) \enspace .
 \end{equation}
 %
-Although analytically evaluating the ELBO is still intractable, it can be approximated by sampling and used to train VAEs. We will return to this after examining the ELBO in more detail.
+Although analytically evaluating the ELBO is intractable due to the expectation, it can be approximated by sampling and then used to train VAEs. We will return to this after examining the ELBO in more detail.
 
 
 \paragraph{KL-divergence to prior}
