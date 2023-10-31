@@ -46,7 +46,7 @@ The information entropy of a discrete random variable $X$ is defined as the \emp
 %
 This means that $H(X)$ measures the amount of information we can expect to gain from observing an outcome of $X$, when we know only its distribution $p_X(x)$. If all possible outcomes are equally likely, then $H(X)$ is maximized, and if only one outcome is possible, then $H(X)$ is minimized.
 
-\todo[inline]{Come up with a suitable example explaining the intuition behind information entropy.}
+\lesstodo[inline]{Come up with a suitable example explaining the intuition behind information entropy.}
 
 
 \subsection{Entropy for continuous random variables}
@@ -117,7 +117,7 @@ The Kullback-Leibler divergence plays a central role in the training of variatio
 
 
 \section{Out-of-distribution detection} \label{sec:out-of-distribution-detection}
-\todo[inline]{Maybe this section should come after the VAE background?}
+\lesstodo[inline]{Maybe this section should come after the VAE background?}
 % 
 % OUTLINE: C.f. https://openaccess.thecvf.com/content/CVPR2023W/VAND/papers/Graham_Denoising_Diffusion_Models_for_Out-of-Distribution_Detection_CVPRW_2023_paper.pdf
 % - Formalize the problem. https://arxiv.org/pdf/2302.10326.pdf
@@ -131,7 +131,7 @@ The Kullback-Leibler divergence plays a central role in the training of variatio
 In this section we introduce out-of-distribution (OOD) detection and connect it to the concept of uncertainty. 
 Since the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic} are relatively short, we also provide a concise review of the literature on out-of-distribution detection. 
 
-\todo[inline]{Briefly hold the readers hand at actualize the importance of OODD.}
+\moretodo[inline]{Briefly hold the readers hand at actualize the importance of OODD.}
 
 
 \subsection{An overview of the task}
@@ -262,7 +262,7 @@ They conclude that this shift results in the maximum softmax probability being a
 The final category of supervised methods derive the score from a latent representation of the input. 
 Some methods define OOD classes. 
 \textcite{huang_mos_2021} group the classes of the target variable $y$ and defines an OOD class for each group. Each training example is then the correct target for one group and an OOD example for all other groups; a kind of hierarchical version of the OOD class of simpler baselines based on noise augmentation \parencite{ren_likelihood_2019}. 
-\todo[inline]{Does the previous sentence belong here or in a different paragraph? It is not really using the latent space.}
+\moretodo[inline]{Does the previous sentence belong here or in a different paragraph? It is not really using the latent space.}
 Similarly, to represent a virtual OOD class, \textcite{wang_vim_2022} generate an additional logit by first computing the residual of the input's latent space representation against a principal feature space and then converting it to a valid logit by matching its mean over training samples to the average maximum logits. 
 
 Other methods note that the difficulty of detecting OOD data might be attributed to the curse of dimensionality in the learned feature spaces and propose to use dimensionality reduction techniques. \textcite{ndiour_outofdistribution_2020} apply dimensionality reduction on learned, high-dimensional features to capture the true feature subspace and compute the norm of the difference between the original feature and the pre-image of its low-dimensional manifold embedding. 
@@ -430,11 +430,11 @@ In many latent variable models, the joint distribution is factorized as $p(\xb,\
 
 
 \subsection{Variational inference} \label{sec:variational-autoencoders}
-To be able to model high-dimensional data, we want to use neural networks to represent the generative process. 
-This leads to deep latent variable models which were pioneered by \textcite{kingma_autoencoding_2014,rezende_stochastic_2014}. The authors propose to factor the joint distribution and parameterize it using a neural network with parameters $\thetab$ and let $p_\thetab(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ where $p(\zb)$ is the prior. 
+To model high-dimensional data, we want to use neural networks to represent the generative process. 
+This leads to deep latent variable models which were pioneered by \textcite{kingma_autoencoding_2014,rezende_stochastic_2014}. The authors propose to factor the joint distribution and parameterize it using a neural network with parameters $\thetab$ and let $p_\thetab(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ where $p(\zb)$ is a prior. 
 
 This choice makes both the marginal and posterior distributions intractable since they involve an integral over all possible values of the latent variable $\zb$. 
-This precludes training with commonly used methods such as expectation maximization and exact maximum likelihood estimation and while MCMC methods are usually too computationally expensive for large neural networks, variational inference provides a scalable alternative \parencite{jordan_introduction_1999}. 
+This precludes training with commonly used methods such as expectation maximization and exact maximum likelihood estimation. Since Markov Chain Monte Carlo methods are usually too computationally expensive for large neural networks, this leads to variational inference as a scalable alternative \parencite{jordan_introduction_1999}. 
 
 % To model high-dimensional data, \textcite{kingma_autoencoding_2014,rezende_stochastic_2014} propose to factor the joint distribution and parameterize it using a neural network with parameters $\thetab$. Specifically, they let $p_\thetab(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ where $p(\zb)$ is the prior. 
 % This choice makes both the marginal and posterior distributions intractable and so, training and inference require approximate methods. 
@@ -442,14 +442,14 @@ This precludes training with commonly used methods such as expectation maximizat
 
 
 \paragraph{Evidence lower bound}
-By estimating the posterior distribution $p(\zb|\xb)$ with a variational approximation $q(\zb)$ we can derive a lower bound on the otherwise intractable marginal log-likelihood $\log p_\theta(\xb)$.
+By approximating the intractable posterior distribution $p(\zb|\xb)$ with a variational distribution $q(\zb)$, we can derive a lower bound on the also intractable marginal log-likelihood $\log p_\theta(\xb)$.
 %
- \begin{align} \label{eq:variational-autoencoder-elbo}
+ \begin{align}
     \log p_\thetab(\xb)
     &= \log \int p_\thetab(\xb,\zb),\textrm{d}\zb \nonumber \\
-    &= \log \int q(\zb) \frac{p_\thetab(\xb,\zb)}{q(\zb)}\,\textrm{d}\zb \nonumber \\
+    &= \log \int q(\zb) \frac{p_\thetab(\xb,\zb)}{q(\zb)}\,\textrm{d}\zb  \label{eq:marginal-likelihood-with-variational-approximation} \\
     &\geq \int q(\zb) \log \left( \frac{p_\thetab(\xb,\zb)}{q(\zb)} \right) \,\textrm{d}\zb \nonumber \\
-    &\geq \mathbb{E}_{q(\zb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q(\zb)} \right] \equiv \mathcal{L}_{}(\xb;q) \enspace .
+    &= \mathbb{E}_{q(\zb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q(\zb)} \right] \equiv \mathcal{L}_{}(\xb;\thetab,q) \enspace . \label{eq:latent-variable-model-elbo}
     % &= \log \int p_\thetab(\xb|\zb)p(\zb),\textrm{d}\zb \nonumber \\
     % &= \log \int q(\zb) \frac{p_\thetab(\xb|\zb)p(\zb)}{q(\zb)}\,\textrm{d}\zb \nonumber \\
     % &\geq \int q(\zb) \log \left( \frac{p_\thetab(\xb|\zb)p(\zb)}{q(\zb)} \right) \,\textrm{d}\zb \nonumber \\
@@ -459,20 +459,19 @@ By estimating the posterior distribution $p(\zb|\xb)$ with a variational approxi
 Since we can evaluate the generative model $p_\thetab(\xb,\zb)$ and are free to define $q(\zb)$ as we please, this bound can be made tractable. 
 
 The usual approach in variational inference is to fit an approximate posterior $q(\zb)$ per data point. However, for large datasets, as is common in natural language processing, this can be too computationally expensive. 
-% \moretodo[inline]{Glue this together..}
-Instead, VAEs amortize the cost of variational inference by parameterizing the approximate posterior with a neural network that transforms any data point $\xb$ into the parameters of the corresponding conditional distribution, $q_\phib(\zb|\xb)$. This makes it possible to efficiently infer the approximate posterior distribution for any input $\xb$. 
-With amortized variational inference, the ELBO can simply be written as,
+Instead, VAEs amortize the cost of variational inference by parameterizing the approximate posterior with a neural network that transforms any data point $\xb$ into the parameters of the corresponding conditional distribution. We denote this by $q_\phib(\zb|\xb)$ where $\phib$ are the parameters of this inference model. This makes it possible to efficiently infer the approximate posterior distribution for any input $\xb$. 
+With amortized variational inference, the ELBO is simply be written as,
 % The approximate posterior can also be used to compute a lower bound on the marginal distribution $p_\thetab(\xb)$ via Jensen's inequality, the so-called evidence lower bound (ELBO), 
 %
-\begin{equation}
-    \log p_\thetab(\xb) \geq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right] \equiv \mathcal{L}_{}(\xb;\thetab,\phib) \enspace .
+\begin{equation} \label{eq:variational-autoencoder-elbo}
+    \mathcal{L}_{}(\xb;\thetab,\phib) \equiv \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right] \leq \log p_\thetab(\xb) \enspace .
 \end{equation}
 %
 Although analytically evaluating the ELBO is intractable due to the expectation, it can be approximated by sampling and then used to train VAEs. We will return to this after examining the ELBO in more detail.
 
 
 \paragraph{KL-divergence to prior}
-Since the joint factorizes in VAEs, we can also write the ELBO in \cref{eq:variational-autoencoder-elbo} as,
+Since VAEs factorize the joint distribution, we can also write the ELBO in \cref{eq:variational-autoencoder-elbo} as,
 %
 \begin{align} \label{eq:variational-autoencoder-elbo-factorized}
     \mathcal{L}_{}(\xb;\thetab,\phib)
@@ -519,18 +518,15 @@ We can see that the inference gap of the ELBO is exactly equal to the KL-diverge
 This also means that the approximate posterior $q_\phib(\zb|\xb)$ that maximizes the ELBO also best approximates the true posterior, as measured by KL-divergence. 
 
 We can analyze the inference gap further \cite{cremer_inference_2018}. 
-By amortizing the variational inference we introduce a gap compared to the alternative of fitting a posterior per data point, $q^{*}_{\xb}(\zb)$. This is referred to as the amortization gap and can be reduced by using large capacity amortized posteriors. 
-In case the true posterior does not belong to the model class of the variational family of posteriors that we fit, the inference gap cannot be reduced to zero and the remaining gap is referred to as the approximation gap. 
-If the inference gap is closed, the maximum of the ELBO corresponds to the maximum of the maringa
-Finally, the generative model 
+By amortizing the variational inference we introduce a gap compared to the alternative of fitting a posterior per data point. %, $q^{*}_{\xb}(\zb)$.
+This is referred to as the \emph{amortization gap} and can be reduced by using large capacity amortized posteriors. 
+In case the true posterior does not belong to the chosen class of variational posteriors, the inference gap cannot be reduced to zero even with infinite capacity. The remaining gap is referred to as the \emph{approximation gap}. 
+If the inference gap is closed, the ELBO becomes equal to the marginal likelihood, the value of which then depends on how well the generative model is fitted \cite{cremer_inference_2018,frellsen_deep_2019}.
 
-\moretodo[inline]{Finish this with the parsimony gap}
-
-A final error is introduced  the maximally attainable likelihood over all the group $G$ of possible models, $\mathcal{l}(G)$ 
-
-It is important to also note that in fitting a VAE, the approximation gap is not the only source of error. 
-
-\moretodo[inline]{Maybe add a small graphic illustrating the gaps.}
+\lesstodo[inline]{Do we want to refer to the parsimony gap?}
+\lesstodo[inline]{Maybe add a small graphic illustrating the gaps?}
+% A final error is introduced  the maximally attainable likelihood over all the group $G$ of possible models, $\mathcal{l}(G)$ 
+% It is important to also note that in fitting a VAE, the approximation gap is not the only source of error. 
 
 
 \subsection{Maximum likelihood estimation}
@@ -541,26 +537,55 @@ Gradient-based optimization works well for neural networks, but the large amount
 Hence, we must approximate the expectation in the ELBO \cref{eq:variational-autoencoder-elbo} and compute its gradients w.r.t. $\phib$ and $\thetab$. 
 
 \paragraph{Sampling}
-Since we have freedom to select the approximate posterior, we can choose it such that it is easy to sample and then use that property to form a Monte Carlo estimate of the ELBO,
+Since we have freedom to select the approximate posterior, we can choose it such that it is easy to sample and then use that property to form a Monte Carlo estimate of the ELBO, $\mathcal{L}_{}(\xb;\thetab,\phib)$,
 % 
 \begin{equation} \label{eq:variational-autoencoder-elbo-sampling-expanded}
-    \mathcal{L}_{}(\xb;\thetab,\phib)
-    \approx \frac{1}{K} \sum_{k=1}^K \log p_\thetab(\xb|\zb_k) + \log p(\zb_k) - \log q_\phib(\zb_k|\xb) \enspace , 
+    % \mathcal{L}_{}(\xb;\thetab,\phib)
+    % \approx 
+    \widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)
+    =
+    \frac{1}{S} \sum_{s=1}^{S} \log \frac{p_\thetab(\xb|\zb_{s}) p(\zb_{s})}{q_\phib(\zb_{s}|\xb)} \enspace , 
+    % \frac{1}{S} \sum_{s=1}^S \log p_\thetab(\xb|\zb_{s}) + \log p(\zb_{s}) - \log q_\phib(\zb_{s}|\xb) \enspace , 
 \end{equation}
 %
-where $\zb_k \sim q_\phib(\zb|\xb)$ are samples from the approximate posterior. 
-For some choices of prior and approximate posterior, such as Gaussians, the KL-divergence term of the ELBO can be computed analytically. 
-This Monte Carlo estimator can be written as,
+where $\zb_{s} \sim q_\phib(\zb|\xb)$ are samples from the approximate posterior. 
+For some choices of prior and approximate posterior, such as Gaussians, the KL-divergence term of the ELBO can be computed analytically which reduces estimator variance. 
+This estimator can be written as,
 %
 \begin{equation} \label{eq:variational-autoencoder-elbo-sampling-KL}
-    \mathcal{L}_{}(\xb;\thetab,\phib)
-    \approx \frac{1}{K} \sum_{k=1}^K \log p_\thetab(\xb|\zb_k) - D_\text{KL}\left( q_\phib(\zb|\xb) \,||\, p(\zb) \right) \enspace .
+    \widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)
+    \equiv
+    \frac{1}{S} \sum_{s=1}^{S} \log p_\thetab(\xb|\zb_{s}) - D_\text{KL}\left( q_\phib(\zb|\xb) \,||\, p(\zb) \right)\enspace .
 \end{equation}
 %
-To reduce the variance of the estimate, \textcite{burda_importance_2016} propose to use importance sampling to reweigh the samples. 
-Compared to the estimator in \cref{eq:variational-autoencoder-elbo-sampling-expanded,eq:variational-autoencoder-elbo-sampling-KL} which 
+Since $\widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)$ is the sample average, it is an unbiased estimator of the ELBO, $\mathbb{E}\left[\widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)\right] = \mathcal{L}_{S}(\xb;\thetab,\phib)$, and hence a biased estimator of the marginal likelihood, $\log p(\xb)$.
 
-\moretodo[inline]{Derive and introduce the IWAE bound.}
+Whereas we arrive at $\widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)$ by first deriving the ELBO as a lower bound on the marginal likelihood and then estimating that bound by Monte Carlo sampling, \textcite{burda_importance_2016} instead propose to directly Monte Carlo sample the expectation in the logarithm of the intractable marginal likelihood \cref{eq:marginal-likelihood-with-variational-approximation},
+%
+\begin{equation}
+    \widehat{\mathcal{L}}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \equiv \log \left( \frac{1}{S}\sum_{s=1}^{S} \frac{p_\thetab(\xb|\zb_{s})p(\zb_{s})}{q_\phib(\zb_{s}|\xb)} \right) = \frac{1}{S} \sum_{s=1}^S \log w_\thetab(\xb,\zb_{s}) \enspace ,
+\end{equation}
+%
+where $w_\thetab(\xb,\zb_{s})$ are the importance weights. Note the difference with the estimator in \cref{eq:variational-autoencoder-elbo-sampling-expanded}. 
+By taking the expectation of this estimator, we can see that it too is a lower bound on the marginal likelihood,
+%
+\begin{align}
+    \mathcal{L}^{\text{IWAE}}_{S}(\xb;\thetab,\phib)
+    &= \mathbb{E}_{q_\phib(\zb|\xb)}\left[ \widehat{\mathcal{L}}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \right] \nonumber \\
+    &= \mathbb{E}_{\zb_{s}\sim q_\phib(\zb|\xb)}\left[ \frac{1}{S}\sum_{s=1}^{S} \log \left( w_\thetab(\xb,\zb_{s}) \right) \right] \nonumber \\
+    &\leq \log \mathbb{E}_{\zb_{s}\sim q_\phib(\zb|\xb)}\left[ \frac{1}{S}\sum_{s=1}^{S} w_\thetab(\xb,\zb_{s}) \right] \enspace . \nonumber \\
+    &= \log p(\xb) \enspace .
+\end{align}
+%
+From this and the law of large numbers, it can be shown that for all $S$,
+%
+\begin{equation}
+    \log p(\xb) \geq \mathcal{L}^{\text{IWAE}}_{S+1}(\xb;\thetab,\phib) \geq \mathcal{L}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \enspace ,
+\end{equation}
+%
+and $\lim_{S\rightarrow\infty} \mathcal{L}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \rightarrow \log p(\xb)$, if $w_\thetab(\xb,\zb_{s})$ are bounded. 
+Hence, $\widehat{\mathcal{L}}^{\text{IWAE}}_{S}$ is a biased estimator of $\log p(\xb)$ but with a bias that goes to zero as the number of samples goes to infinity. 
+With $S=1$, the estimator is equivalent to the regular ELBO \cref{eq:variational-autoencoder-elbo} and so is always as tight or tighter than the ELBO \parencite{burda_importance_2016}.
 
 
 \paragraph{Reparameterization} 
@@ -586,6 +611,7 @@ However, by reparameterizing the latent variable $\zb$ as a deterministic functi
 The most important instantiation of this reparameterization is the diagonal Gaussian case. 
 By choosing $q_\phib(\zb|\xb) = \mathcal{N}(\zb; \mub_\phib(\xb), \mathbf{I}\sigmab_\phib(\xb))$ it is possible to sample differentiably via the reparameterization trick by setting $g_\phib(\xb,\epsilonb) = \mu_\phib(\xb) + \sigma_\phib(\xb) \odot \epsilonb$ with $\epsilonb\sim\mathcal{N}(0,\mathbf{I})$. 
 By assuming the covariance matrix is diagonal, this becomes a mean-field approximation which imposes independence between the dimensions of $\zb$. 
+The gradient for $\mathcal{L}^{\text{IWAE}}_{S}$ is derived similarly. 
 
 Although the variance of the path-wise derivative is lower than most alternatives, such as score function estimators, it is not negligible, and a number of works have attempted to reduce it.
 \textcite{roeder_sticking_2017} note that a score function estimator can be factored out of the path-wise derivative and propose to ignore it to reduce gradient variance. 
@@ -597,27 +623,27 @@ After showing that removing the score function factor introduces bias, \textcite
 The mean-field assumption imposed by $\zb \sim\mathcal{N}(\mub,\mathbf{I}\sigmab^2)$ can often be more restrictive for model expressiveness than we would like. 
 While learning a full covariance is a simple solution, it is not always sufficiently computationally efficient and, in any case, enables learning only linear covariance between elements of $\zb$. 
 The drawbacks of mean-field approximation and linear covariance have lead to research into learning hierarchies of several non-linearly dependent latent variables; an idea well in line with the usual motivations behind deep neural networks such as efficient, compositional representation \cite{lecun_deep_2015}. 
-Such hierarchical models are usually formalized by introducing a set of $L$ latent variables  $\zb=\zb_1, \dots, \zb_L$ and letting the generative model be defined as,
+Such hierarchical models are usually formalized by introducing a set of $L$ latent variables  $\zb=\zb^{(1)}, \dots, \zb^{(L)}$ and letting the generative model be defined as,
 %
 \begin{equation}
-    p_\thetab(\xb|\zb)=p(\xb|\zb_1) p_\thetab(\zb_1|\zb_2) \cdots p_\thetab(\zb_{L-1}|\zb_L) p(\zb_L) \enspace .
+    p_\thetab(\xb|\zb)=p(\xb|\zb^{(1)}) p_\thetab(\zb^{(1)}|\zb^{(2)}) \cdots p_\thetab(\zb^{(L-1)}|\zb^{(L)}) p(\zb^{(L)}) \enspace .
 \end{equation}
 %
-This top-down generative model can be efficiently sampled via ancestral sampling; first $\zb_L$ is drawn from the prior $p(\zb_L)$, and then each $\zb_l$ is drawn from the corresponding $p(\zb_l|\zb_{l+1})$ until we can draw $p(\xb|\zb_1)$. 
+This top-down generative model can be efficiently sampled via ancestral sampling; first $\zb^{(L)}$ is drawn from the prior $p(\zb^{(L)})$, and then each $\zb^{(l)}$ is drawn from the corresponding $p(\zb^{(l)}|\zb^{(l+1)})$ until we can draw $p(\xb|\zb^{(1)})$. 
 
 The inference model can then be defined in two ways respectively referred to as \emph{bottom-up} \parencite{burda_importance_2016}
 \begin{equation}
-    %q_\phib(\zb|\xb)=q_\phib(\zb_1|\xb)q_\phib(\zb_2|\zb_1)\cdots q_\phib(\zb_L|\zb_{L-1})
-    q_\phib(\zb|\xb) = q_\phib(\zb_1|\xb)\prod_{i=2}^{L} q_\phib(\zb_i|\zb_{i-1})
+    %q_\phib(\zb|\xb)=q_\phib(\zb^{(1)}|\xb)q_\phib(\zb^{(2)}|\zb^{(1)})\cdots q_\phib(\zb^{(L)}|\zb^{(L-1)})
+    q_\phib(\zb|\xb) = q_\phib(\zb^{(1)}|\xb)\prod_{i=2}^{L} q_\phib(\zb^{(i)}|\zb^{(i-1)})
 \end{equation}
 and \emph{top-down} \parencite{sonderby_ladder_2016}
 \begin{equation}
-    % q_\phib(\zb|\xb)=q_\phib(\zb_{L}|\xb)q_\phib(\zb_{L-1}|\zb_L)\cdots q_\phib(\zb_2|\zb_1),
-    q_\phib(\zb|\xb) = q_\phib(\zb_L|\xb)\prod_{i=1}^{L-1} q_\phib(\zb_{i}|\zb_{i+1}) \ .
+    % q_\phib(\zb|\xb)=q_\phib(\zb_{L}|\xb)q_\phib(\zb^{(L-1)}|\zb_L)\cdots q_\phib(\zb_2|\zb^{(1)}),
+    q_\phib(\zb|\xb) = q_\phib(\zb^{(L)}|\xb)\prod_{i=1}^{L-1} q_\phib(\zb^{(i)}|\zb^{(i+1)}) \ .
 \end{equation}
-A variant of the variational autoencoder that employs a bidirectional inference network has also been proposed \parencite{maaloe_biva_2019}.
-Regardless of the choice of inference model, the resulting hierarchical VAE is trained using the ELBO \cref{eq:variational-autoencoder-elbo} and the reparameterization trick.
-Recent architectural advances have alleviated the posterior collapse problem and made it possible to train VAEs with many latent variables \parencite{maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}. 
+A variant of the variational autoencoder that employs a bidirectional inference network has also been proposed \parencite{maaloe_biva_2019}. 
+Regardless of the choice of inference model, the resulting hierarchical VAE is trained using the ELBO \cref{eq:variational-autoencoder-elbo} and the reparameterization trick. 
+Recent architectural advances have alleviated the posterior collapse problem and made it possible to train VAEs with many latent variables \parencite{maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}. A key modelling choice in these works is conditioning each latent variable directly on the input via residual connections. 
 
 % Until recently, hierarchical VAEs gave inferior likelihoods compared to state-of-the-art autoregressive \parencite{ho_flow_2019} and flow-based models \parencite{salimans_pixelcnn_2017}.
 % This was changed by \textcite{maaloe_biva_2019}, \textcite{vahdat_nvae_2020}, and \textcite{child_very_2021}, which introduced complementary methods to extend the number of latent variables to a very deep hierarchy resulting in state-of-the-art likelihood performance.
@@ -673,7 +699,6 @@ In this form, the KL-divergence term of \cref{eq:variational-autoencoder-elbo-fa
 The marginal KL-divergence is minimized by making the aggregated posterior $q_{\phib}(\zb)$ match the prior $p(\zb)$. Contrary to the KL-divergence term of \cref{eq:variational-autoencoder-elbo-factorized}, driving the marginal KL-divergence to zero does not enforce independence between $\xb$ and $\zb$. 
 However, this alternative form reveals that the ELBO is maximized by minimizing the mutual information between $\xb$ and $\zb$, $I_{q_{\phib}(\xb,\zb)}\left[\xb ; \zb \right]$. 
 This result indicates that the usual interpretation of $\zb$ as a representation of $\xb$ is not a fundamental property arising from the ELBO and challenges the usefulness of variational autoencoders as representation learners.
-% %
 
 
 \paragraph{Applications of VAEs}
@@ -685,6 +710,7 @@ VAEs have also proven themselves useful for semi"=supervised learning \parencite
 \moretodo[inline]{Revise according to change of review papers.}
 An alternative approach to representation learning is provided by self"=supervised learning \parencite{mikolov_efficient_2013,devlin_bert_2018,chen_simple_2020,schneider_wav2vec_2019} which is a form of unsupervised learning where the training objective is derived from the data itself. 
 While it is fair to say that not all self"=supervised training objectives are as well-motivated as the ELBO is for VAEs, they have shown impressive results within the fields of natural language processing \parencite{devlin_bert_2018,chen_simple_2020}, speech processing \parencite{schneider_wav2vec_2019}, and computer vision \parencite{chen_simple_2020}. 
-For a deeper comparison of VAEs and self"=supervised methods for speech processing, we refer the reader to our paper \textcite{borgholt_brief_2022} included in \cref{chp:paper-brief}. 
-\Cref{app:paper-review} provides a comprehensive introduction to and review of self"=supervised learning in speech recognition. 
+We provide a review and comparison of self"=supervised methods and variational autoencoders for speech representation learning in \cref{chp:paper-brief}. 
+In \cref{app:paper-review} we provide a comprehensive introduction to and review of self"=supervised learning in speech recognition. 
+% For a deeper comparison of VAEs and self"=supervised methods for speech processing, we refer the reader to our paper \textcite{borgholt_brief_2022} included in \cref{chp:paper-brief}. 
 
