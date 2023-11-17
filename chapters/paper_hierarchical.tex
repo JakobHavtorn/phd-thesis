@@ -20,7 +20,7 @@ We benchmark the method on a vast set of data and model combinations and achieve
     \includegraphics[width=0.7\columnwidth]{paper_hierarchical/reconstructions-front-page-4-samples-2-recons2.pdf}
     \caption[Reconstructions of a hierarchical VAE trained on FashionMNIST.]{ Reconstructions using a hierarchical VAE trained on FashionMNIST.
         Reconstruction quality of OOD data is comparable to in-distribution data, resulting in high likelihoods and poor OOD discrimination.
-        By sampling the $k$ bottom-most latent variables from the conditional prior distribution $p(\zb_{\geq l}|\zb_{>l})$ (latent reconstructions) instead of the approximate posterior $q(\zb_{>l}|\zb_{<l})$, the model reconstructs from the training distribution resulting in lower $p(\xb|\zb)$ for OOD data.
+        By sampling the $k$ bottom-most latent variables from the conditional prior distribution $p_\thetab(\zb^{(\geq l)}|\zb^{(>l)})$ (latent reconstructions) instead of the approximate posterior $q_\phib(\zb^{(>l)}|\zb^{(<l)})$, the model reconstructs from the training distribution resulting in lower $p_\thetab(\xb|\zb)$ for OOD data.
     }
     \label{fig_hierarchical:reconstructions-fashionmnist}
 \end{figure}
@@ -127,17 +127,17 @@ Here, we focus on the latter.
 
 
 \subsection{Hierarchical variational autoencoders}\label{sec_paper_hierarchical:background-hie-VAE}
-Hierarchical VAEs are a family of probabilistic latent variable models which extends the basic VAE by introducing a hierarchy of $L$ latent variables $\zb=\zb_1, \dots, \zb_L$.
-The most common generative model is defined from the top down as $p_\thetab(\xb|\zb)=p(\xb|\zb_1)p_\thetab(\zb_1|\zb_2)\cdots p_\thetab(\zb_{L-1}|\zb_L)$.
+Hierarchical VAEs are a family of probabilistic latent variable models which extends the basic VAE by introducing a hierarchy of $L$ latent variables $\zb=\zb^{(1)}, \dots, \zb^{(L)}$.
+The most common generative model is defined from the top down as $p_\thetab(\xb|\zb)=p_\thetab(\xb|\zb^{(1)})p_\thetab(\zb^{(1)}|\zb^{(2)})\cdots p_\thetab(\zb^{(L-1)}|\zb^{(L)})$.
 The inference model can then be defined in two ways respectively referred to as \textit{bottom-up} \parencite{burda_importance_2016}
 \begin{equation}
-    %q_\phib(\zb|\xb)=q_\phib(\zb_1|\xb)q_\phib(\zb_2|\zb_1)\cdots q_\phib(\zb_L|\zb_{L-1})
-    q_\phib(\zb|\xb) = q_\phib(\zb_1|\xb)\textstyle\prod_{i=2}^{L} q_\phib(\zb_i|\zb_{i-1})
+    %q_\phib(\zb|\xb)=q_\phib(\zb^{(1)}|\xb)q_\phib(\zb^{(2)}|\zb^{(1)})\cdots q_\phib(\zb^{(L)}|\zb^{(L-1)})
+    q_\phib(\zb|\xb) = q_\phib(\zb^{(1)}|\xb)\textstyle\prod_{i=2}^{L} q_\phib(\zb^{(i)}|\zb^{(i-1)})
 \end{equation}
 and \textit{top-down} \parencite{sonderby_ladder_2016}
 \begin{equation}
-    % q_\phib(\zb|\xb)=q_\phib(\zb_{L}|\xb)q_\phib(\zb_{L-1}|\zb_L)\cdots q_\phib(\zb_2|\zb_1),
-    q_\phib(\zb|\xb) = q_\phib(\zb_L|\xb)\textstyle\prod_{i=L-1}^{1} q_\phib(\zb_{i}|\zb_{i+1}) \ .
+    % q_\phib(\zb|\xb)=q_\phib(\zb^{(L)}|\xb)q_\phib(\zb^{(L-1)}|\zb^{(L)})\cdots q_\phib(\zb^{(2)}|\zb^{(1)}),
+    q_\phib(\zb|\xb) = q_\phib(\zb^{(L)}|\xb)\textstyle\prod_{i=L-1}^{1} q_\phib(\zb^{(i)}|\zb^{(i+1)}) \ .
 \end{equation}
 Regardless of the choice of inference model, a hierarchical VAE is still trained using the ELBO \cref{eq_hierarchical:elbo}.
 
@@ -177,37 +177,37 @@ In this paper, we provide an explanation of those results, and significantly imp
 
 \section{OOD detection with hierarchical VAEs}
 \subsection{A bound for semantic OOD detection}
-If the lowest latent variable in the VAE hierarchy codes for a large part of the low-level features required to reconstruct the input with high accuracy, as exemplified in \crefrange{fig_hierarchical:reconstructions-fashionmnist}{fig_hierarchical:biva-reconstructions-celeba}, then $p_\thetab(\xb|\zb_1)$ will be high for both in- and out-of-distribution data.
-Hence, any OOD detection capabilities based on the ELBO $\mathcal{L} = \mathbb{E}_{q_\phib(\zb|\xb)}[\log p_\thetab(\xb|\zb_1)] - D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel  p(\zb))$ from \cref{eq_hierarchical:elbo} relies on the KL-term for OOD detection. For a bottom-up hierarchical VAE, the KL-term $D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel p(\zb))$ can be expressed by a hierarchical sum,% over the hierarchy
+If the lowest latent variable in the VAE hierarchy codes for a large part of the low-level features required to reconstruct the input with high accuracy, as exemplified in \crefrange{fig_hierarchical:reconstructions-fashionmnist}{fig_hierarchical:biva-reconstructions-celeba}, then $p_\thetab(\xb|\zb^{(1)})$ will be high for both in- and out-of-distribution data.
+Hence, any OOD detection capabilities based on the ELBO $\mathcal{L} = \mathbb{E}_{q_\phib(\zb|\xb)}[\log p_\thetab(\xb|\zb^{(1)})] - D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel  p(\zb))$ from \cref{eq_hierarchical:elbo} relies on the KL-term for OOD detection. For a bottom-up hierarchical VAE, the KL-term $D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel p(\zb))$ can be expressed by a hierarchical sum,% over the hierarchy
 % \begin{multline}
-%     \mathcal{L}(\xb) =  \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \log p_\thetab(\xb|\zb_1) \\
-%                      + \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb_i|\zb_{i+1})}{q_\phib(\zb_i|\zb_{i-1})} 
-%                      + \log \frac{p_\thetab(\zb_L)}{q_\phib(\zb_L|\zb_{L-1})} \Big] .
+%     \mathcal{L}(\xb) =  \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \log p_\thetab(\xb|\zb^{(1)}) \\
+%                      + \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb^{(i)}|\zb^{(i+1)})}{q_\phib(\zb^{(i)}|\zb^{(i-1)})} 
+%                      + \log \frac{p_\thetab(\zb^{(L)})}{q_\phib(\zb^{(L)}|\zb^{(L-1)})} \Big] .
 % \end{multline}
 % \begin{multline}
-%     D_{\mathrm{KL}}( q(\zb|\xb) \parallel p(\zb)) = \\
-%     \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb_i|\zb_{i+1})}{q_\phib(\zb_i|\zb_{i-1})} + \log \frac{p_\thetab(\zb_L)}{q_\phib(\zb_L|\zb_{L-1})} \Big] .
+%     D_{\mathrm{KL}}( q_\phib(\zb|\xb) \parallel p(\zb)) = \\
+%     \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb^{(i)}|\zb^{(i+1)})}{q_\phib(\zb^{(i)}|\zb^{(i-1)})} + \log \frac{p_\thetab(\zb^{(L)})}{q_\phib(\zb^{(L)}|\zb^{(L-1)})} \Big] .
 % \end{multline}
 \begin{equation}
-    \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb_i|\zb_{i+1})}{q_\phib(\zb_i|\zb_{i-1})} + \log \frac{p_\thetab(\zb_L)}{q_\phib(\zb_L|\zb_{L-1})} \Big] \ .
+    \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb^{(i)}|\zb^{(i+1)})}{q_\phib(\zb^{(i)}|\zb^{(i-1)})} + \log \frac{p_\thetab(\zb^{(L)})}{q_\phib(\zb^{(L)}|\zb^{(L-1)})} \Big] \ .
 \end{equation}
-In general, the absolute log-ratios grow with $\mathrm{dim}(\zb_i)$ as the individual log probability terms are computed by summing over the dimensionality of $\zb_i$.
-This means that the value of the KL-term is dominated by terms where $\zb_i$ is high-dimensional. We refer to \cref{sec_hierarchical:analysis} for a more detailed argument.
+In general, the absolute log-ratios grow with $\mathrm{dim}(\zb^{(i)})$ as the individual log probability terms are computed by summing over the dimensionality of $\zb^{(i)}$.
+This means that the value of the KL-term is dominated by terms where $\zb^{(i)}$ is high-dimensional. We refer to \cref{sec_hierarchical:analysis} for a more detailed argument.
 Since hierarchical VAEs are generally constructed with a bottleneck type structure, the terms corresponding to latent variables towards the top of the hierarchy will have a vanishing influence on the value of the KL-term.
 However, as the semantic information most relevant for OOD detection has a tendency to be represented in the top-most latent variables, this makes OOD detection using the regular ELBO difficult, even for state-of-the-art models.
 This behavior has also been reported by \textcite{xiao_likelihood_2020}.
 
 To shift the ELBO from primarily being based on the approximate posterior of the lowest latent variables to instead focus on the conditional prior, \textcite{maaloe_biva_2019} introduced slightly different likelihood lower bound defined as
 \begin{equation}\label{eq_hierarchical:biva->k}
-    \mathcal{L}^{>k} = \mathbb{E}_{p_\thetab(\zb_{\leq k}|\zb_{>k}) q_\phib(\zb_{>k}|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p_\thetab(\zb_{>k})}{q_\phib(\zb_{>k}|\xb)} \right]
+    \mathcal{L}^{>k} = \mathbb{E}_{p_\thetab(\zb^{(\leq k)}|\zb^{(>k)}) q_\phib(\zb^{(>k)}|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p_\thetab(\zb^{(>k)})}{q_\phib(\zb^{(>k)}|\xb)} \right]
 \end{equation}
 where $k\in\{0,1,\dots,L\}$ (see \cref{sec_hierarchical:derivation_L_geq_k} for the derivation).
 We note that $\mathcal{L}^{>0}$ is the regular ELBO (\cref{eq_hierarchical:elbo}) and that empirically we always observe that $\mathcal{L}\geq\mathcal{L}^{>k} \, \forall \, k$, although this need not hold in general.
-The core idea behind this variation on the ELBO is to sample the $k$ lowest latent variables from the conditional prior $\zb_1,\dots,\zb_l \sim p_\thetab(\zb_{\leq k}|\zb_{>k})$ and only the $L-k$ highest from the approximate posterior $\zb_{k+1},\dots,\zb_L \sim q_\phib(\zb_{>k}|\xb)$.
-Importantly, this has the effect that the data likelihood $p(\xb|\zb)$ is dependent on the approximate posterior through a latent variable $\zb_{k+1}$ different from $\zb_1$ for all $k \geq 1$.
-Thereby, the likelihood can be evaluated with a reconstruction from each of the latent variables $\zb_k$ of the hierarchical VAE.
+The core idea behind this variation on the ELBO is to sample the $k$ lowest latent variables from the conditional prior $\zb^{(1)},\dots,\zb^{(k)} \sim p_\thetab(\zb^{(\leq k)}|\zb^{(>k)})$ and only the $L-k$ highest from the approximate posterior $\zb^{(k+1)},\dots,\zb^{(L)} \sim q_\phib(\zb^{(>k)}|\xb)$.
+Importantly, this has the effect that the data likelihood $p(\xb|\zb)$ is dependent on the approximate posterior through a latent variable $\zb^{(k+1)}$ different from $\zb^{(1)}$ for all $k \geq 1$.
+Thereby, the likelihood can be evaluated with a reconstruction from each of the latent variables $\zb^{(k)}$ of the hierarchical VAE.
 Hence, we can now test how well the input $\xb$ is reconstructed from each latent variable.
-The notation $\mathcal{L}^{>k}$ highlights that for latent variables $\zb_{>k}$, the bound is the regular ELBO while for the latent variables $\zb_{\leq k}$, the bound is evaluated using the (conditional) prior rather than the approximate posterior as the proposal distribution.
+The notation $\mathcal{L}^{>k}$ highlights that for latent variables $\zb^{(>k)}$, the bound is the regular ELBO while for the latent variables $\zb^{(\leq k)}$, the bound is evaluated using the (conditional) prior rather than the approximate posterior as the proposal distribution.
 
 
 \subsection{A likelihood-ratio score for all feature levels}
@@ -232,25 +232,25 @@ On the contrary, a high value indicates that $\mathcal{L}^{>k}$ is looser on the
 We can gather further insights about this score if we write the regular ELBO and the $\mathcal{L}^{>k}$ bounds in the exact form that includes the intractable KL-divergence between the approximate and true posteriors,
 \begin{align}
     \mathcal{L}      &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( q_\phib(\zb|\xb) \parallel p_\thetab(\zb|\xb)\right), \label{eq_hierarchical:likelihoods-as-exact} \\ 
-    \mathcal{L}^{>k} &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( p_\thetab(\zb_{\leq k }|\zb_{>k}) q_\phib(\zb_{>k}|\xb) \parallel p_\thetab(\zb|\xb)\right) \nonumber \ .
+    \mathcal{L}^{>k} &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( p_\thetab(\zb^{(\leq k)}|\zb^{(>k)}) q_\phib(\zb^{(>k)}|\xb) \parallel p_\thetab(\zb|\xb)\right) \nonumber \ .
 \end{align}
 Subtracting these cancel out the two data likelihood terms $\log p_\thetab(\xb)$ and only the KL-divergences from the approximate to the true posterior remain,
-\begin{align}
+\begin{align}\label{eq_hierarchical:llr-as-kls}
     LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phib(\zb|\xb) \parallel p_\thetab(\zb|\xb)\right) \\
-                 &\quad + D_{\mathrm{KL}}\left( p_\thetab(\zb_{\leq k}|\zb_{>k}) q_\phib(\zb_{>k}|\xb) \parallel p_\thetab(\zb|\xb)\right) \ . \notag
-\end{align}\label{eq_hierarchical:llr-as-kls}
+                 &\quad + D_{\mathrm{KL}}\left( p_\thetab(\zb^{(\leq k)}|\zb^{(>k)}) q_\phib(\zb^{(>k)}|\xb) \parallel p_\thetab(\zb|\xb)\right) \ . \notag
+\end{align}
 
 Hence, it is clear that compared to the likelihood bound $\mathcal{L}^{>k}$, this likelihood-ratio measures divergence exclusively in the latent space whereas $\mathcal{L}^{>k}$ includes the $\log p_\thetab(\xb)$ term similar to the ELBO.
 Therefore, the $LLR^{>k}$ score should be an improved method for semantic OOD detection compared to $\mathcal{L}^{>k}$.
 Now, it can be noted that if we replace the regular ELBO, $\mathcal{L}$, in \cref{eq_hierarchical:likelihoods-as-exact} with the strictly tighter importance weighted bound \parencite{burda_importance_2016},
 \begin{equation}
-    \mathcal{L}_{S} = \mathbb{E}_{q(\zb|\xb)}\left[ \log \frac{1}{N} \sum_{s=1}^{S} \frac{p(\xb, \zb^{(s)})}{q(\zb^{(s)}|\xb)} \right] \ , \label{eq_hierarchical:iw-bound}
+    \mathcal{L}^{\text{IWAE}}_{S} = \mathbb{E}_{\zb_{s}\sim q_\phib(\zb|\xb)}\left[ \log \frac{1}{N} \sum_{s=1}^{S} \frac{p_\thetab(\xb, \zb_{s})}{q_\phib(\zb_{s}|\xb)} \right] \ , \label{eq_hierarchical:iw-bound}
 \end{equation}
-then, in the limit $S\rightarrow\infty$, we have $\mathcal{L}_{S} \rightarrow \log p_\thetab(\xb)$ and the likelihood ratio reduces to
-\begin{equation}
-    LLR^{>k}_{S}(\xb) \rightarrow D_{\mathrm{KL}}( p(\zb_{\leq k}|\zb_{>k}) q(\zb_{>k}|\xb) \parallel p(\zb|\xb))
-\end{equation}\label{eq_hierarchical:llr-as-kls-iwae-reduced}
-which, in practice, is well-approximated for a finite $S$. We expect this importance weighted likelihood ratio to monotonically improve upon the one in \cref{eq_hierarchical:llr-as-kls} as $S$ increases and the KL-divergence in the regular ELBO that contains terms for which $\zb_i$ is high-dimensional goes to zero.
+then, in the limit $S\rightarrow\infty$, we have $\mathcal{L}^{\text{IWAE}}_{S} \rightarrow \log p_\thetab(\xb)$ and the likelihood ratio reduces to
+\begin{equation}\label{eq_hierarchical:llr-as-kls-iwae-reduced}
+    LLR^{>k}_{S}(\xb) \rightarrow D_{\mathrm{KL}}( p_\thetab(\zb^{(\leq k)}|\zb^{(>k)}) q_\phib(\zb^{(>k)}|\xb) \parallel p_\thetab(\zb|\xb))
+\end{equation}
+which, in practice, is well-approximated for a finite $S$. We expect this importance weighted likelihood ratio to monotonically improve upon the one in \cref{eq_hierarchical:llr-as-kls} as $S$ increases and the KL-divergence in the regular ELBO that contains terms for which $\zb^{(i)}$ is high-dimensional goes to zero.
 
 
 Since the scores in \cref{eq_hierarchical:llr-as-kls,eq_hierarchical:llr-as-kls-iwae-reduced} are estimated by sampling their estimators are stochastic objects with nonzero variance.
@@ -282,9 +282,9 @@ More details on the datasets can be found in the \cref{sec_hierarchical:datasets
         % inference
         % nodes
         \node[obs] (x_inf) {$\xb$};
-        \node[latent,above=.75cm of x_inf](z1_inf){$\zb_1$};
-        \node[latent,above=.75cm of z1_inf](z2_inf){$\zb_2$};
-        % \node[latent,above=.75cm of z2_inf](z3_inf){$\zb_3$};
+        \node[latent,above=.75cm of x_inf](z1_inf){$\zb^{(1)}$};
+        \node[latent,above=.75cm of z1_inf](z2_inf){$\zb^{(2)}$};
+        % \node[latent,above=.75cm of z2_inf](z3_inf){$\zb^{(3)}$};
         \node[above=of z2_inf, yshift=-1.cm] (phi) {$q_\phib(\zb|\xb)$};
         
         % edges
@@ -297,10 +297,10 @@ More details on the datasets can be found in the \cref{sec_hierarchical:datasets
         % generative
         % nodes$
         \node[obs,right=0.75cm of x_inf] (x_gen) {$\xb$};
-        \node[latent,above=.75cm of x_gen](z1_gen){$\zb_1$};
-        \node[latent,above=.75cm of z1_gen](z2_gen){$\zb_2$};
-        % \node[latent,above=.75cm of z2_gen](z3_gen){$\zb_3$};
-        \node[above=of z2_gen, yshift=-1.cm] (theta) {$p_\thetab(\xb,\zb)$};
+        \node[latent,above=.75cm of x_gen](z1_gen){$\zb^{(1)}$};
+        \node[latent,above=.75cm of z1_gen](z2_gen){$\zb^{(2)}$};
+        % \node[latent,above=.75cm of z2_gen](z3_gen){$\zb^{(3)}$};
+        \node[right=0.75cm of phi] (theta) {$p_\thetab(\xb,\zb)$};
         
         % edges
         % \edge[]{z3_gen}{z2_gen}; %
@@ -320,7 +320,7 @@ More details on the datasets can be found in the \cref{sec_hierarchical:datasets
 
 
 \paragraph{Models} For each OOD task, we train a simple bottom-up hierarchical VAE with $L$ stochastic layers which we will refer to as ``HVAE''.
-To alleviate posterior collapse we include skip-connections that connect $\zb_i$ to $\zb_{i+2}$ for $i\in\{0, L-2\}$ and $\zb_0\equiv\xb$ in both the inference and generative models \parencite{dieng_avoiding_2019} and employ the \textit{free bits} scheme with $\lambda=2$ \parencite{kingma_improved_2016}.
+To alleviate posterior collapse we include skip-connections that connect $\zb^{(i)}$ to $\zb^{(i+2)}$ for $i\in\{0, L-2\}$ and $\zb^{(0)}\equiv\xb$ in both the inference and generative models \parencite{dieng_avoiding_2019} and employ the \textit{free bits} scheme with $\lambda=2$ \parencite{kingma_improved_2016}.
 We use weight-normalization \parencite{salimans_weight_2016} on all weights and residual networks in the deterministic paths. 
 A graphical representation of this model can be seen in \cref{fig_hierarchical:hvae-graphical-model}.
 We use a Bernoulli output distribution for FashionMNIST/MNIST and a discretized mixture of logistics output distribution \parencite{salimans_pixelcnn_2017} for CIFAR10/SVHN.
@@ -514,12 +514,12 @@ $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathb
 We first report the results of the different variations of the $\mathcal{L}^{>k}$ bound for OOD detection. 
 We reconfirm the results of \textcite{nalisnick_deep_2019} by observing that our hierarchical latent variable models also assign higher $\mathcal{L}^{>0}$ to the OOD dataset in the FashionMNIST/MNIST and CIFAR10/SVHN cases resulting in an AUROC$\uparrow$ inferior to random (\cref{tab_hierarchical:rocauc-ood}).
 Switching the in-distribution data for the OOD data in both cases result in correctly detecting the OOD data; an asymmetry also reported by \textcite{nalisnick_deep_2019}.
-\cref{fig_hierarchical:FMNIST-elbo-k0} shows the density of $\mathcal{L}^{>0}$ in bits per dimension \parencite{theis_note_2016} by the model trained on FashionMNIST when evaluated on the FashionMNIST and MNIST test sets.
+\Cref{fig_hierarchical:FMNIST-elbo-k0} shows the density of $\mathcal{L}^{>0}$ in bits per dimension \parencite{theis_note_2016} by the model trained on FashionMNIST when evaluated on the FashionMNIST and MNIST test sets.
 We observe a high degree of overlap, with less separation of the OOD data compared to similar results of autoregressive and flow-based models, like \textcite{xiao_likelihood_2020}.
 
 
 We then evaluate the looser $\mathcal{L}^{>k}$ \cref{eq_hierarchical:biva->k} for $k\in\{1,L\}$.
-\cref{fig_hierarchical:FMNIST-elbo-k2} shows the result for $\mathcal{L}^{>2}$, which yielded the highest AUCROC$\uparrow$, only slightly better than random.
+\Cref{fig_hierarchical:FMNIST-elbo-k2} shows the result for $\mathcal{L}^{>2}$, which yielded the highest AUCROC$\uparrow$, only slightly better than random.
 Like \textcite{maaloe_biva_2019}, we see that increasing the value of $k$ generally leads to improved OOD detection.
 However, we also observe that the two empirical distributions never cease to overlap.
 Importantly, depending on the OOD dataset, the amount of remaining overlap can be high which limits the discriminatory power of the likelihood-based $\mathcal{L}^{>k}$ bound.
@@ -536,7 +536,7 @@ This is not surprising since the value of $k$ that provides the maximal separati
 We also visualize the ROC curves resulting from using the $LLR^{>k}$ score for OOD detection on both FashionMNIST/MNIST and CIFAR10/SVHN and compare it to the ROC curves resulting from the different $\mathcal{L}^{>k}$ bounds in \cref{fig_hierarchical:FMNIST-roc-llr and CIFAR10-roc-llr}, respectively.
 On both datasets we see significantly better discriminatory performance when using the $LLR^{>k}$ score.
 
-\cref{tab_hierarchical:rocauc-ood} shows that BIVA improves upon the HVAE model for OOD detection on CIFAR while \cref{tab_hierarchical:bits-per-dim-ood} shows that the BIVA model also improves upon the HVAE in terms of likelihood.
+\Cref{tab_hierarchical:rocauc-ood} shows that BIVA improves upon the HVAE model for OOD detection on CIFAR while \cref{tab_hierarchical:bits-per-dim-ood} shows that the BIVA model also improves upon the HVAE in terms of likelihood.
 We hypothesize that models larger than our implementation of BIVA, with better likelihood scores may perform even better \parencite{maaloe_biva_2019, vahdat_nvae_2020, child_very_2021}.
 
 \begin{figure}
@@ -565,7 +565,7 @@ We hypothesize that models larger than our implementation of BIVA, with better l
 
 
 \subsection{Comparison to baselines}
-\paragraph{Performance} \cref{tab_hierarchical:rocauc-ood} summarize our results compared to baselines based on the commonly used AUROC$\uparrow$, AUPRC$\uparrow$ and FPR80$\downarrow$ metrics.
+\paragraph{Performance} \Cref{tab_hierarchical:rocauc-ood} summarize our results compared to baselines based on the commonly used AUROC$\uparrow$, AUPRC$\uparrow$ and FPR80$\downarrow$ metrics.
 Our method outperforms other generative model-based methods such as WAIC \parencite{choi_waic_2019} with Glow model and performs similarly to the likelihood regret method of \parencite{xiao_likelihood_2020}.
 Furthermore, our method performs similarly to the background contrastive likelihood ratio method of \textcite{ren_likelihood_2019} on FashionMNIST/MNIST but contrary to the failure of that method on CIFAR10/SVHN reported by \parencite{xiao_likelihood_2020}, our method performs very well on this task too.
 Our approach outperforms all supervised approaches that use in-distribution labels or synthetic examples of OOD data derived from the in-distribution data including ODIN \parencite{liang_enhancing_2018} and the predictive distribution of a classifier $p(\hat{y}|\xb)$ trained and evaluated in various ways (see \textcite{ren_likelihood_2019}).

@@ -94,7 +94,7 @@ By doing this, the information entropy becomes positive, dimensionally correct, 
     \end{align*}
     Plugging this into the differential entropy \cref{eq:corrected-differential-entropy-jaynes} we arrive at the original expression but now with $y$ as the independent variable,
     \begin{equation*}
-        H_{N\rightarrow\infty}(y(x)) =  = - \int_{\mathcal{Y}} \widetilde{w}(y)\,\frac{dy}{dx} \log \frac{\widetilde{w}(y)\frac{dy}{dx}}{\widetilde{q}(y)\frac{dy}{dx}} \, dx = - \int_{\mathcal{Y}} w(y) \log \frac{w(y)}{q(y)} \, dy \enspace .
+        H_{N\rightarrow\infty}(y(x)) =  = - \int_{\mathcal{Y}} \widetilde{w}(y)\,\frac{dy}{dx} \log \left( \frac{\widetilde{w}(y)\frac{dy}{dx}}{\widetilde{q}(y)\frac{dy}{dx}} \right) \, dx = - \int_{\mathcal{Y}} w(y) \log \left( \frac{w(y)}{q(y)} \right) \, dy \enspace .
     \end{equation*}
 }.
 
@@ -130,8 +130,6 @@ The Kullback-Leibler divergence plays a central role in the training of variatio
 %
 In this section we introduce out-of-distribution (OOD) detection and connect it to the concept of uncertainty. 
 Since the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic} are relatively short, we also provide a concise review of the literature on out-of-distribution detection. 
-
-\moretodo[inline]{Briefly hold the readers hand at actualize the importance of OODD.}
 
 
 \subsection{An overview of the task}
@@ -214,15 +212,17 @@ Another approach generates OOD inputs using a generative adversarial network \pa
 
 Similar to actual OOD data, the usefulness of synthetic OOD data is also fundamentally limited by the intractability of sampling the complete space of OOD data. Again, these methods are fundamentally limited in their generality.
 
-% No OOD data, probs
+% No OOD data
 \paragraph{Methods not using OOD data}
 The least informed supervised OOD detection methods do not require instantiations of any kind of OOD data, real or synthetic, and do away with the associated limitations.
 
+% No OOD data, probs
 A baseline approach uses the maximum class probability of $p(y|\xb)$ directly by noting that it tends to be larger for correctly classified examples \parencite{hendrycks_baseline_2017}. Another baseline method proposes that a high entropy of $p(y|\xb)$ indicates an OOD input \parencite{ren_likelihood_2019} 
 Other methods that derive the score from the classifier probabilities include \textcite{lakshminarayanan_simple_2017} who propose to use an ensemble of independently trained classifiers to discriminate between in-distribution and OOD data by evaluating the agreement between the classifiers, \textcite{devries_learning_2018} who augment the network with a confidence estimation branch that learns to estimate the confidence of the classifier separately from the probability, and \textcite{huang_importance_2021} who compute the gradient of the KL-divergence of the predictive distribution $p(y|\xb)$ to a uniform distribution noting that the magnitude of gradients is higher for in-distribution data than for OOD data. 
+\textcite{huang_mos_2021} group the classes of the target variable $y$ and define an OOD class for each group. Each training example is then the correct target for one group and an OOD example for all other groups; a kind of hierarchical version of the OOD class of simpler baselines based on noise augmentation \parencite{ren_likelihood_2019}. 
 The Variational Information Bottleneck \parencite{alemi_deep_2017} jointly learns a probabilistic latent representation, $p(\zb|\xb)$, and a classifier, $p(y|\xb)$, using a generalized variational autoencoder \parencite{kingma_autoencoding_2014} and tries to maximize the mutual information between $\zb$ and $y$ and minimize it between $\zb$ and $\xb$.
 
-\textcite{hsu_generalized_2020} proposes a generalized version of ODIN that removes the need for simulating OOD data.
+\textcite{hsu_generalized_2020} propose a generalized version of ODIN that removes the need for simulating OOD data.
 The authors note that most current methods make a closed world assumption and implicitly condition on the in-domain $\mathcal{D}_{\text{in}}$ in the form of the predictive distribution $p(y|\xb, \mathcal{D}_{\text{in}})$. With this observation, the authors decompose the $p(y|\xb, \mathcal{D}_{\text{in}})$ into a joint class-domain probability and a domain probability,
 %
 \begin{equation} \label{eq: joint class-domain and domain probability}
@@ -258,13 +258,9 @@ This shows that log of the softmax confidence score is equivalent to the special
 The authors empirically observe that the energy $E(\xb; f)$ tends to be larger for OOD data than for in-distribution data, while $f^\text{max}(\xb)$ tends to be smaller. 
 They conclude that this shift results in the maximum softmax probability being a biased score for OOD detection and propose to instead use the energy directly. This energy-score was further improved in ReAct by feature clipping \parencite{sun_react_2021}. 
 
-% No OOD, feature
+% No OOD data, feature
 The final category of supervised methods derive the score from a latent representation of the input. 
-Some methods define OOD classes. 
-\textcite{huang_mos_2021} group the classes of the target variable $y$ and defines an OOD class for each group. Each training example is then the correct target for one group and an OOD example for all other groups; a kind of hierarchical version of the OOD class of simpler baselines based on noise augmentation \parencite{ren_likelihood_2019}. 
-\moretodo[inline]{Does the previous sentence belong here or in a different paragraph? It is not really using the latent space.}
-Similarly, to represent a virtual OOD class, \textcite{wang_vim_2022} generate an additional logit by first computing the residual of the input's latent space representation against a principal feature space and then converting it to a valid logit by matching its mean over training samples to the average maximum logits. 
-
+For instance, to represent a virtual OOD class, \textcite{wang_vim_2022} generate an additional logit by first computing the residual of the input's latent space representation against a principal feature space and then converting it to a valid logit by matching its mean over training samples to the average maximum logits. 
 Other methods note that the difficulty of detecting OOD data might be attributed to the curse of dimensionality in the learned feature spaces and propose to use dimensionality reduction techniques. \textcite{ndiour_outofdistribution_2020} apply dimensionality reduction on learned, high-dimensional features to capture the true feature subspace and compute the norm of the difference between the original feature and the pre-image of its low-dimensional manifold embedding. 
 \textcite{zaeemzadeh_outofdistribution_2021} force the ID samples to embed into a union of 1-dimensional subspaces during training and computes the minimum angular distance from the feature to the class-wise subspaces. 
 NuSA \parencite{cook_outlier_2020} uses projects features onto the column space of the classification weight matrix and computes the ratio of the norm the projected and original features.
