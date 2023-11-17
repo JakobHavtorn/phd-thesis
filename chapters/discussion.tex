@@ -14,6 +14,9 @@
 \todo[inline]{Unsupervised representation learning for medical applications. We tried BERT for stroke but no success. Medical coding state-of-the-art uses pretrained BERT, but only marginally improves upon simpler baselines.}
 
 
+\moretodo[inline]{Add to the discussion somewhere:
+I would try to embed a perspective for contemplation. Instead of us always talking about what the technology needs to improve on. Perhaps, it would also be prudent to ask an open-ended philosophical question: “While our requirements to the technology are in its place, one could ask, whether human beings have the ability to quantify uncertainty. In 2023, the prevalence of human errors in driving are much higher than self-driving vehicles.” <- Quick example. I'm sure you can find something better.}
+%
 
 
 The rapid progress of machine learning that started about a decade ago with the 2012 ImageNet competition and the work of \textcite{krizhevsky_imagenet_2012} all but slowed down during the course of this project. 
@@ -64,7 +67,7 @@ The first key observation then is that the marginal $p_{\thetab}(\xb)$, which we
 As we saw in \cref{subsec: mutual-information-interpretation-of-elbo}, optimizing the ELBO involves minimizing the mutual information between the latent and observed variables. We reprint equation \cref{eq:variational-autoencoder-elbo-factorized-expected} below for reference.
 %
 \begin{equation} %\label{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)}
-    \mathbb{E}_{q_{\phib}(\xb,\zb)} \left[ \mathcal{L}_{\thetab,\phib}(\xb) \right] = 
+    \mathbb{E}_{q_{\phib}(\xb,\zb)} \left[ \mathcal{L}_{}(\xb;\thetab,\phib) \right] = 
     \underset{\text{average reconstruction}}{\underbrace{
         \mathbb{E}_{q_{\phib}(\xb,\zb)}\left[ \log p_{\thetab}(\xb | \zb) \right]
     }}
@@ -77,23 +80,26 @@ As we saw in \cref{subsec: mutual-information-interpretation-of-elbo}, optimizin
     -
     \underset{\text{mutual information}}{\underbrace{
     I_{q_{\phib}(\xb,\zb)}\left[\xb ; \zb \right]
-    }} \enspace . \nonumber
+    }} \. . \nonumber
 \end{equation}
 %
+Note that we let $q_{\phib}(\xb,\zb) = q_{\phib}(\zb|\xb)\hat{p}(\xb)$ for ease of notation. 
 Optimizing the ELBO can be understood as simultaneously maximizing the average reconstruction likelihood, minimizing the marginal KL-divergence to the prior, and minimizing the mutual information between the observed and latent variables. 
 
 
 \parencite{tomczak_trouble_2022}
 
+\moretodo[inline]{Finish the discussion of the MI interpretation}
+
 
 \paragraph{How did this ever work?}
 
 Even though these properties indicate that VAEs might not work at all for representation learning, VAEs have consistently been shown to be able to learn meaningful representations \parencite{sonderby_ladder_2016,hsu_unsupervised_2017,maaloe_biva_2019,vahdat_nvae_2020,child_very_2021}. 
-We can understand the reason for this by noting that both of the above scenarios are only achievable if the optimization too unconstrained. 
-Specifically, the maximum likelihood estimation takes place not over all possible models, but a constrained parametric class defined by the inference network $q_\thetab(\zb|\xb) \approx p(\zb|\xb)$ and the generative model $p_\thetab(\xb|\zb)p(\zb) = p_\theta(\xb,\zb)$. This introduces a coupling between the marginal $p_{\thetab}(\xb)$ and the posterior $p_{\thetab}(\zb|\xb)$ which makes the maximum likelihood solution unlikely to correspond to completely useless representations \parencite{huszar_is_2017}. 
+We can understand the reason for this by noting that both of the above scenarios can only occur if the optimization is too unconstrained. 
 
-Similarly, maximizing the ELBO in \cref{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)} by exactly minimizing the mutual information term ...
-
+In practice, the maximum marginal likelihood estimation takes place not over all possible models, but over a constrained parametric class defined by the inference network $q_\thetab(\zb|\xb) \approx p(\zb|\xb)$ and the generative model $p_\thetab(\xb|\zb)p(\zb) = p_\theta(\xb,\zb)$. 
+This introduces a coupling between the marginal $p_{\thetab}(\xb)$ and the posterior $p_{\thetab}(\zb|\xb)$ which makes the maximum likelihood solution unlikely to correspond to completely useless representations \parencite{huszar_is_2017}. 
+Similarly, maximizing the ELBO in \cref{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)} by exactly minimizing the mutual information term corresponds to a complete posterior collapse that requires a trade-off with the other terms. This solution is almost surely a local minimum and is often avoided in practice.
 The challenge is then how to impose appropriate constraints to make VAEs learn representations that are competitive with self"=supervised methods. 
 
 
