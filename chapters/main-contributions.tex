@@ -18,10 +18,11 @@ This constitutes the research hypotheses and contributions of the thesis.
 
 
 \contribitem{part:unsupervised-uncertainty-estimation}
-This part of the thesis is concerned with unsupervised uncertainty estimation and consists of three papers. 
-The first two papers approach unsupervised uncertainty estimation through the task of out-of-distribution detection using generative models. 
-The first paper proposes a new method for out-of-distribution detection using hierarchical variational autoencoders and the second proposes a model-agnostic method for that can be used with any differentiable generative model with explicit likelihood. 
-The third paper proposes a new hierarchical variational autoencoder for speech and benchmarks it against other variational and autoregressive models.
+This part of the thesis is concerned with unsupervised uncertainty estimation and consists of two papers. 
+% The first two papers approach unsupervised uncertainty estimation through the task of out-of-distribution detection using generative models. 
+Both papers focus on using generative models for out-of-distribution detection which is the task of detecting data that are likely to be sampled from a different data generating distribution than the training data.
+In both cases, the contributions are methodological focusing on developing improved methods for 
+% The first paper proposes a new method using hierarchical variational autoencoders while the second develops a model-agnostic, combined statistical test. 
 
 \contribitem{chp:paper-hierarchical}
 In this work we hypothesize that the likelihood estimate of variational autoencoders is a poor score for out-of-distribution due to an overemphasis on low-level features that generalize between distributions. 
@@ -38,33 +39,44 @@ From this hypothesis, we develop a method that combines a classical parametric t
 We show that this leads to a more accurate out-of-distribution test. 
 Finally, we discuss the benefits of casting out-of-distribution detection as a statistical testing problem, for instance enabling false positive rate control. This is valuable for practical applications, especially in high-risk settings such as medical decision-making.
 
-\moretodo[inline]{Revise the location of the benchmarking paper and change the SSL review to the SSL+LVM brief review. Revise the text here accordingly. $\downarrow$}
+% \moretodo[inline]{Revise the location of the benchmarking paper and change the SSL review to the SSL+LVM brief review. Revise the text here accordingly. $\downarrow$}
+
+\contribitem{part:unsupervised-speech-representation-learning}
+This part deals with unsupervised learning of speech representations and consists of two papers. 
+The contributions of this part lie in analyzing and comparing different approaches to speech representation along with a comprehensive overview of the field.
 
 \contribitem{chp:paper-benchmarking}
-In this paper, we focus on benchmarking hierarchical variational autoencoders for speech modelling. 
-We hypothesize that the improvements in likelihood scores proven by hierarchical models in other domains, most prominently images, can also carry over to speech modelling. 
-To this end, we benchmark a number of existing deterministic and stochastic models and adapt the hierarchical Clockwork VAE developed for video \parencite{saxena_clockwork_2021} to speech data. 
-We show that using a hierarchy of latent variables can improve the likelihood of the model and that the learned latent space captures information relevant for speech recognition, such as phonetic content. 
+This chapter develops a novel hierarchical latent variable model for speech, drawing inspiration from the Clockwork VAE \parencite{saxena_clockwork_2021}. Comparative benchmarks against alternative latent variable models and autoregressive models for speech highlight improvements to likelihood brought by using hierarchical latent variables. Finally, the latent space of the models are analyzed in terms of phonetic content.
+
+\contribitem{chp:paper-brief}
+In this chapter, presents a comprehensive overview of unsupervised neural representation learning for speech. Previous research is categorized into self"-supervised methods and probabilistic latent variable models and described in a common notation. This description assists in developing a model taxonomy that shapes a discussion of the models' representational power, the associated learning strategies, and the methods used to evaluate them.
+An extended version of this overview paper that focuses exclusively on self"=supervised methods was also published as part of the project \ref{enumerate: paper-review} \parencite{mohamed_selfsupervised_2022}. This paper is included in \cref{app:paper-review} for reference.
+
+
+% \contribitem{chp:paper-benchmarking}
+% In this paper, we focus on benchmarking hierarchical variational autoencoders for speech modelling. 
+% We hypothesize that the improvements in likelihood scores proven by hierarchical models in other domains, most prominently images, can also carry over to speech modelling. 
+% To this end, we benchmark a number of existing deterministic and stochastic models and adapt the hierarchical Clockwork VAE developed for video \parencite{saxena_clockwork_2021} to speech data. 
+% We show that using a hierarchy of latent variables can improve the likelihood of the model and that the learned latent space captures information relevant for speech recognition, such as phonetic content. 
 % This paper proposes a new hierarchical variational autoencoder for speech inspired by the Clockwork VAE \parencite{saxena_clockwork_2021}. 
 % The model is benchmarked against other variational autoencoders and autoregressive models for speech. 
 
 
-\contribitem{part:unsupervised-speech-representation-learning}
-This part of the thesis is concerned with self"=supervised speech representation learning and consists of a single paper that provides a substantial review of the field \parencite{mohamed_selfsupervised_2022}. 
-Self"=supervised learning is a promising approach to speech representation learning that has shown a fast, wide and successful adoption across speech modelling over the course of the last few years. 
-As measured by performance on common downstream tasks such as speech recognition and spoken language understanding, self"=supervised representations generally outperform representations learned via probabilistic generative models such as those investigated in \cref{part:unsupervised-uncertainty-estimation}. 
-In this review paper, we do not consider uncertainty estimation, but in future work, consideration should be given to the use of self"=supervised learning for learning representations for unsupervised uncertainty estimation. 
-We shall return to this in the discussion of \cref{app:paper-review} in \cref{sec:discussion-paper-review}.
-\moretodo[inline]{Edit this if we did not discuss this.}
-An early version of this review paper included a review of variational autoencoders for speech representation learning and a comparison between the two modelling paradigms \parencite{borgholt_brief_2022}. 
-Due to a desire to focus on self"=supervised methods, the paper in \cref{app:paper-review} does not put particular focus on variational methods. 
-The early version is included in \cref{chp:paper-brief} for reference.
+% \contribitem{part:unsupervised-speech-representation-learning}
+% This part of the thesis is concerned with self"=supervised speech representation learning and consists of a single paper that provides a substantial review of the field \parencite{mohamed_selfsupervised_2022}. 
+% Self"=supervised learning is a promising approach to speech representation learning that has shown a fast, wide and successful adoption across speech modelling over the course of the last few years. 
+% As measured by performance on common downstream tasks such as speech recognition and spoken language understanding, self"=supervised representations generally outperform representations learned via probabilistic generative models such as those investigated in \cref{part:unsupervised-uncertainty-estimation}. 
+% In this review paper, we do not consider uncertainty estimation, but in future work, consideration should be given to the use of self"=supervised learning for learning representations for unsupervised uncertainty estimation. 
+% We shall return to this in the discussion of \cref{app:paper-review} in \cref{sec:discussion-paper-review}.
+% \moretodo[inline]{Edit this if we did not discuss this.}
+% An early version of this review paper included a review of variational autoencoders for speech representation learning and a comparison between the two modelling paradigms \parencite{borgholt_brief_2022}. 
+% Due to a desire to focus on self"=supervised methods, the paper in \cref{app:paper-review} does not put particular focus on variational methods. 
+% The early version is included in \cref{chp:paper-brief} for reference.
 
-\contribitem{app:paper-review}
-This paper provides a comprehensive review of self"=supervised speech representation learning. Previous work is grouped into three main categories of methods: contrastive, autoregressive, and generative, and the methods are compared in terms of their training objectives, model architectures, and performance on downstream tasks. The review also provides a discussion of the current state of the field and promising future directions of research. 
+% \contribitem{app:paper-review}
+% This paper provides a comprehensive review of self"=supervised speech representation learning. Previous work is grouped into three main categories of methods: contrastive, autoregressive, and generative, and the methods are compared in terms of their training objectives, model architectures, and performance on downstream tasks. The review also provides a discussion of the current state of the field and promising future directions of research. 
 
-\moretodo[inline]{Revise the location of the benchmarking paper and change the SSL review to the SSL+LVM brief review. Revise the text here accordingly. $\uparrow$}
-
+% \moretodo[inline]{Revise the location of the benchmarking paper and change the SSL review to the SSL+LVM brief review. Revise the text here accordingly. $\uparrow$}
 
  
 \contribitem{part:medical-applications}
