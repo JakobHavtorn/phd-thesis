@@ -14,30 +14,27 @@ This constitutes the research hypotheses and contributions of the thesis.
 
 
 \contribitem{part:background}
-\Cref{chp:introduction} provides a general introduction to the thesis and gives motivating examples for speech recognition and assistance in medical encounters including stroke recognition on medical helplines and automation of medical coding. \Cref{chp:technical-background} provides additional technical background not included in the individual studies. It introduces uncertainty as a concept in the context of information and probability theory, introduces the task of out-of-distribution detection and provides a review of existing work on the problem, and lays out the foundations for variational autoencoders. 
+\Cref{chp:introduction} provides a general introduction to the thesis and gives motivating examples for speech recognition and assistance in medical encounters including stroke recognition on medical helplines and automation of medical coding. \Cref{chp:technical-background} provides additional technical background not included in the individual studies. It introduces uncertainty as a concept in the context of information and probability theory and introduces the task of out-of-distribution detection and provides a review of existing work on the problem. Finally, it lays out the foundations for variational autoencoders. 
 
 
 \contribitem{part:unsupervised-uncertainty-estimation}
 This part of the thesis is concerned with unsupervised uncertainty estimation and consists of two papers. 
 % The first two papers approach unsupervised uncertainty estimation through the task of out-of-distribution detection using generative models. 
-Both papers focus on using generative models for out-of-distribution detection which is the task of detecting data that are likely to be sampled from a different data generating distribution than the training data.
-In both cases, the contributions are methodological focusing on developing improved methods for 
+Both papers focus on using generative models for out-of-distribution detection, which is the task of detecting data that are likely to be sampled from a different data generating distribution than the training data.
+In both cases, the contributions are methodological and relate to developing improved methods for out-of-distribution detection.
 % The first paper proposes a new method using hierarchical variational autoencoders while the second develops a model-agnostic, combined statistical test. 
 
 \contribitem{chp:paper-hierarchical}
 In this work we hypothesize that the likelihood estimate of variational autoencoders is a poor score for out-of-distribution due to an overemphasis on low-level features that generalize between distributions. 
-We further hypothesize that a well-formed hierarchy of latent variables provides a tool that can be used to select which features to emphasize for out-of-distribution detection and hence a way to improve the performance of variational autoencoders on this task. 
-We proceed to provide empirical and theoretical evidence that low-level features indeed do dominate the likelihood and propose a new method for out-of-distribution detection using hierarchical variational autoencoders. 
-The proposed method computes a likelihood-ratio score for out-of-distribution detection that requires data to be in-distribution across all feature-levels. 
+We further hypothesize that a well-formed hierarchy of latent variables provides a tool that can be used to select which features to emphasize for out-of-distribution detection and, hence, a way to improve the performance of variational autoencoders on this task. 
+We proceed to provide empirical and theoretical evidence that low-level features do indeed dominate the likelihood score and propose a new method for out-of-distribution detection using hierarchical variational autoencoders based on a likelihood-ratio score that requires data to be in-distribution across all feature-levels. 
 The proposed method is computationally efficient, fully unsupervised, and performs well on several out-of-distribution detection benchmarks. 
 % Methods like this are important for the development of safe and reliable machine learning systems, especially in medical applications where the consequences of errors can be significant. 
 
 \contribitem{chp:paper-modelagnostic}
-In this follow-up work, we note that many methods have been proposed for out-of-distribution detection using generative models, with some tailored for specific model types, and seek to develop a model-agnostic approach. 
-We hypothesize that by phrasing the problem as a statistical testing problem and combining different tests, the method's efficacy can be improved and weaknesses inherent to any particular test alleviated. 
-From this hypothesis, we develop a method that combines a classical parametric test with the recently introduced typicality test and can be used with any differentiable, explicit likelihood generative model.
-We show that this leads to a more accurate out-of-distribution test. 
-Finally, we discuss the benefits of casting out-of-distribution detection as a statistical testing problem, for instance enabling false positive rate control. This is valuable for practical applications, especially in high-risk settings such as medical decision-making.
+In this follow-up work to \cref{chp:paper-hierarchical}, we note that the set of methods proposed for out-of-distribution detection using generative models is quite large and that many are tailored for specific model types, which suggests that it is possible to develop a model-agnostic approach. We hypothesize that by phrasing the task as a statistical testing problem and combining different tests, the method's efficacy can be improved and weaknesses inherent to any particular test can be alleviated. 
+From this hypothesis, we combine a classical parametric test with the recently introduced typicality test to develop a method applicable to any differentiable  generative model with explicit likelihood, and show that this leads to a more accurate out-of-distribution test. 
+Finally, we discuss the benefits of casting out-of-distribution detection as a statistical testing problem, for instance enabling false positive rate control. This property is valuable in many practical applications, especially in high-risk settings such as medical decision-making.
 
 % \moretodo[inline]{Revise the location of the benchmarking paper and change the SSL review to the SSL+LVM brief review. Revise the text here accordingly. $\downarrow$}
 
@@ -45,12 +42,12 @@ Finally, we discuss the benefits of casting out-of-distribution detection as a s
 This part deals with unsupervised learning of speech representations and consists of two papers. 
 The contributions of this part lie in analyzing and comparing different approaches to speech representation along with a comprehensive overview of the field.
 
-\contribitem{chp:paper-benchmarking}
-This chapter develops a novel hierarchical latent variable model for speech, drawing inspiration from the Clockwork VAE \parencite{saxena_clockwork_2021}. Comparative benchmarks against alternative latent variable models and autoregressive models for speech highlight improvements to likelihood brought by using hierarchical latent variables. Finally, the latent space of the models are analyzed in terms of phonetic content.
-
 \contribitem{chp:paper-brief}
-In this chapter, presents a comprehensive overview of unsupervised neural representation learning for speech. Previous research is categorized into self"-supervised methods and probabilistic latent variable models and described in a common notation. This description assists in developing a model taxonomy that shapes a discussion of the models' representational power, the associated learning strategies, and the methods used to evaluate them.
+In this chapter, we present a comprehensive overview of unsupervised neural representation learning for speech. Previous research is categorized into self"-supervised methods and probabilistic latent variable models and described in a common notation. This description assists in developing a model taxonomy that shapes a discussion of the models' representational power, the associated learning strategies, and the methods used to evaluate them. The discussion points to interesting avenues of future research. 
 An extended version of this overview paper that focuses exclusively on self"=supervised methods was also published as part of the project \ref{enumerate: paper-review} \parencite{mohamed_selfsupervised_2022}. This paper is included in \cref{app:paper-review} for reference.
+
+\contribitem{chp:paper-benchmarking}
+This chapter develops a novel hierarchical latent variable model for speech, drawing inspiration from the Clockwork VAE \parencite{saxena_clockwork_2021}. A comparative benchmark against alternative latent variable models and autoregressive models for speech highlights the improvements to likelihood brought by using hierarchical latent variables. The paper also analyzes the latent spaces learned by the models in terms of phonetic content.
 
 
 % \contribitem{chp:paper-benchmarking}
@@ -80,18 +77,19 @@ An extended version of this overview paper that focuses exclusively on self"=sup
 
  
 \contribitem{part:medical-applications}
-This part contains studies on machine learning methods applied for tasks in a medical setting. While uncertainty estimation is not a central theme to the two papers, the first paper performs a substantial evaluation of the explainability of the proposed model via an occlusion analysis on the text input. Later, in the discussion, we shall further consider uncertainty estimation in relation to these two papers.
-\moretodo[inline]{Revise and add more details to this section. Do we discuss uncertainty for medical coding?}
+This part contains two studies on machine learning methods applied for tasks in a medical setting. The contributions of the first are methodological focusing on improved comparability and reproducibility of studies on automated medical coding. The second is a retrospective study on machine learning-assisted stroke recognition focusing on the potential clinical impact of using machine learning to recognize stroke cases in emergency calls. 
+While uncertainty estimation is not a central theme to the two papers, the retrospective study performs a substantial evaluation of the explainability of the proposed model via an occlusion analysis on the text input. 
+Later, in the discussion, we shall further consider uncertainty estimation in relation to medical applications focusing on the retrospective study.
+% \moretodo[inline]{Revise and add more details to this section. Do we discuss uncertainty for medical coding?}
 
 \contribitem{chp:paper-automated}
 In this paper, we review the current state-of-the-art in automated medical coding of clinical notes. 
 We hypothesize that several previous works underperform for reasons more related to suboptimal hyperparameter tuning, incorrect evaluation, and crude data handling than to model design, and that performance and comparability can be improved by addressing these issues. 
-With our work, we aim to improve reproducibility of future work and to provide a baseline for future comparisons. 
-We first reproduce, analyze and compare several models on the MIMIC-III dataset showing that poor performance is indeed attributable to weak configuration of the training and crudely sampled train-test splits with many extremely rare classes and several without examples in the training data at all. 
+We first reproduce, analyze and compare several models on the MIMIC-III dataset showing that poor performance is indeed attributable to weak configuration of the training and crudely sampled train-test splits with many extremely rare classes - several without examples in the training data. 
 We also identify and correct a widespread error in the calculation of the macro F1-score. 
 To compare models, we propose new data splits created with stratified sampling, use identical experimental setups and tune hyperparameters and decision boundaries. 
-By analyzing prediction errors, we confirm the observation of previous work that all models struggle with rare codes, although long documents only have a negligible impact on performance, contrary to previous claims. 
-We also present the first comprehensive results on the newly released MIMIC-IV dataset using the reproduced models. 
+By analyzing prediction errors, we confirm the observation of previous work that all models struggle with rare codes, although, contrary to previous claims, long documents only have a negligible impact on performance. 
+Finally, we present the first comprehensive results on the recently released MIMIC-IV dataset using the reproduced models. 
 
 \contribitem{chp:paper-retrospective}
 In this paper we examine the hypothesis that a machine learning framework can learn to recognize cases of stroke in calls made to a prehospital medical helpline. 

@@ -4,8 +4,8 @@
 
 \chapter[technical background]{Technical background}\label{chp:technical-background}
 
-While the papers in this thesis were written to be self-contained, page limits and the need to maintain a specific focus forced us to limit the scope of the technical background that each paper provides. In this chapter, we present a more in-depth overview of the technical background relevant to the papers in this thesis. 
-We start by quantifying the concept of uncertainty relating it to information and probability. We then introduce the task of out-of-distribution detection and review the existing literature on the topic. 
+While the papers in this thesis were written to be self-contained, page limits and the need to maintain a specific focus forced us to limit the scope of the technical background that each paper provides. In this chapter, we present a more in-depth introduction to the technical background relevant to the papers in this thesis. 
+We start by quantifying the concept of uncertainty and relating it to information and probability. We then introduce the task of out-of-distribution detection and review the existing literature on the topic. 
 Finally, we describe variational autoencoders, how they can be used to learn representations of speech, and some of their challenges. %Finally, we introduce the concept of self"=supervised learning and highlight important differences to variational autoencoders. 
 
 
@@ -18,7 +18,7 @@ In society, the concept of uncertainty goes by many names, and its meaning can v
     Uncertainty is the lack of certainty; a state of limited knowledge where it is impossible to exactly describe the existing state, a future outcome, or more than one possible outcome.
 \end{quote}
 %
-Although such a purely lexical definition of uncertainty might prompt a philosophical inquiry, it highlights an important connection between uncertainty, information and probability. When information is limited, we can describe the state of the world only with uncertainty; we are simply not certain. In that sense, uncertainty is a word we use to refer to missing information, whether we know what is missing or not. 
+Although such a purely lexical definition of uncertainty might prompt philosophical inquiry, it highlights an important connection between uncertainty, information and probability. When information is limited, we can describe the state of the world only with uncertainty; we are simply not certain. In that sense, uncertainty is a word we use to refer to missing information, whether we know what is missing or not. 
 A natural way to describe an uncertain world state is to use probabilities. To our luck, information theory provides exactly that; a mathematically rigorous method for quantifying information through the language of probability theory. In the following, we shall see that, in this context, uncertainty can be understood as the information entropy of a random variable \parencite{mackay_information_2003}. 
 
 
@@ -397,10 +397,10 @@ Several other works also use self"=supervised representations of the in-domain d
 % \paragraph{Deep generative models} 
 Variational autoencoders (VAEs) belong to the class of deep generative models. These are models that learn a probabilistic representation of the input data and can be used to generate new samples from the same distribution. 
 There exist at least six main classes of deep generative models: variational autoencoders \parencite{kingma_autoencoding_2014,rezende_stochastic_2014,ranganath_hierarchical_2016,vahdat_nvae_2020,child_very_2021}, normalizing flow models \parencite{dinh_nice_2015,rezende_variational_2015,dinh_density_2017,kingma_glow_2018,grathwohl_ffjord_2018}, diffusion models \parencite{sohl-dickstein_deep_2015,song_generative_2019, ho_denoising_2020, vahdat_scorebased_2021}, energy-based models \parencite{lecun_tutorial_2006,hinton_fast_2006,salakhutdinov_efficient_2010,du_implicit_2019}, autoregressive models \parencite{oord_conditional_2016,oord_wavenet_2016,radford_improving_2018}, and generative adversarial networks \parencite{goodfellow_generative_2014,arjovsky_wasserstein_2017,brock_large_2019,karras_stylebased_2019}. 
+
+VAEs are interesting for representation learning as well as uncertainty quantification, due to the assumptions they impose on the data modelling task and their probabilistic formulation. To some degree, these properties set them apart from other deep generative models that focus more exclusively on data generation, and we chose to focus on them in this thesis. 
+% \moretodo[inline]{Briefly hold the readers hand and tell them why VAEs are relevant to the overarching project.}
 % Besides data generation, common properties of deep generative models include the ability to compute an exact or approximate likelihood of input $p(\xb)$, reconstruct an input $\xb$ from its latent representation $\zb$, and represent an input $\xb$ in a latent space. These properties enable various methods for their use in OOD detection. 
-
-\moretodo[inline]{Briefly hold the readers hand and tell them why VAEs are relevant to the overarching project.}
-
 % A variational autoencoder (VAE) \parencite{kingma_autoencoding_2014,rezende_stochastic_2014} is a type of deep generative model and an instance of a latent variable model. 
 In the following, we will introduce VAEs starting from the definition of latent variable models. We then derive the marginal likelihood objective bound used to train them, discuss its different components and the approximation error, and highlight some central challenges of applying VAEs.
 
@@ -569,7 +569,7 @@ By taking the expectation of this estimator, we can see that it too is a lower b
     \mathcal{L}^{\text{IWAE}}_{S}(\xb;\thetab,\phib)
     &= \mathbb{E}_{q_\phib(\zb|\xb)}\left[ \widehat{\mathcal{L}}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \right] \nonumber \\
     &= \mathbb{E}_{\zb_{s}\sim q_\phib(\zb|\xb)}\left[ \frac{1}{S}\sum_{s=1}^{S} \log \left( w_\thetab(\xb,\zb_{s}) \right) \right] \nonumber \\
-    &\leq \log \mathbb{E}_{\zb_{s}\sim q_\phib(\zb|\xb)}\left[ \frac{1}{S}\sum_{s=1}^{S} w_\thetab(\xb,\zb_{s}) \right] \enspace . \nonumber \\
+    &\leq \log \mathbb{E}_{\zb_{s}\sim q_\phib(\zb|\xb)}\left[ \frac{1}{S}\sum_{s=1}^{S} w_\thetab(\xb,\zb_{s}) \right] \nonumber \\
     &= \log p(\xb) \enspace .
 \end{align}
 %
@@ -581,28 +581,29 @@ From this and the law of large numbers, it can be shown that for all $S$,
 %
 and $\lim_{S\rightarrow\infty} \mathcal{L}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \rightarrow \log p(\xb)$, if $w_\thetab(\xb,\zb_{s})$ are bounded. 
 Hence, $\widehat{\mathcal{L}}^{\text{IWAE}}_{S}$ is a biased estimator of $\log p(\xb)$ but with a bias that goes to zero as the number of samples goes to infinity. 
-With $S=1$, the estimator is equivalent to the regular ELBO \cref{eq:variational-autoencoder-elbo} and so is always as tight or tighter than the ELBO \parencite{burda_importance_2016}.
+With $S=1$, the estimator is equivalent to the regular ELBO \cref{eq:variational-autoencoder-elbo} and so, it is always as tight, or tighter, than the ELBO \parencite{burda_importance_2016}.
 
 
 \paragraph{Reparameterization} 
 % We want to use maximum likelihood estimation to jointly optimize the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$ with respect to $\thetab$ and $\phib$. 
 % Gradient-based optimization works well for neural networks, but the large amounts of data force the use of mini-batch, or stochastic, gradient descent. 
-Computing the gradient of the ELBO with respect to $\thetab$ is straightforward,
+Computing the gradient of the ELBO \cref{eq:variational-autoencoder-elbo} with respect to $\thetab$ is straightforward,
 %
 \begin{equation}
     % \nabla_\thetab \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right] 
     \nabla_\thetab \mathcal{L}_{}(\xb;\thetab,\phib)
-    = \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \nabla_\thetab \log p_\thetab(\xb|\zb) \right] \enspace .
+    = \nabla_\thetab \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right] 
+    = \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \nabla_\thetab \log p_\thetab(\xb,\zb) \right] \enspace .
 \end{equation}
 %
 However, the gradient with respect to the $\phib$ is more challenging. Since $\phib$ occurs in the expectation itself, we may not move the gradient inside the expectation. 
 However, by reparameterizing the latent variable $\zb$ as a deterministic function of the input $\xb$ and a random variable $\epsilonb\sim p(\epsilonb)$, $\zb = g_\phib(\xb,\epsilonb)$, we can write the gradient as a path-wise derivative \parencite{kingma_autoencoding_2014,rezende_stochastic_2014,mohamed_monte_2019},
 %
-\begin{equation}
-    % \nabla_\phib \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb|\zb)p(\zb)}{q_\phib(\zb|\xb)} \right] 
+\begin{align}
     \nabla_\phib \mathcal{L}_{}(\xb;\thetab,\phib)
-    = \mathbb{E}_{p(\epsilonb)} \left[ \nabla_\phib \log \frac{p_\thetab\left(\xb|g_\phib(\xb,\epsilonb)\right)p\left(g_\phib(\xb,\epsilonb)\right)}{q_\phib\left(g_\phib(\xb,\epsilonb)|\xb\right)} \right] \enspace . \\
-\end{equation}
+    &= \nabla_\phib \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right] \nonumber \\
+    &= \mathbb{E}_{p(\epsilonb)} \left[ \nabla_\phib \log \frac{p_\thetab\left(\xb,g_\phib(\xb,\epsilonb)\right)}{q_\phib\left(g_\phib(\xb,\epsilonb)|\xb\right)} \right] \enspace .
+\end{align}
 %
 The most important instantiation of this reparameterization is the diagonal Gaussian case. 
 By choosing $q_\phib(\zb|\xb) = \mathcal{N}(\zb; \mub_\phib(\xb), \mathbf{I}\sigmab_\phib(\xb))$ it is possible to sample differentiably via the reparameterization trick by setting $g_\phib(\xb,\epsilonb) = \mu_\phib(\xb) + \sigma_\phib(\xb) \odot \epsilonb$ with $\epsilonb\sim\mathcal{N}(0,\mathbf{I})$. 
@@ -635,7 +636,7 @@ The inference model can then be defined in two ways respectively referred to as 
 and \emph{top-down} \parencite{sonderby_ladder_2016}
 \begin{equation}
     % q_\phib(\zb|\xb)=q_\phib(\zb_{L}|\xb)q_\phib(\zb^{(L-1)}|\zb_L)\cdots q_\phib(\zb_2|\zb^{(1)}),
-    q_\phib(\zb|\xb) = q_\phib(\zb^{(L)}|\xb)\prod_{i=1}^{L-1} q_\phib(\zb^{(i)}|\zb^{(i+1)}) \ .
+    q_\phib(\zb|\xb) = q_\phib(\zb^{(L)}|\xb)\prod_{i=1}^{L-1} q_\phib(\zb^{(i)}|\zb^{(i+1)}) \enspace .
 \end{equation}
 A variant of the variational autoencoder that employs a bidirectional inference network has also been proposed \parencite{maaloe_biva_2019}. 
 Regardless of the choice of inference model, the resulting hierarchical VAE is trained using the ELBO \cref{eq:variational-autoencoder-elbo} and the reparameterization trick. 
