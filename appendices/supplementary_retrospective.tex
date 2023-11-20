@@ -21,7 +21,7 @@ We used stochastic gradient descent on mini-batches of data to train the stroke 
 
 \subsection{Hyperparameters}\label{sec_retrospective:hyperparameters}
 
-The selection of hyperparameters followed a simple two-stage process using validation data (table A1). First, a manual search was conducted by running different model configurations with varying numbers of epochs, updates per epoch, batch sizes, vectoriser types, and hyperparameters. Subsequently, a structured grid search was performed to further tune a subset of these hyperparameters.
+The selection of hyperparameters followed a simple two-stage process using validation data (table 1). First, a manual search was conducted by running different model configurations with varying numbers of epochs, updates per epoch, batch sizes, vectoriser types, and hyperparameters. Subsequently, a structured grid search was performed to further tune a subset of these hyperparameters.
 
 \begin{table}
     \centering
@@ -69,37 +69,36 @@ The selection of hyperparameters followed a simple two-stage process using valid
 
 \paragraph{Bag-of-words selection}
 
-Each transcript was transformed into a fixed-size bag-of-words vector to serve as input for the classification model. These vectors encode the occurrence of words and character n-grams within a fixed vocabulary. We selected vocabulary by first computing the χ2-statistics for all word uni-and bi-grams and character three-, four-, and fivegrams that occurred in more than ten training calls. We then retained the M highest-scoring word n-grams and $M$ highest-scoring character n-grams, yielding $2M$ input features, where $M$ represents a tuned hyperparameter. By complementing word n-grams with character n-grams, the model can use out-of-vocabulary words not included in the word n-grams and robustly represent words misspelt by the speech recogniser. The feature vector was input into the classification model (\cref{fig_retrospective:model_sketch}).
+Each transcript was transformed into a fixed-size bag-of-words vector to serve as input for the classification model. These vectors encode the occurrence of words and character n-grams within a fixed vocabulary. We selected vocabulary by first computing the $\chi^2$-statistics for all word uni- and bi-grams and character three-, four-, and five-grams that occurred in more than ten training calls. We then retained the $M$ highest-scoring word n-grams and M highest-scoring character n-grams, yielding $2M$ input features, where $M$ represents a tuned hyperparameter. By complementing word n-grams with character n-grams, the model can use out-of-vocabulary words not included in the word n-grams and robustly represent words misspelt by the speech recogniser. The feature vector was input into the classification model (\cref{fig_retrospective:model_sketch}).
 
 As part of our manual hyperparameter search, we trained the models using vectorisers of different sizes. We discovered that using 5,000-word n-grams and 5,000-character n-grams (M=5,000) struck a good trade-off between size, feature quality, and model performance, yielding 10,000 bag-of-words features.
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.95\textwidth]{paper_retrospective/model_sketch.pdf}
-    \caption[Overview of machine learning pipeline for stroke recognition.]{Overview of machine learning pipeline. Panel A presents a schematic overview of the machine learning pipeline. The individual models are broken down in panels B and C. The 2D convolutional layers have parameters [input channels, output channels]-[kernel width, kernel height]-[stride width, stride height]. The long short-term memory (LSTM) blocks have parameters hidden units-number of layers. The rectified linear unit (ReLU), sigmoid, and softmax layers have parameters [input features, output features]. Joining arrows indicate the concatenation of two vector sequences along the feature dimension. The full set of model hyperparameters is listed in \cref{sec_retrospective:hyperparameters}.}
+    \caption[Overview of machine learning pipeline for stroke recognition.]{Overview of machine learning pipeline. Panel A presents a schematic overview of the machine learning pipeline. The individual models are broken down in panels B and C. The 2D convolutional layers have parameters [\textit{input channels, output channels}]-[\textit{kernel width, kernel height}]-[\textit{stride width, stride height}]. The long short-term memory (LSTM) blocks have parameters hidden units-number of layers. The rectified linear unit (ReLU), sigmoid, and softmax layers have parameters [input features, output features]. Joining arrows indicate the concatenation of two vector sequences along the feature dimension. The full set of model hyperparameters is listed in \cref{sec_retrospective:hyperparameters}.}
     \label{fig_retrospective:model_sketch}
 \end{figure}
 
 \subsection{Ensembling details}
 
 A common way to combine individual classification models into an ensemble is to use a voting scheme, such as majority voting, where a combined prediction is made based on the consensus among the individual models. However, this approach makes the ensemble not have a continuous output score. This is problematic for two reasons.
-%
-\begin{itemize}
-    \item The lack of a continuous output score prevents the evaluation of the model's performance across a continuous range of thresholds required for plotting the receiver operating characteristic and precisionrecall curves.
-    \item The lack of a continuous output score deteriorates the quality of assessing the effect of different words on ensemble performances (see \cref{sec_retrospective:model_explainability}).
-\end{itemize}
-%
+
+The lack of a continuous output score prevents the evaluation of the model's performance across a continuous range of thresholds required for plotting the receiver operating characteristic and precision-recall curves.
+
+The lack of a continuous output score deteriorates the quality of assessing the effect of different words on ensemble performances (see \cref{sec_retrospective:model_explainability}).
+
 Therefore, we used a different ensemble method, which is briefly described in the main text. Herein, we provide a mathematically rigorous definition of the proposed method.
 
 Let $z^{(n,d)}$ be the logit output of model $n$ for transcript $d$, $t^{(n)}$ be the tuned logit threshold of model $n$, and $N$ be the number of models in the ensemble. The output score $p^{(n)}$ is then given by 
 %
-\begin{equation}
+\begin{equation} \label{eq_retrospective:output_score}
     p^{(d)} = \frac{1}{N} \sum_{n=1}^N \sigma\left(z^{(n,d)} - t^{(n)}\right) \enspace ,
 \end{equation}
 %
-where $\sigma(\cdot)$ is the sigmoid function (or standard logistic function). The final ensembel predction $s^{(d)}$ is then simply 
+where $\sigma(\cdot)$ is the sigmoid function (or standard logistic function). The final ensemble prediction $s^{(d)}$ is then simply 
 %
-\begin{equation}
+\begin{equation} \label{eq_retrospective:ensemble_prediction}
     s^{(d)} = I_{p^{(d)} > 0.5}\left(p^{(d)}\right) \enspace ,
 \end{equation}
 %
@@ -108,7 +107,7 @@ where $I_{\cdot}(\cdot)$ is the indicator function that returns 1 if the subscri
 
 \section{Significance testing and confidence intervals}
 
-We used standard methods for significance testing and computing the confidence intervals. We used approximate methods owing to data size and to maintain computational feasibility \parencite{dwass_modified_1957,eden_validity_1933}
+We used standard methods for significance testing and computing the confidence intervals. We used approximate methods owing to data size and to maintain computational feasibility \parencite{dwass_modified_1957,eden_validity_1933}.
 
 We performed \emph{paired approximate permutation} tests by pairing each observation from the first sample to a random observation from the other sample (without replacement), while keeping each observation within its original sample. This allowed us to test the significance of the observed pairings on the chosen statistics, i.e. whether a significant difference was observed in the test statistics depending on whether the call-taker or model made the prediction. We used this approach to test whether
 %
@@ -147,14 +146,14 @@ We used Python version 3.8.10. PyTorch version 1.12.1 + cu113 was used to train 
 
 \section{Additional results: Model performance across demographics}
 
-When 1-1-2 data were not used for training (\cref{tab_retrospective:tableA2}), the model performed significantly better in men than in women on the test set in terms of all metrics (p < 0.0001) and significantly better on the 65+ group than on the 1864 group in terms of all metrics (p < 0.0001). As noted in the main text, both these statements were also true when 1-1-2 data were used for the training (\cref{tab_retrospective:table2-main-results}) and that including 1-1-2 data significantly improved overall performance (p < 0.0001).
+When 1-1-2 data were not used for training (\cref{tab_retrospective:tableA2}), the model performed significantly better in men than in women on the test set in terms of all metrics (p < 0.0001, paired approximate permutation test) and significantly better on the 65+ group than on the 18-64 group in terms of all metrics (p < 0.0001, paired approximate permutation test). As noted in the main text, both these statements were also true when 1-1-2 data were used for the training (\cref{tab_retrospective:table2-main-results}) and that including 1-1-2 data significantly improved overall performance (p < 0.0001, paired approximate permutation test).
+Compared to the test set (\cref{tab_retrospective:table2-main-results}), model performance on the 2021 calls without diagnostic category was significantly worse in all demographic subgroups (\cref{tab_retrospective:tableA3}) in terms of all metrics (p < 0.0001, independent approximate permutation test), except for positive predictive value (PPV) for male (where p = 0.0056 [significant], independent approximate permutation test) and for the false positive rate (FPR) on females and individuals aged 65+ years (where p = 0.213 and p = 0.362, respectively [insignificant] , independent approximate permutation test).
 
-Compared to the test set (\cref{tab_retrospective:table2-main-results}), model performance on the 2021 calls without diagnostic category was significantly worse in all demographic subgroups (\cref{tab_retrospective:tableA3}) in terms of all metrics (p < 0.0001), except for positive predictive value (PPV) for male (where p = 0.0056 [significant]) and for the false positive rate (FPR) on females and individuals aged 65+ years (where p = 0.213 and p = 0.362, respectively [insignificant]).
 
 % \todo[inline]{Insert table A2 here}
 \begin{table}
     \centering
-    \caption{Model performance for sex and age subgroups [mean (95\% CI)] on the MH-1813 test data when 1-1-2 training data is not used for training.}
+    \caption[Model performance grouped by sex and age when 1-1-2 training data is not used for training.]{Model performance grouped by sex and age [mean (95\% CI)] when 1-1-2 training data is not used for training. NPV: negative predictive value, PPV: positive predictive value, FOR: false omission rate, CI: confidence interval.}
     \label{tab_retrospective:tableA2}
     \resizebox*{0.85\textwidth}{!}{%
     \begin{tabular}{l|cc|cc}
@@ -185,7 +184,7 @@ Compared to the test set (\cref{tab_retrospective:table2-main-results}), model p
 % \todo[inline]{Insert table A3 here}
 \begin{table}
     \centering
-    \caption{Model performance for sex and age subgroups [mean (95\% CI)] on the 2021 data without diagnostic category.}
+    \caption[Model performance grouped by sex and age on the 2021 data without diagnostic category.]{Model performance grouped by sex and age [mean (95\% CI)] on the 2021 data without diagnostic category. NPV: negative predictive value, PPV: positive predictive value, FOR: false omission rate, CI: confidence interval.}
     \label{tab_retrospective:tableA3}
     \resizebox*{0.85\textwidth}{!}{%
     \begin{tabular}{l|cc|cc}
@@ -223,7 +222,7 @@ We trained the model similarly to how we performed our ablation experiments. Tha
 
 \begin{table}
     \centering
-    \caption[Overall performance on MH-1813 test data for the model that also takes patient age and sex as direct inputs.]{Overall performance on MH-1813 test data for the model that also takes patient age and sex as direct inputs. We also list the original performance of call-takers and the model (w/o sex and age) from the main manuscript for ease of comparison [mean (95\% CI)].}
+    \caption[Overall performance on MH-1813 test data for the model that also takes patient age and sex as direct inputs.]{Overall performance on MH-1813 test data for the model that also takes patient age and sex as direct inputs. We also list the original performance of call-takers and the model (w/o sex and age) from the main manuscript for ease of comparison [mean (95\% CI)]. NPV: negative predictive value, PPV: positive predictive value, FOR: false omission rate, CI: confidence interval.}
     \label{tab_retrospective:tableA4}
     \resizebox*{0.98\textwidth}{!}{%
     \begin{tabular}{l|ccccc}
@@ -244,7 +243,7 @@ We trained the model similarly to how we performed our ablation experiments. Tha
     }
 \end{table}
 
-We note that the performance difference between the original model and the models with age and sex inputs is statistically insignificant (p > 0.05). We hypothesize this might be because information regarding the age and sex of the patient is, in many cases, already present in the transcript. Another reason might be that the patient's age and sex are less useful discriminators than other indicative factors. This latter hypothesis is supported by our occlusion analysis and \cref{tab_retrospective:table3-occlusion-analysis} where no highly ranked words directly refer to the patient's age or sex.
+We note that the performance difference between the original model and the models with age and sex inputs is statistically insignificant (p > 0.05, paired approximate permutation test). We hypothesize this might be because information regarding the age and sex of the patient is, in many cases, already present in the transcript. Another reason might be that the patient's age and sex are less useful discriminators than other indicative factors. This latter hypothesis is supported by our occlusion analysis and \cref{tab_retrospective:table3-occlusion-analysis} where no highly ranked words directly refer to the patient's age or sex. 
 
 It is important to note that in practice the information about patient sex and age is extracted from the patient's CPR number which is typically entered by the patient themselves while queuing for MH-1813. However, at call lines in countries without similar systems in place, such information may not be readily available and cannot be incorporated as an explicit input feature. The same is the case for the 1-1-2 call line in Denmark.
 
@@ -257,13 +256,13 @@ Since the manuscript focuses on the MH-1813 line, the main purpose of experiment
 
 We trained the models and provided the results of this experiment in \cref{tab_retrospective:tableA5} below using the same methods as in the main manuscript. We tested the significance of these results using the same statistical significance testing methods as used and described in the main manuscript.
 
-We see that the performance of the ensemble model trained only with 1-1-2 data compared to training only with MH-1813 data was worse in terms of sensitivity and FOR (p < 0.0001), but on-par in terms of F1-score and PPV, and better in terms of FPR (p < 0.0001). Compared to training with all data, training only on 1-1-2 was worse on all metrics (p < 0.0001) except FPR, where it was better (p < 0.0001). We note that the model still performed better than the call-takers in terms of F1-score, PPV, and FPR (p < 0.0001) and was on-par in terms of sensitivity and FOR.
+We see that the performance of the ensemble model trained only with 1-1-2 data compared to training only with MH-1813 data was worse in terms of sensitivity and FOR (p < 0.0001), but on-par in terms of F1-score and PPV, and better in terms of FPR (p < 0.0001). Compared to training with all data, training only on 1-1-2 was worse on all metrics (p < 0.0001) except FPR, where it was better (p < 0.0001). We note that the model still performed better than the call-takers in terms of F1-score, PPV, and FPR (p < 0.0001) and was on-par in terms of sensitivity and FOR. All tests for this comparison were paired approximate permutation tests.
 
-In summary, training on only 1-1-2 data was only somewhat worse than training on only MH-1813 data, and still outperformed call-takers to some degree. This indicates that the domain shift between different call lines, even with different acuity levels, is small enough that naive domain transfer of models works fairly well.
+In summary, training on only 1-1-2 data was only somewhat worse than training on only MH-1813 data, and still outperformed call-takers to some degree. This indicates that the domain shift between different call lines, even with different acuity levels, is small enough that naive domain transfer of models works well.
 
 \begin{table}
     \centering
-    \caption{Overall performance on MH-1813 test data for the original model, the model without 1-1-2 training data, and the model without 1813 training data along with call-taker performance [mean (95\% CI)].}
+    \caption[Overall performance on MH-1813 test data, performance without 1-1-2 training data, and performance without 1813 training data.]{Overall performance on MH-1813 test data, performance without 1-1-2 training data, and performance without 1813 training data [mean (95\% CI)]. NPV: negative predictive value, PPV: positive predictive value, FOR: false omission rate, CI: confidence interval.}
     \label{tab_retrospective:tableA5}
     \resizebox*{0.98\textwidth}{!}{%
     \begin{tabular}{l|ccccc}
@@ -281,14 +280,6 @@ In summary, training on only 1-1-2 data was only somewhat worse than training on
         \midrule
         \makecell[l]{Model \\ w/o MH-1813} & \makecell[c]{31.4 \\ (30.7-32.1)} & \makecell[c]{50.4 \\ (49.3-51.4)} & \makecell[c]{22.8 \\ (22.2-23.4)} & \makecell[c]{0.110 \\ (0.106-0.113)} & \makecell[c]{0.375 \\ (0.369-0.381)} \\
 
-        % & \multicolumn{5}{c}{\textit{Without 1-1-2 training data (only MH-1813 data)}} \\
-        % \midrule
-        % Model        & \makecell[c]{32.4 \\ (31.8-33.1)} & \makecell[c]{60.4 \\ (59.3-61.4)} & \makecell[c]{22.2 \\ (21.6-22.7)} & \makecell[c]{0.088 \\ (0.085-0.091)} & \makecell[c]{0.467 \\ (0.460-0.474)} \\
-
-        % & \multicolumn{5}{c}{\textit{Without MH-1813 training data (only 1-1-2 data)}} \\
-        % \midrule
-        % Model        & \makecell[c]{31.4 \\ (30.7-32.1)} & \makecell[c]{50.4 \\ (49.3-51.4)} & \makecell[c]{22.8 \\ (22.2-23.4)} & \makecell[c]{0.110 \\ (0.106-0.113)} & \makecell[c]{0.375 \\ (0.369-0.381)} \\
-
         \bottomrule
     \end{tabular}%
     }
@@ -299,8 +290,6 @@ In summary, training on only 1-1-2 data was only somewhat worse than training on
 
 In \cref{tab_retrospective:tableA6,tab_retrospective:tableA7} we provide detailed versions of the data presented in the model explainability section in the main manuscript. Specifically, we include the Danish word, its English translation, the rank and impact scores and the number of occurrences of each word.
 
-
-% % \todo[inline]{Insert table A4 here}
 \begin{table}
     \centering
     \caption{Mean impact for words with the largest positive rank score in calls predicted as stroke.}
@@ -404,11 +393,11 @@ The maximum sequence length of the pre"=trained model was 512 input tokens.
 To accommodate longer input sequences, which was necessary for our dataset, we concatenated several copies of the original positional embedding matrix. 
 The results of the final model are presented in \cref{tab_retrospective:tableA8}. 
 
-We see that the fine"=tuned BERT model performs slightly worse across F1-score, sensitivity, PPV and FOR (p < 0.0001), but better in terms of FPR (p < 0.0001), compared the MLP model presented in the main manuscript. As described in the discussion section, we hypothesize that the number of stroke positives was too small for these advanced models to learn more complex patterns than the MLP ensemble. In addition, the BERT model would likely benefit from pre"=training on text data from the target domain, or a domain close to it, rather than various online fora.
+We see that the fine"=tuned BERT model performs slightly worse across F1-score, sensitivity, PPV and FOR (p < 0.0001, paired approximate permutation test), but better in terms of FPR (p < 0.0001, paired approximate permutation test), compared the MLP model presented in the main manuscript. As described in the discussion section, we hypothesize that the number of stroke positives was too small for these advanced models to learn more complex patterns than the MLP ensemble. In addition, the BERT model would likely benefit from pre"=training on text data from the target domain, or a domain close to it, rather than various online fora.
 
 \begin{table}
     \centering
-    \caption[Overall performance on MH-1813 test data for a fine"=tuned BERT model.]{Overall performance on MH-1813 test data for a fine"=tuned BERT model. We also list the original performance of call-takers and the ensemble model from the main manuscript for ease of comparison [mean (95\% CI)].}
+    \caption[Overall performance on MH-1813 test data for a fine"=tuned BERT model.]{Overall performance on MH-1813 test data for the fine-tuned BERT model described in the revised discussion of the paper. Includes performance of the call-takers and the multi-layer perceptron (MLP) from the main manuscript for ease of comparison [mean (95\% CI)]. NPV: negative predictive value, PPV: positive predictive value, FOR: false omission rate, CI: confidence interval.}
     \label{tab_retrospective:tableA8}
     \resizebox*{0.98\textwidth}{!}{%
     \begin{tabular}{l|ccccc}
@@ -448,9 +437,9 @@ There are two primary options as to when the model prediction is presented (I):
     \item Notify the call-taker of potential false positive or negative stroke cases during the call.
 \end{enumerate}
 %
-Option 1 is identical to the method used in the main study. In option 2, predictions are made during the call based only on partial transcriptions. We implemented option 2 in such a manner that the model predicted every time 50 new words were transcribed and added to the transcript. A stroke positive was triggered only when three consecutive positive predictions were made (i.e. without intermediate negative stroke predictions). In other words, the sigmoid activation of the model had to remain above 0.5 for three consecutive predictions, for example, after 150, 200, and 250 words were transcribed.
+Option 1 is identical to the method used in the main study. In option 2, predictions are made during the call based only on partial transcriptions. We implemented option 2 in such a manner that the model predicted every time 50 new words were transcribed and added to the transcript. A stroke positive was triggered only when three consecutive positive predictions were made (i.e., without intermediate negative stroke predictions). In other words, the sigmoid activation of the model had to remain above 0.5 for three consecutive predictions, for example, after 150, 200, and 250 words were transcribed.
 
-As we can only assume how call-takers are influenced by model predictions (II), precisely evaluating the hypothetical performance of call-takers when supported by a machine learning framework is impossible. Furthermore, option 2 may influence the conversation, further complicating matters. Therefore, we report the results combining the call-taker and the model under the following two assumptions:
+As we can only assume how call takers are influenced by model predictions (II), precisely evaluating the hypothetical performance of call takers when supported by a machine learning framework is impossible. Furthermore, option 2 may influence the conversation, further complicating matters. Therefore, we report the results combining the call taker and the model under the following two assumptions:
 %
 \begin{enumerate}[label=\Alph*.]
     \item Call-takers change any stroke prediction from negative to positive if the model predicts a positive (call-takers mirror model positives).
