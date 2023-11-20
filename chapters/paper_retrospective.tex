@@ -7,7 +7,7 @@
 \begin{center}
     \begin{enumerate}[leftmargin=8mm,rightmargin=8mm,topsep=0mm,label={[\Alph*]}]
         \setcounter{enumi}{5}
-        \item \fullcite{wenstrup_retrospective_2023} \shared \label{enumerate: paper-retrospective}
+        \item \fullcite{wenstrup_retrospective_2023} \shared
     \end{enumerate}
 \end{center}
 
@@ -152,14 +152,14 @@ The model performed significantly better in the 65+ group than in the 18-64 year
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\textwidth]{paper_retrospective/figure1.pdf}
+    \includegraphics[width=0.95\textwidth]{paper_retrospective/figure1.pdf}
     \caption[ROC- and PPV-sensitivity curves for stroke recognition model.]{Receiver operator characteristic (ROC) curve and PPV-sensitivity curve. Left, the ROC curve and, right, PPV-sensitivity curve (precision-recall curve). Models 1-5 are the individual models that make up the ensemble model.}
     \label{fig_retrospective:figure1-roc-curve}
 \end{figure}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\textwidth]{paper_retrospective/figure2.pdf}
+    \includegraphics[width=0.98\textwidth]{paper_retrospective/figure2.pdf}
     \caption[Prediction confusion matrices for stroke recognition.]{Prediction confusion matrices. Confusion matrices of predictions for call takers and the model on the test set. Numbers for the model are given as the rounded mean over eleven runs.}
     \label{fig_retrospective:figure2-prediction-confusion-matrices}
 \end{figure}
@@ -301,7 +301,7 @@ As input for the classification model, each transcript was transformed into a fi
 
 For each model in the ensemble, we selected the prediction threshold as the harmonic mean of the two thresholds that respectively ensure sensitivity and PPV equal to that of the call-takers. This simplifies the comparison by ensuring a trade-off between sensitivity and PPV, similar to that of call-takers.
 
-As the threshold differed for each model in the ensemble, computing the ensemble output score as the average output score of the individual models would not be meaningful. Instead, we first subtracted the threshold from the output score in the logit space (before sigmoid nonlinearity) for each model to obtain the same threshold (0.5). Subsequently, we defined the ensemble output score as the average of the centred output scores. The exact equations are provided in \cref{app:supplementary-retrospective} in \cref{eq_retrospective:output_score, eq_retrospective:ensemble_prediction}.
+As the threshold differed for each model in the ensemble, computing the ensemble output score as the average output score of the individual models would not be meaningful. Instead, we first subtracted the threshold from the output score in the logit space (before sigmoid nonlinearity) for each model to obtain the same threshold (0.5). Subsequently, we defined the ensemble output score as the average of the centred output scores. The exact equations are provided in \cref{eq_retrospective:output_score,eq_retrospective:ensemble_prediction}.
 
 
 \paragraph{Model training}
