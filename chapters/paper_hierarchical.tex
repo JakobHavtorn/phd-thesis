@@ -7,7 +7,7 @@
 \begin{center}
     \begin{enumerate}[leftmargin=8mm,rightmargin=8mm,topsep=0mm,label={[\Alph*]}]
         \setcounter{enumi}{0}
-        \item \fullcite{havtorn_hierarchical_2021} \main \parencite{havtorn_hierarchical_2021}
+        \item \fullcite{havtorn_hierarchical_2021} \main \. \parencite{havtorn_hierarchical_2021}
         \end{enumerate}
 \end{center}
 
@@ -284,45 +284,68 @@ More details on the datasets can be found in the \cref{sec_hierarchical:datasets
 %\begin{wrapfigure}{R}{0.5\columnwidth}
 % \begin{SCfigure}[50][t!]
 \begin{figure}
-    %\begin{figure}
     \centering
-    \resizebox{0.25\textwidth}{!}{
+    % \resizebox{0.95\textwidth}{!}{
     \tikz{
         % inference
         % nodes
         \node[obs] (x_inf) {$\xb$};
-        \node[latent,above=.75cm of x_inf](z1_inf){$\zb^{(1)}$};
-        \node[latent,above=.75cm of z1_inf](z2_inf){$\zb^{(2)}$};
-        % \node[latent,above=.75cm of z2_inf](z3_inf){$\zb^{(3)}$};
-        \node[above=of z2_inf, yshift=-1.cm] (phi) {$q_\phib(\zb|\xb)$};
+        \node[latent,right=.75cm of x_inf](z1_inf){$\zb^{(1)}$};
+        \node[latent,right=.75cm of z1_inf](z2_inf){$\zb^{(2)}$};
+        \node[above=of z2_inf, xshift=-1.cm] (phi) {$q_\phib(\zb|\xb)$};
         
         % edges
         \edge[]{x_inf}{z1_inf}; %
         \edge[]{z1_inf}{z2_inf}; %
-        % \edge[]{z2_inf}{z3_inf}; %
         \edge[dashed, bend left]{x_inf}{z2_inf}; %
-        % \edge[dashed, bend left]{x_inf}{z3_inf}; %
         
         % generative
         % nodes$
-        \node[obs,right=0.75cm of x_inf] (x_gen) {$\xb$};
-        \node[latent,above=.75cm of x_gen](z1_gen){$\zb^{(1)}$};
-        \node[latent,above=.75cm of z1_gen](z2_gen){$\zb^{(2)}$};
-        % \node[latent,above=.75cm of z2_gen](z3_gen){$\zb^{(3)}$};
-        \node[right=0.75cm of phi] (theta) {$p_\thetab(\xb,\zb)$};
+        \node[latent,right=.75cm of z2_inf](z2_gen){$\zb^{(2)}$};
+        \node[latent,right=.75cm of z2_gen](z1_gen){$\zb^{(1)}$};
+        \node[obs,right=0.75cm of z1_gen] (x_gen) {$\xb$};
+        \node[above=of z1_gen] (theta) {$p_\thetab(\xb,\zb)$};
         
         % edges
-        % \edge[]{z3_gen}{z2_gen}; %
         \edge[]{z2_gen}{z1_gen}; %
         \edge[]{z1_gen}{x_gen}; %
         \edge[dashed, bend left]{z2_gen}{x_gen}; %
-        % \edge[dashed, bend left]{z3_gen}{x_gen}; %
     }
-    }
+    % \tikz{
+    %     % inference
+    %     % nodes
+    %     \node[obs] (x_inf) {$\xb$};
+    %     \node[latent,above=.75cm of x_inf](z1_inf){$\zb^{(1)}$};
+    %     \node[latent,above=.75cm of z1_inf](z2_inf){$\zb^{(2)}$};
+    %     % \node[latent,above=.75cm of z2_inf](z3_inf){$\zb^{(3)}$};
+    %     \node[above=of z2_inf, yshift=-1.cm] (phi) {$q_\phib(\zb|\xb)$};
+        
+    %     % edges
+    %     \edge[]{x_inf}{z1_inf}; %
+    %     \edge[]{z1_inf}{z2_inf}; %
+    %     % \edge[]{z2_inf}{z3_inf}; %
+    %     \edge[dashed, bend left]{x_inf}{z2_inf}; %
+    %     % \edge[dashed, bend left]{x_inf}{z3_inf}; %
+        
+    %     % generative
+    %     % nodes$
+    %     \node[obs,right=0.75cm of x_inf] (x_gen) {$\xb$};
+    %     \node[latent,above=.75cm of x_gen](z1_gen){$\zb^{(1)}$};
+    %     \node[latent,above=.75cm of z1_gen](z2_gen){$\zb^{(2)}$};
+    %     % \node[latent,above=.75cm of z2_gen](z3_gen){$\zb^{(3)}$};
+    %     \node[right=0.75cm of phi] (theta) {$p_\thetab(\xb,\zb)$};
+        
+    %     % edges
+    %     % \edge[]{z3_gen}{z2_gen}; %
+    %     \edge[]{z2_gen}{z1_gen}; %
+    %     \edge[]{z1_gen}{x_gen}; %
+    %     \edge[dashed, bend left]{z2_gen}{x_gen}; %
+    %     % \edge[dashed, bend left]{z3_gen}{x_gen}; %
+    % }
+    % }
     \caption[Inference and generative models for a bottom-up hierarchical VAEs.]{ The inference and generative models, $q_\phib$ and $p_\thetab$, for an $L=2$ layered bottom-up hierarchical VAE as the one used in our experiments.
     Dashed lines indicate deterministic skip connections which are employed in both networks. Skip connections are found to be useful for optimizing latent variable models \parencite{dieng_avoiding_2019, maaloe_biva_2019}.}
     \label{fig_hierarchical:hvae-graphical-model}
-    % \end{figure}
 %\end{wrapfigure}
 % \end{SCfigure}
 \end{figure}
