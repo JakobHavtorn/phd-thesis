@@ -4,7 +4,7 @@
 
 * PhD student: **Jakob Drachmann Havtorn**
 
-* Title of the PhD thesis: **Uncertainty estimation for machine learning system self-assessment on medical conversations**
+* Title of the PhD thesis: **Uncertainty and the medical interview - Towards self-assessment in machine learning models**
 
 * PhD school/Department: **Department of Applied Mathematics and Computing, Section for Cognitive Systems**
 
