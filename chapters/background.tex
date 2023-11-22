@@ -81,16 +81,16 @@ For these reasons, the differential entropy may not be a suitable measure of inf
 Instead, \textcite{jaynes_information_1957,jaynes_prior_1968} argued that the information entropy of a continuous distribution should be defined as the limiting density of increasingly dense discrete distributions, $H_{N\rightarrow\infty}(X)$. This argument leads to,
 %
 \begin{equation} \label{eq:corrected-differential-entropy-jaynes}
-    H_{N\rightarrow\infty}(X) \equiv \lim_{N\rightarrow\infty} [H_{N}(X) - \log N] = - \int_{\mathcal{X}} p(x) \log \left(\frac{p(x)}{q(x)}\right) \, dx \enspace ,
+    H_{N\rightarrow\infty}(X) \equiv \lim_{N\rightarrow\infty} [H_{N}(X) - \log N] = - \int_{\mathcal{X}} p_X(x) \log \left(\frac{p_X(x)}{q_X(x)}\right) \, dx \enspace ,
 \end{equation}
 %
-where $H_N(X)$ is the limiting density for discrete points, $q(x)$ is a uniform density over the quantization of the continuous space, and we have subtracted a $\log N$ term that would go to infinity in the limit of infinite points.
+where $H_N(X)$ is the limiting density for discrete points, $q_X(x)$ is a uniform density over the quantization of the continuous space, and we have subtracted a $\log N$ term that would go to infinity in the limit of infinite points.
 By doing this, the information entropy becomes positive, dimensionally correct, and invariant under a change of variables%
 \footnote{\label{fn:change-of-variables-invariance-of-corrected-differential-entropy}
     Under a change of independent variable from $x$ to $y(x)$, we have that
     \begin{align*}
         \widetilde{w}(y)\,dy = w(x)\,dx \enspace , \quad
-        \widetilde{q}(y)\,dy = q(x)\,dx \enspace .
+        \widetilde{q}(y)\,dy = q_X(x)\,dx \enspace .
     \end{align*}
     Plugging this into the differential entropy \cref{eq:corrected-differential-entropy-jaynes} we arrive at the original expression but now with $y$ as the independent variable,
     \begin{equation*}
@@ -98,26 +98,27 @@ By doing this, the information entropy becomes positive, dimensionally correct, 
     \end{equation*}
 }.
 
-The form on the right-hand side of \cref{eq:corrected-differential-entropy-jaynes} can be recognized as the negative Kullback-Leibler divergence of $p(x)$ to $q(x)$ \parencite{kullback_information_1959},
+The form on the right-hand side of \cref{eq:corrected-differential-entropy-jaynes} can be recognized as the negative Kullback-Leibler divergence of $p_X(x)$ to $q_X(x)$ \parencite{kullback_information_1959},
 %
 \begin{equation} \label{eq:kullback-leibler-divergence}
-    D_{\mathrm{KL}}(p(x)\parallel q(x)) = \int_{\mathcal{X}} p(x) \log \left(\frac{p(x)}{q(x)}\right) \enspace .
+    D_{\mathrm{KL}}(p_X(x)\parallel q_X(x)) = \int_{\mathcal{X}} p_X(x) \log \left(\frac{p_X(x)}{q_X(x)}\right) \enspace .
 \end{equation}
 %
-The Kullback-Leibler divergence $D_{\mathrm{KL}}(p(x)\parallel q(x))$, also known as the \emph{information gain}, is often interpreted as the amount of additional information required to represent events from a distribution with density $p(x)$ using a code optimized for a distribution with density $q(x)$. In other words, it measures how surprised one would be if they used distribution $q$ to represent events from distribution $p$, i.e. the \emph{relative entropy} of $p$ with respect to $q$.
+The Kullback-Leibler divergence $D_{\mathrm{KL}}(p_X(x)\parallel q_X(x))$, also known as the \emph{information gain}, is often interpreted as the amount of additional information required to represent events from a distribution with density $p_X(x)$ using a code optimized for a distribution with density $q_X(x)$. In other words, it measures how surprised one would be if they used distribution $q$ to represent events from distribution $p$, i.e. the \emph{relative entropy} of $p$ with respect to $q$.
 
 Returning to Jaynes' argument and \cref{eq:corrected-differential-entropy-jaynes}, we can interpret this to say that the information entropy of a continuous random variable $X$ should be defined as the expected difference in information entropy between its density and a uniform density. 
 Identifying the Kullback-Leibler divergence as a measure of this relative information entropy provides a natural point of convergence for this section since it is equivalently defined for both discrete and continuous random variables, contrary to the differential entropy. 
 In this view, information entropy is a quantity that distills the distribution of a random variable into a single number that describes the diversity of the potential outcomes of the random variable.
 
 The Kullback-Leibler divergence plays a central role in the training of variational autoencoders, which we introduce in \cref{sec:variational-autoencoders}. In \cref{chp:paper-hierarchical} we shall see how the Kullback-Leibler divergence emerges in a likelihood-ratio test statistic for out-of-distribution detection using hierarchical variational autoencoders. 
+In the remainder of the thesis, we will write the density of a random variable $X$ as $p(x)$, dropping the subscript, as is usual in machine learning. 
 % In the following, we will see that this interpretation of information entropy as a measure of diversity is useful for understanding the concept of uncertainty in machine learning.
 
 % In fact, Kullback initially motivated the divergence as an expected likelihood ratio \cref{kullback_information_1959}.
 
 
 \section{Out-of-distribution detection} \label{sec:out-of-distribution-detection}
-\lesstodo[inline]{Maybe this section should come after the VAE background?}
+% \lesstodo[inline]{Maybe this section should come after the VAE background?}
 % 
 % OUTLINE: C.f. https://openaccess.thecvf.com/content/CVPR2023W/VAND/papers/Graham_Denoising_Diffusion_Models_for_Out-of-Distribution_Detection_CVPRW_2023_paper.pdf
 % - Formalize the problem. https://arxiv.org/pdf/2302.10326.pdf
@@ -128,13 +129,13 @@ The Kullback-Leibler divergence plays a central role in the training of variatio
 %   - Supervised: Whether p(y|x) should be trusted for a given x. 
 %   - Unsupervised: Whether x should be trusted and used at all. 
 %
-In this section we introduce out-of-distribution (OOD) detection and connect it to the concept of uncertainty. 
-Since the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic} are relatively short, we also provide a concise review of the literature on out-of-distribution detection. 
+In \cref{subsec: overview-of-out-of-distribution-detection} we introduce out-of-distribution (OOD) detection and connect it to the concept of uncertainty. 
+Since the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic} are relatively short, we also provide a concise review of the literature on out-of-distribution detection in \cref{subsec: supervised-out-of-distribution-detection, subsec: unsupervised-out-of-distribution-detection}. 
 
 
-\subsection{An overview of the task}
+\subsection{An overview of the task}\label{subsec: overview-of-out-of-distribution-detection}
 %
-OOD detection is the task of identifying test data that is unlikely to originate from the distribution of the training data and, in the context of neural networks, dates back several decades \parencite{bishop_novelty_1994, chang_figure_1993}.
+OOD detection is the task of identifying test data that are unlikely to originate from the distribution of the training data and, in the context of neural networks, dates back several decades \parencite{bishop_novelty_1994, chang_figure_1993}.
 In the general case, we assume that we have a domain of in-distribution data, $\mathcal{D}_{\text{in}}$, and we would like to build a model that can be used to assess whether a test data point $\xb$ originates from that domain or not. 
 Since such OOD data is unknown to the model, it is, by definition, a source of epistemic uncertainty. This makes OOD detection closely related to uncertainty quantification. 
 % Only in cases where strong prior knowledge of the data is incorporated into a model, can we expect it to be able to make reliable predictions on OOD data.
@@ -170,7 +171,7 @@ from the \emph{logits} of $p(y|\xb)$ \parencite{hendrycks_scaling_2022,liu_energ
 use a latent \emph{representation} of the input \parencite{lee_simple_2018,li_anomaly_2019,ndiour_outofdistribution_2020,cook_outlier_2020,zaeemzadeh_outofdistribution_2021}, similar to unsupervised methods. 
 In the following sections, we provide a more in-depth overview of the different approaches to OOD detection following the above categorization into supervised and unsupervised methods. For the supervised methods we further distinguish between whether methods use real OOD data, synthetic OOD data, or no OOD data at all. 
 
-\subsection{Supervised out-of-distribution detection}
+\subsection{Supervised out-of-distribution detection} \label{subsec: supervised-out-of-distribution-detection}
 % OUTLINE:
 % - Supervised OODD:
 %   - Requires some examples of (synthetic) OODD data, which in some sense makes it inherently flawed. We can never really be sure that we have good enough coverage of OODD data.
@@ -289,7 +290,7 @@ A general weakness of all supervised out-of-distribution detection is that in le
 % either synthetic out-of-distribution data or from real out-of-distribution data. Synthetic out-of-distribution data is data that is generated by some process that is known to be out-of-distribution. For example, if we are training a model to classify images of cats and dogs, we could generate synthetic out-of-distribution data by adding noise to the images. Real out-of-distribution data is data that is known to be out-of-distribution, but is not generated synthetically. For example, if we are training a model to classify images of cats and dogs, we could use images of cars as real out-of-distribution data.
 
 
-\subsection{Unsupervised out-of-distribution detection}
+\subsection{Unsupervised out-of-distribution detection} \label{subsec: unsupervised-out-of-distribution-detection}
 % OUTLINE:
 % - Unsupervised ODDD
 %   - No OODD data required. Isolates uncertainty related to the input data.
@@ -519,8 +520,8 @@ This is referred to as the \emph{amortization gap} and can be reduced by using l
 In case the true posterior does not belong to the chosen class of variational posteriors, the inference gap cannot be reduced to zero even with infinite capacity. The remaining gap is referred to as the \emph{approximation gap}. 
 If the inference gap is closed, the ELBO becomes equal to the marginal likelihood, the value of which then depends on how well the generative model is fitted \cite{cremer_inference_2018,frellsen_deep_2019}.
 
-\lesstodo[inline]{Do we want to refer to the parsimony gap?}
-\lesstodo[inline]{Maybe add a small graphic illustrating the gaps?}
+% \lesstodo[inline]{Do we want to refer to the parsimony gap?}
+% \lesstodo[inline]{Maybe add a small graphic illustrating the gaps?}
 % A final error is introduced  the maximally attainable likelihood over all the group $G$ of possible models, $\mathcal{l}(G)$ 
 % It is important to also note that in fitting a VAE, the approximation gap is not the only source of error. 
 
@@ -649,7 +650,9 @@ Recent architectural advances have alleviated the posterior collapse problem and
 
 \subsection{Mutual information interpretation} \label{subsec: mutual-information-interpretation-of-elbo}
 Training VAEs by stochastic gradient descent involves first sampling a mini-batch of data points $\xb$ from the empirical distribution of training data $\hat{p}(\xb)$ and then evaluating the gradient of the ELBO with respect to the parameters $\thetab$ and $\phib$. 
-To gain some additional insight into the objective that we are optimizing, we will use this expectation over the data distribution $\hat{p}(\xb)$ to form a factorization similar to \cref{eq:variational-autoencoder-elbo-factorized} but with the aggregated posterior $q_\phib(\zb) = \int q_\phib(\zb|\xb)\hat{p}(\xb)\,\mathrm{d}\xb$ in the KL-divergence \parencite{tomczak_trouble_2022}. 
+We can note that evaluating the ELBO with a mini-batch sampled from the training data corresponds to taking an expectation over the data distribution $\hat{p}(\xb)$. 
+
+To gain some additional insight into the objective that we are optimizing, we will use this expectation $\hat{p}(\xb)$ to form a factorization similar to \cref{eq:variational-autoencoder-elbo-factorized} but with the aggregated posterior $q_\phib(\zb) = \int q_\phib(\zb|\xb)\hat{p}(\xb)\,\mathrm{d}\xb$ in the KL-divergence \parencite{tomczak_trouble_2022}. 
 Under the expectation over the data distribution, the marginal likelihood is lower bounded by that expectation over the ELBO,
 %
 \begin{align} \label{eq:variational-autoencoder-elbo-expected}
@@ -659,7 +662,7 @@ Under the expectation over the data distribution, the marginal likelihood is low
 %
 % where we have defined $q(\xb) = \hat{p}(\xb)$ and $q_{\phib}(\xb,\zb) = q_{\phib}(\zb|\xb)\hat{p}(\xb)$ and dropped the parameter subscripts for ease of notation. 
 where we have defined $q_{\phib}(\xb,\zb) = q_{\phib}(\zb|\xb)\hat{p}(\xb)$ for ease of notation. This is simply \cref{eq:variational-autoencoder-elbo} under the extra expectation. 
-We leave the reconstruction loss in \cref{eq:variational-autoencoder-elbo-factorized} is as and focus on the KL-divergence to the prior. We rewrite it as follows,
+We leave the reconstruction loss in \cref{eq:variational-autoencoder-elbo-factorized} is as and focus on the expectation over the KL-divergence to the prior. We rewrite it as follows,
 %
 \begin{align} \label{eq:variational-autoencoder-kl-factor-expected}
     \mathbb{E}_{\hat{p}(\xb)} \left[ D_\text{KL}\left( q_{\phib}(\zb|\xb) \,||\, p(\zb) \right) \right]
@@ -695,7 +698,7 @@ Inserting this back into the ELBO in \cref{eq:variational-autoencoder-elbo-facto
 In this form, the KL-divergence term of \cref{eq:variational-autoencoder-elbo-factorized} has been factored into the marginal KL-divergence of the aggregated posterior to the prior and the mutual information between the data and the latent variables. 
 The marginal KL-divergence is minimized by making the aggregated posterior $q_{\phib}(\zb)$ match the prior $p(\zb)$. Contrary to the KL-divergence term of \cref{eq:variational-autoencoder-elbo-factorized}, driving the marginal KL-divergence to zero does not enforce independence between $\xb$ and $\zb$. 
 However, this alternative form reveals that the ELBO is maximized by minimizing the mutual information between $\xb$ and $\zb$, $I_{q_{\phib}(\xb,\zb)}\left[\xb ; \zb \right]$. 
-This result indicates that the usual interpretation of $\zb$ as a representation of $\xb$ is not a fundamental property arising from the ELBO and challenges the usefulness of variational autoencoders as representation learners.
+This result indicates that the usual interpretation of $\zb$ as a representation of $\xb$ is not a fundamental property arising from the ELBO, or from the assumptions from which the VAE was derived. This challenges the usefulness of variational autoencoders as representation learners.
 
 
 \paragraph{Applications of VAEs}
