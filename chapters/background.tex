@@ -396,14 +396,13 @@ Several other works also use self"=supervised representations of the in-domain d
 \section{Variational autoencoders}
 %
 % \paragraph{Deep generative models} 
-Variational autoencoders (VAEs) belong to the class of deep generative models. These are models that learn a probabilistic representation of the input data and can be used to generate new samples from the same distribution. 
+Variational autoencoders (VAEs) belong to the class of deep generative models. 
+These are models that use deep neural networks to approximate the underlying distribution of the unlabeled training data, from which they can then be used to generate new data samples. 
+% These are models that unsupervisedly learn a representation of data and can be used to generate new samples by learning an approximation to the distribution that generated the training data. 
 There exist at least six main classes of deep generative models: variational autoencoders \parencite{kingma_autoencoding_2014,rezende_stochastic_2014,ranganath_hierarchical_2016,vahdat_nvae_2020,child_very_2021}, normalizing flow models \parencite{dinh_nice_2015,rezende_variational_2015,dinh_density_2017,kingma_glow_2018,grathwohl_ffjord_2018}, diffusion models \parencite{sohl-dickstein_deep_2015,song_generative_2019, ho_denoising_2020, vahdat_scorebased_2021}, energy-based models \parencite{lecun_tutorial_2006,hinton_fast_2006,salakhutdinov_efficient_2010,du_implicit_2019}, autoregressive models \parencite{oord_conditional_2016,oord_wavenet_2016,radford_improving_2018}, and generative adversarial networks \parencite{goodfellow_generative_2014,arjovsky_wasserstein_2017,brock_large_2019,karras_stylebased_2019}. 
 
-VAEs are interesting for representation learning as well as uncertainty quantification, due to the assumptions they impose on the data modelling task and their probabilistic formulation. To some degree, these properties set them apart from other deep generative models that focus more exclusively on data generation, and we chose to focus on them in this thesis. 
-% \moretodo[inline]{Briefly hold the readers hand and tell them why VAEs are relevant to the overarching project.}
-% Besides data generation, common properties of deep generative models include the ability to compute an exact or approximate likelihood of input $p(\xb)$, reconstruct an input $\xb$ from its latent representation $\zb$, and represent an input $\xb$ in a latent space. These properties enable various methods for their use in OOD detection. 
-% A variational autoencoder (VAE) \parencite{kingma_autoencoding_2014,rezende_stochastic_2014} is a type of deep generative model and an instance of a latent variable model. 
-In the following, we will introduce VAEs starting from the definition of latent variable models. We then derive the marginal likelihood objective bound used to train them, discuss its different components and the approximation error, and highlight some central challenges of applying VAEs.
+Due to the assumptions they impose on the data modelling task and their probabilistic formulation, VAEs are interesting for representation learning as well as uncertainty quantification. To some degree, these properties set them apart from other deep generative models that focus more exclusively on data generation. 
+In the following, we will introduce VAEs starting from the definition of latent variable models. We then derive the marginal likelihood objective bound used to train them, discuss its different components and the approximation error, and highlight some central challenges of applying VAEs. 
 
 
 \subsection{Latent variable models}
