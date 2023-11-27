@@ -77,19 +77,24 @@ infeasibility
 inlier
 inliers
 inpainting
+insightfulness
 intrastep
 Inui
 invariances on
 isotonically
 Jacobian
 Jacobians
+Janek
 Jaynes
+Jes
+Joakim
 Joselson
 KDEs
 KMNIST
 Kullback
 Kullback-Leibler
 Kushim
+Lasse
 latents
 Lemonte
 Libri-light
@@ -156,6 +161,7 @@ reparameterize
 reparameterized
 reparameterizing
 Rhind
+Rikke
 RMSProp
 sharding
 Simes
@@ -169,10 +175,12 @@ subfigure
 subword
 subwords
 SVHN
+Søren
 TED-LIUM
 TERA
 Textless
 textless
+thrombolysis
 timestep
 timesteps
 TIMIT
@@ -198,4 +206,3 @@ Wescoff
 WGAN
 Wishart
 ZeroSpeech
-thrombolysis
