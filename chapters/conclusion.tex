@@ -3,13 +3,20 @@
 \chapter[conclusions and outlook]{Conclusions and outlook}\label{chp:conclusion}
 % ~3 pages
 
-In the introductory \cref{chp:introduction} we laid out how progress-driving technological development has always come with new challenges and risks of error - whether via misuse, misunderstanding or inherent limitations. We emphasized that machine learning comes with these same types of risk, in some cases amplifying their impacts, and argued that uncertainty estimation is a key component in ensuring that systems are safe and reliable in practice. We also provided the background for the research project by introducing the healthtech company Corti, with which with project has been defined and carried out, and the motivational cases of recognition of stroke cases in emergency calls (\cref{subsec:motivation-stroke-recognition}) and automated medical coding (\cref{subsec:motivation-medical-coding}). We described how machine learning systems could be designed to aid healthcare professionals with these tasks and gave examples of potential sources of uncertainty and of how correctly quantifying it might improve the usefulness of such systems. Finally, we drew connections between machine learning reliability (\cref{sec:machine-learning-reliability}) and model calibration (\cref{subsec:model-calibration}) and defined the aleatoric, epistemic, and predictive types of uncertainty (\cref{subsec:understanding-uncertainty}).
-
+In the introductory \cref{chp:introduction} we laid out how progress-driving technological development has always come with new challenges and risks of error - whether via misuse, misunderstanding or inherent limitations. We emphasized that machine learning comes with these same types of risk, in some cases amplifying their impacts, and argued that uncertainty estimation is a key component in ensuring that systems are safe and reliable in practice. We also provided the background for the research project by introducing the health tech company Corti, with which with project has been defined and carried out, and the motivational cases of recognition of stroke cases in emergency calls (\cref{subsec:motivation-stroke-recognition}) and automated medical coding (\cref{subsec:motivation-medical-coding}). Furthermore, we described how machine learning systems could be designed to aid healthcare professionals with these tasks and gave examples of potential sources of uncertainty and of how correctly quantifying it might improve the usefulness of such systems. Finally, we drew connections between machine learning reliability (\cref{sec:machine-learning-reliability}) and model calibration (\cref{subsec:model-calibration}) and defined the aleatoric, epistemic, and predictive types of uncertainty (\cref{subsec:understanding-uncertainty}).
 
 \Cref{chp:technical-background} provided technical background only covered briefly by the individual studies. We first introduced uncertainty as a concept in the context of information and probability theory (\cref{sec:uncertainty-information-theory}). Then, we defined the task of out-of-distribution detection and reviewed existing work on the problem (\cref{sec:out-of-distribution-detection}). Finally, we provided technical background for variational autoencoders (\cref{sec:variational-autoencoders}).
 
+In \cref{chp:paper-hierarchical} we showed how hierarchical variational autoencoders can fail at likelihood-based OOD detection due to an overemphasis on low-level features that generalize between different data distributions. By exploiting that VAEs tend to learn more abstract features at latent variables high in the hierarchy, we were able to define a likelihood-ratio score for OOD detection that focused more on features unlikely to be shared between datasets. 
+% - VAEs can learn useful representations, but it can be hard to know how to do that.
+% - 
+This work also highlights that overlap between distributions of high-dimensional data can severely impede OOD detection. Our work shows that a promising direction of future research is into how select which dimensions are the most discriminatory.
 
-In \cref{chp:paper-hierarchical} 
+% In this work we hypothesize that the likelihood estimate of variational autoencoders is a poor score for out-of-distribution due to an overemphasis on low-level features that generalize between distributions. 
+% We further hypothesize that a well-formed hierarchy of latent variables provides a tool that can be used to select which features to emphasize for out-of-distribution detection and, hence, a way to improve the performance of variational autoencoders on this task. 
+% We proceed to provide empirical and theoretical evidence that low-level features do indeed dominate the likelihood score and propose a new method for out-of-distribution detection using hierarchical variational autoencoders based on a likelihood-ratio score that requires data to be in-distribution across all feature-levels. 
+% The proposed method is computationally efficient, fully unsupervised, and performs well on several out-of-distribution detection benchmarks. 
+
 
 In \cref{chp:paper-modelagnostic} 
 
@@ -18,15 +25,21 @@ In \cref{chp:paper-benchmarking}
 
 % However, since LVMs learn a distribution over the training data, they are forced to encode all aspects of it. While this may be redundant for some tasks, others benefit from a broad variety of features. A hierarchical model that operates on multiple temporal scales, such as the Clockwork VAE, offers a natural way to encode different feature categories. Pronunciation might be learned at lower layers, speaker identity at the upper layers, and semantic features in between. Although some work has successfully separated speaker identity from content [114], models that can learn a deep hierarchy of features for speech remains an open challenge. The model presented in chapter 8 represents an effort to reignite this area of research.
 
-In \cref{chp:paper-brief}
+In \cref{chp:paper-brief} we provided an overview of unsupervised neural speech representation learning. Such approaches have recently matched supervised methods on many tasks and represent a significant advance in low-resource settings, such as speech recognition for minority languages. 
+
+
+
+% In this chapter, we present a comprehensive overview of unsupervised neural representation learning for speech. Previous research is categorized into self"-supervised methods and probabilistic latent variable models and described in a common notation. This description assists in developing a model taxonomy that shapes a discussion of the models' representational power, the associated learning strategies, and the methods used to evaluate them. The discussion points to interesting avenues of future research. 
+
 
 % Chapter 6 presented an overview of unsupervised neural speech representation learning. As emphasized in the overview, the wav2vec 2.0 framework [13], and masked pre-training in general, represent a breakthrough in low-resource speech recognition. The challenge associated with obtaining training data for conversational speech recognition, as discussed in section 1.2.1, has become much smaller. Even when no labeled in-domain data is available, this framework offers a viable solution [112].
 
 % The general idea for masked pre-training may seem simple; reconstruct masked parts of the input or another representation, given context. However, this methodology aligns very well with the general definition of semantics presented in section 1.4: "semantic properties of a lexical item are fully reflected in appropriate aspects of the relations it contracts with actual and potential contexts" ([63], p. 1). Thus, from a philosophical point-of-view, it may be difficult to see how the field should move on from here. Of course, context is more than just the neighboring words in a speech segment. The next wave of representation learning for speech incorporates multiple modalities, such as video [244, 245] or text [18]. Furthermore, how to construct targets for pre-training these models and how that affects the learned features is an avenue that warrants more research. This is of particular interest in the speech domain, where the input codes for speaker identity and emotional state, as well as the semantic content of the utterance.
 
+In \cref{chp:paper-automated} 
 
-\cref{chp:paper-automated}
-
-\cref{chp:paper-retrospective}
+In \cref{chp:paper-retrospective} we studied how machine learning might be used to improve decision-making at emergency services. 
+%
+As discussed in \cref{sec: discussion-stroke-recognition-uncertainty}, predictive uncertainty is likely to be essential to user adoption
 
 
