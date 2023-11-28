@@ -3,11 +3,24 @@
 \chapter[conclusions and outlook]{Conclusions and outlook}\label{chp:conclusion}
 % ~3 pages
 
-In the introductory \cref{chp:introduction} we laid out how progress-driving technological development has always come with new challenges and risks of error - whether via misuse, misunderstanding or inherent limitations. We emphasized that machine learning comes with these same types of risk, in some cases amplifying their impacts, and argued that uncertainty estimation is a key component in ensuring that systems are safe and reliable in practice. We also provided the background for the research project by introducing the health tech company Corti, with which with project has been defined and carried out, and the motivational cases of recognition of stroke cases in emergency calls (\cref{subsec:motivation-stroke-recognition}) and automated medical coding (\cref{subsec:motivation-medical-coding}). Furthermore, we described how machine learning systems could be designed to aid healthcare professionals with these tasks and gave examples of potential sources of uncertainty and of how correctly quantifying it might improve the usefulness of such systems. Finally, we drew connections between machine learning reliability (\cref{sec:machine-learning-reliability}) and model calibration (\cref{subsec:model-calibration}) and defined the aleatoric, epistemic, and predictive types of uncertainty (\cref{subsec:understanding-uncertainty}).
+\textbf{In \cref{chp:introduction,chp:technical-background}} we introduced automated medical coding and stroke recognition as motivational cases. 
+We used these cases to exemplify the importance of out-of-distribution detection, and, by extension, representation learning. In the context of these cases, we discussed possible machine learning system designs for decision-support and considered potential sources of uncertainty and ideal model behavior. 
+As such, the cases have formed a reference point for the thesis as a whole with contributions within out-of-distribution detection as well as representation learning connecting to these applications. 
+As \cref{chp:main-contributions} already details the contributions made by this thesis, we will not further discuss these in this conclusion. 
 
-\vspace{3em}
+% \textbf{\cref{chp:introduction}} laid out how progress-driving technological development has always come with new challenges and risks of error - whether via misuse, misunderstanding or inherent limitations. We emphasized that machine learning comes with these same types of risk, in some cases amplifying their impacts, and argued that uncertainty estimation is a key component in ensuring that systems are safe and reliable in practice. 
+
+% The chapter also provided some background for the research project by introducing the health tech company Corti, with which with project has been defined and carried out, and the motivational cases of recognition of stroke cases in emergency calls (\cref{subsec:motivation-stroke-recognition}) and automated medical coding (\cref{subsec:motivation-medical-coding}). Using these cases, we exemplified how uncertainty might arise in practice and how quantifying it might improve the usefulness of machine learning systems built for the tasks.
+% Finally, we drew connections between machine learning reliability (\cref{sec:machine-learning-reliability}) and model calibration (\cref{subsec:model-calibration}) and defined the aleatoric, epistemic, and predictive types of uncertainty (\cref{subsec:understanding-uncertainty}). 
+
+% Along with the technical background provided in
+% This introduction formed the basis of 
+
+
+\vspace{1em}
 \textbf{\Cref{chp:technical-background}} provided technical background only covered briefly by the individual studies. We first introduced uncertainty as a concept in the context of information and probability theory (\cref{sec:uncertainty-information-theory}). Then, we defined the task of out-of-distribution detection and reviewed existing work on the problem (\cref{sec:out-of-distribution-detection}). Finally, we provided technical background for variational autoencoders (\cref{sec:variational-autoencoders}).
 
+\vspace{1em}
 \textbf{In \cref{chp:paper-hierarchical}} we showed how hierarchical variational autoencoders can fail at likelihood-based OOD detection due to an overemphasis on low-level features that generalize between different data distributions. By exploiting that VAEs tend to learn more abstract features at latent variables high in the hierarchy, we were able to define a likelihood-ratio score for OOD detection that focused more on features unlikely to be shared between datasets. 
 % - VAEs can learn useful representations, but it can be hard to impose the appropriate constraints that enable this.
 % - VAEs can learn representations that are useful for OOD detection, but good performance might require selecting an appropriate subset of feature dimensions to use for discriminating.
@@ -18,41 +31,45 @@ This work also highlights that overlap between distributions of high-dimensional
 % We proceed to provide empirical and theoretical evidence that low-level features do indeed dominate the likelihood score and propose a new method for out-of-distribution detection using hierarchical variational autoencoders based on a likelihood-ratio score that requires data to be in-distribution across all feature-levels. 
 % The proposed method is computationally efficient, fully unsupervised, and performs well on several out-of-distribution detection benchmarks. 
 
-\vspace{3em}
+\vspace{1em}
 \textbf{In \cref{chp:paper-modelagnostic}} 
 
-\vspace{3em}
+\vspace{1em}
 \textbf{In \cref{chp:paper-benchmarking}} 
 % In chapter 8, stochastic and deterministic generative models were benchmarked in terms of model likelihood. In addition, the chapter presented a hierarchical latent variable model (LVM) for speech inspired by the Clockwork VAE [238]. In contrast to self-supervised models, LVMs have not yet seen the same success for representation learning. As such, they offer little guidance in terms of alleviating the need for labeled data, as discussed in section 1.2.1.
 
 % However, since LVMs learn a distribution over the training data, they are forced to encode all aspects of it. While this may be redundant for some tasks, others benefit from a broad variety of features. A hierarchical model that operates on multiple temporal scales, such as the Clockwork VAE, offers a natural way to encode different feature categories. Pronunciation might be learned at lower layers, speaker identity at the upper layers, and semantic features in between. Although some work has successfully separated speaker identity from content [114], models that can learn a deep hierarchy of features for speech remains an open challenge. The model presented in chapter 8 represents an effort to reignite this area of research.
 
-\vspace{3em}
+\vspace{1em}
 \textbf{In \cref{chp:paper-brief}} we provided an overview of unsupervised neural speech representation learning. Such approaches have recently matched supervised methods on many tasks and represent a significant advance in low-resource settings, such as speech recognition for minority languages. 
-% Self-supervised learning seems to have better inductive biases, or at least a more forgiving learning problem, than VAEs for the purpose of learning good representations in an unsupervised manner.
+We found that for the purpose of learning good representations in an unsupervised manner, self-supervised learning seems to have better inductive biases, or at least pose a more forgiving learning problem, than do VAEs. As discussed in the paper and in \cref{sec_discussion:representation-learning-with-vaes}, this likely relates more to inductive biases imposed by implicit constraints in the optimization problem and architecture than to the underlying formalism. 
+For instance, in discussion about the weaknesses of VAE-based approaches (\cref{sec_discussion:representation-learning-with-vaes}) we concluded that their challenges could not be directly attributed to the maximum marginal likelihood objective. Indeed, the masked pre-training objective widely used for successful self"=supervised methods also corresponds to a maximum marginal likelihood objective \parencite{moreno-munoz_masked_2023}. 
+
 % As we discussed in \cref{chp:discussion}, there are many interesting avenues of future research for improving the ability of VAEs to learn useful representations, including better gradient estimates and masked objectives.
 
 
-
 % In this chapter, we present a comprehensive overview of unsupervised neural representation learning for speech. Previous research is categorized into self"-supervised methods and probabilistic latent variable models and described in a common notation. This description assists in developing a model taxonomy that shapes a discussion of the models' representational power, the associated learning strategies, and the methods used to evaluate them. The discussion points to interesting avenues of future research. 
-
 
 % Chapter 6 presented an overview of unsupervised neural speech representation learning. As emphasized in the overview, the wav2vec 2.0 framework [13], and masked pre-training in general, represent a breakthrough in low-resource speech recognition. The challenge associated with obtaining training data for conversational speech recognition, as discussed in section 1.2.1, has become much smaller. Even when no labeled in-domain data is available, this framework offers a viable solution [112].
 
 % The general idea for masked pre-training may seem simple; reconstruct masked parts of the input or another representation, given context. However, this methodology aligns very well with the general definition of semantics presented in section 1.4: "semantic properties of a lexical item are fully reflected in appropriate aspects of the relations it contracts with actual and potential contexts" ([63], p. 1). Thus, from a philosophical point-of-view, it may be difficult to see how the field should move on from here. Of course, context is more than just the neighboring words in a speech segment. The next wave of representation learning for speech incorporates multiple modalities, such as video [244, 245] or text [18]. Furthermore, how to construct targets for pre-training these models and how that affects the learned features is an avenue that warrants more research. This is of particular interest in the speech domain, where the input codes for speaker identity and emotional state, as well as the semantic content of the utterance.
 
-\vspace{3em}
+\vspace{1em}
 \textbf{In \cref{chp:paper-automated}} 
 
-\vspace{3em}
+Future directions
+- Avoiding predicting several mutually exclusive classes, which is a general problem for multi-label 
+
+
+\vspace{1em}
 \textbf{In \cref{chp:paper-retrospective}} we studied how machine learning might be used to improve decision-making at emergency services. 
 We saw that a model was able to improve significantly on the stroke recognition ability of call-takers alone and that the features it used were sensible and related to symptoms and descriptions of stroke. 
 
 In \cref{sec: discussion-stroke-recognition-uncertainty}, we discussed how calibrating the predictive uncertainty of the stroke model is likely to be necessary to enable sustained use of such a model in practice. In \cref{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability}, we noted that, as expected, model performance measured by F1-score increased with increasing model certainty which underlines the likely usefulness of uncertainty estimates in helping to match practitioner expectations of such a model. Nonetheless, basic metrics of model performance are still obstacles for its practical usefulness. Specifically, the rarity of stroke cases lead to a false positive rate and precision that are likely to induce alarm fatigue among its users. Similar effects are likely to have influenced the practical impact of a similar system for cardiac arrest detection which showed significant improvements retrospectively \parencite{cite14} which, although matched by the model in a prospective study, did not ultimately result in improved call-taker performance \parencite{cite15}. 
 
 Nevertheless, the strong retrospective performance of the stroke recognition model indicates that there is significant potential for augmenting the medical interview to allow better recognizing stroke cases. 
-Possible improvements to the system could include utilization of the audio signal to detect speech-related symptoms such mumbling or slurring, or integrating with electronic health-records to cross-reference with patient history. 
-Even so, directly predicting the diagnosis from the conversation is not the only path towards practical impact. Simply suggesting which questions to ask
+Possible improvements to the system could include using the audio signal to detect speech-related symptoms such mumbling or slurring, or integrating with electronic health-records to cross-reference with patient history. 
+Even so, directly predicting the diagnosis from the conversation is not the only path towards practical impact. By suggesting informative questions to the medical professional, a system could help guide the conversation to avoid missing important details, and to improve the precision of the model. 
 
 
 % Explore the utilization of audio data 

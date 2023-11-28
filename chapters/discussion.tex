@@ -25,7 +25,7 @@ Following the papers by \textcite{choi_waic_2019,nalisnick_detecting_2019,hendry
 Having examined VAEs and self"=supervised approaches for representation learning in \cref{part:unsupervised-uncertainty-estimation,part:unsupervised-speech-representation-learning}, in this discussion we will consider how VAEs might be enabled to learn representations more competitive with self"=supervised methods for downstream tasks. 
 Furthermore, since the work presented in \cref{part:medical-applications} only had limited focus on uncertainty, we will also present and discuss the use of calibration techniques for the stroke recognition model, drawing connections to how such systems might be perceived and used in practice. 
 
-\section{Representation learning with variational autoencoders}
+\section{Representation learning with variational autoencoders}\label{sec_discussion:representation-learning-with-vaes}
 %
 In this thesis we studied two different approaches to speech representation learning: VAEs in \cref{chp:paper-hierarchical,chp:paper-modelagnostic,chp:paper-benchmarking} and self"=supervised methods in \cref{chp:paper-brief}. 
 As we saw in \cref{chp:paper-hierarchical,chp:paper-modelagnostic}, the probabilistic formulation of VAEs provides benefits for their application to uncertainty quantification, although competitive methods based on self"=supervised foundation models have also been successful \parencite{xiao_we_2021,hendrycks_using_2019,bergman_classificationbased_2020}. 
@@ -115,9 +115,10 @@ We can understand the reason for this by noting that both of the above scenarios
 Specifically, the maximum marginal likelihood estimation in practice takes place not over all possible models, but over a constrained parametric class defined by the inference network $q_\phib(\zb|\xb) \approx p(\zb|\xb)$ and the generative model $p_\thetab(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$. 
 This introduces a coupling between the marginal $p_{\thetab}(\xb)$ and the posterior $p(\zb|\xb)$ which makes the maximum likelihood solution unlikely to correspond to completely useless representations \parencite{huszar_is_2017}. 
 Similarly, maximizing the ELBO %in \cref{eq:variational-autoencoder-elbo-factorized-expected (discussion copy)} 
-by exactly minimizing the mutual information term corresponds to a complete posterior collapse that requires a trade-off with the other terms. For a given model, this solution is almost surely a local minimum, and one that is often avoided in practice. 
+by exactly minimizing the mutual information term corresponds to a complete posterior collapse which necessitates a trade-off with the other terms. For a given model, this solution is almost surely a local minimum, and one that can often be avoided in practice. 
+% Further evidence that the trouble is not solely attributable, the masked pre-training objective commonly used for self"=supervised methods has been shown to correspond to a maximum likelihood objective \parencite{moreno-munoz_masked_2023}.
 
-For VAEs to learn representations more competitive with self"=supervised methods, the fundamental challenge then seems to be how to impose constraints on the model class and optimization problem to ensure this; a strong coupling between the marginal likelihood and the usefulness of the posterior, and an optimization problem where minimization of the mutual information is very hard, or impossible.
+For VAEs to learn representations more competitive with self"=supervised methods, the fundamental challenge then seems to be how to impose constraints on the model class and optimization problem to ensure a strong coupling between the marginal likelihood and the usefulness of the posterior, and an optimization problem where minimization of the mutual information is very hard, or impossible.
 
 % + maximum likelihood does not guarantee good representations of unseen data. On the contrary; the two are actually only correlated by inductive biases present in the model type that we care about. 
 % + VAEs do maximum likelihood.
@@ -131,11 +132,7 @@ For VAEs to learn representations more competitive with self"=supervised methods
 %     \cref{eq:variational-autoencoder-elbo-factorized-expected}
 
 
-\todo[inline]{Discuss whether VAEs are even suitable for representation learning due to them minimizing a mutual information term in the ELBO (derive this form).}
-\todo[inline]{Discuss sensitivity to ``implicit" prior such as architecture (and probably optimization method and other). Include reference to \parencite{huszar_is_2017} discussing the usefulness of using a maximum likelihood objective for representation learning in generative models.}
-
-\todo[inline]{Masked pre-training actually corresponds to marginal maximum likelihood optimization such as done by VAEs \parencite{moreno-munoz_masked_2023}. Since maximum likelihood in no way guarantees good representations, how do self"=supervised methods achieve  this, if they also do maximum likelihood?}
-
+% \todo[inline]{Masked pre-training actually corresponds to marginal maximum likelihood optimization such as done by VAEs \parencite{moreno-munoz_masked_2023}. Since maximum likelihood in no way guarantees good representations, how do self"=supervised methods achieve  this, if they also do maximum likelihood?}
 
 
 \subsection{Designing the latent space} 
@@ -184,10 +181,6 @@ Including masked objectives into the principled probabilistic framework of VAEs 
 \moretodo[inline]{Out-of-distribution detection on speech?}
 
 
-
-
-
-
 % \subsection{Uncertainty estimation with self-supervised methods}
 % %
 
@@ -197,8 +190,6 @@ Including masked objectives into the principled probabilistic framework of VAEs 
 
 % Uncertainty of representations versus uncertainty of downstream task outputs. 
 % % \textcite{wickstrom_relax_2023} propose a method for quantifying uncertainty based on 
-
-
 
 
 
@@ -223,15 +214,11 @@ We compute the calibration curve by sorting the probabilities predicted on the t
     \begin{subfigure}[c]{0.49\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/calibration_curve_ensemble_and_all_models_uncalibrated.pdf}
-        % \caption{}
-        % \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
     \end{subfigure}
     \hfill
     \begin{subfigure}[c]{0.49\columnwidth}
         \centering
         \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/histogram_ensemble_and_single_model.pdf}
-        % \caption{}
-        % \label{fig_discussion:histogram_ensemble_and_single_model}
     \end{subfigure}
     \caption[Calibration curve for the uncalibrated stroke recognition ensemble and empirical distribution of predicted probabilities.]{ Calibration curve for the uncalibrated stroke recognition ensemble (left) and the histogram of predicted probabilities (right) for the test set. We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
     \label{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}
@@ -278,26 +265,9 @@ Since stroke cases have low prevalence, high probability is predicted only for a
     \end{subfigure}    
     \caption[Comparison of F1-score of stroke recognition ensemble and call-takers as function of predicted probability.]{ Comparison of the F1-score of the stroke recognition ensemble and call-takers. The F1-score is computed on subsets of the test dataset made by binning on the predicted probabilities of the calibrated ensemble. We see that the relative performance improvement of the ensemble over call-takers is higher towards more certain predictions. We use the ensemble that achieved the median F1-score reported in \cref{fig_retrospective:figure1-roc-curve} and \cref{tab_retrospective:table3-occlusion-analysis}.}
     \label{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability}
-    % \begin{subfigure}[c]{0.49\columnwidth}
-    %     \centering
-    %     \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/precision_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
-    %     % \caption{}
-    %     % \label{fig_discussion:calibration_curve_ensemble_and_all_models_uncalibrated}
-    % \end{subfigure}    
-    % % \hfill
-    % \begin{subfigure}[c]{0.49\columnwidth}
-    %     \centering
-    %     \includegraphics[width=1\columnwidth]{paper_retrospective_calibration_plots/recall_vs_predicted_probability_ensemble_calltaker_with_cis.pdf}
-    %     % \caption{}
-    %     % \label{fig_discussion:histogram_ensemble_and_single_model}
-    % \end{subfigure}
 \end{figure}
 
 Clinicians in intensive care units and emergency departments have been found to strongly agree that a singular focus on overall accuracy cannot alone ensure sustained trust in a model \cite{tonekaboni_what_2019}. Clinicians expect an alert to present a prediction that aligns with patient status. Despite expert-agreed thresholds for when alerts should be triggered, however, many alerts may not be aligned since class imbalance and ambiguous information in many predictive problems in healthcare can lead to models with relatively low predictive precision \parencite{umscheid_development_2015, cite14, cite15, wenstrup_retrospective_2023}. In turn, this is likely to lead to alarm fatigue \parencite{embi_evaluating_2012} and can undermine the sustained use and endorsement by clinicians of such systems \parencite{guidi_clinician_2015}. 
 The stroke recognition ensemble presented in \cref{chp:paper-retrospective} is not exempt from this risk. With a precision of $24.9\%$ (95\% confidence interval $24.3-25.5\%$) it will on average be wrong three out of four times it predicts a stroke. This unfortunately risks alarm fatigue among its potential users diminishing its effect in practice.
 
-% If the stroke recognition ensemble were to be deployed in a randomized controlled trial, s
 Calibrated probabilities in the alerts presented to users might be a way to alleviate alarm fatigue. Calibrated probabilities would allow users to discern between certain and uncertain predictions and also enable the system to present users only with predictions that have a minimum probability of being correct. Similar approaches have been suggested by clinicians and interviews indicate that predictive uncertainty is perceived by experts as a sort of explanation that complements the prediction \cite{tonekaboni_what_2019}. In \cref{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability} we show the F1-score of the ensemble model and the call-takers computed on subsets of the data created by binning the calibrated probabilities. We note that, as might be expected, both call-taker and ensemble model performance increase with increased model certainty. This indicates that selecting, based on certainty, which predictions to present to users might indeed help build trust in the system and ensure a practical impact. 
-
-
-% \lesstodo[inline]{Maybe mention MultiQT paper \parencite{havtorn_multiqt_2020}.}
