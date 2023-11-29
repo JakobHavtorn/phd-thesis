@@ -3,10 +3,10 @@
 \chapter[conclusions and outlook]{Conclusions and outlook}\label{chp:conclusion}
 % ~3 pages
 
-\textbf{In \cref{chp:introduction,chp:technical-background}} we introduced automated medical coding and stroke recognition as motivational cases. 
+\textbf{In \cref{chp:introduction}} we introduced automated medical coding and stroke recognition as motivational cases. 
 We used these cases to exemplify the importance of out-of-distribution detection, and, by extension, representation learning. In the context of these cases, we discussed possible machine learning system designs for decision-support and considered potential sources of uncertainty and ideal model behavior. 
 As such, the cases have formed a reference point for the thesis as a whole with contributions within out-of-distribution detection as well as representation learning connecting to these applications. 
-As \cref{chp:main-contributions} already details the contributions made by this thesis, we will not further discuss these in this conclusion. 
+As \textbf{\cref{chp:main-contributions}} already details the contributions made by this thesis, we will not reiterate these in detail in this conclusion. 
 
 % \textbf{\cref{chp:introduction}} laid out how progress-driving technological development has always come with new challenges and risks of error - whether via misuse, misunderstanding or inherent limitations. We emphasized that machine learning comes with these same types of risk, in some cases amplifying their impacts, and argued that uncertainty estimation is a key component in ensuring that systems are safe and reliable in practice. 
 
@@ -24,15 +24,12 @@ As \cref{chp:main-contributions} already details the contributions made by this 
 \textbf{In \cref{chp:paper-hierarchical}} we showed how hierarchical variational autoencoders can fail at likelihood-based OOD detection due to an overemphasis on low-level features that generalize between different data distributions. By exploiting that VAEs tend to learn more abstract features at latent variables high in the hierarchy, we were able to define a likelihood-ratio score for OOD detection that focused more on features unlikely to be shared between datasets. 
 % - VAEs can learn useful representations, but it can be hard to impose the appropriate constraints that enable this.
 % - VAEs can learn representations that are useful for OOD detection, but good performance might require selecting an appropriate subset of feature dimensions to use for discriminating.
-This work also highlights that overlap between distributions of high-dimensional data can severely impede OOD detection. Our work shows that a promising direction of future research is into how select which dimensions are the most discriminatory.
+This work also highlights that overlap between distributions of high-dimensional data can severely impede OOD detection. Our work shows that a promising direction of future research is into how to select which dimensions are the most discriminatory.
 
 % In this work we hypothesize that the likelihood estimate of variational autoencoders is a poor score for out-of-distribution due to an overemphasis on low-level features that generalize between distributions. 
 % We further hypothesize that a well-formed hierarchy of latent variables provides a tool that can be used to select which features to emphasize for out-of-distribution detection and, hence, a way to improve the performance of variational autoencoders on this task. 
 % We proceed to provide empirical and theoretical evidence that low-level features do indeed dominate the likelihood score and propose a new method for out-of-distribution detection using hierarchical variational autoencoders based on a likelihood-ratio score that requires data to be in-distribution across all feature-levels. 
 % The proposed method is computationally efficient, fully unsupervised, and performs well on several out-of-distribution detection benchmarks. 
-
-\vspace{1em}
-\textbf{In \cref{chp:paper-modelagnostic}} 
 
 \vspace{1em}
 \textbf{In \cref{chp:paper-benchmarking}} 
@@ -41,9 +38,13 @@ This work also highlights that overlap between distributions of high-dimensional
 % However, since LVMs learn a distribution over the training data, they are forced to encode all aspects of it. While this may be redundant for some tasks, others benefit from a broad variety of features. A hierarchical model that operates on multiple temporal scales, such as the Clockwork VAE, offers a natural way to encode different feature categories. Pronunciation might be learned at lower layers, speaker identity at the upper layers, and semantic features in between. Although some work has successfully separated speaker identity from content [114], models that can learn a deep hierarchy of features for speech remains an open challenge. The model presented in chapter 8 represents an effort to reignite this area of research.
 
 \vspace{1em}
+\textbf{In \cref{chp:paper-modelagnostic}} 
+
+\vspace{1em}
 \textbf{In \cref{chp:paper-brief}} we provided an overview of unsupervised neural speech representation learning. Such approaches have recently matched supervised methods on many tasks and represent a significant advance in low-resource settings, such as speech recognition for minority languages. 
-We found that for the purpose of learning good representations in an unsupervised manner, self-supervised learning seems to have better inductive biases, or at least pose a more forgiving learning problem, than do VAEs. As discussed in the paper and in \cref{sec_discussion:representation-learning-with-vaes}, this likely relates more to inductive biases imposed by implicit constraints in the optimization problem and architecture than to the underlying formalism. 
+We found that for the purpose of learning good representations in an unsupervised manner, self-supervised learning seems to have better inductive biases, or at least pose a more forgiving learning problem, than do VAEs. As discussed in \cref{chp:paper-brief,sec_discussion:representation-learning-with-vaes}, this likely relates more to inductive biases imposed by implicit constraints in the optimization problem and architecture than to the underlying formalism. 
 For instance, in discussion about the weaknesses of VAE-based approaches (\cref{sec_discussion:representation-learning-with-vaes}) we concluded that their challenges could not be directly attributed to the maximum marginal likelihood objective. Indeed, the masked pre-training objective widely used for successful self"=supervised methods also corresponds to a maximum marginal likelihood objective \parencite{moreno-munoz_masked_2023}. 
+This also leaves hope ... \moretodo{hope to improve VAEs by certain measures.}
 
 % As we discussed in \cref{chp:discussion}, there are many interesting avenues of future research for improving the ability of VAEs to learn useful representations, including better gradient estimates and masked objectives.
 
@@ -65,7 +66,8 @@ Future directions
 \textbf{In \cref{chp:paper-retrospective}} we studied how machine learning might be used to improve decision-making at emergency services. 
 We saw that a model was able to improve significantly on the stroke recognition ability of call-takers alone and that the features it used were sensible and related to symptoms and descriptions of stroke. 
 
-In \cref{sec: discussion-stroke-recognition-uncertainty}, we discussed how calibrating the predictive uncertainty of the stroke model is likely to be necessary to enable sustained use of such a model in practice. In \cref{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability}, we noted that, as expected, model performance measured by F1-score increased with increasing model certainty which underlines the likely usefulness of uncertainty estimates in helping to match practitioner expectations of such a model. Nonetheless, basic metrics of model performance are still obstacles for its practical usefulness. Specifically, the rarity of stroke cases lead to a false positive rate and precision that are likely to induce alarm fatigue among its users. Similar effects are likely to have influenced the practical impact of a similar system for cardiac arrest detection which showed significant improvements retrospectively \parencite{cite14} which, although matched by the model in a prospective study, did not ultimately result in improved call-taker performance \parencite{cite15}. 
+In \cref{sec: discussion-stroke-recognition-uncertainty}, we discussed how calibrating the predictive uncertainty of the stroke model is likely to be necessary to enable sustained use of such a model in practice. In \cref{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability}, we noted that, as expected, model performance measured by F1-score increased with increasing model certainty which underlines the likely usefulness of uncertainty estimates in matching practitioner expectations of the predictive performance. 
+Nonetheless, basic metrics of model performance might still be obstacles for its practical usefulness. Specifically, the rarity of stroke cases lead to a false positive rate and precision that are likely to induce alarm fatigue among its users. Similar effects are likely to have influenced the practical impact of a similar system for cardiac arrest detection which showed significant improvements retrospectively \parencite{cite14} which, although matched by the model in a prospective study, did not ultimately result in improved call-taker performance \parencite{cite15}. 
 
 Nevertheless, the strong retrospective performance of the stroke recognition model indicates that there is significant potential for augmenting the medical interview to allow better recognizing stroke cases. 
 Possible improvements to the system could include using the audio signal to detect speech-related symptoms such mumbling or slurring, or integrating with electronic health-records to cross-reference with patient history. 
