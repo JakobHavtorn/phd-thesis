@@ -66,21 +66,47 @@ This also leaves potential for future work to improve the ability of VAEs to lea
 % The general idea for masked pre-training may seem simple; reconstruct masked parts of the input or another representation, given context. However, this methodology aligns very well with the general definition of semantics presented in section 1.4: "semantic properties of a lexical item are fully reflected in appropriate aspects of the relations it contracts with actual and potential contexts" ([63], p. 1). Thus, from a philosophical point-of-view, it may be difficult to see how the field should move on from here. Of course, context is more than just the neighboring words in a speech segment. The next wave of representation learning for speech incorporates multiple modalities, such as video [244, 245] or text [18]. Furthermore, how to construct targets for pre-training these models and how that affects the learned features is an avenue that warrants more research. This is of particular interest in the speech domain, where the input codes for speaker identity and emotional state, as well as the semantic content of the utterance.
 
 \vspace{1em}
-\textbf{\Cref{chp:paper-benchmarking}} 
-% In chapter 8, stochastic and deterministic generative models were benchmarked in terms of model likelihood. In addition, the chapter presented a hierarchical latent variable model (LVM) for speech inspired by the Clockwork VAE [238]. In contrast to self-supervised models, LVMs have not yet seen the same success for representation learning. As such, they offer little guidance in terms of alleviating the need for labeled data, as discussed in section 1.2.1.
+\textbf{\Cref{chp:paper-benchmarking}} conducted a comprehensive evaluation of stochastic and deterministic generative models, focusing on their model likelihood. 
+The chapter also introduced a novel hierarchical VAE type model for speech, by drawing inspiration from the Clockwork VAE \parencite{saxena_clockwork_2021}. 
+Despite the supposed limitations of VAEs for representation learning as compared to self"=supervised methods (\cref{chp:discussion}), hierarchical VAE models for sequence data that operate on multiple temporal scales, provide a natural framework for encoding distinct feature categories. 
+For instance, pronunciation features may be learned at lower layers, speaker identity at upper layers, and semantic features in intermediate layers. Despite successful attempts at isolating speaker identity from content in some existing work \parencite{hsu_unsupervised_2017}, developing VAE models with the capacity to learn a deep hierarchy of features for speech persists. The model presented in \cref{chp:paper-benchmarking} is an attempt at this challenge.
+% Despite the current limitations, VAEs possess a unique ability to learn a distribution over the training data, requiring them to encode diverse aspects of the dataset. This inclusivity, while potentially redundant for certain tasks, proves advantageous for others that benefit from a wide array of features. 
 
-% However, since LVMs learn a distribution over the training data, they are forced to encode all aspects of it. While this may be redundant for some tasks, others benefit from a broad variety of features. A hierarchical model that operates on multiple temporal scales, such as the Clockwork VAE, offers a natural way to encode different feature categories. Pronunciation might be learned at lower layers, speaker identity at the upper layers, and semantic features in between. Although some work has successfully separated speaker identity from content [114], models that can learn a deep hierarchy of features for speech remains an open challenge. The model presented in chapter 8 represents an effort to reignite this area of research.
+\vspace{1em}
+\textbf{\Cref{chp:paper-automated}} examined existing works on automated medical coding and found that, in any cases, training was suboptimal, and evaluation standards were biased. We performed a revised comparison of the selected models and provided updated conclusions on the relative performance of models, and the impact of rare codes and long discharge note documents. 
+
+The practical impact of the work of \cref{chp:paper-automated}, and the work in the field of medical coding in general, depend on a number of factors. 
+Much of the field has focused on the MIMIC datasets which originate from the emergency department and ICU of a single hospital. These datasets have enabled much of the progress in the field, but their singular data source also reduces the generality of the derived results and risks biasing the directions of research deemed most impactful \parencite{tengReviewDeepNeural2022, venkateshAutomatingOverburdenedClinical2023,johnsonMIMICIIIFreelyAccessible2016,johnsonMIMICIVFreelyAccessible2023}. 
+Furthermore, the complexity and multi-label nature of medical coding has lead to a high prevalence of label errors in MIMIC-III \parencite{searleExperimentalEvaluationDevelopment2020}. While difficult to remove entirely, having multiple diverse datasets would also alleviate the risk of biases in such errors leading to misguided conclusions. Besides gathering more data, as also mentioned in \cref{chp:paper-automated}, evaluation methods, such as human-in-the-loop, could be useful to increase the reliability of results. 
+
+A weakness of medical coding models is that performance varies widely between classes. The long-tailed distribution of code-frequency is particularly challenging and leads to underperformance on rare codes. Practical applications could still benefit from such models though. By limiting model predictions to a subset of codes for which they perform well, practitioners could focus on harder to code cases. This selection of cases in practical applications of medical coding could also benefit from research into selective prediction \parencite{geifman_selective_2017}. 
+Although pre"=training is an obvious approach to improve performance when little data is available, the improvements observed by using pre"=trained models for medical coding have been limited \parencite{jiDoesMagicBERT2021,gaoLimitationsTransformersClinical2021,michalopoulosICDBigBirdContextualEmbedding2022,pascualBERTbasedAutomaticICD2021,zhangBERTXMLLargeScale2020} compared to the effect of pre"=training in other domains \parencite{mohamed_selfsupervised_2022, linPretrainedTransformersText2021,baevski_wav2vec_2020,devlin_bert_2018,dosovitskiy_image_2021}. This suggests an untapped potential for future research into more targeted pre"=training for medical coding. 
+
+While our work in \cref{chp:paper-automated} focused on unimodal medical coding models, it is highly likely that future state-of-the-art models will augment discharge summaries with multi-modal inputs such as medical code descriptions, synonyms, and hierarchies \parencite{kimReadAttendCode2021, mullenbachExplainablePredictionMedical2018, vuLabelAttentionModel2020, caoHyperCoreHyperbolicCograph2020, baoMedicalCodePrediction2021, yuanCodeSynonymsMatter2022,caoHyperCoreHyperbolicCograph2020, xieEHRCodingMultiscale2019}. 
+A main reason for this is that coding standards are updated regularly. The ICD standard for instance sees revisions and new codes added yearly, with local adoption following national guidelines \parencite{centerfordiseasecontrolandpreventioncdc_international_2023}. 
+Leveraging such modalities will enable adapting models to updated coding standards without having to gather large amounts of data. 
+
+
+% The use of supportive systems for medical coding in practice relies on 
+
+% - Errors in the gold-standard data: \textcite{searleExperimentalEvaluationDevelopment2020} investigated the quality of the human annotations in MIMIC-III and concluded that 35\% of the common codes were under-coded. Such errors and subjectivity in manual medical coding make model training and evaluation challenging and suggests that additional evaluation methods using, e.g., a human-in-the-loop, could be useful to increase the reliability of results. 
+
+% Future directions
+% - Avoiding predicting several mutually exclusive classes, which is a general problem for multi-label classification.
+
+% - research should focus on improving performance on rare codes while, in the shorter term, developing methods to detect codes that are too challenging for automated coding and, therefore, should be coded manually
+
+% - Fully leveraging pre"=training (while PLM-ICD outperforms the other models in this paper, the improvements are limited compared to the effect of pre"=training in other domains \parencite{mohamed_selfsupervised_2022, linPretrainedTransformersText2021,baevski_wav2vec_2020,devlin_bert_2018,dosovitskiy_image_2021}) 
+% Notably, there have been several unsuccessful attempts at using pre"=trained transformers for medical coding \parencite{jiDoesMagicBERT2021,gaoLimitationsTransformersClinical2021,michalopoulosICDBigBirdContextualEmbedding2022,pascualBERTbasedAutomaticICD2021,zhangBERTXMLLargeScale2020}
+
+% - Generalization to other hospitals. discharge summaries from outpatient care are often easier to code than summaries from inpatient care as they are shorter with fewer codes per document \parencite{zhangBERTXMLLargeScale2020, liuEffectiveConvolutionalAttention2021, tsengAdministrativeCostsAssociated2018}
+
+
+
 
 
 \vspace{1em}
-\textbf{\Cref{chp:paper-automated}} 
-
-Future directions
-- Avoiding predicting several mutually exclusive classes, which is a general problem for multi-label 
-
-
-\vspace{1em}
-\textbf{\Cref{chp:paper-retrospective}} studied how machine learning might be used to improve decision-making at emergency services. 
+\textbf{\Cref{chp:paper-retrospective}} studied how machine learning might be used to improve decision-making at emergency services in relation to stroke detection. 
 We saw that a model was able to improve significantly on the stroke recognition ability of call-takers alone and that the features it used were sensible and related to symptoms and descriptions of stroke. 
 
 In \cref{sec: discussion-stroke-recognition-uncertainty}, we discussed how calibrating the predictive uncertainty of the stroke model is likely to be necessary to enable sustained use of such a model in practice. In \cref{fig_discussion:retrospective-paper-f1-performance-vs-predicted-probability}, we noted that, as expected, model performance measured by F1-score increased with increasing model certainty which underlines the likely usefulness of uncertainty estimates in matching practitioner expectations of the predictive performance. 
