@@ -59,7 +59,7 @@ To generalize the concept of information entropy to continuous random variables,
 %
 which is called the \emph{differential entropy} \parencite{shannon_mathematical_1948}. Here, $\mathcal{X}$ is the support of $X$. 
 
-However, the differential entropy does not have several of the desirable properties of the discrete version; it can be negative, it is not invariant under a change of variables, and it is not dimensionally correct%
+However, the differential entropy does not have several of the desirable properties of the discrete version; it can be negative, it is not invariant under a change of variables, and it is not dimensionally correct.%
 \footnote{\label{fn:dimensional-analysis-of-differential-entropy}
     Information entropy has the same dimensionality as information content which is typically measured in units of bits, but depends on the base of the logarithm. 
     However, the bit is not a base unit of the International System of Units (SI), nor is it an official derived unit.
@@ -75,7 +75,7 @@ However, the differential entropy does not have several of the desirable propert
     % As a final twist on this story, note that the SI system does actually have a unit for an amount of substance: the mole \parencite{internationalbureauofweightsandmeasures_systeme_2019}. 
     % The mole is defined as the amount of substance that contains as many elementary entities as there are atoms in $\SI{12}{g}$ of carbon-12, that is $\SI{1}{mol} = 6.02214076\times10^{23}$.
     % Taking the position that a mole is quite simply a number (not a number of particles) \parencite{debievre_atomic_1992,baranski_atomic_2012}, and a bit is a number of elementary (information) entities, we could define a bit as a derived unit from the mole as $\SI{1}{bit} = \SI{1}{mol} / 6.02214076\times10^{23}$.
-}. 
+} 
 For these reasons, the differential entropy may not be a suitable measure of information, or uncertainty, for continuous random variables. 
 
 Instead, \textcite{jaynes_information_1957,jaynes_prior_1968} argued that the information entropy of a continuous distribution should be defined as the limiting density of increasingly dense discrete distributions, $H_{N\rightarrow\infty}(X)$. This argument leads to,
@@ -85,7 +85,7 @@ Instead, \textcite{jaynes_information_1957,jaynes_prior_1968} argued that the in
 \end{equation}
 %
 where $H_N(X)$ is the limiting density for discrete points, $q_X(x)$ is a uniform density over the quantization of the continuous space, and we have subtracted a $\log N$ term that would go to infinity in the limit of infinite points.
-By doing this, the information entropy becomes positive, dimensionally correct, and invariant under a change of variables%
+By doing this, the information entropy becomes positive, dimensionally correct, and invariant under a change of variables.%
 \footnote{\label{fn:change-of-variables-invariance-of-corrected-differential-entropy}
     Under a change of independent variable from $x$ to $y(x)$, we have that
     \begin{align*}
@@ -96,7 +96,7 @@ By doing this, the information entropy becomes positive, dimensionally correct, 
     \begin{equation*}
         H_{N\rightarrow\infty}(y(x)) =  = - \int_{\mathcal{Y}} \widetilde{w}(y)\,\frac{dy}{dx} \log \left( \frac{\widetilde{w}(y)\frac{dy}{dx}}{\widetilde{q}(y)\frac{dy}{dx}} \right) \, dx = - \int_{\mathcal{Y}} w(y) \log \left( \frac{w(y)}{q(y)} \right) \, dy \enspace .
     \end{equation*}
-}.
+}
 
 The form on the right-hand side of \cref{eq:corrected-differential-entropy-jaynes} can be recognized as the negative Kullback-Leibler divergence of $p_X(x)$ to $q_X(x)$ \parencite{kullback_information_1959},
 %
@@ -152,10 +152,10 @@ OOD detection benchmarks almost always take OOD data to be from external dataset
 Although we share the sentiment of \textcite{yang_generalized_2022}, who propose to unify the tasks as ``generalized out-of-distribution detection'', this thesis will follow the nomenclature used in the works most related to ours and refer to the task as out-of-distribution detection.
 
 \paragraph{Supervision} Recently, several approaches for deep neural networks have been developed that address the rejection of OOD samples $\xb\notin\mathcal{D}_{\text{in}}$. 
-One way to categorize the different approaches is based on whether the underlying model is a classifier that estimates a conditional probability distribution $p(y|\xb)$ over some target variable $y$, or a model that learns a probability density $p(\xb)$ over the input itself. We might refer to the former as \emph{supervised} OOD detection, and the latter as \emph{unsupervised} OOD detection \parencite{graham_denoising_2023,liu_unsupervised_2023a}. It is important to note that this distinction relates only to the availability of some target value, $y$ -- not whether OOD data is available for supervision\footnote{
+One way to categorize the different approaches is based on whether the underlying model is a classifier that estimates a conditional probability distribution $p(y|\xb)$ over some target variable $y$, or a model that learns a probability density $p(\xb)$ over the input itself. We might refer to the former as \emph{supervised} OOD detection, and the latter as \emph{unsupervised} OOD detection \parencite{graham_denoising_2023,liu_unsupervised_2023a}. It is important to note that this distinction relates only to the availability of some target value, $y$ -- not whether OOD data is available for supervision.\footnote{
     In our overview, we distinguish between supervised and unsupervised out-of-distribution by letting methods be classified as supervised that use any kind of target value $y$, whether it relates to an original (in-distribution) task, available OOD data, or both. This is the same distinction made by \textcite{graham_denoising_2023} and \textcite{liu_unsupervised_2023a}. 
     It is important to note, however, that in other works, the distinction is made based on whether the model is trained on OOD data or not \parencite{hendrycks_baseline_2017,liu_energybased_2020}. This difference in nomenclature is currently unresolved in the literature. 
-}. 
+} 
 Supervised OOD detection tries to assess whether the model's prediction $\hat{y}$ via $p(y|\xb)$ should be trusted for a given input $\xb$, whereas unsupervised OOD detection judges whether the input $\xb$ should be trusted and used at all. 
 
 \paragraph{Scoring} Central to any OOD detection method is the ability to assign a score $s(\xb) \in \mathbb{R}$ to a given input $\xb$ that indicates the degree to which the input is likely to be OOD. After defining a score, we typically use a validation set to tune a threshold $\tau$ such that $\xb$ is considered OOD if $s(\xb) > \tau$. The threshold is typically chosen such that performance on the validation set is above some level, for instance by imposing constraints on the recall and precision. Many works also evaluate the performance of OOD detection methods using the area under the receiver operating characteristic (AUROC) curve which does not require a threshold to be chosen.

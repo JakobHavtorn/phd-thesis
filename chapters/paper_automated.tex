@@ -509,11 +509,11 @@ Notably, there have been several unsuccessful attempts at using pre"=trained tra
 
 
 \subsection{Limitations}
-We presented findings and analyses on MIMIC-III and MIMIC-IV. It is unclear how our findings generalize to medical coding in real-world settings.
+We presented findings and analyses on MIMIC-III and MIMIC-IV. It is unclear how our findings generalize to medical coding in real-world settings. 
 For instance, since MIMIC-III and IV contain data from the emergency department and ICU of a single hospital, the findings in this paper may not generalize to other departments or hospitals. 
 For instance, discharge summaries from outpatient care are often easier to code than summaries from inpatient care as they are shorter with fewer codes per document \parencite{zhangBERTXMLLargeScale2020, liuEffectiveConvolutionalAttention2021, tsengAdministrativeCostsAssociated2018}.
 
-The medical code labeling of MIMIC is used as a gold standard in this paper. However, medical coding is error-prone, and, in many cases, deciding between certain codes can be a subjective matter \parencite{nouraeiAuditNatureImpact2013, lloydPhysicianCodingErrors1985}. \textcite{burnsSystematicReviewDischarge2012} systematically reviewed studies assessing the accuracy of human medical coders and found an overall median accuracy of 83.2\% (IQR: 67.3–92.1\%). \textcite{searleExperimentalEvaluationDevelopment2020} investigated the quality of the human annotations in MIMIC-III and concluded that 35\% of the common codes were under-coded. Such errors and subjectivity in manual medical coding make model training and evaluation challenging and suggests that additional evaluation methods using, e.g., a human-in-the-loop, could be useful to increase the reliability of results. 
+The medical code labeling of MIMIC is used as a gold standard in this paper. However, medical coding is error-prone, and, in many cases, deciding between certain codes can be a subjective matter \parencite{nouraeiAuditNatureImpact2013, lloydPhysicianCodingErrors1985}. \textcite{burnsSystematicReviewDischarge2012} systematically reviewed studies assessing the accuracy of human medical coders and found an overall median accuracy of 83.2\% (IQR: 67.3-92.1\%). \textcite{searleExperimentalEvaluationDevelopment2020} investigated the quality of the human annotations in MIMIC-III and concluded that 35\% of the common codes were under-coded. Such errors and subjectivity in manual medical coding make model training and evaluation challenging and suggests that additional evaluation methods using, e.g., a human-in-the-loop, could be useful to increase the reliability of results. 
 
 \section{Conclusion}
 In this paper, we first reproduced the results of selected state-of-the-art models focusing on unimodal models with publically available source code. 
@@ -527,5 +527,5 @@ We release our source code, model parameters, and the new MIMIC-III \textit{clea
 \section*{Acknowledgments}
 This research was partially funded by the Innovation Fund Denmark via the Industrial Ph.D. Program (grant no. 2050-00040B, 0153-00167B, 2051-00015B) and Academy of Finland (grant no. 322653).
 We thank Sotiris Lamprinidis for implementing our stratification algorithm and data preprocessing helper functions.
-   
+
 }

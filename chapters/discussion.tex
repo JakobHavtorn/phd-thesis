@@ -30,7 +30,7 @@ Furthermore, since the work presented in \cref{part:medical-applications} only h
 In this thesis we studied two different approaches to speech representation learning: VAEs in \cref{chp:paper-hierarchical,chp:paper-modelagnostic,chp:paper-benchmarking} and self"=supervised methods in \cref{chp:paper-brief}. 
 As we saw in \cref{chp:paper-hierarchical,chp:paper-modelagnostic}, the probabilistic formulation of VAEs provides benefits for their application to uncertainty quantification, although competitive methods based on self"=supervised foundation models have also been successful \parencite{xiao_we_2021,hendrycks_using_2019,bergman_classificationbased_2020}. 
 Nonetheless, as discussed in \cref{chp:paper-brief}, self"=supervised methods are superior to VAEs when it comes to performance on most other downstream tasks, such as speech recognition and spoken language understanding. 
-While this statement of course depends on the task and the amount and type of unlabeled and labeled data, self"=supervised methods for speech are generally evaluated on downstream tasks that are harder and more complex than those used to evaluate VAEs. This is evidenced by the leaderboards on benchmarks such as SUPERB, SLUE and ZeroSpeech \parencite{yang_superb_2021,shon_slue_2021,dunbar_zero_2021} \footnote{One example of comparable evaluation is that between \cref{tab: phoneme recognition (PER),tab:unsupervisedASR} where self"=supervised methods can be seen to outperform VAEs for phoneme recognition while self"=supervised methods are also reported for word-level speech recognition.}.
+While this statement of course depends on the task and the amount and type of unlabeled and labeled data, self"=supervised methods for speech are generally evaluated on downstream tasks that are harder and more complex than those used to evaluate VAEs. This is evidenced by the leaderboards on benchmarks such as SUPERB, SLUE and ZeroSpeech \parencite{yang_superb_2021,shon_slue_2021,dunbar_zero_2021}.\footnote{One example of comparable evaluation is that between \cref{tab: phoneme recognition (PER),tab:unsupervisedASR} where self"=supervised methods can be seen to outperform VAEs for phoneme recognition while self"=supervised methods are also reported for word-level speech recognition.} 
 In the following, we will discuss potential directions of future research and try to shed light on why representations from VAEs underperform on downstream tasks and how they might be improved.
 
 
@@ -41,7 +41,7 @@ First, VAEs are trained to maximize the ELBO which includes a marginal likelihoo
 
 \paragraph{Marginal likelihood maximization} For any latent variable model $p_{\thetab}(\xb,\zb)$ we can use the posterior distribution $p_{\thetab}(\zb|\xb)$ to map a given observation $\xb$ to its latent representation $\zb$. We hope this representation is useful, for instance in the sense that it can improve performance on downstream tasks compared to other methods. Essential to the usefulness is the posterior distribution $p_{\thetab}(\zb|\xb)$. 
 
-On the other hand, when we use maximum likelihood to train a latent variable model, we maximize the log-marginal likelihood $\log p(\xb)$. This can be equivalently phrased as maximizing the KL-divergence of the true data distribution $p_{\text{data}}(\xb)$ to the learned marginal, $D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb))$\footnote{%
+On the other hand, when we use maximum likelihood to train a latent variable model, we maximize the log-marginal likelihood $\log p(\xb)$. This can be equivalently phrased as maximizing the KL-divergence of the true data distribution $p_{\text{data}}(\xb)$ to the learned marginal, $D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb))$.\footnote{%
 Maximizing the likelihood $\sum_{n=1}^N \log p_\theta(\xb)$ w.r.t. parameters $\thetab$ is asymptotically equivalent to minimizing $D_{\mathrm{KL}}(p_{\text{data}}(\xb)\parallel p_{\thetab}(\xb))$: 
 %
 \begin{align}
@@ -61,7 +61,7 @@ The last equality follows from the law of large numbers.
 %     &= \mathbb{E}_{p_{\mathrm{data}}(\xb)} \left[ \log p_{\mathrm{data}}(\xb) \right] + \mathbb{E}_{p_{\mathrm{data}}(\xb)} \left[ \log\frac{ p_{\thetab}(\xb)}{p_{\mathrm{data}}(\xb) }\right] \\
 %     &= - \mathbb{H}[p_{\mathrm{data}}(\xb)] - D_\mathrm{KL}\left( p_{\mathrm{data}}(\xb)\mid\mid p(\xb) \right)
 % \end{align}
-}. 
+} 
 The first key observation then is that the marginal $p_{\thetab}(\xb)$, which we maximize, and the posterior $p_{\thetab}(\zb|\xb)$, which we want to produce useful representations, are separate properties of a latent variable model. Any combination uniquely defines a valid latent variable model. Hence, maximizing the marginal is a useless criterion for representation learning, regardless of the measure of usefulness \parencite{huszar_is_2017, alemi_fixing_2018}. 
 
 VAEs, however, are not trained to directly maximize the marginal likelihood, but a lower bound of it, the ELBO,
