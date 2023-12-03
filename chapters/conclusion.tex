@@ -3,7 +3,7 @@
 \chapter[conclusions and outlook]{Conclusions and outlook}\label{chp:conclusion}
 % ~3 pages
 
-\textbf{\Cref{chp:introduction}} introduced the motivational cases of automated medical coding and stroke recognition and used them to exemplify the importance of out-of-distribution detection, and, by extension, representation learning. In the context of these cases, we discussed possible machine learning system designs for decision-support and considered potential sources of uncertainty and ideal model behavior. 
+\textbf{\Cref{chp:introduction}} introduced the motivational cases of automated medical coding and stroke recognition and used them to exemplify the importance of out-of-distribution detection, and, by extension, representation learning. In the context of these cases, we discussed possible machine learning system designs for decision support and considered potential sources of uncertainty and ideal model behavior. 
 The cases form a reference point for the thesis as a whole, connecting its contributions within out-of-distribution detection and representation learning back to practical applications. 
 In this conclusion, we will review the studies presented in previous chapters in the context of the discussion of \cref{chp:discussion}, the recent progress in the field, and point to interesting directions of future research.
 As \textbf{\cref{chp:main-contributions}} already details the contributions made by this thesis, we will not reiterate them in detail in this conclusion. 
@@ -41,7 +41,7 @@ To obtain good downstream task performance, this suggests that, besides seeking 
 \textbf{\Cref{chp:paper-modelagnostic}} took a different approach to OOD detection than \cref{chp:paper-hierarchical} and focused on developing a model-agnostic method. 
 We showed that by phrasing OOD detection as a statistical testing problem and combining different tests, orthogonal properties of the individual tests could be leveraged to improve the OOD detection performance over any single test.
 
-The formulation of OOD detection as a statistical test also allows for better guarantees for such systems in practice. For instance, as also discussed in \cref{chp:paper-modelagnostic}, the statistical framework enables false positive rate control which is a valuable property in many practical applications especially if they involve high-risk actions such as in medical decision-support. 
+The formulation of OOD detection as a statistical test also allows for better guarantees for such systems in practice. For instance, as also discussed in \cref{chp:paper-modelagnostic}, the statistical framework enables false positive rate control which is a valuable property in many practical applications especially if they involve high-risk actions such as in medical decision support. 
 
 
 % In this follow-up work to \cref{chp:paper-hierarchical}, we note that the set of methods proposed for out-of-distribution detection using generative models is quite large and that many are tailored for specific model types, which suggests that it is possible to develop a model-agnostic approach. We hypothesize that by phrasing the task as a statistical testing problem and combining different tests, the method's efficacy can be improved and weaknesses inherent to any particular test can be alleviated. 
