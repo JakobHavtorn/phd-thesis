@@ -30,7 +30,7 @@ Furthermore, since the work presented in \cref{part:medical-applications} only h
 In this thesis we studied two different approaches to speech representation learning: VAEs in \cref{chp:paper-hierarchical,chp:paper-modelagnostic,chp:paper-benchmarking} and self"=supervised methods in \cref{chp:paper-brief}. 
 As we saw in \cref{chp:paper-hierarchical,chp:paper-modelagnostic}, the probabilistic formulation of VAEs provides benefits for their application to uncertainty quantification, although competitive methods based on self"=supervised foundation models have also been successful \parencite{xiao_we_2021,hendrycks_using_2019,bergman_classificationbased_2020}. 
 Nonetheless, as discussed in \cref{chp:paper-brief}, self"=supervised methods are superior to VAEs when it comes to performance on most other downstream tasks, such as speech recognition and spoken language understanding. 
-While this statement of course depends on the task and the amount and type of unlabeled and labeled data, self"=supervised methods for speech are generally evaluated on downstream tasks that are harder and more complex than those used to evaluate VAEs. This is evidenced by the leaderboards on benchmarks such as SUPERB, SLUE and ZeroSpeech \parencite{yang_superb_2021,shon_slue_2021,dunbar_zero_2021}.\footnote{One example of comparable evaluation is that between \cref{tab: phoneme recognition (PER),tab:unsupervisedASR} where self"=supervised methods can be seen to outperform VAEs for phoneme recognition while self"=supervised methods are also reported for word-level speech recognition.} 
+While this statement of course depends on the task and the amount and type of unlabeled and labeled data, self"=supervised methods for speech are generally evaluated on downstream tasks that are harder and more complex than those used to evaluate VAEs. This is evidenced by the leaderboards on benchmarks such as SUPERB, SLUE and ZeroSpeech \parencite{yang_superb_2021,shon_slue_2021,dunbar_zero_2021}.\footnote{One example of comparable evaluation is that between \cref{tab: phoneme recognition (PER),tab:unsupervisedASR} where self"=supervised methods can be seen to outperform VAEs for phoneme recognition while self"=supervised methods are additionally reported for word-level speech recognition.} 
 In the following, we will discuss potential directions of future research and try to shed light on why representations from VAEs underperform on downstream tasks and how they might be improved.
 
 
@@ -175,10 +175,29 @@ By comparison to self"=supervised approaches that use masking for representation
 The idea of using VAEs to impute missing data was already examined in the seminal paper by \textcite{rezende_stochastic_2014}. Here the model was trained with fully observed data and used to impute data in an iterative sampling approach post hoc, leaving the learned representations unchanged.
 Previous work that trains on partially observed data has largely focused on the ability of these models to yield high-quality imputations within the tabular and image data domains and have not probed for the effects on the learned latent representation \parencite{mattei_miwae_2019, ipsen_not-miwae_2021}. 
 
-Including masked objectives into the principled probabilistic framework of VAEs might require rethinking the principles themselves, but it seems likely that relaxing the requirement of exact input reconstruction and enforcing the need for encoding (and decoding) contextual information could pave the way for future types of VAEs to learn representations that are competitive with self"=supervised methods.
+Including masked objectives into the principled probabilistic framework of VAEs might require rethinking the principles themselves. Nonetheless, it seems likely that relaxing the requirement of exact input reconstruction and enforcing the need for encoding (and decoding) contextual information could pave the way for future types of VAEs to learn representations that are competitive with self"=supervised methods.
 
 
-\moretodo[inline]{Out-of-distribution detection on speech?}
+\section{Out-of-distribution detection for speech}
+%
+% \moretodo[inline]{Out-of-distribution detection on speech?
+%
+% Outline:
+% Intro paragraph drawing from OOD detection on images.
+% Differences and unique challenges. Generally a harder problem than OOD detection for images
+
+The studies of \cref{part:unsupervised-uncertainty-estimation} dealt with OOD detection in the context of image classification, somewhat casually ignoring the fact that this thesis is mainly interested in audio and speech data. Image classification has been the de facto standard task for benchmarking OOD detection methods
+
+For certain image distributions, it might be possible to deem an image OOD due to the color or intensity of a single pixel. 
+However, for most complex distributions we are usually interested in a test relating to more semantic properties of the data - for instance the animal class, as discussed in the introduction (\cref{subsec:understanding-uncertainty}). 
+
+For speech, this property is similar; a single amplitude value is unlikely to provide much information about the distributional origin of a speech sample. Instead, whether a sample is OOD must be inferred from correlations and patterns found in amplitudes along the temporal dimension. 
+
+One study \parencite{bukhsh_outofdistribution_2023} ... (OOD detection on audio)
+
+% - Temporal scale, can be OOD in local segments but not entire sequence. 
+% - Harder to work with: Images provide immediate, human-interpretable feedback but audio requires playback which takes time.
+% 
 
 
 % \subsection{Uncertainty estimation with self-supervised methods}
