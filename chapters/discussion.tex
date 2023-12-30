@@ -185,37 +185,23 @@ Including masked objectives into the principled probabilistic framework of VAEs 
 % Outline:
 % Intro paragraph drawing from OOD detection on images.
 % Differences and unique challenges. Generally a harder problem than OOD detection for images
+Somewhat casually ignoring the fact that this thesis is mainly interested in audio and speech data, the studies of \cref{part:unsupervised-uncertainty-estimation} dealt with OOD detection in the context of image classification. The reason for this is that image classification has been the de facto standard task for benchmarking OOD detection methods since the first papers on the topic \parencite{choi_waic_2019,nalisnick_detecting_2019,hendrycks_deep_2019,kirichenko_why_2020}. In this section, we shall briefly discuss OOD detection in the context of audio data. 
 
-The studies of \cref{part:unsupervised-uncertainty-estimation} dealt with OOD detection in the context of image classification, somewhat casually ignoring the fact that this thesis is mainly interested in audio and speech data. Image classification has been the de facto standard task for benchmarking OOD detection methods
+In certain cases, it might be possible to classify an image OOD due to the color or intensity of a single pixel. 
+For most distributions, however, we are interested in a test that is sensitive to more semantic properties of the data - for instance the animal class, as discussed in the introduction (\cref{subsec:understanding-uncertainty}). 
+For speech, this property holds too; a single amplitude value is unlikely to provide much information about the distributional origin of a speech sample. In fact, audio samples are one-dimensional which likely makes them less discriminatory compared to image pixels that generally have multiple channels e.g. for color. Instead, whether a sample is OOD must be inferred from correlations and patterns found in amplitudes along the temporal dimension. 
 
-For certain image distributions, it might be possible to deem an image OOD due to the color or intensity of a single pixel. 
-However, for most complex distributions we are usually interested in a test relating to more semantic properties of the data - for instance the animal class, as discussed in the introduction (\cref{subsec:understanding-uncertainty}). 
+Few studies have explored OOD detection specifically for speech. One recent study has explored OOD detection for speech \parencite{bukhsh_outofdistribution_2023}. The authors propose a supervised approach that uses a $k$NN classifier fitted to representations of the training data. The approach is tuned to a fixed recall on the training data and operates on full length audio samples. This method is similar to image methods that fit a Gaussian mixture to an appropriate layer \parencite{lee_simple_2018, xiao_we_2021}. In the early work of \textcite{hendrycks_baseline_2017}, the method (based on softmax probabilities) is also benchmarked on audio datasets including TIMIT and Aurora-2 \parencite{garofolo_timit_1993,pearce_aurora_2000}. 
 
-For speech, this property is similar; a single amplitude value is unlikely to provide much information about the distributional origin of a speech sample. Instead, whether a sample is OOD must be inferred from correlations and patterns found in amplitudes along the temporal dimension. 
-
-One study \parencite{bukhsh_outofdistribution_2023} ... (OOD detection on audio)
+% - Harder to work with: Images provide immediate, human-interpretable feedback but audio requires playback which takes time.
+The studies on OOD detection for audio reflect its similarity to OOD detection for images. 
+Nonetheless, OOD detection on audio comes with unique properties. Where images are immediately interpretable to a researcher, audio requires playback, often in real-time, to present its contents. This fact alone seems likely to play a role in OOD detection being understudied for audio data by simply making it more time-consuming. On top of this, audio is generally variable length and requires more memory than images. 
 
 % - Temporal scale, can be OOD in local segments but not entire sequence. 
-% - Harder to work with: Images provide immediate, human-interpretable feedback but audio requires playback which takes time.
-% 
-
-
-% \subsection{Uncertainty estimation with self-supervised methods}
-% %
-
-% \textcite{pasad_layerwise_2021} found that layers 6-7 hold the most information about phonetic content and word identity and meaning for \texttt{wav2vec2-base}. 
-% For \texttt{wav2vec2-large} the phonetic content is highest in layers 11 and 18-19 with a drop in between, while word identity and meaning are highest between layers 12 and 18. 
-
-
-% Uncertainty of representations versus uncertainty of downstream task outputs. 
-% % \textcite{wickstrom_relax_2023} propose a method for quantifying uncertainty based on 
 
 
 
-% \lesstodo[inline]{Are self"=supervised speech representations useful for unsupervised uncertainty estimation? \parencite{nava_stateconsistency_2021, nava_uncertaintyaware_2021} Within robotics but not really related.}
-% % Since the main focus within self"=supervised learning has been on improving downstream task performance, very limited work, if any, has investigated self"=supervised representations in terms of uncertainty estimation. 
-% % However, in the context of medical applications where data can be abundant but labels are sparse, unsupervised uncertainty estimation is a very interesting direction for future work.
-% \lesstodo[inline]{OOD data: Generalization or detection (https://arxiv.org/pdf/2110.11334.pdf)?}
+
 
 
 
