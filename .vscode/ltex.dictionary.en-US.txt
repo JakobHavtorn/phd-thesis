@@ -37,6 +37,7 @@ Côte
 covariances
 covariate
 crosslingual
+CutMix
 DanStroke
 denoising
 DenseNet
@@ -71,6 +72,7 @@ Havtorn
 Helsefonden
 HKUST
 HuBERT
+HuggingFace
 HVAE
 identifiability
 ImageNet

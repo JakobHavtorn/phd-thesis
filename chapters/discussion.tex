@@ -2,28 +2,13 @@
 
 \chapter[discussion]{Discussion}\label{chp:discussion}
 % ~5 pages
-%
-% OUTLINE:
-% - paper-hierarchical:
-%   - Suitability of VAEs for representation learning (minimization of mutual information and sensitivity to implicit prior such as architecture)
-% - paper-benchmarking
-%   - Inferiority of probabilistic methods compared to self"=supervised learning. 
-% - 
-
-
-% \todo[inline]{Unsupervised representation learning for medical applications. We tried BERT for stroke but no success. Medical coding state-of-the-art uses pretrained BERT, but only marginally improves upon simpler baselines.}
-
-
-% \moretodo[inline]{Add to the discussion somewhere:
-% I would try to embed a perspective for contemplation. Instead of us always talking about what the technology needs to improve on. Perhaps, it would also be prudent to ask an open-ended philosophical question: “While our requirements to the technology are in its place, one could ask, whether human beings have the ability to quantify uncertainty. In 2023, the prevalence of human errors in driving are much higher than self-driving vehicles.” <- Quick example. I'm sure you can find something better.}
-
 
 The rapid progress of machine learning that started about a decade ago with the 2012 ImageNet competition and the work of \textcite{krizhevsky_imagenet_2012} all but slowed down during the course of this project. 
 Following the papers by \textcite{choi_waic_2019,nalisnick_detecting_2019,hendrycks_deep_2019}, the field of out-of-distribution detection saw a surge of interest that has since grown yearly. Similarly, representation learning for speech has continued to advance with notable works such as CPC \parencite{oord_representation_2018}, wav2vec 2.0 \parencite{baevski_wav2vec_2020} and data2vec \parencite{baevski_data2vec_2022}. 
 
 \moretodo{Adjust the below to include any discussion on out-of-distribution detection.}
-Having examined VAEs and self"=supervised approaches for representation learning in \cref{part:unsupervised-uncertainty-estimation,part:unsupervised-speech-representation-learning}, in this discussion we will consider how VAEs might be enabled to learn representations more competitive with self"=supervised methods for downstream tasks. 
-Furthermore, since the work presented in \cref{part:medical-applications} only had limited focus on uncertainty, we will also present and discuss the use of calibration techniques for the stroke recognition model, drawing connections to how such systems might be perceived and used in practice. 
+Having examined VAEs and self"=supervised approaches for representation learning in \cref{part:unsupervised-uncertainty-estimation,part:unsupervised-speech-representation-learning}, in this discussion we will consider how VAEs might be enabled to learn representations more competitive with self"=supervised methods for downstream tasks (\cref{sec_discussion:representation-learning-with-vaes}). We will also complement the works on OOD detection in \cref{part:unsupervised-uncertainty-estimation}, which focused on image data, with a discussion about similarities with OOD detection for audio and speech data (\cref{sec_discussion:out-of-distribution-detection-for-speech}). 
+Furthermore, since the work presented in \cref{part:medical-applications} only had limited focus on uncertainty, we will also present and discuss the use of calibration techniques for the stroke recognition model, drawing connections to how such systems might be perceived and used in practice (\cref{sec: discussion-stroke-recognition-uncertainty}). 
 
 \section{Representation learning with variational autoencoders}\label{sec_discussion:representation-learning-with-vaes}
 %
@@ -178,32 +163,40 @@ Previous work that trains on partially observed data has largely focused on the 
 Including masked objectives into the principled probabilistic framework of VAEs might require rethinking the principles themselves. Nonetheless, it seems likely that relaxing the requirement of exact input reconstruction and enforcing the need for encoding (and decoding) contextual information could pave the way for future types of VAEs to learn representations that are competitive with self"=supervised methods.
 
 
-\section{Out-of-distribution detection for speech}
+\section{Out-of-distribution detection for speech}\label{sec_discussion:out-of-distribution-detection-for-speech}
 %
 % \moretodo[inline]{Out-of-distribution detection on speech?
 %
 % Outline:
 % Intro paragraph drawing from OOD detection on images.
 % Differences and unique challenges. Generally a harder problem than OOD detection for images
-Somewhat casually ignoring the fact that this thesis is mainly interested in audio and speech data, the studies of \cref{part:unsupervised-uncertainty-estimation} dealt with OOD detection in the context of image classification. The reason for this is that image classification has been the de facto standard task for benchmarking OOD detection methods since the first papers on the topic \parencite{choi_waic_2019,nalisnick_detecting_2019,hendrycks_deep_2019,kirichenko_why_2020}. In this section, we shall briefly discuss OOD detection in the context of audio data. 
+Somewhat casually ignoring the fact that this thesis is mainly interested in audio and speech data, the studies of \cref{part:unsupervised-uncertainty-estimation} dealt with OOD detection only in the context of image classification. The reason for this is that image classification has been the de facto standard task for benchmarking OOD detection methods since the first papers on the topic \parencite{choi_waic_2019,nalisnick_detecting_2019,hendrycks_deep_2019,kirichenko_why_2020}. 
+In this section, we shall provide some perspective on OOD detection in the context of audio data. 
 
 In certain cases, it might be possible to classify an image OOD due to the color or intensity of a single pixel. 
 For most distributions, however, we are interested in a test that is sensitive to more semantic properties of the data - for instance the animal class, as discussed in the introduction (\cref{subsec:understanding-uncertainty}). 
-For speech, this property holds too; a single amplitude value is unlikely to provide much information about the distributional origin of a speech sample. In fact, audio samples are one-dimensional which likely makes them less discriminatory compared to image pixels that generally have multiple channels e.g. for color. Instead, whether a sample is OOD must be inferred from correlations and patterns found in amplitudes along the temporal dimension. 
+For speech, this property holds too; a single amplitude value is unlikely to provide much information about the distributional origin of a speech sample. In fact, audio samples are one-dimensional which likely makes them less discriminatory compared to image pixels that generally have multiple channels e.g. for color. Instead, whether a sample is OOD must be inferred from correlations and patterns found in amplitudes along the temporal dimension. In this way, the task of OOD detection has a similar formulation across different data types. 
 
-Few studies have explored OOD detection specifically for speech. One recent study has explored OOD detection for speech \parencite{bukhsh_outofdistribution_2023}. The authors propose a supervised approach that uses a $k$NN classifier fitted to representations of the training data. The approach is tuned to a fixed recall on the training data and operates on full length audio samples. This method is similar to image methods that fit a Gaussian mixture to an appropriate layer \parencite{lee_simple_2018, xiao_we_2021}. In the early work of \textcite{hendrycks_baseline_2017}, the method (based on softmax probabilities) is also benchmarked on audio datasets including TIMIT and Aurora-2 \parencite{garofolo_timit_1993,pearce_aurora_2000}. 
+Few studies have explored OOD detection specifically for speech. One recent study has explored OOD detection for speech \parencite{bukhsh_outofdistribution_2023}. The authors propose a supervised approach that uses a $k$NN classifier fitted to representations of the training data. The approach is tuned to a fixed recall on the training data and operates on full length audio samples. This method is similar to image methods that fit a Gaussian mixture to an appropriate layer \parencite{lee_simple_2018, xiao_we_2021}. In the early work of \textcite{hendrycks_baseline_2017}, the OOD detection method (based on softmax probabilities) is also benchmarked on audio datasets including TIMIT and Aurora-2 \parencite{garofolo_timit_1993,pearce_aurora_2000}. These works strongly suggest that with good data representations, we can use similar methods for OOD detection on both audio and images.
 
 % - Harder to work with: Images provide immediate, human-interpretable feedback but audio requires playback which takes time.
-The studies on OOD detection for audio reflect its similarity to OOD detection for images. 
-Nonetheless, OOD detection on audio comes with unique properties. Where images are immediately interpretable to a researcher, audio requires playback, often in real-time, to present its contents. This fact alone seems likely to play a role in OOD detection being understudied for audio data by simply making it more time-consuming. On top of this, audio is generally variable length and requires more memory than images. 
+% The studies on OOD detection for audio reflect its similarity to OOD detection for images. 
+Despite these similarities of the OOD detection task and its methods across data types, audio comes with unique properties. 
+Where images are immediately interpretable to a researcher by visual inspection, audio requires playback, often in real-time, to present its contents. This fact alone is likely to have reduced interest in audio data by simply making it more time-consuming to work with than images. On top of this, audio is generally variable length and requires more memory than images which increases complexity and the amount of compute required to obtain equivalent results compared to images. 
+As such, audio-based OOD detection is likely to benefit from standardized frameworks like HuggingFace \parencite{wolf_huggingface_2020,lhoest_datasets_2021} which have made eased working with irregular data types. 
 
 % - Temporal scale, can be OOD in local segments but not entire sequence. 
+Another fundamental difference between audio and images is that audio is additive; two signals can be added together to form a new, mixed signal that is meaningful in the sense that it could also have been recorded. 
+Addition of two images on the other hand produces an image that is not generally representative of what might be photographed. 
+This property of images has led to the practice of evaluating OOD detection performance by comparing examples between different datasets (e.g. MNIST versus FashionMNIST). 
+The additive property of audio allows complementing this dataset-versus-dataset evaluation with an approach where in-distribution examples are augmented to be OOD by mixing with unknown sources. This was explored by \textcite{hendrycks_baseline_2017} but has not seen a wide exploration. 
 
-
-
-
-
-
+Finally, most work on OOD detection has focused on an example-centric approach where an entire example is either in- or out-of-distribution. 
+For audio, however, it is easy to create examples where local segments are OOD while other parts are not. 
+Using the additive property, we could add a loud Morse signal on top of a dialogue to change a segment of in-distribution audio to OOD. 
+Similarly, silence might be used as a kind of padding to insert entirely OOD segments in between in-distribution parts without addition and without significant boundary effects. 
+For images, the equivalent approach is similar to regularization techniques such as CutMix \parencite{yun_cutmix_2019} which paste images on top of each other. But this usually creates strong boundary errors, which might be used or learned to easily detect such synthetic OOD examples. 
+Examples that contain locally OOD parts might occur naturally too; both in the image and audio domains. All kinds of unknown sound can be considered OOD and hence any recording might be locally OOD. In image segmentation, unknown object classes might similarly be seen as locally OOD parts of an example. Future research might examine further how detection of locally OOD examples differs from the dominant example-centric approach. 
 
 
 % \section{\Cref{chp:paper-retrospective} revisited: Calibration}
@@ -214,7 +207,7 @@ As we discussed in \cref{subsec:model-calibration}, such a model can be calibrat
 
 We compute the calibration curve by sorting the probabilities predicted on the test set into a number of bins spanning the range from zero to one. For each bin $b$, we compute the mean predicted probability $\bar{p}$ and the fraction of examples for which the model predicted correctly $r_{b}$. The calibration curve is the drawn from the $\{(\bar{p}_{b}, r_{b})\}_b$ pairs. For any given bin, a perfectly calibrated model would have the same fraction of correct predictions as that bin's mean value, $\bar{p}_{b} = r_{b}\,\forall\,b$. 
 
-\begin{figure}
+\begin{figure}[t!]
     \centering
     \begin{subfigure}[c]{0.49\columnwidth}
         \centering
@@ -231,7 +224,7 @@ We compute the calibration curve by sorting the probabilities predicted on the t
 
 The calibration curve for the uncalibrated stroke recognition ensemble and its constituent models is plotted in \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model} along with a histogram of its predicted probabilities. The miscalibration issue that we previously discussed is clearly visible as a strong overconfidence for both ensemble and constituents, although the ensemble is much better calibrated than its constituents. Since the ensemble's output probability is computed as the harmonic mean of the five constituent model probabilities, it can never exceed the maximum probability predicted between the constituent models. This property tends to make ensemble probabilities less extreme and, since the constituent models are overconfident, this results in better calibration (see also the histogram in \cref{fig_discussion:retrospective-paper-calibration-curve-of-uncalibrated-model}). 
 
-\begin{figure}
+\begin{figure}[t!]
     \centering
     \begin{subfigure}[c]{0.49\columnwidth}
         \centering
@@ -257,7 +250,7 @@ Since stroke cases have low prevalence, high probability is predicted only for a
 % BSS uncalibrated reference:  {'logistic': 0.48299025755205005, 'isotonic': 0.4923822902432705}
 % BSS mean reference:  {'logistic': 0.17685766561145932, 'isotonic': 0.1918109229282361}
 
-\begin{figure}
+\begin{figure}[t!]
     \centering
     \begin{subfigure}[c]{0.49\columnwidth}
         \centering
