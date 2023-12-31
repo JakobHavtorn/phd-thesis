@@ -527,10 +527,11 @@ If the inference gap is closed, the ELBO becomes equal to the marginal likelihoo
 
 \subsection{Maximum likelihood estimation}
 %
-VAEs are usually mixed-effect models. Although VAEs use variational Bayes to infer a posterior distribution over latent variables, their parameters are estimated using maximum likelihood. 
-That is, we want to jointly optimize the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$ with respect to $\thetab$ and $\phib$ to find point estimates. 
+VAEs are almost always defined as mixed-effect models: VAEs use variational Bayes to infer a posterior distribution over latent variables, but their parameters are estimated using maximum likelihood. 
+Hence, parameter estimation entails jointly optimizing the generative model $p_\thetab(\xb|\zb)$ and the variational approximation $q_\phib(\zb|\xb)$ with respect to $\thetab$ and $\phib$ to find point estimates. 
 Gradient-based optimization works well for neural networks, but the large amounts of data force the use of mini-batch, or stochastic, gradient descent. 
-Hence, we must approximate the expectation in the ELBO \cref{eq:variational-autoencoder-elbo} and compute its gradients w.r.t. $\phib$ and $\thetab$. 
+Furthermore, we must approximate the expectation over the approximate posterior in the ELBO \cref{eq:variational-autoencoder-elbo} and compute its gradients w.r.t. $\phib$ and $\thetab$. 
+We will look into how batching affects the form of the ELBO in \cref{subsec: mutual-information-interpretation-of-elbo} and move on with posterior sampling and gradient estimation here. 
 
 \paragraph{Sampling}
 Since we have freedom to select the approximate posterior, we can choose it such that it is easy to sample and then use that property to form a Monte Carlo estimate of the ELBO, $\mathcal{L}_{}(\xb;\thetab,\phib)$,
@@ -556,13 +557,13 @@ This estimator can be written as,
 %
 Since $\widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)$ is the sample average, it is an unbiased estimator of the ELBO, $\mathbb{E}\left[\widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)\right] = \mathcal{L}_{S}(\xb;\thetab,\phib)$, and hence a biased estimator of the marginal likelihood, $\log p(\xb)$.
 
-Whereas we arrive at $\widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)$ by first deriving the ELBO as a lower bound on the marginal likelihood and then estimating that bound by Monte Carlo sampling, \textcite{burda_importance_2016} instead propose to directly Monte Carlo sample the expectation in the logarithm of the intractable marginal likelihood \cref{eq:marginal-likelihood-with-variational-approximation},
+In the above we arrived at $\widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)$ by first deriving the ELBO of \cref{eq:latent-variable-model-elbo} as a lower bound on the marginal likelihood and then approximating that bound by Monte Carlo sampling. Instead, \textcite{burda_importance_2016} propose to Monte Carlo sample the expectation inside the logarithm of \cref{eq:marginal-likelihood-with-variational-approximation} directly, without first deriving the ELBO. They obtain
 %
 \begin{equation}
     \widehat{\mathcal{L}}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \equiv \log \left( \frac{1}{S}\sum_{s=1}^{S} \frac{p_\thetab(\xb|\zb_{s})p(\zb_{s})}{q_\phib(\zb_{s}|\xb)} \right) = \frac{1}{S} \sum_{s=1}^S \log w_\thetab(\xb,\zb_{s}) \enspace ,
 \end{equation}
 %
-where $w_\thetab(\xb,\zb_{s})$ are the importance weights. Note the difference with the estimator in \cref{eq:variational-autoencoder-elbo-sampling-expanded}. 
+where $w_\thetab(\xb,\zb_{s})$ can be seen as importance weights. Note that the location of the logarithm is the only difference with the estimator in \cref{eq:variational-autoencoder-elbo-sampling-expanded}. 
 By taking the expectation of this estimator, we can see that it too is a lower bound on the marginal likelihood,
 %
 \begin{align}
