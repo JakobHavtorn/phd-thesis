@@ -3,7 +3,7 @@
 \chapter[a retrospective study on machine learning-assisted stroke recognition for medical helpline calls]{A Retrospective Study on Machine Learning-Assisted Stroke Recognition for Medical Helpline Calls}
 \label{chp:paper-retrospective}
 
-\textit{This chapter is a piece of original research published as part of the project:} \newline
+\textit{This chapter is a piece of original research by the candidate, previously published elsewhere and reprinted here with permission:} \newline
 \begin{center}
     \begin{enumerate}[leftmargin=8mm,rightmargin=8mm,topsep=0mm,label={[\Alph*]}]
         \setcounter{enumi}{5}
@@ -157,12 +157,12 @@ The model performed significantly better in the 65+ group than in the 18-64 year
     \label{fig_retrospective:figure1-roc-curve}
 \end{figure}
 
-\begin{figure}[t]
+\begin{table}[t]
     \centering
-    \includegraphics[width=0.98\textwidth]{paper_retrospective/figure2.pdf}
     \caption[Prediction confusion matrices for stroke recognition.]{Prediction confusion matrices. Confusion matrices of predictions for call takers and the model on the test set. Numbers for the model are given as the rounded mean over eleven runs.}
+    \includegraphics[width=0.98\textwidth]{paper_retrospective/figure2.pdf}
     \label{fig_retrospective:figure2-prediction-confusion-matrices}
-\end{figure}
+\end{table}
 
 
 \subsection{Model explainability}
@@ -330,7 +330,7 @@ where $\text{sign}$ represents the sign function. Squaring $i^{(d,w)}$ favors ra
 
 \subsection{Statistical analysis}
 
-We report the F1-score, sensitivity, PPV, FOR (equal to 1- negative predictive value), and FPR (equal to 1 - specificity). Due to the imbalanced nature of the dataset, the negative predictive value and specificity were greater than 99\% for all cases. We reported FOR and FPR instead because such large numerical values exhibit low relative variance, thereby obfuscating comparisons. Finally, we report the prediction confusion matrices, ROC curve, and PPV-sensitivity curve, commonly known as the precision-recall curve. All results are reported with up to three significant digits.
+We report the F1-score, sensitivity, PPV, FOR (equal to 1- negative predictive value), and FPR (equal to 1 - specificity). Due to the unbalanced nature of the dataset, the negative predictive value and specificity were greater than 99\% for all cases. We reported FOR and FPR instead because such large numerical values exhibit low relative variance, thereby obfuscating comparisons. Finally, we report the prediction confusion matrices, ROC curve, and PPV-sensitivity curve, commonly known as the precision-recall curve. All results are reported with up to three significant digits.
 
 We present the results with and without 1-1-2 training data, subgroup analyses based on age (18–64/65+) and sex (male/female), and call-takers performance. We also report the model performance on calls without a diagnostic category from the test year 2021 to assess potential data bias. We tested our results for statistical significance using approximate permutation tests. We used one-sided paired approximate permutation tests for model-to-model and model-to-call-taker comparisons when done on the same subset. For comparisons across different subsets (e.g. male vs. female) we used one-sided independent approximate permutation tests. We computed 95\% confidence intervals (CIs) using bootstrapping \parencite{dwass_modified_1957,eden_validity_1933}. In our assessment, we accounted for random variation associated with model training by basing the means, tests, and CIs on the predictions of 11 randomly initialized training runs. Statistical significance was defined as a p-value of less than 0.05.
 

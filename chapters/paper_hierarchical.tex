@@ -3,7 +3,7 @@
 \chapter[hierarchical vaes know what they don't know]{Hierarchical VAEs Know What They Don't Know}
 \label{chp:paper-hierarchical}
 
-\textit{This chapter is a piece of original research published as part of the project:} \newline
+\textit{This chapter is a piece of original research by the candidate, previously published elsewhere and reprinted here with permission:} \newline
 \begin{center}
     \begin{enumerate}[leftmargin=8mm,rightmargin=8mm,topsep=0mm,label={[\Alph*]}]
         \setcounter{enumi}{0}
@@ -126,7 +126,7 @@ Typically, a neural network with parameters $\thetab$ is chosen to parameterize 
 The true posterior $p(\zb|\xb)$ is generally not analytically tractable and is approximated by a variational distribution $q_\phib(\zb|\xb)$ parameterized via another neural network with parameters $\phib$. The approximate posterior $q_\phib(\zb|\xb)$ is most often  a diagonal covariance Gaussian.
 The model parameters $\thetab$ and variational parameters $\phib$ are jointly optimized by maximizing the \textit{evidence lower bound} (ELBO),
 \begin{equation}\label{eq_hierarchical:elbo}
-    \log p_\thetab(\xb) \geq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right] \equiv \mathcal{L}(\xb; \thetab, \phib)\ .
+    \log p_\thetab(\xb) \geq \mathbb{E}_{q_\phib(\zb|\xb)} \left[ \log \frac{p_\thetab(\xb,\zb)}{q_\phib(\zb|\xb)} \right] \equiv \mathcal{L}(\xb; \thetab, \phib) \enspace .
 \end{equation}
 For brevity, we will denote $\mathcal{L}(\xb; \thetab, \phib)$ as $\mathcal{L}(\xb)$ or $\mathcal{L}$. The reparameterization trick is used to backpropagate gradients through the stochastic latent variables with low variance.
 
@@ -146,7 +146,7 @@ The inference model can then be defined in two ways respectively referred to as 
 and \textit{top-down} \parencite{sonderby_ladder_2016}
 \begin{equation}
     % q_\phib(\zb|\xb)=q_\phib(\zb^{(L)}|\xb)q_\phib(\zb^{(L-1)}|\zb^{(L)})\cdots q_\phib(\zb^{(2)}|\zb^{(1)}),
-    q_\phib(\zb|\xb) = q_\phib(\zb^{(L)}|\xb)\textstyle\prod_{i=L-1}^{1} q_\phib(\zb^{(i)}|\zb^{(i+1)}) \ .
+    q_\phib(\zb|\xb) = q_\phib(\zb^{(L)}|\xb)\textstyle\prod_{i=L-1}^{1} q_\phib(\zb^{(i)}|\zb^{(i+1)}) \enspace .
 \end{equation}
 Regardless of the choice of inference model, a hierarchical VAE is still trained using the ELBO \cref{eq_hierarchical:elbo}.
 
@@ -198,7 +198,7 @@ Hence, any OOD detection capabilities based on the ELBO $\mathcal{L} = \mathbb{E
 %     \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb^{(i)}|\zb^{(i+1)})}{q_\phib(\zb^{(i)}|\zb^{(i-1)})} + \log \frac{p_\thetab(\zb^{(L)})}{q_\phib(\zb^{(L)}|\zb^{(L-1)})} \Big] .
 % \end{multline}
 \begin{equation}
-    \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb^{(i)}|\zb^{(i+1)})}{q_\phib(\zb^{(i)}|\zb^{(i-1)})} + \log \frac{p_\thetab(\zb^{(L)})}{q_\phib(\zb^{(L)}|\zb^{(L-1)})} \Big] \ .
+    \mathbb{E}_{q_\phib(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\thetab(\zb^{(i)}|\zb^{(i+1)})}{q_\phib(\zb^{(i)}|\zb^{(i-1)})} + \log \frac{p_\thetab(\zb^{(L)})}{q_\phib(\zb^{(L)}|\zb^{(L-1)})} \Big] \enspace .
 \end{equation}
 In general, the absolute log-ratios grow with $\mathrm{dim}(\zb^{(i)})$ as the individual log probability terms are computed by summing over the dimensionality of $\zb^{(i)}$.
 This means that the value of the KL-term is dominated by terms where $\zb^{(i)}$ is high-dimensional. We refer to \cref{sec_hierarchical:analysis} for a more detailed argument.
@@ -241,12 +241,12 @@ On the contrary, a high value indicates that $\mathcal{L}^{>k}$ is looser on the
 We can gather further insights about this score if we write the regular ELBO and the $\mathcal{L}^{>k}$ bounds in the exact form that includes the intractable KL-divergence between the approximate and true posteriors,
 \begin{align}
     \mathcal{L}      &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( q_\phib(\zb|\xb) \parallel p_\thetab(\zb|\xb)\right), \label{eq_hierarchical:likelihoods-as-exact} \\ 
-    \mathcal{L}^{>k} &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( p_\thetab(\zb^{(\leq k)}|\zb^{(>k)}) q_\phib(\zb^{(>k)}|\xb) \parallel p_\thetab(\zb|\xb)\right) \nonumber \ .
+    \mathcal{L}^{>k} &= \log p_\thetab(\xb) - D_{\mathrm{KL}}\left( p_\thetab(\zb^{(\leq k)}|\zb^{(>k)}) q_\phib(\zb^{(>k)}|\xb) \parallel p_\thetab(\zb|\xb)\right) \nonumber \enspace .
 \end{align}
 Subtracting these cancel out the two data likelihood terms $\log p_\thetab(\xb)$ and only the KL-divergences from the approximate to the true posterior remain,
 \begin{align}\label{eq_hierarchical:llr-as-kls}
     LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phib(\zb|\xb) \parallel p_\thetab(\zb|\xb)\right) \\
-                 &\quad + D_{\mathrm{KL}}\left( p_\thetab(\zb^{(\leq k)}|\zb^{(>k)}) q_\phib(\zb^{(>k)}|\xb) \parallel p_\thetab(\zb|\xb)\right) \ . \notag
+                 &\quad + D_{\mathrm{KL}}\left( p_\thetab(\zb^{(\leq k)}|\zb^{(>k)}) q_\phib(\zb^{(>k)}|\xb) \parallel p_\thetab(\zb|\xb)\right) \enspace . \notag
 \end{align}
 
 Hence, it is clear that compared to the likelihood bound $\mathcal{L}^{>k}$, this likelihood-ratio measures divergence exclusively in the latent space whereas $\mathcal{L}^{>k}$ includes the $\log p_\thetab(\xb)$ term similar to the ELBO.

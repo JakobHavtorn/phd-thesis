@@ -3,7 +3,7 @@
 \chapter[a brief overview of unsupervised neural speech representation learning]{A Brief Overview of Unsupervised Neural Speech Representation Learning}
 \label{chp:paper-brief}
 
-\textit{This chapter is a piece of original research published as part of the project:} \newline
+\textit{This chapter is a piece of original research by the candidate, previously published elsewhere and reprinted here with permission:} \newline
 \begin{center}
     \begin{enumerate}[leftmargin=8mm,rightmargin=8mm,topsep=0mm,label={[\Alph*]}]
         \setcounter{enumi}{2}
@@ -56,8 +56,8 @@ Self"=supervised learning is a subset of unsupervised learning \parencite{tsai_s
 \paragraph{Predictive models}
 Similar to classic autoregressive language models \parencite{mikolov_recurrent_2010}, contextualized speech representations can be learned by predicting future values of a simple representation \parencite{oord_representation_2018, chung_unsupervised_2019, schneider_wav2vec_2019, chung_generative_2020, jiang_further_2021} (\textbf{\textsc{prd}}, \cref{tab:model-taxonomy}). Modeling spectrograms directly, autoregressive predictive coding (APC, \citealp{chung_unsupervised_2019}) is perhaps the simplest example in this category. The forward pass and loss are computed as
 \begin{align}
-    \mathbf{c}_{t} &= f(\mathbf{x}_{1:t})  \label{eq_brief:apc_f} \\ 
-    \hat{\mathbf{x}}_{t+k} &= g(\mathbf{c}_{t}) \\
+    \mathbf{c}_{t} &= f(\mathbf{x}_{1:t}) \enspace , \label{eq_brief:apc_f} \\ 
+    \hat{\mathbf{x}}_{t+k} &= g(\mathbf{c}_{t})  \enspace , \\
     \mathcal{L}_t &= \lVert \hat{\mathbf{x}}_{t+k} - \mathbf{x}_{t+k} \rVert_1\enspace.
 \end{align}
 %
@@ -69,8 +69,8 @@ Contrary to generative models, such as WaveNet \parencite{oord_wavenet_2016}, th
 Speech contains localized noise (e.g., phase shifts) that does not inform slow feature learning. Thus, directly modeling speech might not be the best way to learn contextualized representations. Contrastive predictive coding (CPC,  \citealp{oord_representation_2018}) targets a local variable $\mathbf{v}_{1:T}$, learned from the model input $\mathbf{x}_{1:T}$, instead of the input itself. The forward pass is
 %
 \begin{align}
-    \mathbf{v}_{t} &= f_{v}(\mathbf{x}_{t-r:t+r}) \label{eq_brief: cpc local representation} \\
-    \mathbf{c}_{t} &= f_{c}(\mathbf{v}_{1:t}) \\
+    \mathbf{v}_{t} &= f_{v}(\mathbf{x}_{t-r:t+r}) \enspace , \label{eq_brief: cpc local representation} \\
+    \mathbf{c}_{t} &= f_{c}(\mathbf{v}_{1:t}) \enspace , \\
     \hat{\mathbf{v}}_{t,k} &= g_k(\mathbf{c}_{t}) \enspace,
 \end{align}
 %
@@ -96,8 +96,8 @@ A model closely related to the original CPC model is wav2vec \parencite{schneide
 
 \paragraph{Masking-based models} One downside of predictive tasks is that models are primarily unidirectional. Some work has extended APC and CPC inspired models with separate encoders operating in opposite directions \parencite{ling_deep_2020, kawakami_learning_2020, borgholt_scaling_2021}, but these models are still restricted to process left and right context separately. Inspired by the masked language model task used for text-based representation learning \parencite{devlin_bert_2018}, several papers have used masking to overcome this challenge (\textbf{\textsc{msk}}, \cref{tab:model-taxonomy}). Masking refers to replacing parts of the input with zeros or a learned masking vector. For zero-masking \parencite{jiang_improving_2019, liu_mockingjay_2020, wang_unsupervised_2020, chi_audio_2020, ling_decoar_2020}, we have
 \begin{align}
-    \mathbf{c}_{1:T} &= f(\mathbf{x}_{1:T} \circ \mathbf{m}_{1:T})\\
-    \mathbf{\hat{x}}_{t} &= g(\mathbf{c}_{t}) \\
+    \mathbf{c}_{1:T} &= f(\mathbf{x}_{1:T} \circ \mathbf{m}_{1:T}) \enspace , \\
+    \mathbf{\hat{x}}_{t} &= g(\mathbf{c}_{t}) \enspace , \\
     \mathcal{L}_t &= \lVert \mathbf{\hat{x}}_{t} - \mathbf{x}_{t} \rVert_1\enspace,
 \end{align}
 where the $\circ$ operator denotes the Hadamard product, $f(\cdot)$ is typically a transformer encoder or a bidirectional recurrent neural network, $g(\cdot)$ is a step-wise transformation, and $\mathbf{m}_{1:T}$ is a mask such that $m_{t,i} \in \{0,1\}$. Alternatively, $\mathbf{m}_{1:T}$ is used to select which $\mathbf{x}_t$ are replaced by a learned masking vector. The entries of $\mathbf{m}_{1:T}$ are determined by some stochastic policy. One frequent inspiration is SpecAugment \parencite{park_specaugment_2019}, which was originally proposed for supervised speech recognition and applies frequency and time masking to spectrogram representations.
@@ -106,8 +106,8 @@ While temporal masking is most common, frequency masking has also been adopted f
 Combining masking with a contrastive loss, wav2vec 2.0 was the first work to show that a competitive speech recognition model can be learned by fine"=tuning a pre"=trained model with as little as 10 minutes of labeled data. For this model
 %
 \begin{align}
-    \mathbf{v}_{t} &= f_v(\mathbf{x}_{t-r:t+r}) \\
-    \mathbf{c}_{1:T} &= f_c(\mathbf{v}_{1:T} \circ \mathbf{m}_{1:T}) \\
+    \mathbf{v}_{t} &= f_v(\mathbf{x}_{t-r:t+r})  \enspace , \\
+    \mathbf{c}_{1:T} &= f_c(\mathbf{v}_{1:T} \circ \mathbf{m}_{1:T})  \enspace , \\
     \mathbf{q}_t &= g_q(\mathbf{v}_t) \enspace . \label{eq_brief: w2v2 qtz}
 \end{align}
 
@@ -254,7 +254,7 @@ The models covered so far learn representations that maintain a temporal resolut
  
 Early work on global speech representation learning takes inspiration from the autoencoder framework \parencite{kramer_nonlinear_1991}. \textcite{chung_audio_2016} propose a simple sequence-to-sequence autoencoder for learning acoustic word embeddings:
 \begin{align}\label{eq_brief:dec-aw2v}
-    \mathbf{c} &= f(\mathbf{x}_{1:T}) \\
+    \mathbf{c} &= f(\mathbf{x}_{1:T}) \enspace , \\
     \hat{\mathbf{x}}_{1:T} &= g(\mathbf{c}) \enspace ,
 \end{align}
 
@@ -266,13 +266,13 @@ Prior to this work, \textcite{kamper_unsupervised_2015, renshaw_comparison_2015}
 Inspired by the work on semantic word embeddings for text \parencite{mikolov_distributed_2013}, the sequence-to-sequence framework has also been used to implement speech-based versions of the skip-gram and continuous bag-of-words models \parencite{chung_learning_2017, chung_speech2vec_2018}. Given a segment corresponding to a single word $\mathbf{x}_{(n)} = \mathbf{x}_{t_{n}:t_{n+1}}$, the skip-gram model is trained to predict neighboring words $\mathbf{x}_{(n + k)}$ where $k\ne0$. That is, instead of a single decoder, as in \cref{eq_brief:dec-aw2v}, the skip-gram model employs multiple decoders
 %
 \begin{align}
-    \hat{\mathbf{x}}_{(n + k)} = g_k(\mathbf{c})\enspace.
+    \hat{\mathbf{x}}_{(n + k)} = g_k(\mathbf{c}) \enspace .
 \end{align}
 %
 Conversely, the continuous bag-of-words model is trained to predict the target word from the neighboring words, so here multiple encoders sum over several offsets $\mathcal{K}$ to obtain $\mathbf{c}$:
 %
 \begin{align}
-    \mathbf{c} &= \sum_{k\in\mathcal{K}} f_k(\mathbf{x}_{(n + k)}) %\enspace .
+    \mathbf{c} &= \sum_{k\in\mathcal{K}} f_k(\mathbf{x}_{(n + k)}) \enspace .
 \end{align}
 The sequence-to-sequence models described above rely on speech segments corresponding to words. The segments are obtained by supervised forced alignment, but similar models have been explored without this requirement \parencite{jati_speaker2vec_2017, tagliasacchi_pretraining_2020}.
 

@@ -3,7 +3,7 @@
 \chapter[benchmarking generative latent variable models for speech]{Benchmarking Generative Latent Variable Models for Speech}
 \label{chp:paper-benchmarking}
 
-\textit{This chapter is a piece of original research published as part of the project:} \newline
+\textit{This chapter is a piece of original research by the candidate, previously published elsewhere and reprinted here with permission:} \newline
 \begin{center}
     \begin{enumerate}[leftmargin=8mm,rightmargin=8mm,topsep=0mm,label={[\Alph*]}]
         \setcounter{enumi}{3}
@@ -419,7 +419,7 @@ The dependency on $\xb_{t:t+s_l}$ is encoded via a convolutional ladder network 
 \begin{gather}
     p\left(\zb_t^{(l)}|\zb_{t-1}^{(l)},\zb_{t}^{(l+1)}\right) = \mathcal{N}\pa{\alphab_{p}^{l}\pa{\zb_{t-1}^{(l)},\zb_t^{(l+1)}}} \, , \\ \nonumber
     p\left(\xb_t|\zb^{(1)}_{t-s_l/2:t+s_l/2}\right) = \mathcal{D}\pa{\betab\pa{\zb^{(1)}_{t-s_l/2:t+s_l/2}}} \, , \\
-    q\left(\zb_t^{(l)}|\xb_{\scriptscriptstyle\mathcal{S}_t^l},\zb_{t-1}^{(l)},\zb_t^{(l+1)}\right) = \mathcal{N}\pa{\alphab_{q}^{l}\pa{\zb_{t-1}^{(l)},\zb_{t}^{(l+1)},\db_t^{(l)}}} \nonumber
+    q\left(\zb_t^{(l)}|\xb_{\scriptscriptstyle\mathcal{S}_t^l},\zb_{t-1}^{(l)},\zb_t^{(l+1)}\right) = \mathcal{N}\pa{\alphab_{q}^{l}\pa{\zb_{t-1}^{(l)},\zb_{t}^{(l+1)},\db_t^{(l)}}} \enspace . \nonumber
 \end{gather}
 
 

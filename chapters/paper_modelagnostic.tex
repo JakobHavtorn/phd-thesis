@@ -3,7 +3,7 @@
 \chapter[model-agnostic out-of-distribution detection using combined statistical tests]{Model-Agnostic Out-of-Distribution Detection Using Combined Statistical Tests}
 \label{chp:paper-modelagnostic}
 
-\textit{This chapter is a piece of original research published as part of the project:} \newline
+\textit{This chapter is a piece of original research by the candidate, previously published elsewhere and reprinted here with permission:} \newline
 \begin{center}
     \begin{enumerate}[leftmargin=8mm,rightmargin=8mm,topsep=0mm,label={[\Alph*]}]
         \setcounter{enumi}{1}
@@ -84,12 +84,12 @@ A popular way of building statistics for two-sample tests is to use a measure of
 
 More specifically, given a kernel whose feature map is $\Phi : \mathcal{X} \to \mathcal{H}$, the MMD between two distributions $P$ and $Q$ over $\mathcal{X}$ is defined as
 \begin{equation}
-    \textup{MMD}_\Phi(P,Q) = \| E_{X\sim P}[\Phi(X)] - E_{Y\sim Q}[\Phi(Y)] \|_\mathcal{H}. \hspace{-.1em}
+    \textup{MMD}_\Phi(P,Q) = \| E_{X\sim P}[\Phi(X)] - E_{Y\sim Q}[\Phi(Y)] \|_\mathcal{H} \enspace . \hspace{-.1em}
 \end{equation}
 In our context, the test statistics will be of the form
 \begin{equation}
     \label{eq_modelagnostic:mmd}
-    \textup{MMD}_\Phi\left(\frac{1}{m}\sum_{i=1}^{m} x_i,\frac{1}{n}\sum_{i=1}^n \tilde{x}_i\right) = \left\|\frac{1}{m}\sum_{i=1}^{m} \Phi(x_i) -  \frac{1}{n}\sum_{i=1}^{n} \Phi(\tilde{x}_i)\right\|_\mathcal{H},
+    \textup{MMD}_\Phi\left(\frac{1}{m}\sum_{i=1}^{m} x_i,\frac{1}{n}\sum_{i=1}^n \tilde{x}_i\right) = \left\|\frac{1}{m}\sum_{i=1}^{m} \Phi(x_i) -  \frac{1}{n}\sum_{i=1}^{n} \Phi(\tilde{x}_i)\right\|_\mathcal{H} \enspace ,
 \end{equation}
 where $\Phi$ is a kernel feature map built using the generative model and $x_1,\ldots,x_m$ is the training data, i.e.\@ samples from  $p_\textup{data}$. When $\mathcal{H}$ is a simple finite-dimensional Hilbert space and $\Phi$ can be computed easily, then \cref{eq_modelagnostic:mmd} can be computed by going through the data and computing the means in an online fashion.% While the definition seems to imply that we can only perform group-sample OOD detection, it is straightforward to notice that any test statistic of the form of \cref{eq_modelagnostic:mmd} can be used also for single-test OOD detection when $n=1$.%by just substituting  $\frac{1}{n}\sum_{i=1}^{n} \Phi(\tilde{x}_i)$ with simply $\Phi(\tilde{x})$.
 
@@ -100,13 +100,13 @@ Here, we want to use the trained generative model $p_\theta$ to build our kernel
 \paragraph{The Fisher kernel} An important example of kernel based on a generative model is the \emph{Fisher kernel} of \textcite{jaakkola_exploiting_1999}. The embedding of this kernel is the Fisher score 
 \begin{equation}
     \label{eq_modelagnostic:Fisher_score}
-    \Phi_\textup{Fisher} (x) = I(\theta)^{-\frac{1}{2}} \nabla \log p_\theta (x),
+    \Phi_\textup{Fisher} (x) = I(\theta)^{-\frac{1}{2}} \nabla \log p_\theta (x) \enspace ,
 \end{equation}
 
 and the corresponding reproducing kernel Hilbert space norm is just the $\ell_2$ norm: $|| \cdot || _\mathcal{H} = || \cdot ||_2$. In the case of the Fisher kernel, this means that \cref{eq_modelagnostic:mmd} becomes:
 \begin{multline}
     \label{eq_modelagnostic:mmd_fisher}
-    \textup{MMD}_{\Phi_\textup{Fisher}}\left(\frac{1}{m} \sum_{i=1}^{m} x_i,\frac{1}{n}\sum_{i=1}^n \tilde{x}_i\right) = \\ \left\|\frac{I(\theta)^{-\frac{1}{2}}}{m} \sum_{i=1}^{m}  \nabla \log p_\theta (x_i) - \frac{I(\theta)^{-\frac{1}{2}}}{n}  \sum_{i=1}^{n}  \nabla \log p_\theta (\tilde{x}_i)\right\|_2.
+    \textup{MMD}_{\Phi_\textup{Fisher}}\left(\frac{1}{m} \sum_{i=1}^{m} x_i,\frac{1}{n}\sum_{i=1}^n \tilde{x}_i\right) = \\ \left\|\frac{I(\theta)^{-\frac{1}{2}}}{m} \sum_{i=1}^{m}  \nabla \log p_\theta (x_i) - \frac{I(\theta)^{-\frac{1}{2}}}{n}  \sum_{i=1}^{n}  \nabla \log p_\theta (\tilde{x}_i)\right\|_2 \enspace .
 \end{multline}
 We will see later that MMD with a Fisher kernel is closely related to the score statistic. In \cref{appendix_modelagnostic:mahalanobis}, we additionally show that another popular OOD metric known as the \emph{Mahalanobis score} \parencite{lee_simple_2018} can be interpreted as a MMD statistic with a certain Fisher kernel.
 
@@ -115,7 +115,7 @@ We will see later that MMD with a Fisher kernel is closely related to the score 
 
 \paragraph{The typicality kernel} A very simple approach of embedding the data using $p_\theta$ is to choose $\Phi_\textup{Typical}(x) = \log p_\theta (x)$. Then, MMD is exactly equivalent to the \emph{typicality test statistic} of \textcite{nalisnick_detecting_2019}, although this connection was not explicitly stated  by \textcite{nalisnick_detecting_2019}. Because of this, we call the kernel $k(x,y) = \log p_\theta (x) \cdot \log p_\theta (y)$ the \emph{typicality kernel}.  %We could also call this "new" kernel the "likelihood kernel".
 %While $\Phi_\textup{Typical}$ is not as well motivated as the Fisher kernel, we found that it generally gives good results. 
-While $\Phi_\textup{Typical}$ is not as well motivated as a kernel as $\Phi_\textup{Fisher}$, the concepts of typicality and typical set can be used to explain unintuitive behaviours of probability distributions in high-dimensional space as highlighted by \textcite{nalisnick_deep_2019}. We also found that using this kernel generally gives good results for OOD tasks. An interesting analysis that we'd not consider in this paper would be to study the properties of this kernel.
+While $\Phi_\textup{Typical}$ is not as well motivated as a kernel as $\Phi_\textup{Fisher}$, the concepts of typicality and typical set can be used to explain unintuitive behaviors of probability distributions in high-dimensional space as highlighted by \textcite{nalisnick_deep_2019}. We also found that using this kernel generally gives good results for OOD tasks. An interesting analysis that we'd not consider in this paper would be to study the properties of this kernel.
 
 
 
@@ -144,10 +144,12 @@ We then use these values to estimate the empirical distribution function (eCDF) 
 Fisher's \citeyearpar{fisher_statistical_1925} method is a procedure to combine different $p$-values $p_1,\dots, p_k$. This method assumes that all the considered test statistics are independent, and \textcite{folks_asymptotic_1971} proved that it is asymptotically optimal among all methods of combining independent tests.
 %
 Given $T_1,\dots, T_k$ and corresponding $p$-values $p_1,\dots, p_k$, Fisher's method combines the $p$-values into a test statistic $X^2$ defined as
+%
 \begin{equation}
     \label{eq_modelagnostic:Fisher_method}
-    X^2 \sim -2 \sum_{j=1}^{k} \ln (p_j).
+    X^2 \sim -2 \sum_{j=1}^{k} \ln (p_j) \enspace .
 \end{equation}
+%
 In case all null-hypotheses are accepted, the resulting test statistic $X^2$ follows a chi-squared distribution with $2k$ degrees of freedom. 
 %
 In the \cref{appendix_modelagnostic:harmonic}, we also consider the Harmonic mean $p$-value \parencite{wilson_harmonic_2019} as a way to combine $p$-values from different statistics. This method usually works best when the statistics are not independent.
@@ -182,15 +184,19 @@ In this simple Gaussian case, the score statistic can be computed exactly and wi
 
 \paragraph{Typicality fails, the score succeeds}
 
-Assume that we have two independent OOD data samples that follow a product of truncated normal distributions, with density proportional to $$\mathcal{N}(x | 0,I_D) \cdot  \mathbf{1}\{x_1>0,\ldots,x_D>0\}.$$
-
+Assume that we have two independent OOD data samples that follow a product of truncated normal distributions, with density proportional to
+%
+\begin{equation}
+    \mathcal{N}(x | 0,I_D) \cdot  \mathbf{1}\{x_1>0,\ldots,x_D>0\} \enspace .
+\end{equation}
+%
 We denote by $T_\text{score}^\text{ood},T_\text{score}^\text{id}$ and $T_\text{typicality}^\text{ood},T_\text{typicality}^\text{id}$ the statistics obtained when confronted with either OOD data from the truncated normal, or the in-distribution data. While these statistics are random in general, they will become deterministic when $D \to \infty$, by virtue of the law of large numbers.
 
 For the typicality statistic, these two OOD samples will be indistinguishable from Gaussian ones. Indeed, when $D \to \infty$, both $T_\text{typicality}^\text{ood}$ and $T_\text{typicality}^\text{id}$ will be $\mathcal{O}(D)$.
 %
 On the other hand, for the score, one can show that
 \begin{equation}
-T_\text{score}^\text{ood} - T_\text{score}^\text{id} \sim 2 D \mu_\text{TN}^2,
+T_\text{score}^\text{ood} - T_\text{score}^\text{id} \sim 2 D \mu_\text{TN}^2 \enspace ,
 \end{equation}
 where $\mu_\text{TN}>0$ is the mean of the truncated normal distribution.
 

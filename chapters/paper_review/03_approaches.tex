@@ -200,8 +200,8 @@ this issue and allow encoding information from the entire input.
 It uses a forward LSTM $f_1(\cdot)$ to encode $X_{[1,t]}$ and a backward LSTM
 $f_2(\cdot)$ to encode $X_{[t+k,T]}$, where $k>1$: 
 \begin{gather}
-    H_{[1,t]} = f_1(X_{[1,t]}), \\
-    H^\prime_{[t+k,T]} = f_2(X_{[t+k,T]}), \\
+    H_{[1,t]} = f_1(X_{[1,t]}) \enspace , \\
+    H^\prime_{[t+k,T]} = f_2(X_{[t+k,T]}) \enspace , \\
     \hat{X}_{[t+1,t+k-1]} = g(h_t, h^\prime_{t+k}) \enspace .
 \end{gather}
 The input feature vector used in the downstream tasks is the concatenation of
@@ -215,9 +215,9 @@ Masked reconstruction is largely inspired by the masked language model (MLM) tas
 From a high-level perspective, the training phase of models using masked
 reconstruction can be formulated as
 \begin{align}
-    H &= f(m(X)), \\
-    \hat{x}_t &= g(h_{t}), \\
-    \mathcal{L}_t &= \lVert \hat{x}_{t} - x_{t} \rVert_1 .
+    H &= f(m(X)) \enspace , \\
+    \hat{x}_t &= g(h_{t}) \enspace , \\
+    \mathcal{L}_t &= \lVert \hat{x}_{t} - x_{t} \rVert_1 \enspace .
 \end{align}
 \edit{The exact masking policy defined by $m(\cdot)$ differs from model to model and will be discussed further below.}
 The function $f(\cdot)$ is typically a Transformer encoder~\parencite{liu_mockingjay_2020,jiang_improving_2019,liu_masked_2020}, but recurrent neural networks have also been used~\parencite{wang_unsupervised_2020}. \edit{In general, the Transformer encoder architecture has been adopted widely by self"=supervised models for speech within all three surveyed categories.} \edit{The function $g(\cdot)$ is usually a linear projection or a multilayer perceptron (MLP)}. Finally, the loss $\mathcal{L}_t$ is commonly computed only for masked timesteps in order to discourage the model from learning an identity mapping.
