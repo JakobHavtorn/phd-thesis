@@ -92,7 +92,7 @@ By doing this, the information entropy becomes positive, dimensionally correct, 
         \widetilde{w}(y)\,dy = w(x)\,dx \enspace , \quad
         \widetilde{q}(y)\,dy = q_X(x)\,dx \enspace .
     \end{align*}
-    Plugging this into the differential entropy \cref{eq:corrected-differential-entropy-jaynes} we arrive at the original expression but now with $y$ as the independent variable,
+    Plugging this into \cref{eq:corrected-differential-entropy-jaynes} we arrive at the original expression but now with $y$ as the independent variable,
     \begin{equation*}
         H_{N\rightarrow\infty}(y(x)) =  = - \int_{\mathcal{Y}} \widetilde{w}(y)\,\frac{dy}{dx} \log \left( \frac{\widetilde{w}(y)\frac{dy}{dx}}{\widetilde{q}(y)\frac{dy}{dx}} \right) \, dx = - \int_{\mathcal{Y}} w(y) \log \left( \frac{w(y)}{q(y)} \right) \, dy \enspace .
     \end{equation*}
@@ -108,7 +108,7 @@ The Kullback-Leibler divergence $D_{\mathrm{KL}}(p_X(x)\parallel q_X(x))$, also 
 
 Returning to Jaynes' argument and \cref{eq:corrected-differential-entropy-jaynes}, we can interpret this to say that the information entropy of a continuous random variable $X$ should be defined as the expected difference in information entropy between its density and a uniform density. 
 Identifying the Kullback-Leibler divergence as a measure of this relative information entropy provides a natural point of convergence for this section since it is equivalently defined for both discrete and continuous random variables, contrary to the differential entropy. 
-In this view, information entropy is a quantity that distills the distribution of a random variable into a single number that describes the diversity of the potential outcomes of the random variable.
+In this view, information entropy is a quantity that distills the distribution of a random variable into a single number describing the diversity of the potential outcomes of the random variable.
 
 The Kullback-Leibler divergence plays a central role in the training of variational autoencoders, which we introduce in \cref{sec:variational-autoencoders}. In \cref{chp:paper-hierarchical} we shall see how the Kullback-Leibler divergence emerges in a likelihood-ratio test statistic for out-of-distribution detection using hierarchical variational autoencoders. 
 In the remainder of the thesis, we will write the density of a random variable $X$ as $p(x)$, dropping the subscript, as is usual in machine learning. 
@@ -130,7 +130,7 @@ In the remainder of the thesis, we will write the density of a random variable $
 %   - Unsupervised: Whether x should be trusted and used at all. 
 %
 In \cref{subsec: overview-of-out-of-distribution-detection} we introduce out-of-distribution (OOD) detection and connect it to the concept of uncertainty. 
-Since the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic} are relatively short, we also provide a concise review of the literature on out-of-distribution detection in \cref{subsec: supervised-out-of-distribution-detection, subsec: unsupervised-out-of-distribution-detection}. 
+Since the related work sections of the papers in \cref{chp:paper-hierarchical,chp:paper-modelagnostic} are relatively short, we also provide a concise review of the literature on out-of-distribution detection in \cref{subsec: supervised-out-of-distribution-detection} and \ref{subsec: unsupervised-out-of-distribution-detection}. 
 
 
 \subsection{An overview of the task}\label{subsec: overview-of-out-of-distribution-detection}
