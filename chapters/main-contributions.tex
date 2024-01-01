@@ -7,8 +7,8 @@
 \newcommand{\contribitem}[1]{{\vspace{1em}\noindent\scshape\bfseries\Large{\color{dtured}\cref{#1}}\\\ucnameref{#1}}\\}
 
 The chapters of \cref{part:unsupervised-uncertainty-estimation,part:unsupervised-speech-representation-learning,part:medical-applications} are self-contained studies and therefore detail their own research hypotheses and contributions.
-Since each study was written without consideration to the other chapters of the thesis, we here detail them in relation to the overall research project. 
-This constitutes the research hypotheses and contributions of the thesis.
+Since each study was written without consideration to the other chapters of this thesis, we here detail them in relation to the overall research project. 
+This constitutes the research hypotheses and the contributions of the thesis.
 
 % The chapters are structured into three parts: {\color{black}\cref{part:unsupervised-uncertainty-estimation}} is concerned with unsupervised uncertainty estimation, {\color{black}\cref{part:unsupervised-speech-representation-learning}} is concerned with self"=supervised speech representation learning, and {\color{black}\cref{part:medical-applications}} contains studies on machine learning methods applied for tasks in a medical setting.  Finally, {\color{black}\cref{part:discussion-and-conclusion}} contains a discussion and the conclusion of the thesis.
 
@@ -40,11 +40,11 @@ Finally, we discuss the benefits of casting out-of-distribution detection as a s
 
 \contribitem{part:unsupervised-speech-representation-learning}
 This part deals with unsupervised learning of speech representations and consists of two papers. Speech representations are fundamental to any practical system for decision support as well as for uncertainty quantification on speech data. 
-The contributions of this part lie in analyzing and comparing different approaches to speech representation along with a comprehensive overview of the field.
+The contributions of this part lie in analyzing and comparing different approaches to speech representation and in providing a comprehensive overview of the field.
 
 \contribitem{chp:paper-brief}
-In this chapter, we present a comprehensive overview of unsupervised neural representation learning for speech. Previous research is categorized into self"-supervised methods and probabilistic latent variable models and described in a common notation. This description assists in developing a model taxonomy that shapes a discussion of the models' representational power, the associated learning strategies, and the methods used to evaluate them. The discussion points to interesting avenues of future research. 
-An extended version of this overview paper that focuses exclusively on self"=supervised methods was also published as part of the project \ref{enumerate: paper-review} \parencite{mohamed_selfsupervised_2022}. This paper is included in \cref{app:paper-review} for reference.
+In this chapter, we present a comprehensive overview of unsupervised neural representation learning for speech. Previous research is categorized into self"=supervised methods and probabilistic latent variable models and described in a common notation. This description assists in developing a model taxonomy that shapes a discussion of the models' representational power, the associated learning strategies, and the methods used to evaluate them. The discussion points to interesting avenues of future research. 
+An extended version of this overview paper that focuses exclusively on self"=supervised methods was also published as part of the project \ref{enumerate: paper-review} \parencite{mohamed_selfsupervised_2022} and this paper is included in \cref{app:paper-review} for reference.
 
 \contribitem{chp:paper-benchmarking}
 This chapter develops a novel hierarchical latent variable model for speech, drawing inspiration from the Clockwork VAE \parencite{saxena_clockwork_2021}. A comparative benchmark against alternative latent variable models and autoregressive models for speech highlights the improvements to likelihood brought by using hierarchical latent variables. The paper also analyzes the latent spaces learned by the models in terms of phonetic content.
@@ -79,13 +79,13 @@ This chapter develops a novel hierarchical latent variable model for speech, dra
 \contribitem{part:medical-applications}
 This part contains two studies on machine learning methods applied for tasks in a medical setting. The contributions of the first are methodological focusing on improved comparability and reproducibility of studies on automated medical coding. The second is a retrospective study on machine learning-assisted stroke recognition focusing on the potential clinical impact of using machine learning to recognize stroke cases in emergency calls. 
 While uncertainty estimation is not a central theme to the two papers, the retrospective study performs a substantial evaluation of the explainability of the proposed model via an occlusion analysis on the text input. 
-Later, in the discussion, we shall further consider uncertainty estimation in relation to medical applications focusing on the retrospective study.
+Later, in the discussion, we further consider uncertainty estimation in relation to medical applications focusing on the retrospective study (\cref{sec: discussion-stroke-recognition-uncertainty}).
 % \moretodo[inline]{Revise and add more details to this section. Do we discuss uncertainty for medical coding?}
 
 \contribitem{chp:paper-automated}
 In this paper, we review the current state-of-the-art in automated medical coding of clinical notes. 
 We hypothesize that several previous works underperform for reasons more related to suboptimal hyperparameter tuning, incorrect evaluation, and crude data handling than to model design, and that performance and comparability can be improved by addressing these issues. 
-We first reproduce, analyze and compare several models on the MIMIC-III dataset showing that poor performance is indeed attributable to weak configuration of the training and crudely sampled train-test splits with many extremely rare classes - several without examples in the training data. 
+We first reproduce, analyze and compare several models on the MIMIC-III dataset showing that poor performance is indeed attributable to weak configuration of the training and poorly sampled train-test splits with many extremely rare classes - several without examples in the training data. 
 We also identify and correct a widespread error in the calculation of the macro F1-score. 
 To compare models, we propose new data splits created with stratified sampling, use identical experimental setups and tune hyperparameters and decision boundaries. 
 By analyzing prediction errors, we confirm the observation of previous work that all models struggle with rare codes, although, contrary to previous claims, long documents only have a negligible impact on performance. 
