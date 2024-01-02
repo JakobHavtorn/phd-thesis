@@ -395,7 +395,7 @@ Several other works also use self"=supervised representations of the in-domain d
 \textcite{ahmadian_likelihoodfree_2021} propose to use the latent representation of an invertible generative model to compute the OOD score.
 
 
-\section{Variational autoencoders}
+\section{Variational autoencoders}\label{sec:variational-autoencoders}
 %
 % \paragraph{Deep generative models} 
 Variational autoencoders (VAEs) belong to the class of deep generative models. 
@@ -427,7 +427,7 @@ In many latent variable models, the joint distribution is factorized as $p(\xb,\
 % In these cases, approximate methods such as variational inference \parencite{jordan_introduction_1999} and Markov Chain Monte Carlo (MCMC) \parencite{mohamed_monte_2019} are used to approximately compute the marginal and posterior distributions. 
 
 
-\subsection{Variational inference} \label{sec:variational-autoencoders}
+\subsection{Variational inference}
 To model high-dimensional data, we want to use neural networks to represent the generative process. 
 This leads to deep latent variable models which were pioneered by \textcite{kingma_autoencoding_2014,rezende_stochastic_2014}. The authors propose to factor the joint distribution and parameterize it using a neural network with parameters $\thetab$ and let $p_\thetab(\xb,\zb) = p_\thetab(\xb|\zb)p(\zb)$ where $p(\zb)$ is a prior. 
 

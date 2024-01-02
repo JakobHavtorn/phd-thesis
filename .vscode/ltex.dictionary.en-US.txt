@@ -212,3 +212,4 @@ Wescoff
 WGAN
 Wishart
 ZeroSpeech
+Vigga
