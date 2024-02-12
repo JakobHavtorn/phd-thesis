@@ -1,0 +1,111 @@
+% !TEX root = presentation.tex
+% !BIB program = biber
+% !TEX program = xelatex
+
+
+\documentclass[aspectratio=169,xetex]{beamer}
+
+% Default packages
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{fillbetween}
+\pgfmathdeclarefunction{gauss}{2}
+    {\pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}}
+
+\usepackage{tikz}
+\usetikzlibrary{
+    arrows,
+    matrix,
+    positioning,
+    shapes,
+    shapes.multipart,
+    topaths,
+    bayesnet,
+}
+\tikzset{
+state/.style={
+       rectangle split,
+       rectangle split parts=2,
+       rectangle split part fill={red!30,blue!20},
+       rounded corners,
+       draw=black, very thick,
+       minimum height=2em,
+       text width=3cm,
+       inner sep=2pt,
+       text centered,
+       }
+}
+\usepackage{xcolor}
+\definecolor{Blue}{rgb}{0.0,0.0,1.0}
+\definecolor{Red}{rgb}{1.0,0.0,0.0}
+
+\usepackage[
+    backend=biber,
+    style=numeric,
+    sorting=ynt
+]{biblatex}
+\addbibresource{../bibliography/zotero-references.bib}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+% Load preamble from thesis
+\definecolor{customgreen} {RGB}{217	234	212}
+\definecolor{customblue}  {RGB}{205	226	242}
+\definecolor{custommorered}{RGB}{218 46 42}
+\definecolor{customred}{RGB}{255 182 173}%{255 149 150}
+
+\colorlet{observed-color}{customgreen}
+\colorlet{latent-color}{customblue}
+\colorlet{deterministic-color}{gray!15}
+\colorlet{deterministic-skip-color}{custommorered}
+\colorlet{shared-function-color}{blue}
+
+
+\input{../preamble/fonts.tex}
+\input{../preamble/bayesnet_extras}
+% \input{../preamble/etc.tex}
+\input{../preamble/dtucolors.sty}
+\input{../preamble/static.tex}
+\input{../preamble/macros.tex}
+
+% Use DTU theme, see below for options
+\usetheme[department=compute]{DTU}
+
+\title{\color{dtured}\noindent\large\MakeUppercase{\thesistitle}}
+\subtitle{\noindent\normalsize\MakeUppercase{\thesissubtitle}}
+\author{Jakob D. Havtorn}
+% \institute{
+% \\
+% $^{1}$Department of Applied Mathematics and Computer Science, Technical University of Denmark\\
+% $^2$Corti AI, Copenhagen
+% }
+\date{\today}
+
+\newcommand{\tabitem}{{\color{dtured}$\bullet$} }
+
+\begin{document}
+
+% Title slide
+\frame{\maketitle}
+
+\include{parts/introduction}
+
+% \section*{}
+\include{parts/paper_hierarchical}
+
+% End slide
+\frame{\centering\Huge Thank you for your attention}
+
+% Bibliography slide
+\begin{frame}[allowframebreaks]{Bibliography}\printbibliography\end{frame}
+
+\end{document}

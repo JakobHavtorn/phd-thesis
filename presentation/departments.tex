@@ -1,0 +1,130 @@
+% departments.tex
+% This file is a part of the DTU letter package and contains the file path for
+% the grahic file, and text name for the different departments.
+%
+% Changelog
+% 2010-04-07 Added % at the end of each line to make it possible to use the definitions in the documentation
+% 2010-04-09 Added the 5th mandatory argument (long text name)
+% 2010-04-23 Moved the new argument, #6, to #4 and added all info. However two graphic files are missing and I have therefore made a test: if the graphic file is missing the administration logo is used.  
+% 2013-02-11 Added compute and diplom department entries.  Added check to see that the department macros are defined, otherwise an error is printed.
+% 
+%\makeDepartmentInfo{<danish|english>}dtu_dep_name_logo/{<dedtu_dep_logo/partmentname>}{<dtu_frise/text graphic file name>}{<Big department logo file name>}{<department text name>}{<department long text name>}
+%
+
+\RequirePackage{etoolbox}
+
+\newcommand\setDepartmentNameLogo[1]{\def\@departmentNameLogo{#1}}%
+\newcommand\thedepartmentNameLogo{\@departmentNameLogo}%
+\newcommand\setDepartmentNameText[1]{\def\@departmentNameText{#1}}%
+\newcommand\thedepartmentNameText{\@departmentNameText}%
+\newcommand\setDepartmentLongNameText[1]{\def\@departmentLongNameText{#1}}%
+\newcommand\thedepartmentLongNameText{\@departmentLongNameText}%
+\newcommand\setDepartmentLogo[1]{\def\@departmentLogo{#1}}%
+\newcommand\thedepartmentLogo{\@departmentLogo}%
+\newcommand\setDepartmentFrise[1]{\def\@departmentFrise{#1}}%
+\newcommand\thedepartmentFrise{\@departmentFrise}%
+%
+\newcommand\createDepartment[1]{%
+\expandafter\def\csname department@#1\endcsname{#1}}%
+%
+\newcommand\aliasDepartment[2]{%
+\expandafter\def\csname department@#2\endcsname{#1}}%
+%
+\ifundef{\makeDepartmentInfo}{%
+	\newcommand\makeDepartmentInfo[7]{%
+		\def\@departmentcmd{\csname department@#2\endcsname}
+		\createDepartment{#2}
+		\expandafter\def\csname namelogo#1@\@departmentcmd\endcsname{\setDepartmentNameLogo{#3}}%
+		\expandafter\def\csname deplogo#1@\@departmentcmd\endcsname{\setDepartmentLogo{#4}}%
+		\expandafter\def\csname depfrise#1@\@departmentcmd\endcsname{\setDepartmentFrise{#5}}%
+		\expandafter\def\csname nametext#1@\@departmentcmd\endcsname{\setDepartmentNameText{#6}}%
+		\expandafter\def\csname namelongtext#1@\@departmentcmd\endcsname{\setDepartmentLongNameText{#7}}%
+		
+	}%
+}{}%
+%
+\newcommand\activateDepartmentInfo[2]{%
+	\ifcsname department@#2\endcsname%
+		\def\@departmentcmd{\csname department@#2\endcsname}%
+	\else%
+		\def\@departmentcmd{\department@admin}%
+	\fi%
+	\csname namelogo#1@\@departmentcmd\endcsname% TODO test if command exists before executing it
+	\csname nametext#1@\@departmentcmd\endcsname%
+	\csname namelongtext#1@\@departmentcmd\endcsname%
+	\csname deplogo#1@\@departmentcmd\endcsname%
+	\csname depfrise#1@\@departmentcmd\endcsname%
+	% \fromdepartment{\thedepartmentLongNameText}
+}%
+%
+\makeDepartmentInfo{danish}{aqua}{dtu_dep_name_logo/tex_aqua_dk}{dtu_dep_logo/tex_dtu_aqua_a}{dtu_frise/tex_dtu_aqua_frise}{DTU Aqua}{Institut for Akvatiske Ressourcer}%
+\makeDepartmentInfo{english}{aqua}{dtu_dep_name_logo/tex_aqua_uk}{dtu_dep_logo/tex_dtu_aqua_a_uk}{dtu_frise/tex_dtu_aqua_frise}{DTU Aqua}{National Institute of Aquatic Resources}%
+
+\makeDepartmentInfo{danish}{byg}{dtu_dep_name_logo/tex_byg_dk}{dtu_dep_logo/tex_dtu_byg_a}{dtu_frise/tex_dtu_byg_frise}{DTU Byg}{Institut for Byggeri og Anl\ae g}%
+\makeDepartmentInfo{english}{byg}{dtu_dep_name_logo/tex_byg_uk}{dtu_dep_logo/tex_dtu_byg_a_uk}{dtu_frise/tex_dtu_byg_frise}{DTU Civil Engineering}{Department of Civil Engineering}%
+
+\makeDepartmentInfo{danish}{compute}{dtu_dep_name_logo/tex_compute_uk}{dtu_dep_logo/tex_dtu_compute_a}{dtu_frise/tex_dtu_frise}{DTU Compute}{Institut for Matematik og Computer Science}
+\makeDepartmentInfo{english}{compute}{dtu_dep_name_logo/tex_compute_uk}{dtu_dep_logo/tex_dtu_compute_a_uk}{dtu_frise/tex_dtu_frise}{DTU Compute}{Department of Applied Mathematics and Computer Science}
+
+\makeDepartmentInfo{danish}{elektro}{dtu_dep_name_logo/tex_elektro_dk}{dtu_dep_logo/tex_dtu_elektro_a}{dtu_frise/tex_dtu_frise}{DTU Elektro}{Institut for Elektroteknologi}
+\makeDepartmentInfo{english}{elektro}{dtu_dep_name_logo/tex_elektro_uk}{dtu_dep_logo/tex_dtu_elektro_a_uk}{dtu_frise/tex_dtu_frise}{DTU Electrical Engineering}{Department of Electrical Engineering}
+
+\makeDepartmentInfo{danish}{energi}{dtu_dep_name_logo/tex_energikonvertering_dk}{dtu_dep_logo/tex_dtu_energi_a}{dtu_frise/tex_dtu_energi_frise}{DTU Energi}{Institut for Energikonvertering og -lagring}
+\makeDepartmentInfo{english}{energi}{dtu_dep_name_logo/tex_energikonvertering_uk}{dtu_dep_logo/tex_dtu_energi_a_uk}{dtu_frise/tex_dtu_energi_frise}{DTU Energy}{Department of Energy Conversion and Storage}
+
+\makeDepartmentInfo{danish}{fotonik}{dtu_dep_name_logo/tex_fotonik_dk}{dtu_dep_logo/tex_dtu_fotonik_a}{dtu_frise/tex_dtu_frise}{DTU Fotonik}{Institut for Fotonik}
+\makeDepartmentInfo{english}{fotonik}{dtu_dep_name_logo/tex_fotonik_uk}{dtu_dep_logo/tex_dtu_fotonik_a_uk}{dtu_frise/tex_dtu_frise}{DTU Fotonik}{Department of Photonics Engineering}
+
+\makeDepartmentInfo{danish}{fysik}{dtu_dep_name_logo/tex_fysik_dk}{dtu_dep_logo/tex_dtu_fysik_a}{dtu_frise/tex_dtu_fysik_frise}{DTU Fysik}{Institut for Fysik}
+\makeDepartmentInfo{english}{fysik}{dtu_dep_name_logo/tex_fysik_uk}{dtu_dep_logo/tex_dtu_fysik_a_uk}{dtu_frise/tex_dtu_fysik_frise}{DTU Physics}{Department of Physics}
+
+\makeDepartmentInfo{danish}{food}{dtu_dep_name_logo/tex_fodevareinstituttet_dk}{dtu_dep_logo/tex_dtu_fdevareinstituttet_a}{dtu_frise/tex_dtu_frise}{DTU F\o devareinstituttet}{F\o devareinstituttet}
+\makeDepartmentInfo{english}{food}{dtu_dep_name_logo/tex_fodevareinstituttet_uk}{dtu_dep_logo/tex_dtu_fdevareinstituttet_a_uk}{dtu_frise/tex_dtu_frise}{DTU Food}{National Food Institute}
+
+\makeDepartmentInfo{danish}{kemi}{dtu_dep_name_logo/tex_kemi_dk}{dtu_dep_logo/tex_dtu_kemi_a}{dtu_frise/tex_dtu_kemi_frise}{DTU Kemi}{Institut for Kemi}
+\makeDepartmentInfo{english}{kemi}{dtu_dep_name_logo/tex_kemi_uk}{dtu_dep_logo/tex_dtu_kemi_a_uk}{dtu_frise/tex_dtu_kemi_frise}{DTU Chemistry}{Department of Chemistry}
+
+\makeDepartmentInfo{danish}{kemiteknik}{dtu_dep_name_logo/tex_kemiteknik_dk}{dtu_dep_logo/tex_dtu_kemiteknik_a}{dtu_frise/tex_dtu_kemiteknik_frise}{DTU Kemiteknik}{Institut for Kemiteknik}
+\makeDepartmentInfo{english}{kemiteknik}{dtu_dep_name_logo/tex_kemiteknik_uk}{dtu_dep_logo/tex_dtu_kemiteknik_a_uk}{dtu_frise/tex_dtu_kemiteknik_frise}{DTU Chemical Engineering}{Department of Chemical and Biochemical Engineering}
+
+\makeDepartmentInfo{danish}{management}{dtu_dep_name_logo/tex_management_dk}{dtu_dep_logo/tex_dtu_management_a}{dtu_frise/tex_dtu_frise}{DTU Management}{Institut for Systemer, Produktion og Ledelse}
+\makeDepartmentInfo{english}{management}{dtu_dep_name_logo/tex_management_uk}{dtu_dep_logo/tex_dtu_management_a_uk}{dtu_frise/tex_dtu_frise}{DTU Management Engineering}{Department of Management Engineering}
+
+\makeDepartmentInfo{danish}{mekanik}{dtu_dep_name_logo/tex_mekanik_dk}{dtu_dep_logo/tex_dtu_mekanik_a}{dtu_frise/tex_dtu_mek_frise}{DTU Mekanik}{Institut for Mekanisk Teknologi}
+\makeDepartmentInfo{english}{mekanik}{dtu_dep_name_logo/tex_mekanik_uk}{dtu_dep_logo/tex_dtu_mekanik_a_uk}{dtu_frise/tex_dtu_mek_frise}{DTU Mechanical Engineering}{Department of Mechanical Engineering}
+
+\makeDepartmentInfo{danish}{miljo}{dtu_dep_name_logo/tex_miljo_dk}{dtu_dep_logo/tex_dtu_milj_a}{dtu_frise/tex_dtu_miljoe_frise}{DTU Milj\o}{Institut for Vand og Milj\o teknologi}
+\makeDepartmentInfo{english}{miljo}{dtu_dep_name_logo/tex_miljo_uk}{dtu_dep_logo/tex_dtu_milj_a_uk}{dtu_frise/tex_dtu_miljoe_frise}{DTU Environment}{Department of Environmental Engineering}
+
+\makeDepartmentInfo{danish}{nanotek}{dtu_dep_name_logo/tex_nanotek_dk}{dtu_dep_logo/tex_dtu_nanotek_a}{dtu_frise/tex_dtu_frise}{DTU Nanotek}{Institut for Mikro- og Nanoteknologi}
+\makeDepartmentInfo{english}{nanotek}{dtu_dep_name_logo/tex_nanotek_uk}{dtu_dep_logo/tex_dtu_nanotek_a_uk}{dtu_frise/tex_dtu_frise}{DTU Nanotech}{Department of Micro- and Nanotechnology}
+
+\makeDepartmentInfo{danish}{space}{dtu_dep_name_logo/tex_space_dk}{dtu_dep_logo/tex_dtu_space_a}{dtu_frise/tex_dtu_space_frise}{DTU Space}{Institut for Rumforskning og Rumteknologi}
+\makeDepartmentInfo{english}{space}{dtu_dep_name_logo/tex_space_uk}{dtu_dep_logo/tex_dtu_space_a_uk}{dtu_frise/tex_dtu_space_frise}{DTU Space}{National Space Institute}
+
+\makeDepartmentInfo{danish}{systembiologi}{dtu_dep_name_logo/}{tedtu_dep_logo/x_dtu_systembiologi_a}{dtu_frise/tex_dtu_frise}{DTU Systembiologi}{Institut for Systembiologi}
+\makeDepartmentInfo{english}{systembiologi}{dtu_dep_name_logo/}{tedtu_dep_logo/x_dtu_systembiologi_a_uk}{dtu_frise/tex_dtu_frise}{DTU Systems Biology}{Department of Systems Biology}
+
+\makeDepartmentInfo{danish}{transport}{dtu_dep_name_logo/tex_transport_dk}{dtu_dep_logo/tex_dtu_transport_a}{dtu_frise/tex_dtu_transport_frise}{DTU Transport}{Institut for Transport}
+\makeDepartmentInfo{english}{transport}{dtu_dep_name_logo/tex_transport_uk}{dtu_dep_logo/tex_dtu_transport_a_uk}{dtu_frise/tex_dtu_transport_frise}{DTU Transport}{Department of Transport}
+
+\makeDepartmentInfo{danish}{vaterinaerinstituttet}{dtu_dep_name_logo/tex_veterinaertinstituttet_dk}{dtu_dep_logo/tex_dtu_veterinerinstituttet_a}{dtu_frise/tex_dtu_vet_frise}{DTU Veterin\ae rinstituttet}{Veterin\ae rinstituttet}
+\makeDepartmentInfo{english}{vaterinaerinstituttet}{dtu_dep_name_logo/tex_veterinaertinstituttet_uk}{dtu_dep_logo/tex_dtu_veterinerinstituttet_a_uk}{dtu_frise/tex_dtu_vet_frise}{DTU Vet}{National Veterinary Institute}
+
+\makeDepartmentInfo{danish}{vindenergi}{dtu_dep_name_logo/tex_vindenergi_dk}{dtu_dep_logo/tex_dtu_vindenergi_a}{dtu_frise/tex_dtu_vindenergi_frise}{DTU Vindenergi}{Institut for Vindenergi}
+\makeDepartmentInfo{english}{vindenergi}{dtu_dep_name_logo/tex_vindenergi_uk}{dtu_dep_logo/tex_dtu_vindenergi_a_uk}{dtu_frise/tex_dtu_vindenergi_frise}{DTU Wind Energy}{Department of Wind Energy}
+
+
+% Extra
+\makeDepartmentInfo{danish}{bibliotek}{dtu_dep_name_logo/tex_bibliotek_dk}{dtu_dep_logo/tex_dtu_bibliotek_a}{dtu_frise/tex_dtu_bibliotek_frise}{DTU Bibliotek}{Danmarks Tekniske Informationcenter}%
+\makeDepartmentInfo{english}{bibliotek}{dtu_dep_name_logo/tex_bibliotek_uk}{dtu_dep_logo/tex_dtu_bibliotek_uk_a}{dtu_frise/tex_dtu_bibliotek_frise}{DTU Library}{Technical Information Center of Denmark}%
+
+\makeDepartmentInfo{danish}{admin}{dtu_dep_name_logo/tex_dtu_navn_dk}{dtu_dep_logo/}{tex_dtu_frisedtu_frise/}{Danmarks Tekniske Universitet}{}%
+\makeDepartmentInfo{english}{admin}{dtu_dep_name_logo/tex_dtu_navn_uk}{dtu_dep_logo/}{tex_dtu_frisedtu_frise/}{Technical University of Denmark}{}%
+
+\makeDepartmentInfo{danish}{riso}{dtu_dep_name_logo/tex_riso_dk}{dtu_dep_logo/tex_ris_dtu_a}{dtu_frise/tex_dtu_frise}{Ris\o\ DTU}{Nationallaboratoriet for B\ae redygtig Energi}
+\makeDepartmentInfo{english}{riso}{dtu_dep_name_logo/tex_riso_uk}{dtu_dep_logo/tex_ris_dtu_a_uk}{dtu_frise/tex_dtu_frise}{Ris\o\ DTU}{National Laboratory for Sustainable Energy}
+
+\makeDepartmentInfo{danish}{diplom}{dtu_dep_name_logo/tex_diplom_dk}{dtu_dep_logo/tex_dtu_diplom_a}{dtu_frise/tex_dtu_frise}{Center for Diplomingeni\o ruddannelse}{DTU Diplom}
+\makeDepartmentInfo{english}{diplom}{dtu_dep_name_logo/tex_diplom_dk}{dtu_dep_logo/tex_dtu_diplom_a_uk}{dtu_frise/tex_dtu_frise}{Center for Diplomingeni\o ruddannelse}{DTU Diplom}
+

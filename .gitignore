@@ -16,6 +16,9 @@
 *.lot
 *.nlo
 *.tdo
+*.nav
+*.snm
+
 
 *.json
 *.csv
