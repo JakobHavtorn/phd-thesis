@@ -92,15 +92,29 @@ state/.style={
 
 \newcommand{\tabitem}{{\color{dtured}$\bullet$} }
 
+
+\AtBeginPart{%
+    {%  start a group to keep the template change local
+        % \setbeamertemplate{background canvas}{%
+        %     \color{dtured!70}\rule{\paperwidth}{\paperheight}%
+        % }%
+        \frame{\partpage}%
+    }%  end group
+}
+
+
 \begin{document}
 
 % Title slide
 \frame{\maketitle}
 
+\include{parts/outline}
+
 \include{parts/introduction}
 
-% \section*{}
-\include{parts/paper_hierarchical}
+\part{Unsupervised Out-of-Distribution Detection}
+% \frame{\partpage}
+\include{parts/presentation_hierarchical}
 
 % End slide
 \frame{\centering\Huge Thank you for your attention}

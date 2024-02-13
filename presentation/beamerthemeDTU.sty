@@ -40,6 +40,8 @@
 % Define Dimensions
 % % % % % % % % % % % %
 
+\newcommand{\dimCortiLogoWidth}{0.0454\paperwidth} % Percent
+
 \newcommand{\dimDTULogoWidth}{0.0394\paperwidth} % Percent
 \newcommand{\dimDTULogoHeight}{0.0777\paperheight} % Percent
 \newcommand{\dimDTULogoYOffset}{0.0404\paperheight} % Percent
@@ -80,7 +82,7 @@
 %\newcommand{\insertdepartmentandinstitute}{\departmenttitle , \institutetitle}
 \newcommand{\insertdepartmentandinstitute}{\departmenttitle}
 \newcommand{\insertDTULogo}{\includegraphics[width=\dimDTULogoWidth]{dtu_logo/tex_dtu_logo}}
-% TODO: Insert Corti logo
+\newcommand{\insertCortiLogo}{\includegraphics[width=\dimCortiLogoWidth]{figures/Orb_logotype_Vertical_black.pdf}}
 \newcommand{\insertDTUWhiteLogo}{}
 \newcommand{\inserttitlefootline}{}
 \newcommand{\inserttitleheadline}{}
@@ -137,14 +139,17 @@
 {
 	\vspace{\dimDTULogoYOffset}
 	\begin{beamercolorbox}[right]{logo in head/foot}%
+		\insertCortiLogo\makebox[\dimCortiLogoWidth][]{}%
+		\hspace{-0.025\paperwidth}%
 		\insertDTULogo\makebox[\dimDTULogoWidth][]{}
-		% TODO: Insert Corti logo
 	\end{beamercolorbox}
 }
 \newcommand{\insertFrameDTUWhiteLogo}
 {
 	\vspace{\dimDTULogoYOffset}
 	\begin{beamercolorbox}[right]{logo in head/foot}%
+		\insertCortiLogo\makebox[\dimCortiLogoWidth][]{}%
+		\hspace{-0.025\paperwidth}%
 		\insertDTUWhiteLogo\makebox[\dimDTULogoWidth][]{}
 	\end{beamercolorbox}
 }
