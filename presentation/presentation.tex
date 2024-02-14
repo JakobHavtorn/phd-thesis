@@ -69,6 +69,8 @@ state/.style={
 \colorlet{deterministic-skip-color}{custommorered}
 \colorlet{shared-function-color}{blue}
 
+\definecolor{theme-green}{RGB}{41 114 114}
+
 
 \input{../preamble/fonts.tex}
 \input{../preamble/bayesnet_extras}
@@ -93,15 +95,11 @@ state/.style={
 \newcommand{\tabitem}{{\color{dtured}$\bullet$} }
 
 
-\AtBeginPart{%
-    {%  start a group to keep the template change local
-        % \setbeamertemplate{background canvas}{%
-        %     \color{dtured!70}\rule{\paperwidth}{\paperheight}%
-        % }%
-        \frame{\partpage}%
-    }%  end group
-}
+\AtBeginPart{{\frame{\partpage}}}
 
+% \setbeameroption{show only notes}
+% \setbeameroption{show notes on second screen=right} % Both
+% \setbeameroption{show notes and slides}
 
 \begin{document}
 
@@ -113,13 +111,19 @@ state/.style={
 \include{parts/introduction}
 
 \part{Unsupervised Out-of-Distribution Detection}
-% \frame{\partpage}
+\include{parts/outline}
 \include{parts/presentation_hierarchical}
+
+\part{Medical Applications}
+\include{parts/outline}
+\include{parts/presentation_retrospective}
 
 % End slide
 \frame{\centering\Huge Thank you for your attention}
 
 % Bibliography slide
 \begin{frame}[allowframebreaks]{Bibliography}\printbibliography\end{frame}
+
+\include{parts/bonus_slides}
 
 \end{document}
