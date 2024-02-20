@@ -249,20 +249,20 @@
 
 \frame{
     \frametitle{Importance sampling the ELBO}
-    The well-known importance weighted autoencoder (IWAE) bound is tight with the true likelihood in the limit of infinite samples, $S\rightarrow\infty$ \cite{burda_importance_2016},
+    The importance weighted autoencoder (IWAE) bound is tight with the true likelihood in the limit of infinite samples, $S\rightarrow\infty$ \cite{burda_importance_2016},
     \begin{equation}\label{eq:iw-bound}
         \mathcal{L}_{S} = \mathbb{E}_{q(\zb|\xb)}\left[ \log \frac{1}{N} \sum_{s=1}^{S} \frac{p(\xb, \zb^{(s)})}{q(\zb^{(s)}|\xb)} \right] \leq \log p_\theta(\xb) \ ,
     \end{equation}
 
     \vspace{3mm}
 
-    Consequently, by importance sampling the ELBO, the associated KL-divergence associated vanishes and our likelihood ratio reduces to the KL-divergence associated with $\mathcal{L}^{>k}$.
+    Consequently, by importance sampling the ELBO, the associated KL-divergence vanishes and our likelihood ratio reduces to the KL-divergence of $\mathcal{L}^{>k}$.
 
     \begin{equation}\label{eq:llr-as-kls-iwae-reduced}
         LLR^{>k}_{S}(\xb) \rightarrow D_{\mathrm{KL}}( p(\zb_{\leq }|\zb_{>k}) q(\zb_{>k}|\xb) || p(\zb|\xb)) \ .
     \end{equation}
 
-    We can now see that $LLR^{>k}_{S}(\xb)$ performs OOD detection based on the top-most latent variables.
+    $LLR^{>k}_{S}(\xb)$ performs KL-divergence-based OOD detection using top-most latent variables.
 }
 
 
@@ -285,12 +285,90 @@
 }
 
 
+\begin{frame}
+    \frametitle{Results on FashionMNIST/MNIST}
+    \begin{table}
+        \centering
+        \resizebox*{!}{0.87\textheight}{%
+        \begin{tabular}{lrrr}
+            \toprule
+             Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
+             \midrule
+             \multicolumn{4}{c}{\textbf{FashionMNIST (in) / MNIST (out)}} \\
+             \midrule
+             \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
+    Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.994$ & $0.993$ & $0.001$ \\
+    Backgr. contrast. LR (VAE) {\parencite{choi_waic_2019}}                    & $0.924$ & - & - \\
+    Binary classifier {\parencite{ren_likelihood_2019}}                              & $0.455$ & $0.505$ & $0.886$ \\ % 6
+    $p(\hat{y} | \xb)$ with OOD as noise class {\parencite{ren_likelihood_2019}}     & $0.877$ & $0.871$ & $0.195$ \\ % 7
+    $p(\hat{y} | \xb)$ with calibration on OOD {\parencite{ren_likelihood_2019}}     & $0.904$ & $0.895$ & $0.139$ \\ % 8
+    Input complexity ($S$, Glow) \parencite{hendrycks_deep_2019}                    & $0.998$ & - & - \\
+    Input complexity ($S$, PixelCNN++) \parencite{hendrycks_deep_2019}              & $0.967$ & - & - \\
+             \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
+    $p(\hat{y} | \xb)$ {\parencite{ren_likelihood_2019, hendrycks_baseline_2017}}                        & $0.734$ & $0.702$ & $0.506$ \\
+    Entropy of $p(y | \xb)$ {\parencite{ren_likelihood_2019}}                        & $0.746$ & $0.726$ & $0.448$ \\
+    ODIN {\parencite{ren_likelihood_2019, liang_enhancing_2018}}                                       & $0.752$ & $0.763$ & $0.432$ \\
+    VIB \parencite{alemi_uncertainty_2018, choi_waic_2019}                                          & $0.941$ & - & - \\
+    Mahalanobis distance, CNN {\parencite{ren_likelihood_2019}}                     & $0.942$ & $0.928$ & $0.088$ \\
+    Mahalanobis distance, DenseNet {\parencite{lee_simple_2018}}                & $0.986$ & - & - \\
+    Ensemble, 20 classifiers {\parencite{ren_likelihood_2019, lakshminarayanan_simple_2017}}                  & $0.857$ & $0.849$ & $0.240$ \\
+             \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
+             \multicolumn{4}{l}{\textit{- Ensembles}} \\
+    WAIC, 5 models, VAE {\parencite{choi_waic_2019}}                          & $0.766$ & - & - \\
+    WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.221$ & $0.401$ & $0.911$ \\
+            \multicolumn{4}{l}{\textit{- Not ensembles}} \\
+    Likelihood regret \parencite{xiao_likelihood_2020}                               & $\mathbf{0.988}$ & - & - \\
+    $\mathcal{L}^{>0}$ + HVAE (ours)                    & $0.268$ & $0.363$ & $0.882$ \\
+    $\mathcal{L}^{>1}$ + HVAE (ours)                    & $0.593$ & $0.591$ & $0.658$ \\
+    $\mathcal{L}^{>2}$ + HVAE (ours)                    & $0.712$ & $0.750$ & $0.548$ \\
+    $LLR^{>1}$ + HVAE (ours)                            & $0.964$ & $0.961$ & $0.036$ \\
+    $LLR^{>1}_{250}$ + HVAE (ours)                      & $0.984$ & $\mathbf{0.984}$ & $\mathbf{0.013}$ \\
+             \bottomrule
+        \end{tabular}%
+        }
+    \end{table}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Results on CIFAR10/SVHN}
+    \begin{table}
+        \centering
+        \resizebox*{!}{0.87\textheight}{%
+        \begin{tabular}{lrrr}
+            \toprule
+             Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
+             \midrule
+             \multicolumn{4}{c}{\textbf{CIFAR10 (in) / SVHN (out)}} \\
+             \midrule
+             \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
+    Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.930$ & $0.881$ & $0.066$ \\
+    Backgr. contrast. LR (VAE) {\parencite{xiao_likelihood_2020}}                    & $0.265$ & - & - \\
+    Outlier exposure {\parencite{hendrycks_deep_2019}}                              & $0.984$ & - & - \\
+    Input complexity ($S$, Glow) \parencite{serra_input_2020}                   & $0.950$ & - & - \\
+    Input complexity ($S$, PixelCNN++) \parencite{serra_input_2020}             & $0.929$ & - & - \\
+    Input complexity ($S$, HVAE) (Ours) \parencite{serra_input_2020}\textsuperscript{\ref{footnote:serra_hierarchical_likelihood}} & $0.833$ & $0.855$ & $0.344$ \\
+    \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
+    Mahalanobis distance {\parencite{lee_simple_2018}}                          & $0.991$ & - & -  \\
+             \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
+             \multicolumn{4}{l}{\textit{- Ensembles}} \\
+    WAIC, 5 models, Glow {\parencite{choi_waic_2019}}                          & $1.000$ & - & - \\
+    WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.628$ & $0.616$ & $0.657$ \\
+             \multicolumn{4}{l}{\textit{- Not ensembles}} \\
+    Likelihood regret \parencite{xiao_likelihood_2020}                               & $0.875$ & - & - \\
+    $LLR^{>2}$ + HVAE (ours)                            & $0.811$ & $0.837$ & $0.394$ \\
+    $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathbf{0.875}$ & $\mathbf{0.172}$ \\
+             \bottomrule
+        \end{tabular}%
+        }
+    \end{table}
+\end{frame}
+
+
+
 \frame{
-    \frametitle{Results with $LLR^{>k}$}
-    The score has good performance across many datasets.
-
+    \frametitle{Results on diverse datasets}
     \begin{columns}
-
     \begin{column}{0.5\textwidth}
 
         \begin{table}[t]
@@ -314,7 +392,6 @@
             }
         \end{table}
     \end{column}
-    
     \begin{column}{0.5\textwidth}
         \begin{table}[t]
             \centering
