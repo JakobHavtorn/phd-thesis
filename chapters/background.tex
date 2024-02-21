@@ -562,7 +562,7 @@ Since $\widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)$ is the sample average, it i
 In the above we arrived at $\widehat{\mathcal{L}}_{S}(\xb;\thetab,\phib)$ by first deriving the ELBO of \cref{eq:latent-variable-model-elbo} as a lower bound on the marginal likelihood and then approximating that bound by Monte Carlo sampling. Instead, \textcite{burda_importance_2016} propose to Monte Carlo sample the expectation inside the logarithm of \cref{eq:marginal-likelihood-with-variational-approximation} directly, without first deriving the ELBO. They obtain
 %
 \begin{equation}
-    \widehat{\mathcal{L}}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \equiv \log \left( \frac{1}{S}\sum_{s=1}^{S} \frac{p_\thetab(\xb|\zb_{s})p(\zb_{s})}{q_\phib(\zb_{s}|\xb)} \right) = \frac{1}{S} \sum_{s=1}^S \log w_\thetab(\xb,\zb_{s}) \enspace ,
+    \widehat{\mathcal{L}}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \equiv \log \left( \frac{1}{S}\sum_{s=1}^{S} \frac{p_\thetab(\xb|\zb_{s})p(\zb_{s})}{q_\phib(\zb_{s}|\xb)} \right) =  \log \left( \frac{1}{S}\sum_{s=1}^{S} w_\thetab(\xb,\zb_{s}) \right) \enspace ,
 \end{equation}
 %
 where $w_\thetab(\xb,\zb_{s})$ can be seen as importance weights. Note that the location of the logarithm is the only difference with the estimator in \cref{eq:variational-autoencoder-elbo-sampling-expanded}. 
@@ -571,7 +571,7 @@ By taking the expectation of this estimator, we can see that it too is a lower b
 \begin{align}
     \mathcal{L}^{\text{IWAE}}_{S}(\xb;\thetab,\phib)
     &= \mathbb{E}_{q_\phib(\zb|\xb)}\left[ \widehat{\mathcal{L}}^{\text{IWAE}}_{S}(\xb;\thetab,\phib) \right] \nonumber \\
-    &= \mathbb{E}_{\zb_{s}\sim q_\phib(\zb|\xb)}\left[ \frac{1}{S}\sum_{s=1}^{S} \log \left( w_\thetab(\xb,\zb_{s}) \right) \right] \nonumber \\
+    &= \mathbb{E}_{\zb_{s}\sim q_\phib(\zb|\xb)}\left[ \log \left( \frac{1}{S}\sum_{s=1}^{S} w_\thetab(\xb,\zb_{s}) \right) \right] \nonumber \\
     &\leq \log \mathbb{E}_{\zb_{s}\sim q_\phib(\zb|\xb)}\left[ \frac{1}{S}\sum_{s=1}^{S} w_\thetab(\xb,\zb_{s}) \right] \nonumber \\
     &= \log p_\thetab(\xb) \enspace .
 \end{align}
