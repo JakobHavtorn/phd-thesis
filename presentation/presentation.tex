@@ -16,15 +16,63 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
+\usepackage[
+    backend=biber,
+    style=numeric,
+    sorting=ynt
+]{biblatex}
+\addbibresource{../bibliography/zotero-references.bib}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{enumerate}
+% \usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage{siunitx}
+\usepackage{tabularx,colortbl}
+
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 \usepgfplotslibrary{fillbetween}
 \pgfmathdeclarefunction{gauss}{2}
     {\pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}}
 
+% Colors
+\usepackage{xcolor}
+\definecolor{Blue}{rgb}{0.0,0.0,1.0}
+\definecolor{Red}{rgb}{1.0,0.0,0.0}
+
+% Load preamble from thesis
+\definecolor{customgreen} {RGB}{217	234	212}
+\definecolor{customblue}  {RGB}{205	226	242}
+\definecolor{custommorered}{RGB}{218 46 42}
+\definecolor{customred}{RGB}{255 182 173}%{255 149 150}
+
+\definecolor{presentation_green_shaded}{RGB}{217 234 211}
+\definecolor{presentation_green}{RGB}{197 228 186}
+\definecolor{presentation_blue_shaded}{RGB}{201 218 248}
+\definecolor{presentation_blue}{RGB}{180 205 248}
+\definecolor{presentation_orange}{RGB}{255 219 182}
+\definecolor{presentation_orange_shaded}{RGB}{252 229 205}
+\definecolor{presentation_red}{RGB}{255 182 173}
+\definecolor{presentation_red_shaded}{RGB}{249 228 228}
+
+\colorlet{observed-color}{customgreen}
+\colorlet{latent-color}{customblue}
+\colorlet{deterministic-color}{gray!15}
+\colorlet{deterministic-skip-color}{custommorered}
+\colorlet{shared-function-color}{blue}
+
+\definecolor{theme-green}{RGB}{41 114 114}
+    
+% TikZ
 \usepackage{tikz}
 \usetikzlibrary{
     arrows,
+    backgrounds,
     matrix,
     positioning,
     shapes,
@@ -45,42 +93,15 @@ state/.style={
        text centered,
        }
 }
-\usepackage{xcolor}
-\definecolor{Blue}{rgb}{0.0,0.0,1.0}
-\definecolor{Red}{rgb}{1.0,0.0,0.0}
-
-\usepackage[
-    backend=biber,
-    style=numeric,
-    sorting=ynt
-]{biblatex}
-\addbibresource{../bibliography/zotero-references.bib}
-\setbeamertemplate{bibliography item}{\insertbiblabel}
-
-% Load preamble from thesis
-\definecolor{customgreen} {RGB}{217	234	212}
-\definecolor{customblue}  {RGB}{205	226	242}
-\definecolor{custommorered}{RGB}{218 46 42}
-\definecolor{customred}{RGB}{255 182 173}%{255 149 150}
-
-\colorlet{observed-color}{customgreen}
-\colorlet{latent-color}{customblue}
-\colorlet{deterministic-color}{gray!15}
-\colorlet{deterministic-skip-color}{custommorered}
-\colorlet{shared-function-color}{blue}
-
-\definecolor{theme-green}{RGB}{41 114 114}
+\usepackage[beamer,customcolors]{hf-tikz}
+\tikzset{hl/.style={
+    set fill color=presentation_green_shaded,%red!80!black!40,
+    set border color=presentation_green_shaded,
+  },
+}
 
 \setbeamertemplate{caption}[numbered]
 
-\usepackage{multicol}
-\usepackage{multirow}
-\usepackage{makecell}
-\usepackage{booktabs}
-\usepackage{enumerate}
-% \usepackage{enumitem}
-\usepackage{adjustbox}
-\usepackage{siunitx}
 
 \input{../preamble/fonts.tex}
 \input{../preamble/bayesnet_extras}
@@ -116,16 +137,18 @@ state/.style={
 % Title slide
 \frame{\maketitle}
 
-\include{parts/outline}
-
+\include{parts/overview}
 \include{parts/introduction}
+\include{parts/selection}
+% \include{parts/outline}
+% \include{parts/outline_current_section}
 
-\part{Unsupervised Out-of-Distribution Detection}
-\include{parts/outline}
+% \part{Unsupervised Out-of-Distribution Detection}
+% \include{parts/outline}
 \include{parts/presentation_hierarchical}
 
-\part{Medical Applications}
-\include{parts/outline}
+% \part{Medical Applications}
+% \include{parts/outline}
 \include{parts/presentation_retrospective}
 
 % End slide

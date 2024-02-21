@@ -1,0 +1,272 @@
+% !TEX root = ../presentation.tex
+% !BIB program = biber
+% !TEX program = xelatex
+
+\begin{frame}
+    \frametitle{Overview: Thesis}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+
+            \hfsetfillcolor{presentation_green}
+            \hfsetbordercolor{presentation_green}
+
+            \begin{table}
+                \resizebox*{\textwidth}{!}{%
+                \begin{tabular}{l l l l}
+                    & \textsc{chapter 1-3}   & \makecell[l]{Introduction, Research Questions, and Background} & \\
+                    \addlinespace[0.5em]
+                    \midrule
+                    \addlinespace[0.5em]
+                    \tikzmarkin<2>[below right offset={0.1,-0.4},above left offset={-0.1,0.4}]{a}
+                    & \textsc{chapter 4}     & \makecell[l]{Hierarchical VAEs Know What They Don't Know} & \tikzmarkend{a}\\
+                    \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    \tikzmarkin<3>[below right offset={0.1,-0.6},above left offset={-0.1,0.6}]{b}
+                    & \makecell[tl]{\textsc{chapter 5}}     & \makecell[l]{Model-Agnostic Out-of-Distribution Detection\\ Using Combined Statistical Tests} & \tikzmarkend{b} \\
+                    \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    \tikzmarkin<4>[below right offset={0.1,-0.6},above left offset={-0.1,0.6}]{c}
+                    & \makecell[tl]{\textsc{chapter 6}}     & \makecell[l]{A Brief Overview of Unsupervised Speech \\Representation Learning} & \tikzmarkend{c} \\
+                    \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    \tikzmarkin<5>[below right offset={0.1,-0.4},above left offset={-0.1,0.4}]{d}
+                    & \textsc{chapter 7}     & \makecell[l]{Benchmarking Latent Variable Models for Speech} & \tikzmarkend{d} \\
+                    \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    \tikzmarkin<6>[below right offset={0.1,-0.6},above left offset={-0.1,0.6}]{e}
+                    & \makecell[tl]{\textsc{chapter 8}}     & \makecell[l]{Automated Medical Coding on MIMIC-III and \\MIMIC-IV: A Critical Review and Replicability Study} & \tikzmarkend{e} \\
+                    \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    \tikzmarkin<7>[below right offset={0.1,-0.6},above left offset={-0.1,0.6}]{f}
+                    & \makecell[tl]{\textsc{chapter 9}}     & \makecell[l]{A Retrospective Study on Machine Learning-\\Assisted Stroke Recognition for Medical Helpline Calls} & \tikzmarkend{f} \\
+                    \addlinespace[0.5em]
+                    \midrule
+                    \addlinespace[0.5em]
+                    & \textsc{chapter 10}    & \makecell[l]{Discussion and Conclusion} & \\
+                \end{tabular}
+                }
+            \end{table}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \centering
+                \begin{overprint}
+                    \onslide<1>
+                    \begin{tikzpicture}
+                        \tikzstyle{mybox} = [fill, rounded corners, minimum width=5cm, minimum height=0.8cm]
+                        \tikzstyle{myrect} = [fill, minimum height=0.6cm]
+
+                        \node [mybox, fill=presentation_orange] at (0,5) (predictions) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [myrect, fill=presentation_orange_shaded] at (\x,5) {};
+                        \node [] at (0,5) {\textsc{predictions}};
+
+                        \node [mybox, fill=black!10] at (0,4) (downstream) {\textsc{downstream model}};
+
+                        \node [mybox, fill=presentation_blue] at (0,3) (text) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [myrect, fill=presentation_blue_shaded] at (\x,3) {};
+                        \node [] at (0,3) {\textsc{text}};
+
+                        \node [mybox, fill=black!10] at (0,2) (recognition) {\textsc{speech recognition}};
+
+                        \node [mybox, fill=black!10] at (0,1) (representation) {\textsc{representation learning}};
+
+                        \node [mybox, fill=presentation_green] at (0,0) (speech) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [myrect, fill=presentation_green_shaded] at (\x,0) {};
+                        \node [] at (0,0) {\textsc{speech}};
+
+                        \node [draw, rectangle, rounded corners, line width=0.1cm, presentation_red, fit=(speech)(representation)(recognition)(text)(predictions), inner sep=10pt] (uncertainty) {};
+                        \node [above] at (uncertainty.north) {\textsc{uncertainty}};
+                    \end{tikzpicture}
+
+
+                    \onslide<2>  % Hierarchical
+                    \begin{tikzpicture}
+                        \tikzstyle{mybox} = [fill, rounded corners, minimum width=5cm, minimum height=0.8cm]
+                        \tikzstyle{myrect} = [fill, minimum height=0.6cm]
+
+                        \node [nearly transparent, mybox, fill=presentation_orange] at (0,5) (predictions) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [nearly transparent, myrect, fill=presentation_orange_shaded] at (\x,5) {};
+                        \node [nearly transparent] at (0,5) {\textsc{predictions}};
+
+                        \node [nearly transparent, mybox, fill=black!10] at (0,4) (downstream) {\textsc{downstream model}};
+
+                        \node [nearly transparent, mybox, fill=presentation_blue] at (0,3) (text) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [nearly transparent, myrect, fill=presentation_blue_shaded] at (\x,3) {};
+                        \node [nearly transparent] at (0,3) {\textsc{text}};
+
+                        \node [nearly transparent, mybox, fill=black!10] at (0,2) (recognition) {\textsc{speech recognition}};
+
+                        \node [mybox, fill=black!10] at (0,1) (representation) {\textsc{representation learning}};
+
+                        \node [nearly transparent, mybox, fill=presentation_green] at (0,0) (speech) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [nearly transparent, myrect, fill=presentation_green_shaded] at (\x,0) {};
+                        \node [nearly transparent] at (0,0) {\textsc{speech}};
+
+                        \node [draw, rectangle, rounded corners, line width=0.1cm, presentation_red, fit=(speech)(representation)(recognition)(text)(predictions), inner sep=10pt] (uncertainty) {};
+                        \node [above] at (uncertainty.north) {\textsc{uncertainty}};
+                    \end{tikzpicture}
+
+
+                    \onslide<3>  % Model-Agnostic
+                    \begin{tikzpicture}
+                        \tikzstyle{mybox} = [fill, rounded corners, minimum width=5cm, minimum height=0.8cm]
+                        \tikzstyle{myrect} = [fill, minimum height=0.6cm]
+
+                        \node [nearly transparent, mybox, fill=presentation_orange] at (0,5) (predictions) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [nearly transparent, myrect, fill=presentation_orange_shaded] at (\x,5) {};
+                        \node [nearly transparent] at (0,5) {\textsc{predictions}};
+
+                        \node [nearly transparent, mybox, fill=black!10] at (0,4) (downstream) {\textsc{downstream model}};
+
+                        \node [nearly transparent, mybox, fill=presentation_blue] at (0,3) (text) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [nearly transparent, myrect, fill=presentation_blue_shaded] at (\x,3) {};
+                        \node [nearly transparent] at (0,3) {\textsc{text}};
+
+                        \node [nearly transparent, mybox, fill=black!10] at (0,2) (recognition) {\textsc{speech recognition}};
+
+                        \node [mybox, fill=black!10] at (0,1) (representation) {\textsc{representation learning}};
+
+                        \node [nearly transparent, mybox, fill=presentation_green] at (0,0) (speech) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [nearly transparent, myrect, fill=presentation_green_shaded] at (\x,0) {};
+                        \node [nearly transparent] at (0,0) {\textsc{speech}};
+
+                        \node [draw, rectangle, rounded corners, line width=0.1cm, presentation_red, fit=(speech)(representation)(recognition)(text)(predictions), inner sep=10pt] (uncertainty) {};
+                        \node [above] at (uncertainty.north) {\textsc{uncertainty}};
+                    \end{tikzpicture}
+
+
+                    \onslide<4>  % Brief
+                    \begin{tikzpicture}
+                        \tikzstyle{mybox} = [fill, rounded corners, minimum width=5cm, minimum height=0.8cm]
+                        \tikzstyle{myrect} = [fill, minimum height=0.6cm]
+
+                        \node [nearly transparent, mybox, fill=presentation_orange] at (0,5) (predictions) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [nearly transparent, myrect, fill=presentation_orange_shaded] at (\x,5) {};
+                        \node [nearly transparent] at (0,5) {\textsc{predictions}};
+
+                        \node [nearly transparent, mybox, fill=black!10] at (0,4) (downstream) {\textsc{downstream model}};
+
+                        \node [nearly transparent, mybox, fill=presentation_blue] at (0,3) (text) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [nearly transparent, myrect, fill=presentation_blue_shaded] at (\x,3) {};
+                        \node [nearly transparent] at (0,3) {\textsc{text}};
+
+                        \node [nearly transparent, mybox, fill=black!10] at (0,2) (recognition) {\textsc{speech recognition}};
+
+                        \node [mybox, fill=black!10] at (0,1) (representation) {\textsc{representation learning}};
+
+                        \node [mybox, fill=presentation_green] at (0,0) (speech) {};
+                        \foreach \x in {-2.0,-1.5,-1.0,-0.5,0,0.5,1.0,1.5,2.0}
+                            \node [myrect, fill=presentation_green_shaded] at (\x,0) {};
+                        \node [] at (0,0) {\textsc{speech}};
+
+                        \node [nearly transparent, draw, rectangle, rounded corners, line width=0.1cm, presentation_red, fit=(speech)(representation)(recognition)(text)(predictions), inner sep=10pt] (uncertainty) {};
+                        \node [nearly transparent, above] at (uncertainty.north) {\textsc{uncertainty}};
+                    \end{tikzpicture}
+
+
+                    % \onslide<6>
+                    % \begin{tikzpicture}
+                    %     % Define box style
+                    %     \tikzstyle{mybox} = [fill, rounded corners, minimum width=5cm, minimum height=0.8cm]
+                    %     % Define rectangle style
+                    %     \tikzstyle{myrect} = [fill, minimum width=0.25cm, minimum height=0.6cm]
+
+                    %     \node [mybox, fill=presentation_orange] at (0,5) (predictions) {Predictions};
+                    %     \node [mybox, fill=black!10] at (0,4) (downstream) {Downstream Model};
+
+                    %     \node [mybox, fill=presentation_blue] at (0,3) (text) {};
+                    %     \node [myrect, fill=presentation_blue_shaded] at (-2.0,3) {};
+                    %     \node [myrect, fill=presentation_blue_shaded] at (-1.5,3) {};
+                    %     \node [myrect, fill=presentation_blue_shaded] at (-1.0,3) {};
+                    %     \node [myrect, fill=presentation_blue_shaded] at (-0.5,3) {};
+                    %     \node [myrect, fill=presentation_blue_shaded] at (0,3) {};
+                    %     \node [myrect, fill=presentation_blue_shaded] at (0.5,3) {};
+                    %     \node [myrect, fill=presentation_blue_shaded] at (1.0,3) {};
+                    %     \node [myrect, fill=presentation_blue_shaded] at (1.5,3) {};
+                    %     \node [myrect, fill=presentation_blue_shaded] at (2.0,3) {};
+                    %     \node at (0,3) {Text};
+
+                    %     \node [nearly transparent, mybox, fill=black!10] at (0,2) (recognition) {Speech Recognition};
+                    %     \node [nearly transparent, mybox, fill=black!10] at (0,1) (representation) {Representation Learning};
+                    %     %
+                    %     \node [nearly transparent, mybox, fill=presentation_green] at (0,0) (speech) {};
+                    %     \node [nearly transparent, myrect, fill=presentation_green_shaded] at (-2.0,0) {};
+                    %     \node [nearly transparent, myrect, fill=presentation_green_shaded] at (-1.5,0) {};
+                    %     \node [nearly transparent, myrect, fill=presentation_green_shaded] at (-1.0,0) {};
+                    %     \node [nearly transparent, myrect, fill=presentation_green_shaded] at (-0.5,0) {};
+                    %     \node [nearly transparent, myrect, fill=presentation_green_shaded] at (0,0) {};
+                    %     \node [nearly transparent, myrect, fill=presentation_green_shaded] at (0.5,0) {};
+                    %     \node [nearly transparent, myrect, fill=presentation_green_shaded] at (1.0,0) {};
+                    %     \node [nearly transparent, myrect, fill=presentation_green_shaded] at (1.5,0) {};
+                    %     \node [nearly transparent, myrect, fill=presentation_green_shaded] at (2.0,0) {};
+                    %     \node [nearly transparent] at (0,0) {Speech};
+                    % \end{tikzpicture}
+
+                    \end{overprint}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+    \frametitle{Overview: Presentation}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+
+            \hfsetfillcolor{presentation_green}
+            \hfsetbordercolor{presentation_green}
+
+            \begin{table}
+                \resizebox*{\textwidth}{!}{%
+                \begin{tabular}{l l l l}
+                    & \textsc{chapter 1-3}   & {\color<2->{black!50}}\makecell[l]{Introduction, Research Questions, and Background} & \\
+                    \addlinespace[0.5em]
+                    \midrule
+                    \addlinespace[0.5em]
+                    \tikzmarkin<2>[below right offset={0.1,-0.4},above left offset={-0.1,0.4}]{a}
+                    & \textsc{chapter 4}     & \makecell[l]{Hierarchical VAEs Know What They Don't Know} & \tikzmarkend{a}\\
+                    \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    % \tikzmarkin<3>[below right offset={0.1,-0.6},above left offset={-0.1,0.6}]{b}
+                    % & \makecell[tl]{\textsc{chapter 5}}     & \makecell[l]{Model-Agnostic Out-of-Distribution Detection\\ Using Combined Statistical Tests} & \tikzmarkend{b} \\
+                    \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    \tikzmarkin<4>[below right offset={0.1,-0.6},above left offset={-0.1,0.6}]{c}
+                    & \makecell[tl]{\textsc{chapter 6}}     & \makecell[l]{A Brief Overview of Unsupervised Speech \\Representation Learning} & \tikzmarkend{c} \\
+                    \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    % \tikzmarkin<5>[below right offset={0.1,-0.4},above left offset={-0.1,0.4}]{d}
+                    % & \textsc{chapter 7}     & \makecell[l]{Benchmarking Latent Variable Models for Speech} & \tikzmarkend{d} \\
+                    % \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    % \tikzmarkin<6>[below right offset={0.1,-0.6},above left offset={-0.1,0.6}]{e}
+                    % & \makecell[tl]{\textsc{chapter 8}}     & \makecell[l]{Automated Medical Coding on MIMIC-III and \\MIMIC-IV: A Critical Review and Replicability Study} & \tikzmarkend{e} \\
+                    % \addlinespace[0.5em]
+                    \addlinespace[0.5em]
+                    \tikzmarkin<7>[below right offset={0.1,-0.6},above left offset={-0.1,0.6}]{f}
+                    & \makecell[tl]{\textsc{chapter 9}}     & \makecell[l]{A Retrospective Study on Machine Learning-\\Assisted Stroke Recognition for Medical Helpline Calls} & \tikzmarkend{f} \\
+                    \addlinespace[0.5em]
+                    \midrule
+                    \addlinespace[0.5em]
+                    & \textsc{chapter 10}    & \makecell[l]{Discussion and Conclusion} & \\
+                \end{tabular}
+                }
+            \end{table}
+        \end{column}
+    \end{columns}
+\end{frame}
