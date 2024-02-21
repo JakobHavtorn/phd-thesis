@@ -97,8 +97,8 @@ A model closely related to the original CPC model is wav2vec \parencite{schneide
 \paragraph{Masking-based models} One downside of predictive tasks is that models are primarily unidirectional. Some work has extended APC and CPC inspired models with separate encoders operating in opposite directions \parencite{ling_deep_2020, kawakami_learning_2020, borgholt_scaling_2021}, but these models are still restricted to process left and right context separately. Inspired by the masked language model task used for text-based representation learning \parencite{devlin_bert_2018}, several papers have used masking to overcome this challenge (\textbf{\textsc{msk}}, \cref{tab:model-taxonomy}). Masking refers to replacing parts of the input with zeros or a learned masking vector. For zero-masking \parencite{jiang_improving_2019, liu_mockingjay_2020, wang_unsupervised_2020, chi_audio_2020, ling_decoar_2020}, we have
 \begin{align}
     \mathbf{c}_{1:T} &= f(\mathbf{x}_{1:T} \circ \mathbf{m}_{1:T}) \enspace , \\
-    \mathbf{\hat{x}}_{t} &= g(\mathbf{c}_{t}) \enspace , \\
-    \mathcal{L}_t &= \lVert \mathbf{\hat{x}}_{t} - \mathbf{x}_{t} \rVert_1\enspace,
+    \hat{\mathbf{x}}_{t} &= g(\mathbf{c}_{t}) \enspace , \\
+    \mathcal{L}_t &= \lVert \hat{\mathbf{x}}_{t} - \mathbf{x}_{t} \rVert_1\enspace,
 \end{align}
 where the $\circ$ operator denotes the Hadamard product, $f(\cdot)$ is typically a transformer encoder or a bidirectional recurrent neural network, $g(\cdot)$ is a step-wise transformation, and $\mathbf{m}_{1:T}$ is a mask such that $m_{t,i} \in \{0,1\}$. Alternatively, $\mathbf{m}_{1:T}$ is used to select which $\mathbf{x}_t$ are replaced by a learned masking vector. The entries of $\mathbf{m}_{1:T}$ are determined by some stochastic policy. One frequent inspiration is SpecAugment \parencite{park_specaugment_2019}, which was originally proposed for supervised speech recognition and applies frequency and time masking to spectrogram representations.
 While temporal masking is most common, frequency masking has also been adopted for representation learning  \parencite{wang_unsupervised_2020}. A simple, yet popular, masking strategy is to draw a proportion of input indices $t_i\sim\{1,\dots,T-M\}$ without replacement, and then mask $\{t_i, \dots, t_i+M\}$ \parencite{baevski_wav2vec_2020, hsu_hubert_2021, ling_decoar_2020}.
@@ -122,7 +122,7 @@ Combining masking with a contrastive loss, wav2vec 2.0 was the first work to sho
 In general, masking is less data efficient than prediction, as only the masked portion of the input is non-trivial to reconstruct. For this reason, the loss might be computed as
 %
 \begin{align}
-    \mathcal{L}_t &= \lVert (\mathbf{\hat{x}}_{t} - \mathbf{x}_{t}) \circ (\mathbf{1} - \mathbf{m}_t) \rVert_1 \enspace .
+    \mathcal{L}_t &= \lVert (\hat{\mathbf{x}}_{t} - \mathbf{x}_{t}) \circ (\mathbf{1} - \mathbf{m}_t) \rVert_1 \enspace .
 \end{align}
 
 \noindent Non"=autoregressive predictive coding (NPC, \citealp{liu_nonautoregressive_2020}) tries to resolve this by using a convolutional neural network where the kernel is masked instead of the input.
