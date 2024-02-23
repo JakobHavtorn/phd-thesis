@@ -24,15 +24,6 @@ We benchmark the method on a vast set of data and model combinations and achieve
 
 \section{Introduction}
 %
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\columnwidth]{paper_hierarchical/reconstructions-front-page-4-samples-2-recons2.pdf}
-    \caption[Reconstructions of a hierarchical VAE trained on FashionMNIST.]{ Reconstructions using a hierarchical VAE trained on FashionMNIST.
-        Reconstruction quality of OOD data is comparable to in-distribution data, resulting in high likelihoods and poor OOD discrimination.
-        By sampling the $k$ bottom-most latent variables from the conditional prior distribution $p_\thetab(\zb^{(\geq l)}|\zb^{(>l)})$ (latent reconstructions) instead of the approximate posterior $q_\phib(\zb^{(>l)}|\zb^{(<l)})$, the model reconstructs from the training distribution resulting in lower $p_\thetab(\xb|\zb)$ for OOD data.
-    }
-    \label{fig_hierarchical:reconstructions-fashionmnist}
-\end{figure}
 %
 % First paragraph: Explains why OOD detection is important in a broad perspective
 The reliability and safety of machine learning systems applied in the real-world is contingent on the ability to detect when an input is different from the training distribution. %, an anomaly.
@@ -60,6 +51,29 @@ However, such features do not explain high-level semantics of the data and may i
 \section{Why does OOD detection fail?}\label{sec_paper_hierarchical:why-does-ood-fail}
 \begin{figure}
     \centering
+    \includegraphics[width=0.7\columnwidth]{paper_hierarchical/reconstructions-front-page-4-samples-2-recons2.pdf}
+    \caption[Reconstructions of a hierarchical VAE trained on FashionMNIST.]{ Reconstructions using a hierarchical VAE trained on FashionMNIST.
+        Reconstruction quality of OOD data is comparable to in-distribution data, resulting in high likelihoods and poor OOD discrimination.
+        By sampling the $k$ bottom-most latent variables from the conditional prior distribution $p_\thetab(\zb^{(\geq l)}|\zb^{(>l)})$ (latent reconstructions) instead of the approximate posterior $q_\phib(\zb^{(>l)}|\zb^{(<l)})$, the model reconstructs from the training distribution resulting in lower $p_\thetab(\xb|\zb)$ for OOD data.
+    }
+    \label{fig_hierarchical:reconstructions-fashionmnist}
+\end{figure}
+%
+The inability to detect out-of-distribution data with deep generative models is surprising.
+Before the advent of deep generative models, this was not considered a major issue for probabilistic models \parencite{bishop_novelty_1994}. 
+Is the failure due to model pathologies or something different?
+
+Deep learning models are generally believed to form hierarchies of representations that range from low-level features to more conceptual ones related to semantics \parencite{bengio_representation_2013}.
+This has also been observed within deep generative models \parencite{maaloe_biva_2019, child_very_2021}.
+%Recent research \parencite{maaloe_biva_2019, child_very_2021, vahdat_nvae_2020}, has shown that deep latent variable models are able to learn rich hierarchical representations with increasing levels of abstraction and global structure towards the top of the hierarchy.
+For image data there is a trend that the low-level features are quite similar across models (edge detectors, etc.). This raises the question to what extent such features are relevant when detecting OOD data, also suggested  by \parencite{nalisnick_deep_2019} and examined for Glow and PixelCNN in \parencite{schirrmeister_understanding_2020}.
+To investigate, we train two hierarchical VAEs (\cref{sec_paper_hierarchical:background-hie-VAE}) on FashionMNIST and MNIST, respectively, and compute the between-models correlation of the extracted features of in-distribution data and OOD data.
+The result appears in \cref{fig_hierarchical:correlations-heatmap}.
+We observe that features extracted in the early layers (low-level features) correlate strongly between the two models, and that this correlation drops as we get into later layers.
+This suggests that low-level features do not carry much information for OOD detection.
+
+\begin{figure}
+    \centering
     \includegraphics[width=1\columnwidth]{paper_hierarchical/feature-correlation-heatmap2.pdf}
     \vspace{0mm}
     \caption[Absolute correlations between data representations in all layers of the inference network of a hierarchical VAE trained on FashionMNIST and of another trained on MNIST.]{
@@ -72,25 +86,24 @@ However, such features do not explain high-level semantics of the data and may i
     \label{fig_hierarchical:correlations-heatmap}
 \end{figure}
 
-The inability to detect out-of-distribution data with deep generative models is surprising.
-Before the advent of deep generative models, this was not considered a major issue for probabilistic models \parencite{bishop_novelty_1994}.
-Is the failure due to model pathologies or something different?
-
-Deep learning models are generally believed to form hierarchies of representations that range from low-level features to more conceptual ones related to semantics \parencite{bengio_representation_2013}.
-This has also been observed within deep generative models \parencite{maaloe_biva_2019, child_very_2021}.
-%Recent research \parencite{maaloe_biva_2019, child_very_2021, vahdat_nvae_2020}, has shown that deep latent variable models are able to learn rich hierarchical representations with increasing levels of abstraction and global structure towards the top of the hierarchy.
-For image data there is a trend that the low-level features are quite similar across models (edge detectors, etc.). This raises the question to what extent such features are relevant when detecting OOD data, also suggested  by \parencite{nalisnick_deep_2019} and examined for Glow and PixelCNN in \parencite{schirrmeister_understanding_2020}.
-To investigate, we train two hierarchical VAEs (\cref{sec_paper_hierarchical:background-hie-VAE}) on FashionMNIST and MNIST, respectively, and compute the between-models correlation of the extracted features of in-distribution data and OOD data.
-The result appears in \cref{fig_hierarchical:correlations-heatmap}.
-We observe that features extracted in the early layers (low-level features) correlate strongly between the two models, and that this correlation drops as we get into later layers.
-This suggests that low-level features do not carry much information for OOD detection.
-
 To shed further light on the impact of semantic versus low-level features, we look at model reconstructions of images with a hierarchical VAE (\cref{fig_hierarchical:biva-reconstructions-celeba}).
 To study the feature hierarchy, we replace the inference distribution with the corresponding conditional prior in the first layers of the model to see what information is lost.
 We observe that as more layers rely on the prior, more details are lost.
 Sunglasses, which are uncommon, are first replaced by more common glasses, and then finally disappear.
 %Likewise, a long-haired man eventually becomes woman.
 This suggests that as we fall back to the conditional priors of each layer, we are pushed closer to local modes of the modeled distribution.
+
+Finally, we look at reconstructions of out-of-distribution data.
+\Cref{fig_hierarchical:reconstructions-fashionmnist} illustrates that MNIST data is surprisingly well reconstructed by a hierarchical VAE trained on FashionMNIST.
+Similar results have been found elsewhere \parencite{xiao_likelihood_2020}.
+We repeat the previous experiment and replace inference distributions by their corresponding conditional prior, and now observe that reconstructions from higher latent layers become increasingly similar to the data on which the model was trained.
+The reliance on conditional priors seems to prevent accurate reconstruction of out-of-distribution data.
+Some details are lost on in-distribution data too, but the distinction between that and out-of-distribution data becomes more clear.
+
+\textbf{These observations lead to our main hypothesis.}
+The lowest latent variables in a hierarchical VAE learn generic features that can describe a wide range of data.
+This enables the model to achieve high rates of compression and high likelihoods, even on out-of-distribution data as long as the learned low-level features are appropriate.
+We further suggest that OOD data are in-distribution with respect to these low-level features, but not with respect to semantic ones.
 
 \begin{figure}[t]
     \centering
@@ -105,17 +118,6 @@ This suggests that as we fall back to the conditional priors of each layer, we a
     \vspace{0mm}
     \label{fig_hierarchical:biva-reconstructions-celeba}
 \end{figure}
-Finally, we look at reconstructions of out-of-distribution data.
-\cref{fig_hierarchical:reconstructions-fashionmnist} illustrates that MNIST data is surprisingly well reconstructed by a hierarchical VAE trained on FashionMNIST.
-Similar results have been found elsewhere \parencite{xiao_likelihood_2020}.
-We repeat the previous experiment and replace inference distributions by their corresponding conditional prior, and now observe that reconstructions from higher latent layers become increasingly similar to the data on which the model was trained.
-The reliance on conditional priors seems to prevent accurate reconstruction of out-of-distribution data.
-Some details are lost on in-distribution data too, but the distinction between that and out-of-distribution data becomes more clear.
-
-\textbf{These observations lead to our main hypothesis.}
-The lowest latent variables in a hierarchical VAE learn generic features that can describe a wide range of data.
-This enables the model to achieve high rates of compression and high likelihoods, even on out-of-distribution data as long as the learned low-level features are appropriate.
-We further suggest that OOD data are in-distribution with respect to these low-level features, but not with respect to semantic ones.
 
 \vspace{0cm}
 \section{Background and related work}
@@ -292,7 +294,7 @@ More details on the datasets can be found in the \cref{sec_hierarchical:datasets
         \node[obs] (x_inf) {$\xb$};
         \node[latent,right=.75cm of x_inf](z1_inf){$\zb^{(1)}$};
         \node[latent,right=.75cm of z1_inf](z2_inf){$\zb^{(2)}$};
-        \node[above=of z2_inf, xshift=-1.cm] (phi) {$q_\phib(\zb|\xb)$};
+        \node[above=0.46cm of z1_inf] (phi) {$q_\phib(\zb|\xb)$};
         
         % edges
         \edge[]{x_inf}{z1_inf}; %
@@ -304,7 +306,7 @@ More details on the datasets can be found in the \cref{sec_hierarchical:datasets
         \node[latent,right=.75cm of z2_inf](z2_gen){$\zb^{(2)}$};
         \node[latent,right=.75cm of z2_gen](z1_gen){$\zb^{(1)}$};
         \node[obs,right=0.75cm of z1_gen] (x_gen) {$\xb$};
-        \node[above=of z1_gen] (theta) {$p_\thetab(\xb,\zb)$};
+        \node[above=0.5cm of z1_gen] (theta) {$p_\thetab(\xb,\zb)$};
         
         % edges
         \edge[]{z2_gen}{z1_gen}; %

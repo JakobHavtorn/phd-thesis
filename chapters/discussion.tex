@@ -148,7 +148,7 @@ Importance weighting the ELBO \parencite{burda_importance_2016} provides a tight
 Its use has become standard when reporting likelihood benchmarks but as we described in \cref{sec:variational-autoencoders}, \textcite{rainforth_tighter_2019} demonstrated that using it during training introduces high gradient variance for the inference network, hurting its ability to learn useful representations. However, Later works largely solved this issue and showed that the reduced variance leads to improved likelihoods \parencite{roeder_sticking_2017,tucker_doubly_2019,bauer_generalized_2021}. 
 
 Despite much of this progress being prior to the latest, very large hierarchical VAEs, such as BIVA \parencite{maaloe_biva_2019}, NVAE \parencite{vahdat_nvae_2020}, and VD-VAE \parencite{child_very_2021}, these models are all trained with the single-sample ELBO using regularly reparameterized gradient estimator. Instead, these models rely on advanced inference networks \parencite{maaloe_biva_2019} and architectural improvements \parencite{vahdat_nvae_2020, child_very_2021} to overcome the challenges of training hierarchical VAEs. 
-This indicates that there might be untapped potential in consolidating the work on low-variance gradient estimators, advanced architectures and inference methods, which could help improve representation learning in VAEs.
+This indicates that there might be untapped potential in consolidating the work on low-variance gradient estimators, advanced architectures and inference methods to improve representation learning in VAEs.
 
 
 \subsection{Masking} 
