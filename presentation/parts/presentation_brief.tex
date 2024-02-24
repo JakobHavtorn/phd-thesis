@@ -1,0 +1,79 @@
+% !TEX root = ../presentation.tex
+% !BIB program = biber
+% !TEX program = xelatex
+
+\section{a brief overview of unsupervised speech representation learning}
+
+% \newcommand{\verticalline}[3][black]{\textcolor{#1}{\rule{#2}{#3}}}
+% \newcommand{\greyvrule}[2]{\verticalline[black!40]{#1}{#2}}
+
+
+\newcommand{\presentationbriefslide}[3]{%
+    \begin{frame}
+        \frametitle{#2}
+        \begin{columns}[t]
+
+            \hspace{0.025\textwidth}
+
+            \begin{column}{0.20\textwidth}
+                \begin{figure}
+                    \centering
+                    \includegraphics[width=\textwidth]{figures/brief-flow-#1.pdf}
+                \end{figure}
+            \end{column}
+
+            % \greyvrule{}
+            % {\textcolor{black!40}{\rule{0.05mm}{0.8\textheight}}}
+
+            \begin{column}{0.4\textwidth}
+                \vspace{0.1\textheight}
+                {#3}
+            \end{column}
+
+            \begin{column}{0.35\textwidth}
+                \begin{figure}
+                    \centering
+                    \includegraphics[width=\textwidth]{figures/brief-model-#1.pdf}
+                \end{figure}
+            \end{column}
+
+            \hspace{0.025\textwidth}
+
+        \end{columns}
+    \end{frame}
+}
+
+
+\presentationbriefslide{1}{Development of SSL for speech}{}
+
+\presentationbriefslide{2}{Autoregressive Predictive Coding (APC)}{%
+    \begin{itemize}
+        \item {\bfseries \color{black} Task}: Predict future inputs.
+        \item {\bfseries \color{black} Input/target}: Log-mel spectrogram.
+        \item {\bfseries \color{black} Architecture}: RNN/Transformer decoder.
+        \item {\bfseries \color{black} Slow features}: Predict $k$ steps ahead.
+    \end{itemize}
+}
+
+\presentationbriefslide{3}{Autoregressive Predictive Coding (APC)}{%
+    \begin{itemize}
+        \item {\bfseries \color{black} Challenges}:
+        \begin{itemize}
+            \item Encodes only past inputs.
+            \item Uses the input as target.
+        \end{itemize}
+    \end{itemize}
+}
+
+\presentationbriefslide{4}{Mockingjay}{%
+    \begin{itemize}
+        \item {\bfseries \color{black} Task}: Reconstruct masked inputs.
+        \item {\bfseries \color{black} Architecture}: Transformer encoder.
+        \item {\bfseries \color{black} Masking}: 
+        \begin{itemize}
+            \item $X$ \% at random. (Mockingjay)
+            \item $X$ \% + $N$ consecutive (wav2vec 2.0)
+            \item SpecAugment (Masked RNN)
+        \end{itemize}
+    \end{itemize}
+}
