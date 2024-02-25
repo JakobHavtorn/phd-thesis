@@ -8,11 +8,11 @@
 \begin{frame}
     \frametitle{Stroke}
     \begin{itemize}
-        \item Stroke is a leading cause of {\color{dtured}disability and death} worldwide \parencite{cite1,cite2,cite3}.
-        \item Effective treatment is very {\color{dtured}time-sensitive}. \parencite{cite4,cite5}.
-        \item The gateway to {\color{dtured}ambulance transport and hospital admittance} is through {\color{dtured}prehospital telehealth services}.
-        \item {\color{dtured}Mobile stroke units} has made it possible to deliver advanced treatment faster \parencite{cite6,cite7}.
-        \item The effectiveness of mobile stroke units hinges on {\color{dtured}call-taker recognition of stroke} \parencite{cite6,cite7}.
+        \item Stroke is a leading cause of \highlight{disability and death} worldwide \parencite{cite1,cite2,cite3}.
+        \item Effective treatment is very \highlight{time-sensitive}. \parencite{cite4,cite5}.
+        \item The gateway to \highlight{ambulance transport and hospital admittance} is through \highlight{prehospital telehealth services}.
+        \item \highlight{Mobile stroke units} has made it possible to deliver advanced treatment faster \parencite{cite6,cite7}.
+        \item The effectiveness of mobile stroke units hinges on \highlight{call-taker recognition of stroke} \parencite{cite6,cite7}.
         \item But stroke 
     \end{itemize}
 \end{frame}
@@ -21,7 +21,7 @@
 \begin{frame}
     \frametitle{The study}
     \begin{itemize}
-        \item Collaboration between {\color{dtured}Corti} and the {\color{dtured}Copenhagen Emergency Medical Services (CEMS)} (``Akutberedskabet").
+        \item Collaboration between \highlight{Corti} and the \highlight{Copenhagen Emergency Medical Services (CEMS)} (``Region Hovedstadens Akutberedskab").
         \item CEMS provides prehospital telehealth services in the Capital Region of Denmark (1.9M people).
         \item CEMS operates the 1-1-2 emergency line (similar to 9-1-1) and the 1813 medical helpline (non-life-threatening conditions when general practitioner is unavailable).
         \item Approximately half of all patients with stroke do not receive the correct triage for their condition from call-takers \parencite{cite10,cite11,cite12}. 
@@ -269,15 +269,15 @@
 \begin{frame}
     \frametitle{Simulated prospective study}
     \begin{enumerate}
-        \item[I.] {\color{dtured}When} is the model prediction presented to the call-taker?
+        \item[I.] \highlight{When} is the model prediction presented to the call-taker?
         \begin{enumerate}
-            \item[1.] Notify the call-taker {\color{dtured}after the call ends}.
-            \item[2.] Notify the call-taker {\color{dtured}during the call}.
+            \item[1.] Notify the call-taker \highlight{after the call ends}.
+            \item[2.] Notify the call-taker \highlight{during the call}.
         \end{enumerate}
-        \item[II.] {\color{dtured}How} does prediction influence the diagnostic code the call-taker assigns to the call?
+        \item[II.] \highlight{How} does prediction influence the diagnostic code the call-taker assigns to the call?
         \begin{enumerate}[label=\Alph*.]
-            \item[A.] Call-takers mirror model positives.
-            \item[B.] Call-takers mirror model negatives.
+            \item[A.] Call-takers \highlight{mirror model positives}.
+            \item[B.] Call-takers \highlight{mirror model negatives}.
             \item[C.] Call-takers mirror model predictions (corresponds to main results of the model itself).
         \end{enumerate}
     \end{enumerate}
@@ -348,7 +348,7 @@
             \midrule
             \makecell[l]{MLP}                       & \makecell[c]{35.7 \\ (35.0-36.4)} & \makecell[c]{63.0 \\ (62.0-64.1)} & \makecell[c]{24.9 \\ (24.3-25.5)} & \makecell[c]{0.082 \\ (0.079-0.085)} & \makecell[c]{0.419 \\ (0.413-0.426)} \\
             \midrule
-            \makecell[l]{BERT \\ (fine"=tuned)}      & \makecell[c]{33.8 \\ (31.5-36.2)} & \makecell[c]{57.5 \\ (53.9-60.9)} & \makecell[c]{23.9 \\ (21.9-25.9)} & \makecell[c]{0.094 \\ (0.084-0.104)} & \makecell[c]{0.403 \\ (0.381-0.424)} \\
+            \makecell[l]{BERT \\ (fine-tuned)}      & \makecell[c]{33.8 \\ (31.5-36.2)} & \makecell[c]{57.5 \\ (53.9-60.9)} & \makecell[c]{23.9 \\ (21.9-25.9)} & \makecell[c]{0.094 \\ (0.084-0.104)} & \makecell[c]{0.403 \\ (0.381-0.424)} \\
      
             \bottomrule
         \end{tabular}%

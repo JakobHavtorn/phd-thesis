@@ -58,6 +58,7 @@ encodings
 ENIAC
 ensembling
 epistḗmē
+expressivity
 far-OOD
 FashionMNIST
 Fonden
@@ -201,6 +202,7 @@ underconfident
 untempered
 VAE
 VAEs
+Vigga
 VoxPopuli
 VQ-VAE
 VRNN
@@ -212,4 +214,3 @@ Wescoff
 WGAN
 Wishart
 ZeroSpeech
-Vigga

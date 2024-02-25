@@ -17,9 +17,20 @@
 \usepackage{subcaption}
 
 \usepackage[
+    % backend=biber,
+    % style=numeric,
+    % sorting=ynt
     backend=biber,
+    natbib=true, 
     style=numeric,
-    sorting=ynt
+    abbreviate=false,
+    dateabbrev=false,
+    maxbibnames=14,
+    urldate=long,
+    date=year,
+    url=false,
+    backref=true,
+    sortcites
 ]{biblatex}
 \addbibresource{../bibliography/zotero-references.bib}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
@@ -115,15 +126,17 @@ state/.style={
 
 \title{\color{dtured}\noindent\large\MakeUppercase{\thesistitle}}
 \subtitle{\noindent\normalsize\MakeUppercase{\thesissubtitle}}
-\author{Jakob D. Havtorn}
+\author{Jakob Drachmann Havtorn}
+\date{March 5th 2024}
+
 % \institute{
 % \\
 % $^{1}$Department of Applied Mathematics and Computer Science, Technical University of Denmark\\
 % $^2$Corti AI, Copenhagen
 % }
-\date{\today}
 
 \newcommand{\tabitem}{{\color{dtured}$\bullet$} }
+\newcommand{\highlight}[1]{{\color{dtured}#1}}
 
 
 \AtBeginPart{{\frame{\partpage}}}
@@ -132,7 +145,9 @@ state/.style={
 % \setbeameroption{show notes on second screen=right} % Both
 % \setbeameroption{show notes and slides}
 
+
 \begin{document}
+
 
 % Title slide
 \frame{\maketitle}
@@ -159,8 +174,14 @@ state/.style={
 \frame{\centering\Huge Thank you for your attention}
 
 % Bibliography slide
-\begin{frame}[allowframebreaks]{Bibliography}\printbibliography\end{frame}
+\renewcommand*{\bibfont}{\scriptsize}
+\begin{frame}[allowframebreaks]{Bibliography}
+    \printbibliography
+\end{frame}
+
+% \include{parts/bibliography}
 
 \include{parts/bonus_slides}
+% \include{parts/presentation_ladder_vae}
 
 \end{document}

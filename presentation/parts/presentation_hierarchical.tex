@@ -4,70 +4,54 @@
 
 \section{hierarchical vaes know what they don't know}
 
+
 \frame{
     \frametitle{Defining OOD detection}
     \begin{columns}
-
-    \begin{column}{0.5\textwidth}
-        
-    Out-of-distribution (OOD) detection is about enabling models to distinguish the training data distribution $p(\xb)$ from any other distribution $\tilde{p}(\xb)$.
-
-    \vspace{3mm}
-
-    We are concerned with doing this on a per-observation basis, i.e. answering the question:
-
-    \vspace{3mm}
-    
-    \begin{center}
-        "Was $\xb$ sampled from $p(\xb)$ or not?"
-    \end{center}
-    
-    \vspace{3mm}
-    
-    % It is related to \textbf{anomaly detection} and \textbf{adversarial example detection}.
-    \end{column}
-    
-    \begin{column}{0.5\textwidth}
-
-    \begin{figure}[\textwidth]
-        \centering
-        \begin{tikzpicture}
-        \begin{axis}[
-          domain=0:13,samples=100,
-          height=4.5cm, width=8cm,
-          xtick=\empty,
-          every axis plot/.append style={very thick,smooth}
-        ]
-        
-        \addplot [name path=p1, color=red!50!black] {gauss(5,1)};
-        \addplot [name path=p2, color=black] {gauss(8,1)};
-        \path[name path=axis] (axis cs:0,0) -- (axis cs:10,0);
-        \addlegendentry{$p(\xb)$}
-        \addlegendentry{$\tilde{p}(\xb)$}
-
-        \end{axis}
-        \end{tikzpicture}
-    \end{figure}
-    \begin{figure}[\textwidth]
-        \centering
-        \begin{tikzpicture}
-        \begin{axis}[
-          domain=0:13,samples=100,
-          height=4.5cm, width=8cm,
-          every axis plot/.append style={very thick,smooth}
-        ]
-        
-        \addplot [name path=p1, color=red!50!black] {gauss(4,0.5)};
-        \addplot [name path=p2, color=black] {gauss(9,0.5)};
-        \path[name path=axis] (axis cs:0,0) -- (axis cs:10,0);
-        \addlegendentry{$p(\xb)$}
-        \addlegendentry{$\tilde{p}(\xb)$}
-        
-        \end{axis}
-        \end{tikzpicture}
-    \end{figure}
-    \end{column}
-    
+        \begin{column}{0.5\textwidth}
+            Enable models to distinguish the training data distribution $p(\xb)$ from any other distribution $\tilde{p}(\xb)$.
+            \vspace{3mm}
+            Do this for any given single observation, i.e. answer the question:
+            \vspace{3mm}
+            \begin{center}
+                "Was $\xb$ sampled from $p(\xb)$ or not?"
+            \end{center}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{figure}[\textwidth]
+                \centering
+                \begin{tikzpicture}
+                        \begin{axis}[
+                            name=axistop,
+                            domain=0:13,samples=100,
+                            height=4.5cm, width=8cm,
+                            xtick=\empty,
+                            every axis plot/.append style={very thick,smooth}
+                        ]
+                            \addplot [name path=p1, color=red!50!black] {gauss(5,1)};
+                            \addplot [name path=p2, color=black] {gauss(8,1)};
+                            \path[name path=axis] (axis cs:0,0) -- (axis cs:10,0);
+                            \addlegendentry{$p(\xb)$}
+                            \addlegendentry{$\tilde{p}(\xb)$}
+                        \end{axis}
+                        \path (axistop.south) ++ (0,-0.4cm) coordinate (test);
+                        \begin{axis}[
+                            name=axisbottom,
+                            anchor=north,
+                            shift=(test),
+                            domain=0:13,samples=100,
+                            height=4.5cm, width=8cm,
+                            every axis plot/.append style={very thick,smooth}
+                        ]
+                            \addplot [name path=p1, color=red!50!black] {gauss(4,0.5)};
+                            \addplot [name path=p2, color=black] {gauss(9,0.5)};
+                            \path[name path=axis] (axis cs:0,0) -- (axis cs:10,0);
+                            \addlegendentry{$p(\xb)$}
+                            \addlegendentry{$\tilde{p}(\xb)$}
+                        \end{axis}
+                \end{tikzpicture}
+            \end{figure}
+        \end{column}
     \end{columns}
 }
 
@@ -165,10 +149,24 @@
 
 \begin{frame}
     \frametitle{Out-of-distribution detection with hierarchical VAEs}
-    \begin{figure}[\textwidth]
-        \centering
-        \includegraphics[scale=0.6]{../graphics/paper_hierarchical/densities-FashionMNIST-test-MNIST-test-bpp-k-0_sohau.pdf}
-    \end{figure}
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{itemize}
+                \item Generative models learn to approximate the \textbf{data distribution} $p(\xb)$.
+                \item The likelihood of the model given a sample $\xb$ is a measure of how well the model \textbf{explains the data}.
+                \item \textbf{Model likelihood} have long been thought of as useful for OOD detection \cite{bishop_novelty_1994}.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \begin{overprint}
+                \onslide<2>
+                \begin{figure}
+                    \centering
+                    \includegraphics[width=\textwidth]{../graphics/paper_hierarchical/densities-FashionMNIST-test-MNIST-test-bpp-k-0_sohau.pdf}
+                \end{figure}
+            \end{overprint}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 
@@ -298,37 +296,37 @@
         \resizebox*{!}{0.87\textheight}{%
         \begin{tabular}{lrrr}
             \toprule
-             Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
-             \midrule
-             \multicolumn{4}{c}{\textbf{FashionMNIST (in) / MNIST (out)}} \\
-             \midrule
-             \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
-    Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.994$ & $0.993$ & $0.001$ \\
-    Backgr. contrast. LR (VAE) {\parencite{choi_waic_2019}}                    & $0.924$ & - & - \\
-    Binary classifier {\parencite{ren_likelihood_2019}}                              & $0.455$ & $0.505$ & $0.886$ \\ % 6
-    $p(\hat{y} | \xb)$ with OOD as noise class {\parencite{ren_likelihood_2019}}     & $0.877$ & $0.871$ & $0.195$ \\ % 7
-    $p(\hat{y} | \xb)$ with calibration on OOD {\parencite{ren_likelihood_2019}}     & $0.904$ & $0.895$ & $0.139$ \\ % 8
-    Input complexity ($S$, Glow) \parencite{hendrycks_deep_2019}                    & $0.998$ & - & - \\
-    Input complexity ($S$, PixelCNN++) \parencite{hendrycks_deep_2019}              & $0.967$ & - & - \\
-             \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
-    $p(\hat{y} | \xb)$ {\parencite{ren_likelihood_2019, hendrycks_baseline_2017}}                        & $0.734$ & $0.702$ & $0.506$ \\
-    Entropy of $p(y | \xb)$ {\parencite{ren_likelihood_2019}}                        & $0.746$ & $0.726$ & $0.448$ \\
-    ODIN {\parencite{ren_likelihood_2019, liang_enhancing_2018}}                                       & $0.752$ & $0.763$ & $0.432$ \\
-    VIB \parencite{alemi_uncertainty_2018, choi_waic_2019}                                          & $0.941$ & - & - \\
-    Mahalanobis distance, CNN {\parencite{ren_likelihood_2019}}                     & $0.942$ & $0.928$ & $0.088$ \\
-    Mahalanobis distance, DenseNet {\parencite{lee_simple_2018}}                & $0.986$ & - & - \\
-    Ensemble, 20 classifiers {\parencite{ren_likelihood_2019, lakshminarayanan_simple_2017}}                  & $0.857$ & $0.849$ & $0.240$ \\
-             \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
-             \multicolumn{4}{l}{\textit{- Ensembles}} \\
-    WAIC, 5 models, VAE {\parencite{choi_waic_2019}}                          & $0.766$ & - & - \\
-    WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.221$ & $0.401$ & $0.911$ \\
+            Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
+            \midrule
+            \multicolumn{4}{c}{\textbf{FashionMNIST (in) / MNIST (out)}} \\
+            \midrule
+            \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
+            Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.994$ & $0.993$ & $0.001$ \\
+            Backgr. contrast. LR (VAE) {\parencite{choi_waic_2019}}                    & $0.924$ & - & - \\
+            Binary classifier {\parencite{ren_likelihood_2019}}                              & $0.455$ & $0.505$ & $0.886$ \\ % 6
+            $p(\hat{y} | \xb)$ with OOD as noise class {\parencite{ren_likelihood_2019}}     & $0.877$ & $0.871$ & $0.195$ \\ % 7
+            $p(\hat{y} | \xb)$ with calibration on OOD {\parencite{ren_likelihood_2019}}     & $0.904$ & $0.895$ & $0.139$ \\ % 8
+            Input complexity ($S$, Glow) \parencite{hendrycks_deep_2019}                    & $0.998$ & - & - \\
+            Input complexity ($S$, PixelCNN++) \parencite{hendrycks_deep_2019}              & $0.967$ & - & - \\
+            \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
+            $p(\hat{y} | \xb)$ {\parencite{ren_likelihood_2019, hendrycks_baseline_2017}}                        & $0.734$ & $0.702$ & $0.506$ \\
+            Entropy of $p(y | \xb)$ {\parencite{ren_likelihood_2019}}                        & $0.746$ & $0.726$ & $0.448$ \\
+            ODIN {\parencite{ren_likelihood_2019, liang_enhancing_2018}}                                       & $0.752$ & $0.763$ & $0.432$ \\
+            VIB \parencite{alemi_uncertainty_2018, choi_waic_2019}                                          & $0.941$ & - & - \\
+            Mahalanobis distance, CNN {\parencite{ren_likelihood_2019}}                     & $0.942$ & $0.928$ & $0.088$ \\
+            Mahalanobis distance, DenseNet {\parencite{lee_simple_2018}}                & $0.986$ & - & - \\
+            Ensemble, 20 classifiers {\parencite{ren_likelihood_2019, lakshminarayanan_simple_2017}}                  & $0.857$ & $0.849$ & $0.240$ \\
+            \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
+            \multicolumn{4}{l}{\textit{- Ensembles}} \\
+            WAIC, 5 models, VAE {\parencite{choi_waic_2019}}                          & $0.766$ & - & - \\
+            WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.221$ & $0.401$ & $0.911$ \\
             \multicolumn{4}{l}{\textit{- Not ensembles}} \\
-    Likelihood regret \parencite{xiao_likelihood_2020}                               & $\mathbf{0.988}$ & - & - \\
-    $\mathcal{L}^{>0}$ + HVAE (ours)                    & $0.268$ & $0.363$ & $0.882$ \\
-    $\mathcal{L}^{>1}$ + HVAE (ours)                    & $0.593$ & $0.591$ & $0.658$ \\
-    $\mathcal{L}^{>2}$ + HVAE (ours)                    & $0.712$ & $0.750$ & $0.548$ \\
-    $LLR^{>1}$ + HVAE (ours)                            & $0.964$ & $0.961$ & $0.036$ \\
-    $LLR^{>1}_{250}$ + HVAE (ours)                      & $0.984$ & $\mathbf{0.984}$ & $\mathbf{0.013}$ \\
+            Likelihood regret \parencite{xiao_likelihood_2020}                               & $\mathbf{0.988}$ & - & - \\
+            $\mathcal{L}^{>0}$ + HVAE (ours)                    & $0.268$ & $0.363$ & $0.882$ \\
+            $\mathcal{L}^{>1}$ + HVAE (ours)                    & $0.593$ & $0.591$ & $0.658$ \\
+            $\mathcal{L}^{>2}$ + HVAE (ours)                    & $0.712$ & $0.750$ & $0.548$ \\
+            $LLR^{>1}$ + HVAE (ours)                            & $0.964$ & $0.961$ & $0.036$ \\
+            $LLR^{>1}_{250}$ + HVAE (ours)                      & $0.984$ & $\mathbf{0.984}$ & $\mathbf{0.013}$ \\
              \bottomrule
         \end{tabular}%
         }
@@ -343,28 +341,28 @@
         \resizebox*{!}{0.87\textheight}{%
         \begin{tabular}{lrrr}
             \toprule
-             Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
-             \midrule
-             \multicolumn{4}{c}{\textbf{CIFAR10 (in) / SVHN (out)}} \\
-             \midrule
-             \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
-    Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.930$ & $0.881$ & $0.066$ \\
-    Backgr. contrast. LR (VAE) {\parencite{xiao_likelihood_2020}}                    & $0.265$ & - & - \\
-    Outlier exposure {\parencite{hendrycks_deep_2019}}                              & $0.984$ & - & - \\
-    Input complexity ($S$, Glow) \parencite{serra_input_2020}                   & $0.950$ & - & - \\
-    Input complexity ($S$, PixelCNN++) \parencite{serra_input_2020}             & $0.929$ & - & - \\
-    Input complexity ($S$, HVAE) (Ours) \parencite{serra_input_2020}\textsuperscript{\ref{footnote:serra_hierarchical_likelihood}} & $0.833$ & $0.855$ & $0.344$ \\
-    \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
-    Mahalanobis distance {\parencite{lee_simple_2018}}                          & $0.991$ & - & -  \\
-             \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
-             \multicolumn{4}{l}{\textit{- Ensembles}} \\
-    WAIC, 5 models, Glow {\parencite{choi_waic_2019}}                          & $1.000$ & - & - \\
-    WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.628$ & $0.616$ & $0.657$ \\
-             \multicolumn{4}{l}{\textit{- Not ensembles}} \\
-    Likelihood regret \parencite{xiao_likelihood_2020}                               & $0.875$ & - & - \\
-    $LLR^{>2}$ + HVAE (ours)                            & $0.811$ & $0.837$ & $0.394$ \\
-    $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathbf{0.875}$ & $\mathbf{0.172}$ \\
-             \bottomrule
+            Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
+            \midrule
+            \multicolumn{4}{c}{\textbf{CIFAR10 (in) / SVHN (out)}} \\
+            \midrule
+            \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
+            Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.930$ & $0.881$ & $0.066$ \\
+            Backgr. contrast. LR (VAE) {\parencite{xiao_likelihood_2020}}                    & $0.265$ & - & - \\
+            Outlier exposure {\parencite{hendrycks_deep_2019}}                              & $0.984$ & - & - \\
+            Input complexity ($S$, Glow) \parencite{serra_input_2020}                   & $0.950$ & - & - \\
+            Input complexity ($S$, PixelCNN++) \parencite{serra_input_2020}             & $0.929$ & - & - \\
+            Input complexity ($S$, HVAE) (Ours) \parencite{serra_input_2020} & $0.833$ & $0.855$ & $0.344$ \\
+            \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
+            Mahalanobis distance {\parencite{lee_simple_2018}}                          & $0.991$ & - & -  \\
+            \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
+            \multicolumn{4}{l}{\textit{- Ensembles}} \\
+            WAIC, 5 models, Glow {\parencite{choi_waic_2019}}                          & $1.000$ & - & - \\
+            WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.628$ & $0.616$ & $0.657$ \\
+            \multicolumn{4}{l}{\textit{- Not ensembles}} \\
+            Likelihood regret \parencite{xiao_likelihood_2020}                               & $0.875$ & - & - \\
+            $LLR^{>2}$ + HVAE (ours)                            & $0.811$ & $0.837$ & $0.394$ \\
+            $LLR^{>2}$ + BIVA (ours)                            & $\mathbf{0.891}$ & $\mathbf{0.875}$ & $\mathbf{0.172}$ \\
+            \bottomrule
         \end{tabular}%
         }
     \end{table}
@@ -375,66 +373,62 @@
 \frame{
     \frametitle{Results on diverse datasets}
     \begin{columns}
-    \begin{column}{0.5\textwidth}
-
-        \begin{table}[t]
-            \centering
-            \resizebox{0.9\textwidth}{!}{%
-            \begin{tabular}{llrrr}
-                \toprule
-                 OOD dataset & Metric & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
-                 \midrule
-                 \multicolumn{5}{c}{\textbf{Trained on CIFAR10}} \\
-                 \midrule
-        SVHN          &  $LLR^{>2}$  &  0.811  &  0.837  &  0.394  \\
-        CIFAR10       &  $LLR^{>1}$  &  0.469  &  0.479  &  0.835  \\
-                 \midrule
-                 \multicolumn{5}{c}{\textbf{Trained on SVHN}} \\
-                 \midrule
-        CIFAR10            &  $LLR^{>1}$       &  $0.939$  &  $0.950$  &  $0.052$  \\
-        SVHN               &  $LLR^{>1}$       &  $0.489$  &  $0.484$  &  $0.799$  \\
-            \bottomrule
-            \end{tabular}
-            }
-        \end{table}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-        \begin{table}[t]
-            \centering
-            \resizebox{0.9\textwidth}{!}{%
-            \begin{tabular}{llrrr}
-                \toprule
-                 OOD dataset & Metric & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
-                 \midrule
-                 \multicolumn{5}{c}{\textbf{Trained on FashionMNIST}} \\
-                 \midrule
-        MNIST                    & $LLR^{>1}$             &  0.986  &  0.987  &  0.011 \\
-        notMNIST                 &  $LLR^{>1}$            &  0.998  &  0.998  &  0.000 \\
-        KMNIST                   &  $LLR^{>1}$            &  0.974  &  0.977  &  0.017 \\
-        Omniglot28x28            &  $LLR^{>2}$            &  1.000  &  1.000  &  0.000 \\
-        Omniglot28x28Inverted    &  $LLR^{>1}$            &  0.954  &  0.954  &  0.050 \\
-        SmallNORB28x28           &  $LLR^{>2}$            &  0.999  &  0.999  &  0.002 \\
-        SmallNORB28x28Inverted   &  $LLR^{>2}$            &  0.941  &  0.946  &  0.069 \\
-        FashionMNIST             &  $LLR^{>1}$            &  0.488  &  0.496  &  0.811 \\
-                 \midrule
-                 \multicolumn{5}{c}{\textbf{Trained on MNIST}} \\
-                 \midrule
-        FashionMNIST                   &  $LLR^{>1}$  &  $0.999$  &  $0.999$  &  $0.000$ \\
-        notMNIST                       &  $LLR^{>1}$  &  $1.000$  &  $0.999$  &  $0.000$ \\
-        KMNIST                         &  $LLR^{>1}$  &  $0.999$  &  $0.999$  &  $0.000$ \\
-        Omniglot28x28                  &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-        Omniglot28x28Inverted          &  $LLR^{>1}$  &  $0.944$  &  $0.953$  &  $0.057$ \\
-        SmallNORB28x28                 &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-        SmallNORB28x28Inverted         &  $LLR^{>1}$  &  $0.985$  &  $0.987$  &  $0.000$ \\
-        MNIST                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$ \\
-                 \bottomrule
-            \end{tabular}
-            }
-            % \caption{Additional results for the HVAE model trained on FashionMNIST. All results computed with 1000 importance samples.}
-            % \label{tab:additional-results-fashionmnist}
-        \end{table}
-    \end{column}
-
+        \begin{column}{0.5\textwidth}
+            \begin{table}[t]
+                \centering
+                \resizebox{0.9\textwidth}{!}{%
+                \begin{tabular}{llrrr}
+                    \toprule
+                    OOD dataset & Metric & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
+                    \midrule
+                    \multicolumn{5}{c}{\textbf{Trained on CIFAR10}} \\
+                    \midrule
+                    SVHN          &  $LLR^{>2}$  &  0.811  &  0.837  &  0.394  \\
+                    CIFAR10       &  $LLR^{>1}$  &  0.469  &  0.479  &  0.835  \\
+                    \midrule
+                    \multicolumn{5}{c}{\textbf{Trained on SVHN}} \\
+                    \midrule
+                    CIFAR10            &  $LLR^{>1}$       &  $0.939$  &  $0.950$  &  $0.052$  \\
+                    SVHN               &  $LLR^{>1}$       &  $0.489$  &  $0.484$  &  $0.799$  \\
+                    \bottomrule
+                \end{tabular}
+                }
+            \end{table}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{table}[t]
+                \centering
+                \resizebox{0.9\textwidth}{!}{%
+                \begin{tabular}{llrrr}
+                    \toprule
+                    OOD dataset & Metric & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
+                    \midrule
+                    \multicolumn{5}{c}{\textbf{Trained on FashionMNIST}} \\
+                    \midrule
+                    MNIST                    & $LLR^{>1}$             &  0.986  &  0.987  &  0.011 \\
+                    notMNIST                 &  $LLR^{>1}$            &  0.998  &  0.998  &  0.000 \\
+                    KMNIST                   &  $LLR^{>1}$            &  0.974  &  0.977  &  0.017 \\
+                    Omniglot28x28            &  $LLR^{>2}$            &  1.000  &  1.000  &  0.000 \\
+                    Omniglot28x28Inverted    &  $LLR^{>1}$            &  0.954  &  0.954  &  0.050 \\
+                    SmallNORB28x28           &  $LLR^{>2}$            &  0.999  &  0.999  &  0.002 \\
+                    SmallNORB28x28Inverted   &  $LLR^{>2}$            &  0.941  &  0.946  &  0.069 \\
+                    FashionMNIST             &  $LLR^{>1}$            &  0.488  &  0.496  &  0.811 \\
+                    \midrule
+                    \multicolumn{5}{c}{\textbf{Trained on MNIST}} \\
+                    \midrule
+                    FashionMNIST                   &  $LLR^{>1}$  &  $0.999$  &  $0.999$  &  $0.000$ \\
+                    notMNIST                       &  $LLR^{>1}$  &  $1.000$  &  $0.999$  &  $0.000$ \\
+                    KMNIST                         &  $LLR^{>1}$  &  $0.999$  &  $0.999$  &  $0.000$ \\
+                    Omniglot28x28                  &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+                    Omniglot28x28Inverted          &  $LLR^{>1}$  &  $0.944$  &  $0.953$  &  $0.057$ \\
+                    SmallNORB28x28                 &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
+                    SmallNORB28x28Inverted         &  $LLR^{>1}$  &  $0.985$  &  $0.987$  &  $0.000$ \\
+                    MNIST                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$ \\
+                    \bottomrule
+                \end{tabular}
+                }
+            \end{table}
+        \end{column}
     \end{columns}
 }
 

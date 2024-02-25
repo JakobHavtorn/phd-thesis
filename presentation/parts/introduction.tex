@@ -5,10 +5,24 @@
 \section{Introduction}
 
 \begin{frame}
+    % Background on Corti and the problem of medical communication, diagnosis, and documentation.
+    \frametitle{Background}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            FILL ME OUT. \\
+            Background on Corti, motivation for project.
+        \end{column}
+        \begin{column}{0.4\textwidth}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
     \frametitle{Healthcare}
     \begin{quotation}
         \noindent\centering
-        Healthcare is the improvement of health via the {\color{dtured}prevention}, {\color{dtured}diagnosis}, {\color{dtured}treatment}, {\color{dtured}amelioration} or {\color{dtured}cure} of {\color{theme-green}disease}, {\color{theme-green}illness}, {\color{theme-green}injury}, and {\color{theme-green}other physical and mental impairments} in people.
+        Healthcare is the improvement of health via the \highlight{prevention}, \highlight{diagnosis}, \highlight{treatment}, \highlight{amelioration} or \highlight{cure} of {\color{theme-green}disease}, {\color{theme-green}illness}, {\color{theme-green}injury}, and {\color{theme-green}other physical and mental impairments} in people.
     \end{quotation}
 \end{frame}
 
@@ -30,8 +44,8 @@
         \item<1,2>Communication is everywhere in healthcare. 
         \item <1,2>It is complex, involving multiple participants, different contexts, and different purposes.
         \vspace{1em}
-        \item <2> {\color{dtured} Adverse events}: Failure of communication is a leading cause of medical error contributing to two out of three adverse events \cite{starmer_changes_2014}.
-        \item <2> {\color{dtured} Preventability}: A considerable fraction of all hospital admissions had preventable adverse outcomes (9\% to 16.6\% in AU, NZ, UK, DK) \cite{carver_medical_2024}.
+        \item <2> \highlight{Adverse events}: Failure of communication is a leading cause of medical error contributing to two out of three adverse events \cite{starmer_changes_2014}.
+        \item <2> \highlight{Preventability}: A considerable fraction of all hospital admissions had preventable adverse outcomes (9\% to 16.6\% in AU, NZ, UK, DK) \cite{carver_medical_2024}.
     \end{itemize}
 \end{frame}
 
@@ -54,8 +68,8 @@
         \item <1,2> Documentation is a central part of healthcare.
         \item <1,2> E.g. patient records, insurance claims, billing, research, training, legal purposes.
         \vspace{1em}
-        \item <2> {\color{dtured}Time-consuming}: Physicians spend 34-37\% of their time on documentation \cite{joukes_time_2018, tipping_where_2010, sinsky_allocation_2016}\footnote{Ambulatory care across four specialties in four states and tertiary care at an academic medical center.}.
-        \item <2> {\color{dtured}Varying quality}: Discharge summaries rarely meet all timeline, transmission, and content criteria. \cite{horwitz_comprehensive_2013}\footnote{Outpatient visits, Yale-New Haven Hospital.}
+        \item <2> \highlight{Time-consuming}: Physicians spend 34-37\% of their time on documentation \cite{joukes_time_2018, tipping_where_2010, sinsky_allocation_2016}\footnote{Ambulatory care across four specialties in four states and tertiary care at an academic medical center.}.
+        \item <2> \highlight{Varying quality}: Discharge summaries rarely meet all timeline, transmission, and content criteria. \cite{horwitz_comprehensive_2013}\footnote{Outpatient visits, Yale-New Haven Hospital.}
     \end{itemize}
     
     \note[item]{Documentation is essential for a number of purposes but is very time-consuming and imperfect}
@@ -65,12 +79,12 @@
 \begin{frame}
     \frametitle{How might machine learning help?}
     \begin{itemize}
-        \item <1-> {\color{dtured}Assist} with documentation.
-        \item <1-> {\color{dtured}Augment} communication.
-        \item <1-> {\color{dtured}Improve} decision-making.
+        \item <1-> \highlight{Assist} with documentation.
+        \item <1-> \highlight{Augment} communication.
+        \item <1-> \highlight{Improve} decision-making.
         \vspace{1em}
-        \item <2-> {\color{dtured}Reduce} errors.
-        \item <2-> {\color{dtured}Free up} time for patient care.
+        \item <2-> \highlight{Reduce} number of impact of medical errors and adverse events.
+        \item <2-> \highlight{Free up} time spent on documentation for patient care.
     \end{itemize}
 \end{frame}
 
@@ -78,13 +92,12 @@
 \begin{frame}
     \frametitle{Reliability of machine learning systems}
     \begin{itemize}
-        \item <1-> {\color{dtured}Data}: Privacy, quality, quantity, diversity, bias.
-        \item <2-> {\color{dtured}Task}: Context, domain, language, culture.
-        \item <3-> {\color{dtured}Interpretability}: Trust, ethics, regulation, transparency, accountability.
-        \item <3-> {\color{dtured}Explainability}: 
-        \item <4-> {\color{dtured}Fairness} in treatment of different groups of people.
-        \item <5-> {\color{dtured}Robustness} to noise, outliers, adversarial attacks, and distribution shift.
+        \item <1-> \highlight{Data}: Quality, quantity, diversity, bias, privacy, ethics.
+        \item <2-> \highlight{Task}: Context, domain, language, culture, purpose.
+        \vspace{1em}
+        \item <3-> \highlight{Interpretability} of how a model works (transparency, accountability, regulation).
+        \item <4-> \highlight{Explainability} of model predictions (trust, understanding, feedback).
+        \item <5-> \highlight{Fairness} in treatment of different groups of people.
+        \item <6-> \highlight{Robustness} to noise, outliers, adversarial attacks, and distribution shift.
     \end{itemize}
-
 \end{frame}
-
