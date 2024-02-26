@@ -78,6 +78,16 @@
 \colorlet{shared-function-color}{blue}
 
 \definecolor{theme-green}{RGB}{41 114 114}
+
+% Checkmark and cross for brief overview paper
+\usepackage{pifont}
+\definecolor{ForestGreen}{RGB}{34,139,34}
+\definecolor{xred}{HTML}{C91E12}
+\definecolor{xorange}{RGB}{230,145,56}
+\newcommand{\cmark}{{\color{ForestGreen}\ding{51}}}%
+\newcommand{\xmark}{{\color{xred}\ding{55}}}%
+\newcommand{\xmarkshaded}{{\color{xorange}\ding{55}}}%
+
     
 % TikZ
 \usepackage{tikz}
@@ -152,23 +162,23 @@ state/.style={
 % Title slide
 \frame{\maketitle}
 
-\include{parts/overview_thesis}
-\include{parts/introduction}
+% \include{parts/overview_thesis}
+% \include{parts/introduction}
 \include{parts/overview_presentation}
 
-% \part{Unsupervised Out-of-Distribution Detection}
-\include{parts/overview_hierarchical}
-\include{parts/presentation_hierarchical}
+% % \part{Unsupervised Out-of-Distribution Detection}
+% \include{parts/overview_hierarchical}
+% \include{parts/presentation_hierarchical}
 
 \include{parts/overview_brief}
 \include{parts/presentation_brief}
 
 % \part{Medical Applications}
-\include{parts/overview_retrospective}
-\include{parts/presentation_retrospective}
+% \include{parts/overview_retrospective}
+% \include{parts/presentation_retrospective}
 
-\include{parts/overview_discussion}
-\include{parts/presentation_discussion}
+% \include{parts/overview_discussion}
+% \include{parts/presentation_discussion}
 
 % End slide
 \frame{\centering\Huge Thank you for your attention}
