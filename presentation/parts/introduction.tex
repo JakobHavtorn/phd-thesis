@@ -27,65 +27,111 @@
 \end{frame}
 
 
-\begin{frame}
-    \frametitle{Medical dialogue}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.7\paperwidth]{figures/speech_bubble.pdf}
-    \end{figure}
+% \begin{frame}
+%     \frametitle{Medical dialogue}
+%     \begin{figure}
+%         \centering
+%         \includegraphics[width=0.7\paperwidth]{figures/speech_bubble.pdf}
+%     \end{figure}
 
-    \note[item]{Healthcare sector is a complex system}
+%     \note[item]{Healthcare sector is a complex system}
+% \end{frame}
+% \begin{frame}
+%     \frametitle{Medical dialogue}
+%     \begin{figure}
+%         \centering
+%         \includegraphics[width=0.95\textheight]{figures/corti_sketch_conversations.png}
+%     \end{figure}
+% \end{frame}
+
+
+\begin{frame}[t]
+    \frametitle{Medical dialogue}
+    \begin{columns}[t]
+        \begin{column}{0.4\textwidth}
+            \begin{itemize}
+                \item <2> General practitioner
+                \item <2> Nurse
+                \item <2> Midwife
+                \item <2> Emergency medical dispatcher
+                \item <2> Paramedic
+                \item <2> Emergency room
+                \item <2> Health insurance
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=0.9\textwidth]{figures/corti_sketch_conversations.png}
+            \end{figure}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 
 \begin{frame}
     \frametitle{Errors in medical dialogue}
-    \begin{itemize}
-        \item<1,2>Communication is everywhere in healthcare. 
-        \item <1,2>It is complex, involving multiple participants, different contexts, and different purposes.
-        \vspace{1em}
-        \item <2> \highlight{Adverse events}: Failure of communication is a leading cause of medical error contributing to two out of three adverse events \cite{starmer_changes_2014}.
-        \item <2> \highlight{Preventability}: A considerable fraction of all hospital admissions had preventable adverse outcomes (9\% to 16.6\% in AU, NZ, UK, DK) \cite{carver_medical_2024}.
-    \end{itemize}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+                \item <1-> Communication is everywhere in healthcare. 
+                \item <1-> It is complex, involving multiple participants, different contexts, and different purposes.
+                \vspace{1em}
+                \item <2-> \highlight{Adverse events}: Failure of communication is a leading cause of medical error contributing to two out of three adverse events \cite{starmer_changes_2014}.
+                \item <2-> \highlight{Preventability}: A considerable fraction of all hospital admissions have preventable adverse outcomes\footnote<2>{9\% to 16.6\% in AU, NZ, UK, DK.} \cite{carver_medical_2024}.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=0.95\textwidth]{figures/corti_sketch_emergency.png}
+            \end{figure}
+        \end{column}
+    \end{columns}
 \end{frame}
-
-
-% \begin{frame}
-%     \frametitle{Types of dialogue}
-%     \begin{itemize}
-%         \item Domain: Specialized / General
-%         \item Context: Controlled / Chaotic
-%         \item Person: Nurse, doctor, midwife, caregiver, psychiatrist, insurance professional
-%         \item Purpose: Triaging, diagnosis, treatment, follow-up, documentation, coding, billing
-%     \end{itemize}
-% \end{frame}
-
 
 
 \begin{frame}
     \frametitle{Documenting medical encounters}
-    \begin{itemize}
-        \item <1,2> Documentation is a central part of healthcare.
-        \item <1,2> E.g. patient records, insurance claims, billing, research, training, legal purposes.
-        \vspace{1em}
-        \item <2> \highlight{Time-consuming}: Physicians spend 34-37\% of their time on documentation \cite{joukes_time_2018, tipping_where_2010, sinsky_allocation_2016}\footnote{Ambulatory care across four specialties in four states and tertiary care at an academic medical center.}.
-        \item <2> \highlight{Varying quality}: Discharge summaries rarely meet all timeline, transmission, and content criteria. \cite{horwitz_comprehensive_2013}\footnote{Outpatient visits, Yale-New Haven Hospital.}
-    \end{itemize}
-    
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+                \item <1,2> Documentation is a central part of healthcare.
+                \item <1,2> E.g. patient records, insurance claims, billing, research, training, legal purposes.
+                \vspace{1em}
+                \item <2> \highlight{Time-consuming}: Physicians spend 34-37\% of their time on documentation \cite{joukes_time_2018, tipping_where_2010, sinsky_allocation_2016}\footnote<2>{Ambulatory care across four specialties in four states and tertiary care at an academic medical center.}.
+                \item <2> \highlight{Varying quality}: Discharge summaries almost never meet \emph{all} timeline, transmission, and content criteria. \cite{horwitz_comprehensive_2013}\footnote<2>{Outpatient visits, Yale-New Haven Hospital.}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=0.95\textwidth]{figures/corti_sketch_responders.png}
+            \end{figure}
+        \end{column}
+    \end{columns}
     \note[item]{Documentation is essential for a number of purposes but is very time-consuming and imperfect}
 \end{frame}
-
+    
 
 \begin{frame}
     \frametitle{How might machine learning help?}
-    \begin{itemize}
-        \item <1-> \highlight{Assist} with documentation.
-        \item <1-> \highlight{Augment} communication.
-        \item <1-> \highlight{Improve} decision-making.
-        \vspace{1em}
-        \item <2-> \highlight{Reduce} number of impact of medical errors and adverse events.
-        \item <2-> \highlight{Free up} time spent on documentation for patient care.
-    \end{itemize}
+    \begin{columns}
+        \begin{column}{0.35\textwidth}
+            \begin{itemize}
+                \item <1-> \highlight{Assist} with documentation.
+                \item <1-> \highlight{Augment} communication.
+                \item <1-> \highlight{Improve} decision-making.
+                \vspace{1em}
+                \item <2-> \highlight{Reduce} number of impact of medical errors and adverse events.
+                \item <2-> \highlight{Free up} time spent on documentation for patient care.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            \centering
+            \includegraphics[width=0.95\textwidth]{figures/corti_sketch_office.png}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 

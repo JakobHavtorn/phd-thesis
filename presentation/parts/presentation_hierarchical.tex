@@ -57,19 +57,6 @@
 
 
 \frame{
-    \frametitle{Problem and Contributions}
-    \begin{itemize}
-        \item Deep generative models often fail at OOD detection task when using their likelihood estimate as the score function \cite{nalisnick_deep_2019} by, perhaps surprisingly, assigning \textbf{higher likelihoods} to the OOD data.
-        \item Contributions:
-        \begin{itemize}
-            \item We provide evidence that out-of-distribution detection fails due to learned low-level features that generalize across datasets.
-            \item We present a fast and fully unsupervised method for OOD detection competitive with the state-of-the-art
-        \end{itemize}  
-    \end{itemize}
-}
-
-
-\frame{
     \frametitle{In distribution?}
     \begin{figure}[\textwidth]
         \centering
@@ -86,6 +73,18 @@
     \end{figure}
 }
 
+
+\frame{
+    \frametitle{Problem and Contributions}
+    \begin{itemize}
+        \item Deep generative models often fail at OOD detection task when using their likelihood estimate as the score function \cite{nalisnick_deep_2019} by, perhaps surprisingly, assigning \highlight{higher likelihoods to OOD data}.
+        \item Contributions:
+        \begin{itemize}
+            \item We provide evidence that out-of-distribution detection fails due to learned low-level features that generalize across datasets.
+            \item We present a new score for OOD detection with hierarchical VAEs that alleviates this issue.
+        \end{itemize}  
+    \end{itemize}
+}
 
 
 % \section{Latent variable models}
@@ -149,7 +148,7 @@
 
 \begin{frame}
     \frametitle{Out-of-distribution detection with hierarchical VAEs}
-    \begin{columns}
+    \begin{columns}[t]
         \begin{column}{0.4\textwidth}
             \begin{itemize}
                 \item Generative models learn to approximate the \textbf{data distribution} $p(\xb)$.
@@ -270,6 +269,20 @@
 }
 
 
+\begin{frame}
+    \frametitle{Selecting the value of $k$}
+    \begin{itemize}
+        \item Use validation OOD dataset(s).
+        \item Compute $LLR^{>k}$ for different values of $k$ and select the one that maximizes the AUROC.
+        \item Compute feature correlations for different values of $k$ and select $k$ at the drop.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth]{../graphics/paper_hierarchical/feature-correlation-heatmap2.pdf}
+    \end{figure}
+\end{frame}
+
+
 \frame{
     \frametitle{Results with $LLR^{>k}$}
     \begin{figure}[\textwidth]
@@ -373,7 +386,8 @@
 \frame{
     \frametitle{Results on diverse datasets}
     \begin{columns}
-        \begin{column}{0.5\textwidth}
+        \begin{column}{0.45\textwidth}
+            \hfill
             \begin{table}[t]
                 \centering
                 \resizebox{0.9\textwidth}{!}{%
@@ -394,8 +408,10 @@
                 \end{tabular}
                 }
             \end{table}
+            \hfill
         \end{column}
-        \begin{column}{0.5\textwidth}
+        \begin{column}{0.55\textwidth}
+            \hfill
             \begin{table}[t]
                 \centering
                 \resizebox{0.9\textwidth}{!}{%
@@ -412,7 +428,7 @@
                     Omniglot28x28Inverted    &  $LLR^{>1}$            &  0.954  &  0.954  &  0.050 \\
                     SmallNORB28x28           &  $LLR^{>2}$            &  0.999  &  0.999  &  0.002 \\
                     SmallNORB28x28Inverted   &  $LLR^{>2}$            &  0.941  &  0.946  &  0.069 \\
-                    FashionMNIST             &  $LLR^{>1}$            &  0.488  &  0.496  &  0.811 \\
+   {\color{black!60}FashionMNIST}             &  $LLR^{>1}$            &  0.488  &  0.496  &  0.811 \\
                     \midrule
                     \multicolumn{5}{c}{\textbf{Trained on MNIST}} \\
                     \midrule
@@ -423,15 +439,28 @@
                     Omniglot28x28Inverted          &  $LLR^{>1}$  &  $0.944$  &  $0.953$  &  $0.057$ \\
                     SmallNORB28x28                 &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
                     SmallNORB28x28Inverted         &  $LLR^{>1}$  &  $0.985$  &  $0.987$  &  $0.000$ \\
-                    MNIST                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$ \\
+   {\color{black!60}MNIST}                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$ \\
                     \bottomrule
                 \end{tabular}
                 }
             \end{table}
+            \hfill
         \end{column}
     \end{columns}
 }
 
+\begin{frame}
+    \frametitle{Conclusions}
+    \begin{itemize}
+        \item Key observations: 
+        \begin{itemize}
+            \item The likelihood of a generative model is not a good score for OOD detection \cite{nalisnick_deep_2019}.
+            \item Strong correlations between some latent variables for different datasets.
+            \item Reconstructions of OOD data are good when using full approximate posterior.
+        \end{itemize}
+        \item[\highlight{$\rightarrow$}] Proposed a new score, $LLR^{>k}$, that uses the conditional prior for the top-most latent variables in the hierarchy.
+    \end{itemize}
+\end{frame}
 
 % \frame{
 %     \frametitle{Results with $LLR^{>k}$}

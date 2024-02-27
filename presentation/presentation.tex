@@ -2,19 +2,28 @@
 % !BIB program = biber
 % !TEX program = xelatex
 
-
 \documentclass[aspectratio=169,xetex]{beamer}
 
 % Default packages
+\usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-\usepackage{csquotes}
+\usepackage{adjustbox}
 \usepackage{booktabs}
-\usepackage{siunitx}
-\usepackage{multicol}
+\usepackage{booktabs}
 \usepackage{caption}
+\usepackage{csquotes}
+\usepackage{enumerate}
+\usepackage{makecell}
+\usepackage{multicol}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{siunitx}
+\usepackage{siunitx}
 \usepackage{subcaption}
+\usepackage{tabularx,colortbl}
+% \usepackage{enumitem}
 
 \usepackage[
     % backend=biber,
@@ -34,16 +43,6 @@
 ]{biblatex}
 \addbibresource{../bibliography/zotero-references.bib}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
-
-\usepackage{multicol}
-\usepackage{multirow}
-\usepackage{makecell}
-\usepackage{booktabs}
-\usepackage{enumerate}
-% \usepackage{enumitem}
-\usepackage{adjustbox}
-\usepackage{siunitx}
-\usepackage{tabularx,colortbl}
 
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
@@ -162,23 +161,17 @@ state/.style={
 % Title slide
 \frame{\maketitle}
 
-% \include{parts/overview_thesis}
-% \include{parts/introduction}
+\include{parts/overview_thesis}
+\include{parts/introduction}
 \include{parts/overview_presentation}
-
-% % \part{Unsupervised Out-of-Distribution Detection}
-% \include{parts/overview_hierarchical}
-% \include{parts/presentation_hierarchical}
-
+\include{parts/overview_hierarchical}
+\include{parts/presentation_hierarchical}
 \include{parts/overview_brief}
 \include{parts/presentation_brief}
-
-% \part{Medical Applications}
-% \include{parts/overview_retrospective}
-% \include{parts/presentation_retrospective}
-
-% \include{parts/overview_discussion}
-% \include{parts/presentation_discussion}
+\include{parts/overview_retrospective}
+\include{parts/presentation_retrospective}
+\include{parts/overview_discussion}
+\include{parts/presentation_discussion}
 
 % End slide
 \frame{\centering\Huge Thank you for your attention}
