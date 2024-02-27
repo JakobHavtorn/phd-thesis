@@ -269,20 +269,6 @@
 }
 
 
-\begin{frame}
-    \frametitle{Selecting the value of $k$}
-    \begin{itemize}
-        \item Use validation OOD dataset(s).
-        \item Compute $LLR^{>k}$ for different values of $k$ and select the one that maximizes the AUROC.
-        \item Compute feature correlations for different values of $k$ and select $k$ at the drop.
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.9\textwidth]{../graphics/paper_hierarchical/feature-correlation-heatmap2.pdf}
-    \end{figure}
-\end{frame}
-
-
 \frame{
     \frametitle{Results with $LLR^{>k}$}
     \begin{figure}[\textwidth]
@@ -300,6 +286,20 @@
     \end{subfigure}
     \end{figure}
 }
+
+
+\begin{frame}
+    \frametitle{Selecting the value of $k$}
+    \begin{itemize}
+        \item Use validation OOD dataset(s).
+        \item Compute $LLR^{>k}$ for different values of $k$ and select the one that maximizes the AUROC.
+        \item Compute feature correlations for different values of $k$ and select $k$ at the drop.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth]{../graphics/paper_hierarchical/feature-correlation-heatmap2.pdf}
+    \end{figure}
+\end{frame}
 
 
 \begin{frame}

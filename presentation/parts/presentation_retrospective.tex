@@ -41,6 +41,7 @@
 \end{frame}
 
 
+\newcommand{\verticalmultirow}[2]{\parbox[t]{3mm}{\multirow{#1}{*}{\rotatebox[origin=c]{90}{#2}}}}
 \begin{frame}
     \frametitle{Population characteristics}
     \begin{table}[t]
@@ -48,46 +49,82 @@
         % \caption{Population characteristics for each data subset.}
         % \label{tab_retrospective:table1-population-characteristics}
         \resizebox*{0.98\textwidth}{!}{%
-        \begin{tabular}{l|ccccc}
+        \begin{tabular}{l|l|ccccc}
             \toprule
-                                  & Training (112) & Training (MH-1813) & Validation & Test & 2021 w/o category \\
-    
+            &                      & Training (112) & Training (MH-1813) & Validation & Test & 2021 w/o category \\
+
             \midrule
-            \multicolumn{6}{c}{\emph{All calls}} \\
+            \verticalmultirow{5}{\emph{All calls}}    & Num. calls   & 155,696 & 1,391,301 & 155,825 & 344,030 & 231,009 \\
+                                                                     & Female                & 74,640 (47.94\%) & 792,783 (56.98\%) & 86,959 (55.81\%) & 190,974 (55.51\%) & 134,324 (58.14\%) \\
+                                                                     & Male                  & 79,564 (51.10\%) & 596,760 (42.89\%) & 68,866 (44.19\%) & 153,050 (44.49\%) & 96,258 (41.67\%) \\
+                                                                     & 65+ years             & 72,930 (46.84\%) & 335,146 (24.09\%) & 30,313 (19.45\%) & 65,652 (19.08\%) & 81,488 (35.27\%) \\
+                                                                     & Age (mean $\pm$ std.) & 59.47 ± 21.24 & 47.12 ± 21.38 & 44.63 ± 20.08 & 44.31 ± 20.10 & 50.36 ± 22.77 \\
+
             \midrule
-            Num. calls            & 155,696 & 1,391,301 & 155,825 & 344,030 & 231,009 \\
-            Female                & 74,640 (47.94\%) & 792,783 (56.98\%) & 86,959 (55.81\%) & 190,974 (55.51\%) & 134,324 (58.14\%) \\
-            Male                  & 79,564 (51.10\%) & 596,760 (42.89\%) & 68,866 (44.19\%) & 153,050 (44.49\%) & 96,258 (41.67\%) \\
-            65+ years             & 72,930 (46.84\%) & 335,146 (24.09\%) & 30,313 (19.45\%) & 65,652 (19.08\%) & 81,488 (35.27\%) \\
-            Age (mean $\pm$ std.) & 59.47 ± 21.24 & 47.12 ± 21.38 & 44.63 ± 20.08 & 44.31 ± 20.10 & 50.36 ± 22.77 \\
-    
+            \verticalmultirow{5}{\emph{Stroke calls}} & Num. calls   & 3,899 & 3,471 & 360 & 757 & 679 \\
+                                                                     & Female                & 1,784 (45.76\%) & 1,654 (47.65\%) & 161 (44.72\%) & 349 (46.10\%) & 366 (53.90\%) \\
+                                                                     & Male                  & 2,115 (54.24\%) & 1,815 (52.29\%) & 199 (55.28\%) & 408 (53.90\%) & 313 (46.10\%) \\
+                                                                     & 65+ years             & 2,968 (76.12\%) & 2,421 (69.75\%) & 250 (69.44\%) & 555 (73.32\%) & 567 (83.51\%) \\
+                                                                     & Age (mean $\pm$ std.) & 72.91 ± 12.77 & 70.68 ± 13.85 & 70.93 ± 13.83 & 71.51 ± 13.41 & 73.41 ± 14.11 \\
+
             \midrule
-            \multicolumn{6}{c}{\emph{Stroke calls}} \\
-            \midrule
-            Num. calls            & 3,899 & 3,471 & 360 & 757 & 679 \\
-            Female                & 1,784 (45.76\%) & 1,654 (47.65\%) & 161 (44.72\%) & 349 (46.10\%) & 366 (53.90\%) \\
-            Male                  & 2,115 (54.24\%) & 1,815 (52.29\%) & 199 (55.28\%) & 408 (53.90\%) & 313 (46.10\%) \\
-            65+ years             & 2,968 (76.12\%) & 2,421 (69.75\%) & 250 (69.44\%) & 555 (73.32\%) & 567 (83.51\%) \\
-            Age (mean $\pm$ std.) & 72.91 ± 12.77 & 70.68 ± 13.85 & 70.93 ± 13.83 & 71.51 ± 13.41 & 73.41 ± 14.11 \\
-    
-            \midrule
-            \multicolumn{6}{c}{\emph{Non-stroke calls}} \\
-            \midrule
-            Num. calls            & 151,797 & 1,387,830 & 155,465 & 343,273 & 230,330 \\
-            Female                & 72,856 (48.00\%) & 791,129 (57.00\%) & 86,798 (55.83\%) & 190,625 (55.53\%) & 133,958 (58.16\%) \\
-            Male                  & 77,449 (51.02\%) & 594,945 (42.87\%) & 68,667 (44.17\%) & 152,642 (44.47\%) & 95,945 (41.66\%) \\
-            65+ years             & 69,962 (46.09\%) & 332,725 (23.97\%) & 30,063 (19.34\%) & 65,097 (18.96\%) & 80,921 (35.13\%) \\
-            Age (mean $\pm$ std.) & 59.12 ± 21.30 & 47.06 ± 21.36 & 44.57 ± 20.05 & 44.25 ± 20.08 & 50.29 ± 22.76 \\
-    
+            \verticalmultirow{5}{\emph{Non-stroke}}   & Num. calls   & 151,797 & 1,387,830 & 155,465 & 343,273 & 230,330 \\
+                                                                     & Female                & 72,856 (48.00\%) & 791,129 (57.00\%) & 86,798 (55.83\%) & 190,625 (55.53\%) & 133,958 (58.16\%) \\
+                                                                     & Male                  & 77,449 (51.02\%) & 594,945 (42.87\%) & 68,667 (44.17\%) & 152,642 (44.47\%) & 95,945 (41.66\%) \\
+                                                                     & 65+ years             & 69,962 (46.09\%) & 332,725 (23.97\%) & 30,063 (19.34\%) & 65,097 (18.96\%) & 80,921 (35.13\%) \\
+                                                                     & Age (mean $\pm$ std.) & 59.12 ± 21.30 & 47.06 ± 21.36 & 44.57 ± 20.05 & 44.25 ± 20.08 & 50.29 ± 22.76 \\
+
             \bottomrule
         \end{tabular}%
         }
     \end{table}
-    % \begin{figure}
-    %     \centering
-    %     \includegraphics[width=0.45\paperwidth]{../graphics/paper_retrospective/table1.pdf}
-    % \end{figure}
 \end{frame}
+
+
+% \begin{frame}
+%     \frametitle{Population characteristics}
+%     \begin{table}[t]
+%         \centering
+%         % \caption{Population characteristics for each data subset.}
+%         % \label{tab_retrospective:table1-population-characteristics}
+%         \resizebox*{0.98\textwidth}{!}{%
+%         \begin{tabular}{l|ccccc}
+%             \toprule
+%                                   & Training (112) & Training (MH-1813) & Validation & Test & 2021 w/o category \\
+
+%             \midrule
+%             \multicolumn{6}{c}{\emph{All calls}} \\
+%             \midrule
+%             Num. calls            & 155,696 & 1,391,301 & 155,825 & 344,030 & 231,009 \\
+%             Female                & 74,640 (47.94\%) & 792,783 (56.98\%) & 86,959 (55.81\%) & 190,974 (55.51\%) & 134,324 (58.14\%) \\
+%             Male                  & 79,564 (51.10\%) & 596,760 (42.89\%) & 68,866 (44.19\%) & 153,050 (44.49\%) & 96,258 (41.67\%) \\
+%             65+ years             & 72,930 (46.84\%) & 335,146 (24.09\%) & 30,313 (19.45\%) & 65,652 (19.08\%) & 81,488 (35.27\%) \\
+%             Age (mean $\pm$ std.) & 59.47 ± 21.24 & 47.12 ± 21.38 & 44.63 ± 20.08 & 44.31 ± 20.10 & 50.36 ± 22.77 \\
+
+%             \midrule
+%             \multicolumn{6}{c}{\emph{Stroke calls}} \\
+%             \midrule
+%             Num. calls            & 3,899 & 3,471 & 360 & 757 & 679 \\
+%             Female                & 1,784 (45.76\%) & 1,654 (47.65\%) & 161 (44.72\%) & 349 (46.10\%) & 366 (53.90\%) \\
+%             Male                  & 2,115 (54.24\%) & 1,815 (52.29\%) & 199 (55.28\%) & 408 (53.90\%) & 313 (46.10\%) \\
+%             65+ years             & 2,968 (76.12\%) & 2,421 (69.75\%) & 250 (69.44\%) & 555 (73.32\%) & 567 (83.51\%) \\
+%             Age (mean $\pm$ std.) & 72.91 ± 12.77 & 70.68 ± 13.85 & 70.93 ± 13.83 & 71.51 ± 13.41 & 73.41 ± 14.11 \\
+
+%             \midrule
+%             \multicolumn{6}{c}{\emph{Non-stroke calls}} \\
+%             \midrule
+%             Num. calls            & 151,797 & 1,387,830 & 155,465 & 343,273 & 230,330 \\
+%             Female                & 72,856 (48.00\%) & 791,129 (57.00\%) & 86,798 (55.83\%) & 190,625 (55.53\%) & 133,958 (58.16\%) \\
+%             Male                  & 77,449 (51.02\%) & 594,945 (42.87\%) & 68,667 (44.17\%) & 152,642 (44.47\%) & 95,945 (41.66\%) \\
+%             65+ years             & 69,962 (46.09\%) & 332,725 (23.97\%) & 30,063 (19.34\%) & 65,097 (18.96\%) & 80,921 (35.13\%) \\
+%             Age (mean $\pm$ std.) & 59.12 ± 21.30 & 47.06 ± 21.36 & 44.57 ± 20.05 & 44.25 ± 20.08 & 50.29 ± 22.76 \\
+
+%             \bottomrule
+%         \end{tabular}%
+%         }
+%     \end{table}
+% \end{frame}
+
 
 
 \begin{frame}
@@ -108,58 +145,60 @@
 \end{frame}
 
 
+\newcommand{\shade}[1]{{\color{black!40}#1}}
+
 \begin{frame}
     \frametitle{Main results}
     \begin{table}[t]
         \centering
-        \caption[Overall stroke recognition performance of model compared to call-takers.]{Overall performance on MH-1813 test data, performance without 1-1-2 training data, and performance on data from 2021 without diagnostic categories as well as performance on MH-1813 based on demographic subgroups (age/sex) [mean (95\% CI)]. NPV: negative predictive value, PPV: positive predictive value, FOR: false omission rate, CI: confidence interval.}
+        \caption{MH-1813 test set performance in demographic subgroups (age/sex) [mean (95\% CI)]}
         \label{tab_retrospective:table2-main-results}
         \resizebox*{0.98\textwidth}{!}{%
-        \begin{tabular}{l|ccccc}
+        \begin{tabular}{ll|ccccc}
             \toprule
-                        & F1-score [\%] $\uparrow$ & Sensitivity [\%] $\uparrow$ & PPV [\%] $\uparrow$ & \makecell{FOR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell{FPR [\%] $\downarrow$ \\ (1 - NPV)} \\
+            Subset & Predictor & F1-score [\%] $\uparrow$ & Sensitivity [\%] $\uparrow$ & PPV [\%] $\uparrow$ & \makecell{FOR [\%] $\downarrow$ \\ (1 - specificity)} & \makecell{FPR [\%] $\downarrow$ \\ (1 - NPV)} \\
     
+            % \midrule
+            % \multicolumn{6}{c}{\emph{Overall}} \\
             \midrule
-            \multicolumn{6}{c}{\emph{Overall}} \\
-            \midrule
-            Call-takers                                 & 25.8 (23.7-27.9) & 52.7 (49.2-56.4) & 17.1 (15.5-18.6) & 0.105 (0.094-0.116) & 0.565 (0.539-0.590) \\
-            Model                                       & 35.7 (35.0-36.4) & 63.0 (62.0-64.1) & 24.9 (24.3-25.5) & 0.082 (0.079-0.085) & 0.419 (0.413-0.426) \\
-            % \makecell[l]{Model \\ w/o 1-1-2 training data} & 32.4 (31.8-33.1) & 60.4 (59.3-61.4) & 22.2 (21.6-22.7) & 0.088 (0.085-0.091) & 0.467 (0.460-0.474) \\
+            \emph{Overall} & Call-takers                                 & 25.8 \shade{(23.7-27.9)} & 52.7 \shade{(49.2-56.4)} & 17.1 \shade{(15.5-18.6)} & 0.105 \shade{(0.094-0.116)} & 0.565 \shade{(0.539-0.590)} \\
+            & Model                                       & 35.7 \shade{(35.0-36.4)} & 63.0 \shade{(62.0-64.1)} & 24.9 \shade{(24.3-25.5)} & 0.082 \shade{(0.079-0.085)} & 0.419 \shade{(0.413-0.426)} \\
+            % \makecell[l]{Model \\ w/o 1-1-2 training data} & 32.4 \shade{(31.8-33.1)} & 60.4 \shade{(59.3-61.4)} & 22.2 \shade{(21.6-22.7)} & 0.088 \shade{(0.085-0.091)} & 0.467 \shade{(0.460-0.474)} \\
             % \midrule
     
-            \midrule
-            \multicolumn{6}{c}{\emph{Without 112 training data}} \\
-            \midrule
-            Model       & 32.4 (31.8-33.1) & 60.4 (59.3-61.4) & 22.2 (21.6-22.7) & 0.088 (0.085-0.091) & 0.467 (0.460-0.474) \\
+            % \midrule
+            % \multicolumn{6}{c}{\emph{Without 112 training data}} \\
+            % \midrule
+            % Model       & 32.4 \shade{(31.8-33.1)} & 60.4 \shade{(59.3-61.4)} & 22.2 \shade{(21.6-22.7)} & 0.088 \shade{(0.085-0.091)} & 0.467 \shade{(0.460-0.474)} \\
     
-            \midrule
-            \multicolumn{6}{c}{\emph{On MH-1813 data without diagnostic category}} \\
-            \midrule
-            Model                                       & 32.6 (31.9-33.4) & 48.3 (47.2-49.4) & 24.7 (23.9-25.3) & 0.153 (0.148-0.158) & 0.435 (0.427-0.443) \\
+            % \midrule
+            % \multicolumn{6}{c}{\emph{On MH-1813 data without diagnostic category}} \\
+            % \midrule
+            % Model                                       & 32.6 \shade{(31.9-33.4)} & 48.3 \shade{(47.2-49.4)} & 24.7 \shade{(23.9-25.3)} & 0.153 \shade{(0.148-0.158)} & 0.435 \shade{(0.427-0.443)} \\
     
+            % \midrule
+            % \multicolumn{6}{c}{\emph{18-64 years}} \\
             \midrule
-            \multicolumn{6}{c}{\emph{18-64 years}} \\
-            \midrule
-            Call-takers                                 & 15.9 (13.1-18.5) & 50.5 (43.6-57.2) & 9.40 (7.61-11.18) & 0.036 (0.028-0.043) & 0.353 (0.331-0.375) \\
-            Model                                       & 22.9 (21.8-24.0) & 54.1 (52.1-56.3) & 14.5 (13.8-15.3) & 0.033 (0.031-0.035) & 0.231 (0.226-0.236) \\ 
+            \emph{18-64 years} & Call-takers                                 & 15.9 \shade{(13.1-18.5)} & 50.5 \shade{(43.6-57.2)} & 9.40 \shade{(7.61-11.2)} & 0.036 \shade{(0.028-0.043)} & 0.353 \shade{(0.331-0.375)} \\
+            & Model                                       & 22.9 \shade{(21.8-24.0)} & 54.1 \shade{(52.1-56.3)} & 14.5 \shade{(13.8-15.3)} & 0.033 \shade{(0.031-0.035)} & 0.231 \shade{(0.226-0.236)} \\ 
     
+            % \midrule
+            % \multicolumn{6}{c}{\emph{65+ years}} \\
             \midrule
-            \multicolumn{6}{c}{\emph{65+ years}} \\
-            \midrule
-            Call-takers                                 & 32.9 (30.1-35.7) & 53.5 (49.4-57.6) & 23.7 (21.4-26.0) & 0.401 (0.352-0.449) & 1.467 (1.373-1.560) \\
-            Model                                       & 42.8 (41.9-43.7) & 66.3 (65.1-67.5) & 31.6 (30.8-32.4) & 0.290 (0.278-0.303) & 1.224 (1.198-1.249) \\
+            \emph{65+ years} & Call-takers                                 & 32.9 \shade{(30.1-35.7)} & 53.5 \shade{(49.4-57.6)} & 23.7 \shade{(21.4-26.0)} & 0.401 \shade{(0.352-0.449)} & 1.467 \shade{(1.373-1.560)} \\
+            & Model                                       & 42.8 \shade{(41.9-43.7)} & 66.3 \shade{(65.1-67.5)} & 31.6 \shade{(30.8-32.4)} & 0.290 \shade{(0.278-0.303)} & 1.224 \shade{(1.198-1.249)} \\
     
+            % \midrule
+            % \multicolumn{6}{c}{\emph{Male}} \\
             \midrule
-            \multicolumn{6}{c}{\emph{Male}} \\
-            \midrule
-            Call-takers                                 & 30.2 (27.2-33.3) & 53.9 (49.1-58.9) & 21.0 (18.5-23.5) & 0.124 (0.105-0.141) & 0.542 (0.506-0.580) \\
-            Model                                       & 39.0 (38.0-40.1) & 63.7 (62.3-65.2) & 28.1 (27.3-29.0) & 0.097 (0.093-0.102) & 0.435 (0.425-0.445) \\
+            \emph{Male} & Call-takers                                 & 30.2 \shade{(27.2-33.3)} & 53.9 \shade{(49.1-58.9)} & 21.0 \shade{(18.5-23.5)} & 0.124 \shade{(0.105-0.141)} & 0.542 \shade{(0.506-0.580)} \\
+            & Model                                       & 39.0 \shade{(38.0-40.1)} & 63.7 \shade{(62.3-65.2)} & 28.1 \shade{(27.3-29.0)} & 0.097 \shade{(0.093-0.102)} & 0.435 \shade{(0.425-0.445)} \\
     
+            % \midrule
+            % \multicolumn{6}{c}{\emph{Female}} \\
             \midrule
-            \multicolumn{6}{c}{\emph{Female}} \\
-            \midrule
-            Call-takers                                 & 21.9 (19.1-24.6) & 51.3 (46.0-56.6) & 13.9 (12.0-15.8) & 0.090 (0.076-0.103) & 0.582 (0.547-0.616) \\
-            Model                                       & 32.4 (31.4-33.4) & 62.3 (60.7-63.8) & 21.9 (21.1-22.7) & 0.069 (0.066-0.073) & 0.407 (0.399-0.416) \\
+            \emph{Female} & Call-takers                                 & 21.9 \shade{(19.1-24.6)} & 51.3 \shade{(46.0-56.6)} & 13.9 \shade{(12.0-15.8)} & 0.090 \shade{(0.076-0.103)} & 0.582 \shade{(0.547-0.616)} \\
+            & Model                                       & 32.4 \shade{(31.4-33.4)} & 62.3 \shade{(60.7-63.8)} & 21.9 \shade{(21.1-22.7)} & 0.069 \shade{(0.066-0.073)} & 0.407 \shade{(0.399-0.416)} \\
             
             \bottomrule
         \end{tabular}%
