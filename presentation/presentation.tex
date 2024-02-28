@@ -25,6 +25,16 @@
 \usepackage{tabularx,colortbl}
 % \usepackage{enumitem}
 
+\newcommand{\verticalmultirow}[2]{\parbox[t]{3mm}{\multirow{#1}{*}{\rotatebox[origin=c]{90}{#2}}}}
+
+\newcommand\blfootnote[1]{%
+    \begingroup
+    \renewcommand\thefootnote{}\footnote{#1}%
+    \addtocounter{footnote}{-1}%
+    \endgroup
+}
+
+
 \usepackage[
     % backend=biber,
     % style=numeric,
@@ -54,6 +64,9 @@
 \usepackage{xcolor}
 \definecolor{Blue}{rgb}{0.0,0.0,1.0}
 \definecolor{Red}{rgb}{1.0,0.0,0.0}
+\definecolor{MidnightBlue}{HTML}{006795}
+\definecolor{RoyalBlue}{HTML}{0071BC}
+\definecolor{OliveGreen}{HTML}{3C8031}
 
 % Load preamble from thesis
 \definecolor{customgreen} {RGB}{217	234	212}
@@ -87,12 +100,12 @@
 \newcommand{\xmark}{{\color{xred}\ding{55}}}%
 \newcommand{\xmarkshaded}{{\color{xorange}\ding{55}}}%
 
-    
 % TikZ
 \usepackage{tikz}
 \usetikzlibrary{
     arrows,
     backgrounds,
+    calc,
     matrix,
     positioning,
     shapes,
