@@ -145,42 +145,52 @@
         \begin{column}{0.6\textwidth}
             Modular approach:
             \begin{itemize}
-                \item \highlight{Input}: Speech or text (potentially video, tabular data, images, etc.).
-                \item \highlight{Parsing the input}: Representation learning and speech recognition.
-                \item \highlight{Output}: Predictions (suggesting, summarizing, classifying, etc.).
+                \item <2-> \highlight{Source data}: Speech or text (potentially images, video, electronic health records, etc.).
+                \item <3-> \highlight{Foundation modelling}: Converting the input into representations useful for downstream tasks.
+                \item <4-> \highlight{Downstream tasks}: Suggesting, summarizing, classifying, transcribing, translating, etc.
+                \item <5-> \highlight{Uncertainty}: Estimating the reliability of data, representations, predictions.
             \end{itemize}
         \end{column}
         \begin{column}{0.4\textwidth}
-            \resizebox{!}{0.8\textheight}{%
+            \resizebox{0.8\textwidth}{!}{%
             \begin{tikzpicture}[x=1cm,y=1cm]
-                \node<6> [mybox, fill=presentation_orange] at (0,5) (predictions) {};
+                \node [mybox, fill=white] at (0,5) (predictions_white) {};
+                \node<4-> [mybox, fill=presentation_orange] at (0,5) (predictions) {};
                 \foreach \i in {-11,...,11} {
-                    \fill<6>[myrect, fill=presentation_orange_shaded] (0.2*\i,4.8) rectangle ++(0.1,0.4);
+                    \fill<4->[myrect, fill=presentation_orange_shaded] (0.2*\i,4.8) rectangle ++(0.1,0.4);
                 }
-                \node<6> [] at (0,5) {\small\textsc{predictions}};
+                \node<4-> [] at (0,5) {\small\textsc{predictions}};
     
-                \node<5> [mybox, fill=black!10] at (0,4) (downstream) {\small\textsc{downstream model}};
+                \node<4-> [mybox, fill=black!10] at (0,4) (downstream) {\small\textsc{downstream model}};
     
-                \node<4> [mybox, fill=presentation_blue] at (0,3) (text) {};
+                \node [mybox, fill=white] at (0,3) (text_white) {};
+                \node<2-> [mybox, fill=presentation_blue] at (0,3) (text) {};
                 \foreach \i in {-11,...,11} {
-                    \fill<4>[myrect, fill=presentation_blue_shaded] (0.2*\i,2.8) rectangle ++(0.1,0.4);
+                    \fill<2->[myrect, fill=presentation_blue_shaded] (0.2*\i,2.8) rectangle ++(0.1,0.4);
                 }
-                \node<4> [] at (0,3) {\small\textsc{text}};
+                \node<2-> [] at (0,3) {\small\textsc{text}};
     
-                \node<3> [mybox, fill=black!10] at (0,2) (recognition) {\small\textsc{speech recognition}};
+                \node [mybox, fill=white] at (0,2) (recognition_white) {};
+                \node<3-> [mybox, fill=black!10] at (0,2) (recognition) {\small\textsc{speech recognition}};
     
-                \node<2> [mybox, fill=black!10] at (0,1) (representation) {\small\textsc{representation learning}};
+                \node [mybox, fill=white] at (0,1) (representation_white) {};
+                \node<3-> [mybox, fill=black!10] at (0,1) (representation) {\small\textsc{representation learning}};
     
-                \node<1> [mybox, fill=presentation_green] at (0,0) (speech) {};
+                \node [mybox, fill=white] at (0,0) (speech_white) {};
+                \node<2-> [mybox, fill=presentation_green] at (0,0) (speech) {};
                 \foreach \i in {-11,...,11} {
-                    \fill<1>[myrect, fill=presentation_green_shaded] (0.2*\i,-0.2) rectangle ++(0.1,0.4);
+                    \fill<2->[myrect, fill=presentation_green_shaded] (0.2*\i,-0.2) rectangle ++(0.1,0.4);
                 }
-                \node<1> [] at (0,0) {\small\textsc{speech}};
+                \node<2-> [] at (0,0) {\small\textsc{speech}};
+                
+                \node [draw, rectangle, rounded corners, line width=0.15cm, white, fit=(speech_white)(representation_white)(recognition_white)(text_white)(predictions_white), inner sep=10pt] (uncertainty_white) {};
+                \node [above, white] at (uncertainty_white.north) {\color{white}\small\textsc{uncertainty}};
     
-                \node<7> [draw, rectangle, rounded corners, line width=0.15cm, presentation_red, fit=(speech)(representation)(recognition)(text)(predictions), inner sep=10pt] (uncertainty) {};
-                \node<7> [above] at (uncertainty.north) {\small\textsc{uncertainty}};
+                \node<5-> [draw, rectangle, rounded corners, line width=0.15cm, presentation_red, fit=(speech)(representation)(recognition)(text)(predictions), inner sep=10pt] (uncertainty) {};
+                \node<5-> [above] at (uncertainty.north) {\small\textsc{uncertainty}};
             \end{tikzpicture}
         }
         \end{column}
     \end{columns}
 \end{frame}
+
