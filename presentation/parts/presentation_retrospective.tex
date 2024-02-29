@@ -153,7 +153,7 @@
 
 
 \begin{frame}
-    \frametitle{Model performance}
+    \frametitle{Main results}
     ROC curve and PPV-sensitivity curve (precision-recall curve). Models 1-5 are the individual models that make up the ensemble model.
     \begin{figure}
         \centering
@@ -163,7 +163,7 @@
 
 
 \begin{frame}
-    \frametitle{Model performance}
+    \frametitle{Main results}
     Confusion matrices of predictions for call takers and the model on the test set. Numbers for the model are given as the rounded mean over eleven runs.
     \begin{figure}
         \centering
@@ -200,9 +200,9 @@
         \resizebox*{1.5\textheight}{!}{%
             \begin{tabular}{l|lr||l|lr}
                 \toprule
-                \multicolumn{6}{c}{Positive ranking score, $r^{(w)}$} \\
-                \midrule
-                \multicolumn{6}{c}{Stroke predictions, $D=1,897$}  \\
+                \multicolumn{6}{c}{\textbf`'{Features with positive ranking score $(r^{(w)} > 0)$ computed on stroke positive predictions $(D=1,897)$}} \\
+                % \midrule
+                % \multicolumn{6}{c}{Stroke predictions, $D=1,897$}  \\
                 \midrule
                 Rank & Word, $w$ \textit{(translated)} & Occurrences, $D^{(w)}$ & Rank & Word, $w$ \textit{(translated)} & Occurrences, $D^{(w)}$ \\
                 \midrule
@@ -235,9 +235,9 @@
         \resizebox*{1.5\textheight}{!}{%
             \begin{tabular}{l|lr||l|lr}
                 \toprule
-                \multicolumn{6}{c}{Negative ranking score, $r^{(w)}$} \\
-                \midrule
-                \multicolumn{6}{c}{Non-stroke predictions, $D=342,133$} \\
+                \multicolumn{6}{c}{\textbf{Features with negative ranking score $(r^{(w)} < 0)$ computed on stroke-negative predictions $(D=342,133)$}} \\
+                % \midrule
+                % \multicolumn{6}{c}{} \\
                 \midrule
                 Rank & Word, $w$ \textit{(translated)} & Occurrences, $D^{(w)}$ & Rank & Word, $w$ \textit{(translated)} & Occurrences, $D^{(w)}$ \\
                 \midrule
