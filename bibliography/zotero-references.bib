@@ -13236,6 +13236,15 @@
   abstract = {Deep neural networks demonstrated their ability to provide remarkable performances on a wide range of supervised learning tasks (e.g., image classification) when trained on extensive collections of labeled data (e.g., ImageNet). However, creating such large datasets requires a considerable amount of resources, time, and effort. Such resources may not be available in many practical cases, limiting the adoption and the application of many deep learning methods. In a search for more data-efficient deep learning methods to overcome the need for large annotated datasets, there is a rising research interest in semi-supervised learning and its applications to deep neural networks to reduce the amount of labeled data required, by either developing novel methods or adopting existing semi-supervised learning frameworks for a deep learning setting. In this paper, we provide a comprehensive overview of deep semi-supervised learning, starting with an introduction to the field, followed by a summarization of the dominant semi-supervised approaches in deep learning.}
 }
 
+@inproceedings{ouyang_training_2022,
+  title = {Training Language Models to Follow Instructions with Human Feedback},
+  booktitle = {Advances in {{Neural Information Processing Systems}}},
+  author = {Ouyang, Long and Wu, Jeff and Jiang, Xu and Almeida, Diogo and Wainwright, Carroll L and Mishkin, Pamela and Zhang, Chong and Agarwal, Sandhini and Slama, Katarina and Ray, Alex and Schulman, John and Hilton, Jacob and Kelton, Fraser and Miller, Luke and Simens, Maddie and Askell, Amanda and Welinder, Peter and Christiano, Paul and Leike, Jan and Lowe, Ryan},
+  date = {2022},
+  abstract = {Making language models bigger does not inherently make them better at following a user’s intent. For example, large language models can generate outputs that are untruthful, toxic, or simply not helpful to the user. In other words, these models are not aligned with their users. In this paper, we show an avenue for aligning language models with user intent on a wide range of tasks by fine-tuning with human feedback. Starting with a set of labeler-written prompts and prompts submitted through a language model API, we collect a dataset of labeler demonstrations of the desired model behavior, which we use to fine-tune GPT-3 using supervised learning. We then collect a dataset of rankings of model outputs, which we use to further fine-tune this supervised model using reinforcement learning from human feedback. We call the resulting models InstructGPT. In human evaluations on our prompt distribution, outputs from the 1.3B parameter InstructGPT model are preferred to outputs from the 175B GPT-3, despite having 100x fewer parameters. Moreover, InstructGPT models show improvements in truthfulness and reductions in toxic output generation while having minimal performance regressions on public NLP datasets. Even though InstructGPT still makes simple mistakes, our results show that fine-tuning with human feedback is a promising direction for aligning language models with human intent.},
+  langid = {english}
+}
+
 @article{ovinnikov_poincare_,
   title = {Poincaré {{Wasserstein Autoencoder}}},
   author = {Ovinnikov, Ivan},
@@ -14095,6 +14104,14 @@
   eprint = {1511.06434},
   eprinttype = {arxiv},
   url = {https://arxiv.org/abs/1511.06434}
+}
+
+@inproceedings{rafailov_direct_2024,
+  title = {Direct Preference Optimization: {{Your}} Language Model Is Secretly a Reward Model},
+  booktitle = {Advances in {{Neural Information Processing Systems}}},
+  author = {Rafailov, Rafael and Sharma, Archit and Mitchell, Eric and Manning, Christopher D and Ermon, Stefano and Finn, Chelsea},
+  date = {2024},
+  volume = {36}
 }
 
 @misc{raffel_feedforward_2015,
