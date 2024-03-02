@@ -1,13 +1,15 @@
 % !TEX root = presentation.tex
-% !BIB program = biber
+% !BIB program = biber
 % !TEX program = xelatex
 
-\documentclass[aspectratio=169,xetex]{beamer}
+\documentclass[aspectratio=169,xelatex]{beamer}
+
+% Use DTU theme, see below for options
+\usetheme[department=compute]{DTU}
 
 % Default packages
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 \usepackage{adjustbox}
 \usepackage{booktabs}
 \usepackage{booktabs}
@@ -23,22 +25,9 @@
 \usepackage{siunitx}
 \usepackage{subcaption}
 \usepackage{tabularx,colortbl}
-% \usepackage{enumitem}
 
-\newcommand{\verticalmultirow}[2]{\parbox[t]{3mm}{\multirow{#1}{*}{\rotatebox[origin=c]{90}{#2}}}}
-
-\newcommand\blfootnote[1]{%
-    \begingroup
-    \renewcommand\thefootnote{}\footnote{#1}%
-    \addtocounter{footnote}{-1}%
-    \endgroup
-}
-
-
+% Bibliography
 \usepackage[
-    % backend=biber,
-    % style=numeric,
-    % sorting=ynt
     backend=biber,
     natbib=true, 
     style=numeric,
@@ -53,7 +42,82 @@
 ]{biblatex}
 \addbibresource{../bibliography/zotero-references.bib}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
+\renewcommand*{\bibfont}{\normalfont\footnotesize}  % make bibliography font smaller
 
+
+% Remove certain fields from bibliography
+% \DeclareSourcemap{
+%   \maps[datatype=bibtex, overwrite]{
+%     \map{  % Everywhere: Remove editors, [cs, eess] brackets, pubstate, DOI
+%       \step[fieldset=editor, null]  % Remove editors everywhere.
+%       \step[fieldset=pages, null]  % Remove pages everywhere.
+%       \step[fieldset=eprintclass, null]  % Remove [cs, eess] brackets on preprints.
+%       \step[fieldset=pubstate, null]  % Remove pubstate field on preprints
+%       \step[fieldset=doi, null]  % Remove pubstate field on preprints
+%       \step[fieldset=pmid, null]  % Remove pubstate field on preprints
+%     }
+%     \map{  % Remove URL on all types except online and document (which includes preprint and websites).
+%       \pernottype{online}
+%       \pernottype{document}
+%       \step[fieldset=url, null]
+%     }
+%     \map{  % Remove URL on entries that are preprints in effect (i.e. have an eprint field).
+%       \step[fieldsource=eprint, final]  % Applies to all entries with eprint field (terminates for those without it).
+%       \step[fieldset=url, null]  % Remove URL
+%     }
+%     \map{  % Remove conference title on conference papers
+%       \pertype{inproceedings}
+%       \step[fieldset=eventtitle, null]  % Remove conference title from conference papers (proceedings name is there)
+%     }
+%   }
+% }
+
+% \DefineBibliographyStrings{english}{%
+%   backrefpage = {cited on page},  % originally "cited on page"
+%   backrefpages = {cited on pages},  % originally "cited on pages"
+% }
+
+% % \newcommand{\printpublication}[1]{\AtNextCite{\defcounter{maxnames}{99}}\fullcite{#1}}  % create new command \printpublication that lists all authors
+% \preto\fullcite{\AtNextCite{\defcounter{maxnames}{99}}}  % make \fullcite list all authors
+
+% \DefineBibliographyExtras{english}{%
+%   \protected\def\mkbibdatelong#1#2#3{%
+%     \iffieldundef{#3}
+%       {}
+%       {\thefield{#3}%
+%        \iffieldundef{#2}{}{\nobreakspace}}%
+%     \iffieldundef{#2}
+%       {}
+%       {\mkbibmonth{\thefield{#2}}%
+%        \iffieldundef{#1}{}{\space}}%
+%     \iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\stripzeros{\thefield{#1}}}}%
+% }
+
+
+% % Highlight own author name
+% \usepackage{xstring}
+% \usepackage{etoolbox}
+% \newboolean{bold}
+% \newcommand{\makeauthorsbold}[1]{%
+%   \DeclareNameFormat{author}{%
+%   \setboolean{bold}{false}%
+%     \renewcommand{\do}[1]{\expandafter\ifstrequal\expandafter{\namepartfamily}{####1}{\setboolean{bold}{true}}{}}%
+%     \docsvlist{#1}%
+%     \ifthenelse{\value{listcount}=1}
+%     {%
+%       {\expandafter\ifthenelse{\boolean{bold}}{\mkbibbold{\namepartfamily\addcomma\addspace \namepartgiveni}}{\namepartfamily\addcomma\addspace \namepartgiveni}}%
+%     }{\ifnumless{\value{listcount}}{\value{liststop}}
+%       {\expandafter\ifthenelse{\boolean{bold}}{\mkbibbold{\addcomma\addspace \namepartfamily\addcomma\addspace \namepartgiveni}}{\addcomma\addspace \namepartfamily\addcomma\addspace \namepartgiveni}}%
+%       {\expandafter\ifthenelse{\boolean{bold}}{\mkbibbold{\addcomma\addspace \namepartfamily\addcomma\addspace \namepartgiveni\addcomma\isdot}}{\addcomma\addspace \namepartfamily\addcomma\addspace \namepartgiveni\addcomma\isdot}}%
+%       }
+%     \ifthenelse{\value{listcount}<\value{liststop}}
+%     {\addcomma\space}{}
+%   }
+% }
+% \makeauthorsbold{Havtorn}
+
+
+% Plotting
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 \usepgfplotslibrary{fillbetween}
@@ -102,6 +166,7 @@
 
 % TikZ
 \usepackage{tikz}
+\usepackage[beamer,customcolors]{hf-tikz}
 \usetikzlibrary{
     arrows,
     backgrounds,
@@ -126,54 +191,53 @@ state/.style={
        text centered,
        }
 }
-\usepackage[beamer,customcolors]{hf-tikz}
 \tikzset{hl/.style={
     set fill color=presentation_green_shaded,%red!80!black!40,
     set border color=presentation_green_shaded,
   },
 }
 
-\setbeamertemplate{caption}[numbered]
 
-
+% Load preamble from thesis
 \input{../preamble/fonts.tex}
 \input{../preamble/bayesnet_extras}
-% \input{../preamble/etc.tex}
 \input{../preamble/dtucolors.sty}
 \input{../preamble/static.tex}
 \input{../preamble/macros.tex}
 
-% Use DTU theme, see below for options
-\usetheme[department=compute]{DTU}
+
+% Custom commands
+\newcommand{\verticalmultirow}[2]{\parbox[t]{3mm}{\multirow{#1}{*}{\rotatebox[origin=c]{90}{#2}}}}
+\newcommand{\tabitem}{{\color{dtured}$\bullet$} }
+\newcommand{\highlight}[1]{{\color{dtured}#1}}
+
+\newcommand\blfootnote[1]{%
+    \begingroup
+    \renewcommand\thefootnote{}\footnote{#1}%
+    \addtocounter{footnote}{-1}%
+    \endgroup
+}
+
+
+% Beamer settings
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+% \setbeameroption{show only notes}
+% \setbeameroption{show notes and slides}
+\setbeameroption{show notes on second screen}
+
 
 \title{\color{dtured}\noindent\large\MakeUppercase{\thesistitle}}
 \subtitle{\noindent\normalsize\MakeUppercase{\thesissubtitle}}
 \author{Jakob Drachmann Havtorn}
 \date{March 5th 2024}
 
-% \institute{
-% \\
-% $^{1}$Department of Applied Mathematics and Computer Science, Technical University of Denmark\\
-% $^2$Corti AI, Copenhagen
-% }
-
-\newcommand{\tabitem}{{\color{dtured}$\bullet$} }
-\newcommand{\highlight}[1]{{\color{dtured}#1}}
-
-
 \AtBeginPart{{\frame{\partpage}}}
-
-% \setbeameroption{show only notes}
-% \setbeameroption{show notes on second screen=right} % Both
-% \setbeameroption{show notes and slides}
-
 
 \begin{document}
 
-
-% Title slide
-\frame{\maketitle}
-
+% Contents
+\include{parts/titlepage}
 \include{parts/overview_thesis}
 \include{parts/introduction}
 \include{parts/overview_presentation}
@@ -182,20 +246,15 @@ state/.style={
 \include{parts/overview_brief}
 \include{parts/presentation_brief}
 \include{parts/overview_retrospective}
-\include{parts/presentation_retrospective}
+% \include{parts/presentation_retrospective}
 \include{parts/overview_discussion}
 \include{parts/presentation_discussion}
-
-% End slide
-\frame{\centering\Huge Thank you for your attention}
 
 % Bibliography slide
 \renewcommand*{\bibfont}{\scriptsize}
 \begin{frame}[allowframebreaks]{Bibliography}
     \printbibliography
 \end{frame}
-
-% \include{parts/bibliography}
 
 \include{parts/bonus_slides}
 % \include{parts/presentation_ladder_vae}
