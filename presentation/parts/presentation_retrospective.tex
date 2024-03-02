@@ -2,19 +2,23 @@
 % !BIB program = biber
 % !TEX program = xelatex
 
-\section[A Retrospective Study on Machine Learning-Assisted Stroke Recognition for Medical Helpline Calls]{a retrospective study on machine learning-assisted stroke recognition\\ for medical helpline calls}
+% \section{a retrospective study on machine learning-assisted stroke recognition\\ for medical helpline calls}
+\section{a retrospective study on machine learning-assisted stroke recognition for~medical~helpline~calls}
 
 
 \begin{frame}
     \frametitle{Stroke}
     \begin{itemize}
-        \item Stroke is a leading cause of \highlight{disability and death} worldwide \parencite{cite1,cite2,cite3}.
-        \item Effective treatment is very \highlight{time-sensitive}. \parencite{cite4,cite5}.
+        \item Stroke is the second leading cause of death (11.6\%) and third leading cause of death and disability combined (5.7\%) \parencite{cite1,cite2,cite3}.
+        \item Effective treatment is very \highlight{time-sensitive} \parencite{cite4,cite5}.
         \item The gateway to \highlight{ambulance transport and hospital admittance} is through \highlight{prehospital telehealth services}.
         \item \highlight{Mobile stroke units} has made it possible to deliver advanced treatment faster \parencite{cite6,cite7}.
         \item The effectiveness of mobile stroke units hinges on \highlight{call-taker recognition of stroke} \parencite{cite6,cite7}.
-        \item But stroke 
+        \item Approximately half of all patients with stroke do not receive the correct triage for their condition from call-takers \parencite{cite10,cite11,cite12}. 
     \end{itemize}
+    \note[item]{\cite{cite10}: Systematic review, recall = 41-83\%, precision = 42-68\%.}
+    \note[item]{\cite{cite11}: 1-1-2 calls at CEMS, recall = 66.2\%, precision = 30.2\%.}
+    \note[item]{\cite{cite12}: Systematic review, recall = 66.2\%, precision = 30.2\%.}
 \end{frame}
 
 
@@ -24,7 +28,6 @@
         \item Collaboration between \highlight{Corti} and the \highlight{Copenhagen Emergency Medical Services (CEMS)} (``Region Hovedstadens Akutberedskab").
         \item CEMS provides prehospital telehealth services in the Capital Region of Denmark (1.9M people).
         \item CEMS operates the 1-1-2 emergency line (similar to 9-1-1) and the 1813 medical helpline (non-life-threatening conditions when general practitioner is unavailable).
-        \item Approximately half of all patients with stroke do not receive the correct triage for their condition from call-takers \parencite{cite10,cite11,cite12}. 
         \vspace{1em}
         \item We wanted to investigate if a machine learning model could assist call-takers of 1813 in recognizing stroke.
     \end{itemize}
