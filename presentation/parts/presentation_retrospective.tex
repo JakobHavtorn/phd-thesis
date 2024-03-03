@@ -203,7 +203,7 @@
         \resizebox*{1.5\textheight}{!}{%
             \begin{tabular}{l|lr||l|lr}
                 \toprule
-                \multicolumn{6}{c}{\textbf`'{Features with positive ranking score $(r^{(w)} > 0)$ computed on stroke positive predictions $(D=1,897)$}} \\
+                \multicolumn{6}{c}{\textbf{Features with positive ranking score $(r^{(w)} > 0)$ computed on stroke positive predictions $(D=1,897)$}} \\
                 % \midrule
                 % \multicolumn{6}{c}{Stroke predictions, $D=1,897$}  \\
                 \midrule
@@ -379,7 +379,6 @@
         \end{tabular}%
         }
     \end{table}
-
 \end{frame}
 
 
@@ -389,24 +388,20 @@
         \item Large language models are effective in a wide range of NLP tasks \cite{devlin_bert_2018, radford_improving_2018}.
         \item Might BERT be useful for recognizing stroke?
     \end{itemize}
-
-    \begin{overprint}
-        \onslide<2>
-        \begin{table}
-            \centering
-            \resizebox*{0.95\textwidth}{!}{%
-            \begin{tabular}{ll|ccccc}
-                \toprule
-                \textbf{Subset} & \textbf{Predictor} & \textbf{F1-score [\%] $\uparrow$} & \textbf{Sensitivity [\%] $\uparrow$} & \textbf{PPV [\%] $\uparrow$} & \makecell[c]{\textbf{FOR [\%] $\downarrow$} \\ (1 - NPV)} & \makecell[c]{\textbf{FPR [\%] $\downarrow$} \\ (1 - specificity)} \\
-                \midrule
-                \verticalmultirow{3}{\emph{Overall}} & \textbf{Call-takers}                        & \makecell[c]{25.8 \shade{(23.7-27.9)}} & \makecell[c]{52.7 \shade{(49.2-56.4)}} & \makecell[c]{17.1 \shade{(15.5-18.6)}} & \makecell[c]{0.105 \shade{(0.094-0.116)}} & \makecell[c]{0.565 \shade{(0.539-0.590)}} \\
-                                                     & \makecell[l]{\textbf{MLP}}                  & \makecell[c]{35.7 \shade{(35.0-36.4)}} & \makecell[c]{63.0 \shade{(62.0-64.1)}} & \makecell[c]{24.9 \shade{(24.3-25.5)}} & \makecell[c]{0.082 \shade{(0.079-0.085)}} & \makecell[c]{0.419 \shade{(0.413-0.426)}} \\
-                                                     & \makecell[l]{\textbf{BERT} (fine-tuned)} & \makecell[c]{33.8 \shade{(31.5-36.2)}} & \makecell[c]{57.5 \shade{(53.9-60.9)}} & \makecell[c]{23.9 \shade{(21.9-25.9)}} & \makecell[c]{0.094 \shade{(0.084-0.104)}} & \makecell[c]{0.403 \shade{(0.381-0.424)}} \\
-                \bottomrule
-            \end{tabular}%
-            }
-        \end{table}
-    \end{overprint}
+    \begin{table}
+        \centering
+        \resizebox*{0.95\textwidth}{!}{%
+        \begin{tabular}{ll|ccccc}
+            \toprule
+            \textbf{Subset} & \textbf{Predictor} & \textbf{F1-score [\%] $\uparrow$} & \textbf{Sensitivity [\%] $\uparrow$} & \textbf{PPV [\%] $\uparrow$} & \makecell[c]{\textbf{FOR [\%] $\downarrow$} \\ (1 - NPV)} & \makecell[c]{\textbf{FPR [\%] $\downarrow$} \\ (1 - specificity)} \\
+            \midrule
+            \verticalmultirow{3}{\emph{Overall}} & \textbf{Call-takers}                        & \makecell[c]{25.8 \shade{(23.7-27.9)}} & \makecell[c]{52.7 \shade{(49.2-56.4)}} & \makecell[c]{17.1 \shade{(15.5-18.6)}} & \makecell[c]{0.105 \shade{(0.094-0.116)}} & \makecell[c]{0.565 \shade{(0.539-0.590)}} \\
+                                                    & \makecell[l]{\textbf{MLP}}                  & \makecell[c]{35.7 \shade{(35.0-36.4)}} & \makecell[c]{63.0 \shade{(62.0-64.1)}} & \makecell[c]{24.9 \shade{(24.3-25.5)}} & \makecell[c]{0.082 \shade{(0.079-0.085)}} & \makecell[c]{0.419 \shade{(0.413-0.426)}} \\
+                                                    & \makecell[l]{\textbf{BERT} (fine-tuned)} & \makecell[c]{33.8 \shade{(31.5-36.2)}} & \makecell[c]{57.5 \shade{(53.9-60.9)}} & \makecell[c]{23.9 \shade{(21.9-25.9)}} & \makecell[c]{0.094 \shade{(0.084-0.104)}} & \makecell[c]{0.403 \shade{(0.381-0.424)}} \\
+            \bottomrule
+        \end{tabular}%
+        }
+    \end{table}
 \end{frame}
 
 
@@ -420,8 +415,8 @@
         \end{itemize}
         \item <2-> Clinical applications
         \begin{itemize}
-            \item <2-> Mental health (Screening for suicide risk in emergency and medical helpline calls).
-            \item <2-> Maternity ward (Screening for serious pregnancy complications.)
+            \item <2-> Mental health: Screening for suicide risk in emergency and medical helpline calls.
+            \item <2-> Maternity ward: Screening for serious pregnancy complications.
         \end{itemize}
     \end{itemize}
 \end{frame}

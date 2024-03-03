@@ -38,7 +38,7 @@
 ]{biblatex}
 \addbibresource{../bibliography/zotero-references.bib}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
-\renewcommand*{\bibfont}{\normalfont\footnotesize}  % make bibliography font smaller
+\renewcommand*{\bibfont}{\normalfont\scriptsize}  % make bibliography font smaller
 
 
 % Remove certain fields from bibliography
@@ -213,3 +213,17 @@ state/.style={
     \addtocounter{footnote}{-1}%
     \endgroup
 }
+
+% The below is required to fix an issue where setting `\setbeameroption{show notes on second screen}` causes the content 
+% frames (i.e. the ones with the actual content, not notes) that contain tables to render erroneously.
+% Specifically, frames with tables that have more than one slide using <1->, <2->, etc. will only render table rules
+% on the first slide and not on the following. Additionally, text in cells that have had their color set using e.g.
+% `\color<1->{red}` also do not always render on slides other than the first. 
+% Reference: https://github.com/josephwright/beamer/issues/337
+\makeatletter
+\def\beamer@framenotesbegin{% at beginning of slide
+  \usebeamercolor[fg]{normal text}%
+  \gdef\beamer@noteitems{}%
+  \gdef\beamer@notes{}%
+}
+\makeatother

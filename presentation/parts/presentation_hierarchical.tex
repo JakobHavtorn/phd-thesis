@@ -55,6 +55,10 @@
             \end{figure}
         \end{column}
     \end{columns}
+
+    \note[item]{Define OOD}
+    \note[item]{In 1D it is easy to see when this is possible and when it is not.}
+    \note[item]{In higher dimensions it is not as easy to see.}
 }
 
 
@@ -73,20 +77,47 @@
         \centering
         \includegraphics[scale=0.6]{figures/dataexamples.pdf}
     \end{figure}
+
+    \note[item]{Datasets can overlap quite a bit in their raw data space.}
 }
 
 
-\frame{
-    \frametitle{Problem and Contributions}
-    \begin{itemize}
-        \item Deep generative models often fail at OOD detection task when using their likelihood estimate as the score function \cite{nalisnick_deep_2019} by, perhaps surprisingly, assigning \highlight{higher likelihoods to OOD data}.
-        \item Contributions:
-        \begin{itemize}
-            \item We provide evidence that out-of-distribution detection fails due to learned low-level features that generalize across datasets.
-            \item We present a new score for OOD detection with hierarchical VAEs that alleviates this issue.
-        \end{itemize}  
-    \end{itemize}
-}
+\begin{frame}
+    \frametitle{Out-of-distribution detection with generative models}
+    \begin{columns}[t]
+        \begin{column}{0.4\textwidth}
+            \begin{itemize}
+                \item Generative models learn to approximate the \textbf{data distribution} $p(\xb)$.
+                \item The likelihood of the model given a sample $\xb$ is a measure of how well the model \textbf{explains the data}.
+                \item \textbf{Model likelihood} has long been thought of as useful for OOD detection \cite{bishop_novelty_1994}.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \begin{overprint}
+                \onslide<2>
+                {\footnotesize HVAE trained on FashionMNIST evaluated on FashionMNIST and MNIST.}
+                \begin{figure}
+                    \centering
+                    \includegraphics[width=0.8\textwidth]{../graphics/paper_hierarchical/densities-FashionMNIST-test-MNIST-test-bpp-k-0_sohau.pdf}
+                \end{figure}
+            \end{overprint}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+
+% \frame{
+%     \frametitle{Problem and Contributions}
+%     \begin{itemize}
+%         \item Deep generative models often fail at OOD detection task when using their likelihood estimate as the score function \cite{nalisnick_deep_2019} by, perhaps surprisingly, assigning \highlight{higher likelihoods to OOD data}.
+%         \item Contributions:
+%         \begin{itemize}
+%             \item We provide evidence that out-of-distribution detection fails due to learned low-level features that generalize across datasets.
+%             \item We present a new score for OOD detection with hierarchical VAEs that alleviates this issue.
+%         \end{itemize}  
+%     \end{itemize}
+% }
 
 
 % \section{Latent variable models}
@@ -147,30 +178,6 @@
   \end{columns}
 \end{frame}
 
-
-\begin{frame}
-    \frametitle{Out-of-distribution detection with hierarchical VAEs}
-    \begin{columns}[t]
-        \begin{column}{0.4\textwidth}
-            \begin{itemize}
-                \item Generative models learn to approximate the \textbf{data distribution} $p(\xb)$.
-                \item The likelihood of the model given a sample $\xb$ is a measure of how well the model \textbf{explains the data}.
-                \item \textbf{Model likelihood} has long been thought of as useful for OOD detection \cite{bishop_novelty_1994}.
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.6\textwidth}
-            \begin{overprint}
-                \onslide<2>
-                \begin{figure}
-                    \centering
-                    \includegraphics[width=\textwidth]{../graphics/paper_hierarchical/densities-FashionMNIST-test-MNIST-test-bpp-k-0_sohau.pdf}
-                \end{figure}
-            \end{overprint}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-
 % \section{Identifying the issue}
 
 
@@ -180,18 +187,20 @@
     \begin{equation}
         \mathcal{L}(\xb;\theta,\phi) 
         = \mathbb{E}_{q_\phi(\zb|\xb)} \left[ \log \frac{p_\theta(\xb,\zb)}{q_\phi(\zb|\xb)} \right] 
-        = \underbrace{\mathbb{E}_{q_\phi(\zb|\xb)}[\log p_\theta(\xb|\zb)]}_{\text{reconstruction likelihood}} - \underbrace{D_{\mathrm{KL}}( q_\phi(\zb|\xb) || p(\zb))}_{\text{regularization penalty}} \ .
+        = \underbrace{\mathbb{E}_{q_\phi(\zb|\xb)}[\log p_\theta(\xb|\zb)]}_{\text{reconstruction likelihood}} - \underbrace{D_{\mathrm{KL}}( q_\phi(\zb|\xb) \parallel p(\zb))}_{\text{regularization penalty}} \ .
     \end{equation}
     The first term is high if the data is well-explained by $\zb$.
 
     \vspace{3mm}
     The second term we can rewrite as,
     \begin{equation}
-        D_{\mathrm{KL}}( q_\phi(\zb|\xb) || p(\zb)) = \mathbb{E}_{q_\phi(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\theta(\zb_i|\zb_{i+1})}{q_\phi(\zb_i|\zb_{i-1})} + \log \frac{p_\theta(\zb_L)}{q_\phi(\zb_L|\zb_{L-1})} \Big] \ .
+        D_{\mathrm{KL}}( q_\phi(\zb|\xb) \parallel p(\zb)) = \mathbb{E}_{q_\phi(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\theta(\zb_i|\zb_{i+1})}{q_\phi(\zb_i|\zb_{i-1})} + \log \frac{p_\theta(\zb_L)}{q_\phi(\zb_L|\zb_{L-1})} \Big] \ .
     \end{equation}
-    The absolute log-ratios grow with $\mathrm{dim}(\zb_i)$ since the log probability terms are computed by summing over the dimensionality of $\zb_i$.
-    
+    Since the individual terms are computed by summing over the dimensionality of $\zb_i$, the absolute log-ratios grow with $\mathrm{dim}(\zb_i)$.
+
     \vspace{3mm}
+
+    \note[item]{There is a tendency for the lower-most latent variables to be weighted higher than the higher ones.}
 }
 
 
@@ -209,6 +218,8 @@
         % \caption{Caption}
         % \label{fig:my_label}
     \end{figure}
+
+    \note[item]{Strong evidence that the lowest latent variables are generalizing across datasets.}
 }
 
 
@@ -227,6 +238,9 @@
     $$p_\theta(\zb_{\leq k}|\zb_{>k})q_\phi(\zb_{>k}|\xb)$$
     
     This bound uses the conditional prior for the lowest latent variables in the hierarchy.
+
+    \note[item]{So can we come up with a new bound that does not use the lowest latent variables in the same way?}
+    \note[item]{So we could use this for OOD detection (as done in BIVA).}
 }
 
 
@@ -241,14 +255,16 @@
     \end{equation}
     We can inspect what this likelihood-ratio measures by considering the exact form of our bounds.
     \begin{align}
-        \mathcal{L}      &= \log p_\theta(\xb) - D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) || p_\theta(\zb|\xb)\right), \label{eq:likelihoods-as-exact} \\ 
-        \mathcal{L}^{>k} &= \log p_\theta(\xb) - D_{\mathrm{KL}}\left( p_\theta(\zb_{\leq }|\zb_{>k}) q_\phi(\zb_{>k}|\xb) || p_\theta(\zb|\xb)\right) \notag \ .
+        \mathcal{L}      &= \log p_\theta(\xb) - D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) \parallel p_\theta(\zb|\xb)\right), \label{eq:likelihoods-as-exact} \\ 
+        \mathcal{L}^{>k} &= \log p_\theta(\xb) - D_{\mathrm{KL}}\left( p_\theta(\zb_{\leq }|\zb_{>k}) q_\phi(\zb_{>k}|\xb) \parallel p_\theta(\zb|\xb)\right) \notag \ .
     \end{align}
     In the likelihood ratio the reconstruction terms cancel out and only the KL-divergences from the approximate to the true posterior remain.
     \begin{align}\label{eq:llr-as-kls}
-        LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) || p_\theta(\zb|\xb)\right) \\
-                     &\quad + D_{\mathrm{KL}}\left( p_\theta(\zb_{\leq }|\zb_{>k}) q_\phi(\zb_{>k}|\xb) || p_\theta(\zb|\xb)\right) \ . \notag
+        LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) \parallel p_\theta(\zb|\xb)\right) \\
+                     &\quad + D_{\mathrm{KL}}\left( p_\theta(\zb_{\leq }|\zb_{>k}) q_\phi(\zb_{>k}|\xb) \parallel p_\theta(\zb|\xb)\right) \ . \notag
     \end{align}
+
+    \note[item]{Write likelihood-ratio using the exact form of the bounds including intractable KL-divergence.}
 }
 
 
@@ -261,13 +277,17 @@
 
     \vspace{3mm}
 
-    Consequently, by importance sampling the ELBO, the associated KL-divergence vanishes and our likelihood ratio reduces to the KL-divergence of $\mathcal{L}^{>k}$.
+    Consequently, by importance sampling the ELBO, $D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) \parallel p_\theta(\zb|\xb)\right) \rightarrow 0$ and our likelihood ratio reduces to the KL-divergence of $\mathcal{L}^{>k}$.
 
     \begin{equation}\label{eq:llr-as-kls-iwae-reduced}
-        LLR^{>k}_{S}(\xb) \rightarrow D_{\mathrm{KL}}( p(\zb_{\leq }|\zb_{>k}) q(\zb_{>k}|\xb) || p(\zb|\xb)) \ .
+        LLR^{>k}_{S}(\xb) \rightarrow D_{\mathrm{KL}}( p(\zb_{\leq }|\zb_{>k}) q(\zb_{>k}|\xb) \parallel p(\zb|\xb)) \ .
     \end{equation}
 
     $LLR^{>k}_{S}(\xb)$ performs KL-divergence-based OOD detection using top-most latent variables.
+
+    \note[item]{We can use the IWAE bound force the KL-divergence of the original ELBO towards zero.}
+    \note[item]{Then, the likelihood ratio reduces to the KL-divergence of $\mathcal{L}^{>k}$.}
+    \note[item]{We can hope that using the conditional prior for the lowest latent variables will make the KL-divergence more sensitive to OOD data in the top-most latent variables.}
 }
 
 
@@ -384,73 +404,6 @@
 \end{frame}
 
 
-
-\frame{
-    \frametitle{Results on diverse datasets}
-    \begin{columns}
-        \begin{column}{0.45\textwidth}
-            \hfill
-            \begin{table}[t]
-                \centering
-                \resizebox{0.9\textwidth}{!}{%
-                \begin{tabular}{llrrr}
-                    \toprule
-                    OOD dataset & Metric & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
-                    \midrule
-                    \multicolumn{5}{c}{\textbf{Trained on CIFAR10}} \\
-                    \midrule
-                    SVHN          &  $LLR^{>2}$  &  0.811  &  0.837  &  0.394  \\
-                    CIFAR10       &  $LLR^{>1}$  &  0.469  &  0.479  &  0.835  \\
-                    \midrule
-                    \multicolumn{5}{c}{\textbf{Trained on SVHN}} \\
-                    \midrule
-                    CIFAR10            &  $LLR^{>1}$       &  $0.939$  &  $0.950$  &  $0.052$  \\
-                    SVHN               &  $LLR^{>1}$       &  $0.489$  &  $0.484$  &  $0.799$  \\
-                    \bottomrule
-                \end{tabular}
-                }
-            \end{table}
-            \hfill
-        \end{column}
-        \begin{column}{0.55\textwidth}
-            \hfill
-            \begin{table}[t]
-                \centering
-                \resizebox{0.9\textwidth}{!}{%
-                \begin{tabular}{llrrr}
-                    \toprule
-                    OOD dataset & Metric & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
-                    \midrule
-                    \multicolumn{5}{c}{\textbf{Trained on FashionMNIST}} \\
-                    \midrule
-                    MNIST                    & $LLR^{>1}$             &  0.986  &  0.987  &  0.011 \\
-                    notMNIST                 &  $LLR^{>1}$            &  0.998  &  0.998  &  0.000 \\
-                    KMNIST                   &  $LLR^{>1}$            &  0.974  &  0.977  &  0.017 \\
-                    Omniglot28x28            &  $LLR^{>2}$            &  1.000  &  1.000  &  0.000 \\
-                    Omniglot28x28Inverted    &  $LLR^{>1}$            &  0.954  &  0.954  &  0.050 \\
-                    SmallNORB28x28           &  $LLR^{>2}$            &  0.999  &  0.999  &  0.002 \\
-                    SmallNORB28x28Inverted   &  $LLR^{>2}$            &  0.941  &  0.946  &  0.069 \\
-   {\color{black!60}FashionMNIST}             &  $LLR^{>1}$            &  0.488  &  0.496  &  0.811 \\
-                    \midrule
-                    \multicolumn{5}{c}{\textbf{Trained on MNIST}} \\
-                    \midrule
-                    FashionMNIST                   &  $LLR^{>1}$  &  $0.999$  &  $0.999$  &  $0.000$ \\
-                    notMNIST                       &  $LLR^{>1}$  &  $1.000$  &  $0.999$  &  $0.000$ \\
-                    KMNIST                         &  $LLR^{>1}$  &  $0.999$  &  $0.999$  &  $0.000$ \\
-                    Omniglot28x28                  &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-                    Omniglot28x28Inverted          &  $LLR^{>1}$  &  $0.944$  &  $0.953$  &  $0.057$ \\
-                    SmallNORB28x28                 &  $LLR^{>1}$  &  $1.000$  &  $1.000$  &  $0.000$ \\
-                    SmallNORB28x28Inverted         &  $LLR^{>1}$  &  $0.985$  &  $0.987$  &  $0.000$ \\
-   {\color{black!60}MNIST}                          &  $LLR^{>2}$  &  $0.515$  &  $0.507$  &  $0.792$ \\
-                    \bottomrule
-                \end{tabular}
-                }
-            \end{table}
-            \hfill
-        \end{column}
-    \end{columns}
-}
-
 \begin{frame}
     \frametitle{Conclusions}
     \begin{itemize}
@@ -460,7 +413,8 @@
             \item Strong correlations between some latent variables for different datasets.
             \item Reconstructions of OOD data are good when using full approximate posterior.
         \end{itemize}
-        \item[\highlight{$\rightarrow$}] Proposed a new score, $LLR^{>k}$, that uses the conditional prior for the top-most latent variables in the hierarchy.
+        \item[\highlight{$\rightarrow$}] Proposed a likelihood-ratio score, $LLR^{>k}$, that uses the conditional prior for the top-most latent variables in the hierarchy.
+        \item[\highlight{$\rightarrow$}] Showed that $LLR^{>k}$ outperforms the standard likelihood score across many different datasets and is competetive with state-of-the-art methods.
     \end{itemize}
 \end{frame}
 

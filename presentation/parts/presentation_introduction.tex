@@ -21,7 +21,6 @@
             \item \textbf{Prevention} by predicting risk of disease allowing for early intervention.
             \item \textbf{Diagnosis} by detecting stroke in emergency calls.
             \item \textbf{Treatment} by suggesting medication.
-            \item Even \textbf{Cure} by helping to find new cures or treatments for diseases.
         \end{itemize}
     }
 \end{frame}
@@ -31,7 +30,8 @@
     \frametitle{Medical dialogue}
     \begin{columns}[t]
         \begin{column}{0.4\textwidth}
-            Every interaction within a healthcare system is a form of \highlight{medical dialogue}:
+            Central to an \highlight{interaction} within a healthcare system is the \highlight{medical dialogue}:
+            % Every interaction within a healthcare system is a form of \highlight{medical dialogue}:
             \begin{itemize}
                 \item <1> General practitioner
                 \item <1> Nurse
@@ -136,8 +136,8 @@
     \note[item]{Machine learning can help in many ways.}
     \note[item]{The main goal of augmenting communication is:
         \begin{itemize}
-            \item Reduce the impact of medical errors and adverse events.
-            \item Free up time spent on documentation for patient care.
+            \item Reduce the impact.
+            \item Free up time.
         \end{itemize}
     }
 \end{frame}
@@ -147,13 +147,23 @@
     \frametitle{Reliability of machine learning systems}
     \begin{itemize}
         \item <1-> \highlight{Data}: Quality, quantity, diversity, bias, privacy, ethics.
-        \item <2-> \highlight{Task}: Context, domain, language, culture, purpose.
+        \item <1-> \highlight{Task}: Context, domain, language, culture, purpose.
         \vspace{1em}
-        \item <3-> \highlight{Interpretability} of how a model works (transparency, accountability, regulation).
-        \item <4-> \highlight{Explainability} of model predictions (trust, understanding, feedback).
-        \item <5-> \highlight{Fairness} in treatment of different groups of people.
-        \item <6-> \highlight{Robustness} to noise, outliers, distribution shift, and adversarial attacks.
+        \item <2-> \highlight{Interpretability} of how a model works (transparency, accountability, regulation).
+        \item <2-> \highlight{Explainability} of model predictions (trust, understanding, feedback).
+        \item <2-> \highlight{Fairness} in treatment of different groups of people.
+        \item <2-> \highlight{Robustness} to noise, outliers, distribution shift, and adversarial attacks.
     \end{itemize}
+
+    \note[item]{So what are the challenges holding us back in implementing such systems?}
+    \note[item]{
+        \begin{itemize}
+            \item Strong requirements of data.
+            \item Tasks that span different contexts, domains, languages, and cultures.
+            \item Regulatory requirements for transparency and accountability.
+            \item Trust and understanding of predictions.
+        \end{itemize}
+    }
 \end{frame}
 
 
@@ -164,7 +174,7 @@
     \frametitle{Building a decision-support system}
     \begin{columns}
         \begin{column}{0.6\textwidth}
-            Modular approach:
+            % Modular approach:
             \begin{itemize}
                 \item <2-> \highlight{Source data}: Speech or text (potentially images, video, electronic health records, etc.).
                 \item <3-> \highlight{Foundation modelling}: Converting the input into representations useful for downstream tasks.
@@ -213,4 +223,10 @@
         }
         \end{column}
     \end{columns}
+
+    \note[item]{We will take a modular approach to building a decision-support system.}
+    \note[item]{First we need source data}
+    \note[item]{Then we need to convert it into representations useful for downstream tasks.}
+    \note[item]{Then we can perform the downstream tasks.}
+    \note[item]{Finally, we need to estimate the reliability of our data, representations, and predictions.}
 \end{frame}

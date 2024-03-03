@@ -256,27 +256,27 @@
                     \addlinespace[0.5em]
                     \addlinespace[0.5em]
 
-                    \tikzmarkin<3>{modelagnostic-1}(0.1,-0.4)(-0.1,0.6)
+                    \tikzmarkin<2>{modelagnostic-1}(0.1,-0.4)(-0.1,0.6)
                     & {\color<2->{black}\makecell[l]{\textsc{\itshape chapter 5}\\\\}}     & {\color<2->{black} \bfseries \scshape \Large \makecell[l]{model-agnostic out-of-distribution detection\\ using combined statistical tests}} & \tikzmarkend{modelagnostic-1} \\
                     \addlinespace[0.5em]
                     \addlinespace[0.5em]
 
-                    \tikzmarkin<4>{brief-1}(0.1,-0.4)(-0.1,0.6)
+                    \tikzmarkin<3>{brief-1}(0.1,-0.4)(-0.1,0.6)
                     & {\color<2->{black}\makecell[l]{ \textsc{\itshape chapter 6}\\\\}}    & {\color<2->{black} \bfseries \scshape \Large \makecell[l]{a brief overview of unsupervised speech \\representation learning}} & \tikzmarkend{brief-1} \\
                     \addlinespace[0.5em]
                     \addlinespace[0.5em]
 
-                    \tikzmarkin<5>{benchmarking-1}(0.1,-0.3)(-0.1,0.4)
+                    \tikzmarkin<4>{benchmarking-1}(0.1,-0.3)(-0.1,0.4)
                     & {\color<2->{black}\makecell[l]{\textsc{\itshape chapter 7}}}         & {\color<2->{black} \bfseries \scshape \Large \makecell[l]{benchmarking latent variable models for speech}} & \tikzmarkend{benchmarking-1} \\
                     \addlinespace[0.5em]
                     \addlinespace[0.5em]
 
-                    \tikzmarkin<6>{automated-1}(0.1,-0.4)(-0.1,0.6)
+                    \tikzmarkin<5>{automated-1}(0.1,-0.4)(-0.1,0.6)
                     & {\color<2->{black}\makecell[l]{\textsc{\itshape chapter 8}\\\\}}     & {\color<2->{black} \bfseries \scshape \Large \makecell[l]{automated medical coding on mimic-iii and \\mimic-iv: a critical review and replicability study}} & \tikzmarkend{automated-1} \\
                     \addlinespace[0.5em]
                     \addlinespace[0.5em]
 
-                    \tikzmarkin<7>{retrospective-1}(0.1,-0.4)(-0.1,0.6)
+                    \tikzmarkin<6>{retrospective-1}(0.1,-0.4)(-0.1,0.6)
                     & {\color<2->{black}\makecell[l]{\textsc{\itshape chapter 9}\\\\}}     & {\color<2->{black} \bfseries \scshape \Large \makecell[l]{a retrospective study on machine learning-\\assisted stroke recognition for medical helpline calls}} & \tikzmarkend{retrospective-1} \\
                     \addlinespace[0.5em]
                     \midrule
@@ -293,16 +293,24 @@
                 \begin{overprint}
                     \onslide<1>\tikzoverview
                     \onslide<2>\tikzhierarchical
-                    \onslide<3>\tikzmodelagnostic
-                    \onslide<4>\tikzbrief
-                    \onslide<5>\tikzbenchmarking
-                    \onslide<6>\tikzautomated
-                    \onslide<7>\tikzretrospective
+                    % \onslide<2>\tikzmodelagnostic
+                    \onslide<3>\tikzbrief
+                    \onslide<4>\tikzbenchmarking
+                    \onslide<5>\tikzautomated
+                    \onslide<6>\tikzretrospective
                 \end{overprint}
             \end{figure}
         \end{column}
     \end{columns}
-\end{frame}
+
+    \note[item]<1->{So how does the thesis tackle this problem of building such a system?}
+    \note[item]<2->{First we examine how a certain class of generative models can be used to detect data that is different from training data.}
+    \note[item]<2->{In our second paper we generalize this to be model-agnostic and phrased as a statistical test.}
+    \note[item]<3->{We then take a step back and provide an overview of modern methods for unsupervised speech representation learning.}
+    \note[item]<4->{We then benchmark some of these methods, generative latent variable models, on likelihood and automatic speech recognition.}
+    \note[item]<5->{We then move to a different domain, medical coding, and provide a critical review of recent works.}
+    \note[item]<6->{Finally, we provide a retrospective study on a machine learning-assisted stroke recognition system for medical helpline calls.}
+    \end{frame}
 
 
 \hfsetfillcolor{white}
