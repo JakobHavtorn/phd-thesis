@@ -2,7 +2,7 @@
 % !BIB program = biber
 % !TEX program = xelatex
 
-\section{a brief overview of unsupervised speech representation learning}
+\section[A Brief Overview of Unsupervised Speech Representation Learning]{a brief overview of unsupervised speech representation learning}
 
 
 \begin{frame}
@@ -38,7 +38,7 @@
         \end{column}
     \end{columns}
 
-    \note[item] Bit more focus on the self-supervised learning models.
+    \note[item]{Bit more focus on the self-supervised learning models.}
 \end{frame}
 
 
@@ -159,7 +159,7 @@
 
 \presentationbriefslide{5}{Contrastive Predictive Coding (CPC)}{%
     \begin{itemize}
-        \item {\bfseries \color{black} Contrastive models}: Distinguish target samples from negative samples.
+        \item {\bfseries \color{black} Contrastive learning}: Distinguish target samples from negative samples.
         \item {\bfseries \color{black} Learned target}: Discard details.
         \item {\bfseries \color{black} Sampling negatives}:
         \begin{itemize}
@@ -212,7 +212,7 @@
 
 \presentationbriefslide{10}{Hidden-unit BERT (HuBERT)}{%
     \begin{itemize}
-        \item {\bfseries \color{black} Target}: $K$-means teacher.
+        \item {\bfseries \color{black} Target}: $K$-means teacher (MFCC frames).
         \item {\bfseries \color{black} Training}: Simple cross-entropy loss.
         \item {\bfseries \color{black} 1st iteration}: $K$-means on inputs.
     \end{itemize}
@@ -223,7 +223,7 @@
 
 \presentationbriefslide{11}{Hidden-unit BERT (HuBERT)}{%
     \begin{itemize}
-        \item {\bfseries \color{black} Target}: $K$-means teacher.
+        \item {\bfseries \color{black} Target}: $K$-means teacher (MFCC frames).
         \item {\bfseries \color{black} Training}: Simple cross-entropy loss.
         \item {\bfseries \color{black} 1st iteration}: $K$-means on inputs.
         \item {\bfseries \color{black} 2nd iteration}: $K$-means on hidden layers.

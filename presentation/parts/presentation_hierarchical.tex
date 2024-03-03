@@ -2,7 +2,7 @@
 % !BIB program = biber
 % !TEX program = xelatex
 
-\section{hierarchical vaes know what they don't know}
+\section[Hierarchical VAEs Know What They Don't Know]{hierarchical vaes know what they don't know}
 
 
 \frame{
@@ -68,6 +68,9 @@
         \centering
         \includegraphics[scale=0.6]{figures/dataexamples_shuffled.pdf}
     \end{figure}
+
+    \note[item]{Datasets can overlap quite a bit in their raw data space.}
+    \note[item]{What we usually care about is a more semantic notion of similarity.}
 }
 
 
@@ -79,6 +82,7 @@
     \end{figure}
 
     \note[item]{Datasets can overlap quite a bit in their raw data space.}
+    \note[item]{What we usually care about is a more semantic notion of similarity.}
 }
 
 
@@ -190,13 +194,13 @@
         = \underbrace{\mathbb{E}_{q_\phi(\zb|\xb)}[\log p_\theta(\xb|\zb)]}_{\text{reconstruction likelihood}} - \underbrace{D_{\mathrm{KL}}( q_\phi(\zb|\xb) \parallel p(\zb))}_{\text{regularization penalty}} \ .
     \end{equation}
     The first term is high if the data is well-explained by $\zb$.
-
-    \vspace{3mm}
     The second term we can rewrite as,
     \begin{equation}
         D_{\mathrm{KL}}( q_\phi(\zb|\xb) \parallel p(\zb)) = \mathbb{E}_{q_\phi(\zb|\xb)} \Big[ \textstyle\sum_{i=1}^{L-1} \log \frac{p_\theta(\zb_i|\zb_{i+1})}{q_\phi(\zb_i|\zb_{i-1})} + \log \frac{p_\theta(\zb_L)}{q_\phi(\zb_L|\zb_{L-1})} \Big] \ .
     \end{equation}
     Since the individual terms are computed by summing over the dimensionality of $\zb_i$, the absolute log-ratios grow with $\mathrm{dim}(\zb_i)$.
+
+    Since the lower-most latent variables are usually higher dimensional than top ones, these are weighted higher in the ELBO.
 
     \vspace{3mm}
 
@@ -292,7 +296,7 @@
 
 
 \frame{
-    \frametitle{Results with $LLR^{>k}$}
+    \frametitle{ROC curves with $\mathcal{L}^{>k}$ and $LLR^{>k}$}
     \begin{figure}[\textwidth]
     \centering
     \begin{subfigure}[c]{0.49\textwidth}
@@ -310,63 +314,63 @@
 }
 
 
-\begin{frame}
-    \frametitle{Selecting the value of $k$}
-    \begin{itemize}
-        \item Use validation OOD dataset(s).
-        \item Compute $LLR^{>k}$ for different values of $k$ and select the one that maximizes the AUROC.
-        \item Compute feature correlations for different values of $k$ and select $k$ at the drop.
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.9\textwidth]{../graphics/paper_hierarchical/feature-correlation-heatmap2.pdf}
-    \end{figure}
-\end{frame}
+% \begin{frame}
+%     \frametitle{Selecting the value of $k$}
+%     \begin{itemize}
+%         \item Use validation OOD dataset(s).
+%         \item Compute $LLR^{>k}$ for different values of $k$ and select the one that maximizes the AUROC.
+%         \item Compute feature correlations for different values of $k$ and select $k$ at the drop.
+%     \end{itemize}
+%     \begin{figure}
+%         \centering
+%         \includegraphics[width=0.9\textwidth]{../graphics/paper_hierarchical/feature-correlation-heatmap2.pdf}
+%     \end{figure}
+% \end{frame}
 
 
-\begin{frame}
-    \frametitle{Results on FashionMNIST/MNIST}
-    \begin{table}
-        \centering
-        \resizebox*{!}{0.87\textheight}{%
-        \begin{tabular}{lrrr}
-            \toprule
-            Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
-            \midrule
-            \multicolumn{4}{c}{\textbf{FashionMNIST (in) / MNIST (out)}} \\
-            \midrule
-            \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
-            Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.994$ & $0.993$ & $0.001$ \\
-            Backgr. contrast. LR (VAE) {\parencite{choi_waic_2019}}                    & $0.924$ & - & - \\
-            Binary classifier {\parencite{ren_likelihood_2019}}                              & $0.455$ & $0.505$ & $0.886$ \\ % 6
-            $p(\hat{y} | \xb)$ with OOD as noise class {\parencite{ren_likelihood_2019}}     & $0.877$ & $0.871$ & $0.195$ \\ % 7
-            $p(\hat{y} | \xb)$ with calibration on OOD {\parencite{ren_likelihood_2019}}     & $0.904$ & $0.895$ & $0.139$ \\ % 8
-            Input complexity ($S$, Glow) \parencite{hendrycks_deep_2019}                    & $0.998$ & - & - \\
-            Input complexity ($S$, PixelCNN++) \parencite{hendrycks_deep_2019}              & $0.967$ & - & - \\
-            \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
-            $p(\hat{y} | \xb)$ {\parencite{ren_likelihood_2019, hendrycks_baseline_2017}}                        & $0.734$ & $0.702$ & $0.506$ \\
-            Entropy of $p(y | \xb)$ {\parencite{ren_likelihood_2019}}                        & $0.746$ & $0.726$ & $0.448$ \\
-            ODIN {\parencite{ren_likelihood_2019, liang_enhancing_2018}}                                       & $0.752$ & $0.763$ & $0.432$ \\
-            VIB \parencite{alemi_uncertainty_2018, choi_waic_2019}                                          & $0.941$ & - & - \\
-            Mahalanobis distance, CNN {\parencite{ren_likelihood_2019}}                     & $0.942$ & $0.928$ & $0.088$ \\
-            Mahalanobis distance, DenseNet {\parencite{lee_simple_2018}}                & $0.986$ & - & - \\
-            Ensemble, 20 classifiers {\parencite{ren_likelihood_2019, lakshminarayanan_simple_2017}}                  & $0.857$ & $0.849$ & $0.240$ \\
-            \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
-            \multicolumn{4}{l}{\textit{- Ensembles}} \\
-            WAIC, 5 models, VAE {\parencite{choi_waic_2019}}                          & $0.766$ & - & - \\
-            WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.221$ & $0.401$ & $0.911$ \\
-            \multicolumn{4}{l}{\textit{- Not ensembles}} \\
-            Likelihood regret \parencite{xiao_likelihood_2020}                               & $\mathbf{0.988}$ & - & - \\
-            $\mathcal{L}^{>0}$ + HVAE (ours)                    & $0.268$ & $0.363$ & $0.882$ \\
-            $\mathcal{L}^{>1}$ + HVAE (ours)                    & $0.593$ & $0.591$ & $0.658$ \\
-            $\mathcal{L}^{>2}$ + HVAE (ours)                    & $0.712$ & $0.750$ & $0.548$ \\
-            $LLR^{>1}$ + HVAE (ours)                            & $0.964$ & $0.961$ & $0.036$ \\
-            $LLR^{>1}_{250}$ + HVAE (ours)                      & $0.984$ & $\mathbf{0.984}$ & $\mathbf{0.013}$ \\
-             \bottomrule
-        \end{tabular}%
-        }
-    \end{table}
-\end{frame}
+% \begin{frame}
+%     \frametitle{Results on FashionMNIST/MNIST}
+%     \begin{table}
+%         \centering
+%         \resizebox*{!}{0.87\textheight}{%
+%         \begin{tabular}{lrrr}
+%             \toprule
+%             Method & AUROC$\uparrow$ & AUPRC$\uparrow$ & FPR80$\downarrow$ \\
+%             \midrule
+%             \multicolumn{4}{c}{\textbf{FashionMNIST (in) / MNIST (out)}} \\
+%             \midrule
+%             \multicolumn{4}{l}{\textbf{Use prior knowledge of OOD}} \\
+%             Backgr. contrast. LR (PixelCNN) {\parencite{ren_likelihood_2019}}               & $0.994$ & $0.993$ & $0.001$ \\
+%             Backgr. contrast. LR (VAE) {\parencite{choi_waic_2019}}                    & $0.924$ & - & - \\
+%             Binary classifier {\parencite{ren_likelihood_2019}}                              & $0.455$ & $0.505$ & $0.886$ \\ % 6
+%             $p(\hat{y} | \xb)$ with OOD as noise class {\parencite{ren_likelihood_2019}}     & $0.877$ & $0.871$ & $0.195$ \\ % 7
+%             $p(\hat{y} | \xb)$ with calibration on OOD {\parencite{ren_likelihood_2019}}     & $0.904$ & $0.895$ & $0.139$ \\ % 8
+%             Input complexity ($S$, Glow) \parencite{hendrycks_deep_2019}                    & $0.998$ & - & - \\
+%             Input complexity ($S$, PixelCNN++) \parencite{hendrycks_deep_2019}              & $0.967$ & - & - \\
+%             \multicolumn{4}{l}{\textbf{Use in-distribution data labels $y$}} \\
+%             $p(\hat{y} | \xb)$ {\parencite{ren_likelihood_2019, hendrycks_baseline_2017}}                        & $0.734$ & $0.702$ & $0.506$ \\
+%             Entropy of $p(y | \xb)$ {\parencite{ren_likelihood_2019}}                        & $0.746$ & $0.726$ & $0.448$ \\
+%             ODIN {\parencite{ren_likelihood_2019, liang_enhancing_2018}}                                       & $0.752$ & $0.763$ & $0.432$ \\
+%             VIB \parencite{alemi_uncertainty_2018, choi_waic_2019}                                          & $0.941$ & - & - \\
+%             Mahalanobis distance, CNN {\parencite{ren_likelihood_2019}}                     & $0.942$ & $0.928$ & $0.088$ \\
+%             Mahalanobis distance, DenseNet {\parencite{lee_simple_2018}}                & $0.986$ & - & - \\
+%             Ensemble, 20 classifiers {\parencite{ren_likelihood_2019, lakshminarayanan_simple_2017}}                  & $0.857$ & $0.849$ & $0.240$ \\
+%             \multicolumn{4}{l}{\textbf{No OOD-specific assumptions}} \\
+%             \multicolumn{4}{l}{\textit{- Ensembles}} \\
+%             WAIC, 5 models, VAE {\parencite{choi_waic_2019}}                          & $0.766$ & - & - \\
+%             WAIC, 5 models, PixelCNN {\parencite{ren_likelihood_2019}}                      & $0.221$ & $0.401$ & $0.911$ \\
+%             \multicolumn{4}{l}{\textit{- Not ensembles}} \\
+%             Likelihood regret \parencite{xiao_likelihood_2020}                               & $\mathbf{0.988}$ & - & - \\
+%             $\mathcal{L}^{>0}$ + HVAE (ours)                    & $0.268$ & $0.363$ & $0.882$ \\
+%             $\mathcal{L}^{>1}$ + HVAE (ours)                    & $0.593$ & $0.591$ & $0.658$ \\
+%             $\mathcal{L}^{>2}$ + HVAE (ours)                    & $0.712$ & $0.750$ & $0.548$ \\
+%             $LLR^{>1}$ + HVAE (ours)                            & $0.964$ & $0.961$ & $0.036$ \\
+%             $LLR^{>1}_{250}$ + HVAE (ours)                      & $0.984$ & $\mathbf{0.984}$ & $\mathbf{0.013}$ \\
+%              \bottomrule
+%         \end{tabular}%
+%         }
+%     \end{table}
+% \end{frame}
 
 
 \begin{frame}
@@ -411,10 +415,10 @@
         \begin{itemize}
             \item The likelihood of a generative model is not a good score for OOD detection \cite{nalisnick_deep_2019}.
             \item Strong correlations between some latent variables for different datasets.
-            \item Reconstructions of OOD data are good when using full approximate posterior.
+            % \item Reconstructions of OOD data are good when using full approximate posterior.
         \end{itemize}
-        \item[\highlight{$\rightarrow$}] Proposed a likelihood-ratio score, $LLR^{>k}$, that uses the conditional prior for the top-most latent variables in the hierarchy.
-        \item[\highlight{$\rightarrow$}] Showed that $LLR^{>k}$ outperforms the standard likelihood score across many different datasets and is competetive with state-of-the-art methods.
+        \item[\highlight{$\rightarrow$}] Proposed a likelihood-ratio score, $LLR^{>k}$, that uses the conditional prior for the top-most latent variables in the hierarchy and showed its effectiveness.
+        % \item[\highlight{$\rightarrow$}] Showed that $LLR^{>k}$ outperforms the standard likelihood score across many different datasets and is competetive with state-of-the-art methods.
     \end{itemize}
 \end{frame}
 

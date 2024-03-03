@@ -2,7 +2,50 @@
 % !BIB program = biber
 % !TEX program = xelatex
 
-\section[short]{hierarchical vaes know what they don't know}
+\section[Extra Slides]{extra slides}
+
+
+\subsection[Introduction]{introduction}
+
+
+\begin{frame}
+    \frametitle{Reliability of machine learning systems}
+    \begin{itemize}
+        \item <1-> \highlight{Data}: Quality, quantity, diversity, bias, privacy, ethics.
+        \item <1-> \highlight{Task}: Context, domain, language, culture, purpose.
+        \vspace{1em}
+        \item <2-> \highlight{Interpretability} of how a model works (transparency, accountability, regulation).
+        \item <2-> \highlight{Explainability} of model predictions (trust, understanding, feedback).
+        \item <2-> \highlight{Fairness} in treatment of different groups of people.
+        \item <2-> \highlight{Robustness} to noise, outliers, distribution shift, and adversarial attacks.
+    \end{itemize}
+
+    \note[item]{So what are the challenges holding us back in implementing such systems?}
+    \note[item]{
+        \begin{itemize}
+            \item Strong requirements of data.
+            \item Tasks that span different contexts, domains, languages, and cultures.
+            \item Regulatory requirements for transparency and accountability.
+            \item Trust and understanding of predictions.
+        \end{itemize}
+    }
+\end{frame}
+
+
+% ======================================================================================================================
+
+
+\subsection[Hierarchical VAEs Know What They Don't Know]{hierarchical vaes know what they don't know}
+
+
+\begin{frame}
+    \frametitle{Hierarchy of speech features}
+    \begin{figure}
+        \centering
+        \includegraphics[height=\textheight]{figures/Major_levels_of_linguistic_structure.png}
+    \end{figure}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{Results on diverse datasets}
@@ -70,9 +113,12 @@
     \end{columns}
 \end{frame}
 
+
 % ======================================================================================================================
 
-\section{a brief overview of unsupervised speech representation learning}
+
+\subsection[A Brief Overview of Unsupervised Speech Representation Learning]{a brief overview of unsupervised speech representation learning}
+
 
 \begin{frame}
     \frametitle{Types of self-supervised speech representation learning methods}
@@ -163,11 +209,7 @@
     \frametitle{Overview of LVM probabilistic components}
 
     \begin{table}
-        % \caption[A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable.]{ A comprehensive overview of observation, prior and inference models for VAE type latent variable models with a single latent variable. The observation, prior and inference models may all belong to one or more of the categories listed under them as detailed in \cref{sec:plvms}. The types listed here serve as primitives from which more complex structures can be constructed including models with hierarchies of multiple latent variables.}
-        % \label{tab:lvm-model-primitives}
-        % \begin{center}
         \centering
-        % \renewcommand{\arraystretch}{1.1}
         \resizebox{0.8\textheight}{!}{%
             \begin{tabular}{ l l l } 
                 \toprule
@@ -196,7 +238,6 @@
                 \bottomrule
             \end{tabular}
         }
-        % \end{center}
     \end{table}
 
 \end{frame}
@@ -206,9 +247,6 @@
     \frametitle{Classification of selected LVMs for speech}
 
     \begin{table}
-        % \caption[Classification of selected latent variable models.]{ Selected latent variable models classified according the attributes defined throughout \cref{sec:plvms}. See \cref{tab:lvm-model-primitives} for the probability distributions that correspond to each of the attribute short-hands. \textbf{\textsc{hie}} indicates a hierarchical representation.}
-        % \label{tab:lvm-taxonomy}
-        % \begin{center}
         \centering
         \setlength{\tabcolsep}{3pt}
         \renewcommand{\arraystretch}{1.1}
@@ -249,7 +287,6 @@
                 \bottomrule
             \end{tabular}
         }
-        % \end{center}
     \end{table}
 
 \end{frame}
@@ -258,9 +295,6 @@
     \frametitle{Comparison of LVMs and SSL methods}
 
     \begin{table}
-        % \caption[Classification of selected self"=supervised and probabilistic latent variable models.]{ Selected models classified according to the binary attributes identified throughout the text. The models are sorted according to first publication date on arXiv which might differ from the citation year. \textbf{\textsc{msk}}: masking, \textbf{\textsc{prd}}: prediction, \textbf{\textsc{con}}: contrastive, \textbf{\textsc{rec}}: reconstruction, \textbf{\textsc{qtz}}: quantization, \textbf{\textsc{gen}}: generative, \textbf{\textsc{frz}}: frozen, \textbf{\textsc{ftn}}: fine"=tuned, \textbf{\textsc{loc}}: local, \textbf{\textsc{glo}}: global.}
-        % \label{tab:model-taxonomy}
-        % \begin{center}
         \centering
         \setlength{\tabcolsep}{3pt}
         \renewcommand{\arraystretch}{1.1}
@@ -324,7 +358,6 @@
                 \bottomrule
             \end{tabular}
         }
-        % \end{center}
     \end{table}
 
 \end{frame}
@@ -333,3 +366,99 @@
 % ======================================================================================================================
 
 
+\subsection[A Retrospective Study on Machine Learning-Assisted Stroke Recognition for Medical Helpline Calls]{a retrospective study on machine learning-assisted stroke recognition for medical helpline calls}
+
+
+\begin{frame}
+    \frametitle{Simulated prospective study}
+    \begin{enumerate}
+        \item[I.] \highlight{When} is the model prediction presented to the call-taker?
+        \begin{enumerate}
+            \item[1.] Notify the call-taker \highlight{after the call ends}.
+            \item[2.] Notify the call-taker \highlight{during the call}.
+        \end{enumerate}
+        \item[II.] \highlight{How} does prediction influence the diagnostic code the call-taker assigns to the call?
+        \begin{enumerate}[label=\Alph*.]
+            \item[A.] Call-takers \highlight{mirror model positives}.
+            \item[B.] Call-takers \highlight{mirror model negatives}.
+            \item[C.] Call-takers mirror model predictions (corresponds to main results of the model itself).
+        \end{enumerate}
+    \end{enumerate}
+    \vspace{0.5em}
+    To simulate the online scenario (2.), we \highlight{stream the transcript} to the model and make predictions every 50 words. 
+    A stroke positive is triggered only when three consecutive positive predictions are made. 
+    This is similar to the strategy implemented for a previous RCT on cardiac arrest \cite{cite15}.
+
+        % %
+        % Option 1 is identical to the method used in the main study. In option 2, predictions are made during the call based only on partial transcriptions. We implemented option 2 in such a manner that the model predicted every time 50 new words were transcribed and added to the transcript. A stroke positive was triggered only when three consecutive positive predictions were made (i.e., without intermediate negative stroke predictions). In other words, the sigmoid activation of the model had to remain above 0.5 for three consecutive predictions, for example, after 150, 200, and 250 words were transcribed.
+        
+        % As we can only assume how call takers are influenced by model predictions (II), precisely evaluating the hypothetical performance of call takers when supported by a machine learning framework is impossible. Furthermore, option 2 may influence the conversation, further complicating matters. Therefore, we report the results combining the call taker and the model under the following two assumptions:
+        % %
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Simulated prospective study}
+
+    \begin{table}
+        \centering
+        \resizebox*{0.98\textwidth}{!}{%
+        \begin{tabular}{l|c|cc|cc|cc}
+            \toprule
+    
+            \textbf{Predictor} & \textbf{Call-taker} & \multicolumn{2}{c|}{\textbf{Model}} & \multicolumn{4}{c}{\textbf{Call-taker supported by the model (simulated)}} \\
+            \midrule
+            \textbf{When} & \textbf{During call} & \textbf{After call} & \textbf{During call} & \textbf{After call} & \textbf{During call} & \textbf{After call} & \textbf{During call} \\
+            \midrule
+            \textbf{Method} & - & - & - & \textbf{neg $\rightarrow$ pos} & \textbf{neg $\rightarrow$ pos} & \textbf{pos $\rightarrow$ neg} & \textbf{pos $\rightarrow$ neg} \\
+            \midrule
+    
+            \makecell[l]{\textbf{F1-score} [\%] $\uparrow$}                             & \makecell[c]{25.8 \\ \shade{(23.7-27.9)}} & \makecell[c]{35.7 \\ \shade{(35.0-36.4)}} & \makecell[c]{33.1 \\ \shade{(32.4-33.7)}} & \makecell[c]{28.9 \\ \shade{(28.3-29.5)}} & \makecell[c]{27.6 \\ \shade{(27.0-28.1)}}  & \makecell[c]{33.3 \\ \shade{(32.5-34.1)}}& \makecell[c]{32.7 \\ \shade{(31.8-33.5)}} \\
+            \midrule
+            \makecell[l]{\textbf{Sensitivity} [\%] $\uparrow$}                          & \makecell[c]{52.7 \\ \shade{(49.2-56.4)}} & \makecell[c]{63.0 \\ \shade{(62.0-64.1)}} & \makecell[c]{58.7 \\ \shade{(57.7-59.8)}} & \makecell[c]{72.4 \\ \shade{(71.5-73.3)}} & \makecell[c]{72.3 \\ \shade{(71.4-73.3)}} & \makecell[c]{43.4 \\ \shade{(42.3-44.5)}} & \makecell[c]{39.1 \\ \shade{(38.1-40.1)}} \\
+            \midrule
+            \makecell[l]{\textbf{PPV} [\%] $\uparrow$}                                  & \makecell[c]{17.1 \\ \shade{(15.5-18.6)}} & \makecell[c]{24.9 \\ \shade{(24.3-25.5)}} & \makecell[c]{23.0 \\ \shade{(22.5-23.6)}} & \makecell[c]{18.0 \\ \shade{(17.6-18.4)}} & \makecell[c]{17.0 \\ \shade{(16.7-17.4)}} & \makecell[c]{27.0 \\ \shade{(26.3-27.8)}} & \makecell[c]{28.1 \\ \shade{(27.3-28.9)}} \\
+            \midrule
+            \makecell[l]{\textbf{FOR} [\%] $\downarrow$\\ \shade{(1 - NPV)} }           & \makecell[c]{0.105 \\ \shade{(0.094-0.116)}} & \makecell[c]{0.082 \\ \shade{(0.079-0.085)}} & \makecell[c]{0.091 \\ \shade{(0.088-0.094)}} & \makecell[c]{0.061 \\ \shade{(0.059-0.064)}} & \makecell[c]{0.061 \\ \shade{(0.059-0.064)}} & \makecell[c]{0.125 \\ \shade{(0.121-0.129)}} & \makecell[c]{0.134 \\ \shade{(0.131-0.138)}} \\
+            \midrule
+            \makecell[l]{\textbf{FPR} [\%] $\downarrow$\\ \shade{(1 - specificity)} }   & \makecell[c]{0.565 \\ \shade{(0.539-0.590)}} & \makecell[c]{0.419 \\ \shade{(0.413-0.426)}} & \makecell[c]{0.432 \\ \shade{(0.426-0.439)}} & \makecell[c]{0.726 \\ \shade{(0.717-0.735)}} & \makecell[c]{0.776 \\ \shade{(0.767-0.786)}} & \makecell[c]{0.258 \\ \shade{(0.253-0.263)}} & \makecell[c]{0.221 \\ \shade{(0.216-0.226)}} \\
+    
+            \bottomrule
+        \end{tabular}%
+        }
+    \end{table}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Fine-tuning a large language model}
+    \begin{itemize}
+        \item Large language models are effective in a wide range of NLP tasks \cite{devlin_bert_2018, radford_improving_2018}.
+        \item Might BERT be useful for recognizing stroke?
+    \end{itemize}
+    \begin{table}
+        \centering
+        \resizebox*{0.95\textwidth}{!}{%
+        \begin{tabular}{ll|ccccc}
+            \toprule
+            \textbf{Subset} & \textbf{Predictor} & \textbf{F1-score [\%] $\uparrow$} & \textbf{Sensitivity [\%] $\uparrow$} & \textbf{PPV [\%] $\uparrow$} & \makecell[c]{\textbf{FOR [\%] $\downarrow$} \\ (1 - NPV)} & \makecell[c]{\textbf{FPR [\%] $\downarrow$} \\ (1 - specificity)} \\
+            \midrule
+            \verticalmultirow{3}{\emph{Overall}} & \textbf{Call-takers}                        & \makecell[c]{25.8 \shade{(23.7-27.9)}} & \makecell[c]{52.7 \shade{(49.2-56.4)}} & \makecell[c]{17.1 \shade{(15.5-18.6)}} & \makecell[c]{0.105 \shade{(0.094-0.116)}} & \makecell[c]{0.565 \shade{(0.539-0.590)}} \\
+                                                    & \makecell[l]{\textbf{MLP}}                  & \makecell[c]{35.7 \shade{(35.0-36.4)}} & \makecell[c]{63.0 \shade{(62.0-64.1)}} & \makecell[c]{24.9 \shade{(24.3-25.5)}} & \makecell[c]{0.082 \shade{(0.079-0.085)}} & \makecell[c]{0.419 \shade{(0.413-0.426)}} \\
+                                                    & \makecell[l]{\textbf{BERT} (fine-tuned)} & \makecell[c]{33.8 \shade{(31.5-36.2)}} & \makecell[c]{57.5 \shade{(53.9-60.9)}} & \makecell[c]{23.9 \shade{(21.9-25.9)}} & \makecell[c]{0.094 \shade{(0.084-0.104)}} & \makecell[c]{0.403 \shade{(0.381-0.424)}} \\
+            \bottomrule
+        \end{tabular}%
+        }
+    \end{table}
+\end{frame}
+
+
+% ======================================================================================================================
+
+
+\subsection*{Overview}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{Table of contents}
+    \tableofcontents
+\end{frame}
