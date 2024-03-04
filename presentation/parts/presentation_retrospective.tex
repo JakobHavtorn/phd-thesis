@@ -87,39 +87,30 @@
 
 
 \begin{frame}
-    \frametitle{Population characteristics}
+    \frametitle{Population characteristics of test set}
+
     \begin{table}[t]
         \centering
         \resizebox*{0.98\textwidth}{!}{%
-        \begin{tabular}{l|l|ccccc}
+        \begin{tabular}{l|rrr}
             \toprule
-            &                      & \textbf{Training (112)} & \textbf{Training (MH-1813)} & \textbf{Validation} & \textbf{Test} & \textbf{2021 w/o category} \\
+            \textbf{Subset}              & \emph{All calls} & \emph{Stroke calls} & \emph{Non-stroke} \\
 
             \midrule
-            \verticalmultirow{5}{\emph{All calls}}    & \textbf{Num. calls}            & 155,696 & 1,391,301 & 155,825 & 344,030 & 231,009 \\
-                                                      & \textbf{Female}                & 74,640 (47.94\%) & 792,783 (56.98\%) & 86,959 (55.81\%) & 190,974 (55.51\%) & 134,324 (58.14\%) \\
-                                                      & \textbf{Male}                  & 79,564 (51.10\%) & 596,760 (42.89\%) & 68,866 (44.19\%) & 153,050 (44.49\%) & 96,258 (41.67\%) \\
-                                                      & \textbf{65+ years}             & 72,930 (46.84\%) & 335,146 (24.09\%) & 30,313 (19.45\%) & 65,652 (19.08\%) & 81,488 (35.27\%) \\
-                                                      & \textbf{Age (mean $\pm$ std.)} & 59.47 ± 21.24 & 47.12 ± 21.38 & 44.63 ± 20.08 & 44.31 ± 20.10 & 50.36 ± 22.77 \\
-
-            \midrule
-            \verticalmultirow{5}{\emph{Stroke calls}} & \textbf{Num. calls}            & 3,899 & 3,471 & 360 & 757 & 679 \\
-                                                      & \textbf{Female}                & 1,784 (45.76\%) & 1,654 (47.65\%) & 161 (44.72\%) & 349 (46.10\%) & 366 (53.90\%) \\
-                                                      & \textbf{Male}                  & 2,115 (54.24\%) & 1,815 (52.29\%) & 199 (55.28\%) & 408 (53.90\%) & 313 (46.10\%) \\
-                                                      & \textbf{65+ years}             & 2,968 (76.12\%) & 2,421 (69.75\%) & 250 (69.44\%) & 555 (73.32\%) & 567 (83.51\%) \\
-                                                      & \textbf{Age (mean $\pm$ std.)} & 72.91 ± 12.77 & 70.68 ± 13.85 & 70.93 ± 13.83 & 71.51 ± 13.41 & 73.41 ± 14.11 \\
-
-            \midrule
-            \verticalmultirow{5}{\emph{Non-stroke}}   & \textbf{Num. calls}            & 151,797 & 1,387,830 & 155,465 & 343,273 & 230,330 \\
-                                                      & \textbf{Female}                & 72,856 (48.00\%) & 791,129 (57.00\%) & 86,798 (55.83\%) & 190,625 (55.53\%) & 133,958 (58.16\%) \\
-                                                      & \textbf{Male}                  & 77,449 (51.02\%) & 594,945 (42.87\%) & 68,667 (44.17\%) & 152,642 (44.47\%) & 95,945 (41.66\%) \\
-                                                      & \textbf{65+ years}             & 69,962 (46.09\%) & 332,725 (23.97\%) & 30,063 (19.34\%) & 65,097 (18.96\%) & 80,921 (35.13\%) \\
-                                                      & \textbf{Age (mean $\pm$ std.)} & 59.12 ± 21.30 & 47.06 ± 21.36 & 44.57 ± 20.05 & 44.25 ± 20.08 & 50.29 ± 22.76 \\
-
+            \textbf{Num. calls}            & 344,030           & 757           & 343,273 \\
+            \textbf{Female}                & 190,974 (55.51\%) & 349 (46.10\%) & 190,625 (55.53\%) \\
+            \textbf{Male}                  & 153,050 (44.49\%) & 408 (53.90\%) & 152,642 (44.47\%) \\
+            \textbf{65+ years}             & 65,652 (19.08\%)  & 555 (73.32\%) & 65,097 (18.96\%) \\
+            \textbf{Age (mean $\pm$ std.)} & 44.31 ± 20.10     & 71.51 ± 13.41 & 44.25 ± 20.08 \\
             \bottomrule
         \end{tabular}%
         }
     \end{table}
+
+    \note[item]{Prevalence of stroke is less than a quarter percent, one in every 400 calls.}
+    \note[item]{The mean age of stroke calls is 71.5 years, older than general callers.}
+    \note[item]{Males are a bit more likely to call with a stroke compared to females.}
+    \note[item]{Other datasets (training, validation) have similar characteristics.}
 \end{frame}
 
 
@@ -129,6 +120,8 @@
         \centering
         \includegraphics[width=0.90\paperwidth]{../graphics/paper_retrospective/model_sketch-top-part.pdf}
     \end{figure}
+
+    \note[item]{Same structure as the decision-support system sketched in the overview slides.}
 \end{frame}
 
 
@@ -138,6 +131,9 @@
         \centering
         \includegraphics[width=0.70\paperwidth]{../graphics/paper_retrospective/model_sketch-bottom-part.pdf}
     \end{figure}
+
+    \note[item]{ASR model somewhat old-school, but performant for this task with noisy calls.}
+    \note[item]{Classification model is ensemble of five models.}
 \end{frame}
 
 
@@ -167,7 +163,7 @@
 \newcommand{\shade}[1]{{\color{black!40}#1}}
 
 \begin{frame}
-    \frametitle{Main results}
+\frametitle{Main results}
     MH-1813 test set performance in demographic subgroups (age/sex) [mean (95\% CI)].
     \begin{table}[t]
         \centering
@@ -196,20 +192,20 @@
                         % \textbf{Model}         & 32.6 \shade{(31.9-33.4)} & 48.3 \shade{(47.2-49.4)} & 24.7 \shade{(23.9-25.3)} & 0.153 \shade{(0.148-0.158)} & 0.435 \shade{(0.427-0.443)} \\
     
             \midrule
-            \emph{18-64 years} & \textbf{Call-takers}   & 15.9 \shade{(13.1-18.5)} & 50.5 \shade{(43.6-57.2)} & 9.40 \shade{(7.61-11.2)} & 0.036 \shade{(0.028-0.043)} & 0.353 \shade{(0.331-0.375)} \\
-                               & \textbf{Model}         & 22.9 \shade{(21.8-24.0)} & 54.1 \shade{(52.1-56.3)} & 14.5 \shade{(13.8-15.3)} & 0.033 \shade{(0.031-0.035)} & 0.231 \shade{(0.226-0.236)} \\ 
+            \emph{18-64 years} & \textbf{Call-takers}   & \shade{15.9 (13.1-18.5)} & \shade{50.5 (43.6-57.2)} & \shade{9.40 (7.61-11.2)} & \shade{0.036 (0.028-0.043)} & \shade{0.353 (0.331-0.375)} \\
+                               & \textbf{Model}         & \shade{22.9 (21.8-24.0)} & \shade{54.1 (52.1-56.3)} & \shade{14.5 (13.8-15.3)} & \shade{0.033 (0.031-0.035)} & \shade{0.231 (0.226-0.236)} \\ 
     
             \midrule
-            \emph{65+ years} & \textbf{Call-takers}     & 32.9 \shade{(30.1-35.7)} & 53.5 \shade{(49.4-57.6)} & 23.7 \shade{(21.4-26.0)} & 0.401 \shade{(0.352-0.449)} & 1.467 \shade{(1.373-1.560)} \\
-                             & \textbf{Model}           & 42.8 \shade{(41.9-43.7)} & 66.3 \shade{(65.1-67.5)} & 31.6 \shade{(30.8-32.4)} & 0.290 \shade{(0.278-0.303)} & 1.224 \shade{(1.198-1.249)} \\
+            \emph{65+ years} & \textbf{Call-takers}     & \shade{32.9 (30.1-35.7)} & \shade{53.5 (49.4-57.6)} & \shade{23.7 (21.4-26.0)} & \shade{0.401 (0.352-0.449)} & \shade{1.467 (1.373-1.560)} \\
+                             & \textbf{Model}           & \shade{42.8 (41.9-43.7)} & \shade{66.3 (65.1-67.5)} & \shade{31.6 (30.8-32.4)} & \shade{0.290 (0.278-0.303)} & \shade{1.224 (1.198-1.249)} \\
     
             \midrule
-            \emph{Male} & \textbf{Call-takers}          & 30.2 \shade{(27.2-33.3)} & 53.9 \shade{(49.1-58.9)} & 21.0 \shade{(18.5-23.5)} & 0.124 \shade{(0.105-0.141)} & 0.542 \shade{(0.506-0.580)} \\
-                        & \textbf{Model}                & 39.0 \shade{(38.0-40.1)} & 63.7 \shade{(62.3-65.2)} & 28.1 \shade{(27.3-29.0)} & 0.097 \shade{(0.093-0.102)} & 0.435 \shade{(0.425-0.445)} \\
+            \emph{Male} & \textbf{Call-takers}          & \shade{30.2 (27.2-33.3)} & \shade{53.9 (49.1-58.9)} & \shade{21.0 (18.5-23.5)} & \shade{0.124 (0.105-0.141)} & \shade{0.542 (0.506-0.580)} \\
+                        & \textbf{Model}                & \shade{39.0 (38.0-40.1)} & \shade{63.7 (62.3-65.2)} & \shade{28.1 (27.3-29.0)} & \shade{0.097 (0.093-0.102)} & \shade{0.435 (0.425-0.445)} \\
     
             \midrule
-            \emph{Female} & \textbf{Call-takers}        & 21.9 \shade{(19.1-24.6)} & 51.3 \shade{(46.0-56.6)} & 13.9 \shade{(12.0-15.8)} & 0.090 \shade{(0.076-0.103)} & 0.582 \shade{(0.547-0.616)} \\
-                          & \textbf{Model}              & 32.4 \shade{(31.4-33.4)} & 62.3 \shade{(60.7-63.8)} & 21.9 \shade{(21.1-22.7)} & 0.069 \shade{(0.066-0.073)} & 0.407 \shade{(0.399-0.416)} \\
+            \emph{Female} & \textbf{Call-takers}        & \shade{21.9 (19.1-24.6)} & \shade{51.3 (46.0-56.6)} & \shade{13.9 (12.0-15.8)} & \shade{0.090 (0.076-0.103)} & \shade{0.582 (0.547-0.616)} \\
+                          & \textbf{Model}              & \shade{32.4 (31.4-33.4)} & \shade{62.3 (60.7-63.8)} & \shade{21.9 (21.1-22.7)} & \shade{0.069 (0.066-0.073)} & \shade{0.407 (0.399-0.416)} \\
             
             \bottomrule
         \end{tabular}%

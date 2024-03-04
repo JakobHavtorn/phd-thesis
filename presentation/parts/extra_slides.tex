@@ -4,8 +4,19 @@
 
 \section[Extra Slides]{extra slides}
 
+\begin{frame}
+    \frametitle{Extra slides}
+    % Hyperlinks to extra slide sections:
+    \begin{itemize}
+        \item \hyperlink{extra:introduction}{Introduction}
+        \item \hyperlink{extra:hierarchical}{Hierarchical VAEs Know What They Don't Know}
+        \item \hyperlink{extra:brief}{A Brief Overview of Unsupervised Speech Representation Learning}
+        \item \hyperlink{extra:ladder-vae}{VAE background and the Ladder VAE}
+    \end{itemize}
+\end{frame}
 
-\subsection[Introduction]{introduction}
+
+\section[Introduction]{introduction}\label{extra:introduction}
 
 
 \begin{frame}
@@ -35,7 +46,7 @@
 % ======================================================================================================================
 
 
-\subsection[Hierarchical VAEs Know What They Don't Know]{hierarchical vaes know what they don't know}
+\section[Hierarchical VAEs Know What They Don't Know]{hierarchical vaes know what they don't know}\label{extra:hierarchical}
 
 
 \frame{
@@ -81,7 +92,7 @@
     \frametitle{Reconstructions of ID and OOD data}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\textwidth]{../graphics/paper_hierarchical/reconstructions-front-page-4-samples-2-recons2.pdf}
+        \includegraphics[height=\textheight]{../graphics/paper_hierarchical/reconstructions-front-page-4-samples-2-recons2.pdf}
     \end{figure}
 \end{frame}
 
@@ -165,7 +176,7 @@
 % ======================================================================================================================
 
 
-\subsection[A Brief Overview of Unsupervised Speech Representation Learning]{a brief overview of unsupervised speech representation learning}
+\section[A Brief Overview of Unsupervised Speech Representation Learning]{a brief overview of unsupervised speech representation learning}\label{extra:brief}
 
 
 \begin{frame}
@@ -414,7 +425,7 @@
 % ======================================================================================================================
 
 
-\subsection[A Retrospective Study on Machine Learning-Assisted Stroke Recognition for Medical Helpline Calls]{a retrospective study on machine learning-assisted stroke recognition for medical helpline calls}
+\section[A Retrospective Study on Machine Learning-Assisted Stroke Recognition for Medical Helpline Calls]{a retrospective study on machine learning-assisted stroke recognition for medical helpline calls}\label{extra:retrospective}
 
 
 \begin{frame}
@@ -504,7 +515,13 @@
 % ======================================================================================================================
 
 
-\subsection*{Overview}
+\input{parts/presentation_ladder_vae}
+
+
+% ======================================================================================================================
+
+
+\section*{Overview}
 
 \begin{frame}[allowframebreaks]
     \frametitle{Table of contents}
