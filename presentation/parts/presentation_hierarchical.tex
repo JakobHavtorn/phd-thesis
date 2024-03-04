@@ -99,11 +99,11 @@
         \begin{column}{0.6\textwidth}
             \begin{overprint}
                 \onslide<2>
-                {\footnotesize HVAE trained on FashionMNIST evaluated on FashionMNIST and MNIST.}
                 \begin{figure}
                     \centering
                     \includegraphics[width=0.8\textwidth]{../graphics/paper_hierarchical/densities-FashionMNIST-test-MNIST-test-bpp-k-0_sohau.pdf}
                 \end{figure}
+                \centering\footnotesize Hierarchical VAE trained on FashionMNIST.
             \end{overprint}
         \end{column}
     \end{columns}
@@ -215,7 +215,6 @@
     \frametitle{What do the lowest latent variables represent?}
     
     Absolute Pearson correlations between data representations in all layers of the inference network of a hierarchical VAE trained on FashionMNIST and of another trained on MNIST. 
-    \vspace{0.3cm}
 
     Correlation computed between the representations of the two different models given the same data, FashionMNIST (top) and MNIST (bottom).
     
@@ -245,7 +244,7 @@
         \mathcal{L}^{>k} &= \log p_\theta(\xb) - D_{\mathrm{KL}}\left( p_\theta(\zb_{\leq }|\zb_{>k}) q_\phi(\zb_{>k}|\xb) \parallel p_\theta(\zb|\xb)\right) \notag \ .
     \end{align}
     %
-    In the likelihood ratio $log p_\thetab(\xb)$ cancels out and only the KL-divergences from the approximate to the true posterior remain.
+    In the likelihood ratio $\log p_\thetab(\xb)$ cancels out and only the KL-divergences from the approximate to the true posterior remain.
     %
     \begin{align}
         LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) \parallel p_\theta(\zb|\xb)\right) \\
@@ -401,7 +400,7 @@
             \item Strong correlations between some latent variables for different datasets.
             % \item Reconstructions of OOD data are good when using full approximate posterior.
         \end{itemize}
-        \item[\highlight{$\rightarrow$}] Provide explanation for why the likelihood fails fro OODD for HVAEs.
+        \item[\highlight{$\rightarrow$}] Provide explanation for why the likelihood fails for OODD for HVAEs.
         \item[\highlight{$\rightarrow$}] Proposed a likelihood-ratio score, $LLR^{>k}$, that uses the conditional prior for the bottom-most latent variables in the hierarchy and showed its effectiveness.
         % \item[\highlight{$\rightarrow$}] Showed that $LLR^{>k}$ outperforms the standard likelihood score across many different datasets and is competetive with state-of-the-art methods.
     \end{itemize}
