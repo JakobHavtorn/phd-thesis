@@ -38,6 +38,54 @@
 \subsection[Hierarchical VAEs Know What They Don't Know]{hierarchical vaes know what they don't know}
 
 
+\frame{
+    \frametitle{An alternative likelihood bound, $\mathcal{L}^{>k}$}
+    An alternative version of the ELBO that only partially uses the approximate posterior can be written as \cite{maaloe_biva_2019}
+    \begin{equation}
+        \mathcal{L}^{>k}(\xb; \theta, \phi) = \mathbb{E}_{p_\theta(\zb_{\leq k}|\zb{>k})q_\phi(\zb_{>k}|\xb)} \left[ \log \frac{p_\theta(\xb|\zb)p_\theta(\zb_{>k})}{q_\phi(\zb_{>k}|\xb)} \right]
+    \end{equation}
+    
+    Here, we have replaced the approximate posterior $q_\phi(\zb|\xb)$ with a different proposal distribution that combines part of the approximate posterior with the conditional prior, namely
+    
+    $$p_\theta(\zb_{\leq k}|\zb_{>k})q_\phi(\zb_{>k}|\xb)$$
+    
+    This bound uses the conditional prior for the lowest latent variables in the hierarchy.
+
+    \note[item]{So can we come up with a new bound that does not use the lowest latent variables in the same way?}
+    \note[item]{So we could use this for OOD detection (as done in BIVA).}
+}
+
+
+\frame{
+    \frametitle{Likelihood ratios}
+    We can use our new bound to compute the score used in a standard likelihood ratio test \cite{buse_likelihood_1982}.
+    \begin{equation}\label{eq:llr-as-difference-in-likelihoods}
+        LLR^{>k}(\xb) \equiv \mathcal{L}(\xb) - \mathcal{L}^{>k}(\xb) \ .
+    \end{equation}
+    We can inspect what this likelihood-ratio measures by considering the exact form of our bounds.
+    \begin{align}
+        \mathcal{L}      &= \log p_\theta(\xb) - D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) \parallel p_\theta(\zb|\xb)\right), \label{eq:likelihoods-as-exact} \\ 
+        \mathcal{L}^{>k} &= \log p_\theta(\xb) - D_{\mathrm{KL}}\left( p_\theta(\zb_{\leq }|\zb_{>k}) q_\phi(\zb_{>k}|\xb) \parallel p_\theta(\zb|\xb)\right) \notag \ .
+    \end{align}
+    In the likelihood ratio the reconstruction terms cancel out and only the KL-divergences from the approximate to the true posterior remain.
+    \begin{align}\label{eq:llr-as-kls}
+        LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) \parallel p_\theta(\zb|\xb)\right) \\
+                     &\quad + D_{\mathrm{KL}}\left( p_\theta(\zb_{\leq }|\zb_{>k}) q_\phi(\zb_{>k}|\xb) \parallel p_\theta(\zb|\xb)\right) \ . \notag
+    \end{align}
+
+    \note[item]{Write likelihood-ratio using the exact form of the bounds including intractable KL-divergence.}
+}
+
+
+\begin{frame}
+    \frametitle{Reconstructions of ID and OOD data}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth]{../graphics/paper_hierarchical/reconstructions-front-page-4-samples-2-recons2.pdf}
+    \end{figure}
+\end{frame}
+
+
 \begin{frame}
     \frametitle{Hierarchy of speech features}
     \begin{figure}

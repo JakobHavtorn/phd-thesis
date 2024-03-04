@@ -12,7 +12,7 @@
 
         \begin{column}{0.4\textwidth}
             \begin{itemize}
-                \item Reviews two primary categories:
+                \item Reviews two learning paradigms:
                 \begin{itemize}
                     \item Self-supervised learning (SSL)
                     \item Probabilistic latent variable models (LVMs)
@@ -191,7 +191,7 @@
         \item {\bfseries \color{black} Results}: 
         \begin{itemize}
             \item 960 hours: \textbf{2.0\%} WER.
-            \item 10 mimutes: \textbf{4.8\%} WER.
+            \item 10 minutes: \textbf{4.8\%} WER.
         \end{itemize}
     \end{itemize}
 
@@ -213,7 +213,7 @@
 \presentationbriefslide{10}{Hidden-unit BERT (HuBERT)}{%
     \begin{itemize}
         \item {\bfseries \color{black} Target}: $K$-means teacher (MFCC frames).
-        \item {\bfseries \color{black} Training}: Simple cross-entropy loss.
+        \item {\bfseries \color{black} Training}: Cross-entropy loss.
         \item {\bfseries \color{black} 1st iteration}: $K$-means on inputs.
     \end{itemize}
 
@@ -224,7 +224,7 @@
 \presentationbriefslide{11}{Hidden-unit BERT (HuBERT)}{%
     \begin{itemize}
         \item {\bfseries \color{black} Target}: $K$-means teacher (MFCC frames).
-        \item {\bfseries \color{black} Training}: Simple cross-entropy loss.
+        \item {\bfseries \color{black} Training}: Cross-entropy loss.
         \item {\bfseries \color{black} 1st iteration}: $K$-means on inputs.
         \item {\bfseries \color{black} 2nd iteration}: $K$-means on hidden layers.
     \end{itemize}
@@ -268,7 +268,7 @@
             \item EMA of student (online) \cmark
             \item Target is average of top $K$ layers \cmark
         \end{itemize}
-        \item {\bfseries \color{black} Student training}: Smooth $\l_1$ loss.
+        \item {\bfseries \color{black} Student training}: Smooth $\ell_1$ loss.
     \end{itemize}
 }
 

@@ -16,50 +16,20 @@
 
 
 \begin{frame}
-    \frametitle{The broad picture: The field of AI since 2020}
+    \frametitle{The broad picture: The thesis topic since 2020}
     \begin{itemize}
         \item <1-> [2020] \textbf{Project start}
         \begin{itemize} 
             \item <1-> Out-of-distribution detection with generative models: Mysterious new topic.
             \item <1-> Speech representation/recognition: Inflection point between supervised methods and new self-supervised approaches.
-            % \item <1-> Large language models such as BERT and GPT were becoming popular for fine-tuning on specific tasks.
         \end{itemize}
         \item <2-> [2024] \textbf{Project end}
         \begin{itemize}
             \item <2-> Out-of-distribution detection is a mature field with a wide range of methods.
             \item <2-> Self-supervised learning is the dominant paradigm in speech recognition - challenged by weak labelling.
             \item <3-> Clinical research is increasingly becoming interested in the use of machine learning.
-            % \item <2-> Large language models are a commodity and the paradigm of fine-tuning for instruction (RLFH/DPO \cite{ouyang_training_2022,rafailov_direct_2024}) has fundamentally changed how they are used.
         \end{itemize}
     \end{itemize}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{The role of uncertainty in an operational decision support system}
-    \begin{columns}
-        \begin{column}{0.6\textwidth}
-            \begin{itemize}
-                \item Are true uncertainty estimates always feasible? Pragmatism versus idealism.
-                \item Role of explainability compared to uncertainty estimates. 
-                \item European Parliamentary Research Services \cite{europeanparliament_artificial_2022}:
-            \end{itemize}
-            \vspace{0.5em}
-            \begin{center}
-                {\itshape "Future AI solutions for healthcare should be implemented by integrating uncertainty estimation, a relatively new field of research that aims to provide clinicians with clinically useful indications on the degree of confidence in AI predictions"}
-            \end{center}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \vspace{-2em}
-            \begin{figure}[t]
-                \centering
-                \includegraphics[width=0.9\textwidth]{figures/corti_sketch_conversations.png}
-            \end{figure}
-        \end{column}
-    \end{columns}
-
-    \note[item]{Will uncertainty estimates always be feasible?}
-    \note[item]{What will happen if uncertainty estimates become a regulatory requirement?}
 \end{frame}
 
 
@@ -87,3 +57,33 @@
     \note[item]{LLMs will be important for medical documentation and communication going forward. What does uncertainty look like in this context?}
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{The role of uncertainty in an operational decision support system}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item Are true uncertainty estimates really feasible? Pragmatism versus idealism.
+                \item Role of explainability compared to uncertainty estimates.
+                \item European Parliamentary Research Services \cite{europeanparliament_artificial_2022}:
+            \end{itemize}
+            \vspace{0.5em}
+            \begin{center}
+                {\itshape "Future AI solutions for healthcare should be implemented by integrating uncertainty estimation, a relatively new field of research that aims to provide clinicians with clinically useful indications on the degree of confidence in AI predictions"}
+            \end{center}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \vspace{-2em}
+            \begin{figure}[t]
+                \centering
+                \includegraphics[width=0.9\textwidth]{figures/corti_sketch_conversations.png}
+            \end{figure}
+        \end{column}
+    \end{columns}
+
+    \note[item]{LVMs were difficult to scale to the problems we care about.}
+    \note[item]{LVMs did not convincingly outperform more pragmatic approaches (e.g. deferring).}
+    % \note[item]{Will uncertainty estimates always be feasible?}
+    \note[item]{Bayesian methods, deferring to predict, discriminative uncertainty.}
+    \note[item]{What will happen if uncertainty estimates become a regulatory requirement?}
+\end{frame}

@@ -49,6 +49,43 @@
 \end{frame}
 
 
+% \begin{frame}
+%     \frametitle{Population characteristics}
+%     \begin{table}[t]
+%         \centering
+%         \resizebox*{0.98\textwidth}{!}{%
+%         \begin{tabular}{l|l|ccccc}
+%             \toprule
+%             &                      & \textbf{Training (112)} & \textbf{Training (MH-1813)} & \textbf{Validation} & \textbf{Test} & \textbf{2021 w/o category} \\
+
+%             \midrule
+%             \verticalmultirow{5}{\emph{All calls}}    & \textbf{Num. calls}            & 155,696 & 1,391,301 & 155,825 & 344,030 & 231,009 \\
+%                                                       & \textbf{Female}                & 74,640 (47.94\%) & 792,783 (56.98\%) & 86,959 (55.81\%) & 190,974 (55.51\%) & 134,324 (58.14\%) \\
+%                                                       & \textbf{Male}                  & 79,564 (51.10\%) & 596,760 (42.89\%) & 68,866 (44.19\%) & 153,050 (44.49\%) & 96,258 (41.67\%) \\
+%                                                       & \textbf{65+ years}             & 72,930 (46.84\%) & 335,146 (24.09\%) & 30,313 (19.45\%) & 65,652 (19.08\%) & 81,488 (35.27\%) \\
+%                                                       & \textbf{Age (mean $\pm$ std.)} & 59.47 ± 21.24 & 47.12 ± 21.38 & 44.63 ± 20.08 & 44.31 ± 20.10 & 50.36 ± 22.77 \\
+
+%             \midrule
+%             \verticalmultirow{5}{\emph{Stroke calls}} & \textbf{Num. calls}            & 3,899 & 3,471 & 360 & 757 & 679 \\
+%                                                       & \textbf{Female}                & 1,784 (45.76\%) & 1,654 (47.65\%) & 161 (44.72\%) & 349 (46.10\%) & 366 (53.90\%) \\
+%                                                       & \textbf{Male}                  & 2,115 (54.24\%) & 1,815 (52.29\%) & 199 (55.28\%) & 408 (53.90\%) & 313 (46.10\%) \\
+%                                                       & \textbf{65+ years}             & 2,968 (76.12\%) & 2,421 (69.75\%) & 250 (69.44\%) & 555 (73.32\%) & 567 (83.51\%) \\
+%                                                       & \textbf{Age (mean $\pm$ std.)} & 72.91 ± 12.77 & 70.68 ± 13.85 & 70.93 ± 13.83 & 71.51 ± 13.41 & 73.41 ± 14.11 \\
+
+%             \midrule
+%             \verticalmultirow{5}{\emph{Non-stroke}}   & \textbf{Num. calls}            & 151,797 & 1,387,830 & 155,465 & 343,273 & 230,330 \\
+%                                                       & \textbf{Female}                & 72,856 (48.00\%) & 791,129 (57.00\%) & 86,798 (55.83\%) & 190,625 (55.53\%) & 133,958 (58.16\%) \\
+%                                                       & \textbf{Male}                  & 77,449 (51.02\%) & 594,945 (42.87\%) & 68,667 (44.17\%) & 152,642 (44.47\%) & 95,945 (41.66\%) \\
+%                                                       & \textbf{65+ years}             & 69,962 (46.09\%) & 332,725 (23.97\%) & 30,063 (19.34\%) & 65,097 (18.96\%) & 80,921 (35.13\%) \\
+%                                                       & \textbf{Age (mean $\pm$ std.)} & 59.12 ± 21.30 & 47.06 ± 21.36 & 44.57 ± 20.05 & 44.25 ± 20.08 & 50.29 ± 22.76 \\
+
+%             \bottomrule
+%         \end{tabular}%
+%         }
+%     \end{table}
+% \end{frame}
+
+
 \begin{frame}
     \frametitle{Population characteristics}
     \begin{table}[t]
@@ -104,6 +141,29 @@
 \end{frame}
 
 
+\begin{frame}
+    \frametitle{Main results}
+    ROC curve and PPV-sensitivity curve (precision-recall curve). Models 1-5 are the individual models that make up the ensemble model.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.65\paperwidth]{../graphics/paper_retrospective/figure1.pdf}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Main results}
+    Confusion matrices of predictions for call takers and the model on the test set. Numbers for the model are given as the rounded mean over eleven runs.
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.85\paperwidth]{../graphics/paper_retrospective/figure2.pdf}
+    \end{figure}
+
+    \note[item]{In absolute numbers, the model correctly identifies 78 cases of stroke missed by call-takers.}
+    \note[item]{The model also reduces the number of false positives by about 500 from 1938 to 1440.}
+\end{frame}
+
+
 \newcommand{\shade}[1]{{\color{black!40}#1}}
 
 \begin{frame}
@@ -155,29 +215,6 @@
         \end{tabular}%
         }
     \end{table}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Main results}
-    ROC curve and PPV-sensitivity curve (precision-recall curve). Models 1-5 are the individual models that make up the ensemble model.
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.65\paperwidth]{../graphics/paper_retrospective/figure1.pdf}
-    \end{figure}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Main results}
-    Confusion matrices of predictions for call takers and the model on the test set. Numbers for the model are given as the rounded mean over eleven runs.
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.85\paperwidth]{../graphics/paper_retrospective/figure2.pdf}
-    \end{figure}
-
-    \note[item]{In absolute numbers, the model correctly identifies 78 cases of stroke missed by call-takers.}
-    \note[item]{The model also reduces the number of false positives by about 500 from 1938 to 1440.}
 \end{frame}
 
 

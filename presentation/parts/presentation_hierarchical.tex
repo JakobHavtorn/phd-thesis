@@ -180,6 +180,9 @@
           \end{figure}
       \end{column}
   \end{columns}
+
+  \note[item]{We want to explain why HVAEs fail at OOD detection when using their likelihood.}
+    \note[item]{And how to fix them.}
 \end{frame}
 
 % \section{Identifying the issue}
@@ -209,7 +212,7 @@
 
 
 \frame{
-    \frametitle{What do the lowest latent variables code for?}
+    \frametitle{What do the lowest latent variables represent?}
     
     Absolute Pearson correlations between data representations in all layers of the inference network of a hierarchical VAE trained on FashionMNIST and of another trained on MNIST. 
     \vspace{0.3cm}
@@ -227,43 +230,24 @@
 }
 
 
-% \section{The $\mathcal{L}^{>k}$ likelihood bound}
-
-
-\frame{
-    \frametitle{An alternative likelihood bound, $\mathcal{L}^{>k}$}
-    An alternative version of the ELBO that only partially uses the approximate posterior can be written as \cite{maaloe_biva_2019}
-    \begin{equation}
-        \mathcal{L}^{>k}(\xb; \theta, \phi) = \mathbb{E}_{p_\theta(\zb_{\leq k}|\zb{>k})q_\phi(\zb_{>k}|\xb)} \left[ \log \frac{p_\theta(\xb|\zb)p_\theta(\zb_{>k})}{q_\phi(\zb_{>k}|\xb)} \right]
-    \end{equation}
-    
-    Here, we have replaced the approximate posterior $q_\phi(\zb|\xb)$ with a different proposal distribution that combines part of the approximate posterior with the conditional prior, namely
-    
-    $$p_\theta(\zb_{\leq k}|\zb_{>k})q_\phi(\zb_{>k}|\xb)$$
-    
-    This bound uses the conditional prior for the lowest latent variables in the hierarchy.
-
-    \note[item]{So can we come up with a new bound that does not use the lowest latent variables in the same way?}
-    \note[item]{So we could use this for OOD detection (as done in BIVA).}
-}
-
-
-% \section{Likelihood ratio}
-
-
 \frame{
     \frametitle{Likelihood ratios}
-    We can use our new bound to compute the score used in a standard likelihood ratio test \cite{buse_likelihood_1982}.
-    \begin{equation}\label{eq:llr-as-difference-in-likelihoods}
-        LLR^{>k}(\xb) \equiv \mathcal{L}(\xb) - \mathcal{L}^{>k}(\xb) \ .
+    We suggest to define a likelihood ratio score \cite{buse_likelihood_1982} using the ELBO $\mathcal{L}(\xb)$ and a relaxed bound $\mathcal{L}^{>k}(\xb)$.
+    %
+    \begin{equation}
+        LLR^{>k}(\xb) \equiv \mathcal{L}(\xb) - \mathcal{L}^{>k}(\xb) \ ,
     \end{equation}
-    We can inspect what this likelihood-ratio measures by considering the exact form of our bounds.
+    %
+    where the exact form of the bounds is,
+    %
     \begin{align}
         \mathcal{L}      &= \log p_\theta(\xb) - D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) \parallel p_\theta(\zb|\xb)\right), \label{eq:likelihoods-as-exact} \\ 
         \mathcal{L}^{>k} &= \log p_\theta(\xb) - D_{\mathrm{KL}}\left( p_\theta(\zb_{\leq }|\zb_{>k}) q_\phi(\zb_{>k}|\xb) \parallel p_\theta(\zb|\xb)\right) \notag \ .
     \end{align}
-    In the likelihood ratio the reconstruction terms cancel out and only the KL-divergences from the approximate to the true posterior remain.
-    \begin{align}\label{eq:llr-as-kls}
+    %
+    In the likelihood ratio $log p_\thetab(\xb)$ cancels out and only the KL-divergences from the approximate to the true posterior remain.
+    %
+    \begin{align}
         LLR^{>k}(\xb) &= - D_{\mathrm{KL}}\left( q_\phi(\zb|\xb) \parallel p_\theta(\zb|\xb)\right) \\
                      &\quad + D_{\mathrm{KL}}\left( p_\theta(\zb_{\leq }|\zb_{>k}) q_\phi(\zb_{>k}|\xb) \parallel p_\theta(\zb|\xb)\right) \ . \notag
     \end{align}
@@ -417,7 +401,8 @@
             \item Strong correlations between some latent variables for different datasets.
             % \item Reconstructions of OOD data are good when using full approximate posterior.
         \end{itemize}
-        \item[\highlight{$\rightarrow$}] Proposed a likelihood-ratio score, $LLR^{>k}$, that uses the conditional prior for the top-most latent variables in the hierarchy and showed its effectiveness.
+        \item[\highlight{$\rightarrow$}] Provide explanation for why the likelihood fails fro OODD for HVAEs.
+        \item[\highlight{$\rightarrow$}] Proposed a likelihood-ratio score, $LLR^{>k}$, that uses the conditional prior for the bottom-most latent variables in the hierarchy and showed its effectiveness.
         % \item[\highlight{$\rightarrow$}] Showed that $LLR^{>k}$ outperforms the standard likelihood score across many different datasets and is competetive with state-of-the-art methods.
     \end{itemize}
 \end{frame}
