@@ -21,6 +21,7 @@
     \note[item]{\cite{cite12}: Systematic review, recall = 66.2\%, precision = 30.2\%.}
 
     \note[item]{Recognition rates also vary widely by call-center.}
+    \note[item]{Clock says \highlight{16 minutes left} give or take}
 \end{frame}
 
 
@@ -28,8 +29,8 @@
     \frametitle{The study}
     \begin{itemize}
         \item Collaboration between \highlight{Corti} and the \highlight{Copenhagen Emergency Medical Services (CEMS)} (``Region Hovedstadens Akutberedskab").
-        \item CEMS provides prehospital telehealth services in the Capital Region of Denmark (1.9M people).
-        \item CEMS operates the 1-1-2 emergency line (similar to 9-1-1) and the 1813 medical helpline (non-life-threatening conditions when general practitioner is unavailable).
+        \item CEMS provides prehospital emergency services in the Capital Region of Denmark (1.9M people).
+        \item CEMS operates the 1-1-2 emergency line (similar to 9-1-1) and the 1813 medical helpline (non-life-threatening conditions when the general practitioner is unavailable).
         \vspace{1em}
         \item We wanted to investigate if a machine learning model could assist call-takers of 1813 in recognizing stroke.
     \end{itemize}
@@ -38,14 +39,16 @@
 
 \begin{frame}
     \frametitle{Population selection and datasets}
+
+    \note[item]{Test data is MH-1813 2021.}
+    \note[item]{All 1-1-2 data is used for training except 2021.}
+    \note[item]{Validation data is sampled with stratified sampling from MH-1813 from 2015-2020.}
+
     \begin{figure}
         \centering
         \includegraphics[width=0.65\paperwidth]{../graphics/paper_retrospective/data_flowchart.pdf}
     \end{figure}
 
-    \note[item]{Test data is MH-1813 2021.}
-    \note[item]{All 1-1-2 data is used for training except 2021.}
-    \note[item]{Validation data is sampled with stratified sampling from MH-1813 from 2015-2020.}
 \end{frame}
 
 
@@ -91,7 +94,7 @@
 
     \begin{table}[t]
         \centering
-        \resizebox*{0.98\textwidth}{!}{%
+        \resizebox*{0.85\textwidth}{!}{%
         \begin{tabular}{l|rrr}
             \toprule
             \textbf{Subset}              & \emph{All calls} & \emph{Stroke calls} & \emph{Non-stroke} \\
@@ -115,13 +118,14 @@
 
 
 \begin{frame}
+    \note[item]{Same structure as the decision-support system sketched in the overview slides.}
+
     \frametitle{Model design}
     \begin{figure}
         \centering
         \includegraphics[width=0.90\paperwidth]{../graphics/paper_retrospective/model_sketch-top-part.pdf}
     \end{figure}
 
-    \note[item]{Same structure as the decision-support system sketched in the overview slides.}
 \end{frame}
 
 
@@ -376,4 +380,5 @@
     \end{itemize}
 
     \note[item]{Learning to defer to predict is related to uncertainty estimation.}
+    \note[item]{Clock says \highlight{5 minutes left} give or take}
 \end{frame}
